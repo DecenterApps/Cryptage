@@ -1,3 +1,58 @@
-.boosters-menu-wrapper {
+@import "../../../common/flip.scss";
 
+.booster-store-wrapper {
+  max-width: 1200px;
+  margin: auto;
+
+  .boosters {
+    padding: 20px;
+
+    .booster {
+      display: inline-block;
+      position: relative;
+      height: 336px;
+      width: 200px;
+      border: 1px solid #000;
+      margin-right: 10px;
+      color: #fff;
+
+      .front, .back {
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+      }
+
+      .booster-name {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+      }
+
+      .booster-price {
+        position: absolute;
+        top: 80px;
+        left: 20px;
+      }
+
+      .back {
+        text-align: center;
+      }
+
+      .booster-reveal {
+        position: relative;
+        top: 30px;
+        cursor: pointer;
+        outline: none;
+        background-color: #fff;
+        border: 0;
+        color: #000;
+        width: 100px;
+        height: 30px;
+
+        &:active {
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }

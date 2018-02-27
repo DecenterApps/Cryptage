@@ -16,6 +16,11 @@ $card-height: 88.9px; // export this to common
   cursor: pointer;
   outline: none;
 
+  &:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
   &:hover {
     background-color: #6FC6FF;
   }

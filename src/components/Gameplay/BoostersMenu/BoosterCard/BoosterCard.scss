@@ -1,0 +1,19 @@
+.card-wrapper {
+  display: inline-block;
+  border-radius: 5px;
+  line-height: 0;
+  width: 70px;
+  padding: 10px;
+  &.type-entity { background-color: #ff6259; }
+  &.type-action { background-color: #85b342; }
+  &.type-objective { background-color: #ffbd3b; }
+
+  .card-image {
+    width: 50px;
+    height: 50px;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
