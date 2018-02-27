@@ -1,33 +1,25 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
-const compareConfig = require('./compareConfig')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const WriteFilePlugin = require('write-file-webpack-plugin')
-
-const phaserModule = path.join(__dirname, '../node_modules/phaser-ce/')
-const phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
-const pixi = path.join(phaserModule, 'build/custom/pixi.js')
-const p2 = path.join(phaserModule, 'build/custom/p2.js')
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const compareConfig = require('./compareConfig');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 Promise.resolve(compareConfig.compareConfig())
   .catch((error) => {
-    console.log('\x1b[31m', error)
-    process.exit(1)
-  })
+    console.log("\x1b[31m", error);
+    process.exit(1);
+  });
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
   inject: 'body'
-})
+});
 
 module.exports = {
-  entry: {
-    app: './src/index.jsx',
-    vendor: ['pixi', 'p2', 'phaser', 'webfontloader']
-  },
+  entry: './src/index.jsx',
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
@@ -38,14 +30,13 @@ module.exports = {
   },
   module: {
     loaders: [
-      {
-        test: /\.(js|jsx)$/, loaders: [
-          'babel-loader',
-          {
-            loader: 'eslint-loader',
-            options: {emitWarning: true, emitError: false}
-          }
-        ],
+      { test: /\.(js|jsx)$/, loaders:[
+        'babel-loader',
+        {
+          loader: 'eslint-loader',
+          options: { emitWarning: true, emitError: false }
+        }
+      ],
         exclude: /node_modules/
       },
       {
@@ -67,22 +58,13 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: 'style-loader!css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]!autoprefixer-loader?browsers=last 2 version!sass-loader?outputStyle=expanded&sourceMap'
-      },
-      {test: /pixi\.js/, loaders: ['expose-loader?PIXI']},
-      {test: /phaser-split\.js$/, loaders: ['expose-loader?Phaser']},
-      {test: /p2\.js/, loaders: ['expose-loader?p2']}
+      }
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      phaser: phaser,
-      pixi: pixi,
-      p2: p2
-    }
+    extensions: ['.js', '.jsx']
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */}),
     HtmlWebpackPluginConfig,
     new webpack.DefinePlugin({
       'process.env': {
@@ -102,4 +84,4 @@ module.exports = {
       }
     ])
   ]
-}
+};

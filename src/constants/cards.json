@@ -1,0 +1,18 @@
+{
+  "cards": {"0":{"title":"Handmade Plastic Chair","dev":1,"sec":1,"inf":0,"image":"QmWohTWM5z1BpJShtAue6V65p59CyacEhc5seDEzn7nFAg.png","cost":0,"type":2},"1":{"title":"Handcrafted Concrete Shirt","dev":4,"sec":4,"inf":1,"image":"QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png","cost":100,"type":0},"2":{"title":"Unbranded Steel Ball","dev":1,"sec":2,"inf":1,"image":"QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png","cost":0,"type":1},"3":{"title":"Ergonomic Granite Computer","dev":3,"sec":3,"inf":0,"image":"QmRPUX1yKxCUFdNx9FAVYrw5fquEqdiiZkqv18Z1AyaYJW.png","cost":400,"type":0},"4":{"title":"Gorgeous Granite Chips","dev":0,"sec":0,"inf":0,"image":"QmbYmCqUTsFxAj3NM3zipyuYraX2UsR6bU2xE9dgSJm5ck.png","cost":100,"type":1},"5":{"title":"Awesome Fresh Pizza","dev":0,"sec":1,"inf":0,"image":"QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png","cost":0,"type":0},"6":{"title":"Intelligent Soft Shoes","dev":1,"sec":2,"inf":2,"image":"QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png","cost":100,"type":0},"7":{"title":"Practical Cotton Bike","dev":1,"sec":4,"inf":1,"image":"QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png","cost":100,"type":2},"8":{"title":"Unbranded Plastic Computer","dev":0,"sec":0,"inf":2,"image":"QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png","cost":400,"type":1},"9":{"title":"Practical Cotton Salad","dev":4,"sec":1,"inf":3,"image":"QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png","cost":400,"type":2}},
+  "cardTypes": ["entity", "action", "objective"],
+  "boosters": {
+    "1": {
+      "id": "1",
+      "name": "Destiny",
+      "numOfCards": 25,
+      "price": 0.01
+    },
+    "2": {
+      "id": "2",
+      "name": "Solace",
+      "numOfCards": 25,
+      "price": 0.015
+    }
+  }
+}

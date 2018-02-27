@@ -1,0 +1,148 @@
+/**
+ * Generates unique id
+ *
+ * @return {String}
+ */
+export const guid = () => {
+  const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
+};
+
+/**
+ * Shuffles array items
+ *
+ * @param {Array} _array
+ * @return {Array}
+ */
+export const shuffleArray = (_array) => {
+  const array = [..._array];
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
+/**
+ * Generates array of strings that represent a card class
+ * (e.g 'card-heart-14'), returns standard playing deck of 52 cards
+ *
+ * @return {Array}
+ */
+export const generateRandomDeck = () => (
+  shuffleArray(
+    // Card types
+    ['heart', 'spade', 'diamond', 'club']
+      // Create 14 css classes for each card type
+      .map((cardType) => {
+        const cardTypeArr = [];
+        for (let i = 1; i <= 13; i += 1) cardTypeArr.push({ id: guid(), type: `card-${cardType}-${i}` });
+        return cardTypeArr;
+      })
+      // Merge all card type arrays into one
+      .reduce((acc, val) => [...acc, ...val]),
+  )
+);
+
+/**
+ * Generates array of integers between 'from' and 'to'
+ * not including 'to'
+ *
+ * @return {Array}
+ */
+export const range = (from, to) => {
+  if (to < from) {
+    console.error(`Invalid range params: from ${from} to ${to}`);
+    return [];
+  }
+  let _range = [...Array(to - from).keys()];
+  if (from) _range = _range.map(i => i + from);
+  return _range;
+};
+
+/**
+ * console.logs each argument if on development server or if window.LOG_EVERYTHING is set
+ */
+export function log(...args) {
+  if (process.env.env !== 'production' || window.LOG_EVERYTHING) {
+    const argsParsed = [];
+    args.forEach((argument) => {
+      if (typeof argument === 'string') {
+        argsParsed.push(`%c${argument}`);
+        argsParsed.push('color: #1c70cc');
+      } else argsParsed.push(argument);
+    });
+    console.log(...argsParsed);
+  }
+}
+
+/**
+ * Returns name of Ethereum network for given ID
+ *
+ * @return {String}
+ */
+export const nameOfNetwork = (networkId) => {
+  const networks = {
+    1: 'Mainnet',
+    3: 'Ropsten',
+    4: 'Rinkedby',
+    42: 'Kovan',
+  };
+  return networks[networkId] || 'Unknown network';
+};
+
+/**
+ * Returns hashed order of card uid-s separated by "-"
+ * e.g. hash(1-4-3-1)
+ *
+ * @param {Array} deck
+ * @return {Promise}
+ */
+export const generateDeckCardHash = deck =>
+  new Promise(async (resolve) => {
+    const string = deck.reduce((_acc, currVal, index) => {
+      let acc = _acc.slice(0);
+
+      if (index === 0) acc = acc.concat(currVal.id);
+      if (index !== 0) acc = acc.concat(`-${currVal.id}`);
+
+      return acc;
+    }, '');
+
+    const str = await window.web3.utils.sha3(string);
+    resolve(str);
+  });
+
+/**
+ * Formats deck so that it is acceptable
+ * on the server
+ *
+ * @param {Array} deck - [{ id, metadata: { power }, type }]
+ * @return {Array} [{ uid, power }]
+ */
+export const formatDeckForServer = deck => (
+  deck.map(({ id, metadata }) => ({ uid: parseInt(id, 10), power: parseInt(metadata.rarity, 10) }))
+);
+
+/**
+ * Formats message to format for signing
+ *
+ * @param {String} message
+ * @return {String}
+ */
+export const formatSigningMessage = (message) => `0x${atob(message)}`;
+
+/**
+ * Formats signed message in order for server to validate
+ *
+ * @param {String} _signature
+ * @return {String}
+ */
+export const formatSignature = (_signature) => {
+  let signature = _signature.slice(0);
+  // Replace last two signature characters
+  signature = signature.slice(0, -2);
+  signature = signature.slice(2, signature.length);
+  signature = signature.concat('00');
+  return signature;
+};
