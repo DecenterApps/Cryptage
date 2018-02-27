@@ -1,0 +1,38 @@
+$card-width: 63.5px; // export this to common
+$card-height: 88.9px; // export this to common
+
+@mixin fancy-button {
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  background-color: #55acee;
+  box-shadow: 0 5px 0 0 #3C93D5;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: #6FC6FF;
+  }
+
+  &:active {
+    transform: translate(0, 5px);
+    box-shadow: 0 1px 0 0;
+  }
+}
+
+@mixin overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Web3 from 'web3';
-import App from './components/App/App';
+import Routes from './Routes';
 import store from './store';
 import NoMetaMask from './components/NoMetaMask/NoMetaMask';
 
@@ -13,7 +13,7 @@ const startApp = () => {
   if (!hasMetaMask) {
     ReactDOM.render(<NoMetaMask />, document.getElementById('root'));
   } else {
-    ReactDOM.render(<div><App store={store} /></div>, document.getElementById('root'));
+    ReactDOM.render(<Routes store={store} />, document.getElementById('root'));
   }
 };
 
