@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { usersCardsFetch } from '../../actions/appActions';
+import HandCard from './HandCard/HandCard';
 
 import './Cards.scss';
 
-const Cards = () => (
-  <div className="cards-wrapper">cards</div>
-);
+class Cards extends Component {
+  componentDidMount() {
+    this.props.usersCardsFetch();
+  }
 
-Cards.propTypes = {};
+  render() {
+    return (
+      <div className="cards-wrapper">
+        { this.props.cardsFetching && <div>Fetching cards...</div> }
+        { this.props.cards.map(card => (<HandCard key={card.id} card={card} />)) }
+      </div>
+    );
+  }
+}
 
-export default connect(null, null)(Cards);
+Cards.propTypes = {
+  usersCardsFetch: PropTypes.func.isRequired,
+  cards: PropTypes.array.isRequired,
+  cardsFetching: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({
+  cardsFetching: state.app.cardsFetching,
+  cards: state.app.cards,
+});
+
+const mapDispatchToProps = {
+  usersCardsFetch,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cards);

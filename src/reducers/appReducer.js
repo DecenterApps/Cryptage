@@ -1,7 +1,14 @@
-import { CHANGE_GAMEPLAY_VIEW } from '../actions/actionTypes';
+import {
+  CHANGE_GAMEPLAY_VIEW,
+  USERS_CARDS_FETCH,
+  USERS_CARDS_SUCCESS,
+  USERS_CARDS_ERROR,
+} from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   gameplayView: '',
+  cardsFetching: true,
+  cards: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,6 +17,24 @@ export default (state = INITIAL_STATE, action) => {
   switch (type) {
     case CHANGE_GAMEPLAY_VIEW:
       return { ...state, gameplayView: payload };
+
+    case USERS_CARDS_FETCH:
+      return {
+        ...state,
+        cardsFetching: true,
+      };
+    case USERS_CARDS_ERROR:
+      return {
+        ...state,
+        cardsFetching: false,
+        cardsFetchingError: action.error,
+      };
+    case USERS_CARDS_SUCCESS:
+      return {
+        ...state,
+        cardsFetching: false,
+        cards: action.cards,
+      };
 
     default:
       return state;

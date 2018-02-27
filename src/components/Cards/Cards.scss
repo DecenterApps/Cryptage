@@ -2,4 +2,12 @@
 
 .cards-wrapper {
   border-top: 1px solid $border-color;
+  display: flex;
+  padding: 4px;
+  width: 100vw;
+  overflow-y: auto;
+
+  .card-details:not(:last-child) {
+    margin-right: 20px;
+  }
 }
