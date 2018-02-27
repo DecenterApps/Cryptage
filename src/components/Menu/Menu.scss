@@ -1,7 +1,19 @@
 @import "../../common/colors";
+@import "../../common/variables";
+@import "../../common/text";
 
 .menu-wrapper {
   border-right: 1px solid $border-color;
   height: 100%;
   width: 200px;
+
+  .buy-booster-wrapper {
+    padding: 20px;
+    text-align: center;
+
+    button {
+      @include fancy-button;
+      font-size: $font-size-regular;
+    }
+  }
 }
