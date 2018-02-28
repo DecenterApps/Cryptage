@@ -30,7 +30,6 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     locations.forEach((location) => {
       const playedLocationIndex = cards.findIndex(_card => _card.id === location.id);
       cards.splice(playedLocationIndex, 1);
-      console.log('playedLocationIndex', playedLocationIndex);
 
       location.dropSlots.forEach((dropSlot) => {
         if (!dropSlot.lastDroppedItem) return;

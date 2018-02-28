@@ -52,11 +52,17 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const { location, app } = getState();
   const { activeLocationIndex } = location;
 
-  const cards = [...app.cards];
+  let cards = [...app.cards];
   const locations = [...location.locations];
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
+
+  const { lastDroppedItem } = locations[activeLocationIndex].dropSlots[index];
+  if (lastDroppedItem !== null) {
+    cards.push(lastDroppedItem.card);
+    cards = cards.sort((a, b) => a.stats.typeIndex - b.stats.typeIndex).reverse();
+  }
 
   const activeLocation = update(locations[activeLocationIndex], {
     dropSlots: { [index]: { lastDroppedItem: { $set: item } } },
