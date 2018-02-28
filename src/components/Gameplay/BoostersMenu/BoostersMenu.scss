@@ -1,8 +1,45 @@
 @import "../../../common/flip.scss";
+@import "../../../common/colors";
 
 .booster-store-wrapper {
   max-width: 1200px;
   margin: auto;
+
+  .booster-store-header {
+    margin: 40px 20px 20px 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $border-color;
+
+    button {
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    span span {
+      margin-right: 5px;
+    }
+
+    h1 {  margin: 0;  }
+  }
+
+  .boosters-wrapper {
+    margin: 20px;
+  }
+
+  .loading-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 200px;
+    font-size: 20px;
+
+    span {
+      font-weight: bold;
+      margin-right: 20px;
+    }
+  }
 
   .boosters {
     padding: 20px;
@@ -34,8 +71,23 @@
         left: 20px;
       }
 
+      .front span {
+        color: white;
+        position: absolute;
+        top: 110px;
+        left: 20px;
+        width: 140px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
       .back {
         text-align: center;
+
+        button:disabled {
+          cursor: inherit;
+        }
       }
 
       .booster-reveal {

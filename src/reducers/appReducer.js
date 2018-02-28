@@ -3,6 +3,7 @@ import {
   USERS_CARDS_FETCH,
   USERS_CARDS_SUCCESS,
   USERS_CARDS_ERROR,
+  REVEAL_SUCCESS,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -35,6 +36,9 @@ export default (state = INITIAL_STATE, action) => {
         cardsFetching: false,
         cards: action.cards,
       };
+
+    case REVEAL_SUCCESS:
+      return { ...state, cards: action.cards };
 
     default:
       return state;

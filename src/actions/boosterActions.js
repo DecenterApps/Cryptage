@@ -3,10 +3,9 @@ import {
   REVEAL_REQUEST, REVEAL_SUCCESS, REVEAL_ERROR,
 } from './actionTypes';
 
-import eth from '../services/ethereumService';
 import { log } from '../services/utils';
+import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
-// import { notify } from './notificationActions';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -29,7 +28,8 @@ export const getBoosters = () => async (dispatch) => {
   dispatch(boostersRequest());
 
   try {
-    const boosters = await eth.getBoughtBoosters();
+    const boosters = await ethService.getBoughtBoosters();
+    console.log('get boosters', boosters);
     const filteredBoosters = boosters.filter(booster => !booster.expired);
     dispatch(boostersSuccess(filteredBoosters));
   } catch (e) {
@@ -56,7 +56,7 @@ export const buyBoosterError = error => ({
 export const buyBoosterPack = () => async (dispatch) => {
   dispatch(buyBoosterRequest());
   try {
-    const result = await eth.buyBooster();
+    const result = await ethService.buyBooster();
     log(result);
     dispatch(buyBoosterSuccess());
     // notify('Booster bought!')(dispatch);
@@ -68,39 +68,47 @@ export const buyBoosterPack = () => async (dispatch) => {
   }
 };
 
-export const revealRequest = () => ({
-  type: REVEAL_REQUEST,
-  isRevealing: true,
-});
+export const revealRequest = (_id, _boosters) => {
+  const boosters = [..._boosters];
+  const boosterIndex = boosters.findIndex(({ id }) => id === _id);
+  boosters[boosterIndex].revelaing = true;
 
-export const revealSuccess = cards => ({
-  type: REVEAL_SUCCESS,
-  isRevealing: false,
-  cards,
-});
+  return { type: REVEAL_REQUEST, boosters };
+};
 
-export const revealError = error => ({
-  type: REVEAL_ERROR,
-  isRevealing: false,
-  error,
-});
+export const revealSuccess = (cards, _id, _boosters) => {
+  const boosters = [..._boosters];
+  const boosterIndex = boosters.findIndex(({ id }) => id === _id);
+  boosters.splice(boosterIndex, 1);
 
+  return { type: REVEAL_SUCCESS, cards, boosters };
+};
 
-export const revealBooster = id => async (dispatch) => {
-  dispatch(revealRequest());
+export const revealError = (error, _id, _boosters) => {
+  const boosters = [..._boosters];
+  const boosterIndex = boosters.findIndex(({ id }) => id === _id);
+  boosters[boosterIndex].revelaing = false;
+
+  return { type: REVEAL_ERROR, isRevealing: false, error, };
+};
+
+export const revealBooster = id => async (dispatch, getState) => {
+  dispatch(revealRequest(id, getState().shop.boosters));
+
   try {
-    const transaction = await eth.revealBooster(id);
+    const transaction = await ethService.revealBooster(id, getState().shop.boosters);
     log('Booster reveal result: ', transaction);
     const { boosterId } = transaction.events.BoosterRevealed.returnValues;
-    const cardIds = await eth.getCardsFromBooster(boosterId);
+    const cardIds = await ethService.getCardsFromBooster(boosterId);
     log('Cards in booster: ', cardIds);
 
-    const cardsMeta = await cardService.fetchCardsMeta(cardIds);
+    const cardsIDs = await ethService.getUsersCards();
+    const cards = await cardService.fetchCardsMeta(cardsIDs);
 
-    dispatch(revealSuccess(cardsMeta));
+    dispatch(revealSuccess(cards, id, getState().shop.boosters));
   } catch (e) {
     console.error(e);
-    dispatch(revealError());
+    dispatch(revealError(e, id, getState().shop.boosters));
     // notify(e.message, 'error', 5000)(dispatch);
   }
 };

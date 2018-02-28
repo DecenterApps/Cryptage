@@ -88,7 +88,7 @@ const getUsersCards = _account =>
     try {
       const cards = await cardContract.methods.getUserCards(account).call();
       // log(`User's cards (IDs): ${JSON.stringify(cards)}`);
-      resolve(cards);
+      resolve(cards.reverse());
     } catch (err) {
       reject(err);
     }
