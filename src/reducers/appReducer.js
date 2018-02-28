@@ -3,7 +3,7 @@ import {
   USERS_CARDS_FETCH,
   USERS_CARDS_SUCCESS,
   USERS_CARDS_ERROR,
-  REVEAL_SUCCESS,
+  REVEAL_SUCCESS, ADD_ACTIVE_LOC
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -38,6 +38,9 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case REVEAL_SUCCESS:
+      return { ...state, cards: action.cards };
+
+    case ADD_ACTIVE_LOC:
       return { ...state, cards: action.cards };
 
     default:

@@ -1,7 +1,39 @@
 @import "../../common/colors";
+@import "../../common/text";
 
 .locations-wrapper {
   border-right: 1px solid $border-color;
   height: 100%;
   width: 200px;
+
+  .locations-header {
+    text-align: center;
+    padding: 20px;
+    font-size: $font-size-extra-large;
+    border-bottom: 1px solid $border-color;
+  }
+
+  .no-locations {
+    margin: 20px;
+    line-height: 22px;
+  }
+
+  .locations-small-wrapper {
+
+    .location {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #ffbd3b;
+      color: white;
+      border: 1px solid $border-color;
+      cursor: pointer;
+
+      &.active {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+    }
+  }
 }

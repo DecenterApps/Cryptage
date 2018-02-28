@@ -14,11 +14,12 @@
     button {
       @include fancy-button;
       font-size: $font-size-regular;
+      margin: 0;
     }
   }
 
   .separator {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $border-color;
     margin: 20px 0;
   }
 

@@ -2,6 +2,7 @@ export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
+export const GP_LOCATION = 'location';
 
 // BOOSTER
 export const BOOSTERS_REQUEST = 'boosters_request';
@@ -19,4 +20,7 @@ export const BUY_BOOSTER_ERROR = 'buy_booster_error';
 export const REVEAL_REQUEST = 'reveal_request';
 export const REVEAL_SUCCESS = 'reveal_success';
 export const REVEAL_ERROR = 'reveal_error';
+
+// LOCATION
+export const ADD_ACTIVE_LOC = 'add_active_loc';
 

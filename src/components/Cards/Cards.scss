@@ -10,4 +10,12 @@
   .card-details:not(:last-child) {
     margin-right: 20px;
   }
+
+  .location-card-wrapper {
+    cursor: pointer;
+  }
+
+  .card-container {
+    margin-right: 10px;
+  }
 }
