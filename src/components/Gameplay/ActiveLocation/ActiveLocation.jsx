@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HandCard from '../../Cards/HandCard/HandCard';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
+import { handleAssetDrop } from '../../../actions/locationActions';
 
 import './ActiveLocation.scss';
 
-const ActiveLocation = ({ location }) => (
+const ActiveLocation = ({ location, handleAssetDrop }) => (
   <div className="active-location-wrapper">
     <div className="active-location-header">
       <div className="location-stats-label">Location stats:</div>
@@ -20,7 +21,7 @@ const ActiveLocation = ({ location }) => (
     <div className="active-location-field">
       <DropSlotsWrapper
         dropSlots={location.dropSlots}
-        onItemDrop={() => { console.log('Drop'); }}
+        onItemDrop={handleAssetDrop}
         element={<HandCard />}
       />
     </div>
@@ -29,6 +30,11 @@ const ActiveLocation = ({ location }) => (
 
 ActiveLocation.propTypes = {
   location: PropTypes.object.isRequired,
+  handleAssetDrop: PropTypes.func.isRequired,
 };
 
-export default connect(null, null)(ActiveLocation);
+const mapDispatchToProps = {
+  handleAssetDrop,
+};
+
+export default connect(null, mapDispatchToProps)(ActiveLocation);

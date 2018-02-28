@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { usersCardsFetch } from '../../actions/appActions';
 import HandCard from './HandCard/HandCard';
+import DragWrapper from '../DragWrapper/DragWrapper';
 import { addLocation } from '../../actions/locationActions';
 
 import './Cards.scss';
@@ -31,7 +32,9 @@ class Cards extends Component {
             {
               card.stats.typeIndex !== 2 &&
               <div className="asset-wrapper">
-                <HandCard card={card} />
+                <DragWrapper key={card.id} {...{ card }}>
+                  <HandCard card={card} />
+                </DragWrapper>
               </div>
             }
           </div>

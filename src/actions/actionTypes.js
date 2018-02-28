@@ -3,12 +3,12 @@ import cardConfig from '../constants/cards.json';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 
 export const EMPTY_DROP_SLOTS = [
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
 ];
 
 // GAMEPLAY_VIEWS
@@ -35,4 +35,5 @@ export const REVEAL_ERROR = 'reveal_error';
 // LOCATION
 export const ADD_ACTIVE_LOC = 'add_active_loc';
 export const SET_ACTIVE_LOCATION = 'set_active_location';
+export const DROP_ASSET = 'drop_asset';
 
