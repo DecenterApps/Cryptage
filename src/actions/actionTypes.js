@@ -40,3 +40,4 @@ export const DROP_ASSET = 'drop_asset';
 // APP
 export const GET_ACCOUNT_SUCCESS = 'get_account_success';
 export const GET_ACCOUNT_ERROR = 'get_account_error';
+export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';

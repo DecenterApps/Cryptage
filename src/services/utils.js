@@ -146,3 +146,19 @@ export const formatSignature = (_signature) => {
   signature = signature.concat('00');
   return signature;
 };
+
+/**
+ * Saves current gameplay state to localStorage for account
+ *
+ * @param {Function} getState
+ */
+export const saveGameplayState = (getState) => {
+  const state = getState();
+  const { account } = state.app;
+  if (!account) {
+    console.error('Account missing when trying to save state');
+    return;
+  }
+
+  localStorage.setItem(`player-location-${account}`, JSON.stringify(state.location));
+};

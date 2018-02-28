@@ -1,6 +1,9 @@
 import update from 'immutability-helper';
-import { ADD_ACTIVE_LOC, GP_LOCATION, SET_ACTIVE_LOCATION, EMPTY_DROP_SLOTS, DROP_ASSET } from './actionTypes';
+import {
+  ADD_ACTIVE_LOC, GP_LOCATION, SET_ACTIVE_LOCATION, EMPTY_DROP_SLOTS, DROP_ASSET, LOAD_STATE_FROM_STORAGE,
+} from './actionTypes';
 import { changeGameplayView } from './appActions';
+import { saveGameplayState } from '../services/utils';
 
 /**
  * Removes location clicked card from player cards
@@ -23,6 +26,7 @@ export const addLocation = (cardIndex, _cards) => (dispatch, getState) => {
 
   dispatch({ type: ADD_ACTIVE_LOC, card, cards });
   dispatch(changeGameplayView(GP_LOCATION));
+  saveGameplayState(getState);
 };
 
 /**
@@ -31,7 +35,10 @@ export const addLocation = (cardIndex, _cards) => (dispatch, getState) => {
  * @param {Number} payload - activeLocationIndex
  * @return {Function}
  */
-export const setActiveLocation = payload => (dispatch) => { dispatch({ type: SET_ACTIVE_LOCATION, payload }); };
+export const setActiveLocation = payload => (dispatch, getState) => {
+  dispatch({ type: SET_ACTIVE_LOCATION, payload });
+  saveGameplayState(getState);
+};
 
 /**
  * Fires when the player drags a card from his hand
@@ -60,4 +67,23 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   });
 
   dispatch({ type: DROP_ASSET, locations: locationPayload.locations, cards });
+  saveGameplayState(getState);
+};
+
+/**
+ * If the user has an account loads gameplay
+ * from localStorage
+ *
+ * @return {Function}
+ */
+export const loadGameplayState = () => (dispatch, getState) => {
+  const { account } = getState().app;
+
+  if (!account) return;
+
+  const payload = JSON.parse(localStorage.getItem(`player-location-${account}`));
+
+  if (!payload) return;
+
+  dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 };

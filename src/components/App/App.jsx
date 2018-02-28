@@ -8,13 +8,15 @@ import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
 import { checkAccount } from '../../actions/appActions';
+import { loadGameplayState } from '../../actions/locationActions';
 
 import './App.scss';
 
 @DragDropContext(HTML5Backend)
 class App extends Component {
-  componentDidMount() {
-    this.props.checkAccount();
+  async componentWillMount() {
+    await this.props.checkAccount();
+    this.props.loadGameplayState();
   }
 
   render() {
@@ -34,10 +36,11 @@ class App extends Component {
 
 App.propTypes = {
   checkAccount: PropTypes.func.isRequired,
+  loadGameplayState: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  checkAccount,
+  checkAccount, loadGameplayState,
 };
 
 export default connect(null, mapDispatchToProps)(App);

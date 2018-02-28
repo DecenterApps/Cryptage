@@ -37,7 +37,6 @@ const fetchCardMeta = async id => {
 const fetchCardsMeta = cardIDs => new Promise(async (resolve) => {
   const result = await Promise.all(cardIDs.map(id => fetchCardMeta(id)));
 
-  console.log('result', result);
   resolve(result.sort((a, b) => a.stats.typeIndex - b.stats.typeIndex).reverse());
 });
 

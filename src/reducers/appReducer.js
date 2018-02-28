@@ -1,6 +1,6 @@
 import {
   CHANGE_GAMEPLAY_VIEW, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR, REVEAL_SUCCESS, ADD_ACTIVE_LOC,
-  DROP_ASSET, GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR,
+  DROP_ASSET, GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, SET_ACTIVE_LOCATION, GP_LOCATION, LOAD_STATE_FROM_STORAGE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -57,6 +57,10 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state, account: '', accountBalance: '', accountError: action.error,
       };
+
+    case SET_ACTIVE_LOCATION:
+    case LOAD_STATE_FROM_STORAGE:
+      return { ...state, gameplayView: GP_LOCATION };
 
     default:
       return state;
