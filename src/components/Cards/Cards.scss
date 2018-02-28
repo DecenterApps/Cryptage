@@ -1,11 +1,23 @@
 @import "../../common/colors";
+@import "../../common/text";
 
 .cards-wrapper {
   border-top: 1px solid $border-color;
   display: flex;
   padding: 4px;
   width: 100vw;
+  height: 26vh;
   overflow-y: auto;
+
+  .loading-cards, .no-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: $font-size-giant;
+  }
+
+  .loading-cards span { margin-right: 15px; }
 
   .card-details:not(:last-child) {
     margin-right: 20px;
