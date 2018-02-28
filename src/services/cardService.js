@@ -7,6 +7,7 @@ const deckSize = 8;
 const fetchCardStats = id => {
   if (cardStats.cards[id.toString()]) {
     const stats = {...cardStats.cards[id.toString()]};
+    stats.typeIndex = stats.type;
     stats.type = cardStats.cardTypes[stats.type];
     return stats;
   }
@@ -33,8 +34,12 @@ const fetchCardMeta = async id => {
   };
 };
 
-const fetchCardsMeta = cardIDs =>
-  Promise.all(cardIDs.map(id => fetchCardMeta(id)));
+const fetchCardsMeta = cardIDs => new Promise(async (resolve) => {
+  const result = await Promise.all(cardIDs.map(id => fetchCardMeta(id)));
+
+  console.log('result', result);
+  resolve(result.sort((a, b) => a.stats.typeIndex - b.stats.typeIndex).reverse());
+});
 
 const getDeck = async () => {
   const account = await ethService.getAccount();
