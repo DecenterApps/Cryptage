@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
+import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Menu from '../Menu/Menu';
 import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
+import { checkAccount } from '../../actions/appActions';
 
 import './App.scss';
 
 @DragDropContext(HTML5Backend)
 class App extends Component {
   componentDidMount() {
-    console.log('Start App');
+    this.props.checkAccount();
   }
 
   render() {
@@ -30,6 +32,12 @@ class App extends Component {
   }
 }
 
-App.propTypes = {};
+App.propTypes = {
+  checkAccount: PropTypes.func.isRequired,
+};
 
-export default connect(null, null)(App);
+const mapDispatchToProps = {
+  checkAccount,
+};
+
+export default connect(null, mapDispatchToProps)(App);

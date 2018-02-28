@@ -1,17 +1,17 @@
 import {
-  CHANGE_GAMEPLAY_VIEW,
-  USERS_CARDS_FETCH,
-  USERS_CARDS_SUCCESS,
-  USERS_CARDS_ERROR,
-  REVEAL_SUCCESS,
-  ADD_ACTIVE_LOC,
-  DROP_ASSET,
+  CHANGE_GAMEPLAY_VIEW, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR, REVEAL_SUCCESS, ADD_ACTIVE_LOC,
+  DROP_ASSET, GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
+  account: '',
+  accountBalance: 0,
+  accountError: '',
+
   gameplayView: '',
   cardsFetching: true,
   cards: [],
+  error: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -47,6 +47,16 @@ export default (state = INITIAL_STATE, action) => {
 
     case DROP_ASSET:
       return { ...state, cards: action.cards };
+
+    case GET_ACCOUNT_SUCCESS:
+      return {
+        ...state, account: action.account, accountBalance: action.balance, accountError: '',
+      };
+
+    case GET_ACCOUNT_ERROR:
+      return {
+        ...state, account: '', accountBalance: '', accountError: action.error,
+      };
 
     default:
       return state;

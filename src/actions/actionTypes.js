@@ -37,3 +37,6 @@ export const ADD_ACTIVE_LOC = 'add_active_loc';
 export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const DROP_ASSET = 'drop_asset';
 
+// APP
+export const GET_ACCOUNT_SUCCESS = 'get_account_success';
+export const GET_ACCOUNT_ERROR = 'get_account_error';

@@ -1,6 +1,11 @@
-import { CHANGE_GAMEPLAY_VIEW, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR } from './actionTypes';
+import {
+  CHANGE_GAMEPLAY_VIEW, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR, GET_ACCOUNT_SUCCESS,
+  GET_ACCOUNT_ERROR,
+} from './actionTypes';
 import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
+import { nameOfNetwork } from '../services/utils';
+import config from '../constants/config.json';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -34,4 +39,34 @@ export const usersCardsFetch = () => async (dispatch) => {
   } catch (err) {
     dispatch(usersCardsError(err));
   }
+};
+
+/**
+ * Gets user ethereum account from MetaMask
+ *
+ * @return {Function}
+ */
+export const checkAccount = () => async (dispatch, getState) => {
+  try {
+    const network = await ethService.getNetwork();
+    if (config.network !== network) {
+      throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
+    }
+
+    const account = await ethService.getAccount();
+    if (getState().app.account !== account) {
+      if (getState().app.account === '') {
+        const balance = await ethService.getBalance(account);
+        dispatch({ type: GET_ACCOUNT_SUCCESS, account, balance, });
+      } else {
+        window.location.reload();
+      }
+    }
+  } catch (err) {
+    if (getState().app.accountError !== err.message) {
+      dispatch({ type: GET_ACCOUNT_ERROR, error: err.message });
+    }
+  }
+
+  setTimeout(() => checkAccount()(dispatch, getState), 1000);
 };
