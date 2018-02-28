@@ -76,12 +76,29 @@ export const revealRequest = (_id, _boosters) => {
   return { type: REVEAL_REQUEST, boosters };
 };
 
-export const revealSuccess = (cards, _id, _boosters) => {
+export const revealSuccess = (cards, _id, _boosters, getState) => {
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
   boosters.splice(boosterIndex, 1);
 
-  return { type: REVEAL_SUCCESS, cards, boosters };
+  // Remove duplicate
+  const { locations } = getState().location;
+  locations.forEach((location) => {
+    const playedLocationIndex = cards.findIndex(_card => _card.id === location.id);
+    cards.splice(playedLocationIndex, 1);
+
+    location.dropSlots.forEach((dropSlot) => {
+      if (!dropSlot.lastDroppedItem) return;
+
+      const { card } = dropSlot.lastDroppedItem;
+      const playedCardIndex = cards.findIndex(_card => _card.id === card.id);
+      cards.splice(playedCardIndex, 1);
+    });
+  });
+
+  const cardsPayload = cards.sort((a, b) => a.stats.typeIndex - b.stats.typeIndex).reverse();
+
+  return { type: REVEAL_SUCCESS, cards: cardsPayload, boosters };
 };
 
 export const revealError = (error, _id, _boosters) => {
@@ -105,7 +122,7 @@ export const revealBooster = id => async (dispatch, getState) => {
     const cardsIDs = await ethService.getUsersCards();
     const cards = await cardService.fetchCardsMeta(cardsIDs);
 
-    dispatch(revealSuccess(cards, id, getState().shop.boosters));
+    dispatch(revealSuccess(cards, id, getState().shop.boosters, getState));
   } catch (e) {
     console.error(e);
     dispatch(revealError(e, id, getState().shop.boosters));
