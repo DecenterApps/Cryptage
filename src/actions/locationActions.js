@@ -1,4 +1,4 @@
-import { ADD_ACTIVE_LOC, GP_LOCATION, SET_ACTIVE_LOCATION } from './actionTypes';
+import { ADD_ACTIVE_LOC, GP_LOCATION, SET_ACTIVE_LOCATION, EMPTY_DROP_SLOTS } from './actionTypes';
 import { changeGameplayView } from './appActions';
 
 /**
@@ -18,6 +18,7 @@ export const addLocation = (cardIndex, _cards) => (dispatch, getState) => {
   const cards = [..._cards];
   const card = cards[cardIndex];
   cards.splice(cardIndex, 1);
+  card.dropSlots = EMPTY_DROP_SLOTS;
 
   dispatch({ type: ADD_ACTIVE_LOC, card, cards });
   dispatch(changeGameplayView(GP_LOCATION));

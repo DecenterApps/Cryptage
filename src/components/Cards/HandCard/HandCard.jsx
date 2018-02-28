@@ -17,13 +17,22 @@ const HandCard = ({ card }) => (
   </div>
 );
 
+HandCard.defaultProps = {
+  card: {
+    stats: {
+      title: '',
+      image: '',
+    },
+  },
+};
+
 HandCard.propTypes = {
   card: PropTypes.shape({
     stats: PropTypes.shape({
       title: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+    }),
+  }),
 };
 
 HandCard.defaultProps = {};

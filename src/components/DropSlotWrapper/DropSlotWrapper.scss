@@ -1,0 +1,24 @@
+.drop-slot-wrapper {
+  width: 150px;
+  height: 250px;
+  border: 1px dashed lightgray;
+  border-radius: 5px;
+}
+
+.drop-slot-component {
+
+  &.drop-slot-active {
+    background-color: #9c9c9c;
+    color: #000;
+  }
+
+  &.drop-slot-item-hover {
+    background-color: #DEDEDE;
+    color: #000;
+  }
+
+  &.drop-slot-filled {
+    background-color: #fff;
+    border: none;
+  }
+}

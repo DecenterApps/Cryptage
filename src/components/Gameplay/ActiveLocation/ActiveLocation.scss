@@ -15,5 +15,9 @@
       font-size: $font-size-extra-large;
       font-weight: bold;
     }
+
+    .location-stats-wrapper span:not(:last-child) {
+      margin-right: 15px;
+    }
   }
 }

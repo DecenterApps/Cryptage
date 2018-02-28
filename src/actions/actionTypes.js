@@ -1,4 +1,15 @@
+import cardConfig from '../constants/cards.json';
+
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
+
+export const EMPTY_DROP_SLOTS = [
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[0]], lastDroppedItem: null },
+];
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
