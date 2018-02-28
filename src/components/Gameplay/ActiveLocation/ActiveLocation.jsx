@@ -6,6 +6,13 @@ import './ActiveLocation.scss';
 
 const ActiveLocation = ({ location }) => (
   <div className="active-location-wrapper">
+    <div className="active-location-header">
+      <div className="location-stats-label">Location stats:</div>
+      <div className="location-stats-wrapper">
+        Space: 0
+      </div>
+    </div>
+
     { location.id }
   </div>
 );

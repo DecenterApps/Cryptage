@@ -23,4 +23,5 @@ export const REVEAL_ERROR = 'reveal_error';
 
 // LOCATION
 export const ADD_ACTIVE_LOC = 'add_active_loc';
+export const SET_ACTIVE_LOCATION = 'set_active_location';
 

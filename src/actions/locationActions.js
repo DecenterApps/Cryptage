@@ -1,4 +1,4 @@
-import { ADD_ACTIVE_LOC, GP_LOCATION } from './actionTypes';
+import { ADD_ACTIVE_LOC, GP_LOCATION, SET_ACTIVE_LOCATION } from './actionTypes';
 import { changeGameplayView } from './appActions';
 
 /**
@@ -22,3 +22,11 @@ export const addLocation = (cardIndex, _cards) => (dispatch, getState) => {
   dispatch({ type: ADD_ACTIVE_LOC, card, cards });
   dispatch(changeGameplayView(GP_LOCATION));
 };
+
+/**
+ * Fires when a user click on a active location
+ *
+ * @param {Number} payload - activeLocationIndex
+ * @return {Function}
+ */
+export const setActiveLocation = payload => (dispatch) => { dispatch({ type: SET_ACTIVE_LOCATION, payload }); };

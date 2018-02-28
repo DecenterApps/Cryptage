@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setActiveLocation } from '../../actions/locationActions';
 
 import './Locations.scss';
 
-const Locations = ({ locations, activeLocationIndex }) => (
+const Locations = ({ locations, activeLocationIndex, setActiveLocation }) => (
   <div className="locations-wrapper">
     <div className="locations-header">
       Active locations
@@ -18,7 +19,11 @@ const Locations = ({ locations, activeLocationIndex }) => (
         <div className="locations-small-wrapper">
           {
             locations.map((location, index) => (
-              <div className={`location ${(activeLocationIndex === index) && 'active'}`} key={location.id}>
+              <div
+                className={`location ${(activeLocationIndex === index) && 'active'}`}
+                onClick={() => { setActiveLocation(index); }}
+                key={location.id}
+              >
                 { location.stats.title }, { location.id }
               </div>
             ))
@@ -34,6 +39,7 @@ Locations.defaultProps = {
 };
 
 Locations.propTypes = {
+  setActiveLocation: PropTypes.func.isRequired,
   locations: PropTypes.array.isRequired,
   activeLocationIndex: PropTypes.number,
 };
@@ -43,4 +49,8 @@ const mapStateToProps = ({ location }) => ({
   activeLocationIndex: location.activeLocationIndex,
 });
 
-export default connect(mapStateToProps)(Locations);
+const mapDispatchToProp = {
+  setActiveLocation,
+};
+
+export default connect(mapStateToProps, mapDispatchToProp)(Locations);

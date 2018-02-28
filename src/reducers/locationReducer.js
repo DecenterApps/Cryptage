@@ -1,4 +1,4 @@
-import { ADD_ACTIVE_LOC } from '../actions/actionTypes';
+import { ADD_ACTIVE_LOC, GP_LOCATION, CHANGE_GAMEPLAY_VIEW, SET_ACTIVE_LOCATION } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   locations: [],
@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-  const { type } = action;
+  const { type, payload } = action;
 
   switch (type) {
     case ADD_ACTIVE_LOC:
@@ -15,6 +15,12 @@ export default (state = INITIAL_STATE, action) => {
         locations: [...state.locations, action.card],
         activeLocationIndex: state.locations.length,
       };
+
+    case SET_ACTIVE_LOCATION:
+      return { ...state, activeLocationIndex: payload };
+
+    case CHANGE_GAMEPLAY_VIEW:
+      return { ...state, activeLocationIndex: payload === GP_LOCATION ? state.activeLocationIndex : null };
 
     default:
       return state;
