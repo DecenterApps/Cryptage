@@ -15,6 +15,16 @@ const Menu = ({ gameplayView, changeGameplayView }) => (
       >
         Store
       </button>
+
+      <div className="separator" />
+
+      <div className="stats-wrapper">
+        <div>Coins: 0</div>
+        <div>Development: 0</div>
+        <div>Security: 0</div>
+        <div>Influence: 0</div>
+        <div>Hashrate: 0</div>
+      </div>
     </div>
   </div>
 );

@@ -16,4 +16,18 @@
       font-size: $font-size-regular;
     }
   }
+
+  .separator {
+    border-bottom: 1px solid black;
+    margin: 20px 0;
+  }
+
+  .stats-wrapper {
+    text-align: left;
+
+    div {
+      margin-bottom: 10px;
+      font-size: $font-size-large;
+    }
+  }
 }
