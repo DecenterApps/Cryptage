@@ -11,7 +11,7 @@ const Gameplay = ({ gameplayView, locations, activeLocationIndex }) => (
   <div className="gameplay-wrapper">
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }
 
-    { gameplayView === GP_LOCATION && <ActiveLocation location={locations[activeLocationIndex]} />}
+    { gameplayView === GP_LOCATION && <ActiveLocation />}
   </div>
 );
 

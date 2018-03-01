@@ -1,0 +1,10 @@
+.location-sidebar-item-wrapper {
+  height: 100%;
+  width: 100%;
+  background: #ffbd3b;
+
+  &.hovering {
+    background-color: #DEDEDE;
+    color: #000;
+  }
+}

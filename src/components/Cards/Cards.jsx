@@ -37,26 +37,12 @@ class Cards extends Component {
 
         {
           !cardsFetching && cards.length > 0 &&
-          cards.map((card, index) => (
+          cards.map(card => (
             <div key={card.id} className="card-container">
-              {
-                card.stats.typeIndex === 2 &&
-                <div
-                  className="location-card-wrapper"
-                  onClick={() => { addLocation(index, cards); }}
-                >
-                  <HandCard card={card} />
-                </div>
-              }
-
-              {
-                card.stats.typeIndex !== 2 &&
-                <div className="asset-wrapper">
-                  <DragWrapper key={card.id} {...{ card }}>
-                    <HandCard card={card} />
-                  </DragWrapper>
-                </div>
-              }
+              {/* onClick={() => { addLocation(index, cards); }} */}
+              <DragWrapper key={card.id} {...{ card }}>
+                <HandCard card={card} />
+              </DragWrapper>
             </div>
           ))
         }

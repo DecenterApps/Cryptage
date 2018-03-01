@@ -11,6 +11,15 @@ export const EMPTY_DROP_SLOTS = [
   { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
 ];
 
+export const LOCATION_DROP_SLOTS = [
+  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
+];
+
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
 export const GP_LOCATION = 'location';

@@ -91,5 +91,35 @@ export const loadGameplayState = () => (dispatch, getState) => {
 
   if (!payload) return;
 
-  dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+  // dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+};
+
+/**
+ * Fires when the player drags a location card from his hand
+ * to the location sidebar
+ *
+ * @param {Number} index
+ * @param {Object} item
+ * @return {Function}
+ */
+export const handleLocationDrop = (index, item) => (dispatch, getState) => {
+  const { location } = getState();
+
+  let locations = [...location.locations];
+
+  if (!locations[index].lastDroppedItem) {
+    locations = update(locations, {
+      [index]: {
+        lastDroppedItem: {
+          $set: { dropSlots: EMPTY_DROP_SLOTS, cards: [{ ...item.card }] },
+        },
+      },
+    });
+  } else {
+    locations[index].lastDroppedItem.cards.push({ ...item.card });
+  }
+
+  // remove cards from hand here, put cards in gameplayReducer
+  dispatch({ type: ADD_ACTIVE_LOC, activeLocationIndex: index, locations });
+  dispatch(changeGameplayView(GP_LOCATION));
 };

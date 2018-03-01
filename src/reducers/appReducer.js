@@ -42,8 +42,8 @@ export default (state = INITIAL_STATE, action) => {
     case REVEAL_SUCCESS:
       return { ...state, cards: action.cards };
 
-    case ADD_ACTIVE_LOC:
-      return { ...state, cards: action.cards };
+    // case ADD_ACTIVE_LOC:
+    //   return { ...state, cards: action.cards };
 
     case DROP_ASSET:
       return { ...state, cards: action.cards };
@@ -58,9 +58,9 @@ export default (state = INITIAL_STATE, action) => {
         ...state, account: '', accountBalance: '', accountError: action.error,
       };
 
-    case SET_ACTIVE_LOCATION:
-    case LOAD_STATE_FROM_STORAGE:
-      return { ...state, gameplayView: GP_LOCATION };
+    // case SET_ACTIVE_LOCATION:
+    // case LOAD_STATE_FROM_STORAGE:
+    //   return { ...state, gameplayView: GP_LOCATION };
 
     default:
       return state;

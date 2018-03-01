@@ -5,6 +5,8 @@
   border-right: 1px solid $border-color;
   height: 100%;
   width: 200px;
+  display: flex;
+  flex-direction: column;
 
   .locations-header {
     text-align: center;
@@ -16,6 +18,11 @@
   .no-locations {
     margin: 20px;
     line-height: 22px;
+  }
+
+  .active-locations-wrapper {
+    display: flex;
+    height: 100%;
   }
 
   .locations-small-wrapper {
@@ -35,5 +42,13 @@
         pointer-events: none;
       }
     }
+  }
+
+  .location-slots-wrapper {
+    flex-grow: 1;
+    border: 1px dashed $border-color;
+    width: 100%;
+    display: flex;
+    height: 100%;
   }
 }

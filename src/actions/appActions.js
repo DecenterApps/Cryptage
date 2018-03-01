@@ -16,7 +16,7 @@ import config from '../constants/config.json';
  */
 export const changeGameplayView = payload => (dispatch, getState) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
-  saveGameplayState(getState);
+  // saveGameplayState(getState);
 };
 
 export const usersCardsFetch = () => async (dispatch, getState) => {
@@ -26,19 +26,21 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     const cards = await cardService.fetchCardsMeta(cardsIDs);
 
     // Remove cards that are played
-    const { locations } = getState().location;
-    locations.forEach((location) => {
-      const playedLocationIndex = cards.findIndex(_card => _card.id === location.id);
-      cards.splice(playedLocationIndex, 1);
+    // const { locations } = getState().location;
+    // locations.forEach((location) => {
+    //   const playedLocationIndex = cards.findIndex(_card => _card.id === location.id);
+    //   cards.splice(playedLocationIndex, 1);
+    //
+    //   location.dropSlots.forEach((dropSlot) => {
+    //     if (!dropSlot.lastDroppedItem) return;
+    //
+    //     const { card } = dropSlot.lastDroppedItem;
+    //     const playedCardIndex = cards.findIndex(_card => _card.id === card.id);
+    //     cards.splice(playedCardIndex, 1);
+    //   });
+    // });
 
-      location.dropSlots.forEach((dropSlot) => {
-        if (!dropSlot.lastDroppedItem) return;
-
-        const { card } = dropSlot.lastDroppedItem;
-        const playedCardIndex = cards.findIndex(_card => _card.id === card.id);
-        cards.splice(playedCardIndex, 1);
-      });
-    });
+    console.log('cards', cards);
 
     dispatch({ type: USERS_CARDS_SUCCESS, cards });
   } catch (error) {
