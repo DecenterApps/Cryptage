@@ -45,8 +45,8 @@ export default (state = INITIAL_STATE, action) => {
     // case ADD_ACTIVE_LOC:
     //   return { ...state, cards: action.cards };
 
-    case DROP_ASSET:
-      return { ...state, cards: action.cards };
+    // case DROP_ASSET:
+    //   return { ...state, cards: action.cards };
 
     case GET_ACCOUNT_SUCCESS:
       return {

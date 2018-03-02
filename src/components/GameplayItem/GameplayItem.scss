@@ -1,0 +1,10 @@
+.gameplay-item-wrapper {
+  height: 100%;
+  width: 100%;
+  background: lightgray;
+
+  &.hovering {
+    background-color: #DEDEDE;
+    color: #000;
+  }
+}

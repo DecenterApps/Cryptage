@@ -3,7 +3,7 @@ import {
   ADD_ACTIVE_LOC, GP_LOCATION, SET_ACTIVE_LOCATION, EMPTY_DROP_SLOTS, DROP_ASSET, LOAD_STATE_FROM_STORAGE,
 } from './actionTypes';
 import { changeGameplayView } from './appActions';
-import { saveGameplayState } from '../services/utils';
+import { saveGameplayState, updateLocationDropSlotItems } from '../services/utils';
 
 /**
  * Removes location clicked card from player cards
@@ -53,27 +53,22 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const { activeLocationIndex } = location;
 
   let cards = [...app.cards];
-  const locations = [...location.locations];
+  let locations = [...location.locations];
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
 
-  const { lastDroppedItem } = locations[activeLocationIndex].dropSlots[index];
-  if (lastDroppedItem !== null) {
-    cards.push(lastDroppedItem.card);
-    cards = cards.sort((a, b) => a.stats.typeIndex - b.stats.typeIndex).reverse();
+  const locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+  const slotItem = locationSlots[index].lastDroppedItem;
+
+  if (!slotItem) {
+    locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex);
+  } else {
+    locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...item.card });
   }
 
-  const activeLocation = update(locations[activeLocationIndex], {
-    dropSlots: { [index]: { lastDroppedItem: { $set: item } } },
-  });
-
-  const locationPayload = update(location, {
-    locations: { [activeLocationIndex]: { $set: activeLocation } },
-  });
-
-  dispatch({ type: DROP_ASSET, locations: locationPayload.locations, cards });
-  saveGameplayState(getState);
+  dispatch({ type: DROP_ASSET, locations });
+  // saveGameplayState(getState);
 };
 
 /**

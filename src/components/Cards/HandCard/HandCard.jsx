@@ -35,6 +35,4 @@ HandCard.propTypes = {
   }),
 };
 
-HandCard.defaultProps = {};
-
 export default HandCard;

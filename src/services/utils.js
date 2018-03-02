@@ -1,3 +1,5 @@
+import update from 'immutability-helper';
+
 /**
  * Generates unique id
  *
@@ -161,4 +163,32 @@ export const saveGameplayState = (getState) => {
   }
 
   localStorage.setItem(`player-location-${account}`, JSON.stringify(state.location));
+};
+
+/**
+ * Updates active location drop slot items
+ *
+ * @param {Array} _locationSlots
+ * @param {Number} index
+ * @param {Object} item
+ * @param {Array} _locations
+ * @param {Number} activeLocationIndex
+ * @return {Array}
+ */
+export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex) => {
+  const locationSlots = update(_locationSlots, {
+    [index]: {
+      lastDroppedItem: {
+        $set: { cards: [{ ...item.card }] },
+      },
+    },
+  });
+
+  return update(_locations, {
+    [activeLocationIndex]: {
+      lastDroppedItem: {
+        dropSlots: { $set: locationSlots },
+      },
+    },
+  });
 };

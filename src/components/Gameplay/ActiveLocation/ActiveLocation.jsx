@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import HandCard from '../../Cards/HandCard/HandCard';
+import GameplayItem from '../../GameplayItem/GameplayItem';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import { handleAssetDrop } from '../../../actions/locationActions';
 
 import './ActiveLocation.scss';
 
-const ActiveLocation = ({ locations, activeLocationIndex }) => {
+const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop }) => {
   const location = locations[activeLocationIndex];
   return (
     <div className="active-location-wrapper">
@@ -24,7 +24,7 @@ const ActiveLocation = ({ locations, activeLocationIndex }) => {
         <DropSlotsWrapper
           dropSlots={location.lastDroppedItem.dropSlots}
           onItemDrop={handleAssetDrop}
-          element={<HandCard />}
+          element={<GameplayItem />}
         />
       </div>
     </div>
@@ -34,7 +34,7 @@ const ActiveLocation = ({ locations, activeLocationIndex }) => {
 ActiveLocation.propTypes = {
   locations: PropTypes.array.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
-  // handleAssetDrop: PropTypes.func.isRequired,
+  handleAssetDrop: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
