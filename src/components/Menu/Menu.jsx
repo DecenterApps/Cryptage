@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { changeGameplayView } from '../../actions/appActions';
+import { changeGameplayView } from '../../actions/gameplayActions';
 import { GP_BUY_BOOSTER } from '../../actions/actionTypes';
 
 import './Menu.scss';

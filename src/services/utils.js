@@ -150,6 +150,43 @@ export const formatSignature = (_signature) => {
 };
 
 /**
+ * Removes player cards that have been played
+ *
+ * @param {Array} _cards
+ * @param {Function} getState
+ * @return {Array}
+ */
+export const removePlayedCards = (_cards, getState) => {
+  const { locations } = getState().gameplay;
+  const cards = [..._cards];
+
+  locations.forEach(({ lastDroppedItem }) => {
+    if ((lastDroppedItem !== null) && typeof (lastDroppedItem === 'object')) {
+      // remove location cards from player cards
+      lastDroppedItem.cards.forEach((locationCard) => {
+        const playedLocationCardIndex = cards.findIndex(_card => _card.id === locationCard.id);
+        cards.splice(playedLocationCardIndex, 1);
+      });
+
+      // remove asset cards from location drop slots
+      lastDroppedItem.dropSlots.forEach((locationItemSlot) => {
+        const locationItem = locationItemSlot.lastDroppedItem;
+
+        if ((locationItem !== null) && typeof (locationItem === 'object')) {
+          locationItemSlot.lastDroppedItem.cards.forEach((locationItemCard) => {
+            const playedLocationCardIndex = cards.findIndex(_card => _card.id === locationItemCard.id);
+            cards.splice(playedLocationCardIndex, 1);
+          });
+        }
+      });
+    }
+  });
+
+  console.log('cards', cards);
+  return cards;
+};
+
+/**
  * Saves current gameplay state to localStorage for account
  *
  * @param {Function} getState

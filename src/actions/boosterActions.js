@@ -3,7 +3,7 @@ import {
   REVEAL_REQUEST, REVEAL_SUCCESS, REVEAL_ERROR,
 } from './actionTypes';
 
-import { log } from '../services/utils';
+import { log, removePlayedCards } from '../services/utils';
 import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
 
@@ -76,29 +76,14 @@ export const revealRequest = (_id, _boosters) => {
   return { type: REVEAL_REQUEST, boosters };
 };
 
-export const revealSuccess = (cards, _id, _boosters, getState) => {
+export const revealSuccess = (_cards, _id, _boosters, getState) => {
+  let cards = [..._cards];
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
   boosters.splice(boosterIndex, 1);
 
-  // Remove duplicate
-  const { locations } = getState().gameplay;
-  locations.forEach((location) => {
-    const playedLocationIndex = cards.findIndex(_card => _card.id === location.id);
-    cards.splice(playedLocationIndex, 1);
-
-    location.dropSlots.forEach((dropSlot) => {
-      if (!dropSlot.lastDroppedItem) return;
-
-      const { card } = dropSlot.lastDroppedItem;
-      const playedCardIndex = cards.findIndex(_card => _card.id === card.id);
-      cards.splice(playedCardIndex, 1);
-    });
-  });
-
-  const cardsPayload = cards.sort((a, b) => a.stats.typeIndex - b.stats.typeIndex).reverse();
-
-  return { type: REVEAL_SUCCESS, cards: cardsPayload, boosters };
+  cards = removePlayedCards(cards, getState);
+  return { type: REVEAL_SUCCESS, cards, boosters };
 };
 
 export const revealError = (error, _id, _boosters) => {

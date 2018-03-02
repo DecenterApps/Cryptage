@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { usersCardsFetch } from '../../actions/appActions';
+import { usersCardsFetch } from '../../actions/gameplayActions';
 import HandCard from './HandCard/HandCard';
 import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';

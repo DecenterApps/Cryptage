@@ -12,6 +12,11 @@
     justify-content: space-between;
     border-bottom: 1px solid $border-color;
 
+    .buying {
+      display: flex;
+      align-items: center;
+    }
+
     button {
       cursor: pointer;
       padding: 10px;

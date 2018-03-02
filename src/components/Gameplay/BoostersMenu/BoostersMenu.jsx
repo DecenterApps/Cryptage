@@ -25,7 +25,10 @@ class BoostersMenu extends React.Component {
             disabled={isBuying}
             onClick={this.props.buyBoosterPack}
           >
-            { isBuying && <span><span>Buying booster...</span> <Spinner color="#000" size={2} /></span> }
+            {
+              isBuying &&
+              <span className="buying"><span>Buying booster...</span> <Spinner color="#000" size={2} /></span>
+            }
             { !isBuying && 'Buy' }
           </button>
         </div>

@@ -1,10 +1,40 @@
 import update from 'immutability-helper';
 import {
-  DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, EMPTY_DROP_SLOTS,
-  DROP_ASSET, LOAD_STATE_FROM_STORAGE,
+  DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, LOCATION_ITEM_DROP_SLOTS, USERS_CARDS_ERROR,
+  DROP_ASSET, LOAD_STATE_FROM_STORAGE, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, CHANGE_GAMEPLAY_VIEW,
 } from './actionTypes';
-import { changeGameplayView } from './appActions';
-import { saveGameplayState, updateLocationDropSlotItems } from '../services/utils';
+import cardService from '../services/cardService';
+import ethService from '../services/ethereumService';
+import { saveGameplayState, updateLocationDropSlotItems, removePlayedCards } from '../services/utils';
+
+/**
+ * Dispatches action to change the view of central gameplay view
+ *
+ * @param {String} payload - view name
+ * @return {Function}
+ */
+export const changeGameplayView = payload => (dispatch, getState) => {
+  dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
+  saveGameplayState(getState);
+};
+
+/**
+ * Gets user cards from contract and crosschecks
+ * if any of those cards were played
+ *
+ * @return {Function}
+ */
+export const usersCardsFetch = () => async (dispatch, getState) => {
+  dispatch({ type: USERS_CARDS_FETCH });
+  try {
+    const cardsIDs = await ethService.getUsersCards();
+    const cards = await cardService.fetchCardsMeta(cardsIDs);
+
+    dispatch({ type: USERS_CARDS_SUCCESS, cards: removePlayedCards(cards, getState) });
+  } catch (error) {
+    dispatch({ type: USERS_CARDS_ERROR, error });
+  }
+};
 
 /**
  * Fires when a user click on a active location
@@ -38,7 +68,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     locations = update(locations, {
       [index]: {
         lastDroppedItem: {
-          $set: { dropSlots: EMPTY_DROP_SLOTS, cards: [{ ...item.card }] },
+          $set: { dropSlots: LOCATION_ITEM_DROP_SLOTS, cards: [{ ...item.card }] },
         },
       },
     });
