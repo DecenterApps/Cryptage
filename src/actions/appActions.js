@@ -14,9 +14,9 @@ import config from '../constants/config.json';
  *
  * @return {Function}
  */
-export const changeGameplayView = payload => (dispatch) => {
+export const changeGameplayView = payload => (dispatch, getState) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
-  // saveGameplayState(getState);
+  saveGameplayState(getState);
 };
 
 export const usersCardsFetch = () => async (dispatch, getState) => {

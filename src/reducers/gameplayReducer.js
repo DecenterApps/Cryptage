@@ -36,8 +36,8 @@ export default (state = INITIAL_STATE, action) => {
     case REVEAL_SUCCESS:
       return { ...state, cards: action.cards };
 
-    // case LOAD_STATE_FROM_STORAGE:
-    //   return { ...payload };
+    case LOAD_STATE_FROM_STORAGE:
+      return { ...payload };
 
     default:
       return state;

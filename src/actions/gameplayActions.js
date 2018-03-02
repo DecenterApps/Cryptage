@@ -1,6 +1,7 @@
 import update from 'immutability-helper';
 import {
-  DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, EMPTY_DROP_SLOTS, DROP_ASSET,
+  DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, EMPTY_DROP_SLOTS,
+  DROP_ASSET, LOAD_STATE_FROM_STORAGE,
 } from './actionTypes';
 import { changeGameplayView } from './appActions';
 import { saveGameplayState, updateLocationDropSlotItems } from '../services/utils';
@@ -49,6 +50,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards,
   });
   dispatch(changeGameplayView(GP_LOCATION));
+  saveGameplayState(getState);
 };
 
 /**
@@ -79,7 +81,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   }
 
   dispatch({ type: DROP_ASSET, locations, cards });
-  // saveGameplayState(getState);
+  saveGameplayState(getState);
 };
 
 /**
@@ -89,7 +91,6 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
  * @return {Function}
  */
 export const loadGameplayState = () => (dispatch, getState) => {
-  return;
   const { account } = getState().app;
 
   if (!account) return;
@@ -98,5 +99,6 @@ export const loadGameplayState = () => (dispatch, getState) => {
 
   if (!payload) return;
 
-  // dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+  console.log('payload', payload);
+  dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 };
