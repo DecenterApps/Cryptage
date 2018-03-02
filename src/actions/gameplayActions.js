@@ -99,6 +99,5 @@ export const loadGameplayState = () => (dispatch, getState) => {
 
   if (!payload) return;
 
-  console.log('payload', payload);
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 };

@@ -47,6 +47,7 @@ export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const DROP_ASSET = 'drop_asset';
 
 // APP
+export const LOADING_ENDED = 'loading_ended';
 export const GET_ACCOUNT_SUCCESS = 'get_account_success';
 export const GET_ACCOUNT_ERROR = 'get_account_error';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';

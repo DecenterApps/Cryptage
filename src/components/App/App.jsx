@@ -7,7 +7,7 @@ import Menu from '../Menu/Menu';
 import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
-import { checkAccount } from '../../actions/appActions';
+import { checkAccount, loadingEnded } from '../../actions/appActions';
 import { loadGameplayState } from '../../actions/gameplayActions';
 
 import './App.scss';
@@ -16,10 +16,13 @@ import './App.scss';
 class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
-    this.props.loadGameplayState();
+    await this.props.loadGameplayState();
+    this.props.loadingEnded();
   }
 
   render() {
+    if (this.props.loadingApp) return (<div>Loading app</div>);
+
     return (
       <div className="app-wrapper">
         <div className="app-top-section-wrapper">
@@ -37,10 +40,16 @@ class App extends Component {
 App.propTypes = {
   checkAccount: PropTypes.func.isRequired,
   loadGameplayState: PropTypes.func.isRequired,
+  loadingEnded: PropTypes.func.isRequired,
+  loadingApp: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = {
-  checkAccount, loadGameplayState,
+  checkAccount, loadGameplayState, loadingEnded,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = ({ app }) => ({
+  loadingApp: app.loadingApp,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
