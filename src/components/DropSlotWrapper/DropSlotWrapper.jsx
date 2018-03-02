@@ -23,6 +23,7 @@ class DropSlotWrapper extends Component {
       itemHoverClass,
       droppedItemClass,
       mainClass,
+      index
     } = this.props;
     const isActive = isOver && canDrop;
     const itemHover = !isActive && canDrop;
@@ -37,7 +38,7 @@ class DropSlotWrapper extends Component {
 
     return connectDropTarget(
       <div className={className}>
-        { lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver}) }
+        { lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, index }) }
       </div>,
     );
   }
@@ -49,6 +50,7 @@ DropSlotWrapper.defaultProps = {
   itemHoverClass: 'drop-slot-item-hover',
   droppedItemClass: 'drop-slot-filled',
   lastDroppedItem: null,
+  index: null,
 };
 
 DropSlotWrapper.propTypes = {
@@ -57,6 +59,7 @@ DropSlotWrapper.propTypes = {
   itemHoverClass: PropTypes.string,
   droppedItemClass: PropTypes.string,
   lastDroppedItem: PropTypes.object,
+  index: PropTypes.number,
   children: PropTypes.node.isRequired,
 };
 

@@ -7,28 +7,19 @@ import { GP_BUY_BOOSTER, GP_LOCATION } from '../../actions/actionTypes';
 
 import './Gameplay.scss';
 
-const Gameplay = ({ gameplayView, locations, activeLocationIndex }) => (
+const Gameplay = ({ gameplayView }) => (
   <div className="gameplay-wrapper">
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }
-
     { gameplayView === GP_LOCATION && <ActiveLocation />}
   </div>
 );
 
-Gameplay.defaultProps = {
-  activeLocationIndex: null,
-};
-
 Gameplay.propTypes = {
   gameplayView: PropTypes.string.isRequired,
-  locations: PropTypes.array.isRequired,
-  activeLocationIndex: PropTypes.number,
 };
 
-const mapStateToProps = ({ app, location }) => ({
-  gameplayView: app.gameplayView,
-  locations: location.locations,
-  activeLocationIndex: location.activeLocationIndex,
+const mapStateToProps = ({ gameplay }) => ({
+  gameplayView: gameplay.gameplayView,
 });
 
 export default connect(mapStateToProps)(Gameplay);

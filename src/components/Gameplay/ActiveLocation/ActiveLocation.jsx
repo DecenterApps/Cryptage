@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GameplayItem from '../../GameplayItem/GameplayItem';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
-import { handleAssetDrop } from '../../../actions/locationActions';
+import { handleAssetDrop } from '../../../actions/gameplayActions';
 
 import './ActiveLocation.scss';
 
@@ -41,9 +41,9 @@ const mapDispatchToProps = {
   handleAssetDrop,
 };
 
-const mapStateToProps = ({ location }) => ({
-  locations: location.locations,
-  activeLocationIndex: location.activeLocationIndex,
+const mapStateToProps = ({ gameplay }) => ({
+  locations: gameplay.locations,
+  activeLocationIndex: gameplay.activeLocationIndex,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveLocation);

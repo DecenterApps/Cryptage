@@ -82,7 +82,7 @@ export const revealSuccess = (cards, _id, _boosters, getState) => {
   boosters.splice(boosterIndex, 1);
 
   // Remove duplicate
-  const { locations } = getState().location;
+  const { locations } = getState().gameplay;
   locations.forEach((location) => {
     const playedLocationIndex = cards.findIndex(_card => _card.id === location.id);
     cards.splice(playedLocationIndex, 1);

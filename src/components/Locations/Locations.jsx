@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setActiveLocation, handleLocationDrop } from '../../actions/locationActions';
+import { handleLocationDrop } from '../../actions/gameplayActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
 
@@ -22,45 +22,22 @@ const Locations = ({ locations, handleLocationDrop }) => (
         element={<LocationSidebarItem />}
         mainClass="location-slots-wrapper"
       />
-
-      {/*{*/}
-        {/*locations.length > 0 &&*/}
-        {/*<div className="locations-small-wrapper">*/}
-          {/*{*/}
-            {/*locations.map((location, index) => (*/}
-              {/*<div*/}
-                {/*className={`location ${(activeLocationIndex === index) && 'active'}`}*/}
-                {/*onClick={() => { setActiveLocation(index); }}*/}
-                {/*key={location.id}*/}
-              {/*>*/}
-                {/*{ location.stats.title }, { location.id }*/}
-              {/*</div>*/}
-            {/*))*/}
-          {/*}*/}
-        {/*</div>*/}
-      {/*}*/}
     </div>
   </div>
 );
 
-// Locations.defaultProps = {
-//   activeLocationIndex: null,
-// };
-
 Locations.propTypes = {
-  // setActiveLocation: PropTypes.func.isRequired,
   locations: PropTypes.array.isRequired,
-  // activeLocationIndex: PropTypes.number,
   handleLocationDrop: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ location }) => ({
-  locations: location.locations,
-  activeLocationIndex: location.activeLocationIndex,
+const mapStateToProps = ({ gameplay }) => ({
+  locations: gameplay.locations,
+  activeLocationIndex: gameplay.activeLocationIndex,
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, handleLocationDrop,
+  handleLocationDrop,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Locations);

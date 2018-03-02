@@ -14,6 +14,7 @@ const DropSlotsWrapper = props => (
           accepts={accepts}
           lastDroppedItem={lastDroppedItem}
           onDrop={item => props.onItemDrop(index, item)}
+          index={index}
           {...props}
         >
           {React.cloneElement(props.element)}

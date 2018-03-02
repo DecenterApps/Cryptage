@@ -2,8 +2,13 @@
   height: 100%;
   width: 100%;
   background: #ffbd3b;
+  cursor: pointer;
 
-  &.hovering {
+  &:hover, &.active {
+    opacity: 0.75;
+  }
+
+  &.hovering-with-card {
     background-color: #DEDEDE;
     color: #000;
   }

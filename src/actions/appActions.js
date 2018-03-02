@@ -14,7 +14,7 @@ import config from '../constants/config.json';
  *
  * @return {Function}
  */
-export const changeGameplayView = payload => (dispatch, getState) => {
+export const changeGameplayView = payload => (dispatch) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
   // saveGameplayState(getState);
 };

@@ -42,7 +42,7 @@ export const REVEAL_SUCCESS = 'reveal_success';
 export const REVEAL_ERROR = 'reveal_error';
 
 // LOCATION
-export const ADD_ACTIVE_LOC = 'add_active_loc';
+export const DROP_LOCATION = 'drop_location';
 export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const DROP_ASSET = 'drop_asset';
 

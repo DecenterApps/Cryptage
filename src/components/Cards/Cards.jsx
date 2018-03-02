@@ -5,7 +5,6 @@ import { usersCardsFetch } from '../../actions/appActions';
 import HandCard from './HandCard/HandCard';
 import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
-import { addLocation } from '../../actions/locationActions';
 
 import './Cards.scss';
 
@@ -16,7 +15,6 @@ class Cards extends Component {
 
   render() {
     const { cardsFetching, cards } = this.props;
-    const { addLocation } = this.props;
 
     return (
       <div className="cards-wrapper">
@@ -39,7 +37,6 @@ class Cards extends Component {
           !cardsFetching && cards.length > 0 &&
           cards.map(card => (
             <div key={card.id} className="card-container">
-              {/* onClick={() => { addLocation(index, cards); }} */}
               <DragWrapper key={card.id} {...{ card }}>
                 <HandCard card={card} />
               </DragWrapper>
@@ -55,16 +52,15 @@ Cards.propTypes = {
   usersCardsFetch: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
   cardsFetching: PropTypes.bool.isRequired,
-  addLocation: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  cardsFetching: state.app.cardsFetching,
-  cards: state.app.cards,
+const mapStateToProps = ({ app, gameplay }) => ({
+  cardsFetching: app.cardsFetching,
+  cards: gameplay.cards,
 });
 
 const mapDispatchToProps = {
-  usersCardsFetch, addLocation,
+  usersCardsFetch
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cards);

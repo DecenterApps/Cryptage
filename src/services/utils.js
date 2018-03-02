@@ -157,12 +157,13 @@ export const formatSignature = (_signature) => {
 export const saveGameplayState = (getState) => {
   const state = getState();
   const { account } = state.app;
+
   if (!account) {
     console.error('Account missing when trying to save state');
     return;
   }
 
-  localStorage.setItem(`player-location-${account}`, JSON.stringify(state.location));
+  localStorage.setItem(`player-location-${account}`, JSON.stringify(state.gameplay));
 };
 
 /**

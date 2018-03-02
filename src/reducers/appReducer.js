@@ -1,6 +1,5 @@
 import {
-  CHANGE_GAMEPLAY_VIEW, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR, REVEAL_SUCCESS, ADD_ACTIVE_LOC,
-  DROP_ASSET, GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, SET_ACTIVE_LOCATION, GP_LOCATION, LOAD_STATE_FROM_STORAGE,
+  USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR, GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -8,19 +7,14 @@ const INITIAL_STATE = {
   accountBalance: 0,
   accountError: '',
 
-  gameplayView: '',
   cardsFetching: true,
-  cards: [],
-  error: '',
+  cardsFetchingError: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
-  const { type, payload } = action;
+  const { type } = action;
 
   switch (type) {
-    case CHANGE_GAMEPLAY_VIEW:
-      return { ...state, gameplayView: payload };
-
     case USERS_CARDS_FETCH:
       return {
         ...state,
@@ -33,20 +27,7 @@ export default (state = INITIAL_STATE, action) => {
         cardsFetchingError: action.error,
       };
     case USERS_CARDS_SUCCESS:
-      return {
-        ...state,
-        cardsFetching: false,
-        cards: action.cards,
-      };
-
-    case REVEAL_SUCCESS:
-      return { ...state, cards: action.cards };
-
-    // case ADD_ACTIVE_LOC:
-    //   return { ...state, cards: action.cards };
-
-    // case DROP_ASSET:
-    //   return { ...state, cards: action.cards };
+      return { ...state, cardsFetching: false };
 
     case GET_ACCOUNT_SUCCESS:
       return {
@@ -57,10 +38,6 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state, account: '', accountBalance: '', accountError: action.error,
       };
-
-    // case SET_ACTIVE_LOCATION:
-    // case LOAD_STATE_FROM_STORAGE:
-    //   return { ...state, gameplayView: GP_LOCATION };
 
     default:
       return state;

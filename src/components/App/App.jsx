@@ -8,7 +8,7 @@ import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
 import { checkAccount } from '../../actions/appActions';
-import { loadGameplayState } from '../../actions/locationActions';
+import { loadGameplayState } from '../../actions/gameplayActions';
 
 import './App.scss';
 

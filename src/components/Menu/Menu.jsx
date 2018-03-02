@@ -34,8 +34,8 @@ Menu.propTypes = {
   changeGameplayView: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ app }) => ({
-  gameplayView: app.gameplayView,
+const mapStateToProps = ({ gameplay }) => ({
+  gameplayView: gameplay.gameplayView,
 });
 
 const mapDispatchToProps = {
