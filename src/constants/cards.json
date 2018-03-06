@@ -1,5 +1,431 @@
 {
-  "cards": {"0":{"title":"Handmade Plastic Chair","dev":1,"sec":1,"inf":0,"image":"QmWohTWM5z1BpJShtAue6V65p59CyacEhc5seDEzn7nFAg.png","cost":0,"type":2},"1":{"title":"Handcrafted Concrete Shirt","dev":4,"sec":4,"inf":1,"image":"QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png","cost":100,"type":0},"2":{"title":"Unbranded Steel Ball","dev":1,"sec":2,"inf":1,"image":"QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png","cost":0,"type":1},"3":{"title":"Ergonomic Granite Computer","dev":3,"sec":3,"inf":0,"image":"QmRPUX1yKxCUFdNx9FAVYrw5fquEqdiiZkqv18Z1AyaYJW.png","cost":400,"type":0},"4":{"title":"Gorgeous Granite Chips","dev":0,"sec":0,"inf":0,"image":"QmbYmCqUTsFxAj3NM3zipyuYraX2UsR6bU2xE9dgSJm5ck.png","cost":100,"type":1},"5":{"title":"Awesome Fresh Pizza","dev":0,"sec":1,"inf":0,"image":"QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png","cost":0,"type":0},"6":{"title":"Intelligent Soft Shoes","dev":1,"sec":2,"inf":2,"image":"QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png","cost":100,"type":0},"7":{"title":"Practical Cotton Bike","dev":1,"sec":4,"inf":1,"image":"QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png","cost":100,"type":2},"8":{"title":"Unbranded Plastic Computer","dev":0,"sec":0,"inf":2,"image":"QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png","cost":400,"type":1},"9":{"title":"Practical Cotton Salad","dev":4,"sec":1,"inf":3,"image":"QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png","cost":400,"type":2}},
+  "cards": {
+    "0": {
+      "title": "Garage",
+      "cost": {},
+      "bonus": {
+        "space": 1,
+        "power": 1
+      },
+      "image": "QmWohTWM5z1BpJShtAue6V65p59CyacEhc5seDEzn7nFAg.png",
+      "type": "Location",
+      "faction": "Neutral",
+      "description": "Well, you gotta start somewhere..."
+    },
+    "1": {
+      "title": "Coworking Space",
+      "cost": {
+        "funds": 1
+      },
+      "bonus": {
+        "space": 1,
+        "power": 1,
+        "prestige": 1
+      },
+      "image": "QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png",
+      "type": "Location",
+      "faction": "Neutral",
+      "description": "Coworking space is usually modern open space with small offices around them. Freelancers, digital nomads and small startups usually using them because it's cheap and flexible."
+    },
+    "2": {
+      "title": "Shantytown Office",
+      "cost": {
+        "funds": 1
+      },
+      "bonus": {
+        "space": 1,
+        "power": 1,
+        "prestige": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Location",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "3": {
+      "title": "Downtown Office",
+      "cost": {
+        "funds": 1
+      },
+      "bonus": {
+        "space": 1,
+        "power": 1,
+        "prestige": 1
+      },
+      "image": "QmRPUX1yKxCUFdNx9FAVYrw5fquEqdiiZkqv18Z1AyaYJW.png",
+      "type": "Location",
+      "faction": "Neutral",
+      "description": "Downtown Office should be presented during the day. They need to have daily light in combination with office light like in pictures."
+    },
+    "4": {
+      "title": "Elite Office",
+      "cost": {
+        "funds": 1
+      },
+      "bonus": {
+        "space": 1,
+        "power": 1,
+        "prestige": 1
+      },
+      "image": "QmbYmCqUTsFxAj3NM3zipyuYraX2UsR6bU2xE9dgSJm5ck.png",
+      "type": "Location",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "5": {
+      "title": "Office Building",
+      "cost": {
+        "funds": 1
+      },
+      "bonus": {
+        "space": 1,
+        "power": 1,
+        "prestige": 1
+      },
+      "image": "QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png",
+      "type": "Location",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "6": {
+      "title": "Intern Developer",
+      "cost": {
+        "funds": 1,
+        "space": 1
+      },
+      "bonus": {
+        "development": 1
+      },
+      "image": "QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png",
+      "type": "Development",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "7": {
+      "title": "Junior Developer",
+      "cost": {
+        "funds": 1,
+        "space": 1
+      },
+      "bonus": {
+        "development": 1
+      },
+      "image": "QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png",
+      "type": "Development",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "8": {
+      "title": "Freelance Expert",
+      "cost": {
+        "funds": 1,
+        "space": 1
+      },
+      "bonus": {
+        "development": 1
+      },
+      "image": "QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png",
+      "type": "Development",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "9": {
+      "title": "Senior Developer",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "prestige": 1
+      },
+      "bonus": {
+        "development": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Development",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "10": {
+      "title": "Tech Lead",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "prestige": 1
+      },
+      "bonus": {
+        "prestige": 1,
+        "development": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Development",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "11": {
+      "title": "Project Architect",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "prestige": 1
+      },
+      "bonus": {
+        "prestige": 1,
+        "development": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Development",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "12": {
+      "title": "Computer Case",
+      "cost": {
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1,
+        "space": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Mining",
+      "faction": "",
+      "description": "Computer case where user can add CPU and Graphic card."
+    },
+    "13": {
+      "title": "CPU Miner",
+      "cost": {
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Mining",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "14": {
+      "title": "Graphics card",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Mining",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "15": {
+      "title": "Mining rig",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Mining",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "16": {
+      "title": "ASIC Miner",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Mining",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "17": {
+      "title": "Mining farm",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Mining",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "18": {
+      "title": "Quantum miner",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Mining",
+      "faction": "Neutral",
+      "description": "I hate this thing: I never know how much coins im mining untill I check..."
+    },
+    "19": {
+      "title": "Part-time Gig",
+      "cost": {
+        "development": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Project",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "20": {
+      "title": "Bigtime Outsource",
+      "cost": {
+        "development": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Project",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "21": {
+      "title": "Optimize Mining Algorithm",
+      "cost": {
+        "development": 1
+      },
+      "bonus": {
+        "funds": 1,
+        "prestige": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Project",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "22": {
+      "title": "Solar Panels",
+      "cost": {
+        "funds": 1,
+        "space": 1
+      },
+      "bonus": {
+        "power": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Misc",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "23": {
+      "title": "GRID Connector",
+      "cost": {
+        "funds": 1,
+        "space": 1
+      },
+      "bonus": {
+        "funds": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Misc",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "24": {
+      "title": "Coffee Miner",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1,
+        "development": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Misc",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "25": {
+      "title": "Coffee Miner",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "funds": 1,
+        "development": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Misc",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "26": {
+      "title": "Coolant System",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "power": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Misc",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "27": {
+      "title": "CryptoCat :3",
+      "cost": {
+        "funds": 1,
+        "space": 1,
+        "power": 1
+      },
+      "bonus": {
+        "prestige": 1,
+        "development": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Misc",
+      "faction": "Neutral",
+      "description": ""
+    },
+    "28": {
+      "title": "Lambo",
+      "cost": {
+        "funds": 1,
+        "space": 1
+      },
+      "bonus": {
+        "prestige": 1
+      },
+      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "type": "Misc",
+      "faction": "Neutral",
+      "description": ""
+    }
+  },
   "cardTypes": ["entity", "action", "location"],
   "boosters": {
     "1": {
