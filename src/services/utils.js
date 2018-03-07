@@ -217,7 +217,7 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
   const locationSlots = update(_locationSlots, {
     [index]: {
       lastDroppedItem: {
-        $set: { cards: [{ ...item.card }] },
+        $set: { cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }] },
       },
     },
   });
@@ -243,7 +243,7 @@ export const getPlayedAssetCards = (_locations) => {
   const playedCards = locations.map((_locationWithCards) => {
     const arr = _locationWithCards.lastDroppedItem.dropSlots
       .filter(_locationDropSlot => _locationDropSlot.lastDroppedItem)
-      .map(({ lastDroppedItem }) => lastDroppedItem.cards);
+      .map(({ lastDroppedItem }) => lastDroppedItem.cards[0]);
 
     return Array.prototype.concat(...arr);
   });

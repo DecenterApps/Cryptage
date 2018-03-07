@@ -51,6 +51,7 @@ export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 export const UPDATE_LOCATION_VALUES = 'update_location_values';
+export const UPDATE_GLOBAL_VALUES = 'update_global_values';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
