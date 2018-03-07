@@ -1,6 +1,7 @@
 import {
   DROP_LOCATION, CHANGE_GAMEPLAY_VIEW, SET_ACTIVE_LOCATION, DROP_ASSET, GP_LOCATION,
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
+  UPDATE_LOCATION_VALUES,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -42,6 +43,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case LOAD_STATE_FROM_STORAGE:
       return { ...payload };
+
+    case UPDATE_LOCATION_VALUES:
+      return { ...state, locations: payload };
 
     default:
       return state;

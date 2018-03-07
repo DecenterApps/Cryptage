@@ -258,7 +258,7 @@ export const getPlayedAssetCards = (_locations) => {
  * @return {Array}
  */
 export const getPlayedLocationCards = _locations => (
-  Array.prototype.concat(..._locations
+  Array.prototype.concat(_locations
     .filter(_location => _location.lastDroppedItem)
-    .map(_locationWithCards => _locationWithCards.lastDroppedItem.cards))
+    .map(_locationWithCards => _locationWithCards.lastDroppedItem.cards[0]))
 );

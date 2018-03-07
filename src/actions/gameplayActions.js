@@ -73,7 +73,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
           $set: {
             values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
             dropSlots: LOCATION_ITEM_DROP_SLOTS,
-            cards: [{ ...item.card }],
+            cards: [{ ...item.card, index }],
           },
         },
       },
