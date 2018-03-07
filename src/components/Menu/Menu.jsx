@@ -6,7 +6,7 @@ import { GP_BUY_BOOSTER } from '../../actions/actionTypes';
 
 import './Menu.scss';
 
-const Menu = ({ gameplayView, changeGameplayView }) => (
+const Menu = ({ gameplayView, changeGameplayView, blockNumber }) => (
   <div className="menu-wrapper">
     <div className="buy-booster-wrapper">
       <button
@@ -18,24 +18,29 @@ const Menu = ({ gameplayView, changeGameplayView }) => (
 
       <div className="separator" />
 
+      <div className="block-number-wrapper">
+        Current block: { blockNumber }
+      </div>
+
+      <div className="separator" />
+
       <div className="stats-wrapper">
-        <div>Coins: 0</div>
+        <div>Funds: 0</div>
         <div>Development: 0</div>
-        <div>Security: 0</div>
-        <div>Influence: 0</div>
-        <div>Hashrate: 0</div>
       </div>
     </div>
   </div>
 );
 
 Menu.propTypes = {
+  blockNumber: PropTypes.number.isRequired,
   gameplayView: PropTypes.string.isRequired,
   changeGameplayView: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ gameplay }) => ({
+const mapStateToProps = ({ gameplay, app }) => ({
   gameplayView: gameplay.gameplayView,
+  blockNumber: app.blockNumber,
 });
 
 const mapDispatchToProps = {

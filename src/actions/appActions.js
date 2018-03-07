@@ -1,4 +1,4 @@
-import { GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED } from './actionTypes';
+import { GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED, UPDATE_BLOCK_NUMBER } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { nameOfNetwork, getPlayedAssetCards, getPlayedLocationCards } from '../services/utils';
 import { handlePlayedLocationCardsPassive, handlePlayedAssetCardsPassive } from '../actions/passiveGameMechanics';
@@ -44,15 +44,28 @@ export const checkAccount = () => async (dispatch, getState) => {
 };
 
 /**
+ * Gets the current block number and sets
+ * it to the state
+ *
+ * @return {Function}
+ */
+export const updateCurrentBlockNumber = () => async (dispatch) => {
+  const payload = await web3.eth.getBlockNumber();
+  dispatch({ type: UPDATE_BLOCK_NUMBER, payload });
+};
+
+/**
  * Listens to new blocks on the Ethereum network
  */
 export const listenForNewBlocks = () => (dispatch, getState) => {
   window.web3Subscriber.eth.subscribe('newBlockHeaders', async (error, { number }) => {
     if (error) return console.error('newBlockHeaders listener error', error);
 
+    dispatch({ type: UPDATE_BLOCK_NUMBER, payload: number });
+
     const { locations } = getState().gameplay;
 
-    handlePlayedLocationCardsPassive(getPlayedLocationCards([...locations]));
-    handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations]));
+    dispatch(handlePlayedLocationCardsPassive(getPlayedLocationCards([...locations])));
+    dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
   });
 };

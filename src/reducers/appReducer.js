@@ -1,6 +1,6 @@
 import {
   USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR,
-  GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED,
+  GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED, UPDATE_BLOCK_NUMBER,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -10,16 +10,21 @@ const INITIAL_STATE = {
   accountBalance: 0,
   accountError: '',
 
+  blockNumber: 0,
+
   cardsFetching: true,
   cardsFetchingError: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
-  const { type } = action;
+  const { type, payload } = action;
 
   switch (type) {
     case LOADING_ENDED:
       return { ...state, loadingApp: false };
+
+    case UPDATE_BLOCK_NUMBER:
+      return { ...state, blockNumber: payload };
 
     case USERS_CARDS_FETCH:
       return {

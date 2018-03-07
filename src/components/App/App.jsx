@@ -7,7 +7,7 @@ import Menu from '../Menu/Menu';
 import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
-import { checkAccount, loadingEnded, listenForNewBlocks } from '../../actions/appActions';
+import { checkAccount, loadingEnded, listenForNewBlocks, updateCurrentBlockNumber } from '../../actions/appActions';
 import { loadGameplayState } from '../../actions/gameplayActions';
 
 import './App.scss';
@@ -18,6 +18,7 @@ class App extends Component {
     await this.props.checkAccount();
     await this.props.loadGameplayState();
     this.props.listenForNewBlocks();
+    this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
   }
 
@@ -47,7 +48,7 @@ App.propTypes = {
 };
 
 const mapDispatchToProps = {
-  checkAccount, loadGameplayState, loadingEnded, listenForNewBlocks,
+  checkAccount, loadGameplayState, loadingEnded, listenForNewBlocks, updateCurrentBlockNumber,
 };
 
 const mapStateToProps = ({ app }) => ({
