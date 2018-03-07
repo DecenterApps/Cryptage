@@ -5,7 +5,7 @@
  * @param cards
  */
 export const handlePlayedLocationCardsPassive = cards => () => {
-  console.log('Played location cards passive', cards);
+  // console.log('Played location cards passive', cards);
 };
 
 /**
@@ -15,5 +15,5 @@ export const handlePlayedLocationCardsPassive = cards => () => {
  * @param cards
  */
 export const handlePlayedAssetCardsPassive = cards => () => {
-  console.log('Played asset cards passive', cards);
+  // console.log('Played asset cards passive', cards);
 };

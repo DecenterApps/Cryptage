@@ -240,7 +240,7 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
 export const getPlayedAssetCards = (_locations) => {
   const locations = _locations.filter(_location => _location.lastDroppedItem);
 
-  let playedCards = locations.map((_locationWithCards) => {
+  const playedCards = locations.map((_locationWithCards) => {
     const arr = _locationWithCards.lastDroppedItem.dropSlots
       .filter(_locationDropSlot => _locationDropSlot.lastDroppedItem)
       .map(({ lastDroppedItem }) => lastDroppedItem.cards);

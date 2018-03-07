@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import GameplayItem from '../../GameplayItem/GameplayItem';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import { handleAssetDrop } from '../../../actions/gameplayActions';
+import { guid } from '../../../services/utils';
 
 import './ActiveLocation.scss';
 
@@ -14,9 +15,13 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop }) => 
       <div className="active-location-header">
         <div className="location-stats-label">Location stats:</div>
         <div className="location-stats-wrapper">
-          <span>Ids: { location.lastDroppedItem.cards.map(_card => _card.id).toString() }</span>
-          <span>Space: 0</span>
-          <span>Prestige: 0</span>
+          {/* <span>Ids: { location.lastDroppedItem.cards.map(_card => _card.id).toString() }</span> */}
+
+          {
+            Object.keys(location.lastDroppedItem.values).map(value => (
+              <span key={guid()}>{ value }: { location.lastDroppedItem.values[value] }</span>
+            ))
+          }
         </div>
       </div>
 

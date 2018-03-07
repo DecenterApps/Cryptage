@@ -5,6 +5,7 @@ import {
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
+import { getLevelValuesForCard } from '../services/gameMechanicsService';
 import { saveGameplayState, updateLocationDropSlotItems, removePlayedCards } from '../services/utils';
 
 /**
@@ -65,14 +66,20 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   cards.splice(draggedCardIndex, 1);
 
   if (!locations[index].lastDroppedItem) {
+    // location drop when slot is empty
     locations = update(locations, {
       [index]: {
         lastDroppedItem: {
-          $set: { dropSlots: LOCATION_ITEM_DROP_SLOTS, cards: [{ ...item.card }] },
+          $set: {
+            values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
+            dropSlots: LOCATION_ITEM_DROP_SLOTS,
+            cards: [{ ...item.card }],
+          },
         },
       },
     });
   } else {
+    // location drop when there is/are already a card/cards in the slot
     locations[index].lastDroppedItem.cards.push({ ...item.card });
   }
 

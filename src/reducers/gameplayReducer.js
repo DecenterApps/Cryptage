@@ -8,6 +8,10 @@ const INITIAL_STATE = {
   cards: [],
   locations: LOCATION_DROP_SLOTS,
   activeLocationIndex: 0,
+  globalStats: {
+    funds: 0,
+    development: 0,
+  },
 };
 
 export default (state = INITIAL_STATE, action) => {

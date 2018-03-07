@@ -15,6 +15,7 @@
       @include fancy-button;
       font-size: $font-size-regular;
       margin: 0;
+      width: 100%;
     }
   }
 
@@ -29,6 +30,7 @@
 
   .stats-wrapper {
     text-align: left;
+    text-transform: capitalize;
 
     div {
       margin-bottom: 10px;
