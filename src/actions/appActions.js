@@ -1,6 +1,7 @@
 import { GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED } from './actionTypes';
 import ethService from '../services/ethereumService';
-import { nameOfNetwork } from '../services/utils';
+import { nameOfNetwork, getPlayedAssetCards, getPlayedLocationCards } from '../services/utils';
+import { handlePlayedLocationCardsPassive, handlePlayedAssetCardsPassive } from '../actions/passiveGameMechanics';
 import config from '../constants/config.json';
 
 /**
@@ -45,11 +46,13 @@ export const checkAccount = () => async (dispatch, getState) => {
 /**
  * Listens to new blocks on the Ethereum network
  */
-export const listenForNewBlocks = () => () => {
+export const listenForNewBlocks = () => (dispatch, getState) => {
   window.web3Subscriber.eth.subscribe('newBlockHeaders', async (error, { number }) => {
     if (error) return console.error('newBlockHeaders listener error', error);
 
-    // const block = await window.web3.eth.getBlock(number);
-    console.log('New block', number);
+    const { locations } = getState().gameplay;
+
+    handlePlayedLocationCardsPassive(getPlayedLocationCards([...locations]));
+    handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations]));
   });
 };

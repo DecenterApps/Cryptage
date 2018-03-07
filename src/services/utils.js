@@ -230,3 +230,35 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
     },
   });
 };
+
+/**
+ * Gets all asset cards that were dropped on the field
+ *
+ * @param {Array} _locations
+ * @return {Array}
+ */
+export const getPlayedAssetCards = (_locations) => {
+  const locations = _locations.filter(_location => _location.lastDroppedItem);
+
+  let playedCards = locations.map((_locationWithCards) => {
+    const arr = _locationWithCards.lastDroppedItem.dropSlots
+      .filter(_locationDropSlot => _locationDropSlot.lastDroppedItem)
+      .map(({ lastDroppedItem }) => lastDroppedItem.cards);
+
+    return Array.prototype.concat(...arr);
+  });
+
+  return Array.prototype.concat(...playedCards);
+};
+
+/**
+ * Gets all location cards that were dropped on location slots
+ *
+ * @param {Array} _locations
+ * @return {Array}
+ */
+export const getPlayedLocationCards = _locations => (
+  Array.prototype.concat(..._locations
+    .filter(_location => _location.lastDroppedItem)
+    .map(_locationWithCards => _locationWithCards.lastDroppedItem.cards))
+);
