@@ -41,3 +41,15 @@ export const checkAccount = () => async (dispatch, getState) => {
 
   setTimeout(() => checkAccount()(dispatch, getState), 1000);
 };
+
+/**
+ * Listens to new blocks on the Ethereum network
+ */
+export const listenForNewBlocks = () => () => {
+  window.web3Subscriber.eth.subscribe('newBlockHeaders', async (error, { number }) => {
+    if (error) return console.error('newBlockHeaders listener error', error);
+
+    // const block = await window.web3.eth.getBlock(number);
+    console.log('New block', number);
+  });
+};

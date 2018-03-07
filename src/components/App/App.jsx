@@ -7,7 +7,7 @@ import Menu from '../Menu/Menu';
 import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
-import { checkAccount, loadingEnded } from '../../actions/appActions';
+import { checkAccount, loadingEnded, listenForNewBlocks } from '../../actions/appActions';
 import { loadGameplayState } from '../../actions/gameplayActions';
 
 import './App.scss';
@@ -17,6 +17,7 @@ class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
     await this.props.loadGameplayState();
+    this.props.listenForNewBlocks();
     this.props.loadingEnded();
   }
 
@@ -42,10 +43,11 @@ App.propTypes = {
   loadGameplayState: PropTypes.func.isRequired,
   loadingEnded: PropTypes.func.isRequired,
   loadingApp: PropTypes.bool.isRequired,
+  listenForNewBlocks: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  checkAccount, loadGameplayState, loadingEnded,
+  checkAccount, loadGameplayState, loadingEnded, listenForNewBlocks,
 };
 
 const mapStateToProps = ({ app }) => ({
