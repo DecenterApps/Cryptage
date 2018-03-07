@@ -426,7 +426,7 @@
       "description": ""
     }
   },
-  "cardTypes": ["entity", "action", "location"],
+  "cardTypes": ["Location", "Development", "Mining", "Project", "Misc"],
   "boosters": {
     "1": {
       "id": "1",

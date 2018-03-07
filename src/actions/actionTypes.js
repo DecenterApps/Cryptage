@@ -1,21 +1,24 @@
 import cardConfig from '../constants/cards.json';
 
+const assesDropTypes = [...cardConfig.cardTypes];
+assesDropTypes.shift();
+
 export const LOCATION_ITEM_DROP_SLOTS = [
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0], cardConfig.cardTypes[1]], lastDroppedItem: null },
+  { accepts: [...assesDropTypes], lastDroppedItem: null },
+  { accepts: [...assesDropTypes], lastDroppedItem: null },
+  { accepts: [...assesDropTypes], lastDroppedItem: null },
+  { accepts: [...assesDropTypes], lastDroppedItem: null },
+  { accepts: [...assesDropTypes], lastDroppedItem: null },
+  { accepts: [...assesDropTypes], lastDroppedItem: null },
 ];
 
 export const LOCATION_DROP_SLOTS = [
-  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[2]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
 ];
 
 // APP

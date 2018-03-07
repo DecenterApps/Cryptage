@@ -7,9 +7,11 @@
   box-sizing: border-box;
   overflow: hidden;
 
-  &.type-entity { background-color: #ff6259; }
-  &.type-action { background-color: #85b342; }
-  &.type-location { background-color: #ffbd3b; }
+  &.type-mining { background-color: #F2C5C5; }
+  &.type-development { background-color: #D4E7CD; }
+  &.type-location { background-color: #C8DEF1; }
+  &.type-project { background-color: #EDEDED; }
+  &.type-misc { background-color: #FFF0C5; }
 
   .card-image {
     text-align: center;
