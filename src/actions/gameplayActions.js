@@ -69,6 +69,8 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     // location drop when slot is empty
     locations = update(locations, {
       [index]: {
+        // only allow the card type that has been dropped now to be dropped again
+        accepts: { $set: [item.card.metadata.id] },
         lastDroppedItem: {
           $set: {
             values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
@@ -80,6 +82,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     });
   } else {
     // location drop when there is/are already a card/cards in the slot
+    // handle level up here
     locations[index].lastDroppedItem.cards.push({ ...item.card });
   }
 
@@ -114,6 +117,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   if (!slotItem) {
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex);
   } else {
+    // handle asset level up here
     locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...item.card });
   }
 

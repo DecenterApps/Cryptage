@@ -216,8 +216,11 @@ export const saveGameplayState = (getState) => {
 export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex) => {
   const locationSlots = update(_locationSlots, {
     [index]: {
+      accepts: { $set: [item.card.metadata.id] },
       lastDroppedItem: {
-        $set: { cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }] },
+        $set: {
+          cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }]
+        },
       },
     },
   });

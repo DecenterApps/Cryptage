@@ -1,24 +1,24 @@
 import cardConfig from '../constants/cards.json';
 
-const assesDropTypes = [...cardConfig.cardTypes];
-assesDropTypes.shift();
+const acceptedAssetDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type !== 'Location');
+const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Location');
 
 export const LOCATION_ITEM_DROP_SLOTS = [
-  { accepts: [...assesDropTypes], lastDroppedItem: null },
-  { accepts: [...assesDropTypes], lastDroppedItem: null },
-  { accepts: [...assesDropTypes], lastDroppedItem: null },
-  { accepts: [...assesDropTypes], lastDroppedItem: null },
-  { accepts: [...assesDropTypes], lastDroppedItem: null },
-  { accepts: [...assesDropTypes], lastDroppedItem: null },
+  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
 ];
 
 export const LOCATION_DROP_SLOTS = [
-  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
-  { accepts: [cardConfig.cardTypes[0]], lastDroppedItem: null },
+  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
 ];
 
 // APP

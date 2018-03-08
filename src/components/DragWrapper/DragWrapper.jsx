@@ -4,7 +4,7 @@ import { DragSource } from 'react-dnd';
 
 const boxSource = { beginDrag(props) { return { card: { ...props.card } }; } };
 
-@DragSource(props => props.card.stats.type, boxSource, (connect, monitor) => ({
+@DragSource(props => props.card.metadata.id, boxSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
 }))
