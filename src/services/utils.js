@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import { getLevelValuesForCard } from '../services/gameMechanicsService';
 
 /**
  * Generates unique id
@@ -219,7 +220,10 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
       accepts: { $set: [item.card.metadata.id] },
       lastDroppedItem: {
         $set: {
-          cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }]
+          level: 1,
+          canLevelUp: false,
+          values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
+          cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }],
         },
       },
     },

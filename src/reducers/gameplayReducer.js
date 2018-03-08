@@ -1,7 +1,7 @@
 import {
   DROP_LOCATION, CHANGE_GAMEPLAY_VIEW, SET_ACTIVE_LOCATION, DROP_ASSET, GP_LOCATION,
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
-  UPDATE_LOCATION_VALUES, UPDATE_GLOBAL_VALUES, LEVEL_UP_LOCATION,
+  UPDATE_LOCATION_VALUES, UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -50,7 +50,7 @@ export default (state = INITIAL_STATE, action) => {
     case UPDATE_GLOBAL_VALUES:
       return { ...state, globalStats: payload };
 
-    case LEVEL_UP_LOCATION:
+    case LEVEL_UP_CARD:
       return { ...state, locations: payload.locations, globalStats: payload.globalStats };
 
     default:

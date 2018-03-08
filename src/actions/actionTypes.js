@@ -52,7 +52,7 @@ export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 export const UPDATE_LOCATION_VALUES = 'update_location_values';
 export const UPDATE_GLOBAL_VALUES = 'update_global_values';
-export const LEVEL_UP_LOCATION = 'level_up_location';
+export const LEVEL_UP_CARD = 'level_up_card';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
