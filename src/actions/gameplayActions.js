@@ -2,6 +2,7 @@ import update from 'immutability-helper';
 import {
   DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, LOCATION_ITEM_DROP_SLOTS, USERS_CARDS_ERROR,
   DROP_ASSET, LOAD_STATE_FROM_STORAGE, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, CHANGE_GAMEPLAY_VIEW,
+  LEVEL_UP_LOCATION,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -77,6 +78,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
         lastDroppedItem: {
           $set: {
             level: 1,
+            canLevelUp: false,
             values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
             dropSlots: LOCATION_ITEM_DROP_SLOTS,
             cards: [{ ...item.card, index }],
@@ -92,7 +94,9 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
 
     const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
     if (nextLevelPercent === 100) {
-      locations[index].lastDroppedItem.level += 1;
+      locations[index].lastDroppedItem.canLevelUp = true;
+      // disable drop when level up is available
+      locations[index].accepts = [];
     }
 
     locations[index].lastDroppedItem.cards.push({ ...item.card });
@@ -153,4 +157,25 @@ export const loadGameplayState = () => (dispatch, getState) => {
   if (!payload) return;
 
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+};
+
+/**
+ * Fires when the user clicks the level up button
+ * which appears When the location has enough stacked cards to level up
+ *
+ * @param {Number} index
+ * @return {Function}
+ */
+export const levelUpLocation = index => (dispatch, getState) => {
+  const gameplay = { ...getState().gameplay };
+  if (gameplay.globalStats.funds === 0) return alert('Not enough funds');
+
+  const locations = [...gameplay.locations];
+  const globalStats = { ...gameplay.globalStats };
+
+  globalStats.funds -= 1;
+  locations[index].lastDroppedItem.level += 1;
+  locations[index].lastDroppedItem.canLevelUp = false;
+
+  dispatch({ type: LEVEL_UP_LOCATION, payload: { locations, globalStats } });
 };

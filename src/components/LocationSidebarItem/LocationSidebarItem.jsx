@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Line } from 'rc-progress';
-import { setActiveLocation } from '../../actions/gameplayActions';
+import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
 
 import './LocationSidebarItem.scss';
 
 const LocationSidebarItem = ({
-  isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level,
+  isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
 
@@ -24,9 +24,9 @@ const LocationSidebarItem = ({
     >
       <div>{ cards[0].stats.title }</div>
       <div>Level: { level }</div>
-
       <Line strokeWidth="4" percent={percent} />
-      Cards to drop for next level: { remainingCardsToDropForNextLevel }
+      { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
+      { canLevelUp && <button onClick={() => { levelUpLocation(index); }}>Upgrade to next level</button> }
     </div>
   );
 };
@@ -44,6 +44,8 @@ LocationSidebarItem.propTypes = {
   activeLocationIndex: PropTypes.number.isRequired,
   gameplayView: PropTypes.string.isRequired,
   level: PropTypes.number.isRequired,
+  canLevelUp: PropTypes.bool.isRequired,
+  levelUpLocation: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
@@ -52,7 +54,7 @@ const mapStateToProps = ({ gameplay }) => ({
 });
 
 const mapDispatchToProp = {
-  setActiveLocation,
+  setActiveLocation, levelUpLocation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(LocationSidebarItem);
