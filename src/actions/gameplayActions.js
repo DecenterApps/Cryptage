@@ -6,7 +6,10 @@ import {
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
 import { getLevelValuesForCard } from '../services/gameMechanicsService';
-import { saveGameplayState, updateLocationDropSlotItems, removePlayedCards } from '../services/utils';
+import {
+  saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
+  calcDataForNextLevel,
+} from '../services/utils';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -73,6 +76,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
         accepts: { $set: [item.card.metadata.id] },
         lastDroppedItem: {
           $set: {
+            level: 1,
             values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
             dropSlots: LOCATION_ITEM_DROP_SLOTS,
             cards: [{ ...item.card, index }],
@@ -83,6 +87,14 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   } else {
     // location drop when there is/are already a card/cards in the slot
     // handle level up here
+    const { lastDroppedItem } = locations[index];
+    const { level, cards } = lastDroppedItem;
+
+    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
+    if (nextLevelPercent === 100) {
+      locations[index].lastDroppedItem.level += 1;
+    }
+
     locations[index].lastDroppedItem.cards.push({ ...item.card });
   }
 

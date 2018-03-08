@@ -1,25 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Line } from 'rc-progress';
 import { setActiveLocation } from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
+import { calcDataForNextLevel } from '../../services/utils';
 
 import './LocationSidebarItem.scss';
 
 const LocationSidebarItem = ({
-  isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView,
-}) => (
-  <div
-    className={`
+  isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level,
+}) => {
+  const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
+
+  return (
+    <div
+      className={`
       location-sidebar-item-wrapper
       ${isOver && 'hovering-with-card'}
       ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
     `}
-    onClick={() => { setActiveLocation(index); }}
-  >
-    Num stacked locations: { cards.length }
-  </div>
-);
+      onClick={() => { setActiveLocation(index); }}
+    >
+      <div>{ cards[0].stats.title }</div>
+      <div>Level: { level }</div>
+
+      <Line strokeWidth="4" percent={percent} />
+      Cards to drop for next level: { remainingCardsToDropForNextLevel }
+    </div>
+  );
+};
 
 LocationSidebarItem.defaultProps = {
   cards: [],
@@ -33,6 +43,7 @@ LocationSidebarItem.propTypes = {
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
   gameplayView: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({

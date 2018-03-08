@@ -265,3 +265,43 @@ export const getPlayedLocationCards = _locations => (
     .filter(_location => _location.lastDroppedItem)
     .map(_locationWithCards => _locationWithCards.lastDroppedItem.cards[0]))
 );
+
+/**
+ * Calculates the number of total cards needed
+ * to level up
+ *
+ * @param {Number} level
+ * @return {Object}
+ */
+const calcCardsNeededToLevelUp = (level) => {
+  if (level === 1) return 3;
+
+  let numOfCards = 3;
+  for (let i = 2; i <= level; i += 1) {
+    numOfCards += (i + 1);
+  }
+
+  return numOfCards;
+};
+
+/**
+ * Calculates when the next level is due and other
+ * current level info
+ *
+ * @param {Number} cardsLength
+ * @param {Number} level
+ * @return {Object}
+ */
+export const calcDataForNextLevel = (cardsLength, level) => {
+  const cardsTotalNeededToLevelUp = calcCardsNeededToLevelUp(level);
+  const cardsNeededForNextLevel = level + 1;
+  const remainingCardsToDropForNextLevel = cardsTotalNeededToLevelUp - cardsLength;
+  // console.log('Ukupan broj karata potreban za seledeci nivo:', cardsTotalNeededToLevelUp);
+  // console.log('Broj karata da se baci trenutni nivo da bi se dobio sledeci:', cardsNeededForNextLevel);
+  // console.log('Preostali Broj karata da se baci trenutni nivo da bi se dobio sledeci:', remainingCardsToDropForNextLevel);
+  // console.log('Ukupan Broj bacenih karata je: ', cardsLength);
+
+  const percent = 100 - (100 * ((cardsTotalNeededToLevelUp - cardsLength) / cardsNeededForNextLevel));
+
+  return { percent, remainingCardsToDropForNextLevel };
+};

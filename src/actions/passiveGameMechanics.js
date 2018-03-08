@@ -11,7 +11,7 @@ const addPowerForEachPlayedLocation = cards => (dispatch, getState) => {
   const locations = [...gameplay.locations];
 
   // add 1 power for each location card in location slot
-  // TODO - consult Milos as to whether the increment is increased by level or by card that is in the slot
+  // TODO - increment by card type and slot level
   cards.forEach((_card) => {
     locations[_card.index].lastDroppedItem.values.power += 1;
   });
@@ -46,7 +46,7 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
 
   // add 1 funds for each card in location drop slot
   // reduce location power by 1 for each card in location drop slot
-  // TODO - consult Milos as to whether the increment/reduce by level or by card that is in the slot
+  // TODO - increment by card type and slot level
   miningCards.forEach(({ locationIndex }) => {
     if (locations[locationIndex].lastDroppedItem.values.power > 0) {
       globalStats.funds += 1;
