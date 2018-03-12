@@ -65,6 +65,9 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
 
   let locations = [...gameplay.locations];
   const cards = [...gameplay.cards];
+  const { level } = item.card.stats.cost;
+
+  if (level !== gameplay.globalStats.level) return alert('Player level not high enough to play card');
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -123,6 +126,9 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
 
   const cards = [...gameplay.cards];
   let locations = [...gameplay.locations];
+  const { level } = item.card.stats.cost;
+
+  if (level !== gameplay.globalStats.level) return alert('Player level not high enough to play card');
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
