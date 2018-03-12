@@ -2,9 +2,9 @@
   "cards": {
     "0": {
       "title": "Garage",
+      "space": 3,
       "cost": {},
       "bonus": {
-        "space": 1,
         "power": 1
       },
       "image": "QmWohTWM5z1BpJShtAue6V65p59CyacEhc5seDEzn7nFAg.png",
@@ -14,6 +14,7 @@
     },
     "1": {
       "title": "Coworking Space",
+      "space": 6,
       "cost": {
         "funds": 1
       },
@@ -29,6 +30,8 @@
     },
     "2": {
       "title": "Shantytown Office",
+      "space": 9,
+      "slots": 1,
       "cost": {
         "funds": 1
       },
@@ -44,6 +47,7 @@
     },
     "3": {
       "title": "Downtown Office",
+      "space": 9,
       "cost": {
         "funds": 1
       },
@@ -59,6 +63,7 @@
     },
     "4": {
       "title": "Elite Office",
+      "space": 12,
       "cost": {
         "funds": 1
       },
@@ -74,6 +79,7 @@
     },
     "5": {
       "title": "Office Building",
+      "space": 15,
       "cost": {
         "funds": 1
       },
