@@ -1,4 +1,4 @@
-import { UPDATE_LOCATION_VALUES, UPDATE_GLOBAL_VALUES } from '../actions/actionTypes';
+import { UPDATE_GLOBAL_VALUES } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
 
 /**
@@ -31,11 +31,9 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
   miningCards.forEach(({ locationIndex }) => {
     if (locations[locationIndex].lastDroppedItem.values.power > 0) {
       globalStats.funds += 1;
-      locations[locationIndex].lastDroppedItem.values.power -= 1;
     }
   });
 
-  dispatch({ type: UPDATE_LOCATION_VALUES, payload: locations });
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
   saveGameplayState(getState);
 };
