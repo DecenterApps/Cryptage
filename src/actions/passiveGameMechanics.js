@@ -2,32 +2,13 @@ import { UPDATE_LOCATION_VALUES, UPDATE_GLOBAL_VALUES } from '../actions/actionT
 import { saveGameplayState } from '../services/utils';
 
 /**
- * Updates played location cards power value in the gameplay state
- *
- * @param cards
- */
-const addPowerForEachPlayedLocation = cards => (dispatch, getState) => {
-  const { gameplay } = getState();
-  const locations = [...gameplay.locations];
-
-  // add 1 power for each location card in location slot
-  // TODO - increment by card type and slot level
-  cards.forEach((_card) => {
-    locations[_card.index].lastDroppedItem.values.power += 1;
-  });
-
-  dispatch({ type: UPDATE_LOCATION_VALUES, payload: locations });
-  saveGameplayState(getState);
-};
-
-/**
  * Updates gameplay stats for each played location card that has
  * that defined
  *
  * @param cards
  */
 export const handlePlayedLocationCardsPassive = cards => (dispatched) => {
-  dispatched(addPowerForEachPlayedLocation(cards));
+  // nothing yet
 };
 
 // ////////////////// ASSETS //////////////////////// //
