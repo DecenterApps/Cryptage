@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   locations: LOCATION_DROP_SLOTS,
   activeLocationIndex: 0,
   globalStats: {
+    level: 1,
     funds: 0,
     development: 0,
   },

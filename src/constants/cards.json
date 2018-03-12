@@ -2,8 +2,10 @@
   "cards": {
     "0": {
       "title": "Garage",
-      "cost": {},
-      "bonus": {
+      "cost": {
+        "funds": 0
+      },
+      "values": {
         "power": 3,
         "space": 3
       },
@@ -17,10 +19,9 @@
       "cost": {
         "funds": 1
       },
-      "bonus": {
+      "values": {
         "power": 6,
-        "space": 6,
-        "prestige": 1
+        "space": 6
       },
       "image": "QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png",
       "type": "Location",
@@ -33,10 +34,9 @@
       "cost": {
         "funds": 1
       },
-      "bonus": {
+      "values": {
         "power": 9,
-        "space": 9,
-        "prestige": 1
+        "space": 9
       },
       "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
       "type": "Location",
@@ -48,10 +48,9 @@
       "cost": {
         "funds": 1
       },
-      "bonus": {
+      "values": {
         "power": 12,
-        "space": 12,
-        "prestige": 1
+        "space": 12
       },
       "image": "QmRPUX1yKxCUFdNx9FAVYrw5fquEqdiiZkqv18Z1AyaYJW.png",
       "type": "Location",
@@ -63,10 +62,9 @@
       "cost": {
         "funds": 1
       },
-      "bonus": {
+      "values": {
         "power": 15,
-        "space": 15,
-        "prestige": 1
+        "space": 15
       },
       "image": "QmbYmCqUTsFxAj3NM3zipyuYraX2UsR6bU2xE9dgSJm5ck.png",
       "type": "Location",
@@ -78,10 +76,9 @@
       "cost": {
         "funds": 1
       },
-      "bonus": {
+      "values": {
         "power": 18,
-        "space": 18,
-        "prestige": 1
+        "space": 18
       },
       "image": "QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png",
       "type": "Location",

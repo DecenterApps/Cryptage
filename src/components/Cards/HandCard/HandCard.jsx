@@ -21,14 +21,28 @@ const HandCard = ({ card }) => (
         ))
       }
     </h4>
-    <h4>
-      Bonus:
-      {
-        Object.keys(card.stats.bonus).map((singleBonus) => (
-          <div key={guid()}>{ singleBonus }: { card.stats.bonus[singleBonus] }</div>
-        ))
-      }
-    </h4>
+    {
+      card.stats.bonus &&
+      <h4>
+        Bonus:
+        {
+          Object.keys(card.stats.bonus).map(singleBonus => (
+            <div key={guid()}>{ singleBonus }: { card.stats.bonus[singleBonus] }</div>
+          ))
+        }
+      </h4>
+    }
+    {
+      card.stats.values &&
+      <h4>
+        Bonus:
+        {
+          Object.keys(card.stats.values).map(singleValue => (
+            <div key={guid()}>{ singleValue }: { card.stats.values[singleValue] }</div>
+          ))
+        }
+      </h4>
+    }
   </div>
 );
 
