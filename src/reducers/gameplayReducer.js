@@ -3,6 +3,7 @@ import {
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
   UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD,
 } from '../actions/actionTypes';
+import { mergeDeep } from '../services/utils';
 
 const INITIAL_STATE = {
   gameplayView: '',
@@ -10,7 +11,7 @@ const INITIAL_STATE = {
   locations: LOCATION_DROP_SLOTS,
   activeLocationIndex: 0,
   globalStats: {
-    level: 10,
+    level: 1,
     funds: 0,
     development: 0,
   },
@@ -44,7 +45,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, cards: action.cards };
 
     case LOAD_STATE_FROM_STORAGE:
-      return { ...payload };
+      return { ...mergeDeep(state, payload) };
 
     case UPDATE_GLOBAL_VALUES:
       return { ...state, globalStats: payload };
