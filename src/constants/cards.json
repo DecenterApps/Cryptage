@@ -344,7 +344,7 @@
         "power": 1
       },
       "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Misc",
+      "type": "Power",
       "faction": "Neutral",
       "description": ""
     },
@@ -364,19 +364,17 @@
       "description": ""
     },
     "24": {
-      "title": "Undefined name",
+      "title": "Black Market Batteries",
       "cost": {
         "funds": 1,
         "space": 1,
-        "power": 1,
-        "level": 1
+        "level": 2
       },
       "bonus": {
-        "funds": 1,
-        "development": 1
+        "power": 2
       },
       "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Misc",
+      "type": "Power",
       "faction": "Neutral",
       "description": ""
     },
@@ -425,20 +423,22 @@
       "description": ""
     },
     "28": {
-      "title": "Lambo",
+      "title": "Jury-rigged Generator",
       "cost": {
         "funds": 1,
         "space": 1,
-        "level": 5
+        "level": 3
       },
-      "bonus": null,
+      "bonus": {
+        "power": 3
+      },
       "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Misc",
+      "type": "Power",
       "faction": "Neutral",
       "description": ""
     }
   },
-  "cardTypes": ["Location", "Development", "Mining", "Project", "Misc"],
+  "cardTypes": ["Location", "Development", "Mining", "Project", "Power", "Misc"],
   "boosters": {
     "1": {
       "id": "1",
