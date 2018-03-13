@@ -186,7 +186,8 @@
       "cost": {
         "space": 1,
         "power": 1,
-        "level": 1
+        "level": 1,
+        "funds": 0
       },
       "bonus": {
         "funds": 1,
@@ -201,6 +202,7 @@
       "title": "CPU Miner",
       "cost": {
         "space": 1,
+        "funds": 0,
         "power": 1,
         "level": 1
       },
@@ -215,7 +217,7 @@
     "14": {
       "title": "Graphics card",
       "cost": {
-        "funds": 1,
+        "funds": 0,
         "space": 1,
         "power": 1,
         "level": 1
@@ -294,6 +296,7 @@
     "19": {
       "title": "Part-time Gig",
       "cost": {
+        "funds": 1,
         "development": 1,
         "level": 1
       },
@@ -308,6 +311,7 @@
     "20": {
       "title": "Bigtime Outsource",
       "cost": {
+        "funds": 1,
         "development": 1,
         "level": 2
       },
@@ -322,6 +326,7 @@
     "21": {
       "title": "Optimize Mining Algorithm",
       "cost": {
+        "funds": 1,
         "development": 1,
         "level": 3
       },

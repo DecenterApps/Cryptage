@@ -6,7 +6,7 @@ import {
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
-import { getLevelValuesForCard } from '../services/gameMechanicsService';
+import { handleCardMathematics } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel,
@@ -64,10 +64,12 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   const { gameplay } = getState();
 
   let locations = [...gameplay.locations];
+  let globalStats = { ...gameplay.globalStats };
   const cards = [...gameplay.cards];
-  const { level } = item.card.stats.cost;
+  const { level, funds } = item.card.stats.cost;
 
-  if (level !== gameplay.globalStats.level) return alert('Player level not high enough to play card');
+  if (level > globalStats.level) return alert('Player level not high enough to play card');
+  if (funds > globalStats.funds) return alert('You do not have enough funds to play card!');
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -105,8 +107,12 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     locations[index].lastDroppedItem.cards.push({ ...item.card });
   }
 
+  const mathRes = handleCardMathematics(item.card, locations, globalStats);
+  locations = mathRes.locations;
+  globalStats = mathRes.globalStats;
+
   dispatch({
-    type: DROP_LOCATION, activeLocationIndex: index, locations, cards,
+    type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
   });
   dispatch(changeGameplayView(GP_LOCATION));
   saveGameplayState(getState);
@@ -126,9 +132,11 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
 
   const cards = [...gameplay.cards];
   let locations = [...gameplay.locations];
-  const { level } = item.card.stats.cost;
+  let globalStats = { ...gameplay.globalStats };
+  const { level, funds } = item.card.stats.cost;
 
-  if (level !== gameplay.globalStats.level) return alert('Player level not high enough to play card');
+  if (level > globalStats.level) return alert('Player level not high enough to play card!');
+  if (funds > globalStats.funds) return alert('You do not have enough funds to play card!');
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -155,7 +163,16 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...item.card });
   }
 
-  dispatch({ type: DROP_ASSET, locations, cards });
+  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats);
+  locations = mathRes.locations;
+  globalStats = mathRes.globalStats;
+
+  dispatch({
+    type: DROP_ASSET,
+    locations,
+    cards,
+    globalStats,
+  });
   saveGameplayState(getState);
 };
 

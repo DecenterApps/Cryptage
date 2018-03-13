@@ -68,3 +68,21 @@ export const getLevelValuesForCard = (id, levelIndex) => {
 
   return cardLevels[id][levelIndex];
 };
+
+/**
+ * Takes in card, locations, global stats and deduces cost of playing card,
+ * handles special card types math
+ *
+ * @param {Object} card
+ * @param {Array} _locations
+ * @param {Object} _globalStats
+ * @return {Object}
+ */
+export const handleCardMathematics = (card, _locations, _globalStats) => {
+  const locations = [..._locations];
+  const globalStats = { ..._globalStats };
+
+  globalStats.funds -= card.stats.cost.funds;
+
+  return { globalStats, locations };
+};

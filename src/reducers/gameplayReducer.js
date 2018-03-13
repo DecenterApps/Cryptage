@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   locations: LOCATION_DROP_SLOTS,
   activeLocationIndex: 0,
   globalStats: {
-    level: 1,
+    level: 10,
     funds: 0,
     development: 0,
   },
@@ -26,6 +26,7 @@ export default (state = INITIAL_STATE, action) => {
         locations: action.locations,
         cards: action.cards,
         activeLocationIndex: action.activeLocationIndex,
+        globalStats: action.globalStats,
       };
 
     case SET_ACTIVE_LOCATION:
@@ -35,7 +36,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, gameplayView: payload };
 
     case DROP_ASSET: {
-      return { ...state, locations: action.locations, cards: action.cards };
+      return { ...state, locations: action.locations, cards: action.cards, globalStats: action.globalStats };
     }
 
     case USERS_CARDS_SUCCESS:
