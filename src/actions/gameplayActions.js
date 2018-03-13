@@ -107,7 +107,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     locations[index].lastDroppedItem.cards.push({ ...item.card });
   }
 
-  const mathRes = handleCardMathematics(item.card, locations, globalStats);
+  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, index);
   locations = mathRes.locations;
   globalStats = mathRes.globalStats;
 
@@ -163,7 +163,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...item.card });
   }
 
-  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats);
+  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, activeLocationIndex);
   locations = mathRes.locations;
   globalStats = mathRes.globalStats;
 

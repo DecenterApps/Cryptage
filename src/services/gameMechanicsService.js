@@ -76,13 +76,27 @@ export const getLevelValuesForCard = (id, levelIndex) => {
  * @param {Object} card
  * @param {Array} _locations
  * @param {Object} _globalStats
+ * @param {Number} activeLocationIndex
  * @return {Object}
  */
-export const handleCardMathematics = (card, _locations, _globalStats) => {
+export const handleCardMathematics = (card, _locations, _globalStats, activeLocationIndex) => {
   const locations = [..._locations];
   const globalStats = { ..._globalStats };
 
   globalStats.funds -= card.stats.cost.funds;
+
+  switch (card.stats.type) {
+    case 'Development':
+      globalStats.development += card.stats.bonus.development;
+      break;
+
+    case 'Power':
+      locations[activeLocationIndex].lastDroppedItem.values.power += card.stats.bonus.power;
+      break;
+
+    default:
+      break;
+  }
 
   return { globalStats, locations };
 };
