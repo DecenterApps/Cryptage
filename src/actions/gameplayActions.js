@@ -6,7 +6,7 @@ import {
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
-import { handleCardMathematics } from '../services/gameMechanicsService';
+import { checkIfCanPlayCard, handleCardMathematics } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel,
@@ -66,10 +66,9 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   let locations = [...gameplay.locations];
   let globalStats = { ...gameplay.globalStats };
   const cards = [...gameplay.cards];
-  const { level, funds } = item.card.stats.cost;
 
-  if (level > globalStats.level) return alert('Player level not high enough to play card');
-  if (funds > globalStats.funds) return alert('You do not have enough funds to play card!');
+  const play = checkIfCanPlayCard(item.card.stats, globalStats);
+  if (!play) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -133,10 +132,9 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const cards = [...gameplay.cards];
   let locations = [...gameplay.locations];
   let globalStats = { ...gameplay.globalStats };
-  const { level, funds } = item.card.stats.cost;
 
-  if (level > globalStats.level) return alert('Player level not high enough to play card!');
-  if (funds > globalStats.funds) return alert('You do not have enough funds to play card!');
+  const play = checkIfCanPlayCard(item.card.stats, globalStats, locations[activeLocationIndex].lastDroppedItem);
+  if (!play) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
