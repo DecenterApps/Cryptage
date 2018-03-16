@@ -11,9 +11,8 @@ const HandCard = ({ card }) => (
     </div>
     <h3>{card.stats.title}</h3>
     <h4>Type: {card.stats.type}</h4>
-    <h4>Faction: {card.stats.faction}</h4>
 
-    <h4>
+    <h4 className="section-wrapper">
       Cost:
       {
         Object.keys(card.stats.cost).map(singleCost => (
@@ -23,7 +22,7 @@ const HandCard = ({ card }) => (
     </h4>
     {
       card.stats.bonus &&
-      <h4>
+      <h4 className="section-wrapper">
         Bonus:
         {
           Object.keys(card.stats.bonus).map(singleBonus => (
@@ -34,8 +33,8 @@ const HandCard = ({ card }) => (
     }
     {
       card.stats.values &&
-      <h4>
-        Bonus:
+      <h4 className="section-wrapper">
+        Values:
         {
           Object.keys(card.stats.values).map(singleValue => (
             <div key={guid()}>{ singleValue }: { card.stats.values[singleValue] }</div>

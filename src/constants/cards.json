@@ -1,449 +1,426 @@
 {
   "cards": {
     "0": {
-      "title": "Garage",
+      "title": "Computer Case",
       "cost": {
-        "funds": 0,
+        "funds": 10,
+        "space": 5,
         "level": 1
       },
       "values": {
-        "power": 3,
-        "space": 3
+        "space": "1"
       },
-      "image": "QmWohTWM5z1BpJShtAue6V65p59CyacEhc5seDEzn7nFAg.png",
-      "type": "Location",
-      "faction": "Neutral",
-      "description": "Well, you gotta start somewhere..."
+      "image": "computer-case.jpg",
+      "type": "Container",
+      "description": ""
     },
     "1": {
-      "title": "Coworking Space",
+      "title": "Rig",
       "cost": {
-        "funds": 1,
-        "level": 1
+        "funds": 1000,
+        "level": 2,
+        "space": 15
       },
       "values": {
-        "power": 6,
-        "space": 6
+        "space": 4
       },
-      "image": "QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png",
-      "type": "Location",
-      "faction": "Neutral",
-      "description": "Coworking space is usually modern open space with small offices around them. Freelancers, digital nomads and small startups usually using them because it's cheap and flexible."
+      "image": "mining-rig.jpg",
+      "type": "Container",
+      "description": ""
     },
     "2": {
-      "title": "Shantytown Office",
-      "slots": 1,
+      "title": "Mount",
       "cost": {
-        "funds": 1,
-        "level": 2
+        "funds": 10000,
+        "level": 3,
+        "space": 25
       },
       "values": {
-        "power": 9,
-        "space": 9
+        "space": 4
       },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Location",
-      "faction": "Neutral",
+      "image": "mount.jpg",
+      "type": "Container",
       "description": ""
     },
     "3": {
-      "title": "Downtown Office",
+      "title": "CPU",
       "cost": {
-        "funds": 1,
-        "level": 2
+        "funds": 10,
+        "level": 1,
+        "space": 1
       },
-      "values": {
-        "power": 12,
-        "space": 12
+      "bonus": {
+        "funds": 0.1
       },
-      "image": "QmRPUX1yKxCUFdNx9FAVYrw5fquEqdiiZkqv18Z1AyaYJW.png",
-      "type": "Location",
-      "faction": "Neutral",
-      "description": "Downtown Office should be presented during the day. They need to have daily light in combination with office light like in pictures."
+      "image": "cpu.jpg",
+      "type": "Mining",
+      "description": ""
     },
     "4": {
-      "title": "Elite Office",
+      "title": "Graphics card",
       "cost": {
-        "funds": 1,
-        "level": 3
+        "funds": 100,
+        "space": 1,
+        "level": 1,
+        "power": 4
       },
-      "values": {
-        "power": 15,
-        "space": 15
+      "bonus": {
+        "funds": 0.5
       },
-      "image": "QmbYmCqUTsFxAj3NM3zipyuYraX2UsR6bU2xE9dgSJm5ck.png",
-      "type": "Location",
-      "faction": "Neutral",
+      "image": "graphics-card.jpg",
+      "type": "Mining",
       "description": ""
     },
     "5": {
-      "title": "Office Building",
+      "title": "ASIC miner",
       "cost": {
-        "funds": 1,
-        "level": 4
+        "funds": 10000,
+        "level": 2,
+        "power": 16,
+        "space": 1
       },
-      "values": {
-        "power": 18,
-        "space": 18
+      "bonus": {
+        "funds": 10
       },
-      "image": "QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png",
-      "type": "Location",
-      "faction": "Neutral",
+      "image": "asic-miner.jpg",
+      "type": "Mining",
       "description": ""
     },
     "6": {
+      "title": "Quantum miner",
+      "cost": {
+        "funds": 1000000,
+        "power": 32,
+        "space": 1,
+        "level": 2
+      },
+      "bonus": {
+        "funds": 100
+      },
+      "image": "quantum-miner.jpg",
+      "type": "Mining",
+      "description": ""
+    },
+    "7": {
+      "title": "Garage",
+      "cost": {
+        "level": 1
+      },
+      "values": {
+        "space": 40,
+        "power": 3
+      },
+      "image": "garage.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "8": {
+      "title": "Coworking space",
+      "cost": {
+        "funds": 500,
+        "level": 2
+      },
+      "values": {
+        "space": 60,
+        "power": 9
+      },
+      "image": "coworking-space.jpeg",
+      "type": "Location",
+      "description": ""
+    },
+    "9": {
+      "title": "Shantytown Office",
+      "cost": {
+        "funds": 2000,
+        "level": 4
+      },
+      "values": {
+        "space": 80,
+        "power": 20
+      },
+      "image": "shanty-town-office.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "10": {
+      "title": "Downtown Office",
+      "cost": {
+        "funds": 10000,
+        "level": 6
+      },
+      "values": {
+        "space": 120,
+        "power": 50
+      },
+      "image": "downtown-office.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "11": {
+      "title": "Elite Office",
+      "cost": {
+        "funds": 100000,
+        "level": 10
+      },
+      "values": {
+        "space": 160,
+        "power": 110
+      },
+      "image": "elite-office.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "12": {
+      "title": "Office Building",
+      "cost": {
+        "funds": 1000000,
+        "level": 20
+      },
+      "values": {
+        "space": 200,
+        "power": 230
+      },
+      "image": "office-building.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "13": {
       "title": "Intern Developer",
       "cost": {
-        "funds": 1,
-        "space": 1,
+        "space": 10,
+        "funds": 15,
         "level": 1
       },
       "bonus": {
         "development": 1
       },
-      "image": "QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png",
+      "image": "intern-dev.jpg",
       "type": "Development",
-      "faction": "Neutral",
       "description": ""
     },
-    "7": {
+    "14": {
       "title": "Junior Developer",
       "cost": {
-        "funds": 1,
-        "space": 1,
+        "space": 10,
+        "funds": 100,
         "level": 2
-      },
-      "bonus": {
-        "development": 2
-      },
-      "image": "QmRuCat4Hy6vXckd5PMs13Fdt4gK2k89XGyJax2VYPfzx9.png",
-      "type": "Development",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "8": {
-      "title": "Freelance Expert",
-      "cost": {
-        "funds": 1,
-        "space": 1,
-        "level": 3
-      },
-      "bonus": {
-        "development": 3
-      },
-      "image": "QmNR2hsWw2DngyELLbPvXE4DmD64kgpkg2nmNVMdgZkj8V.png",
-      "type": "Development",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "9": {
-      "title": "Senior Developer",
-      "cost": {
-        "funds": 1,
-        "space": 1,
-        "level": 3
-      },
-      "bonus": {
-        "development": 3
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Development",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "10": {
-      "title": "Tech Lead",
-      "cost": {
-        "funds": 1,
-        "space": 1,
-        "level": 4
       },
       "bonus": {
         "development": 4
       },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "image": "junior-dev.jpeg",
       "type": "Development",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "11": {
-      "title": "Project Architect",
-      "cost": {
-        "funds": 1,
-        "space": 1,
-        "level": 5
-      },
-      "bonus": {
-        "development": 5
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Development",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "12": {
-      "title": "Computer Case",
-      "cost": {
-        "space": 1,
-        "power": 1,
-        "level": 1,
-        "funds": 0
-      },
-      "bonus": {
-        "funds": 1,
-        "space": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Mining",
-      "faction": "",
-      "description": "Computer case where user can add CPU and Graphic card."
-    },
-    "13": {
-      "title": "CPU Miner",
-      "cost": {
-        "space": 1,
-        "funds": 0,
-        "power": 1,
-        "level": 1
-      },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Mining",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "14": {
-      "title": "Graphics card",
-      "cost": {
-        "funds": 0,
-        "space": 1,
-        "power": 1,
-        "level": 1
-      },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Mining",
-      "faction": "Neutral",
       "description": ""
     },
     "15": {
-      "title": "Mining rig",
+      "title": "Freelance Expert",
       "cost": {
-        "funds": 1,
-        "space": 1,
-        "power": 1,
-        "level": 2
-      },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Mining",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "16": {
-      "title": "ASIC Miner",
-      "cost": {
-        "funds": 1,
-        "space": 1,
-        "power": 1,
-        "level": 2
-      },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Mining",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "17": {
-      "title": "Mining farm",
-      "cost": {
-        "funds": 1,
-        "space": 1,
-        "power": 1,
-        "level": 3
-      },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Mining",
-      "faction": "Neutral",
-      "description": ""
-    },
-    "18": {
-      "title": "Quantum miner",
-      "cost": {
-        "funds": 1,
-        "space": 1,
+        "space": 10,
+        "funds": 500,
         "level": 4
       },
       "bonus": {
-        "funds": 1
+        "development": 10
       },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Mining",
-      "faction": "Neutral",
-      "description": "I hate this thing: I never know how much coins im mining untill I check..."
+      "image": "freelancer.jpg",
+      "type": "Development",
+      "description": ""
     },
-    "19": {
-      "title": "Part-time Gig",
+    "16": {
+      "title": "Senior Developer",
       "cost": {
-        "funds": 1,
-        "development": 1,
-        "level": 1
+        "space": 10,
+        "funds": 3000,
+        "level": 5
       },
       "bonus": {
-        "funds": 1
+        "development": 22
       },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Project",
-      "faction": "Neutral",
+      "image": "senior-dev.jpg",
+      "type": "Development",
+      "description": ""
+    },
+    "17": {
+      "title": "Tech Lead",
+      "cost": {
+        "space": 10,
+        "funds": 10000,
+        "level": 6
+      },
+      "bonus": {
+        "development": 46
+      },
+      "image": "tech-lead.jpg",
+      "type": "Development",
+      "description": ""
+    },
+    "18": {
+      "title": "Project Architect",
+      "cost": {
+        "space": 10,
+        "funds": 40000,
+        "level": 10
+      },
+      "bonus": {
+        "development": 76
+      },
+      "image": "project-architect.jpg",
+      "type": "Development",
+      "description": ""
+    },
+    "19": {
+      "title": "Hacker",
+      "cost": {
+        "level": 1
+      },
+      "bonus": null,
+      "image": "hacker.jpg",
+      "type": "Development",
       "description": ""
     },
     "20": {
-      "title": "Bigtime Outsource",
+      "title": "Part-time Gig",
       "cost": {
-        "funds": 1,
-        "development": 1,
-        "level": 2
+        "funds": 50,
+        "level": 1
       },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "bonus": null,
+      "image": "part-time-gig.jpg",
       "type": "Project",
-      "faction": "Neutral",
       "description": ""
     },
     "21": {
-      "title": "Optimize Mining Algorithm",
+      "title": "Bigtime Outsorce",
       "cost": {
-        "funds": 1,
-        "development": 1,
-        "level": 3
+        "funds": 50,
+        "level": 1
       },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "bonus": null,
+      "image": "outsourcing.jpeg",
       "type": "Project",
-      "faction": "Neutral",
       "description": ""
     },
     "22": {
-      "title": "Solar Panels",
+      "title": "Optimize Mining Algorithm",
       "cost": {
-        "funds": 1,
-        "space": 1,
+        "funds": 50,
         "level": 1
       },
-      "bonus": {
-        "power": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Power",
-      "faction": "Neutral",
+      "bonus": null,
+      "image": "algo.jpg",
+      "type": "Project",
       "description": ""
     },
     "23": {
-      "title": "GRID Connector",
+      "title": "No name project 1",
       "cost": {
-        "funds": 1,
-        "space": 1,
+        "funds": 50,
         "level": 1
       },
-      "bonus": {
-        "funds": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Misc",
-      "faction": "Neutral",
+      "bonus": null,
+      "image": "missing.jpeg",
+      "type": "Project",
       "description": ""
     },
     "24": {
-      "title": "Black Market Batteries",
+      "title": "No name project 2",
       "cost": {
-        "funds": 1,
-        "space": 1,
-        "level": 2
+        "funds": 50,
+        "level": 1
       },
-      "bonus": {
-        "power": 2
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Power",
-      "faction": "Neutral",
+      "bonus": null,
+      "image": "missing.jpeg",
+      "type": "Project",
       "description": ""
     },
     "25": {
-      "title": "Coffee Miner",
+      "title": "No name project 3",
       "cost": {
-        "funds": 1,
-        "space": 1,
-        "power": 1
+        "funds": 50,
+        "level": 1
       },
-      "bonus": {
-        "funds": 1,
-        "development": 1
-      },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Misc",
-      "faction": "Neutral",
+      "bonus": null,
+      "image": "missing.jpeg",
+      "type": "Project",
       "description": ""
     },
     "26": {
-      "title": "Coolant System",
+      "title": "Solar Panels",
       "cost": {
-        "funds": 1,
-        "space": 1,
-        "power": 1
+        "funds": 500,
+        "space": 15,
+        "level": 1
       },
       "bonus": {
-        "power": 1
+        "power": 15
       },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Misc",
-      "faction": "Neutral",
+      "image": "solar-panels.jpeg",
+      "type": "Power",
       "description": ""
     },
     "27": {
-      "title": "CryptoCat :3",
+      "title": "Black market batteries",
       "cost": {
-        "funds": 1,
-        "space": 1,
-        "power": 1
+        "funds": 3000,
+        "space": 30,
+        "level": 1
       },
-      "bonus": null,
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
-      "type": "Misc",
-      "faction": "Neutral",
+      "bonus": {
+        "power": 50
+      },
+      "image": "black-market-batteries.jpg",
+      "type": "Power",
       "description": ""
     },
     "28": {
       "title": "Jury-rigged Generator",
       "cost": {
-        "funds": 1,
-        "space": 1,
-        "level": 3
+        "funds": 10000,
+        "space": 60,
+        "level": 1
       },
       "bonus": {
-        "power": 3
+        "power": 500
       },
-      "image": "QmY5sSNASbc1MZgFqik87p7NPV8B3NCdzoyd56gWorndbd.png",
+      "image": "generator.jpg",
       "type": "Power",
-      "faction": "Neutral",
+      "description": ""
+    },
+    "29": {
+      "title": "GRID Connector",
+      "cost": {
+        "funds": 50,
+        "level": 1
+      },
+      "bonus": null,
+      "image": "connector.jpg",
+      "type": "Misc",
+      "description": ""
+    },
+    "30": {
+      "title": "Coffe Miner",
+      "cost": {
+        "funds": 50,
+        "level": 1
+      },
+      "bonus": null,
+      "image": "coffe-miner.jpeg",
+      "type": "Misc",
+      "description": ""
+    },
+    "31": {
+      "title": "Crypto cat",
+      "cost": {
+        "funds": 50,
+        "level": 1
+      },
+      "bonus": null,
+      "image": "crypto-cat.svg",
+      "type": "Vanity",
       "description": ""
     }
   },
-  "cardTypes": ["Location", "Development", "Mining", "Project", "Power", "Misc"],
+  "cardTypes": ["Location", "Container", "Development", "Mining", "Project", "Power", "Misc", "Vanity"],
   "boosters": {
     "1": {
       "id": "1",

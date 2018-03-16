@@ -14,17 +14,20 @@
   &.type-power { background-color: #9F609C; }
   &.type-misc { background-color: #FFF0C5; }
 
+  .section-wrapper {
+    border: 1px solid black;
+  }
+
   .card-image {
     text-align: center;
 
     img {
-      width: 50px;
+      width: 115px;
     }
   }
   h3 {
     border-bottom: 1px solid;
     padding-bottom: 5px;
-    white-space: nowrap;
   }
   h4 {
     margin: 5px 0;
