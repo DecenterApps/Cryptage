@@ -14,7 +14,7 @@ export const handlePlayedLocationCardsPassive = cards => (dispatched) => {
 // ////////////////// ASSETS //////////////////////// //
 
 /**
- * Updates golbal funds based on played mining rig card power in the gameplay state
+ * Updates global funds based on played mining rig card power in the gameplay state
  *
  * @param _cards
  */
@@ -23,15 +23,16 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
   const locations = [...gameplay.locations];
   const globalStats = { ...gameplay.globalStats };
 
-  const miningCards = _cards.filter(_card => _card.stats.type === 'Mining');
+  const containerCards = _cards.filter(_card => _card.stats.type === 'Container');
 
-  // add 1 funds for each card in location drop slot
-  // reduce location power by 1 for each card in location drop slot
-  // TODO - increment by card type and slot level
-  miningCards.forEach(({ locationIndex }) => {
-    if (locations[locationIndex].lastDroppedItem.values.power > 0) {
-      globalStats.funds += 1;
-    }
+  // add 1 funds for each card in container asset drop slot
+  containerCards.forEach(({ locationIndex, slotIndex }) => {
+    const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
+    const minerCards = containerSlots
+      .filter(containerSlot => containerSlot.lastDroppedItem)
+      .map(container => container.lastDroppedItem.cards[0]);
+
+    minerCards.forEach((minerCard) => { globalStats.funds += minerCard.stats.bonus.funds; });
   });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
