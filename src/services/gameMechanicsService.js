@@ -98,7 +98,7 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
       Object.keys(globalCost).forEach((statKey) => { globalStats[statKey] -= globalCost[statKey]; });
     }
 
-    if (Object.keys(localCost).length) {
+    if (Object.keys(localCost).length && card.stats.type !== 'Mining') {
       Object.keys(localCost).forEach((statKey) => {
         locations[activeLocationIndex].lastDroppedItem.values[statKey] -= localCost[statKey];
       });
@@ -176,11 +176,11 @@ export const getSlotForContainer = (_id, space) => {
   let accepts = [];
 
   // Computer Case only accepts CPU and Graphics card
-  if (id === 0) accepts = [2, 3];
+  if (id === 0) accepts = ['3', '4'];
   // Rig only accepts Graphics card
-  if (id === 1) accepts = [3];
+  if (id === 1) accepts = ['4'];
   // Mount only accepts ASIC miner & Quantum miner
-  if (id === 2) accepts = [5, 6];
+  if (id === 2) accepts = ['5', '6'];
 
   for (let i = 0; i <= space; i += 1) slots.push({ accepts, lastDroppedItem: null });
   return slots;

@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import { Line } from 'rc-progress';
 import { connect } from 'react-redux';
 import { calcDataForNextLevel } from '../../services/utils';
-import { levelUpAsset } from '../../actions/gameplayActions';
+import { levelUpAsset, handleMinerDropInContainer } from '../../actions/gameplayActions';
+import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
+import ContainerItem from '../ContainerItem/ContainerItem';
+import { containerIds } from '../../actions/actionTypes';
 
 import './GameplayItem.scss';
 
 const GameplayItem = ({
-  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset,
+  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, dropSlots, handleMinerDropInContainer,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
+  const isContainer = containerIds.includes(cards[0].metadata.id);
 
   return (
     <div
@@ -32,6 +36,20 @@ const GameplayItem = ({
           Upgrade to next level
         </button>
       }
+
+      {
+        isContainer &&
+        <div className="container-slots">
+          <DropSlotsWrapper
+            dropSlots={dropSlots}
+            onItemDrop={(minerIndex, item) => {
+              handleMinerDropInContainer(activeLocationIndex, index, minerIndex, item);
+            }}
+            element={<ContainerItem />}
+            mainClass="container-slot"
+          />
+        </div>
+      }
     </div>
   );
 };
@@ -39,6 +57,7 @@ const GameplayItem = ({
 GameplayItem.defaultProps = {
   cards: [],
   isOver: false,
+  dropSlots: null,
 };
 
 GameplayItem.propTypes = {
@@ -49,12 +68,16 @@ GameplayItem.propTypes = {
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
   levelUpAsset: PropTypes.func.isRequired,
+  handleMinerDropInContainer: PropTypes.func.isRequired,
+  dropSlots: PropTypes.array,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
 });
 
-const mapDispatchToProps = { levelUpAsset };
+const mapDispatchToProps = {
+  levelUpAsset, handleMinerDropInContainer,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameplayItem);

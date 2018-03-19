@@ -1,6 +1,10 @@
 import cardConfig from '../constants/cards.json';
 
-const acceptedAssetDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type !== 'Location');
+const acceptedAssetDropIds =
+  Object.keys(cardConfig.cards).filter(key =>
+    cardConfig.cards[key].type !== 'Location' &&
+    cardConfig.cards[key].type !== 'Mining');
+
 const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Location');
 export const containerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Container');
 
@@ -48,6 +52,7 @@ export const REVEAL_ERROR = 'reveal_error';
 // GAMEPLAY
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
+export const DROP_MINER = 'drop_miner';
 export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';

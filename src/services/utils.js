@@ -226,7 +226,7 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
           level: 1,
           canLevelUp: false,
           values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
-          cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }],
+          cards: [{ ...item.card }],
           dropSlots: addSlot ? getSlotForContainer(item.card.metadata.id, item.card.stats.values.space) : null,
         },
       },
@@ -360,3 +360,42 @@ export const filterByKeys = (object, allowedKeys) =>
       obj[key] = object[key];
       return obj;
     }, {});
+
+/**
+ * Updates active location drop slot items
+ *
+ * @return {Array}
+ */
+export const updateContainerDropSlotItems = (
+  locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations,
+) => {
+  const containerSlots = update(_containerSlots, {
+    [cardIndex]: {
+      accepts: { $set: [] },
+      lastDroppedItem: {
+        $set: {
+          values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
+          cards: [{ ...item.card }],
+        },
+      },
+    },
+  });
+
+  let locationSlots = [..._locations[locationIndex].lastDroppedItem.dropSlots];
+
+  locationSlots = update(locationSlots, {
+    [containerIndex]: {
+      lastDroppedItem: {
+        dropSlots: { $set: containerSlots },
+      },
+    },
+  });
+
+  return update(_locations, {
+    [locationIndex]: {
+      lastDroppedItem: {
+        dropSlots: { $set: locationSlots },
+      },
+    },
+  });
+};

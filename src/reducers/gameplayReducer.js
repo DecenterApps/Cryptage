@@ -1,7 +1,7 @@
 import {
   DROP_LOCATION, CHANGE_GAMEPLAY_VIEW, SET_ACTIVE_LOCATION, DROP_ASSET, GP_LOCATION,
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
-  UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD,
+  UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD, DROP_MINER
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 
@@ -36,9 +36,14 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGE_GAMEPLAY_VIEW:
       return { ...state, gameplayView: payload };
 
-    case DROP_ASSET: {
-      return { ...state, locations: action.locations, cards: action.cards, globalStats: action.globalStats };
-    }
+    case DROP_MINER:
+    case DROP_ASSET:
+      return {
+        ...state,
+        locations: action.locations,
+        cards: action.cards,
+        globalStats: action.globalStats,
+      };
 
     case USERS_CARDS_SUCCESS:
     case REVEAL_SUCCESS:

@@ -1,10 +1,42 @@
 .gameplay-item-wrapper {
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
   background: lightgray;
 
   &.hovering {
     background-color: #DEDEDE;
     color: #000;
+  }
+
+  .container-slots {
+    display: flex;
+    height: 100%;
+
+    .drop-slots-wrapper {
+      margin: 0;
+
+
+      .drop-slot-component {
+
+        &.drop-slot-active {
+          background-color: darken(#F2C5C5, 30);
+        }
+
+        &.drop-slot-item-hover {
+          background-color: #F2C5C5;
+          color: #000;
+        }
+      }
+    }
+
+    .container-slot {
+      flex-grow: 1;
+      border: 1px dashed red;
+      width: 100%;
+      display: flex;
+      height: 100%;
+    }
   }
 }

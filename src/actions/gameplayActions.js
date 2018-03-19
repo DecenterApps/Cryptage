@@ -2,14 +2,14 @@ import update from 'immutability-helper';
 import {
   DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, LOCATION_ITEM_DROP_SLOTS, USERS_CARDS_ERROR,
   DROP_ASSET, LOAD_STATE_FROM_STORAGE, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, CHANGE_GAMEPLAY_VIEW,
-  LEVEL_UP_CARD,
+  LEVEL_UP_CARD, DROP_MINER,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
 import { checkIfCanPlayCard, handleCardMathematics } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
-  calcDataForNextLevel,
+  calcDataForNextLevel, updateContainerDropSlotItems,
 } from '../services/utils';
 
 /**
@@ -234,4 +234,45 @@ export const levelUpAsset = (activeLocationIndex, index) => (dispatch, getState)
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.canLevelUp = false;
 
   dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
+};
+
+/**
+ * AKA third level drop
+ *
+ * @param {Number} locationIndex
+ * @param {Number} containerIndex
+ * @param {Number} cardIndex
+ * @param {Object} item
+ */
+export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIndex, item) => (dispatch, getState) => {
+  const { gameplay } = getState();
+
+  const cards = [...gameplay.cards];
+  let locations = [...gameplay.locations];
+
+  const containerSlots = [
+    ...locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots,
+  ];
+  const slotItem = containerSlots[cardIndex].lastDroppedItem;
+
+  const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
+  cards.splice(draggedCardIndex, 1);
+
+  if (!slotItem) {
+    locations = updateContainerDropSlotItems(locationIndex, containerIndex, cardIndex, item, containerSlots, locations);
+  } else {
+    console.log('check if this will be possible in the mechanics');
+  }
+
+  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, locationIndex);
+  const { globalStats } = mathRes;
+  locations = mathRes.locations;
+
+  dispatch({
+    type: DROP_MINER,
+    locations,
+    cards,
+    globalStats,
+  });
+  saveGameplayState(getState);
 };
