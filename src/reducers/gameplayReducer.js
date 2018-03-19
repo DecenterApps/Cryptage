@@ -12,8 +12,8 @@ const INITIAL_STATE = {
   activeLocationIndex: 0,
   globalStats: {
     level: 10,
-    funds: 0,
-    development: 0,
+    funds: 1000000000000,
+    development: 10000000000,
   },
 };
 

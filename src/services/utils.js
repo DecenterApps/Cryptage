@@ -1,5 +1,6 @@
 import update from 'immutability-helper';
-import { getLevelValuesForCard } from '../services/gameMechanicsService';
+import { getLevelValuesForCard, getSlotForContainer } from './gameMechanicsService';
+import { containerIds } from '../actions/actionTypes';
 
 /**
  * Generates unique id
@@ -215,6 +216,8 @@ export const saveGameplayState = (getState) => {
  * @return {Array}
  */
 export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex) => {
+  const addSlot = containerIds.includes(item.card.metadata.id);
+
   const locationSlots = update(_locationSlots, {
     [index]: {
       accepts: { $set: [item.card.metadata.id] },
@@ -224,6 +227,7 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
           canLevelUp: false,
           values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
           cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }],
+          dropSlots: addSlot ? getSlotForContainer(item.card.metadata.id, item.card.stats.values.space) : null,
         },
       },
     },

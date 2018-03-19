@@ -161,3 +161,27 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
 
   return true;
 };
+
+/**
+ * Returns corresponding array of drop slots for
+ * provided container card id and space
+ *
+ * @param {Number} _id
+ * @param {Number} space
+ * @return {Array}
+ */
+export const getSlotForContainer = (_id, space) => {
+  const id = parseInt(_id, 10);
+  const slots = [];
+  let accepts = [];
+
+  // Computer Case only accepts CPU and Graphics card
+  if (id === 0) accepts = [2, 3];
+  // Rig only accepts Graphics card
+  if (id === 1) accepts = [3];
+  // Mount only accepts ASIC miner & Quantum miner
+  if (id === 2) accepts = [5, 6];
+
+  for (let i = 0; i <= space; i += 1) slots.push({ accepts, lastDroppedItem: null });
+  return slots;
+};
