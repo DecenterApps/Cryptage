@@ -87,21 +87,6 @@
       "description": ""
     },
     "6": {
-      "title": "Quantum miner",
-      "cost": {
-        "funds": 1000000,
-        "power": 32,
-        "space": 1,
-        "level": 2
-      },
-      "bonus": {
-        "funds": 100
-      },
-      "image": "quantum-miner.jpg",
-      "type": "Mining",
-      "description": ""
-    },
-    "7": {
       "title": "Garage",
       "cost": {
         "level": 1
@@ -114,7 +99,7 @@
       "type": "Location",
       "description": ""
     },
-    "8": {
+    "7": {
       "title": "Coworking space",
       "cost": {
         "funds": 500,
@@ -128,7 +113,7 @@
       "type": "Location",
       "description": ""
     },
-    "9": {
+    "8": {
       "title": "Shantytown Office",
       "cost": {
         "funds": 2000,
@@ -142,7 +127,7 @@
       "type": "Location",
       "description": ""
     },
-    "10": {
+    "9": {
       "title": "Downtown Office",
       "cost": {
         "funds": 10000,
@@ -156,7 +141,7 @@
       "type": "Location",
       "description": ""
     },
-    "11": {
+    "10": {
       "title": "Elite Office",
       "cost": {
         "funds": 100000,
@@ -170,7 +155,7 @@
       "type": "Location",
       "description": ""
     },
-    "12": {
+    "11": {
       "title": "Office Building",
       "cost": {
         "funds": 1000000,
@@ -184,7 +169,7 @@
       "type": "Location",
       "description": ""
     },
-    "13": {
+    "12": {
       "title": "Intern Developer",
       "cost": {
         "space": 10,
@@ -198,7 +183,7 @@
       "type": "Development",
       "description": ""
     },
-    "14": {
+    "13": {
       "title": "Junior Developer",
       "cost": {
         "space": 10,
@@ -212,7 +197,7 @@
       "type": "Development",
       "description": ""
     },
-    "15": {
+    "14": {
       "title": "Freelance Expert",
       "cost": {
         "space": 10,
@@ -226,7 +211,7 @@
       "type": "Development",
       "description": ""
     },
-    "16": {
+    "15": {
       "title": "Senior Developer",
       "cost": {
         "space": 10,
@@ -240,7 +225,7 @@
       "type": "Development",
       "description": ""
     },
-    "17": {
+    "16": {
       "title": "Tech Lead",
       "cost": {
         "space": 10,
@@ -254,7 +239,7 @@
       "type": "Development",
       "description": ""
     },
-    "18": {
+    "17": {
       "title": "Project Architect",
       "cost": {
         "space": 10,
@@ -268,7 +253,7 @@
       "type": "Development",
       "description": ""
     },
-    "19": {
+    "18": {
       "title": "Hacker",
       "cost": {
         "level": 1
@@ -278,7 +263,7 @@
       "type": "Development",
       "description": ""
     },
-    "20": {
+    "19": {
       "title": "Part-time Gig",
       "cost": {
         "dev": 25,
@@ -291,7 +276,7 @@
       "type": "Project",
       "description": ""
     },
-    "21": {
+    "20": {
       "title": "Bigtime Outsorce",
       "cost": {
         "dev": 25,
@@ -304,7 +289,7 @@
       "type": "Project",
       "description": ""
     },
-    "22": {
+    "21": {
       "title": "Optimize Mining Algorithm",
       "cost": {
         "dev": 25,
@@ -317,7 +302,7 @@
       "type": "Project",
       "description": ""
     },
-    "23": {
+    "22": {
       "title": "No name project 1",
       "cost": {
         "dev": 25,
@@ -330,7 +315,7 @@
       "type": "Project",
       "description": ""
     },
-    "24": {
+    "23": {
       "title": "No name project 2",
       "cost": {
         "dev": 25,
@@ -343,7 +328,7 @@
       "type": "Project",
       "description": ""
     },
-    "25": {
+    "24": {
       "title": "No name project 3",
       "cost": {
         "dev": 25,
@@ -356,7 +341,7 @@
       "type": "Project",
       "description": ""
     },
-    "26": {
+    "25": {
       "title": "Solar Panels",
       "cost": {
         "funds": 500,
@@ -370,7 +355,7 @@
       "type": "Power",
       "description": ""
     },
-    "27": {
+    "26": {
       "title": "Black market batteries",
       "cost": {
         "funds": 3000,
@@ -384,7 +369,7 @@
       "type": "Power",
       "description": ""
     },
-    "28": {
+    "27": {
       "title": "Jury-rigged Generator",
       "cost": {
         "funds": 10000,
@@ -398,7 +383,7 @@
       "type": "Power",
       "description": ""
     },
-    "29": {
+    "28": {
       "title": "GRID Connector",
       "cost": {
         "funds": 50,
@@ -409,7 +394,7 @@
       "type": "Misc",
       "description": ""
     },
-    "30": {
+    "29": {
       "title": "Coffe Miner",
       "cost": {
         "funds": 50,
@@ -418,17 +403,6 @@
       "bonus": null,
       "image": "coffe-miner.jpeg",
       "type": "Misc",
-      "description": ""
-    },
-    "31": {
-      "title": "Crypto cat",
-      "cost": {
-        "funds": 50,
-        "level": 1
-      },
-      "bonus": null,
-      "image": "crypto-cat.svg",
-      "type": "Vanity",
       "description": ""
     }
   },
