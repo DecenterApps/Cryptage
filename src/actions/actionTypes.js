@@ -3,9 +3,11 @@ import cardConfig from '../constants/cards.json';
 const acceptedAssetDropIds =
   Object.keys(cardConfig.cards).filter(key =>
     cardConfig.cards[key].type !== 'Location' &&
-    cardConfig.cards[key].type !== 'Mining');
+    cardConfig.cards[key].type !== 'Mining' &&
+    cardConfig.cards[key].type !== 'Project');
 
 const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Location');
+const acceptedProjectDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Project');
 export const containerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Container');
 
 export const LOCATION_ITEM_DROP_SLOTS = [
@@ -24,6 +26,15 @@ export const LOCATION_DROP_SLOTS = [
   { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
   { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
   { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
+];
+
+export const PROJECT_DROP_SLOTS = [
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
 ];
 
 // APP
@@ -53,7 +64,9 @@ export const REVEAL_ERROR = 'reveal_error';
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
 export const DROP_MINER = 'drop_miner';
+export const DROP_PROJECT = 'drop_project';
 export const SET_ACTIVE_LOCATION = 'set_active_location';
+export const CHANGE_PROJECT_STATE = 'change_project_stateS';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 export const UPDATE_GLOBAL_VALUES = 'update_global_values';

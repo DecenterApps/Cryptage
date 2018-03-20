@@ -57,7 +57,6 @@ export default (state = INITIAL_STATE, action) => {
     case REVEAL_ERROR:
       return {
         ...state,
-        boosters: action.boosters,
         error: action.error,
       };
     default:

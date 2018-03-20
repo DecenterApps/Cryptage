@@ -281,10 +281,12 @@
     "20": {
       "title": "Part-time Gig",
       "cost": {
-        "funds": 50,
-        "level": 1
+        "dev": 25,
+        "time": 55
       },
-      "bonus": null,
+      "bonus": {
+        "xp": 1000
+      },
       "image": "part-time-gig.jpg",
       "type": "Project",
       "description": ""
@@ -292,10 +294,12 @@
     "21": {
       "title": "Bigtime Outsorce",
       "cost": {
-        "funds": 50,
-        "level": 1
+        "dev": 25,
+        "time": 55
       },
-      "bonus": null,
+      "bonus": {
+        "xp": 1000
+      },
       "image": "outsourcing.jpeg",
       "type": "Project",
       "description": ""
@@ -303,10 +307,12 @@
     "22": {
       "title": "Optimize Mining Algorithm",
       "cost": {
-        "funds": 50,
-        "level": 1
+        "dev": 25,
+        "time": 10
       },
-      "bonus": null,
+      "bonus": {
+        "xp": 1000
+      },
       "image": "algo.jpg",
       "type": "Project",
       "description": ""
@@ -314,10 +320,12 @@
     "23": {
       "title": "No name project 1",
       "cost": {
-        "funds": 50,
-        "level": 1
+        "dev": 25,
+        "time": 5
       },
-      "bonus": null,
+      "bonus": {
+        "xp": 1000
+      },
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""
@@ -325,10 +333,12 @@
     "24": {
       "title": "No name project 2",
       "cost": {
-        "funds": 50,
-        "level": 1
+        "dev": 25,
+        "time": 5
       },
-      "bonus": null,
+      "bonus": {
+        "xp": 1000
+      },
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""
@@ -336,10 +346,12 @@
     "25": {
       "title": "No name project 3",
       "cost": {
-        "funds": 50,
-        "level": 1
+        "dev": 25,
+        "time": 55
       },
-      "bonus": null,
+      "bonus": {
+        "xp": 1000
+      },
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""

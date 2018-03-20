@@ -1,4 +1,4 @@
-import { UPDATE_GLOBAL_VALUES } from '../actions/actionTypes';
+import { UPDATE_GLOBAL_VALUES, CHANGE_PROJECT_STATE } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
 
 /**
@@ -48,4 +48,32 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
 export const handlePlayedAssetCardsPassive = cards => (dispatch) => {
   console.log('Played asset cards passive', cards);
   dispatch(addFundsForDroppedMiningRigs(cards));
+};
+
+/**
+ * Checks to see if any projects have been finished
+ */
+export const checkProjectsExpiry = () => (dispatch, getState) => {
+  const { blockNumber } = getState().app;
+  const { projects } = getState().gameplay;
+  const _projects = [...projects];
+  let hasChanged = false;
+
+  for (let i = 0; i < _projects.length; i += 1) {
+    if (_projects[i].lastDroppedItem != null) {
+      if (_projects[i].lastDroppedItem.expiryTime - blockNumber <= 0) {
+        hasChanged = true;
+        _projects[i].lastDroppedItem.expiryTime = null;
+        _projects[i].lastDroppedItem.isActive = false;
+      }
+    }
+  }
+
+  if (hasChanged) {
+    dispatch({
+      type: CHANGE_PROJECT_STATE,
+      projects: _projects,
+    });
+    saveGameplayState(getState);
+  }
 };

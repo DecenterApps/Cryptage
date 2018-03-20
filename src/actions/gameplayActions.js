@@ -2,7 +2,7 @@ import update from 'immutability-helper';
 import {
   DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, LOCATION_ITEM_DROP_SLOTS, USERS_CARDS_ERROR,
   DROP_ASSET, LOAD_STATE_FROM_STORAGE, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, CHANGE_GAMEPLAY_VIEW,
-  LEVEL_UP_CARD, DROP_MINER,
+  LEVEL_UP_CARD, DROP_MINER, DROP_PROJECT, CHANGE_PROJECT_STATE,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -115,6 +115,117 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   });
   dispatch(changeGameplayView(GP_LOCATION));
   saveGameplayState(getState);
+};
+
+/**
+ * Fires when the player drags a project card from his hand
+ * to the menu sidebar
+ *
+ * @param {Number} index
+ * @param {Object} item
+ * @return {Function}
+ */
+export const handleProjectDrop = (index, item) => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const { projects, globalStats, cards } = gameplay;
+
+  if (!checkIfCanPlayCard(item.card.stats, globalStats)) return;
+
+  const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
+  const alteredProjects = [...projects];
+  let cardsLeft = cards;
+
+  if ((projects[index].lastDroppedItem && !projects[index].lastDroppedItem.isActive) ||
+    (!projects[index].lastDroppedItem)) {
+    cardsLeft = [
+      ...cards.slice(0, draggedCardIndex),
+      ...cards.slice(draggedCardIndex + 1),
+    ];
+  }
+
+  if (!projects[index].lastDroppedItem) {
+    // location drop when slot is empty
+    alteredProjects[index] = {
+      // only allow the card type that has been dropped now to be dropped again
+      accepts: [item.card.metadata.id],
+      lastDroppedItem: {
+        level: 1,
+        canLevelUp: false,
+        values: item.card.stats.values,
+        cards: [{ ...item.card, index }],
+        isActive: false,
+        expiryTime: null,
+      },
+    };
+  } else if (!projects[index].lastDroppedItem.isActive) {
+    // location drop when there is/are already a card/cards in the slot
+    // handle level up here
+    const { lastDroppedItem } = alteredProjects[index];
+    const { level, cards } = lastDroppedItem;
+
+    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
+    if (nextLevelPercent === 100) {
+      alteredProjects[index].lastDroppedItem.canLevelUp = true;
+      // disable drop when level up is available
+      alteredProjects[index].accepts = [];
+    }
+
+    alteredProjects[index].lastDroppedItem.cards.push({ ...item.card });
+  }
+  //
+  // const mathRes = handleCardMathematics(item.card, alteredProjects, gameplay.globalStats, index);
+  // locations = mathRes.locations;
+  // globalStats = mathRes.globalStats;
+
+  dispatch({
+    type: DROP_PROJECT,
+    projects: alteredProjects,
+    cards: cardsLeft,
+    globalStats,
+  });
+  saveGameplayState(getState);
+};
+
+/**
+ * Activates a dropped project
+ *
+ * @param {Number} index
+ * @return {Function}
+ */
+export const activateProject = index => (dispatch, getState) => {
+  const { blockNumber } = getState().app;
+  const { projects } = getState().gameplay;
+  const alteredProjects = [...projects];
+  alteredProjects[index].lastDroppedItem.isActive = true;
+  alteredProjects[index].lastDroppedItem.expiryTime = blockNumber +
+    alteredProjects[index].lastDroppedItem.cards[0].stats.cost.time;
+
+  dispatch({
+    type: CHANGE_PROJECT_STATE,
+    projects: alteredProjects,
+  });
+  saveGameplayState(getState);
+};
+
+/**
+ * Fires when the user clicks the level up button on the project card
+ * which appears When the project has enough stacked cards to level up
+ *
+ * @param {Number} index
+ * @return {Function}
+ */
+export const levelUpProject = index => (dispatch, getState) => {
+  const gameplay = { ...getState().gameplay };
+  if (gameplay.globalStats.funds === 0) return alert('Not enough funds');
+
+  const projects = [...gameplay.projects];
+  const globalStats = { ...gameplay.globalStats };
+
+  globalStats.funds -= 1;
+  projects[index].lastDroppedItem.level += 1;
+  projects[index].lastDroppedItem.canLevelUp = false;
+
+  dispatch({ type: LEVEL_UP_CARD, payload: { projects, globalStats } });
 };
 
 /**

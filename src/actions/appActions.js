@@ -1,7 +1,7 @@
 import { GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED, UPDATE_BLOCK_NUMBER } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { nameOfNetwork, getPlayedAssetCards, getPlayedLocationCards } from '../services/utils';
-import { handlePlayedLocationCardsPassive, handlePlayedAssetCardsPassive } from '../actions/passiveGameMechanics';
+import { handlePlayedLocationCardsPassive, handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
 import config from '../constants/config.json';
 
 /**
@@ -67,5 +67,6 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
 
     dispatch(handlePlayedLocationCardsPassive(getPlayedLocationCards([...locations])));
     dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
+    dispatch(checkProjectsExpiry());
   });
 };

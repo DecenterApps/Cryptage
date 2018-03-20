@@ -7,6 +7,8 @@ import { guid } from '../../services/utils';
 
 import './Menu.scss';
 
+import Projects from '../Projects/Projects';
+
 const Menu = ({ gameplayView, changeGameplayView, blockNumber, globalStats }) => (
   <div className="menu-wrapper">
     <div className="buy-booster-wrapper">
@@ -20,7 +22,7 @@ const Menu = ({ gameplayView, changeGameplayView, blockNumber, globalStats }) =>
       <div className="separator" />
 
       <div className="block-number-wrapper">
-        Current block: { blockNumber }
+        Current block: {blockNumber}
       </div>
 
       <div className="separator" />
@@ -28,10 +30,11 @@ const Menu = ({ gameplayView, changeGameplayView, blockNumber, globalStats }) =>
       <div className="stats-wrapper">
         {
           Object.keys(globalStats).map(globalStat => (
-            <div key={guid()}>{ globalStat }: { globalStats[globalStat] }</div>
+            <div key={guid()}>{globalStat}: {globalStats[globalStat]}</div>
           ))
         }
       </div>
+      <Projects projects={[1, 2, 3]} />
     </div>
   </div>
 );
