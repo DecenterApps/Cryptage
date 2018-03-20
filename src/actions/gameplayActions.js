@@ -212,10 +212,9 @@ export const levelUpLocation = index => (dispatch, getState) => {
 
   locations[index].lastDroppedItem.cards[0].stats = { ...cards[0].stats, ...newCardStats };
 
-  globalStats.funds -= 1;
   locations[index].lastDroppedItem.level += 1;
   locations[index].lastDroppedItem.canLevelUp = false;
-  console.log('locations[index].lastDroppedItem.cards[0].stats', locations[index].lastDroppedItem.cards[0].stats);
+
   const mathRes =
     handleCardMathematics(locations[index].lastDroppedItem.cards[0], locations, gameplay.globalStats, index);
   locations = mathRes.locations;
@@ -235,19 +234,35 @@ export const levelUpLocation = index => (dispatch, getState) => {
  */
 export const levelUpAsset = (activeLocationIndex, index) => (dispatch, getState) => {
   const gameplay = { ...getState().gameplay };
-  if (gameplay.globalStats.funds === 0) return alert('Not enough funds');
 
-  const locations = [...gameplay.locations];
-  const globalStats = { ...gameplay.globalStats };
+  let locations = [...gameplay.locations];
+  let globalStats = { ...gameplay.globalStats };
 
-  globalStats.funds -= 1;
+  const card = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0];
+  const { level } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem;
+  const newCardStats = getLevelValuesForCard(card.metadata.id, level + 1);
 
+  const play = checkIfCanPlayCard(newCardStats, globalStats);
+  if (!play) return;
+
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0].stats =
+    { ...card.stats, ...newCardStats };
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.level += 1;
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.canLevelUp = false;
 
-  dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
-};
+  const mathRes = handleCardMathematics(
+    locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0],
+    locations,
+    gameplay.globalStats,
+    activeLocationIndex,
+  );
 
+  locations = mathRes.locations;
+  globalStats = mathRes.globalStats;
+
+  dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
+  saveGameplayState(getState);
+};
 /**
  * AKA third level drop
  *
