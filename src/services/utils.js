@@ -225,7 +225,6 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
         $set: {
           level: 1,
           canLevelUp: false,
-          values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
           cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }],
           dropSlots: addSlot ? getSlotForContainer(item.card.metadata.id, item.card.stats.values.space) : null,
         },
@@ -374,7 +373,6 @@ export const updateContainerDropSlotItems = (
       accepts: { $set: [] },
       lastDroppedItem: {
         $set: {
-          values: getLevelValuesForCard(parseInt(item.card.metadata.id, 10), 0),
           cards: [{ ...item.card }],
         },
       },
