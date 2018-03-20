@@ -57,19 +57,19 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
   const _projects = [...projects];
-  let hasChanged = false;
+  let acquiredXp = 0;
 
   for (let i = 0; i < _projects.length; i += 1) {
     if (_projects[i].lastDroppedItem != null) {
       if (_projects[i].lastDroppedItem.expiryTime - blockNumber <= 0) {
-        hasChanged = true;
+        acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
         _projects[i].lastDroppedItem.expiryTime = null;
         _projects[i].lastDroppedItem.isActive = false;
       }
     }
   }
 
-  if (hasChanged) {
+  if (acquiredXp > 0) {
     dispatch({
       type: CHANGE_PROJECT_STATE,
       projects: _projects,
