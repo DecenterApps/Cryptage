@@ -6,7 +6,7 @@ import {
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
-import { checkIfCanPlayCard, handleCardMathematics } from '../services/gameMechanicsService';
+import { checkIfCanPlayCard, getLevelValuesForCard, handleCardMathematics } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel, updateContainerDropSlotItems,
@@ -92,7 +92,6 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     });
   } else {
     // location drop when there is/are already a card/cards in the slot
-    // handle level up here
     const { lastDroppedItem } = locations[index];
     const { level, cards } = lastDroppedItem;
 
@@ -201,16 +200,29 @@ export const loadGameplayState = () => (dispatch, getState) => {
  */
 export const levelUpLocation = index => (dispatch, getState) => {
   const gameplay = { ...getState().gameplay };
-  if (gameplay.globalStats.funds === 0) return alert('Not enough funds');
 
-  const locations = [...gameplay.locations];
-  const globalStats = { ...gameplay.globalStats };
+  let locations = [...gameplay.locations];
+  let globalStats = { ...gameplay.globalStats };
+
+  const { level, cards } = locations[index].lastDroppedItem;
+  const newCardStats = getLevelValuesForCard(cards[0].metadata.id, level + 1);
+
+  const play = checkIfCanPlayCard(newCardStats, globalStats);
+  if (!play) return;
+
+  locations[index].lastDroppedItem.cards[0].stats = { ...cards[0].stats, ...newCardStats };
 
   globalStats.funds -= 1;
   locations[index].lastDroppedItem.level += 1;
   locations[index].lastDroppedItem.canLevelUp = false;
+  console.log('locations[index].lastDroppedItem.cards[0].stats', locations[index].lastDroppedItem.cards[0].stats);
+  const mathRes =
+    handleCardMathematics(locations[index].lastDroppedItem.cards[0], locations, gameplay.globalStats, index);
+  locations = mathRes.locations;
+  globalStats = mathRes.globalStats;
 
   dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
+  saveGameplayState(getState);
 };
 
 /**

@@ -3,10 +3,10 @@ import { filterByKeys } from './utils';
 /**
  * Returns initial values for stack of cards
  * @param {Number} id
- * @param {Number} levelIndex
+ * @param {Number} _level
  * @return {Object}
  */
-export const getLevelValuesForCard = (id, levelIndex) => {
+export const getLevelValuesForCard = (id, _level) => {
   // cost is literal, bonus is calculated as incremental
   const cardLevels = [
     // 0 Computer case
@@ -182,27 +182,27 @@ export const getLevelValuesForCard = (id, levelIndex) => {
       {
         level: 2,
         cost: { funds: 100, level: 1 },
-        values: { power: 3, space: 0 },
+        bonus: { power: 3, space: 0 },
       },
       {
         level: 3,
         cost: { funds: 110, level: 1 },
-        values: { power: 0, space: 5 },
+        bonus: { power: 0, space: 5 },
       },
       {
         level: 4,
         cost: { funds: 130, level: 1 },
-        values: { power: 3, space: 0 },
+        bonus: { power: 3, space: 0 },
       },
       {
         level: 5,
         cost: { funds: 160, level: 1 },
-        values: { power: 0, space: 5 },
+        bonus: { power: 0, space: 5 },
       },
       {
         level: 6,
         cost: { funds: 200, level: 1 },
-        values: { power: 3, space: 0 },
+        bonus: { power: 3, space: 0 },
       },
     ],
     // 7 Coworking space
@@ -210,27 +210,27 @@ export const getLevelValuesForCard = (id, levelIndex) => {
       {
         level: 2,
         cost: { funds: 520, level: 2 },
-        values: { power: 3, space: 0 },
+        bonus: { power: 3, space: 0 },
       },
       {
         level: 3,
         cost: { funds: 560, level: 2 },
-        values: { power: 0, space: 5 },
+        bonus: { power: 0, space: 5 },
       },
       {
         level: 4,
         cost: { funds: 620, level: 2 },
-        values: { power: 3, space: 0 },
+        bonus: { power: 3, space: 0 },
       },
       {
         level: 5,
         cost: { funds: 700, level: 2 },
-        values: { power: 0, space: 5 },
+        bonus: { power: 0, space: 5 },
       },
       {
         level: 6,
         cost: { funds: 800, level: 2 },
-        values: { power: 3, space: 0 },
+        bonus: { power: 3, space: 0 },
       },
     ],
     // 8 Shantytown office
@@ -238,27 +238,27 @@ export const getLevelValuesForCard = (id, levelIndex) => {
       {
         level: 2,
         cost: { funds: 2100, level: 4 },
-        values: { power: 10, space: 0 },
+        bonus: { power: 10, space: 0 },
       },
       {
         level: 3,
         cost: { funds: 2300, level: 4 },
-        values: { power: 0, space: 10 },
+        bonus: { power: 0, space: 10 },
       },
       {
         level: 4,
         cost: { funds: 2600, level: 4 },
-        values: { power: 10, space: 0 },
+        bonus: { power: 10, space: 0 },
       },
       {
         level: 5,
         cost: { funds: 3000, level: 4 },
-        values: { power: 0, space: 10 },
+        bonus: { power: 0, space: 10 },
       },
       {
         level: 6,
         cost: { funds: 3500, level: 4 },
-        values: { power: 10, space: 0 },
+        bonus: { power: 10, space: 0 },
       },
     ],
     // 9 Downtown office
@@ -266,27 +266,27 @@ export const getLevelValuesForCard = (id, levelIndex) => {
       {
         level: 2,
         cost: { funds: 12000, level: 6 },
-        values: { power: 20, space: 0 },
+        bonus: { power: 20, space: 0 },
       },
       {
         level: 3,
         cost: { funds: 16000, level: 6 },
-        values: { power: 0, space: 20 },
+        bonus: { power: 0, space: 20 },
       },
       {
         level: 4,
         cost: { funds: 22000, level: 6 },
-        values: { power: 20, space: 0 },
+        bonus: { power: 20, space: 0 },
       },
       {
         level: 5,
         cost: { funds: 30000, level: 6 },
-        values: { power: 0, space: 20 },
+        bonus: { power: 0, space: 20 },
       },
       {
         level: 6,
         cost: { funds: 40000, level: 6 },
-        values: { power: 20, space: 0 },
+        bonus: { power: 20, space: 0 },
       },
     ],
     // 10 Elite office
@@ -294,27 +294,27 @@ export const getLevelValuesForCard = (id, levelIndex) => {
       {
         level: 2,
         cost: { funds: 102000, level: 10 },
-        values: { power: 40, space: 0 },
+        bonus: { power: 40, space: 0 },
       },
       {
         level: 3,
         cost: { funds: 106000, level: 10 },
-        values: { power: 0, space: 10 },
+        bonus: { power: 0, space: 10 },
       },
       {
         level: 4,
         cost: { funds: 112000, level: 10 },
-        values: { power: 40, space: 0 },
+        bonus: { power: 40, space: 0 },
       },
       {
         level: 5,
         cost: { funds: 120000, level: 10 },
-        values: { power: 0, space: 10 },
+        bonus: { power: 0, space: 10 },
       },
       {
         level: 6,
         cost: { funds: 130000, level: 10 },
-        values: { power: 40, space: 0 },
+        bonus: { power: 40, space: 0 },
       },
     ],
     // 11 Office building
@@ -322,27 +322,27 @@ export const getLevelValuesForCard = (id, levelIndex) => {
       {
         level: 2,
         cost: { funds: 1400000, level: 20 },
-        values: { power: 80, space: 0 },
+        bonus: { power: 80, space: 0 },
       },
       {
         level: 3,
         cost: { funds: 2200000, level: 20 },
-        values: { power: 0, space: 20 },
+        bonus: { power: 0, space: 20 },
       },
       {
         level: 4,
         cost: { funds: 3400000, level: 20 },
-        values: { power: 80, space: 0 },
+        bonus: { power: 80, space: 0 },
       },
       {
         level: 5,
         cost: { funds: 5000000, level: 20 },
-        values: { power: 0, space: 20 },
+        bonus: { power: 0, space: 20 },
       },
       {
         level: 6,
         cost: { funds: 7000000, level: 20 },
-        values: { power: 80, space: 0 },
+        bonus: { power: 80, space: 0 },
       },
     ],
     // 12 Intern developer
@@ -851,7 +851,7 @@ export const getLevelValuesForCard = (id, levelIndex) => {
     ],
   ];
 
-  return cardLevels[id][levelIndex];
+  return cardLevels[id].find(({ level }) => level === _level);
 };
 
 /**
