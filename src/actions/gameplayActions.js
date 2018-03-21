@@ -1,8 +1,21 @@
 import update from 'immutability-helper';
 import {
-  DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, LOCATION_ITEM_DROP_SLOTS, USERS_CARDS_ERROR,
-  DROP_ASSET, LOAD_STATE_FROM_STORAGE, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, CHANGE_GAMEPLAY_VIEW,
-  LEVEL_UP_CARD, DROP_MINER, DROP_PROJECT, CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, LOCATION_DROP_SLOTS,
+  DROP_LOCATION,
+  GP_LOCATION,
+  SET_ACTIVE_LOCATION,
+  LOCATION_ITEM_DROP_SLOTS,
+  USERS_CARDS_ERROR,
+  DROP_ASSET,
+  LOAD_STATE_FROM_STORAGE,
+  USERS_CARDS_FETCH,
+  USERS_CARDS_SUCCESS,
+  CHANGE_GAMEPLAY_VIEW,
+  LEVEL_UP_CARD,
+  DROP_MINER,
+  DROP_PROJECT,
+  CHANGE_PROJECT_STATE,
+  ADD_LOCATION_SLOTS,
+  LOCATION_DROP_SLOTS,
   ADD_ASSET_SLOTS,
 } from './actionTypes';
 import cardService from '../services/cardService';
@@ -218,16 +231,20 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
 
     alteredProjects[index].lastDroppedItem.cards.push({ ...item.card });
   }
-  //
-  // const mathRes = handleCardMathematics(item.card, alteredProjects, gameplay.globalStats, index);
-  // locations = mathRes.locations;
-  // globalStats = mathRes.globalStats;
-
+  const { lastDroppedItem } = alteredProjects[index];
+  const cost = lastDroppedItem.level > 1 ? getLevelValuesForCard(
+    parseInt(item.card.metadata.id, 10),
+    lastDroppedItem.level,
+  ) : lastDroppedItem.cards[0].stats.cost.dev;
+  const alterGlobalStats = {
+    ...globalStats,
+    development: globalStats.development - cost,
+  };
   dispatch({
     type: DROP_PROJECT,
     projects: alteredProjects,
     cards: cardsLeft,
-    globalStats,
+    globalStats: alterGlobalStats,
   });
   saveGameplayState(getState);
 };
@@ -267,10 +284,19 @@ export const levelUpProject = index => (dispatch, getState) => {
   const projects = [...gameplay.projects];
   const globalStats = { ...gameplay.globalStats };
 
-  globalStats.funds -= 1;
+  const { level, cards } = projects[index].lastDroppedItem;
+  const newCardStats = getLevelValuesForCard(cards[0].metadata.id, level + 1);
+
+  const play = checkIfCanPlayCard(newCardStats, globalStats);
+  if (!play) return;
+
   projects[index].lastDroppedItem.level += 1;
   projects[index].lastDroppedItem.canLevelUp = false;
-  projects[index].accepts = projects[index].lastDroppedItem.cards[0].metadata.id;
+
+  globalStats.development -= projects[index].lastDroppedItem.level > 1 ? getLevelValuesForCard(
+    parseInt(projects[index].lastDroppedItem.cards[0].metadata.id, 10),
+    projects[index].lastDroppedItem.level,
+  ) : projects[index].lastDroppedItem.cards[0].stats.cost.dev;
 
   dispatch({ type: LEVEL_UP_CARD, payload: { projects, globalStats } });
 };
@@ -374,7 +400,6 @@ export const levelUpLocation = index => (dispatch, getState) => {
 
   locations[index].lastDroppedItem.level += 1;
   locations[index].lastDroppedItem.canLevelUp = false;
-  locations[index].accepts = cards[0].metadata.id;
 
   const mathRes =
     handleCardMathematics(locations[index].lastDroppedItem.cards[0], locations, gameplay.globalStats, index);

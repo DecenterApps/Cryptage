@@ -1,5 +1,6 @@
 import { UPDATE_GLOBAL_VALUES, CHANGE_PROJECT_STATE, ADD_EXPERIENCE } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
+import { getLevelValuesForCard } from '../services/gameMechanicsService';
 
 /**
  * Updates gameplay stats for each played location card that has
@@ -56,16 +57,21 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch) => {
 export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
-  const { experience } = getState().gameplay.globalStats;
+  const { experience, development } = getState().gameplay.globalStats;
   const _projects = [...projects];
   let acquiredXp = 0;
+  let releasedDev = 0;
 
   for (let i = 0; i < _projects.length; i += 1) {
-    if (_projects[i].lastDroppedItem != null) {
+    if (_projects[i].lastDroppedItem != null && _projects[i].lastDroppedItem.expiryTime != null) {
       if (_projects[i].lastDroppedItem.expiryTime - blockNumber <= 0) {
-        acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
         _projects[i].lastDroppedItem.expiryTime = null;
         _projects[i].lastDroppedItem.isActive = false;
+        acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
+        releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
+          parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
+          _projects[i].lastDroppedItem.level,
+        ) : _projects[i].lastDroppedItem.cards[0].stats.cost.dev;
       }
     }
   }
@@ -78,6 +84,13 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     dispatch({
       type: ADD_EXPERIENCE,
       experience: experience + acquiredXp,
+    });
+    dispatch({
+      type: UPDATE_GLOBAL_VALUES,
+      payload: {
+        ...getState().gameplay.globalStats,
+        development: development + releasedDev,
+      },
     });
     saveGameplayState(getState);
   }
