@@ -267,6 +267,7 @@ export const levelUpProject = index => (dispatch, getState) => {
   globalStats.funds -= 1;
   projects[index].lastDroppedItem.level += 1;
   projects[index].lastDroppedItem.canLevelUp = false;
+  projects[index].accepts = projects[index].lastDroppedItem.cards[0].metadata.id;
 
   dispatch({ type: LEVEL_UP_CARD, payload: { projects, globalStats } });
 };
