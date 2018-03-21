@@ -7,7 +7,10 @@ import {
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
-import { checkIfCanPlayCard, getLevelValuesForCard, handleCardMathematics } from '../services/gameMechanicsService';
+import {
+  checkIfCanPlayCard, getLevelValuesForCard, getSlotForContainer,
+  handleCardMathematics
+} from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel, updateContainerDropSlotItems,
@@ -428,6 +431,26 @@ export const levelUpContainedCard = (locationIndex, containerIndex, cardIndex) =
 };
 
 /**
+ * Adds new drop slots to container drop slots based on bonus
+ *
+ * @param _locations
+ * @param activeLocationIndex
+ * @param index
+ * @return {Array}
+ */
+export const addDropSlotsToContainer = (_locations, activeLocationIndex, index) => {
+  const locations = [..._locations];
+  const containerDropSlots = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots;
+  const card = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0];
+  const newDropSlots = getSlotForContainer(card.metadata.id, card.stats.bonus.space);
+
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots =
+    [...containerDropSlots, ...newDropSlots];
+
+  return locations;
+};
+
+/**
  * Fires when the user clicks the level up button on the asset card
  * which appears When the location has enough stacked cards to level up
  *
@@ -453,6 +476,10 @@ export const levelUpAsset = (activeLocationIndex, index) => (dispatch, getState)
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.level += 1;
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.canLevelUp = false;
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].accepts = [card.metadata.id];
+
+  if (card.stats.type === 'Container') {
+    locations = addDropSlotsToContainer(locations, activeLocationIndex, index);
+  }
 
   const mathRes = handleCardMathematics(
     locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0],
