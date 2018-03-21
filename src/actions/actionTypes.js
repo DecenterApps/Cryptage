@@ -10,22 +10,15 @@ const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => card
 const acceptedProjectDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Project');
 export const containerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Container');
 
+const LOCATION_ITEM_SLOT = { accepts: [...acceptedAssetDropIds], lastDroppedItem: null };
 export const LOCATION_ITEM_DROP_SLOTS = [
-  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedAssetDropIds], lastDroppedItem: null },
+  LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT,
+  LOCATION_ITEM_SLOT,
 ];
 
+const LOCATION_SLOT = { accepts: [...acceptedLocationDropIds], lastDroppedItem: null };
 export const LOCATION_DROP_SLOTS = [
-  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
-  { accepts: [...acceptedLocationDropIds], lastDroppedItem: null },
+  LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT,
 ];
 
 export const PROJECT_DROP_SLOTS = [
@@ -71,6 +64,7 @@ export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 export const UPDATE_GLOBAL_VALUES = 'update_global_values';
 export const LEVEL_UP_CARD = 'level_up_card';
+export const ADD_LOCATION_SLOTS = 'add_location_slots';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';

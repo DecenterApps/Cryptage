@@ -2,7 +2,7 @@ import update from 'immutability-helper';
 import {
   DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, LOCATION_ITEM_DROP_SLOTS, USERS_CARDS_ERROR,
   DROP_ASSET, LOAD_STATE_FROM_STORAGE, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, CHANGE_GAMEPLAY_VIEW,
-  LEVEL_UP_CARD, DROP_MINER, DROP_PROJECT, CHANGE_PROJECT_STATE,
+  LEVEL_UP_CARD, DROP_MINER, DROP_PROJECT, CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, LOCATION_DROP_SLOTS
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -49,6 +49,23 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
  */
 export const setActiveLocation = payload => (dispatch, getState) => {
   dispatch({ type: SET_ACTIVE_LOCATION, payload });
+  saveGameplayState(getState);
+};
+
+/**
+ * Checks if all location slots are full, if they are,
+ * adds 6 new ones
+ *
+ * @return {Function}
+ */
+export const addLocationSlots = () => (dispatch, getState) => {
+  let { locations } = getState().gameplay;
+  const emptyLocations = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null);
+
+  if (emptyLocations.length !== 0) return;
+
+  locations = [...locations, ...LOCATION_DROP_SLOTS];
+  dispatch({ type: ADD_LOCATION_SLOTS, payload: locations });
   saveGameplayState(getState);
 };
 
@@ -112,6 +129,8 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   dispatch({
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
   });
+
+  dispatch(addLocationSlots());
   dispatch(changeGameplayView(GP_LOCATION));
   saveGameplayState(getState);
 };
