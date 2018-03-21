@@ -1,4 +1,4 @@
-import { UPDATE_GLOBAL_VALUES, CHANGE_PROJECT_STATE } from '../actions/actionTypes';
+import { UPDATE_GLOBAL_VALUES, CHANGE_PROJECT_STATE, ADD_EXPERIENCE } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
 
 /**
@@ -56,6 +56,7 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch) => {
 export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
+  const { experience } = getState().gameplay.globalStats;
   const _projects = [...projects];
   let acquiredXp = 0;
 
@@ -73,6 +74,10 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     dispatch({
       type: CHANGE_PROJECT_STATE,
       projects: _projects,
+    });
+    dispatch({
+      type: ADD_EXPERIENCE,
+      experience: experience + acquiredXp,
     });
     saveGameplayState(getState);
   }

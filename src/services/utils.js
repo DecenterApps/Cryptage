@@ -37,10 +37,13 @@ export const generateRandomDeck = () => (
   shuffleArray(
     // Card types
     ['heart', 'spade', 'diamond', 'club']
-      // Create 14 css classes for each card type
+    // Create 14 css classes for each card type
       .map((cardType) => {
         const cardTypeArr = [];
-        for (let i = 1; i <= 13; i += 1) cardTypeArr.push({ id: guid(), type: `card-${cardType}-${i}` });
+        for (let i = 1; i <= 13; i += 1) cardTypeArr.push({
+          id: guid(),
+          type: `card-${cardType}-${i}`
+        });
         return cardTypeArr;
       })
       // Merge all card type arrays into one
@@ -159,7 +162,7 @@ export const formatSignature = (_signature) => {
  * @return {Array}
  */
 export const removePlayedCards = (_cards, getState) => {
-  const { locations } = getState().gameplay;
+  const { locations, projects } = getState().gameplay;
   const cards = [..._cards];
 
   locations.forEach(({ lastDroppedItem }) => {
@@ -180,6 +183,15 @@ export const removePlayedCards = (_cards, getState) => {
             cards.splice(playedLocationCardIndex, 1);
           });
         }
+      });
+    }
+  });
+
+  projects.forEach(({ lastDroppedItem }) => {
+    if ((lastDroppedItem !== null) && typeof (lastDroppedItem === 'object')) {
+      lastDroppedItem.cards.forEach((projectCard) => {
+        const playedProjectCardIndex = cards.findIndex(_card => _card.id === projectCard.id);
+        cards.splice(playedProjectCardIndex, 1);
       });
     }
   });
@@ -365,9 +377,7 @@ export const filterByKeys = (object, allowedKeys) =>
  *
  * @return {Array}
  */
-export const updateContainerDropSlotItems = (
-  locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations,
-) => {
+export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations,) => {
   const containerSlots = update(_containerSlots, {
     [cardIndex]: {
       accepts: { $set: [item.card.metadata.id] },
