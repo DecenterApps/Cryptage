@@ -181,12 +181,27 @@ export const removePlayedCards = (_cards, getState) => {
           locationItemSlot.lastDroppedItem.cards.forEach((locationItemCard) => {
             const playedLocationCardIndex = cards.findIndex(_card => _card.id === locationItemCard.id);
             cards.splice(playedLocationCardIndex, 1);
+
+            // remove miner cards
+            if (locationItemCard.stats.type === 'Container') {
+              locationItem.dropSlots.forEach((containerDropSlot) => {
+                const minerItem = containerDropSlot.lastDroppedItem;
+
+                if ((minerItem !== null) && typeof (minerItem === 'object')) {
+                  minerItem.cards.forEach((minerCard) => {
+                    const playedMinerCardIndex = cards.findIndex(_card => _card.id === minerCard.id);
+                    cards.splice(playedMinerCardIndex, 1);
+                  });
+                }
+              });
+            }
           });
         }
       });
     }
   });
 
+  // remove project cards from project drop slots
   projects.forEach(({ lastDroppedItem }) => {
     if ((lastDroppedItem !== null) && typeof (lastDroppedItem === 'object')) {
       lastDroppedItem.cards.forEach((projectCard) => {

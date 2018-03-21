@@ -370,6 +370,7 @@ export const levelUpLocation = index => (dispatch, getState) => {
 
   locations[index].lastDroppedItem.level += 1;
   locations[index].lastDroppedItem.canLevelUp = false;
+  locations[index].accepts = cards[0].metadata.id;
 
   const mathRes =
     handleCardMathematics(locations[index].lastDroppedItem.cards[0], locations, gameplay.globalStats, index);
@@ -409,6 +410,8 @@ export const levelUpContainedCard = (locationIndex, containerIndex, cardIndex) =
     .lastDroppedItem.level += 1;
   locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
     .lastDroppedItem.canLevelUp = false;
+  locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
+    .accepts = [card.metadata.id];
 
   const mathRes = handleCardMathematics(
     locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex].lastDroppedItem.cards[0], // eslint-disable-line
@@ -448,6 +451,7 @@ export const levelUpAsset = (activeLocationIndex, index) => (dispatch, getState)
     { ...card.stats, ...newCardStats };
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.level += 1;
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.canLevelUp = false;
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].accepts = [card.metadata.id];
 
   const mathRes = handleCardMathematics(
     locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0],
