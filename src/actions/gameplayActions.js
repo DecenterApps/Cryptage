@@ -2,7 +2,8 @@ import update from 'immutability-helper';
 import {
   DROP_LOCATION, GP_LOCATION, SET_ACTIVE_LOCATION, LOCATION_ITEM_DROP_SLOTS, USERS_CARDS_ERROR,
   DROP_ASSET, LOAD_STATE_FROM_STORAGE, USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, CHANGE_GAMEPLAY_VIEW,
-  LEVEL_UP_CARD, DROP_MINER, DROP_PROJECT, CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, LOCATION_DROP_SLOTS
+  LEVEL_UP_CARD, DROP_MINER, DROP_PROJECT, CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, LOCATION_DROP_SLOTS,
+  ADD_ASSET_SLOTS,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -59,14 +60,38 @@ export const setActiveLocation = payload => (dispatch, getState) => {
  * @return {Function}
  */
 export const addLocationSlots = () => (dispatch, getState) => {
-  let { locations } = getState().gameplay;
+  let locations = [...getState().gameplay.locations];
   const emptyLocations = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null);
 
   if (emptyLocations.length !== 0) return;
 
   locations = [...locations, ...LOCATION_DROP_SLOTS];
   dispatch({ type: ADD_LOCATION_SLOTS, payload: locations });
-  saveGameplayState(getState);
+};
+
+/**
+ * Checks if the active locations slots are full, if they are,
+ * adds 6 new ones
+ *
+ * @param {Number} locationIndex
+ * @return {Function}
+ */
+export const addAssetSlots = locationIndex => (dispatch, getState) => {
+  let locations = [...getState().gameplay.locations];
+  const currentSlots = locations[locationIndex].lastDroppedItem.dropSlots;
+  const emptyLocations = currentSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null);
+
+  if (emptyLocations.length !== 0) return;
+
+  locations = update(locations, {
+    [locationIndex]: {
+      lastDroppedItem: {
+        dropSlots: { $set: [...currentSlots, ...LOCATION_ITEM_DROP_SLOTS] },
+      },
+    },
+  });
+
+  dispatch({ type: ADD_ASSET_SLOTS, payload: locations });
 };
 
 /**
@@ -300,6 +325,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     cards,
     globalStats,
   });
+  dispatch(addAssetSlots(activeLocationIndex));
   saveGameplayState(getState);
 };
 

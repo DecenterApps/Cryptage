@@ -65,6 +65,7 @@ export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 export const UPDATE_GLOBAL_VALUES = 'update_global_values';
 export const LEVEL_UP_CARD = 'level_up_card';
 export const ADD_LOCATION_SLOTS = 'add_location_slots';
+export const ADD_ASSET_SLOTS = 'add_location_slots';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
