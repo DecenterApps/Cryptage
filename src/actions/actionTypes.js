@@ -59,13 +59,14 @@ export const DROP_ASSET = 'drop_asset';
 export const DROP_MINER = 'drop_miner';
 export const DROP_PROJECT = 'drop_project';
 export const SET_ACTIVE_LOCATION = 'set_active_location';
-export const CHANGE_PROJECT_STATE = 'change_project_stateS';
+export const CHANGE_PROJECT_STATE = 'change_project_state';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 export const UPDATE_GLOBAL_VALUES = 'update_global_values';
 export const LEVEL_UP_CARD = 'level_up_card';
 export const ADD_LOCATION_SLOTS = 'add_location_slots';
 export const ADD_ASSET_SLOTS = 'add_location_slots';
+export const ADD_EXPERIENCE = 'add_experience';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';

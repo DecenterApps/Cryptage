@@ -2,7 +2,7 @@ import {
   DROP_LOCATION, CHANGE_GAMEPLAY_VIEW, SET_ACTIVE_LOCATION, DROP_ASSET, GP_LOCATION,
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
   UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD, DROP_MINER, PROJECT_DROP_SLOTS, DROP_PROJECT,
-  CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, ADD_ASSET_SLOTS,
+  CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, ADD_ASSET_SLOTS, ADD_EXPERIENCE,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 
@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   activeLocationIndex: 0,
   globalStats: {
     level: 10,
+    experience: 0,
     funds: 1000000000000,
     development: 10000000000,
   },
@@ -59,6 +60,14 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         projects: action.projects,
+      };
+    case ADD_EXPERIENCE:
+      return {
+        ...state,
+        globalStats: {
+          ...state.globalStats,
+          experience: action.experience,
+        },
       };
 
     case USERS_CARDS_SUCCESS:
