@@ -15,7 +15,7 @@ const GameplayItem = ({
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const isContainer = containerIds.includes(cards[0].metadata.id);
-
+  console.log('dropSlots', dropSlots);
   return (
     <div
       className={`
@@ -45,7 +45,10 @@ const GameplayItem = ({
             onItemDrop={(minerIndex, item) => {
               handleMinerDropInContainer(activeLocationIndex, index, minerIndex, item);
             }}
-            element={<ContainerItem />}
+            element={<ContainerItem
+              locationIndex={activeLocationIndex}
+              containerIndex={index}
+            />}
             mainClass="container-slot"
           />
         </div>

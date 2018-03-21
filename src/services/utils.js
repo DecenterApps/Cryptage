@@ -370,9 +370,11 @@ export const updateContainerDropSlotItems = (
 ) => {
   const containerSlots = update(_containerSlots, {
     [cardIndex]: {
-      accepts: { $set: [] },
+      accepts: { $set: [item.card.metadata.id] },
       lastDroppedItem: {
         $set: {
+          level: 1,
+          canLevelUp: false,
           cards: [{ ...item.card }],
         },
       },
