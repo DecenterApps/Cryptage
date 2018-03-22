@@ -21,8 +21,8 @@ const ProjectItem = ({
       ${isOver && 'hovering-with-card'}
     `}
     >
-      <div>
-        {cards[0].stats.title.substr(0, 10)}... (lvl{level})
+      <img className="project-thumbnail" src={require(`../../constants/cardImages/${cards[0].stats.image}`)} alt="" />
+      <div className="project-info">
         {!isActive &&
         <button
           className="activate-button"
@@ -35,10 +35,14 @@ const ProjectItem = ({
           isActive &&
           <span> &nbsp; {expiryTime - blockNumber}</span>
         }
-      </div>
+        {/*
+      {cards[0].stats.title.substr(0, 10)}... (lvl{level})
       <Line strokeWidth="4" percent={percent} />
       {canLevelUp &&
-      <button onClick={() => { levelUpProject(index); }}>Upgrade to next level</button>}
+      <button onClick={() => { levelUpProject(index); }}>Upgrade to next level</button>
+      }
+      */}
+      </div>
     </div>
   );
 };

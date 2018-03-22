@@ -28,6 +28,10 @@ export const PROJECT_DROP_SLOTS = [
   { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
   { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
   { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
+  { accepts: [...acceptedProjectDropIds], lastDroppedItem: null },
 ];
 
 // APP

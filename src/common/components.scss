@@ -1,3 +1,66 @@
+@import "./colors";
+
+@mixin purple-line() {
+  height: 1px;
+  background: $dark-purple;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.bar-wrapper {
+  position: relative;
+
+  &.reverse-bar {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+
+    .bar-text {
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+  }
+
+  .bar-1 {
+    width: 40px;
+    @include purple-line;
+  }
+
+  .bar-2 {
+    position: absolute;
+    left: 37px;
+    bottom: 7px;
+    width: 20px;
+    transform: rotate(-45deg);
+    @include purple-line;
+  }
+
+  .bar-3 {
+    width: 65px;
+    left: 54px;
+    position: absolute;
+    bottom: 14px;
+    @include purple-line;
+  }
+
+  .bar-4 {
+    width: 20px;
+    transform: rotate(45deg);
+    left: 116px;
+    position: absolute;
+    bottom: 7px;
+    @include purple-line;
+  }
+
+  .bar-text {
+    position: absolute;
+    left: 66px;
+    font-weight: bold;
+    bottom: 0;
+    font-size: 8px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+}
+
 
 .home-button {
   padding: 8px 14px;

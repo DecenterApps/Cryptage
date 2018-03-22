@@ -19,7 +19,7 @@ const Locations = ({ locations, handleLocationDrop }) => (
         <div className="bar-2" />
         <div className="bar-3" />
         <div className="bar-4" />
-        <div className="loc-text">Location</div>
+        <div className="bar-text">Location</div>
       </div>
     </div>
 

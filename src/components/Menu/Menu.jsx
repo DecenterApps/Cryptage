@@ -6,8 +6,6 @@ import { GP_BUY_BOOSTER } from '../../actions/actionTypes';
 
 import './Menu.scss';
 
-import Projects from '../Projects/Projects';
-
 const Menu = ({ gameplayView, changeGameplayView }) => (
   <div className="menu-wrapper">
     <div className="buy-booster-wrapper">
@@ -20,7 +18,6 @@ const Menu = ({ gameplayView, changeGameplayView }) => (
 
       <div className="separator" />
 
-      <Projects projects={[1, 2, 3]} />
     </div>
   </div>
 );

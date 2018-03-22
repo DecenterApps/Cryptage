@@ -9,7 +9,15 @@ import './Projects.scss';
 
 const Projects = ({ projects, handleProjectDrop }) => (
   <div className="projects-wrapper">
-    Projects
+    <div className="projects-header">
+      <div className="bar-wrapper reverse-bar">
+        <div className="bar-1" />
+        <div className="bar-2" />
+        <div className="bar-3" />
+        <div className="bar-4" />
+        <div className="bar-text">Projects</div>
+      </div>
+    </div>
     <div className="active-projects-wrapper">
       <DropSlotsWrapper
         dropSlots={projects}

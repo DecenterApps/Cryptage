@@ -7,6 +7,7 @@ import Menu from '../Menu/Menu';
 import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
+import Projects from '../Projects/Projects';
 import { checkAccount, loadingEnded, listenForNewBlocks, updateCurrentBlockNumber } from '../../actions/appActions';
 import { loadGameplayState } from '../../actions/gameplayActions';
 
@@ -30,7 +31,8 @@ class App extends Component {
         <div className="app-top-section-wrapper">
           <Locations />
           <Gameplay />
-          <Menu />
+          {/*<Menu />*/}
+          <Projects />
         </div>
 
         <Cards />
