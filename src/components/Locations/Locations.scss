@@ -9,7 +9,7 @@
 
 .locations-wrapper {
   height: 100%;
-  min-width: 150px;
+  min-width: 135px;
   display: flex;
   flex-direction: column;
 
@@ -37,18 +37,19 @@
     font-size: 8px;
     text-transform: uppercase;
     color: #fff;
+    margin-bottom: 10px;
 
     .bar-wrapper {
       position: relative;
 
       .bar-1 {
-        width: 50px;
+        width: 40px;
         @include purple-line;
       }
 
       .bar-2 {
         position: absolute;
-        left: 47px;
+        left: 37px;
         bottom: 7px;
         width: 20px;
         transform: rotate(-45deg);
@@ -56,8 +57,8 @@
       }
 
       .bar-3 {
-        width: 70px;
-        left: 64px;
+        width: 65px;
+        left: 54px;
         position: absolute;
         bottom: 14px;
         @include purple-line;
@@ -66,7 +67,7 @@
       .bar-4 {
         width: 20px;
         transform: rotate(45deg);
-        left: 131px;
+        left: 116px;
         position: absolute;
         bottom: 7px;
         @include purple-line;
@@ -74,7 +75,7 @@
 
       .loc-text {
         position: absolute;
-        left: 78px;
+        left: 66px;
         font-weight: bold;
         bottom: 0;
       }
