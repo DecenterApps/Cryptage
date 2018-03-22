@@ -1,0 +1,117 @@
+@import "../../../common/colors";
+
+.gameplay-header-wrapper {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .gameplay-header-content {
+    display: inline-flex;
+
+    .section {
+      width: 284px;
+      display: flex;
+      flex-direction: column;
+
+      .stats-container {
+        display: flex;
+
+      }
+
+      .stats-wrapper {
+        margin: 15px 0 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.dev-stats {
+          margin-right: 19px;
+          margin-left: 60px;
+        }
+
+        img {
+          margin-right: 7px;
+          width: 26px;
+          height: 26px;
+        }
+
+        .meta-wrapper {
+          text-transform: uppercase;
+
+          .count {
+            font-size: 16px;
+          }
+          .label {
+            font-size: 8px;
+          }
+        }
+      }
+
+      .bar {
+        border: 2px solid $dark-purple;
+        box-shadow: 0 0 44px #441E83;
+        width: 100%;
+      }
+    }
+
+    .central {
+      position: relative;
+
+      .central-small {
+        position: absolute;
+
+        img {
+          width: 190px;
+          position: absolute;
+          z-index: 4;
+          top: -38px;
+          left: -12px
+        }
+
+        .level {
+          font-weight: bold;
+          font-size: 13px;
+          text-transform: uppercase;
+          color: #FF9D14;
+          position: absolute;
+          z-index: 5;
+          width: 84px;
+          left: 56px;
+          top: 6px;
+        }
+      }
+
+      .central-big {
+        position: relative;
+        width: 170px;
+
+        .big-stats {
+          z-index: 2;
+          position: absolute;
+          text-align: center;
+          left: 23px;
+          top: 33px;
+
+          .name {
+            font-size: 23px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
+          }
+
+          .xp-wrapper {
+            font-size: 12px;
+            color: $yellow;
+          }
+        }
+
+        img {
+          position: absolute;
+          width: 350px;
+          top: -42px;
+          left: -90px;
+        }
+      }
+    }
+  }
+}
