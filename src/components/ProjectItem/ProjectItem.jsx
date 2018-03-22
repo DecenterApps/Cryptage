@@ -21,7 +21,7 @@ const ProjectItem = ({
       ${isOver && 'hovering-with-card'}
     `}
     >
-      <img className="project-thumbnail" src={require(`../../constants/cardImages/${cards[0].stats.image}`)} alt="" />
+      <img className="project-thumbnail" src={`/cardImages/${cards[0].stats.image}`} alt="" />
       <div className="project-info">
         {!isActive &&
         <button
