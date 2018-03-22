@@ -16,15 +16,22 @@ const LocationSidebarItem = ({
   return (
     <div
       className={`
-      location-sidebar-item-wrapper
-      ${isOver && 'hovering-with-card'}
-      ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
-    `}
+        location-sidebar-item-wrapper
+        ${isOver && 'hovering-with-card'}
+        ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
+      `}
       onClick={() => { setActiveLocation(index); }}
     >
-      <div>{ cards[0].stats.title }</div>
-      <div>Level: { level }</div>
       <Line strokeWidth="4" percent={percent} />
+      <div
+        style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
+        className="location-sidebar-item-inner-wrapper"
+      >
+        <div className="level-outer">
+          <span className="level">{level}</span>
+        </div>
+        <div className="title">{ cards[0].stats.title }</div>
+      </div>
       { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
       { canLevelUp && <button onClick={() => { levelUpLocation(index); }}>Upgrade to next level</button> }
     </div>

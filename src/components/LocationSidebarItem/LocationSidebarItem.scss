@@ -1,11 +1,92 @@
+@import '../../common/colors';
+
 .location-sidebar-item-wrapper {
   height: 100%;
   width: 100%;
-  background: #ffbd3b;
-  cursor: pointer;
+  //background: #ffbd3b;
+  margin: 6px 0;
+  left: 0;
+  .location-sidebar-item-inner-wrapper {
+    background-size: cover;
+    background-position: center;
+    height: 50px;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid #461D87;
+    box-shadow: 0 0 28px #461D87;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 30px;
+      background: linear-gradient(to right, rgba(black, .7), rgba(black, 0));
+    }
+    &:after {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      content: '';
+      border-top: 29px solid #461D87;
+      border-left: 29px solid transparent;
+      z-index: 1;
+    }
+    .level-outer {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      &:before {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-top: 30px solid #26184D;
+        border-left: 30px solid transparent;
+        content: '';
+        z-index: 2;
+      }
+      &:after {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-top: 27px solid $green;
+        border-left: 27px solid transparent;
+        content: '';
+        z-index: 3;
+      }
+      .level {
+        position: relative;
+        display: block;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 13px;
+        margin: 2px;
+        color: white;
+        z-index: 4;
+      }
+    }
+    .title {
+      position: absolute;
+      bottom: 0;
+      padding: 10px 7px 6px;
+      width: 100%;
+      background: linear-gradient(rgba(black, 0), black);
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      text-transform: uppercase;
+      white-space: pre;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 
   &:hover, &.active {
-    opacity: 0.75;
+    //opacity: 0.75;
   }
 
   &.hovering-with-card {
