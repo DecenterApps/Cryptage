@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Line } from 'rc-progress';
+import { Line, Circle } from 'rc-progress';
 import { setActiveLocation, levelUpProject, activateProject } from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
 
 import './ProjectItem.scss';
+
+import activeBg from './assets/active-item-bg.png';
+
+const calculatePercent = (expiryTime, costTime) => {
+  console.log(expiryTime, costTime);
+  console.log((expiryTime / costTime) * 100);
+  return (expiryTime / costTime) * 100;
+};
 
 const ProjectItem = ({
   isOver, cards, index, gameplayView, level, canLevelUp, levelUpProject, isActive, expiryTime,
@@ -21,7 +29,12 @@ const ProjectItem = ({
       ${isOver && 'hovering-with-card'}
     `}
     >
-      <img className="project-thumbnail" src={`/cardImages/${cards[0].stats.image}`} alt="" />
+      {
+        isActive ?
+          <img className="project-thumbnail" src={activeBg} alt="" /> :
+          <img className="project-thumbnail" src={`/cardImages/${cards[0].stats.image}`} alt="" />
+      }
+
       <div className="project-info">
         {!isActive &&
         <button
@@ -33,7 +46,19 @@ const ProjectItem = ({
         }
         {
           isActive &&
-          <span> &nbsp; {expiryTime - blockNumber}</span>
+          <div>
+            <Circle
+              strokeWidth="4"
+              strokeColor="#FF9D14"
+              trailColor="transparent"
+              percent={calculatePercent(expiryTime - blockNumber, cards[0].stats.cost.time)}
+            />
+            <span className="project-time-left">
+              <div className="blocks-left">{expiryTime - blockNumber}</div>
+              <div>BLOCKS</div>
+              <div>MORE</div>
+            </span>
+          </div>
         }
         {/*
       {cards[0].stats.title.substr(0, 10)}... (lvl{level})

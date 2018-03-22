@@ -51,6 +51,7 @@
     background-size: 150%;
     height: 54px;
     width: 54px;
+    margin-bottom: 5px;
 
     &.drop-slot-item-hover {
       opacity: 0.5;
@@ -87,6 +88,5 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    padding-top: 18px;
   }
 }
