@@ -9,8 +9,8 @@ import { calcDataForNextLevel } from '../../services/utils';
 import './LocationSidebarItem.scss';
 
 const LocationSidebarItem = ({
-  isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
-}) => {
+                               isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
+                             }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
 
   return (
@@ -22,18 +22,39 @@ const LocationSidebarItem = ({
       `}
       onClick={() => { setActiveLocation(index); }}
     >
-      <Line strokeWidth="4" percent={percent} />
+      <svg className="location-progress-bar" viewBox="0 0 84 11">
+        <defs>
+          <clipPath id="cut">
+            <polygon points="78.2,9 71.2,2 2,2 2,9 " />
+          </clipPath>
+        </defs>
+        <polygon className="progress-bar-outer" points="1,1 1,10 80,10 71,1" />
+        <rect x="0" y="0" width={percent * 0.82} height="11" className="progress-bar" clip-path="url(#cut)" />
+      </svg>
       <div
-        style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
         className="location-sidebar-item-inner-wrapper"
+        style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
       >
         <div className="level-outer">
           <span className="level">{level}</span>
         </div>
-        <div className="title">{ cards[0].stats.title }</div>
+        <div className="title">{cards[0].stats.title}</div>
       </div>
-      { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
-      { canLevelUp && <button onClick={() => { levelUpLocation(index); }}>Upgrade to next level</button> }
+      {
+        !canLevelUp &&
+        <div className="level-up-tip">
+          Cards to drop for next level: {remainingCardsToDropForNextLevel}
+        </div>
+      }
+      {
+        canLevelUp &&
+        <button
+          className="level-up-button"
+          onClick={() => { levelUpLocation(index); }}
+        >
+          Upgrade to next level
+        </button>
+      }
     </div>
   );
 };

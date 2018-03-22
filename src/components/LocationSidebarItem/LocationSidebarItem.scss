@@ -6,14 +6,27 @@
   //background: #ffbd3b;
   margin: 6px 0;
   left: 0;
+  .location-progress-bar {
+    width: 90px;
+    .progress-bar-outer {
+      fill: none;
+      stroke: #36265f;
+      stroke-miterlimit: 10;
+      stroke-width:2;
+    }
+    .progress-bar{
+      fill: orange;
+    }
+  }
   .location-sidebar-item-inner-wrapper {
     background-size: cover;
     background-position: center;
     height: 50px;
+    width: 120px;
     cursor: pointer;
     position: relative;
     border: 2px solid #461D87;
-    box-shadow: 0 0 28px #461D87;
+    box-shadow: 0 0 10px rgba(#461D87, .5);
     &:before {
       content: '';
       display: block;
@@ -84,9 +97,35 @@
       text-overflow: ellipsis;
     }
   }
-
-  &:hover, &.active {
+  .level-up-button {
+    height: 25px;
+    line-height: 21px;
+    font-size: 8px;
+    text-transform: uppercase;
+    color: $green;
+    border: 2px solid $green;
+    background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
+    margin-top: 5px;
+    z-index: 1;
+  }
+  .level-up-tip {
+    display: none;
+    position: absolute;
+    background: rgba(white, .9);
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  &.active {
+    .location-sidebar-item-inner-wrapper {
+      box-shadow: 0 0 28px #461D87;
+    }
+  }
+  &:hover{
     //opacity: 0.75;
+    .level-up-tip {
+      display: block;
+    }
   }
 
   &.hovering-with-card {
