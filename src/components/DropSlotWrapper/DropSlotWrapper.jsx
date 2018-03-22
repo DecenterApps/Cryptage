@@ -53,7 +53,7 @@ DropSlotWrapper.defaultProps = {
   droppedItemClass: 'drop-slot-filled',
   lastDroppedItem: null,
   index: null,
-  emptyStateElem: () => (<div className="empty-project">Drop project here</div>),
+  emptyStateElem: () => (<div>Empty slot</div>),
 };
 
 DropSlotWrapper.propTypes = {
