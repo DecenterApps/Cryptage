@@ -30,6 +30,12 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop }) => 
           dropSlots={location.lastDroppedItem.dropSlots}
           onItemDrop={handleAssetDrop}
           element={<GameplayItem />}
+          emptyStateElem={() => (
+            <div className="active-location-empty-slot">
+              <div className="inner-empty-slot">Drop<b>Card</b>here</div>
+            </div>
+          )}
+          mainClass="active-location-slot-wrapper"
         />
       </div>
     </div>

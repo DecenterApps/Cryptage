@@ -3,7 +3,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: lightgray;
+  background-size: cover;
+  background-position: center;
 
   &.hovering {
     background-color: #DEDEDE;

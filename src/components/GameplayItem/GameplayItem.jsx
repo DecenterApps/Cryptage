@@ -19,9 +19,10 @@ const GameplayItem = ({
   return (
     <div
       className={`
-      gameplay-item-wrapper
-      ${isOver && 'hovering'}
-    `}
+        gameplay-item-wrapper
+        ${isOver && 'hovering'}
+      `}
+      style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
     >
       <div>{ cards[0].stats.title }</div>
 
