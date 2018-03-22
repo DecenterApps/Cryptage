@@ -9,6 +9,10 @@ import './Locations.scss';
 
 const Locations = ({ locations, handleLocationDrop }) => (
   <div className="locations-wrapper">
+    <div className="buy-boosters-wrapper">
+      <button>Buy boosters</button>
+    </div>
+
     <div className="locations-header">
       <div className="bar-wrapper">
         <div className="bar-1" />
