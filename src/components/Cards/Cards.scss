@@ -5,8 +5,8 @@
   border-top: 1px solid $border-color;
   display: flex;
   padding: 4px;
-  width: 100vw;
-  height: 26vh;
+  width: 100%;
+  height: 200px;
   overflow-y: auto;
 
   .loading-cards, .no-cards {

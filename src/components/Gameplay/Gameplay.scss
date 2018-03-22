@@ -1,5 +1,10 @@
 @import "../../common/colors";
 
 .gameplay-wrapper {
-  flex-grow: 2;
+  flex-grow: 1;
+  width: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 20px;
 }
