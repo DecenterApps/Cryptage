@@ -10,16 +10,21 @@ import './Locations.scss';
 const Locations = ({ locations, handleLocationDrop }) => (
   <div className="locations-wrapper">
     <div className="locations-header">
-      Active locations
+      <div className="bar-wrapper">
+        <div className="bar-1" />
+        <div className="bar-2" />
+        <div className="bar-3" />
+        <div className="bar-4" />
+        <div className="loc-text">Location</div>
+      </div>
     </div>
 
     <div className="active-locations-wrapper">
-      { locations.length === 0 && <div className="no-locations">You do not have any active locations.</div> }
-
       <DropSlotsWrapper
         dropSlots={locations}
         onItemDrop={handleLocationDrop}
         element={<LocationSidebarItem />}
+        emptyStateElem={() => (<div className="empty-loc-slot">Drop Location here</div>)}
         mainClass="location-slots-wrapper"
       />
     </div>

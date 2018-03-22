@@ -28,9 +28,9 @@ class App extends Component {
     return (
       <div className="app-wrapper">
         <div className="app-top-section-wrapper">
-          <Menu />
-          <Gameplay />
           <Locations />
+          <Gameplay />
+          <Menu />
         </div>
 
         <Cards />
@@ -45,6 +45,7 @@ App.propTypes = {
   loadingEnded: PropTypes.func.isRequired,
   loadingApp: PropTypes.bool.isRequired,
   listenForNewBlocks: PropTypes.func.isRequired,
+  updateCurrentBlockNumber: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
