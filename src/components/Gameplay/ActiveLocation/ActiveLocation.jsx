@@ -13,7 +13,7 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop }) => 
   return (
     <div className="active-location-wrapper">
       <div className="active-location-header">
-        <div className="location-stats-label">Location stats:</div>
+        <div className="location-stats-label">{ location.lastDroppedItem.cards[0].stats.title }</div>
         <div className="location-stats-wrapper">
           {/* <span>Ids: { location.lastDroppedItem.cards.map(_card => _card.id).toString() }</span> */}
 

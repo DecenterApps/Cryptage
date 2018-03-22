@@ -5,6 +5,7 @@ import BoostersMenu from './BoostersMenu/BoostersMenu';
 import ActiveLocation from './ActiveLocation/ActiveLocation';
 import GameplayHeader from './GameplayHeader/GameplayHeader';
 import { GP_BUY_BOOSTER, GP_LOCATION } from '../../actions/actionTypes';
+import Cards from '../Cards/Cards';
 
 import './Gameplay.scss';
 
@@ -14,6 +15,8 @@ const Gameplay = ({ gameplayView }) => (
 
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }
     { gameplayView === GP_LOCATION && <ActiveLocation />}
+
+    <Cards />
   </div>
 );
 

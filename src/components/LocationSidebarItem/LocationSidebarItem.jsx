@@ -29,7 +29,7 @@ const LocationSidebarItem = ({
           </clipPath>
         </defs>
         <polygon className="progress-bar-outer" points="1,1 1,10 80,10 71,1" />
-        <rect x="0" y="0" width={percent * 0.82} height="11" className="progress-bar" clip-path="url(#cut)" />
+        <rect x="0" y="0" width={percent * 0.82} height="11" className="progress-bar" clipPath="url(#cut)" />
       </svg>
       <div
         className="location-sidebar-item-inner-wrapper"

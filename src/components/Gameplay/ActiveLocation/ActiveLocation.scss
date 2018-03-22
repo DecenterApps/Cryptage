@@ -2,6 +2,7 @@
 @import "../../../common/text";
 
 .active-location-wrapper {
+  flex-grow: 1;
 
   .active-location-header {
     height: 75px;
@@ -10,6 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: white;
 
     .location-stats-label {
       font-size: $font-size-extra-large;

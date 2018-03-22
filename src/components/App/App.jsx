@@ -35,7 +35,7 @@ class App extends Component {
           <Projects />
         </div>
 
-        <Cards />
+        {/*<Cards />*/}
       </div>
     );
   }
