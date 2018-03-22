@@ -1,16 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleLocationDrop } from '../../actions/gameplayActions';
+import { handleLocationDrop, changeGameplayView } from '../../actions/gameplayActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
+import { GP_BUY_BOOSTER } from '../../actions/actionTypes';
 
 import './Locations.scss';
 
-const Locations = ({ locations, handleLocationDrop }) => (
+const Locations = ({ locations, handleLocationDrop, gameplayView, changeGameplayView }) => (
   <div className="locations-wrapper">
     <div className="buy-boosters-wrapper">
-      <button>Buy boosters</button>
+      <button
+        disabled={gameplayView === GP_BUY_BOOSTER}
+        onClick={() => { changeGameplayView(GP_BUY_BOOSTER); }}
+      >
+        Buy boosters
+      </button>
     </div>
 
     <div className="locations-header">
@@ -38,15 +44,19 @@ const Locations = ({ locations, handleLocationDrop }) => (
 Locations.propTypes = {
   locations: PropTypes.array.isRequired,
   handleLocationDrop: PropTypes.func.isRequired,
+  changeGameplayView: PropTypes.func.isRequired,
+  gameplayView: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   locations: gameplay.locations,
   activeLocationIndex: gameplay.activeLocationIndex,
+  gameplayView: gameplay.gameplayView,
 });
 
 const mapDispatchToProp = {
   handleLocationDrop,
+  changeGameplayView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Locations);

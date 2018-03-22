@@ -109,7 +109,7 @@
         "space": 60,
         "power": 9
       },
-      "image": "coworking-space.jpeg",
+      "image": "coworking-space.jpg",
       "type": "Location",
       "description": ""
     },
@@ -193,7 +193,7 @@
       "bonus": {
         "development": 4
       },
-      "image": "junior-dev.jpeg",
+      "image": "junior-dev.jpg",
       "type": "Development",
       "description": ""
     },

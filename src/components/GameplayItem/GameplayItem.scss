@@ -11,6 +11,10 @@
     color: #000;
   }
 
+  > div {
+    background-color: rgba(white, .8);
+  }
+
   .container-slots {
     display: flex;
     height: 100%;
