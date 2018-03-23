@@ -54,6 +54,7 @@
       .bar-wrapper {
         flex-grow: 1;
         padding: 6px 0;
+        position: relative;
         &:before {
           content: '';
           background-image: url('./title-extension.png');
@@ -91,6 +92,12 @@
             transform: skewX(45deg);
             background-color: $blue;
             margin: 0 -10px 0 10px;
+            float: right;
+          }
+          &.background {
+            background-color: #1C1935;
+            position: absolute;
+            width: 100%;
           }
         }
       }
@@ -105,10 +112,11 @@
 
       .background-drop {
         position: absolute;
-        top: 13px;
+        top: 16px;
         width: 486px;
         height: 132px;
-        background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
+        z-index: 0;
+        background: linear-gradient(180deg, rgb(28, 26, 53) 0%, rgba(54, 38, 95, 0) 100%)
       }
     }
 

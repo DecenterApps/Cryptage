@@ -30,14 +30,16 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop }) => 
               <div className="bar-label left">
                 <span>Space</span> - { `${space} / ${maxSpace}` }
               </div>
-              <div className="bar left" />
+              <div className="bar left background"/>
+              <div className="bar left" style={{ width: `${spacePercent}%` }} />
             </div>
             <div className="location-name">{ card.stats.title }</div>
             <div className="bar-wrapper">
               <div className="bar-label">
                 <span>Power</span> - { `${power} / ${maxPower}` }
               </div>
-              <div className="bar" />
+              <div className="bar background"/>
+              <div className="bar" style={{ width: `${powerPercent}%` }} />
             </div>
           </div>
 
