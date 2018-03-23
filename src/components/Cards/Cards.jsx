@@ -45,7 +45,7 @@ class Cards extends Component {
         {
           !cardsFetching && cards.length > 0 &&
           this.groupCardsByType(cards).map(type => (
-            <div className="card-type-wrapper">
+            <div className="card-type-wrapper" key={`${type[0].stats.type}-${type.length}`}>
               <div className="card-type-title-wrapper">
                 <h1 className="card-type-title">{type[0].stats.type}</h1>
               </div>
