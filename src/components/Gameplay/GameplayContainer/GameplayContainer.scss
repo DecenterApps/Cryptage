@@ -1,0 +1,22 @@
+@import "../../../common/variables";
+
+.active-container-wrapper {
+  margin-top: 70px;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+
+  .container-bottom-wrapper {
+    margin-top: 25px;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
+
+    .drop-slots-wrapper {
+      @include gameplayEmptySlot();
+    }
+
+    .container-card-header {
+      text-align: center;
+    }
+  }
+}

@@ -71,7 +71,10 @@ export const LEVEL_UP_CARD = 'level_up_card';
 export const ADD_LOCATION_SLOTS = 'add_location_slots';
 export const ADD_ASSET_SLOTS = 'add_location_slots';
 export const ADD_EXPERIENCE = 'add_experience';
+export const SWITCH_IN_GAMEPLAY_VIEW = 'switch_in_gameplay_view';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
 export const GP_LOCATION = 'location';
+export const GP_LOCATION_MAIN = 'location_main';
+export const GP_LOCATION_CONTAINER = 'location_container';

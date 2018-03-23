@@ -17,6 +17,7 @@ import {
   ADD_LOCATION_SLOTS,
   LOCATION_DROP_SLOTS,
   ADD_ASSET_SLOTS,
+  SWITCH_IN_GAMEPLAY_VIEW,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -575,4 +576,16 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
     globalStats,
   });
   saveGameplayState(getState);
+};
+
+/**
+ * Dispatches when a user clickes on a container card.
+ * It then takes him to the container card view
+ *
+ * @param containerIndex
+ * @param viewType
+ * @return {Function}
+ */
+export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => {
+  dispatch({ type: SWITCH_IN_GAMEPLAY_VIEW, payload: { viewType, containerIndex } });
 };

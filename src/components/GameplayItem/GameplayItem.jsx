@@ -3,25 +3,25 @@ import PropTypes from 'prop-types';
 import { Line } from 'rc-progress';
 import { connect } from 'react-redux';
 import { calcDataForNextLevel } from '../../services/utils';
-import { levelUpAsset, handleMinerDropInContainer } from '../../actions/gameplayActions';
-import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
-import ContainerItem from '../ContainerItem/ContainerItem';
-import { containerIds } from '../../actions/actionTypes';
+import { levelUpAsset, switchInGameplayView } from '../../actions/gameplayActions';
+import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 
 import './GameplayItem.scss';
 
 const GameplayItem = ({
-  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, dropSlots, handleMinerDropInContainer,
+  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, switchInGameplayView,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const isContainer = containerIds.includes(cards[0].metadata.id);
-  console.log('dropSlots', dropSlots);
+
   return (
     <div
       className={`
         gameplay-item-wrapper
         ${isOver && 'hovering'}
+        ${isContainer && 'container'}
       `}
+      onClick={() => { switchInGameplayView(index, GP_LOCATION_CONTAINER); }}
       style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
     >
       <div>{ cards[0].stats.title }</div>
@@ -36,23 +36,6 @@ const GameplayItem = ({
         >
           Upgrade to next level
         </button>
-      }
-
-      {
-        isContainer &&
-        <div className="container-slots">
-          <DropSlotsWrapper
-            dropSlots={dropSlots}
-            onItemDrop={(minerIndex, item) => {
-              handleMinerDropInContainer(activeLocationIndex, index, minerIndex, item);
-            }}
-            element={<ContainerItem
-              locationIndex={activeLocationIndex}
-              containerIndex={index}
-            />}
-            mainClass="container-slot"
-          />
-        </div>
       }
     </div>
   );
@@ -72,7 +55,7 @@ GameplayItem.propTypes = {
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
   levelUpAsset: PropTypes.func.isRequired,
-  handleMinerDropInContainer: PropTypes.func.isRequired,
+  switchInGameplayView: PropTypes.func.isRequired,
   dropSlots: PropTypes.array,
 };
 
@@ -81,7 +64,7 @@ const mapStateToProps = ({ gameplay }) => ({
 });
 
 const mapDispatchToProps = {
-  levelUpAsset, handleMinerDropInContainer,
+  levelUpAsset, switchInGameplayView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameplayItem);
