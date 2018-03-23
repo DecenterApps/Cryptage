@@ -25,40 +25,23 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop }) => 
       <div className="active-location-content">
 
         <div className="active-location-header">
-          <span className="bar-wrapper"><OpenLocationHeaderBar /></span>
-          <div className="location-name">{ card.stats.title }</div>
-          <span className="shape-left"><OpenLocationHeaderTiltedShape /></span>
-          <span className="shape-right"><OpenLocationHeaderTiltedShape /></span>
+          <div className="title-and-bars-wrapper">
+            <div className="bar-wrapper">
+              <div className="bar-label left">
+                <span>Space</span> - { `${space} / ${maxSpace}` }
+              </div>
+              <div className="bar left" />
+            </div>
+            <div className="location-name">{ card.stats.title }</div>
+            <div className="bar-wrapper">
+              <div className="bar-label">
+                <span>Power</span> - { `${power} / ${maxPower}` }
+              </div>
+              <div className="bar" />
+            </div>
+          </div>
 
           <div className="background-drop" />
-
-          <div className="meta-wrapper space">
-            <span>Space</span>
-            - { `${space} / ${maxSpace}` }
-          </div>
-
-          <div className="meta-wrapper power">
-            <span>Power</span>
-            - { `${power} / ${maxPower}` }
-          </div>
-
-          <svg className="values-progress-bar space" viewBox="0 0 225 12">
-            <polygon
-              x="0"
-              y="0"
-              points={`12,12 0,0 ${Math.floor(2.13 * spacePercent)},0 ${Math.floor((12 + (2.13 * spacePercent)))},12`}
-              className="progress-bar"
-            />
-          </svg>
-
-          <svg className="values-progress-bar power" viewBox="0 0 225 12">
-            <polygon
-              x="0"
-              y="0"
-              points={`12,12 0,0 ${Math.floor(2.13 * powerPercent)},0 ${Math.floor((12 + (2.13 * powerPercent)))},12`}
-              className="progress-bar"
-            />
-          </svg>
         </div>
 
         <div className="active-location-field">

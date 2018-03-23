@@ -11,6 +11,91 @@
     max-width: 515px;
     margin-top: 50px;
 
+    .title-and-bars-wrapper {
+      width: 100%;
+      display: flex;
+      font-size: 0;
+      z-index: 1;
+      .location-name {
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        margin: 0 25px;
+        flex-grow: 0;
+        background-image: url('./title-middle.png');
+        height: 27px;
+        position: relative;
+        &:before {
+          content: '';
+          background-image: url('./title-attachment.png');
+          height: 27px;
+          width: 25px;
+          display: block;
+          position: absolute;
+          left: -25px;
+          top: 0;
+          z-index: 2;
+          transform: scaleX(-1);
+        }
+        &:after {
+          content: '';
+          background-image: url('./title-attachment.png');
+          height: 27px;
+          width: 25px;
+          display: block;
+          position: absolute;
+          right: -25px;
+          top: 0;
+          z-index: 2;
+        }
+      }
+      .bar-wrapper {
+        flex-grow: 1;
+        padding: 6px 0;
+        &:before {
+          content: '';
+          background-image: url('./title-extension.png');
+          height: 27px;
+          width: 100%;
+          display: block;
+          position: absolute;
+          //left: -25px;
+          top: 0;
+          z-index: 2;
+          transform: scaleX(-1);
+        }
+        .bar-label {
+          position: absolute;
+          color: white;
+          font-size: 10px;
+          z-index: 1;
+          width: 100%;
+          padding: 0 10px;
+          span {
+            text-transform: uppercase;
+            font-weight: bold;
+          }
+          &.left {
+            text-align: right;
+          }
+        }
+        .bar {
+          background-color: $red;
+          max-width: 225px;
+          height: 12px;
+          transform: skewX(-45deg);
+          margin: 0 10px 0 -10px;
+          &.left {
+            transform: skewX(45deg);
+            background-color: $blue;
+            margin: 0 -10px 0 10px;
+          }
+        }
+      }
+    }
+
     .active-location-header {
       display: flex;
       align-items: center;
@@ -18,80 +103,12 @@
       color: white;
       position: relative;
 
-      .bar-wrapper {
-        position: absolute;
-      }
-
-      .location-name {
-        position: relative;
-        bottom: 10px;
-        text-transform: uppercase;
-        font-size: 14px;
-        font-weight: bold;
-      }
-
-      .shape-left {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-      }
-
-      .shape-right {
-        transform: scaleX(-1);
-        position: absolute;
-        right: 0;
-        bottom: 0;
-      }
-
       .background-drop {
         position: absolute;
         top: 13px;
         width: 486px;
         height: 132px;
         background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
-      }
-
-      .meta-wrapper {
-        font-size: 10px;
-        position: absolute;
-        z-index: 3;
-        bottom: 5px;
-
-        &.space {
-          left: 135px;
-        }
-
-        &.power {
-          right: 130px;
-        }
-
-        span {
-          text-transform: uppercase;
-          font-weight: bold;
-          margin-right: 5px;
-        }
-      }
-
-      .values-progress-bar {
-        z-index: 2;
-        width: 225px;
-        height: 12px;
-        position: absolute;
-        bottom: 5px;
-
-        &.space {
-          transform: scale(-1);
-          left: -1px;
-
-          .progress-bar { fill: #0086D1; }
-        }
-
-        &.power {
-          right: -1px;
-          transform: scaleY(-1);
-
-          .progress-bar { fill: #9E1D1D; }
-        }
       }
     }
 
