@@ -11,6 +11,19 @@
   overflow-y: auto;
   overscroll-behavior: contain contain;
 
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #FF9D14;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d8840e;
+  }
+
   .loading-cards, .no-cards {
     display: flex;
     align-items: center;
