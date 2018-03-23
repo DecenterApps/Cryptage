@@ -14,7 +14,15 @@ class Cards extends Component {
   }
 
   groupCardsByType(cards) {
-    const grouped = cards.reduce((accumulator, item) => {
+    const noDupliactes = cards.reduce((accumulator, item) => {
+      if (accumulator[item.metadata.id]) accumulator[item.metadata.id].count++;
+      else accumulator[item.metadata.id] = {
+        ...item,
+        count: 1,
+      };
+      return accumulator;
+    }, {});
+    const grouped = Object.values(noDupliactes).reduce((accumulator, item) => {
       if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
       else accumulator[item.stats.type] = [item];
       return accumulator;

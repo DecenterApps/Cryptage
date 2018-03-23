@@ -31,22 +31,22 @@ const HandCard = ({ card }) => (
         </pattern>
 
         <clipPath id="card-image-cut">
-          <polygon points="0,0 40,0 70,30 70,90 30,90 0,60" />
+          <polygon points="0,0 40,0 70,30 70,90 0,90" />
         </clipPath>
       </defs>
       <polygon
         className="card-image-inner"
-        points="0,0 40,0 70,30 70,90 30,90 0,60"
+        points="0,0 40,0 70,30 70,90 0,90"
         fill={`url(#card-background-${card.metadata.id})`}
         clipPath="url(#card-image-cut)"
       />
     </svg>
-    <div className="count-wrapper">
-      <div className="count">1</div>
-      {
-        // TODO Count is hardcoded to 1
-      }
-    </div>
+    {
+      card.count > 1 &&
+      <div className="count-wrapper">
+      <div className="count">x{card.count}</div>
+      </div>
+    }
     <div className="meta">
       <h3>{card.stats.title}</h3>
       <h4>Type: {card.stats.type}</h4>
