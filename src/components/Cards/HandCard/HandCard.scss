@@ -1,18 +1,81 @@
+@import '../../../common/colors';
+
 .card-details {
-  min-width: 150px;
-  max-width: 150px;
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 15px;
+  width: 70px;
+  height: 90px;
+  //min-width: 150px;
+  //max-width: 150px;
   box-sizing: border-box;
   overflow: hidden;
+  display: flex;
+  position: relative;
+  .card-image {
+    flex-grow: 1;
+    .card-image-inner {
+      stroke: #36265f;
+      stroke-miterlimit: 10;
+      stroke-width: 4;
+    }
+  }
+  .level-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 27px;
+    height: 27px;
+    color: white;
+    &:before {
+      position: absolute;
+      content: '';
+      border-top: 27px solid $green;
+      border-left: 27px solid transparent;
+    }
+    .level {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+    }
+  }
+  .count-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 27px;
+    height: 27px;
+    color: white;
+    &:before {
+      position: absolute;
+      content: '';
+      border-bottom: 27px solid $yellow;
+      border-right: 27px solid transparent;
+    }
+    .count {
+      position: absolute;
+      bottom: 2px;
+      left: 2px;
+    }
+  }
 
-  &.type-mining { background-color: #F2C5C5; }
-  &.type-development { background-color: #D4E7CD; }
-  &.type-location { background-color: #C8DEF1; }
-  &.type-project { background-color: #EDEDED; }
-  &.type-power { background-color: #9F609C; }
-  &.type-misc { background-color: #FFF0C5; }
+  .meta {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    heigth: 100%;
+    background: rgba(white, .5);
+  }
+  &:hover {
+    .meta {
+      display: block;
+    }
+  }
+
+  &.type-mining { border-color: #F2C5C5; }
+  &.type-development { border-color: #D4E7CD; }
+  &.type-location { border-color: #C8DEF1; }
+  &.type-project { border-color: #EDEDED; }
+  &.type-power { border-color: #9F609C; }
+  &.type-misc { border-color: #FFF0C5; }
 
   .section-wrapper {
     border: 1px solid black;
