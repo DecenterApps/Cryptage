@@ -9,6 +9,7 @@
   width: 100%;
   height: 120px;
   overflow-y: auto;
+  overscroll-behavior: contain contain;
 
   .loading-cards, .no-cards {
     display: flex;
