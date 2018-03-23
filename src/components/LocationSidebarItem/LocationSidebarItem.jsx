@@ -22,15 +22,25 @@ const LocationSidebarItem = ({
       `}
       onClick={() => { setActiveLocation(index); }}
     >
-      <svg className="location-progress-bar" viewBox="0 0 84 11">
-        <defs>
-          <clipPath id="cut">
-            <polygon points="78.2,9 71.2,2 2,2 2,9 " />
-          </clipPath>
-        </defs>
-        <polygon className="progress-bar-outer" points="1,1 1,10 80,10 71,1" />
-        <rect x="0" y="0" width={percent * 0.82} height="11" className="progress-bar" clipPath="url(#cut)" />
-      </svg>
+      {
+        ((activeLocationIndex === index) && gameplayView === GP_LOCATION) &&
+        <svg className="location-progress-bar" viewBox="0 0 84 11">
+          <defs>
+            <clipPath id="location-sidebar-item-cut">
+              <polygon points="78.2,9 71.2,2 2,2 2,9 " />
+            </clipPath>
+          </defs>
+          <polygon className="progress-bar-outer" points="1,1 1,10 80,10 71,1" />
+          <rect
+            x="0"
+            y="0"
+            width={percent * 0.82}
+            height="11"
+            className="progress-bar"
+            clipPath="url(#location-sidebar-item-cut)"
+          />
+        </svg>
+      }
       <div
         className="location-sidebar-item-inner-wrapper"
         style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
