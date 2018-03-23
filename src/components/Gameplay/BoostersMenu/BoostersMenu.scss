@@ -1,36 +1,67 @@
 @import "../../../common/flip.scss";
 @import "../../../common/colors";
+@import "../../../common/variables";
 
 .booster-store-wrapper {
-  max-width: 1200px;
-  margin: auto;
+  position: relative;
+  height: 55%;
+  width: 566px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
-  .booster-store-header {
-    margin: 20px;
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid $border-color;
+  .booster-text {
+    color: $yellow;
+    font-family: $font-secondary;
+    font-size: 13px;
+    text-align: center;
+  }
 
-    .buying {
-      display: flex;
-      align-items: center;
+  .booster-text-gradient {
+    font-family: $font-secondary;
+    font-size: 18px;
+    background: linear-gradient(to bottom, $yellow 0%, rgba(255, 157, 20, 0.23) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .booster-button {
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    border: none;
+
+    &:hover {
+      color: $yellow;
+      background: none;
+      -webkit-background-clip: initial;
+      -webkit-text-fill-color: initial;
     }
+  }
 
-    button {
-      cursor: pointer;
-      padding: 10px;
-    }
-
-    span span {
-      margin-right: 5px;
-    }
-
-    h1 {  margin: 0;  }
+  .booster-store-body {
+    text-align: center;
   }
 
   .boosters-wrapper {
     margin: 20px;
+  }
+
+  .shop-funds {
+    display: flex;
+    width: 100%;
+    font-size: 13px;
+    color: #fff;
+    line-height: 26px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    justify-content: center;
+
+    img {
+      display: inline;
+      height: 26px;
+      width: 26px;
+      margin-right: 4px;
+    }
   }
 
   .loading-wrapper {
@@ -47,14 +78,11 @@
   }
 
   .boosters {
-    padding: 20px;
-
     .booster {
       display: inline-block;
       position: relative;
-      height: 336px;
-      width: 200px;
-      border: 1px solid #000;
+      height: 180px;
+      width: 107px;
       margin-right: 10px;
       color: #fff;
 

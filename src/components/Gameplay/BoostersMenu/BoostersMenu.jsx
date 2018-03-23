@@ -2,12 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Spinner from '../../Spinner/Spinner';
+import HeaderBar from '../../HeaderBar/HeaderBar';
 
 import { getBoosters, buyBoosterPack, revealBooster } from '../../../actions/boosterActions';
 
 import './BoostersMenu.scss';
 import bg from './assets/booster-bg.png';
 import bgBack from './assets/booster-bg-back.png';
+import ethCircle from '../GameplayHeader/eth-circle.png';
+
 
 class BoostersMenu extends React.Component {
   componentWillMount() {
@@ -16,61 +19,64 @@ class BoostersMenu extends React.Component {
 
   render() {
     const { boosters, isBuying, isFetching } = this.props.shop;
+    const { accountBalance } = this.props;
 
     return (
       <div className="booster-store-wrapper">
-        <div className="booster-store-header">
-          <h1>Buy a booster:</h1>
-          <button
-            disabled={isBuying}
-            onClick={this.props.buyBoosterPack}
-          >
+        <HeaderBar title="BUY" color="#FF9D14" fontSize="13px" />
+
+        <div className="booster-store-body">
+          <div className="boosters-wrapper">
+            {(boosters.length === 0 && !isFetching) &&
+            <h3 className="booster-text">You do not currently own any boosters.</h3>}
+
             {
-              isBuying &&
-              <span className="buying"><span>Buying booster...</span> <Spinner color="#000" size={2} /></span>
+              boosters.length > 0 &&
+              <div className="boosters">
+                {
+                  boosters.map(item => (
+                    <div className="flip-container" key={item.id}>
+
+                      <div className="flipper booster">
+                        <div className="front" style={{ backgroundImage: `url(${bg})` }}>
+                          <p className="booster-text-gradient">BOOSTER</p>
+
+                          {item.revealing &&
+                          <span>Revealing booster <Spinner color="white" size={2} /></span>}
+                        </div>
+                        <div className="back" style={{ backgroundImage: `url(${bgBack})` }}>
+                          <button
+                            disabled={item.revealing}
+                            onClick={() => this.props.revealBooster(item.id)}
+                            className="booster-reveal"
+                          >
+                            {!item.revealing && 'Reveal'}
+                            {item.revealing && 'revealing booster'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
             }
-            { !isBuying && 'Buy' }
+          </div>
+          <button className="booster-button booster-text-gradient" onClick={this.props.buyBoosterPack}>BUY
+            BOOSTER
           </button>
-        </div>
 
-        {
-          isFetching &&
-          <div className="loading-wrapper">
-            <span>Fetching boosters</span>
-            <Spinner color="red" size={4} />
+          <div className="shop-funds">
+            <img src={ethCircle} alt="Ethereum logo circle" /> ETH {parseFloat(accountBalance).toFixed(2)}
           </div>
-        }
 
-        <div className="boosters-wrapper">
-          { (boosters.length === 0 && !isFetching) && <h3>You do not currently own any boosters.</h3> }
 
-          <div className="boosters">
-            {
-              boosters.map(item => (
-                <div className="flip-container" key={item.id}>
-
-                  <div className="flipper booster">
-                    <div className="front" style={{ backgroundImage: `url(${bg})` }}>
-                      <p className="booster-name">{item.name}</p>
-                      <div className="booster-price">{item.price}</div>
-
-                      { item.revelaing && <span>Revealing booster <Spinner color="white" size={2} /></span> }
-                    </div>
-                    <div className="back" style={{ backgroundImage: `url(${bgBack})` }}>
-                      <button
-                        disabled={item.revelaing}
-                        onClick={() => this.props.revealBooster(item.id)}
-                        className="booster-reveal"
-                      >
-                        { !item.revelaing && 'Reveal'}
-                        { item.revelaing && 'revealing booster' }
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            }
-          </div>
+          {
+            isFetching &&
+            <div className="loading-wrapper">
+              <span>Fetching boosters</span>
+              <Spinner color="red" size={4} />
+            </div>
+          }
         </div>
       </div>
     );
@@ -86,12 +92,16 @@ BoostersMenu.propTypes = {
   getBoosters: PropTypes.func.isRequired,
   buyBoosterPack: PropTypes.func.isRequired,
   revealBooster: PropTypes.func.isRequired,
+  accountBalance: PropTypes.string,
 };
 
-BoostersMenu.defaultProps = {};
+BoostersMenu.defaultProps = {
+  accountBalance: '',
+};
 
 const mapStateToProps = state => ({
   shop: state.shop,
+  accountBalance: state.app.accountBalance,
 });
 
 const mapDispatchToProps = {

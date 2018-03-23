@@ -28,24 +28,6 @@
     flex-wrap: wrap;
   }
 
-  .projects-small-wrapper {
-
-    .project {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      background-color: #ffbd3b;
-      color: white;
-      cursor: pointer;
-
-      &.active {
-        opacity: 0.7;
-        pointer-events: none;
-      }
-    }
-  }
-
   .projects-slots-wrapper {
     background: url("./assets/project-bg.png") no-repeat center center;
     background-size: 150%;

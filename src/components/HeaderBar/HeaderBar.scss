@@ -1,0 +1,98 @@
+@import "../../common/variables";
+@import "../../common/colors";
+
+.header-bar-wrapper {
+  position: absolute;
+  top: -17px;
+  width: 100%;
+  display: flex;
+  font-size: 0;
+  z-index: 1;
+  .bar-name {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 0 22px;
+    flex-grow: 0;
+    background-image: url('./assets/title.png');
+    height: 17px;
+    position: relative;
+    font-family: $font-secondary;
+    line-height: 35px;
+    &:before {
+      content: '';
+      background-image: url('./assets/middle.png');
+      height: 27px;
+      width: 22px;
+      display: block;
+      position: absolute;
+      left: -22px;
+      top: 0;
+      z-index: 2;
+      transform: scaleX(-1);
+    }
+    &:after {
+      content: '';
+      background-image: url('./assets/middle.png');
+      height: 27px;
+      width: 22px;
+      display: block;
+      position: absolute;
+      right: -22px;
+      top: 0;
+      z-index: 2;
+    }
+  }
+  .bar-wrapper {
+    flex-grow: 1;
+    padding: 6px 0;
+    position: relative;
+    &:before {
+      content: '';
+      background-image: url('./assets/extension.png');
+      height: 27px;
+      width: 100%;
+      display: block;
+      position: absolute;
+      //left: -25px;
+      top: 0;
+      z-index: 2;
+      transform: scaleX(-1);
+    }
+    .bar-label {
+      position: absolute;
+      color: white;
+      font-size: 10px;
+      z-index: 1;
+      width: 100%;
+      padding: 0 10px;
+      span {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      &.left {
+        text-align: right;
+      }
+    }
+    .bar {
+      background-color: $red;
+      max-width: 225px;
+      height: 12px;
+      transform: skewX(-45deg);
+      margin: 0 10px 0 -10px;
+      &.left {
+        transform: skewX(45deg);
+        background-color: $blue;
+        margin: 0 -10px 0 10px;
+        float: right;
+      }
+      &.background {
+        background-color: #1C1935;
+        position: absolute;
+        width: 100%;
+      }
+    }
+  }
+}

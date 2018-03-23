@@ -71,7 +71,7 @@ export const buyBoosterPack = () => async (dispatch) => {
 export const revealRequest = (_id, _boosters) => {
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
-  boosters[boosterIndex].revelaing = true;
+  boosters[boosterIndex].revealing = true;
 
   return { type: REVEAL_REQUEST, boosters };
 };
@@ -89,7 +89,7 @@ export const revealSuccess = (_cards, _id, _boosters, getState) => {
 export const revealError = (error, _id, _boosters) => {
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
-  boosters[boosterIndex].revelaing = false;
+  boosters[boosterIndex].revealing = false;
 
   return { type: REVEAL_ERROR, isRevealing: false, error, };
 };
