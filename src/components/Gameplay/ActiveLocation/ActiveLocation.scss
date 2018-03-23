@@ -1,4 +1,5 @@
 @import "../../../common/colors";
+@import "../../../common/variables";
 @import "../../../common/text";
 
 .active-location-wrapper {
@@ -27,6 +28,8 @@
         background-image: url('./title-middle.png');
         height: 27px;
         position: relative;
+        font-family: $font-secondary;
+        line-height: 5px;
         &:before {
           content: '';
           background-image: url('./title-attachment.png');
