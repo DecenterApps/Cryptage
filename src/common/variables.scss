@@ -1,6 +1,8 @@
 $card-width: 63.5px; // export this to common
 $card-height: 88.9px; // export this to common
 
+$font-secondary: 'Baloo', sans-serif;
+
 @mixin fancy-button {
   border-radius: 5px;
   padding: 10px 20px;

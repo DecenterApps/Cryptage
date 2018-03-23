@@ -13,6 +13,15 @@ class Cards extends Component {
     this.props.usersCardsFetch();
   }
 
+  groupCardsByType(cards) {
+    const grouped = cards.reduce((accumulator, item) => {
+      if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
+      else accumulator[item.stats.type] = [item];
+      return accumulator;
+    }, {});
+    return Object.values(grouped);
+  }
+
   render() {
     const { cardsFetching, cards } = this.props;
 
@@ -35,11 +44,20 @@ class Cards extends Component {
 
         {
           !cardsFetching && cards.length > 0 &&
-          cards.map(card => (
-            <div key={card.id} className="card-container">
-              <DragWrapper key={card.id} {...{ card }}>
-                <HandCard card={card} />
-              </DragWrapper>
+          this.groupCardsByType(cards).map(type => (
+            <div className="card-type-wrapper">
+              <div className="card-type-title-wrapper">
+                <h1 className="card-type-title">{type[0].stats.type}</h1>
+              </div>
+              {
+                type.map(card => (
+                  <div key={card.id} className="card-container">
+                    <DragWrapper key={card.id} {...{ card }}>
+                      <HandCard card={card} />
+                    </DragWrapper>
+                  </div>
+                ))
+              }
             </div>
           ))
         }
