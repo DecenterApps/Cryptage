@@ -12,6 +12,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 0 Computer case
     [
       {
+        level: 1,
+        cost: { funds: 10, level: 1, space: 5 },
+        bonus: { space: 1 },
+      },
+      {
         level: 2,
         cost: { funds: 12, level: 1 },
         bonus: { space: 1 },
@@ -39,6 +44,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 1 Rig
     [
+      {
+        level: 1,
+        cost: { funds: 1000, level: 2, space: 15 },
+        bonus: { space: 4 },
+      },
       {
         level: 2,
         cost: { funds: 1200, level: 2 },
@@ -68,6 +78,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 2 Mount
     [
       {
+        level: 1,
+        cost: { funds: 10000, level: 3, space: 25 },
+        bonus: { space: 4 },
+      },
+      {
         level: 2,
         cost: { funds: 12000, level: 3 },
         bonus: { space: 4 },
@@ -95,6 +110,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 3 CPU
     [
+      {
+        level: 1,
+        cost: { funds: 10, level: 1, space: 1 },
+        bonus: { funds: 0.1 },
+      },
       {
         level: 2,
         cost: { funds: 12, level: 1, power: 1 },
@@ -124,6 +144,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 4 Graphics card
     [
       {
+        level: 1,
+        cost: { funds: 100, level: 1, space: 1, power: 4 }, // eslint-disable-line
+        bonus: { funds: 0.5 },
+      },
+      {
         level: 2,
         cost: { funds: 120, level: 1, power: 4 },
         bonus: { funds: 0.5 },
@@ -151,6 +176,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 5 ASIC miner
     [
+      {
+        level: 1,
+        cost: { funds: 10000, level: 1, space: 1, power: 16 }, // eslint-disable-line
+        bonus: { funds: 10 },
+      },
       {
         level: 2,
         cost: { funds: 12000, level: 2, power: 16 },
@@ -180,6 +210,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 6 Garage
     [
       {
+        level: 1,
+        cost: { level: 1 },
+        values: { space: 40, power: 3 },
+      },
+      {
         level: 2,
         cost: { funds: 100, level: 1 },
         bonus: { power: 3, space: 0 },
@@ -207,6 +242,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 7 Coworking space
     [
+      {
+        level: 1,
+        cost: { funds: 500, level: 2 },
+        values: { space: 40, power: 3 },
+      },
       {
         level: 2,
         cost: { funds: 520, level: 2 },
@@ -236,6 +276,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 8 Shantytown office
     [
       {
+        level: 1,
+        cost: { funds: 2000, level: 4 },
+        values: { space: 80, power: 20 },
+      },
+      {
         level: 2,
         cost: { funds: 2100, level: 4 },
         bonus: { power: 10, space: 0 },
@@ -263,6 +308,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 9 Downtown office
     [
+      {
+        level: 1,
+        cost: { funds: 10000, level: 5 },
+        values: { space: 120, power: 50 },
+      },
       {
         level: 2,
         cost: { funds: 12000, level: 6 },
@@ -292,6 +342,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 10 Elite office
     [
       {
+        level: 1,
+        cost: { funds: 100000, level: 10 },
+        values: { space: 160, power: 110 },
+      },
+      {
         level: 2,
         cost: { funds: 102000, level: 10 },
         bonus: { power: 40, space: 0 },
@@ -319,6 +374,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 11 Office building
     [
+      {
+        level: 1,
+        cost: { funds: 1000000, level: 20 },
+        values: { space: 200, power: 230 },
+      },
       {
         level: 2,
         cost: { funds: 1400000, level: 20 },
@@ -348,6 +408,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 12 Intern developer
     [
       {
+        level: 1,
+        cost: { funds: 15, level: 1, space: 10 },
+        bonus: { development: 1 },
+      },
+      {
         level: 2,
         cost: { funds: 25, level: 1 },
         bonus: { development: 1 },
@@ -375,6 +440,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 13 Junior developer
     [
+      {
+        level: 1,
+        cost: { funds: 100, level: 2, space: 10 },
+        bonus: { development: 4 },
+      },
       {
         level: 2,
         cost: { funds: 200, level: 2 },
@@ -404,6 +474,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 14 Freelance expert
     [
       {
+        level: 1,
+        cost: { funds: 500, level: 4, space: 10 },
+        bonus: { development: 10 },
+      },
+      {
         level: 2,
         cost: { funds: 1000, level: 4 },
         bonus: { development: 4 },
@@ -431,6 +506,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 15 Senior developer
     [
+      {
+        level: 1,
+        cost: { funds: 3000, level: 5, space: 10 },
+        bonus: { development: 22 },
+      },
       {
         level: 2,
         cost: { funds: 5000, level: 5 },
@@ -460,6 +540,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 16 Tech lead
     [
       {
+        level: 1,
+        cost: { funds: 10000, level: 6, space: 10 },
+        bonus: { development: 46 },
+      },
+      {
         level: 2,
         cost: { funds: 20000, level: 7 },
         bonus: { development: 10 },
@@ -487,6 +572,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 17 Project architect
     [
+      {
+        level: 1,
+        cost: { funds: 40000, level: 10, space: 10 },
+        bonus: { development: 76 },
+      },
       {
         level: 2,
         cost: { funds: 60000, level: 12 },
@@ -516,6 +606,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 18 Hacker
     [
       {
+        level: 1,
+        cost: { level: 1 },
+        bonus: null,
+      },
+      {
         level: 2,
         cost: { funds: 60000, level: 12 },
         bonus: { development: 12 },
@@ -543,6 +638,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 19 Part-time Gig
     [
+      {
+        level: 1,
+        cost: { development: 25, time: 55 },
+        bonus: { xp: 1000 },
+      },
       {
         level: 2,
         cost: { funds: 51, level: 1 },
@@ -572,6 +672,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 20 Bigtime outsource
     [
       {
+        level: 1,
+        cost: { development: 25, time: 55 },
+        bonus: { xp: 1000 },
+      },
+      {
         level: 2,
         cost: { funds: 51, level: 1 },
         bonus: { funds: 100 },
@@ -599,6 +704,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 21 Optimize Mining algorithm
     [
+      {
+        level: 1,
+        cost: { development: 25, time: 10 },
+        bonus: { xp: 1000 },
+      },
       {
         level: 2,
         cost: { funds: 51, level: 1 },
@@ -628,6 +738,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 22 No name project 1
     [
       {
+        level: 1,
+        cost: { development: 25, time: 5 },
+        bonus: { xp: 1000 },
+      },
+      {
         level: 2,
         cost: { funds: 51, level: 1 },
         bonus: { funds: 100 },
@@ -655,6 +770,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 23 No name project 2
     [
+      {
+        level: 1,
+        cost: { development: 25, time: 5 },
+        bonus: { xp: 1000 },
+      },
       {
         level: 2,
         cost: { funds: 51, level: 1 },
@@ -684,6 +804,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 24 No name project 3
     [
       {
+        level: 1,
+        cost: { development: 25, time: 55 },
+        bonus: { xp: 1000 },
+      },
+      {
         level: 2,
         cost: { funds: 51, level: 1 },
         bonus: { funds: 100 },
@@ -711,6 +836,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 25 Solar panels
     [
+      {
+        level: 1,
+        cost: { funds: 500, level: 1, space: 15 },
+        bonus: { power: 15 },
+      },
       {
         level: 2,
         cost: { funds: 550, level: 1 },
@@ -740,6 +870,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 26 Black market batteries
     [
       {
+        level: 1,
+        cost: { funds: 3000, level: 1, space: 30 },
+        bonus: { power: 50 },
+      },
+      {
         level: 2,
         cost: { funds: 3500, level: 1 },
         bonus: { power: 10 },
@@ -767,6 +902,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 27 Jury-rigged generator
     [
+      {
+        level: 1,
+        cost: { funds: 10000, level: 1, space: 60 },
+        bonus: { power: 500 },
+      },
       {
         level: 2,
         cost: { funds: 12000, level: 1 },
@@ -796,6 +936,11 @@ export const getLevelValuesForCard = (id, _level) => {
     // 28 GRID connector
     [
       {
+        level: 1,
+        cost: { funds: 50, level: 1 },
+        bonus: null,
+      },
+      {
         level: 2,
         cost: { funds: 51, level: 1 },
         bonus: { funds: 100 },
@@ -823,6 +968,11 @@ export const getLevelValuesForCard = (id, _level) => {
     ],
     // 28 Coffe miner
     [
+      {
+        level: 1,
+        cost: { funds: 50, level: 1 },
+        bonus: null,
+      },
       {
         level: 2,
         cost: { funds: 51, level: 1 },
@@ -881,8 +1031,10 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
       Object.keys(globalCost).forEach((statKey) => { globalStats[statKey] -= globalCost[statKey]; });
     }
 
-    if (Object.keys(localCost).length && card.stats.type !== 'Mining') {
+    if (Object.keys(localCost).length) {
       Object.keys(localCost).forEach((statKey) => {
+        if (card.stats.type === 'Mining' && statKey === 'space') return;
+
         locations[activeLocationIndex].lastDroppedItem.values[statKey] -= localCost[statKey];
       });
     }
@@ -967,4 +1119,22 @@ export const getSlotForContainer = (_id, space) => {
 
   for (let i = 0; i < space; i += 1) slots.push({ accepts, lastDroppedItem: null });
   return slots;
+};
+
+/**
+ * Returns the maximum space a specific location
+ * has for a specific level
+ *
+ * @param {Number} type
+ * @param {Number} level
+ * @param {String} stat
+ * @return {Number}
+ */
+export const getMaxValueForLocation = (type, level, stat) => {
+  let base = getLevelValuesForCard(type, 1).values[stat];
+
+  if (level === 1) return base;
+
+  for (let i = 2; i <= level; i += 1) base += getLevelValuesForCard(type, i).bonus[stat];
+  return base;
 };

@@ -22,7 +22,7 @@ import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
 import {
   checkIfCanPlayCard, getLevelValuesForCard, getSlotForContainer,
-  handleCardMathematics
+  handleCardMathematics,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
@@ -400,6 +400,7 @@ export const levelUpLocation = index => (dispatch, getState) => {
 
   locations[index].lastDroppedItem.level += 1;
   locations[index].lastDroppedItem.canLevelUp = false;
+  locations[index].accepts = [cards[0].metadata.id];
 
   const mathRes =
     handleCardMathematics(locations[index].lastDroppedItem.cards[0], locations, gameplay.globalStats, index);
