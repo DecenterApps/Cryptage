@@ -16,9 +16,19 @@
     text-align: center;
   }
 
+  .booster-placeholder {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 40px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   .booster-text-gradient {
     font-family: $font-secondary;
-    font-size: 18px;
+    font-size: 17px;
     background: linear-gradient(to bottom, $yellow 0%, rgba(255, 157, 20, 0.23) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -26,9 +36,8 @@
 
   .booster-button {
     cursor: pointer;
-    padding: 0;
     outline: none;
-    border: none;
+    margin: 0 0 11px 0;
 
     &:hover {
       color: $yellow;
@@ -78,13 +87,51 @@
   }
 
   .boosters {
+    position: relative;
+    min-height: 227px;
+
     .booster {
+      position: absolute;
       display: inline-block;
-      position: relative;
-      height: 180px;
-      width: 107px;
-      margin-right: 10px;
       color: #fff;
+
+      img {
+        height: 227px;
+        width: 154px;
+      }
+
+      &.booster-right {
+        z-index: 1;
+        left: 150px;
+        right: 0;
+        margin: auto;
+        top: 10px;
+
+        img {
+          height: 206px;
+          width: 140px;
+        }
+      }
+
+      &.booster-left {
+        z-index: 1;
+        right: 150px;
+        left: 0;
+        margin: auto;
+        top: 10px;
+
+        img {
+          height: 206px;
+          width: 140px;
+        }
+      }
+
+      &.booster-middle {
+        z-index: 2;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
 
       .front, .back {
         background-size: cover;
