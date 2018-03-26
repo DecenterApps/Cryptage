@@ -44,7 +44,10 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop, inGam
             </div>
           </div>
 
-          <div className="background-drop" />
+          <div
+            className="background-drop"
+            style={{ backgroundImage: `url(/cardImages/${card.stats.image})` }}
+          />
         </div>
 
         {
