@@ -1,0 +1,34 @@
+@import "../../../common/colors";
+
+.no-locations-wrapper {
+  flex-grow: 1;
+  display: flex;
+  color: #fff;
+  position: relative;
+
+  .locations-message-container {
+    position: absolute;
+    width: 183px;
+    height: 104px;
+    background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
+    top: 80px;
+    display: flex;
+    padding: 0 50px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 25px;
+    left: 65px;
+
+    &:before {
+      content: '';
+      height: 2px;
+      width: 45px;
+      display: block;
+      position: absolute;
+      left: -45px;
+      top: 42px;
+      background: $purple;
+    }
+  }
+}

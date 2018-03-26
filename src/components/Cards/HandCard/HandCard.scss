@@ -7,9 +7,10 @@
   //min-width: 150px;
   //max-width: 150px;
   box-sizing: border-box;
-  overflow: hidden;
+  //overflow: hidden;
   display: flex;
   position: relative;
+  margin: 0 10px;
   .card-image {
     flex-grow: 1;
     .card-image-inner {
@@ -25,11 +26,10 @@
     width: 27px;
     height: 27px;
     color: white;
-    &:before {
+    .level-background {
       position: absolute;
-      content: '';
-      border-top: 27px solid $green;
-      border-left: 27px solid transparent;
+      width: 27px;
+      height: 27px;
     }
     .level {
       position: absolute;
@@ -46,6 +46,7 @@
     color: white;
     &:before {
       position: absolute;
+      bottom: 0;
       content: '';
       border-bottom: 30px solid rgba(#36265F, .85);
       border-right: 30px solid transparent;
@@ -59,6 +60,53 @@
       font-family: $font-secondary;
     }
   }
+  .cost, .values {
+    position: absolute;
+    width: 20px;
+    &.cost {
+      top: 2px;
+      left: -11px;
+    }
+    &.values {
+      right: -7px;
+      top: 32px;
+    }
+    .circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: block;
+      margin: 2px 0;
+      line-height: 22px;
+      color: white;
+      border: 2px solid #36265F;
+      box-sizing: content-box;
+      font-size: 12px;
+      font-family: $font-secondary;
+      text-align: center;
+      background: radial-gradient(9.50px at 50% 50%, #555 0%, #000 100%);
+      &.small {
+        padding-top: 3px;
+        height: 17px;
+        font-size: 9px;
+        white-space: pre;
+        line-height: 8px;
+      }
+      &.smaller {
+        font-size: 9px;
+      }
+      &.power {
+        background: radial-gradient(9.50px at 50% 50%, #FF0000 0%, #7A120D 100%);
+      }
+      &.space {
+        background: radial-gradient(9.50px at 50% 50%, #41E0E0 0%, #2B7678 100%);
+      }
+      &.funds {
+        background: radial-gradient(9.50px at 50% 50%, #FF9D14 0%, #8F570A 100%);
+      }
+    }
+
+  }
 
   .meta {
     display: none;
@@ -67,11 +115,6 @@
     width: 100%;
     heigth: 100%;
     background: rgba(white, .5);
-  }
-  &:hover {
-    .meta {
-      display: block;
-    }
   }
 
   &.type-mining { border-color: #F2C5C5; }
