@@ -5,6 +5,7 @@ import { handleMinerDropInContainer } from '../../../actions/gameplayActions';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import ContainerItem from '../../ContainerItem/ContainerItem';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
+import HeaderBar from '../../HeaderBar/HeaderBar';
 
 import './GameplayContainer.scss';
 
@@ -21,7 +22,7 @@ const GameplayContainer = ({
       </div>
 
       <div className="container-bottom-wrapper">
-        <div className="container-card-header">{ card.stats.title }</div>
+        <HeaderBar title={card.stats.title} color="#FFF" fontSize="12px" />
 
         <div className="container-slots">
           <DropSlotsWrapper

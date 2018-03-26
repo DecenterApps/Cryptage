@@ -7,16 +7,17 @@
   text-align: center;
 
   .container-bottom-wrapper {
+    position: relative;
     margin-top: 25px;
     height: 200px;
     background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
-    .drop-slots-wrapper {
-      @include gameplayEmptySlot();
-    }
+    .container-slots {
+      padding-top: 38px;
 
-    .container-card-header {
-      text-align: center;
+      .drop-slots-wrapper {
+        @include gameplayEmptySlot();
+      }
     }
   }
 }
