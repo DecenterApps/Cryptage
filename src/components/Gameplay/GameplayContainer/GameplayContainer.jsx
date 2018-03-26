@@ -1,22 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleMinerDropInContainer } from '../../../actions/gameplayActions';
+import { handleMinerDropInContainer, switchInGameplayView } from '../../../actions/gameplayActions';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import ContainerItem from '../../ContainerItem/ContainerItem';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
 import HeaderBar from '../../HeaderBar/HeaderBar';
 
 import './GameplayContainer.scss';
+import CloseIcon from './CloseIcon';
+import { GP_LOCATION_MAIN } from '../../../actions/actionTypes';
 
 const GameplayContainer = ({
-  locations, activeLocationIndex, activeContainerIndex, handleMinerDropInContainer
+  locations, activeLocationIndex, activeContainerIndex, handleMinerDropInContainer, switchInGameplayView,
 }) => {
   const activeLocation = locations[activeLocationIndex].lastDroppedItem;
   const card = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.cards[0];
   const containerSlots = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots;
   return (
     <div className="active-container-wrapper">
+      <div
+        onClick={() => { switchInGameplayView(activeContainerIndex, GP_LOCATION_MAIN); }}>
+        <CloseIcon />
+      </div>
+
       <div className="active-container-card-wrapper">
         Active container card goes here (missing card component)
       </div>
@@ -48,10 +55,11 @@ GameplayContainer.propTypes = {
   activeLocationIndex: PropTypes.number.isRequired,
   activeContainerIndex: PropTypes.number.isRequired,
   handleMinerDropInContainer: PropTypes.func.isRequired,
+  switchInGameplayView: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  handleMinerDropInContainer,
+  handleMinerDropInContainer, switchInGameplayView,
 };
 
 const mapStateToProps = ({ gameplay }) => ({

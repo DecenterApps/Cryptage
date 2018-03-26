@@ -5,6 +5,19 @@
   width: 100%;
   color: #fff;
   text-align: center;
+  position: relative;
+
+  .close-icon {
+    position: absolute;
+    top: -115px;
+    right: -20px;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 
   .container-bottom-wrapper {
     position: relative;
