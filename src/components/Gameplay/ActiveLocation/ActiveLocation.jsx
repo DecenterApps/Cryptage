@@ -11,7 +11,13 @@ import { handleAssetDrop } from '../../../actions/gameplayActions';
 import './ActiveLocation.scss';
 import { GP_LOCATION_CONTAINER, GP_LOCATION_MAIN } from '../../../actions/actionTypes';
 
-const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop, inGameplayView }) => {
+const ActiveLocation = ({
+  locations,
+  activeLocationIndex,
+  activeContainerIndex,
+  handleAssetDrop,
+  inGameplayView,
+}) => {
   const location = locations[activeLocationIndex];
   const { space, power } = location.lastDroppedItem.values;
   const card = location.lastDroppedItem.cards[0];
@@ -29,15 +35,15 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop, inGam
           <div className="title-and-bars-wrapper">
             <div className="bar-wrapper">
               <div className="bar-label left">
-                <span>Space</span> - { `${space} / ${maxSpace}` }
+                <span>Space</span> - {`${space} / ${maxSpace}`}
               </div>
               <div className="bar left background" />
               <div className="bar left" style={{ width: `${spacePercent}%` }} />
             </div>
-            <div className="location-name">{ card.stats.title }</div>
+            <div className="location-name">{card.stats.title}</div>
             <div className="bar-wrapper">
               <div className="bar-label">
-                <span>Power</span> - { `${power} / ${maxPower}` }
+                <span>Power</span> - {`${power} / ${maxPower}`}
               </div>
               <div className="bar background" />
               <div className="bar" style={{ width: `${powerPercent}%` }} />
@@ -46,7 +52,14 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop, inGam
 
           <div
             className="background-drop"
-            style={{ backgroundImage: `url(/cardImages/${card.stats.image})` }}
+            style={{
+              backgroundImage: `url(/cardImages/${
+                inGameplayView === GP_LOCATION_CONTAINER
+                  ? location.lastDroppedItem.dropSlots[activeContainerIndex]
+                    .lastDroppedItem.cards[0].stats.image
+                  : card.stats.image
+                })`,
+            }}
           />
         </div>
 
@@ -75,6 +88,7 @@ const ActiveLocation = ({ locations, activeLocationIndex, handleAssetDrop, inGam
 ActiveLocation.propTypes = {
   locations: PropTypes.array.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
+  activeContainerIndex: PropTypes.number.isRequired,
   handleAssetDrop: PropTypes.func.isRequired,
   inGameplayView: PropTypes.string.isRequired,
 };
@@ -86,6 +100,7 @@ const mapDispatchToProps = {
 const mapStateToProps = ({ gameplay }) => ({
   locations: gameplay.locations,
   activeLocationIndex: gameplay.activeLocationIndex,
+  activeContainerIndex: gameplay.activeContainerIndex,
   inGameplayView: gameplay.inGameplayView,
 });
 

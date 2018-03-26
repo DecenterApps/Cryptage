@@ -20,7 +20,8 @@ const GameplayContainer = ({
   return (
     <div className="active-container-wrapper">
       <div
-        onClick={() => { switchInGameplayView(activeContainerIndex, GP_LOCATION_MAIN); }}>
+        onClick={() => { switchInGameplayView(activeContainerIndex, GP_LOCATION_MAIN); }}
+      >
         <CloseIcon />
       </div>
 
