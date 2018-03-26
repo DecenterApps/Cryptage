@@ -10,7 +10,10 @@
     display: inline-flex;
 
     .section {
-      width: 284px;
+      width: 262px;
+      position: relative;
+      top: 9px;
+      z-index: -1;
       display: flex;
       flex-direction: column;
 
@@ -85,13 +88,14 @@
       .central-big {
         position: relative;
         width: 170px;
+        top: 10px;
 
         .big-stats {
           z-index: 2;
           position: absolute;
           text-align: center;
           left: 23px;
-          top: 33px;
+          top: 26px;
 
           .name {
             font-size: 23px;
@@ -102,6 +106,8 @@
           .xp-wrapper {
             font-size: 12px;
             color: $yellow;
+            position: relative;
+            top: 2px;
           }
         }
 
