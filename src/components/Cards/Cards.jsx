@@ -9,11 +9,18 @@ import Spinner from '../Spinner/Spinner';
 import './Cards.scss';
 
 class Cards extends Component {
+  constructor() {
+    super();
+    this.state = {
+      tab: 'all',
+    };
+  }
+
   componentDidMount() {
     this.props.usersCardsFetch();
   }
 
-  groupCardsByType(cards) {
+  groupDuplicates(cards) {
     const noDupliactes = cards.reduce((accumulator, item) => {
       if (accumulator[item.metadata.id]) accumulator[item.metadata.id].count++;
       else accumulator[item.metadata.id] = {
@@ -22,7 +29,21 @@ class Cards extends Component {
       };
       return accumulator;
     }, {});
-    const grouped = Object.values(noDupliactes).reduce((accumulator, item) => {
+    return Object.values(noDupliactes);
+  }
+
+  filterAvailableCards(cards) {
+    const noDupliactes = this.groupDuplicates(cards);
+    const filtered = noDupliactes.filter((card) => {
+      // TODO filter here
+      return true;
+    });
+    return filtered;
+  }
+
+  groupCardsByType(cards) {
+    const noDupliactes = this.groupDuplicates(cards);
+    const grouped = noDupliactes.reduce((accumulator, item) => {
       if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
       else accumulator[item.stats.type] = [item];
       return accumulator;
@@ -35,40 +56,91 @@ class Cards extends Component {
 
     return (
       <div className="cards-wrapper">
-        {
-          cardsFetching &&
-          <div className="loading-cards">
-            <span>Fetching cards...</span>
-            <Spinner color="black" size={4} />
-          </div>
-        }
-
-        {
-          !cardsFetching && cards.length === 0 &&
-          <div className="no-cards">
-            You currently do not own any cards.
-          </div>
-        }
-
-        {
-          !cardsFetching && cards.length > 0 &&
-          this.groupCardsByType(cards).map(type => (
-            <div className="card-type-wrapper" key={`${type[0].stats.type}-${type.length}`}>
-              <div className="card-type-title-wrapper">
-                <h1 className="card-type-title">{type[0].stats.type}</h1>
+        <div className="card-tabs-wrapper">
+          {
+            [
+              ['all', 'All'],
+              ['available', 'Available'],
+              ['location', 'Locations'],
+              ['development', 'Development'],
+              ['project', 'Projects'],
+              ['misc', 'Miscellaneous'],
+              ['mining', 'Mining'],
+              ['container', 'Container'],
+            ].map(type => (
+              <div
+                className={`tab ${this.state.tab === type[0] && 'active'}`}
+                onClick={() => this.setState({ tab: type[0] })}
+              >
+                {type[1]}
               </div>
-              {
-                type.map(card => (
-                  <div key={card.id} className="card-container">
-                    <DragWrapper key={card.id} {...{ card }}>
-                      <HandCard card={card} />
-                    </DragWrapper>
-                  </div>
-                ))
-              }
+            ))
+          }
+        </div>
+        <div className="cards-inner-wrapper">
+          {
+            cardsFetching &&
+            <div className="loading-cards">
+              <span>Fetching cards...</span>
+              <Spinner color="black" size={4} />
             </div>
-          ))
-        }
+          }
+
+          {
+            !cardsFetching && cards.length === 0 &&
+            <div className="no-cards">
+              You currently do not own any cards.
+            </div>
+          }
+
+          {
+            !cardsFetching && cards.length > 0 &&
+            this.state.tab === 'all' &&
+            this.groupCardsByType(cards).map(type => (
+              <div className="card-type-wrapper" key={`${type[0].stats.type}-${type.length}`}>
+                <div className="card-type-title-wrapper">
+                  <h1 className="card-type-title">{type[0].stats.type}</h1>
+                </div>
+                {
+                  type.map(card => (
+                    <div key={card.id} className="card-container">
+                      <DragWrapper key={card.id} {...{ card }}>
+                        <HandCard card={card} />
+                      </DragWrapper>
+                    </div>
+                  ))
+                }
+              </div>
+            ))
+          }
+
+          {
+            !cardsFetching && cards.length > 0 &&
+            this.state.tab === 'available' &&
+            this.filterAvailableCards(cards).map(card => (
+              <div key={card.id} className="card-container">
+                <DragWrapper key={card.id} {...{ card }}>
+                  <HandCard card={card} />
+                </DragWrapper>
+              </div>
+            ))
+          }
+
+          {
+            !cardsFetching && cards.length > 0 &&
+            this.state.tab !== 'all' &&
+            this.state.tab !== 'available' &&
+            this.groupDuplicates(
+              cards.filter(card => card.stats.type.toLowerCase() === this.state.tab),
+            ).map(card => (
+              <div key={card.id} className="card-container">
+                <DragWrapper key={card.id} {...{ card }}>
+                  <HandCard card={card} />
+                </DragWrapper>
+              </div>
+            ))
+          }
+        </div>
       </div>
     );
   }
