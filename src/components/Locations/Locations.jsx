@@ -12,10 +12,11 @@ const Locations = ({ locations, handleLocationDrop, gameplayView, changeGameplay
   <div className="locations-wrapper">
     <div className="buy-boosters-wrapper">
       <button
+        className="orange-button"
         disabled={gameplayView === GP_BUY_BOOSTER}
         onClick={() => { changeGameplayView(GP_BUY_BOOSTER); }}
       >
-        Buy boosters
+        SHOP
       </button>
     </div>
 

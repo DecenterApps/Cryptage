@@ -23,6 +23,9 @@ body {
 }
 
 .app-wrapper {
+  max-width: 1000px;
+  max-height: 620px;
+  margin: auto;
   .app-top-section-wrapper {
     height: 100vh;
     display: flex;

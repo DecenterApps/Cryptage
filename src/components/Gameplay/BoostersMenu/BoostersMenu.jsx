@@ -9,11 +9,12 @@ import { getBoosters, buyBoosterPack, revealBooster } from '../../../actions/boo
 import { changeGameplayView } from '../../../actions/gameplayActions';
 
 import './BoostersMenu.scss';
-import bg from './assets/booster-bg.png';
-import bgBack from './assets/booster-bg-back.png';
+import bgEmpty from './assets/bg-empty.png';
+import bgLeft from './assets/bg-left.png';
+import bgMiddle from './assets/bg-middle.png';
+import bgRight from './assets/bg-right.png';
 import ethCircle from '../GameplayHeader/eth-circle.png';
 import { GP_LOCATION, GP_NO_LOCATIONS } from '../../../actions/actionTypes';
-
 
 class BoostersMenu extends React.Component {
   constructor(props) {
@@ -35,6 +36,8 @@ class BoostersMenu extends React.Component {
   render() {
     const { boosters, isBuying, isFetching } = this.props.shop;
     const { accountBalance } = this.props;
+    const images = [bgMiddle, bgLeft, bgRight];
+    const classes = ['booster-middle', 'booster-left', 'booster-right'];
 
     return (
       <div className="booster-store-wrapper">
@@ -47,45 +50,66 @@ class BoostersMenu extends React.Component {
         <div className="booster-store-body">
           <div className="boosters-wrapper">
             {(boosters.length === 0 && !isFetching) &&
-            <h3 className="booster-text">You do not currently own any boosters.</h3>}
+            <div className="boosters">
+              <div className="booster booster-middle">
+                <img src={bgEmpty} alt="" />
+                <p className="booster-empty-text">You <br /> don&apos;t <br /> have any boosters</p>
+              </div>
+            </div>
+            }
 
             {
               boosters.length > 0 &&
               <div className="boosters">
                 {
-                  boosters.map(item => (
-                    <div className="flip-container" key={item.id}>
-
-                      <div className="flipper booster">
-                        <div className="front" style={{ backgroundImage: `url(${bg})` }}>
-                          <p className="booster-text-gradient">BOOSTER</p>
-
-                          {item.revealing &&
-                          <span>Revealing booster <Spinner color="white" size={2} /></span>}
-                        </div>
-                        <div className="back" style={{ backgroundImage: `url(${bgBack})` }}>
-                          <button
-                            disabled={item.revealing}
-                            onClick={() => this.props.revealBooster(item.id)}
-                            className="booster-reveal"
-                          >
-                            {!item.revealing && 'Reveal'}
-                            {item.revealing && 'revealing booster'}
-                          </button>
-                        </div>
-                      </div>
+                  boosters.slice(0, 3).map((item, i) => (
+                    <div className={`booster ${classes[i]}`} key={item.id}>
+                      <img src={images[i]} alt="" />
+                      <p className="booster-placeholder booster-text-gradient">Booster</p>
+                      <button
+                        onClick={() => this.props.revealBooster(item.id)}
+                        className="open-booster-placeholder booster-text-gradient"
+                      >
+                        Open
+                      </button>
                     </div>
                   ))
                 }
+                {/*{*/}
+                {/*boosters.map(item => (*/}
+                {/*<div className="flip-container" key={item.id}>*/}
+
+                {/*<div className="flipper booster">*/}
+                {/*<div className="front" style={{ backgroundImage: `url(${bg})` }}>*/}
+                {/*<p className="booster-text-gradient">BOOSTER</p>*/}
+
+                {/*{item.revealing &&*/}
+                {/*<span>Revealing booster <Spinner color="white" size={2} /></span>}*/}
+                {/*</div>*/}
+                {/*<div className="back" style={{ backgroundImage: `url(${bgBack})` }}>*/}
+                {/*<button*/}
+                {/*disabled={item.revealing}*/}
+                {/*onClick={() => this.props.revealBooster(item.id)}*/}
+                {/*className="booster-reveal"*/}
+                {/*>*/}
+                {/*{!item.revealing && 'Reveal'}*/}
+                {/*{item.revealing && 'revealing booster'}*/}
+                {/*</button>*/}
+                {/*</div>*/}
+                {/*</div>*/}
+                {/*</div>*/}
+                {/*))*/}
+                {/*}*/}
               </div>
             }
           </div>
-          <button className="booster-button booster-text-gradient" onClick={this.props.buyBoosterPack}>BUY
+          <button className="orange-button booster-button" onClick={this.props.buyBoosterPack}>BUY
             BOOSTER
           </button>
 
           <div className="shop-funds">
-            <img src={ethCircle} alt="Ethereum logo circle" /> ETH {parseFloat(accountBalance).toFixed(2)}
+            <img src={ethCircle}
+                 alt="Ethereum logo circle" /> ETH {parseFloat(accountBalance).toFixed(2)}
           </div>
 
 
