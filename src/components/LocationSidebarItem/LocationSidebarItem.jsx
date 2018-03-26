@@ -9,8 +9,8 @@ import { calcDataForNextLevel } from '../../services/utils';
 import './LocationSidebarItem.scss';
 
 const LocationSidebarItem = ({
-                               isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
-                             }) => {
+  isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
+}) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
 
   return (

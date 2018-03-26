@@ -6,9 +6,9 @@ import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import ContainerItem from '../../ContainerItem/ContainerItem';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
 import HeaderBar from '../../HeaderBar/HeaderBar';
+import CloseIcon from '../../CloseIcon/CloseIcon';
 
 import './GameplayContainer.scss';
-import CloseIcon from './CloseIcon';
 import { GP_LOCATION_MAIN } from '../../../actions/actionTypes';
 
 const GameplayContainer = ({

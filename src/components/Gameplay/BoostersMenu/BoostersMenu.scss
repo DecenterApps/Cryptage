@@ -9,6 +9,18 @@
   margin: 0 auto;
   background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
+  .close-icon {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
   .booster-text {
     color: $yellow;
     font-family: $font-secondary;
