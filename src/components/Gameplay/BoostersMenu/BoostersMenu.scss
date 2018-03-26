@@ -99,6 +99,22 @@
   .boosters-wrapper {
   }
 
+  .reveal-text {
+    font-size: 27px;
+    margin: 0;
+  }
+
+  .revealed-cards {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 25px 25px 25px;
+
+    .revealed-card {
+      display: inline-block;
+      margin-right: 39px;
+    }
+  }
+
   .shop-funds {
     display: flex;
     width: 100%;
@@ -138,15 +154,7 @@
       position: absolute;
       display: inline-block;
       color: #fff;
-
-      &:hover {
-        .booster-placeholder {
-          font-size: 13px;
-        }
-        .open-booster-placeholder {
-          display: block;
-        }
-      }
+      max-width: 154px;
 
       img {
         height: 227px;
@@ -184,6 +192,15 @@
         left: 0;
         right: 0;
         margin: auto;
+
+        &:hover {
+          .booster-placeholder {
+            font-size: 13px;
+          }
+          .open-booster-placeholder {
+            display: block;
+          }
+        }
       }
 
       .front, .back {

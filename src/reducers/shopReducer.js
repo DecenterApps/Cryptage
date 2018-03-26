@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   isFetching: false,
   isBuying: false,
   boosters: [],
+  revealedCards: [],
   error: '',
 };
 
@@ -53,6 +54,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         boosters: action.boosters,
+        revealedCards: action.revealedCards,
       };
     case REVEAL_ERROR:
       return {

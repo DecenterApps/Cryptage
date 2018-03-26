@@ -1,6 +1,13 @@
 import {
-  BOOSTERS_REQUEST, BOOSTERS_SUCCESS, BOOSTERS_ERROR, BUY_BOOSTER_REQUEST, BUY_BOOSTER_SUCCESS, BUY_BOOSTER_ERROR,
-  REVEAL_REQUEST, REVEAL_SUCCESS, REVEAL_ERROR,
+  BOOSTERS_REQUEST,
+  BOOSTERS_SUCCESS,
+  BOOSTERS_ERROR,
+  BUY_BOOSTER_REQUEST,
+  BUY_BOOSTER_SUCCESS,
+  BUY_BOOSTER_ERROR,
+  REVEAL_REQUEST,
+  REVEAL_SUCCESS,
+  REVEAL_ERROR,
 } from './actionTypes';
 
 import { log, removePlayedCards } from '../services/utils';
@@ -76,14 +83,18 @@ export const revealRequest = (_id, _boosters) => {
   return { type: REVEAL_REQUEST, boosters };
 };
 
-export const revealSuccess = (_cards, _id, _boosters, getState) => {
-  let cards = [..._cards];
+export const revealSuccess = (allCards, revealedCards, _id, _boosters, getState) => {
+  const cards = [...allCards, ...revealedCards];
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
   boosters.splice(boosterIndex, 1);
 
-  cards = removePlayedCards(cards, getState);
-  return { type: REVEAL_SUCCESS, cards, boosters };
+  return {
+    type: REVEAL_SUCCESS,
+    cards,
+    boosters,
+    revealedCards,
+  };
 };
 
 export const revealError = (error, _id, _boosters) => {
@@ -104,10 +115,10 @@ export const revealBooster = id => async (dispatch, getState) => {
     const cardIds = await ethService.getCardsFromBooster(boosterId);
     log('Cards in booster: ', cardIds);
 
-    const cardsIDs = await ethService.getUsersCards();
-    const cards = await cardService.fetchCardsMeta(cardsIDs);
+    const allCards = [...getState().gameplay.cards];
+    const cards = await cardService.fetchCardsMeta(cardIds);
 
-    dispatch(revealSuccess(cards, id, getState().shop.boosters, getState));
+    dispatch(revealSuccess(allCards, cards, id, getState().shop.boosters, getState));
   } catch (e) {
     console.error(e);
     dispatch(revealError(e, id, getState().shop.boosters));
