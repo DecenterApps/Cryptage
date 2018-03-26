@@ -16,7 +16,28 @@
     text-align: center;
   }
 
-  .booster-placeholder {
+  .booster-empty-text {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 8px;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    text-transform: uppercase;
+
+    width: 50px;
+    height: 50px;
+
+    color: #FFFFFF;
+    opacity: 0.2;
+    text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
+  }
+
+  .booster-placeholder, .open-booster-placeholder {
     position: absolute;
     margin: auto;
     left: 0;
@@ -32,6 +53,18 @@
     background: linear-gradient(to bottom, $yellow 0%, rgba(255, 157, 20, 0.23) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .open-booster-placeholder {
+    display: none;
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    max-width: 100px;
+    font-size: 30px;
+    text-shadow: 0 0 38px #000000;
+    bottom: 45px;
   }
 
   .booster-button {
@@ -52,7 +85,6 @@
   }
 
   .boosters-wrapper {
-    margin: 20px;
   }
 
   .shop-funds {
@@ -94,6 +126,15 @@
       position: absolute;
       display: inline-block;
       color: #fff;
+
+      &:hover {
+        .booster-placeholder {
+          font-size: 13px;
+        }
+        .open-booster-placeholder {
+          display: block;
+        }
+      }
 
       img {
         height: 227px;

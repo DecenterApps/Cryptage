@@ -7,6 +7,7 @@ import HeaderBar from '../../HeaderBar/HeaderBar';
 import { getBoosters, buyBoosterPack, revealBooster } from '../../../actions/boosterActions';
 
 import './BoostersMenu.scss';
+import bgEmpty from './assets/bg-empty.png';
 import bgLeft from './assets/bg-left.png';
 import bgMiddle from './assets/bg-middle.png';
 import bgRight from './assets/bg-right.png';
@@ -30,7 +31,13 @@ class BoostersMenu extends React.Component {
         <div className="booster-store-body">
           <div className="boosters-wrapper">
             {(boosters.length === 0 && !isFetching) &&
-            <h3 className="booster-text">You do not currently own any boosters.</h3>}
+            <div className="boosters">
+              <div className="booster booster-middle">
+                <img src={bgEmpty} alt="" />
+                <p className="booster-empty-text">You <br /> don&apos;t <br /> have any boosters</p>
+              </div>
+            </div>
+            }
 
             {
               boosters.length > 0 &&
@@ -40,6 +47,12 @@ class BoostersMenu extends React.Component {
                     <div className={`booster ${classes[i]}`} key={item.id}>
                       <img src={images[i]} alt="" />
                       <p className="booster-placeholder booster-text-gradient">Booster</p>
+                      <button
+                        onClick={() => this.props.revealBooster(item.id)}
+                        className="open-booster-placeholder booster-text-gradient"
+                      >
+                        Open
+                      </button>
                     </div>
                   ))
                 }
