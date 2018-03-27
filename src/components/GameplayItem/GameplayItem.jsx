@@ -10,10 +10,15 @@ import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 import './GameplayItem.scss';
 
 const GameplayItem = ({
-  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, switchInGameplayView,
+  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, switchInGameplayView, dropSlots,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const isContainer = containerIds.includes(cards[0].metadata.id);
+  let remainingSlots = null;
+
+  if (isContainer) {
+    remainingSlots = dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
+  }
 
   return (
     <div
@@ -27,7 +32,8 @@ const GameplayItem = ({
         switchInGameplayView(index, GP_LOCATION_CONTAINER);
       }}
     >
-      <HandCard card={cards[0]} />
+      { !isContainer && <HandCard card={cards[0]} /> }
+      { isContainer && <HandCard card={cards[0]} played remainingSlots={remainingSlots} /> }
       <div className="level-up">
         { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
         {

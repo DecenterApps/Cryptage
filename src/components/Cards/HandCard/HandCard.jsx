@@ -7,7 +7,7 @@ import './HandCard.scss';
 
 const classForNumber = (_number) => {
   const number = parseInt(_number, 10);
-  if (number >= 10000000) return 'smalll';
+  if (number >= 10000000) return 'small';
   if (number >= 1000000) return '';
   if (number >= 10000) return 'small';
   if (number >= 1000) return '';
@@ -15,7 +15,9 @@ const classForNumber = (_number) => {
   return '';
 };
 
-const HandCard = ({ card, showCount, hoverCentered }) => {
+const HandCard = ({
+  card, showCount, hoverCentered, played, remainingSlots
+}) => {
   const uniqueId = guid();
   const gradients = {
     misc: ['#3215E6', 'rgba(49, 20, 230, 0.33)'],
@@ -26,6 +28,7 @@ const HandCard = ({ card, showCount, hoverCentered }) => {
     mining: ['#75341F', 'rgba(117, 52, 30, 0.57)'],
     container: ['#4A7420', 'rgba(74, 116, 32, 0.41)'],
   };
+
   return (
     <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
       <HoverInfo card={card} center={hoverCentered} />
@@ -79,36 +82,100 @@ const HandCard = ({ card, showCount, hoverCentered }) => {
         </div>
       }
 
+      {/*{*/}
+        {/*card.stats.type === 'Container' && played &&*/}
+        {/*<div className="container-slots-wrapper">*/}
+          {/*Available slots: { card.stats.values.space }*/}
+          {/*Remaining empty slots: { remainingSlots }*/}
+        {/*</div>*/}
+      {/*}*/}
+
       {
         card.stats.cost &&
         <div className="cost">
           {
+            card.stats.cost.space &&
+            card.stats.cost.space > 1 &&
+            <div className={`circle blue ${classForNumber(card.stats.cost.space)}`}>
+              {formatBigNumber(card.stats.cost.space)}
+            </div>
+          }
+          {
+            card.stats.cost.power &&
+            <div className={`circle red ${classForNumber(card.stats.cost.power)}`}>
+              {formatBigNumber(card.stats.cost.power)}
+            </div>
+          }
+          {
             card.stats.cost.funds &&
-            <div className={`circle funds ${classForNumber(card.stats.cost.funds)}`}>
+            <div className={`circle yellow ${classForNumber(card.stats.cost.funds)}`}>
               {formatBigNumber(card.stats.cost.funds)}
             </div>
           }
           {
             card.stats.cost.level &&
-            <div className={`circle level ${classForNumber(card.stats.cost.level)}`}>
+            card.stats.cost.level > 1 &&
+            <div className={`circle blue ${classForNumber(card.stats.cost.level)}`}>
               {formatBigNumber(card.stats.cost.level)}
+            </div>
+          }
+          {
+            card.stats.cost.time &&
+            <div className={`circle yellow ${classForNumber(card.stats.cost.time)}`}>
+              {formatBigNumber(card.stats.cost.time)}
+            </div>
+          }
+          {
+            card.stats.cost.dev &&
+            <div className={`circle red ${classForNumber(card.stats.cost.dev)}`}>
+              {formatBigNumber(card.stats.cost.dev)}
             </div>
           }
         </div>
       }
       {
-        card.stats.values &&
+        (card.stats.values || card.stats.bonus) &&
         <div className="values">
           {
+            card.stats.values &&
             card.stats.values.space &&
-            <div className={`circle space ${classForNumber(card.stats.values.space)}`}>
+            <div className={`circle blue ${classForNumber(card.stats.values.space)}`}>
               {formatBigNumber(card.stats.values.space)}
             </div>
           }
           {
+            card.stats.values &&
             card.stats.values.power &&
-            <div className={`circle power ${classForNumber(card.stats.values.power)}`}>
+            <div className={`circle red ${classForNumber(card.stats.values.power)}`}>
               {formatBigNumber(card.stats.values.power)}
+            </div>
+          }
+          {
+            card.stats.bonus &&
+            card.stats.bonus.funds &&
+            <div className={`circle yellow ${classForNumber(card.stats.bonus.funds)}`}>
+              {formatBigNumber(card.stats.bonus.funds)}
+            </div>
+          }
+          {
+            card.stats.bonus &&
+            card.stats.bonus.xp &&
+            <div className={`circle yellow ${classForNumber(card.stats.bonus.xp)}`}>
+              {formatBigNumber(card.stats.bonus.xp)}
+            </div>
+          }
+          {
+            card.stats.bonus &&
+            card.stats.bonus.power &&
+            <div className={`circle red ${classForNumber(card.stats.bonus.power)}`}>
+              {formatBigNumber(card.stats.bonus.power)}
+            </div>
+          }
+          {
+            card.stats.bonus &&
+            card.stats.bonus.dev &&
+            <div className={`circle red ${classForNumber(card.stats.bonus.dev)}`}>
+              {formatBigNumber(card.stats.bonus.dev)}
             </div>
           }
         </div>
@@ -126,6 +193,8 @@ HandCard.defaultProps = {
   },
   showCount: true,
   hoverCentered: false,
+  played: false,
+  remainingSlots: 0,
 };
 
 HandCard.propTypes = {
@@ -137,6 +206,8 @@ HandCard.propTypes = {
   }),
   showCount: PropTypes.bool,
   hoverCentered: PropTypes.bool,
+  remainingSlots: PropTypes.number,
+  played: PropTypes.bool,
 };
 
 export default HandCard;
