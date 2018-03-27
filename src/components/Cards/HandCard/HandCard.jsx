@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { guid, formatBigNumber } from '../../../services/utils';
+import { guid, formatBigNumber, range } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 
 import './HandCard.scss';
@@ -82,13 +82,15 @@ const HandCard = ({
         </div>
       }
 
-      {/*{*/}
-        {/*card.stats.type === 'Container' && played &&*/}
-        {/*<div className="container-slots-wrapper">*/}
-          {/*Available slots: { card.stats.values.space }*/}
-          {/*Remaining empty slots: { remainingSlots }*/}
-        {/*</div>*/}
-      {/*}*/}
+      {
+        card.stats.type === 'Container' && played &&
+        <div className="container-slots-wrapper">
+          {
+            range(0, card.stats.values.space).reverse()
+              .map(i => <span className={i < remainingSlots && 'empty'} />)
+          }
+        </div>
+      }
 
       {
         card.stats.cost &&

@@ -103,7 +103,27 @@
         background: radial-gradient(9.50px at 50% 50%, #FF9D14 0%, #8F570A 100%);
       }
     }
-
+  }
+  .container-slots-wrapper {
+    width: 36px;
+    display: flex;
+    border: 2px solid #36265F;
+    background: linear-gradient(to bottom, #101427, #36265F);
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    span {
+      display: inline-block;
+      height: 6px;
+      flex-grow: 1;
+      background-color: #3CC8CC;
+      &.empty {
+        background-color: transparent;
+      }
+      &:not(:first-child) {
+        margin-left: 1px;
+      }
+    }
   }
 
   &.type-mining { border-color: #F2C5C5; }
