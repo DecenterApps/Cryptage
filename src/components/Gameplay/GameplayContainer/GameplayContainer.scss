@@ -41,6 +41,16 @@
 
       .drop-slots-wrapper {
         @include gameplayEmptySlot();
+
+        justify-content: center;
+
+        .drop-slot-component:not(:first-child):not(:last-child) {
+          margin-right: 27px;
+        }
+
+        .drop-slot-component:nth-child(2) {
+          margin-left: 27px;
+        }
       }
     }
   }

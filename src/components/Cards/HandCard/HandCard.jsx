@@ -14,7 +14,7 @@ const classForNumber = (_number) => {
   return '';
 };
 
-const HandCard = ({ card }) => (
+const HandCard = ({ card, showCount }) => (
   <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
     <div className="level-wrapper">
       <svg className="level-background">
@@ -60,7 +60,7 @@ const HandCard = ({ card }) => (
       />
     </svg>
     {
-      card.count > 1 &&
+      showCount && card.count > 1 &&
       <div className="count-wrapper">
         <div className="count">x{card.count}</div>
       </div>
@@ -144,6 +144,7 @@ HandCard.defaultProps = {
       image: '',
     },
   },
+  showCount: true,
 };
 
 HandCard.propTypes = {
@@ -153,6 +154,7 @@ HandCard.propTypes = {
       image: PropTypes.string.isRequired,
     }),
   }),
+  showCount: PropTypes.bool,
 };
 
 export default HandCard;
