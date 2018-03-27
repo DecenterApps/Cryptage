@@ -133,7 +133,7 @@
     text-transform: capitalize;
   }
 
-  &:hover .card-hover-info-wrapper {
+  &:hover:not(:active) .card-hover-info-wrapper {
     display: flex;
   }
 }
