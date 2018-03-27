@@ -1234,7 +1234,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
   // when location drop slots are available only do not show miner type cards
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_MAIN) {
     return cards.filter(({ stats }) => {
-      const badCardType = stats.type === 'Miner';
+      const badCardType = stats.type === 'Mining';
       const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
       const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
       const availableSlots = checkSlotsAvailableForCardType(

@@ -22,10 +22,12 @@ const HoverInfo = ({ card, center }) => (
   </div>
 );
 
-HoverInfo.defaultProps = {};
+HoverInfo.defaultProps = {
+  center: false,
+};
 
 HoverInfo.propTypes = {
-  center: PropTypes.bool.isRequired,
+  center: PropTypes.bool,
   card: PropTypes.shape({}).isRequired,
 };
 
