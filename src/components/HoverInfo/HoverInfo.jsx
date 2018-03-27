@@ -24,21 +24,13 @@ const HoverInfo = ({ card, center }) => (
         card.stats.cost &&
         <div className="cost" data-name="Cost">
           {
-            card.stats.cost.funds &&
+            card.stats.cost.space &&
+            card.stats.cost.space > 1 &&
             <div
-              data-name="Funds"
-              className={`orb yellow ${classForNumber(card.stats.cost.funds)}`}
+              data-name="Space"
+              className={`orb blue ${classForNumber(card.stats.cost.space)}`}
             >
-              {formatBigNumber(card.stats.cost.funds)}
-            </div>
-          }
-          {
-            card.stats.cost.level &&
-            <div
-              data-name="Level"
-              className={`orb blue ${classForNumber(card.stats.cost.level)}`}
-            >
-              {formatBigNumber(card.stats.cost.level)}
+              {formatBigNumber(card.stats.cost.space)}
             </div>
           }
           {
@@ -51,21 +43,40 @@ const HoverInfo = ({ card, center }) => (
             </div>
           }
           {
-            card.stats.cost.dev &&
+            card.stats.cost.funds &&
             <div
-              data-name="Dev"
-              className={`orb red ${classForNumber(card.stats.cost.dev)}`}
+              data-name="Funds"
+              className={`orb yellow ${classForNumber(card.stats.cost.funds)}`}
             >
-              {formatBigNumber(card.stats.cost.dev)}
+              {formatBigNumber(card.stats.cost.funds)}
+            </div>
+          }
+          {
+            card.stats.cost.level &&
+            card.stats.cost.level > 1 &&
+            <div
+              data-name="Level"
+              className={`orb blue ${classForNumber(card.stats.cost.level)}`}
+            >
+              {formatBigNumber(card.stats.cost.level)}
             </div>
           }
           {
             card.stats.cost.time &&
             <div
               data-name="Time"
-              className={`orb blue ${classForNumber(card.stats.cost.time)}`}
+              className={`orb yellow ${classForNumber(card.stats.cost.time)}`}
             >
               {formatBigNumber(card.stats.cost.time)}
+            </div>
+          }
+          {
+            card.stats.cost.dev &&
+            <div
+              data-name="Dev"
+              className={`orb red ${classForNumber(card.stats.cost.dev)}`}
+            >
+              {formatBigNumber(card.stats.cost.dev)}
             </div>
           }
         </div>
@@ -111,6 +122,26 @@ const HoverInfo = ({ card, center }) => (
               className={`orb yellow ${classForNumber(card.stats.bonus.xp)}`}
             >
               {formatBigNumber(card.stats.bonus.xp)}
+            </div>
+          }
+          {
+            card.stats.bonus &&
+            card.stats.bonus.power &&
+            <div
+              data-name="Power"
+              className={`orb red ${classForNumber(card.stats.bonus.power)}`}
+            >
+              {formatBigNumber(card.stats.bonus.power)}
+            </div>
+          }
+          {
+            card.stats.bonus &&
+            card.stats.bonus.dev &&
+            <div
+              data-name="Dev"
+              className={`orb red ${classForNumber(card.stats.bonus.dev)}`}
+            >
+              {formatBigNumber(card.stats.bonus.dev)}
             </div>
           }
         </div>
