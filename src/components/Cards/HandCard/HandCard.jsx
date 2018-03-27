@@ -7,7 +7,7 @@ import './HandCard.scss';
 
 const classForNumber = (_number) => {
   const number = parseInt(_number, 10);
-  if (number >= 10000000) return 'smalll';
+  if (number >= 10000000) return 'small';
   if (number >= 1000000) return '';
   if (number >= 10000) return 'small';
   if (number >= 1000) return '';
