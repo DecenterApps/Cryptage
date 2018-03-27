@@ -17,7 +17,6 @@ const HoverInfo = ({ card, center }) => (
             {card.stats.description}
           </div>
         </div>
-        </div>
       </div>
     </div>
   </div>
