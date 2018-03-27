@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Line, Circle } from 'rc-progress';
+import HoverInfo from '../HoverInfo/HoverInfo';
 import { setActiveLocation, levelUpProject, activateProject } from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
@@ -29,6 +30,7 @@ const ProjectItem = ({
       ${!isActive && isFinished && 'project-finished'}
     `}
     >
+      <HoverInfo card={cards[0]} />
       {
         !isActive && isFinished &&
         <div className="repeat-project">
