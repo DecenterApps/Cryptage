@@ -15,6 +15,12 @@
     .project-time-left {
       opacity: 1;
     }
+
+    .card-hover-info-wrapper {
+      display: flex;
+      top: 0;
+      left: -160px;
+    }
   }
 
   .project-progress {
