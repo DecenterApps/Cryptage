@@ -1,4 +1,8 @@
 import { filterByKeys } from './utils';
+import {
+  GP_BUY_BOOSTER, GP_LOCATION, GP_LOCATION_CONTAINER, GP_LOCATION_MAIN,
+  GP_NO_LOCATIONS
+} from '../actions/actionTypes';
 
 /**
  * Returns initial values for stack of cards
@@ -1064,33 +1068,34 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
  * @param {Object} cardStats
  * @param {Object} globalStats
  * @param {Object} activeLocation
+ * @param {Boolean} showAlert
  * @return {Boolean}
  */
-export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null) => {
+export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null, showAlert = true) => {
   const {
     level, funds, development, power, space,
   } = cardStats.cost;
 
   if (level > globalStats.level) {
-    alert('Player level not high enough to play card!');
+    if (showAlert) alert('Player level not high enough to play card!');
     return false;
   }
   if (funds > globalStats.funds) {
-    alert('You do not have enough funds to play card!');
+    if (showAlert) alert('You do not have enough funds to play card!');
     return false;
   }
   if (development > globalStats.development) {
-    alert('You do not have enough development points to play this card!');
+    if (showAlert) alert('You do not have enough development points to play this card!');
     return false;
   }
 
   if (activeLocation && (power > activeLocation.values.power)) {
-    alert('The desired location does not have enough power for you to play this card!');
+    if (showAlert) alert('The desired location does not have enough power for you to play this card!');
     return false;
   }
 
   if (activeLocation && (space > activeLocation.values.space)) {
-    alert('The desired location does not have enough space for you to play this card!');
+    if (showAlert) alert('The desired location does not have enough space for you to play this card!');
     return false;
   }
 
@@ -1137,4 +1142,49 @@ export const getMaxValueForLocation = (type, level, stat) => {
 
   for (let i = 2; i <= level; i += 1) base += getLevelValuesForCard(type, i).bonus[stat];
   return base;
+};
+
+/**
+ * Returns cards that can be played in the current view
+ *
+ * @param {Array} cards
+ * @param {String} gameplayView
+ * @param {String} inGameplayView
+ * @return {Array}
+ */
+export const getAvailableCards = (cards, gameplayView, inGameplayView) => (dispatch, getState) => {
+  const { globalStats, locations, activeLocationIndex } = getState().gameplay;
+
+  // only show available project and location cards when there are no played locations
+  if (gameplayView === GP_NO_LOCATIONS || gameplayView === GP_BUY_BOOSTER) {
+    return cards.filter(({ stats }) => {
+      const goodCardType = stats.type === 'Location' || stats.type === 'Project';
+      console.log('can play', goodCardType && checkIfCanPlayCard(stats, globalStats, null, false));
+      return goodCardType && checkIfCanPlayCard(stats, globalStats, null, false);
+    });
+  }
+
+  // when location drop slots are available only do not show miner type cards
+  if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_MAIN) {
+    return cards.filter(({ stats }) => {
+      const badCardType = stats.type === 'Miner';
+      const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+      const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+
+      return !badCardType && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
+    });
+  }
+
+  // when container drop slots are available only show miner, project & location type cards
+  if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_CONTAINER) {
+    return cards.filter(({ stats }) => {
+      const goodCardType = stats.type === 'Location' || stats.type === 'Project' || stats.type === 'Mining';
+      const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+      const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+
+      return goodCardType && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
+    });
+  }
+
+  return [];
 };

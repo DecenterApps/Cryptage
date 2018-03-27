@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { usersCardsFetch } from '../../actions/gameplayActions';
+import { getAvailableCards } from '../../services/gameMechanicsService';
 import HandCard from './HandCard/HandCard';
 import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
@@ -52,7 +53,11 @@ class Cards extends Component {
   }
 
   render() {
-    const { cardsFetching, cards } = this.props;
+    const {
+      cardsFetching, cards, getAvailableCards, gameplayView, inGameplayView,
+    } = this.props;
+
+    const availableCards = getAvailableCards(cards, gameplayView, inGameplayView);
 
     return (
       <div className="cards-wrapper">
@@ -117,11 +122,20 @@ class Cards extends Component {
           {
             !cardsFetching && cards.length > 0 &&
             this.state.tab === 'available' &&
-            this.filterAvailableCards(cards).map(card => (
-              <div key={card.id} className="card-container">
-                <DragWrapper key={card.id} {...{ card }}>
-                  <HandCard card={card} />
-                </DragWrapper>
+            this.groupCardsByType(availableCards).map(type => (
+              <div className="card-type-wrapper" key={`${type[0].stats.type}-${type.length}`}>
+                <div className="card-type-title-wrapper">
+                  <h1 className="card-type-title">{type[0].stats.type}</h1>
+                </div>
+                {
+                  type.map(card => (
+                    <div key={card.id} className="card-container">
+                      <DragWrapper key={card.id} {...{ card }}>
+                        <HandCard card={card} />
+                      </DragWrapper>
+                    </div>
+                  ))
+                }
               </div>
             ))
           }
@@ -150,15 +164,20 @@ Cards.propTypes = {
   usersCardsFetch: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
   cardsFetching: PropTypes.bool.isRequired,
+  getAvailableCards: PropTypes.func.isRequired,
+  gameplayView: PropTypes.string.isRequired,
+  inGameplayView: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
   cardsFetching: app.cardsFetching,
   cards: gameplay.cards,
+  gameplayView: gameplay.gameplayView,
+  inGameplayView: gameplay.inGameplayView,
 });
 
 const mapDispatchToProps = {
-  usersCardsFetch
+  usersCardsFetch, getAvailableCards,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cards);
