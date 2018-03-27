@@ -1,15 +1,18 @@
 @import "../../../common/variables";
 
 .active-container-wrapper {
-  margin-top: 70px;
   width: 100%;
   color: #fff;
   text-align: center;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   .close-icon {
     position: absolute;
-    top: -115px;
+    top: -50px;
     right: -20px;
     cursor: pointer;
     transition: 0.2s ease-in;
@@ -19,14 +22,22 @@
     }
   }
 
-  .container-bottom-wrapper {
+  .active-container-card-wrapper {
     position: relative;
-    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;
+  }
+
+  .container-bottom-wrapper {
+    width: 566px;
+    position: relative;
+    margin-top: 35px;
     height: 200px;
     background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
     .container-slots {
-      padding-top: 38px;
 
       .drop-slots-wrapper {
         @include gameplayEmptySlot();
