@@ -1,6 +1,13 @@
 @import "../../common/colors";
 
 .projects-item-wrapper {
+  position: relative;
+
+  &:hover .card-hover-info-wrapper {
+    display: flex;
+    top: 0;
+    left: -160px;
+  }
 
   button.activate-button {
     border-radius: 100%;

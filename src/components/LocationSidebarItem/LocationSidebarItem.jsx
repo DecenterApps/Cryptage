@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Line } from 'rc-progress';
+import HoverInfo from '../HoverInfo/HoverInfo';
 import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
@@ -22,6 +22,7 @@ const LocationSidebarItem = ({
       `}
       onClick={() => { setActiveLocation(index); }}
     >
+      <HoverInfo card={cards[0]} />
       {
         ((activeLocationIndex === index) && gameplayView === GP_LOCATION) && false &&
         <svg className="location-progress-bar" viewBox="0 0 84 11">

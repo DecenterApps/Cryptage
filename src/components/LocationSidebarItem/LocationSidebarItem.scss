@@ -6,8 +6,20 @@
   width: 100%;
   left: 0;
   margin: 2px 0;
+  position: relative;
+
   * {
     font-family: $font-secondary;
+  }
+
+  &:hover .card-hover-info-wrapper {
+    display: flex;
+    top: 0;
+    left: auto;
+    right: -140px;
+  }
+  &.active:hover .card-hover-info-wrapper {
+    right: -155px;
   }
 
   .location-progress-bar {
