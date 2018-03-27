@@ -1,0 +1,152 @@
+[
+  {
+    "level": 1,
+    "exp": 0,
+    "change": 0
+  },
+  {
+    "level": 2,
+    "exp": 16,
+    "change": 16
+  },
+  {
+    "level": 3,
+    "exp": 32,
+    "change": 16
+  },
+  {
+    "level": 4,
+    "exp": 64,
+    "change": 32
+  },
+  {
+    "level": 5,
+    "exp": 128,
+    "change": 64
+  },
+  {
+    "level": 6,
+    "exp": 256,
+    "change": 128
+  },
+  {
+    "level": 7,
+    "exp": 512,
+    "change": 256
+  },
+  {
+    "level": 8,
+    "exp": 1024,
+    "change": 512
+  },
+  {
+    "level": 9,
+    "exp": 2048,
+    "change": 1024
+  },
+  {
+    "level": 10,
+    "exp": 4096,
+    "change": 2048
+  },
+  {
+    "level": 11,
+    "exp": 8192,
+    "change": 4096
+  },
+  {
+    "level": 12,
+    "exp": 16384,
+    "change": 8192
+  },
+  {
+    "level": 13,
+    "exp": 32768,
+    "change": 16384
+  },
+  {
+    "level": 14,
+    "exp": 65536,
+    "change": 32768
+  },
+  {
+    "level": 15,
+    "exp": 131072,
+    "change": 65536
+  },
+  {
+    "level": 16,
+    "exp": 262144,
+    "change": 131072
+  },
+  {
+    "level": 17,
+    "exp": 524288,
+    "change": 262144
+  },
+  {
+    "level": 18,
+    "exp": 1048576,
+    "change": 524288
+  },
+  {
+    "level": 19,
+    "exp": 2097152,
+    "change": 1048576
+  },
+  {
+    "level": 20,
+    "exp": 4194304,
+    "change": 2097152
+  },
+  {
+    "level": 21,
+    "exp": 8388608,
+    "change": 4194304
+  },
+  {
+    "level": 22,
+    "exp": 16777216,
+    "change": 8388608
+  },
+  {
+    "level": 23,
+    "exp": 33554432,
+    "change": 16777216
+  },
+  {
+    "level": 24,
+    "exp": 67108864,
+    "change": 33554432
+  },
+  {
+    "level": 25,
+    "exp": 134217728,
+    "change": 67108864
+  },
+  {
+    "level": 26,
+    "exp": 268435456,
+    "change": 134217728
+  },
+  {
+    "level": 27,
+    "exp": 536870912,
+    "change": 268435456
+  },
+  {
+    "level": 28,
+    "exp": 1073741824,
+    "change": 536870912
+  },
+  {
+    "level": 29,
+    "exp": 2147483648,
+    "change": 1073741824
+  },
+  {
+    "level": 30,
+    "exp": 4294967296,
+    "change": 2147483648
+  }
+]

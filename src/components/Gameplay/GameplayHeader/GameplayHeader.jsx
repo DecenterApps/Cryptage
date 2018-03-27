@@ -40,7 +40,7 @@ const GameplayHeader = ({ blockNumber, globalStats }) => (
 
           <div className="big-stats">
             <div className="name">Nickname</div>
-            <div className="xp-wrapper">{ globalStats.experience } exp</div>
+            <div className="xp-wrapper">{ globalStats.earnedXp } / { globalStats.requiredXp } exp</div>
           </div>
         </div>
       </div>

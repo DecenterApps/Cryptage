@@ -1,6 +1,6 @@
 import { UPDATE_GLOBAL_VALUES, CHANGE_PROJECT_STATE, ADD_EXPERIENCE } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
-import { getLevelValuesForCard } from '../services/gameMechanicsService';
+import { getLevelValuesForCard, calculateLevelData } from '../services/gameMechanicsService';
 
 /**
  * Updates gameplay stats for each played location card that has
@@ -85,6 +85,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     dispatch({
       type: ADD_EXPERIENCE,
       experience: experience + acquiredXp,
+      levelData: calculateLevelData(experience + acquiredXp),
     });
     dispatch({
       type: UPDATE_GLOBAL_VALUES,

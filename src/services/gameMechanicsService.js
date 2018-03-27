@@ -1,3 +1,4 @@
+import levels from '../constants/levels.json';
 import { filterByKeys } from './utils';
 import {
   GP_BUY_BOOSTER, GP_LOCATION, GP_LOCATION_CONTAINER, GP_LOCATION_MAIN,
@@ -1177,13 +1178,11 @@ const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) 
  * @param {Boolean} containerSlotsLength
  * @return {Boolean}
  */
-const checkSlotsAvailableForCardType = (
-  type,
+const checkSlotsAvailableForCardType = (type,
   locationSlotsLength,
   projectsSlotsLength,
   assetSlotsLength,
-  containerSlotsLength,
-) => {
+  containerSlotsLength,) => {
   if (type === 'Location') return locationSlotsLength;
   if (type === 'Project') return projectsSlotsLength;
   if (type === 'Mining') return containerSlotsLength;
@@ -1277,3 +1276,36 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
   return [];
 };
+
+/**
+ * Adds experience and calculates next levels
+ *
+ * @param {Number} experience
+ * @return {Array}
+ */
+export const calculateLevelData = (experience) => {
+  let earnedXp = experience;
+  let currentLevel;
+  let nextLevel;
+  for (let i = 0; i < levels.length; i += 1) {
+    if (earnedXp < levels[i].change) {
+      currentLevel = levels[i - 1];
+      nextLevel = levels[i];
+      break;
+    }
+    earnedXp -= levels[i].change;
+  }
+
+  return {
+    requiredXp: nextLevel.change,
+    level: currentLevel.level,
+    earnedXp,
+  };
+};
+
+calculateLevelData(1);
+calculateLevelData(100);
+calculateLevelData(16);
+calculateLevelData(348);
+calculateLevelData(71325);
+

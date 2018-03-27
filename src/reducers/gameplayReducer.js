@@ -16,8 +16,10 @@ const INITIAL_STATE = {
   activeLocationIndex: 0,
   activeContainerIndex: 0,
   globalStats: {
-    level: 10,
+    level: 1,
     experience: 0,
+    earnedXp: 0,
+    requiredXp: 0,
     funds: 1000000000000,
     development: 10000000000,
   },
@@ -74,6 +76,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         globalStats: {
           ...state.globalStats,
+          ...action.levelData,
           experience: action.experience,
         },
       };
