@@ -19,7 +19,7 @@ const INITIAL_STATE = {
     level: 1,
     experience: 0,
     earnedXp: 0,
-    requiredXp: 0,
+    requiredXp: 16,
     funds: 1000000000000,
     development: 10000000000,
   },
