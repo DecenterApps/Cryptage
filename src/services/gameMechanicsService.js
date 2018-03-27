@@ -1159,7 +1159,7 @@ const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) 
   if (locationItem) {
     const containerItem = locationItem.dropSlots[activeContainerIndex].lastDroppedItem;
 
-    if (containerItem) {
+    if (containerItem && containerItem.dropSlots) {
       length = containerItem.dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
     }
   }

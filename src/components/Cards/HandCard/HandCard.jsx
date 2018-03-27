@@ -15,7 +15,9 @@ const classForNumber = (_number) => {
   return '';
 };
 
-const HandCard = ({ card, showCount, hoverCentered }) => {
+const HandCard = ({
+  card, showCount, hoverCentered, played, remainingSlots
+}) => {
   const uniqueId = guid();
   const gradients = {
     misc: ['#3215E6', 'rgba(49, 20, 230, 0.33)'],
@@ -26,6 +28,7 @@ const HandCard = ({ card, showCount, hoverCentered }) => {
     mining: ['#75341F', 'rgba(117, 52, 30, 0.57)'],
     container: ['#4A7420', 'rgba(74, 116, 32, 0.41)'],
   };
+
   return (
     <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
       <HoverInfo card={card} center={hoverCentered} />
@@ -78,6 +81,14 @@ const HandCard = ({ card, showCount, hoverCentered }) => {
           <div className="count">x{card.count}</div>
         </div>
       }
+
+      {/*{*/}
+        {/*card.stats.type === 'Container' && played &&*/}
+        {/*<div className="container-slots-wrapper">*/}
+          {/*Available slots: { card.stats.values.space }*/}
+          {/*Remaining empty slots: { remainingSlots }*/}
+        {/*</div>*/}
+      {/*}*/}
 
       {
         card.stats.cost &&
@@ -182,6 +193,8 @@ HandCard.defaultProps = {
   },
   showCount: true,
   hoverCentered: false,
+  played: false,
+  remainingSlots: 0,
 };
 
 HandCard.propTypes = {
@@ -193,6 +206,8 @@ HandCard.propTypes = {
   }),
   showCount: PropTypes.bool,
   hoverCentered: PropTypes.bool,
+  remainingSlots: PropTypes.number,
+  played: PropTypes.bool,
 };
 
 export default HandCard;
