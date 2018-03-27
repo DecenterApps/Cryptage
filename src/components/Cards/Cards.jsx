@@ -132,7 +132,7 @@ class Cards extends Component {
                   type.map(card => (
                     <div key={card.id} className="card-container">
                       <DragWrapper key={card.id} {...{ card }}>
-                        <HandCard card={card} />
+                        <HandCard card={card} hoverCentered />
                       </DragWrapper>
                     </div>
                   ))

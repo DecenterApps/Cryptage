@@ -22,7 +22,10 @@ const GameplayItem = ({
         ${isOver && 'hovering'}
         ${isContainer && 'container'}
       `}
-      onClick={() => { switchInGameplayView(index, GP_LOCATION_CONTAINER); }}
+      onClick={() => {
+        if (!isContainer) return;
+        switchInGameplayView(index, GP_LOCATION_CONTAINER);
+      }}
     >
       <HandCard card={cards[0]} />
       <div className="level-up">
