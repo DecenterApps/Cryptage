@@ -1,7 +1,7 @@
 import { filterByKeys } from './utils';
 import {
   GP_BUY_BOOSTER, GP_LOCATION, GP_LOCATION_CONTAINER, GP_LOCATION_MAIN,
-  GP_NO_LOCATIONS
+  GP_NO_LOCATIONS,
 } from '../actions/actionTypes';
 
 /**
@@ -1145,22 +1145,89 @@ export const getMaxValueForLocation = (type, level, stat) => {
 };
 
 /**
+ * Returns true if there are available slots for
+ * current active container
+ *
+ * @param {Array} locations
+ * @param {Object|Boolean} locationItem
+ * @param {Number} activeContainerIndex
+ * @return {boolean}
+ */
+const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) => {
+  let length = false;
+
+  if (locationItem) {
+    const containerItem = locationItem.dropSlots[activeContainerIndex].lastDroppedItem;
+
+    if (containerItem) {
+      length = containerItem.dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
+    }
+  }
+
+  return length;
+};
+
+/**
+ * Checks if a card can be played because of number of available drop slots
+ *
+ * @param {String} type
+ * @param {Boolean} locationSlotsLength
+ * @param {Boolean} projectsSlotsLength
+ * @param {Boolean} assetSlotsLength
+ * @param {Boolean} containerSlotsLength
+ * @return {Boolean}
+ */
+const checkSlotsAvailableForCardType = (
+  type,
+  locationSlotsLength,
+  projectsSlotsLength,
+  assetSlotsLength,
+  containerSlotsLength,
+) => {
+  if (type === 'Location') return locationSlotsLength;
+  if (type === 'Project') return projectsSlotsLength;
+  if (type === 'Mining') return containerSlotsLength;
+  if (type !== 'Location' || type !== 'Project' || type !== 'Mining') return assetSlotsLength;
+};
+
+/**
  * Returns cards that can be played in the current view
  *
  * @param {Array} cards
  * @param {String} gameplayView
  * @param {String} inGameplayView
+ * @param {Array} locations
+ * @param {Array} projects
  * @return {Array}
  */
-export const getAvailableCards = (cards, gameplayView, inGameplayView) => (dispatch, getState) => {
-  const { globalStats, locations, activeLocationIndex } = getState().gameplay;
+export const getAvailableCards = (cards, gameplayView, inGameplayView, locations, projects) => (dispatch, getState) => {
+  const { globalStats, activeLocationIndex, activeContainerIndex } = getState().gameplay;
+
+  const locationSlotsLength = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
+  const projectsSlotsLength = projects.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
+
+  let assetSlotsLength = false;
+
+  const locationItem = locations[activeLocationIndex].lastDroppedItem;
+  if (locationItem) {
+    assetSlotsLength = locationItem.dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
+  }
+
+  const containerSlotsLength = getContainerSlotsLength(locations, locationItem, activeContainerIndex);
 
   // only show available project and location cards when there are no played locations
   if (gameplayView === GP_NO_LOCATIONS || gameplayView === GP_BUY_BOOSTER) {
     return cards.filter(({ stats }) => {
       const goodCardType = stats.type === 'Location' || stats.type === 'Project';
-      console.log('can play', goodCardType && checkIfCanPlayCard(stats, globalStats, null, false));
-      return goodCardType && checkIfCanPlayCard(stats, globalStats, null, false);
+      const availableSlots = checkSlotsAvailableForCardType(
+        stats.type,
+        locationSlotsLength,
+        projectsSlotsLength,
+        assetSlotsLength,
+        containerSlotsLength,
+      );
+
+      return goodCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, null, false);
     });
   }
 
@@ -1170,19 +1237,41 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView) => (dispa
       const badCardType = stats.type === 'Miner';
       const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
       const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+      const availableSlots = checkSlotsAvailableForCardType(
+        stats.type,
+        locationSlotsLength,
+        projectsSlotsLength,
+        assetSlotsLength,
+        containerSlotsLength,
+      );
 
-      return !badCardType && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
+      return !badCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
     });
   }
 
   // when container drop slots are available only show miner, project & location type cards
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_CONTAINER) {
-    return cards.filter(({ stats }) => {
+    return cards.filter(({ stats, metadata }) => {
       const goodCardType = stats.type === 'Location' || stats.type === 'Project' || stats.type === 'Mining';
       const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
       const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+      const availableSlots = checkSlotsAvailableForCardType(
+        stats.type,
+        locationSlotsLength,
+        projectsSlotsLength,
+        assetSlotsLength,
+        containerSlotsLength,
+      );
 
-      return goodCardType && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
+      if (!isAsset) return goodCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, null, false);
+
+      // check if active container can take in that card type
+      const { accepts } = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
+        .lastDroppedItem.dropSlots[0];
+      const goodSlotType = accepts.includes(metadata.id);
+
+      return goodCardType && goodSlotType && availableSlots
+        && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
     });
   }
 

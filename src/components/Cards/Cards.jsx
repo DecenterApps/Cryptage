@@ -54,10 +54,10 @@ class Cards extends Component {
 
   render() {
     const {
-      cardsFetching, cards, getAvailableCards, gameplayView, inGameplayView,
+      cardsFetching, cards, getAvailableCards, gameplayView, inGameplayView, locations, projects,
     } = this.props;
 
-    const availableCards = getAvailableCards(cards, gameplayView, inGameplayView);
+    const availableCards = getAvailableCards(cards, gameplayView, inGameplayView, locations, projects);
 
     return (
       <div className="cards-wrapper">
@@ -168,6 +168,8 @@ Cards.propTypes = {
   getAvailableCards: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
   inGameplayView: PropTypes.string.isRequired,
+  locations: PropTypes.array.isRequired,
+  projects: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
@@ -175,6 +177,8 @@ const mapStateToProps = ({ app, gameplay }) => ({
   cards: gameplay.cards,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
+  locations: gameplay.locations,
+  projects: gameplay.projects,
 });
 
 const mapDispatchToProps = {
