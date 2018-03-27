@@ -48,12 +48,12 @@ $font-secondary: 'Baloo', sans-serif;
   margin-top: 70px;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   .active-location-slot-wrapper {
     display: flex;
-    width: 75px;
+    width: 70px;
     height: 90px;
-    width: 140px;
-    height: 200px;
+    margin: 0 15px 20px;
     .empty-slot-wrapper {
       display: flex;
       flex-grow: 1;

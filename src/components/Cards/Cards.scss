@@ -13,6 +13,15 @@
     height: 140px;
     overscroll-behavior: contain contain;
 
+
+    .card-container {
+      margin-right: 10px;
+      cursor: move;
+      .card-details {
+        margin: 0 10px;
+      }
+    }
+
     &::-webkit-scrollbar {
       height: 5px;
     }
@@ -96,10 +105,14 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    font-size: $font-size-giant;
+    font-size: 16px;
+    color: white;
+    span {
+      font-family: $font-secondary;
+      margin-right: 15px;
+    }
   }
 
-  .loading-cards span { margin-right: 15px; }
 
   .card-details:not(:last-child) {
     margin-right: 20px;
@@ -115,25 +128,20 @@
       width: 20px;
       border-right: 1px solid #36265F;
       margin-right: 20px;
-      height: 100%;
+      height: 90px;
       position: relative;
       .card-type-title {
         font-family: $font-secondary;
         position: absolute;
-        bottom: 0;
+        bottom: -7px;
         height: 0;
         transform: rotate(-90deg);
         transform-origin: top left;
         color: white;
-        font-size: 12px;
+        font-size: 10px;
         letter-spacing: .04em;
         text-transform: uppercase;
       }
     }
-    .card-container {
-      margin-right: 10px;
-      cursor: move;
-    }
   }
-
 }

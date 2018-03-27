@@ -23,7 +23,7 @@ const LocationSidebarItem = ({
       onClick={() => { setActiveLocation(index); }}
     >
       {
-        ((activeLocationIndex === index) && gameplayView === GP_LOCATION) &&
+        ((activeLocationIndex === index) && gameplayView === GP_LOCATION) && false &&
         <svg className="location-progress-bar" viewBox="0 0 84 11">
           <defs>
             <clipPath id="location-sidebar-item-cut">
@@ -46,18 +46,27 @@ const LocationSidebarItem = ({
         style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
       >
         <div className="level-outer">
+          <svg className="level-background">
+            <defs>
+              <linearGradient id={`sidebar-location-level-${index}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style={{ stopColor: '#3CC8CC' }} />
+                <stop offset="100%" style={{ stopColor: 'rgba(60, 200, 204, 0.33)' }} />
+              </linearGradient>
+            </defs>
+            <polygon points="0,0 27,0 27,27" fill={`url(#sidebar-location-level-${index})`} />
+          </svg>
           <span className="level">{level}</span>
         </div>
         <div className="title">{cards[0].stats.title}</div>
       </div>
       {
-        !canLevelUp &&
+        !canLevelUp && false &&
         <div className="level-up-tip">
           Cards to drop for next level: {remainingCardsToDropForNextLevel}
         </div>
       }
       {
-        canLevelUp &&
+        canLevelUp && false &&
         <button
           className="level-up-button"
           onClick={() => { levelUpLocation(index); }}

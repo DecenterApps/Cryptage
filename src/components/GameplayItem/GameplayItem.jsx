@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'rc-progress';
 import { connect } from 'react-redux';
+import HandCard from '../Cards/HandCard/HandCard';
 import { calcDataForNextLevel } from '../../services/utils';
 import { levelUpAsset, switchInGameplayView } from '../../actions/gameplayActions';
 import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
@@ -22,21 +23,19 @@ const GameplayItem = ({
         ${isContainer && 'container'}
       `}
       onClick={() => { switchInGameplayView(index, GP_LOCATION_CONTAINER); }}
-      style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
     >
-      <div>{ cards[0].stats.title }</div>
-
-      <div>Level: { level }</div>
-      <Line strokeWidth="4" percent={percent} />
-      { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
-      {
-        canLevelUp &&
-        <button
-          onClick={() => { levelUpAsset(activeLocationIndex, index); }}
-        >
-          Upgrade to next level
-        </button>
-      }
+      <HandCard card={cards[0]} />
+      <div className="level-up">
+        { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
+        {
+          canLevelUp &&
+          <button
+            onClick={() => { levelUpAsset(activeLocationIndex, index); }}
+          >
+            Upgrade to next level
+          </button>
+        }
+      </div>
     </div>
   );
 };

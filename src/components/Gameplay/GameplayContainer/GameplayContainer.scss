@@ -44,11 +44,7 @@
 
         justify-content: center;
 
-        .drop-slot-component:not(:first-child):not(:last-child) {
-          margin-right: 27px;
-        }
-
-        .drop-slot-component:nth-child(2) {
+        .drop-slot-component:not(:first-child) {
           margin-left: 27px;
         }
       }

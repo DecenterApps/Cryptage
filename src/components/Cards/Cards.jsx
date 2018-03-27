@@ -88,14 +88,14 @@ class Cards extends Component {
             cardsFetching &&
             <div className="loading-cards">
               <span>Fetching cards...</span>
-              <Spinner color="black" size={4} />
+              <Spinner color="white" size={3} />
             </div>
           }
 
           {
             !cardsFetching && cards.length === 0 &&
             <div className="no-cards">
-              You currently do not own any cards.
+              <span>You currently do not own any cards.</span>
             </div>
           }
 
@@ -150,7 +150,7 @@ class Cards extends Component {
             ).map(card => (
               <div key={card.id} className="card-container">
                 <DragWrapper key={card.id} {...{ card }}>
-                  <HandCard card={card} />
+                  <HandCard card={card} hoverCentered />
                 </DragWrapper>
               </div>
             ))

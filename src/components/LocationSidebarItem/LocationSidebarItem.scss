@@ -1,10 +1,15 @@
 @import '../../common/colors';
+@import '../../common/variables';
 
 .location-sidebar-item-wrapper {
   height: 100%;
   width: 100%;
   left: 0;
   margin: 2px 0;
+  * {
+    font-family: $font-secondary;
+  }
+
   .location-progress-bar {
     width: 90px;
     display: none;
@@ -61,15 +66,14 @@
         content: '';
         z-index: 2;
       }
-      &:after {
+      .level-background {
         display: block;
         position: absolute;
         top: 0;
         right: 0;
-        border-top: 27px solid $green;
-        border-left: 27px solid transparent;
-        content: '';
         z-index: 3;
+        width: 27px;
+        height: 27px;
       }
       .level {
         position: relative;
@@ -77,7 +81,7 @@
         font-weight: bold;
         font-size: 13px;
         line-height: 13px;
-        margin: 2px;
+        margin: 3px 4px;
         color: white;
         z-index: 4;
       }
@@ -89,7 +93,7 @@
       width: 100%;
       background: linear-gradient(rgba(black, 0), black);
       color: white;
-      font-weight: bold;
+      line-height: 12px;
       font-size: 14px;
       text-transform: uppercase;
       white-space: pre;
@@ -130,7 +134,7 @@
   }
   &:hover{
     .level-up-tip {
-      display: block;
+      //display: block;
     }
   }
 
