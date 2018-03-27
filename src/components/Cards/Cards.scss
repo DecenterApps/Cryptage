@@ -3,13 +3,28 @@
 @import "../../common/variables";
 
 .cards-wrapper {
+  overscroll-behavior: contain contain;
+
   .cards-inner-wrapper {
-    overscroll-behavior: contain contain;
     overflow-y: auto;
     width: 100%;
     padding: 10px 0;
     display: flex;
     height: 140px;
+    overscroll-behavior: contain contain;
+
+    &::-webkit-scrollbar {
+      height: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #FF9D14;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #d8840e;
+    }
   }
 
   .card-tabs-wrapper {
@@ -74,19 +89,6 @@
         }
       }
     }
-  }
-
-  &::-webkit-scrollbar {
-    height: 5px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #FF9D14;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #d8840e;
   }
 
   .loading-cards, .no-cards {

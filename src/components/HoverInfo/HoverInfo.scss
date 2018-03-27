@@ -1,0 +1,74 @@
+@import '../../common/variables';
+@import '../../common/colors';
+
+.card-hover-info-wrapper {
+  display: none;
+  position: absolute;
+  //bottom: 0;
+  left: 80px;
+  pointer-events: none;
+  z-index: 2000;
+  box-shadow: 0 0 50px 15px rgba(35, 24, 61, 0.9);
+  top: 0;
+  &.center {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: none;
+    background: radial-gradient(rgba(35, 24, 61, 0.9) 20%, rgba(35, 24, 61, 0) 70%);
+    background-position: center;
+    background-size: 600px 550px;
+    background-repeat: no-repeat;
+  }
+  .inner-wrapper {
+    box-shadow: 0px 0px 74px #1A122E;
+    margin: auto;
+    width: 145px;
+    height: 252px;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    color: white;
+    position: relative;
+    border-radius: 12px;
+    * {
+      font-family: $font-secondary;
+    }
+    .meta {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      font-size: 9px;
+      overflow: hidden;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      .meta-inner {
+        background-color: #2D224E;
+      }
+      .type {
+        padding: 4px 0 2px;
+      }
+      .title {
+        padding: 2px 0 0;
+        line-height: 16px;
+        text-transform: uppercase;
+        background: rgba(54, 38, 95, 0.7);
+        box-shadow: 0px 1px 18px rgba(26, 18, 46, 0.6);
+      }
+      .description {
+        padding: 20px 5px;
+      }
+    }
+  }
+
+  &.misc { .type { background: linear-gradient(to bottom, rgba($misc, 0), $misc); } }
+  &.power { .type { background: linear-gradient(to bottom, rgba($power, 0), $power); } }
+  &.location { .type { background: linear-gradient(to bottom, rgba($location, 0), $location); } }
+  &.development { .type { background: linear-gradient(to bottom, rgba($development, 0), $development); } }
+  &.project { .type { background: linear-gradient(to bottom, rgba($project, 0), $project); } }
+  &.mining { .type { background: linear-gradient(to bottom, rgba($mining, 0), $mining); } }
+  &.container { .type { background: linear-gradient(to bottom, rgba($container, 0), $container); } }
+}

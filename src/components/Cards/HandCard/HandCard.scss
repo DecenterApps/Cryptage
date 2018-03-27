@@ -30,6 +30,8 @@
       position: absolute;
       width: 27px;
       height: 27px;
+      top: 0;
+      left: 0;
     }
     .level {
       position: absolute;
@@ -108,15 +110,6 @@
 
   }
 
-  .meta {
-    display: none;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    heigth: 100%;
-    background: rgba(white, .5);
-  }
-
   &.type-mining { border-color: #F2C5C5; }
   &.type-development { border-color: #D4E7CD; }
   &.type-location { border-color: #C8DEF1; }
@@ -142,5 +135,9 @@
   h4 {
     margin: 5px 0;
     text-transform: capitalize;
+  }
+
+  &:hover .card-hover-info-wrapper {
+    display: flex;
   }
 }
