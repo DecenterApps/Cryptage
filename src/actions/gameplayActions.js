@@ -172,7 +172,6 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
   });
 
-  dispatch(addLocationSlots());
   dispatch(changeGameplayView(GP_LOCATION));
   saveGameplayState(getState);
 };
@@ -356,7 +355,6 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     cards,
     globalStats,
   });
-  dispatch(addAssetSlots(activeLocationIndex));
   saveGameplayState(getState);
 };
 
