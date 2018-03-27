@@ -67,6 +67,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
       if (_projects[i].lastDroppedItem.expiryTime - blockNumber <= 0) {
         _projects[i].lastDroppedItem.expiryTime = null;
         _projects[i].lastDroppedItem.isActive = false;
+        _projects[i].lastDroppedItem.isFinished = true;
         acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
         releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
           parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),

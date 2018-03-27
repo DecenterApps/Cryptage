@@ -20,12 +20,14 @@ class DropSlotWrapper extends Component {
       lastDroppedItem,
       children,
       activeClass,
+      finishedClass,
       itemHoverClass,
       droppedItemClass,
       mainClass,
       index,
       emptyStateElem,
     } = this.props;
+    const isFinished = lastDroppedItem !== null ? lastDroppedItem.isFinished : false;
     const isActive = isOver && canDrop;
     const itemHover = !isActive && canDrop;
 
@@ -33,6 +35,7 @@ class DropSlotWrapper extends Component {
       drop-slot-component
       ${mainClass}
       ${isActive && activeClass}
+      ${isFinished && finishedClass}
       ${itemHover && itemHoverClass}
       ${lastDroppedItem && droppedItemClass}
     `;
@@ -49,6 +52,7 @@ class DropSlotWrapper extends Component {
 DropSlotWrapper.defaultProps = {
   mainClass: 'drop-slot-wrapper',
   activeClass: 'drop-slot-active',
+  finishedClass: 'drop-slot-finished',
   itemHoverClass: 'drop-slot-item-hover',
   droppedItemClass: 'drop-slot-filled',
   lastDroppedItem: null,
@@ -59,6 +63,7 @@ DropSlotWrapper.defaultProps = {
 DropSlotWrapper.propTypes = {
   mainClass: PropTypes.string,
   activeClass: PropTypes.string,
+  finishedClass: PropTypes.string,
   itemHoverClass: PropTypes.string,
   droppedItemClass: PropTypes.string,
   lastDroppedItem: PropTypes.object,

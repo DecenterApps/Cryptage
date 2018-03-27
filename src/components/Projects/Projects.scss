@@ -1,6 +1,8 @@
 @import "../../common/colors";
 @import "../../common/text";
 
+$project-size: 50px;
+
 .projects-wrapper {
   width: 133px;
   margin-top: 120px;
@@ -29,11 +31,15 @@
   }
 
   .projects-slots-wrapper {
-    background: url("./assets/project-bg.png") no-repeat center center;
-    background-size: 150%;
-    height: 54px;
-    width: 54px;
+    height: $project-size;
+    width: $project-size;
     margin-bottom: 5px;
+
+    background: linear-gradient(180deg, #22183B 0%, #1F1638 53.59%, #150F24 100%);
+    border: 1px solid #36265F;
+    box-shadow: 0 0 14px #06040D;
+    box-sizing: content-box;
+    border-radius: 100%;
 
     &.drop-slot-item-hover {
       opacity: 0.5;
@@ -43,32 +49,25 @@
       position: relative;
       top: 30px;
     }
+
+    &.drop-slot-finished {
+      box-shadow: 0 0 14px #653BD1;
+    }
   }
 
   .empty-project {
     font-family: "Roboto", sans-serif;
-    width: 40px;
-    margin: 14px auto;
-    text-shadow: rgba(33, 35, 234, 0.7);
+    height: calc(100% - 6px);
+    width: calc(100% - 6px);
+    border: 1px dashed #36265F;
+    border-radius: 100%;
+    margin: 3px;
+    text-shadow: 0 0px 30px rgba(33, 35, 234, 0.7);
+    padding: 9px 10px;
     color: #fff;
     opacity: 0.44;
     font-size: 8px;
     line-height: 9px;
-    text-align: center;
-  }
-
-  .project-thumbnail {
-    position: absolute;
-    z-index: 1;
-    width: 54px;
-    height: 54px;
-    border-radius: 100%;
-    opacity: 0.8;
-  }
-
-  .project-info {
-    position: relative;
-    z-index: 2;
     text-align: center;
   }
 }

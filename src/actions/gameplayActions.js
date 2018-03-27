@@ -185,7 +185,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
  * @return {Function}
  */
 export const handleProjectDrop = (index, item) => (dispatch, getState) => {
-  const { gameplay } = getState();
+  const { gameplay, app } = getState();
   const { projects, globalStats, cards } = gameplay;
 
   if (!checkIfCanPlayCard(item.card.stats, globalStats)) return;
@@ -212,8 +212,9 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         canLevelUp: false,
         values: item.card.stats.values,
         cards: [{ ...item.card, index }],
-        isActive: false,
-        expiryTime: null,
+        isActive: true,
+        isFinished: false,
+        expiryTime: app.blockNumber + item.card.stats.cost.time,
       },
     };
   } else if (!projects[index].lastDroppedItem.isActive) {
@@ -259,6 +260,7 @@ export const activateProject = index => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
   const alteredProjects = [...projects];
+  alteredProjects[index].lastDroppedItem.isFinished = false;
   alteredProjects[index].lastDroppedItem.isActive = true;
   alteredProjects[index].lastDroppedItem.expiryTime = blockNumber +
     alteredProjects[index].lastDroppedItem.cards[0].stats.cost.time;
