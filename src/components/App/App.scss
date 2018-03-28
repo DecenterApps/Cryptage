@@ -20,14 +20,18 @@ body {
   font-family: Arial, sans-serif;
   background: url("./background.png") center center no-repeat;
   background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .app-wrapper {
   max-width: 1000px;
-  max-height: 620px;
+  height: 620px;
   margin: auto;
   .app-top-section-wrapper {
-    height: 100vh;
     display: flex;
+    height: 100%;
   }
 }
