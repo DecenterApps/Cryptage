@@ -1,6 +1,7 @@
 import React from 'react';
 
 import bgBack from './assets/bg-back.png';
+import LargeCard from '../../../Cards/LargeCard/LargeCard';
 
 export default ({ revealedCards }) => {
   return (
@@ -8,9 +9,21 @@ export default ({ revealedCards }) => {
       <h1 className="booster-text-gradient reveal-text">BOOSTER</h1>
       <div className="revealed-cards">
         {
-          revealedCards.map(item => (
+          revealedCards.map(card => (
             <div className="revealed-card">
-              <img src={bgBack} alt="" />
+              <div
+                className="flip-container"
+                onClick={(e) => e.currentTarget.classList.toggle('hover')}
+              >
+                <div className="flipper">
+                  <div className="front">
+                    <img src={bgBack} alt="" />
+                  </div>
+                  <div className="back">
+                    <LargeCard card={card} />
+                  </div>
+                </div>
+              </div>
             </div>
           ))
         }
