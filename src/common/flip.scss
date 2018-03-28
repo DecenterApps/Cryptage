@@ -2,6 +2,7 @@
 .flip-container {
   perspective: 1000px;
   display: inline-block;
+  cursor: pointer;
 }
 /* flip the pane when hovered */
 .flipper, .flip-container.hover .flipper {
