@@ -11,6 +11,7 @@
 
   .close-icon {
     position: absolute;
+    z-index: 10;
     top: -25px;
     right: 0;
     cursor: pointer;
