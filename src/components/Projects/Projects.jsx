@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { handleProjectDrop } from '../../actions/gameplayActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import ProjectItem from '../ProjectItem/ProjectItem';
+import EmptyProjectSlot from '../EmptyProjectSlot/EmptyProjectSlot';
 
 import './Projects.scss';
 
@@ -23,7 +24,7 @@ const Projects = ({ projects, handleProjectDrop }) => (
         dropSlots={projects}
         onItemDrop={handleProjectDrop}
         element={<ProjectItem />}
-        emptyStateElem={<div className="empty-project">Drop project here</div>}
+        emptyStateElem={<EmptyProjectSlot />}
         mainClass="projects-slots-wrapper"
       />
     </div>

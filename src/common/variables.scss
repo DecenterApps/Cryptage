@@ -3,6 +3,8 @@ $card-height: 88.9px; // export this to common
 
 $font-secondary: 'Baloo', sans-serif;
 
+$project-size: 50px;
+
 @mixin fancy-button {
   border-radius: 5px;
   padding: 10px 20px;

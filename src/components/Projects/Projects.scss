@@ -1,7 +1,6 @@
+@import '../../common/variables';
 @import "../../common/colors";
 @import "../../common/text";
-
-$project-size: 50px;
 
 .projects-wrapper {
   width: 133px;
@@ -28,6 +27,12 @@ $project-size: 50px;
     justify-content: normal;
     flex-direction: row;
     flex-wrap: wrap;
+
+    .drop-slot-component {
+      &.drop-slot-active, &.drop-slot-item-hover {
+        background: inherit;
+      }
+    }
   }
 
   .projects-slots-wrapper {
@@ -35,14 +40,12 @@ $project-size: 50px;
     width: $project-size;
     margin-bottom: 5px;
 
-    background: linear-gradient(180deg, #22183B 0%, #1F1638 53.59%, #150F24 100%);
-    border: 1px solid #36265F;
-    box-shadow: 0 0 14px #06040D;
-    box-sizing: content-box;
-    border-radius: 100%;
-
-    &.drop-slot-item-hover {
-      opacity: 0.5;
+    &.drop-slot-filled {
+      background: linear-gradient(180deg, #22183B 0%, #1F1638 53.59%, #150F24 100%);
+      border: 1px solid #36265F;
+      box-shadow: 0 0 14px #06040D;
+      box-sizing: border-box;
+      border-radius: 100%;
     }
 
     &:nth-child(2n) {
@@ -50,24 +53,11 @@ $project-size: 50px;
       top: 30px;
     }
 
-    &.drop-slot-finished {
-      box-shadow: 0 0 14px #653BD1;
+    .empty-project {
+      font-size: 8px;
+      border: none;
+      color: #fff;
+      opacity: 0.44;
     }
-  }
-
-  .empty-project {
-    font-family: "Roboto", sans-serif;
-    height: calc(100% - 6px);
-    width: calc(100% - 6px);
-    border: 1px dashed #36265F;
-    border-radius: 100%;
-    margin: 3px;
-    text-shadow: 0 0px 30px rgba(33, 35, 234, 0.7);
-    padding: 9px 10px;
-    color: #fff;
-    opacity: 0.44;
-    font-size: 8px;
-    line-height: 9px;
-    text-align: center;
   }
 }
