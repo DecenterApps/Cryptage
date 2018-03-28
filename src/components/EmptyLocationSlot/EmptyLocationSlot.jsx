@@ -7,26 +7,30 @@ import './EmptyLocationSlot.scss';
 
 const EmptyLocationSlot = ({ card, globalStats }) => {
   let canDrop = false;
+  let goodCardType = false;
 
-  if (card) canDrop = checkIfCanPlayCard(card.stats, globalStats, null, false);
+  if (card) {
+    goodCardType = card.stats.type === 'Location';
+    if (goodCardType) canDrop = checkIfCanPlayCard(card.stats, globalStats, null, false);
+  }
 
   return (
     <div
       className={`
         empty-loc-slot-wrapper
-        ${(card && canDrop) && 'can-drop'}
-        ${(card && !canDrop) && 'no-drop'}
+        ${(card && goodCardType && canDrop) && 'can-drop'}
+        ${(card && goodCardType && !canDrop) && 'no-drop'}
       `}
     >
       <div className="empty-loc-slot">
         {
-          !card &&
+          (!card || (card && !goodCardType)) &&
           <div className="no-location-text">
             Drop Location here
           </div>
         }
         {
-          card &&
+          card && goodCardType &&
           <div className="drop-content">
             You
             <span>{ canDrop ? 'Can' : 'Can\'t' }</span>

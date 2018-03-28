@@ -132,7 +132,13 @@
     }
 
     .drop-slots-wrapper {
-      @include gameplayEmptySlot;
+      @include gameplayEmptySlot();
+
+      .drop-slot-component {
+        &.drop-slot-active, &.drop-slot-item-hover {
+          background: inherit;
+        }
+      }
     }
 
     .active-container-wrapper {
