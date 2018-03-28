@@ -172,7 +172,6 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
   });
 
-  dispatch(changeGameplayView(GP_LOCATION));
   saveGameplayState(getState);
 };
 
