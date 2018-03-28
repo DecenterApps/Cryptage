@@ -20,8 +20,8 @@ const INITIAL_STATE = {
     experience: 0,
     earnedXp: 0,
     requiredXp: 16,
-    funds: 1000000000000,
-    development: 10000000000,
+    funds: 10000,
+    development: 0,
   },
 };
 
@@ -36,6 +36,8 @@ export default (state = INITIAL_STATE, action) => {
         cards: action.cards,
         activeLocationIndex: action.activeLocationIndex,
         globalStats: action.globalStats,
+        inGameplayView: GP_LOCATION_MAIN,
+        gameplayView: GP_LOCATION,
       };
 
     case SET_ACTIVE_LOCATION:
