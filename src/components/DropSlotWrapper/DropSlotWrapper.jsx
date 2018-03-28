@@ -10,10 +10,12 @@ const dropTarget = { drop(props, monitor) { props.onDrop(monitor.getItem()); } }
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   canDrop: monitor.canDrop(),
+  dragItem: monitor.getItem(),
 }))
 class DropSlotWrapper extends Component {
   render() {
     const {
+      dragItem,
       isOver,
       canDrop,
       connectDropTarget,
@@ -43,7 +45,7 @@ class DropSlotWrapper extends Component {
     return connectDropTarget(
       <div className={className}>
         { lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, index }) }
-        { !lastDroppedItem && emptyStateElem() }
+        { !lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem }) }
       </div>,
     );
   }
@@ -57,7 +59,7 @@ DropSlotWrapper.defaultProps = {
   droppedItemClass: 'drop-slot-filled',
   lastDroppedItem: null,
   index: null,
-  emptyStateElem: () => (<div>Empty slot</div>),
+  emptyStateElem: <div>Empty slot</div>,
 };
 
 DropSlotWrapper.propTypes = {
@@ -69,7 +71,7 @@ DropSlotWrapper.propTypes = {
   lastDroppedItem: PropTypes.object,
   index: PropTypes.number,
   children: PropTypes.node.isRequired,
-  emptyStateElem: PropTypes.func,
+  emptyStateElem: PropTypes.node,
 };
 
 export default DropSlotWrapper;

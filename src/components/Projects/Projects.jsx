@@ -23,7 +23,7 @@ const Projects = ({ projects, handleProjectDrop }) => (
         dropSlots={projects}
         onItemDrop={handleProjectDrop}
         element={<ProjectItem />}
-        emptyStateElem={() => (<div className="empty-project">Drop project here</div>)}
+        emptyStateElem={<div className="empty-project">Drop project here</div>}
         mainClass="projects-slots-wrapper"
       />
     </div>

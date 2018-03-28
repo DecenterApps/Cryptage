@@ -10,8 +10,6 @@
   .buy-boosters-wrapper {
     margin-top: 17px;
     margin-bottom: 79px;
-
-
   }
 
   .locations-header {
@@ -48,31 +46,15 @@
 
   .drop-slots-wrapper {
     justify-content: flex-start;
-    //align-items: center;
 
-    .location-slots-wrapper:not(.drop-slot-filled) {
-      border: 2px dashed $purple;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 103px;
-      height: 44px;
-      background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
-
-      &:not(:last-child) {
-        margin-bottom: 4px;
+    .drop-slot-component {
+      &.drop-slot-active, &.drop-slot-item-hover {
+        background: inherit;
       }
+    }
 
-      .empty-loc-slot {
-        max-width: 65px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 8px;
-
-        color: #FFFFFF;
-        opacity: 0.2;
-        text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
-      }
+    .drop-slot-component:not(:last-child) {
+      margin-bottom: 4px;
     }
   }
 }

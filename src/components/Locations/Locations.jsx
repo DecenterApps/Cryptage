@@ -5,10 +5,13 @@ import { handleLocationDrop, changeGameplayView } from '../../actions/gameplayAc
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
 import { GP_BUY_BOOSTER } from '../../actions/actionTypes';
+import EmptyLocationSlot from '../EmptyLocationSlot/EmptyLocationSlot';
 
 import './Locations.scss';
 
-const Locations = ({ locations, handleLocationDrop, gameplayView, changeGameplayView }) => (
+const Locations = ({
+  locations, handleLocationDrop, gameplayView, changeGameplayView
+}) => (
   <div className="locations-wrapper">
     <div className="buy-boosters-wrapper">
       <button
@@ -35,7 +38,7 @@ const Locations = ({ locations, handleLocationDrop, gameplayView, changeGameplay
         dropSlots={locations}
         onItemDrop={handleLocationDrop}
         element={<LocationSidebarItem />}
-        emptyStateElem={() => (<div className="empty-loc-slot">Drop Location here</div>)}
+        emptyStateElem={<EmptyLocationSlot />}
         mainClass="location-slots-wrapper"
       />
     </div>

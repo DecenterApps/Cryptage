@@ -1,0 +1,52 @@
+@import "../../common/colors";
+
+.empty-loc-slot-wrapper {
+  width: 103px;
+  height: 44px;
+  border: 1px solid $purple;
+  padding: 1px;
+
+  &.can-drop {
+    border: 1px solid $yellow;
+
+    .drop-content span {
+      color: $yellow;
+    }
+  }
+
+  &.no-drop {
+    border: 1px solid $red;
+
+    .drop-content span {
+      color: $red;
+    }
+  }
+
+  .empty-loc-slot {
+    display: flex;
+    height: 100%;
+    border: 2px dashed $purple;;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
+    text-align: center;
+    font-weight: bold;
+    font-size: 8px;
+
+    color: #FFFFFF;
+    text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
+
+    .no-location-text {
+      opacity: 0.2;
+    }
+
+    .drop-content {
+      font-size: 10px;
+
+      span {
+        margin: 0 3px;
+      }
+    }
+  }
+}
+
