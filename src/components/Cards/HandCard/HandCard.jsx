@@ -128,9 +128,9 @@ const HandCard = ({
             </div>
           }
           {
-            card.stats.cost.dev &&
-            <div className={`circle red ${classForNumber(card.stats.cost.dev)}`}>
-              {formatBigNumber(card.stats.cost.dev)}
+            card.stats.cost.development &&
+            <div className={`circle red ${classForNumber(card.stats.cost.development)}`}>
+              {formatBigNumber(card.stats.cost.development)}
             </div>
           }
         </div>
@@ -175,9 +175,9 @@ const HandCard = ({
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.dev &&
-            <div className={`circle red ${classForNumber(card.stats.bonus.dev)}`}>
-              {formatBigNumber(card.stats.bonus.dev)}
+            card.stats.bonus.development &&
+            <div className={`circle red ${classForNumber(card.stats.bonus.development)}`}>
+              {formatBigNumber(card.stats.bonus.development)}
             </div>
           }
         </div>
