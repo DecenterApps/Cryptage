@@ -4,7 +4,7 @@
   display: inline-block;
 }
 /* flip the pane when hovered */
-.flip-container:hover .flipper, .flip-container.hover .flipper {
+.flipper, .flip-container.hover .flipper {
   transform: rotateY(180deg);
 }
 
@@ -14,6 +14,9 @@
   transform-style: preserve-3d;
 
   position: relative;
+  height: 227px;
+  width: 154px;
+  transform: rotateY(0);
 }
 
 /* hide back of pane during swap */
