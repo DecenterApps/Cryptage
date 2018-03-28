@@ -12,13 +12,13 @@
       },
       "image": "computer-case.jpg",
       "type": "Container",
-      "description": ""
+      "description": "Test description for card computer"
     },
     "1": {
       "title": "Rig",
       "cost": {
         "funds": 1000,
-        "level": 2,
+        "level": 3,
         "space": 15
       },
       "values": {
@@ -32,7 +32,7 @@
       "title": "Mount",
       "cost": {
         "funds": 10000,
-        "level": 3,
+        "level": 6,
         "space": 25
       },
       "values": {
@@ -47,25 +47,26 @@
       "cost": {
         "funds": 10,
         "level": 1,
-        "space": 1
+        "space": 1,
+        "power": 1
       },
       "bonus": {
-        "funds": 0.1
+        "funds": 1
       },
       "image": "cpu.jpg",
       "type": "Mining",
-      "description": ""
+      "description": "CPU brate moy"
     },
     "4": {
       "title": "Graphics card",
       "cost": {
         "funds": 100,
         "space": 1,
-        "level": 1,
+        "level": 3,
         "power": 4
       },
       "bonus": {
-        "funds": 0.5
+        "funds": 5
       },
       "image": "graphics-card.jpg",
       "type": "Mining",
@@ -75,12 +76,12 @@
       "title": "ASIC miner",
       "cost": {
         "funds": 10000,
-        "level": 2,
+        "level": 6,
         "power": 16,
         "space": 1
       },
       "bonus": {
-        "funds": 10
+        "funds": 100
       },
       "image": "asic-miner.jpg",
       "type": "Mining",
@@ -200,7 +201,7 @@
     "14": {
       "title": "Freelance Expert",
       "cost": {
-        "space": 10,
+        "space": 20,
         "funds": 500,
         "level": 4
       },
@@ -214,7 +215,7 @@
     "15": {
       "title": "Senior Developer",
       "cost": {
-        "space": 10,
+        "space": 20,
         "funds": 3000,
         "level": 5
       },
@@ -228,7 +229,7 @@
     "16": {
       "title": "Tech Lead",
       "cost": {
-        "space": 10,
+        "space": 40,
         "funds": 10000,
         "level": 6
       },
@@ -242,7 +243,7 @@
     "17": {
       "title": "Project Architect",
       "cost": {
-        "space": 10,
+        "space": 40,
         "funds": 40000,
         "level": 10
       },
@@ -264,26 +265,29 @@
       "description": ""
     },
     "19": {
-      "title": "Part-time Gig",
+      "title": "Outsourcing Gig",
       "cost": {
-        "dev": 25,
-        "time": 55
+        "development": 8,
+        "time": 70
       },
       "bonus": {
-        "xp": 1000
+        "xp": 8,
+        "funds": 100
       },
       "image": "part-time-gig.jpg",
       "type": "Project",
       "description": ""
     },
     "20": {
-      "title": "Bigtime Outsorce",
+      "title": "For-profit Đapp",
       "cost": {
-        "dev": 25,
-        "time": 55
+        "development": 16,
+        "time": 210,
+        "funds": 50
       },
       "bonus": {
-        "xp": 1000
+        "xp": 64,
+        "funds": 200
       },
       "image": "outsourcing.jpeg",
       "type": "Project",
@@ -292,50 +296,58 @@
     "21": {
       "title": "Optimize Mining Algorithm",
       "cost": {
-        "dev": 25,
-        "time": 10
+        "development": 32,
+        "time": 420,
+        "funds": 1000
       },
       "bonus": {
-        "xp": 1000
+        "xp": 512,
+        "funds": 4000
       },
       "image": "algo.jpg",
       "type": "Project",
       "description": ""
     },
     "22": {
-      "title": "No name project 1",
+      "title": "Token Crowdsale",
       "cost": {
-        "dev": 25,
-        "time": 5
+        "development": 56,
+        "time": 2520,
+        "funds": 5000
       },
       "bonus": {
-        "xp": 1000
+        "xp": 4096,
+        "funds": 20000
       },
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""
     },
     "23": {
-      "title": "No name project 2",
+      "title": "Develop Decentralized Protocol",
       "cost": {
-        "dev": 25,
-        "time": 5
+        "development": 120,
+        "time": 10080,
+        "funds": 20000
       },
       "bonus": {
-        "xp": 1000
+        "xp": 32796,
+        "funds": 100000
       },
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""
     },
     "24": {
-      "title": "No name project 3",
+      "title": "Consensus Research Project",
       "cost": {
-        "dev": 25,
-        "time": 55
+        "development": 240,
+        "time": 20160,
+        "funds": 100000
       },
       "bonus": {
-        "xp": 1000
+        "xp": 262144,
+        "funds": 500000
       },
       "image": "missing.jpeg",
       "type": "Project",
@@ -386,10 +398,13 @@
     "28": {
       "title": "GRID Connector",
       "cost": {
-        "funds": 50,
+        "funds": 1000,
         "level": 1
       },
-      "bonus": null,
+      "bonus": {
+        "TODO": true,
+        "funds": 10
+      },
       "image": "connector.jpg",
       "type": "Misc",
       "description": ""
@@ -397,10 +412,13 @@
     "29": {
       "title": "Coffe Miner",
       "cost": {
-        "funds": 50,
+        "funds": 20,
         "level": 1
       },
-      "bonus": null,
+      "bonus": {
+        "TODO": true,
+        "funds": 10
+      },
       "image": "coffe-miner.jpeg",
       "type": "Misc",
       "description": ""

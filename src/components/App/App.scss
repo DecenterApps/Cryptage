@@ -18,18 +18,21 @@ body {
   padding: 0;
   font-size: $font-size-regular;
   font-family: Arial, sans-serif;
-  background: url("./background.png") center center no-repeat;
-  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #101327;
 }
 
 .app-wrapper {
   max-width: 1000px;
   height: 620px;
   margin: auto;
+  box-shadow: 0px 0px 24px #36265F;
+  background: url("./background.png") center center no-repeat;
+  background-size: cover;
+
   .app-top-section-wrapper {
     display: flex;
     height: 100%;
