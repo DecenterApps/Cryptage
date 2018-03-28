@@ -397,20 +397,22 @@
     },
     "28": {
       "title": "GRID Connector",
+      "unique": true,
       "cost": {
         "funds": 1000,
         "level": 1
       },
       "bonus": {
         "TODO": true,
-        "funds": 10
+        "funds": 1
       },
       "image": "connector.jpg",
       "type": "Misc",
       "description": ""
     },
     "29": {
-      "title": "Coffe Miner",
+      "title": "Coffee Miner",
+      "unique": true,
       "cost": {
         "funds": 20,
         "level": 1

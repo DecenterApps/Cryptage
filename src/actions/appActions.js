@@ -5,12 +5,8 @@ import {
   UPDATE_BLOCK_NUMBER
 } from './actionTypes';
 import ethService from '../services/ethereumService';
-import { nameOfNetwork, getPlayedAssetCards, getPlayedLocationCards } from '../services/utils';
-import {
-  handlePlayedLocationCardsPassive,
-  handlePlayedAssetCardsPassive,
-  checkProjectsExpiry
-} from '../actions/passiveGameMechanics';
+import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
+import { handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
 import config from '../constants/config.json';
 
 /**
@@ -74,7 +70,6 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
 
     const { locations } = getState().gameplay;
 
-    dispatch(handlePlayedLocationCardsPassive(getPlayedLocationCards([...locations])));
     dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
     dispatch(checkProjectsExpiry());
   });
