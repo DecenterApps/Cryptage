@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { checkIfCanPlayCard } from '../../../services/gameMechanicsService';
-
-import './EmptyCardSlot.scss';
 import AvailableDropIcon from '../../Decorative/AvailableDropIcon';
 import UnavailableDropIcon from '../../Decorative/UnavailableDropIcon';
+
+import './EmptyCardSlot.scss';
 
 const EmptyCardSlot = ({
   card, globalStats, activeLocation, acceptedType, activeContainerIndex,

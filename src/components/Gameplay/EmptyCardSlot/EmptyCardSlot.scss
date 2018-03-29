@@ -8,19 +8,11 @@
   padding: 2px;
 
   &.can-drop {
-    border: 1px solid $yellow;
-
-    .drop-content b {
-      color: $yellow;
-    }
+    border: 1px solid $empty-slot-can-drop;
   }
 
   &.no-drop {
     border: 1px solid $red;
-
-    .drop-content b {
-      color: $red;
-    }
   }
 
   .inner-empty-slot {
@@ -33,11 +25,5 @@
     color: rgba(white, .2);
     font-size: 10px;
     border: 2px dashed #3B3065;
-
-    b {
-      display: block;
-      font-size: 14px;
-      line-height: 18px;
-    }
   }
 }

@@ -7,19 +7,11 @@
   padding: 2px;
 
   &.can-drop {
-    border: 1px solid $yellow;
-
-    .drop-content span {
-      color: $yellow;
-    }
+    border: 1px solid $empty-slot-can-drop;
   }
 
   &.no-drop {
     border: 1px solid $red;
-
-    .drop-content span {
-      color: $red;
-    }
   }
 
   .empty-loc-slot {

@@ -15,19 +15,11 @@
   text-align: center;
 
   &.can-drop {
-    border: 1px solid $yellow;
-
-    .drop-content span {
-      color: $yellow;
-    }
+    border: 1px solid $empty-slot-can-drop;
   }
 
   &.no-drop {
     border: 1px solid $red;
-
-    .drop-content span {
-      color: $red;
-    }
   }
 
   .empty-project-slot {
@@ -36,16 +28,19 @@
     width: 100%;
     height: 100%;
     padding: 7px;
-
-    .no-project-text {
-      opacity: 0.44;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .drop-content {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
       justify-content: center;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }
