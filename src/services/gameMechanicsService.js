@@ -1086,6 +1086,15 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
 
   if (activeLocation && (space > activeLocation.values.space)) return false;
 
+  // checks for duplicates in active location
+  if (activeLocation && cardStats.unique) {
+    const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
+      lastDroppedItem && (lastDroppedItem.cards[0].stats.title === cardStats.title)
+    ));
+
+    if (foundElem) return false;
+  }
+
   return true;
 };
 

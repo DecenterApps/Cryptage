@@ -32,8 +32,8 @@ const GameplayItem = ({
         switchInGameplayView(index, GP_LOCATION_CONTAINER);
       }}
     >
-      { !isContainer && <HandCard card={cards[0]} /> }
-      { isContainer && <HandCard card={cards[0]} played remainingSlots={remainingSlots} /> }
+      { !isContainer && <HandCard showCount={false} card={cards[0]} /> }
+      { isContainer && <HandCard showCount={false} card={cards[0]} played remainingSlots={remainingSlots} /> }
       <div className="level-up">
         { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
         {
