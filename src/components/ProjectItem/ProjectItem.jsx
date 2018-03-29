@@ -40,7 +40,7 @@ const ProjectItem = ({
             alt="Checkmark icon"
           />
           <button
-            onClick={() => activateProject(index)}
+            onClick={() => activateProject(cards[0], index)}
             className="empty-project"
           >
             Start Project Again
