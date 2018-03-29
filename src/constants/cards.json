@@ -274,7 +274,8 @@
       "title": "Outsourcing Gig",
       "cost": {
         "development": 8,
-        "time": 70
+        "time": 3,
+        "funds": 0
       },
       "bonus": {
         "xp": 8,

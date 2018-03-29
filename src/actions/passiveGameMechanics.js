@@ -86,10 +86,11 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
 export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
-  const { experience, development } = getState().gameplay.globalStats;
+  const { experience, development, funds } = getState().gameplay.globalStats;
   const _projects = [...projects];
   let acquiredXp = 0;
   let releasedDev = 0;
+  let receivedFunds = 0;
 
   for (let i = 0; i < _projects.length; i += 1) {
     if (_projects[i].lastDroppedItem != null && _projects[i].lastDroppedItem.expiryTime != null) {
@@ -102,6 +103,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
           parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
           _projects[i].lastDroppedItem.level,
         ) : _projects[i].lastDroppedItem.cards[0].stats.cost.development;
+        receivedFunds += _projects[i].lastDroppedItem.cards[0].stats.bonus.funds;
       }
     }
   }
@@ -121,6 +123,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
       payload: {
         ...getState().gameplay.globalStats,
         development: development + releasedDev,
+        funds: funds + receivedFunds,
       },
     });
     saveGameplayState(getState);

@@ -17,7 +17,7 @@ import {
   LOCATION_DROP_SLOTS,
   ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
-  PLAY_TURN,
+  PLAY_TURN, UPDATE_GLOBAL_VALUES,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -235,16 +235,9 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
 
     alteredProjects[index].lastDroppedItem.cards.push({ ...item.card });
   }
-  const { lastDroppedItem } = alteredProjects[index];
-  const cost = lastDroppedItem.level > 1 ? getLevelValuesForCard(
-    parseInt(item.card.metadata.id, 10),
-    lastDroppedItem.level,
-  ) : lastDroppedItem.cards[0].stats.cost.development;
-  console.log(cost);
-  const alterGlobalStats = {
-    ...globalStats,
-    development: globalStats.development - cost,
-  };
+  const mathRes = handleCardMathematics(item.card, [], gameplay.globalStats, index);
+  const alterGlobalStats = mathRes.globalStats;
+
   dispatch({
     type: DROP_PROJECT,
     projects: alteredProjects,
@@ -257,21 +250,33 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
 /**
  * Activates a dropped project
  *
+ * @param {Object} card
  * @param {Number} index
  * @return {Function}
  */
-export const activateProject = index => (dispatch, getState) => {
+export const activateProject = (card, index) => (dispatch, getState) => {
   const { blockNumber } = getState().app;
-  const { projects } = getState().gameplay;
+  const { projects, globalStats } = getState().gameplay;
   const alteredProjects = [...projects];
+  console.log(card);
+
+  if (!checkIfCanPlayCard(card.stats, globalStats)) return;
+
   alteredProjects[index].lastDroppedItem.isFinished = false;
   alteredProjects[index].lastDroppedItem.isActive = true;
   alteredProjects[index].lastDroppedItem.expiryTime = blockNumber +
     alteredProjects[index].lastDroppedItem.cards[0].stats.cost.time;
 
+  const mathRes = handleCardMathematics(card, [], globalStats, index);
+  const alterGlobalStats = mathRes.globalStats;
+
   dispatch({
     type: CHANGE_PROJECT_STATE,
     projects: alteredProjects,
+  });
+  dispatch({
+    type: UPDATE_GLOBAL_VALUES,
+    payload: alterGlobalStats,
   });
   saveGameplayState(getState);
 };
