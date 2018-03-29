@@ -25,9 +25,7 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
   });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
-  saveGameplayState(getState);
 };
-
 
 /**
  * Checks if any gridConnector cards were played and gives funds based
@@ -51,7 +49,21 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
   });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
-  saveGameplayState(getState);
+};
+
+/**
+ * Adds funds for every dropped hacker per block
+ *
+ * @param _cards
+ */
+const addFundsForDroppedHacker = _cards => (dispatch, getState) => {
+  const globalStats = { ...getState().gameplay.globalStats };
+
+  const hackerCards = _cards.filter(_card => _card.metadata.id === '18');
+
+  hackerCards.forEach(({ stats }) => { globalStats.funds += stats.bonus.funds; });
+
+  dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
 };
 
 /**
@@ -60,10 +72,12 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
  *
  * @param cards
  */
-export const handlePlayedAssetCardsPassive = cards => (dispatch) => {
-  console.log('Played asset cards passive', cards);
+export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
+  console.log('All Played cards', cards);
   dispatch(addFundsForDroppedMiningRigs(cards));
   dispatch(addFundsForDroppedGridConnectors(cards));
+  dispatch(addFundsForDroppedHacker(cards));
+  saveGameplayState(getState);
 };
 
 /**

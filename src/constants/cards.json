@@ -259,7 +259,9 @@
       "cost": {
         "level": 1
       },
-      "bonus": null,
+      "bonus": {
+        "funds": 10
+      },
       "image": "hacker.jpg",
       "type": "Development",
       "description": ""
