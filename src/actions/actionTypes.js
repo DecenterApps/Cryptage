@@ -15,6 +15,7 @@ export const LOCATION_ITEM_DROP_SLOTS = [
   LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT,
   LOCATION_ITEM_SLOT,
 ];
+export const ADDITIONAL_LOCATION_ITEM_DROP_SLOTS = [LOCATION_ITEM_SLOT];
 
 const LOCATION_SLOT = { accepts: [...acceptedLocationDropIds], lastDroppedItem: null, slotType: 'location' };
 export const LOCATION_DROP_SLOTS = [

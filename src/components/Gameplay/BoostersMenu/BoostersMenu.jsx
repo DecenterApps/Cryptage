@@ -31,7 +31,7 @@ class BoostersMenu extends React.Component {
 
   render() {
     const { boosters, isBuying, isFetching, revealedCards } = this.props.shop;
-    const { accountBalance, revealBooster, buyBoosterPack } = this.props;
+    const { accountBalance, revealBooster, buyBoosterPack, currentBlock } = this.props;
     const isReveal = revealedCards.length > 0;
 
     return (
@@ -50,6 +50,7 @@ class BoostersMenu extends React.Component {
             revealBooster={revealBooster}
             buyBoosterPack={buyBoosterPack}
             accountBalance={accountBalance}
+            currentBlock={currentBlock}
           />
         }
         {
@@ -86,6 +87,7 @@ const mapStateToProps = state => ({
   shop: state.shop,
   accountBalance: state.app.accountBalance,
   locations: state.gameplay.locations.filter(({ lastDroppedItem }) => lastDroppedItem !== null),
+  currentBlock: state.app.blockNumber,
 });
 
 const mapDispatchToProps = {
