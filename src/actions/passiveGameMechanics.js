@@ -38,7 +38,7 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
   const locations = [...gameplay.locations];
   const globalStats = { ...gameplay.globalStats };
 
-  const connectorCards = _cards.filter(_card => _card.metadata.id === '28');
+  const connectorCards = _cards.filter(_card => _card.metadata.id === '22');
 
   connectorCards.forEach(({ locationIndex, slotIndex }) => {
     const cardLocation = locations[locationIndex].lastDroppedItem;

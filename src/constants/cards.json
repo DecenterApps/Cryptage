@@ -1,6 +1,90 @@
 {
   "cards": {
     "0": {
+      "title": "Garage",
+      "cost": {
+        "level": 1,
+        "funds": 100
+      },
+      "values": {
+        "space": 40,
+        "power": 5
+      },
+      "image": "garage.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "1": {
+      "title": "Coworking space",
+      "cost": {
+        "funds": 500,
+        "level": 2
+      },
+      "values": {
+        "space": 60,
+        "power": 12
+      },
+      "image": "coworking-space.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "2": {
+      "title": "Shaggy Office",
+      "cost": {
+        "funds": 2000,
+        "level": 4
+      },
+      "values": {
+        "space": 100,
+        "power": 20
+      },
+      "image": "shaggy-office.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "3": {
+      "title": "Downtown Office",
+      "cost": {
+        "funds": 10000,
+        "level": 6
+      },
+      "values": {
+        "space": 140,
+        "power": 50
+      },
+      "image": "downtown-office.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "4": {
+      "title": "Smart Office",
+      "cost": {
+        "funds": 100000,
+        "level": 10
+      },
+      "values": {
+        "space": 200,
+        "power": 110
+      },
+      "image": "smart-office.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "5": {
+      "title": "Office Building",
+      "cost": {
+        "funds": 1000000,
+        "level": 20
+      },
+      "values": {
+        "space": 240,
+        "power": 230
+      },
+      "image": "office-building.jpg",
+      "type": "Location",
+      "description": ""
+    },
+    "6": {
       "title": "Computer Case",
       "cost": {
         "funds": 10,
@@ -8,18 +92,18 @@
         "level": 1
       },
       "values": {
-        "space": 1
+        "space": 2
       },
       "image": "computer-case.jpg",
       "type": "Container",
       "description": "Test description for card computer"
     },
-    "1": {
-      "title": "Rig",
+    "7": {
+      "title": "Mining Rig",
       "cost": {
         "funds": 1000,
-        "level": 3,
-        "space": 15
+        "space": 15,
+        "level": 3
       },
       "values": {
         "space": 4
@@ -28,12 +112,12 @@
       "type": "Container",
       "description": ""
     },
-    "2": {
-      "title": "Mount",
+    "8": {
+      "title": "ASIC Mount",
       "cost": {
         "funds": 10000,
-        "level": 6,
-        "space": 25
+        "space": 25,
+        "level": 6
       },
       "values": {
         "space": 4
@@ -42,10 +126,10 @@
       "type": "Container",
       "description": ""
     },
-    "3": {
+    "9": {
       "title": "CPU",
       "cost": {
-        "funds": 10,
+        "funds": 40,
         "level": 1,
         "space": 1,
         "power": 1
@@ -58,13 +142,13 @@
       "type": "Mining",
       "description": "CPU brate moy"
     },
-    "4": {
-      "title": "Graphics card",
+    "10": {
+      "title": "GPU",
       "cost": {
         "funds": 100,
         "space": 1,
-        "level": 3,
-        "power": 4
+        "power": 4,
+        "level": 3
       },
       "bonus": {
         "funds": 5
@@ -74,13 +158,13 @@
       "type": "Mining",
       "description": ""
     },
-    "5": {
+    "11": {
       "title": "ASIC miner",
       "cost": {
         "funds": 10000,
-        "level": 6,
         "power": 16,
-        "space": 1
+        "space": 1,
+        "level": 6
       },
       "bonus": {
         "funds": 100
@@ -90,91 +174,8 @@
       "type": "Mining",
       "description": ""
     },
-    "6": {
-      "title": "Garage",
-      "cost": {
-        "level": 1
-      },
-      "values": {
-        "space": 40,
-        "power": 3
-      },
-      "image": "garage.jpg",
-      "type": "Location",
-      "description": ""
-    },
-    "7": {
-      "title": "Coworking space",
-      "cost": {
-        "funds": 500,
-        "level": 2
-      },
-      "values": {
-        "space": 60,
-        "power": 9
-      },
-      "image": "coworking-space.jpg",
-      "type": "Location",
-      "description": ""
-    },
-    "8": {
-      "title": "Shantytown Office",
-      "cost": {
-        "funds": 2000,
-        "level": 4
-      },
-      "values": {
-        "space": 80,
-        "power": 20
-      },
-      "image": "shanty-town-office.jpg",
-      "type": "Location",
-      "description": ""
-    },
-    "9": {
-      "title": "Downtown Office",
-      "cost": {
-        "funds": 10000,
-        "level": 6
-      },
-      "values": {
-        "space": 120,
-        "power": 50
-      },
-      "image": "downtown-office.jpg",
-      "type": "Location",
-      "description": ""
-    },
-    "10": {
-      "title": "Elite Office",
-      "cost": {
-        "funds": 100000,
-        "level": 10
-      },
-      "values": {
-        "space": 160,
-        "power": 110
-      },
-      "image": "elite-office.jpg",
-      "type": "Location",
-      "description": ""
-    },
-    "11": {
-      "title": "Office Building",
-      "cost": {
-        "funds": 1000000,
-        "level": 20
-      },
-      "values": {
-        "space": 200,
-        "power": 230
-      },
-      "image": "office-building.jpg",
-      "type": "Location",
-      "description": ""
-    },
     "12": {
-      "title": "Intern Developer",
+      "title": "Intern Programmer",
       "cost": {
         "space": 10,
         "funds": 15,
@@ -202,7 +203,7 @@
       "description": ""
     },
     "14": {
-      "title": "Freelance Expert",
+      "title": "Freelance Consultant",
       "cost": {
         "space": 20,
         "funds": 500,
@@ -230,7 +231,7 @@
       "description": ""
     },
     "16": {
-      "title": "Tech Lead",
+      "title": "Technical Team Leader",
       "cost": {
         "space": 40,
         "funds": 10000,
@@ -258,12 +259,15 @@
       "description": ""
     },
     "18": {
-      "title": "Hacker",
+      "title": "Black Hat Hacker",
       "cost": {
-        "level": 1
+        "funds": 500,
+        "space": 20,
+        "level": 4
       },
       "bonus": {
-        "funds": 10
+        "funds": 2,
+        "development": 2
       },
       "special": true,
       "image": "hacker.jpg",
@@ -271,102 +275,6 @@
       "description": ""
     },
     "19": {
-      "title": "Outsourcing Gig",
-      "cost": {
-        "development": 8,
-        "time": 3,
-        "funds": 0
-      },
-      "bonus": {
-        "xp": 8,
-        "funds": 100
-      },
-      "special": true,
-      "image": "part-time-gig.jpg",
-      "type": "Project",
-      "description": ""
-    },
-    "20": {
-      "title": "For-profit Đapp",
-      "cost": {
-        "development": 16,
-        "time": 210,
-        "funds": 50
-      },
-      "bonus": {
-        "xp": 64,
-        "funds": 200
-      },
-      "special": true,
-      "image": "outsourcing.jpeg",
-      "type": "Project",
-      "description": ""
-    },
-    "21": {
-      "title": "Optimize Mining Algorithm",
-      "cost": {
-        "development": 32,
-        "time": 420,
-        "funds": 1000
-      },
-      "bonus": {
-        "xp": 512,
-        "funds": 4000
-      },
-      "special": true,
-      "image": "algo.jpg",
-      "type": "Project",
-      "description": ""
-    },
-    "22": {
-      "title": "Token Crowdsale",
-      "cost": {
-        "development": 56,
-        "time": 2520,
-        "funds": 5000
-      },
-      "bonus": {
-        "xp": 4096,
-        "funds": 20000
-      },
-      "special": true,
-      "image": "missing.jpeg",
-      "type": "Project",
-      "description": ""
-    },
-    "23": {
-      "title": "Develop Decentralized Protocol",
-      "cost": {
-        "development": 120,
-        "time": 10080,
-        "funds": 20000
-      },
-      "bonus": {
-        "xp": 32796,
-        "funds": 100000
-      },
-      "special": true,
-      "image": "missing.jpeg",
-      "type": "Project",
-      "description": ""
-    },
-    "24": {
-      "title": "Consensus Research Project",
-      "cost": {
-        "development": 240,
-        "time": 20160,
-        "funds": 100000
-      },
-      "bonus": {
-        "xp": 262144,
-        "funds": 500000
-      },
-      "special": true,
-      "image": "missing.jpeg",
-      "type": "Project",
-      "description": ""
-    },
-    "25": {
       "title": "Solar Panels",
       "cost": {
         "funds": 500,
@@ -380,7 +288,7 @@
       "type": "Power",
       "description": ""
     },
-    "26": {
+    "20": {
       "title": "Black market batteries",
       "cost": {
         "funds": 3000,
@@ -394,8 +302,8 @@
       "type": "Power",
       "description": ""
     },
-    "27": {
-      "title": "Jury-rigged Generator",
+    "21": {
+      "title": "DIY Power Generator",
       "cost": {
         "funds": 10000,
         "space": 60,
@@ -408,7 +316,7 @@
       "type": "Power",
       "description": ""
     },
-    "28": {
+    "22": {
       "title": "GRID Connector",
       "unique": true,
       "cost": {
@@ -423,8 +331,8 @@
       "type": "Misc",
       "description": ""
     },
-    "29": {
-      "title": "Coffee Miner",
+    "23": {
+      "title": "Coffee Machine Miner",
       "unique": true,
       "cost": {
         "funds": 20,
@@ -436,6 +344,108 @@
       "special": true,
       "image": "coffe-miner.jpeg",
       "type": "Misc",
+      "description": ""
+    },
+    "24": {
+      "title": "Outsourced Project",
+      "cost": {
+        "development": 1,
+        "time": 70,
+        "funds": 0,
+        "level": 1
+      },
+      "bonus": {
+        "xp": 8,
+        "funds": 100
+      },
+      "special": true,
+      "image": "part-time-gig.jpg",
+      "type": "Project",
+      "description": ""
+    },
+    "25": {
+      "title": "Profitable Đapp",
+      "cost": {
+        "development": 8,
+        "time": 210,
+        "funds": 50,
+        "level": 3
+      },
+      "bonus": {
+        "xp": 64,
+        "funds": 200
+      },
+      "special": true,
+      "image": "outsourcing.jpeg",
+      "type": "Project",
+      "description": ""
+    },
+    "26": {
+      "title": "Mining Algorithm Optimization",
+      "cost": {
+        "development": 32,
+        "time": 420,
+        "funds": 1000,
+        "level": 5
+      },
+      "bonus": {
+        "xp": 512,
+        "funds": 4000
+      },
+      "special": true,
+      "image": "algo.jpg",
+      "type": "Project",
+      "description": ""
+    },
+    "27": {
+      "title": "Initial Coin Offering",
+      "cost": {
+        "development": 56,
+        "time": 2520,
+        "funds": 5000,
+        "level": 7
+      },
+      "bonus": {
+        "xp": 4096,
+        "funds": 20000
+      },
+      "special": true,
+      "image": "missing.jpeg",
+      "type": "Project",
+      "description": ""
+    },
+    "28": {
+      "title": "Decentralized Protocol Development",
+      "cost": {
+        "development": 120,
+        "time": 10080,
+        "funds": 20000,
+        "level": 9
+      },
+      "bonus": {
+        "xp": 32796,
+        "funds": 100000
+      },
+      "special": true,
+      "image": "missing.jpeg",
+      "type": "Project",
+      "description": ""
+    },
+    "29": {
+      "title": "Consensus Improvement",
+      "cost": {
+        "development": 240,
+        "time": 20160,
+        "funds": 100000,
+        "level": 11
+      },
+      "bonus": {
+        "xp": 262144,
+        "funds": 500000
+      },
+      "special": true,
+      "image": "missing.jpeg",
+      "type": "Project",
       "description": ""
     }
   },

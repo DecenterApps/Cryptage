@@ -14,7 +14,205 @@ import {
 export const getLevelValuesForCard = (id, _level) => {
   // cost is literal, bonus is calculated as incremental
   const cardLevels = [
-    // 0 Computer case
+    // 0 Garage
+    [
+      {
+        level: 1,
+        cost: { level: 1, funds: 100 },
+        values: { space: 40, power: 5 },
+      },
+      {
+        level: 2,
+        cost: { funds: 100, level: 1 },
+        bonus: { power: 3, space: 0 },
+      },
+      {
+        level: 3,
+        cost: { funds: 110, level: 1 },
+        bonus: { power: 0, space: 5 },
+      },
+      {
+        level: 4,
+        cost: { funds: 130, level: 1 },
+        bonus: { power: 3, space: 0 },
+      },
+      {
+        level: 5,
+        cost: { funds: 160, level: 1 },
+        bonus: { power: 0, space: 5 },
+      },
+      {
+        level: 6,
+        cost: { funds: 200, level: 1 },
+        bonus: { power: 3, space: 0 },
+      },
+    ],
+    // 1 Coworking space
+    [
+      {
+        level: 1,
+        cost: { funds: 500, level: 2 },
+        values: { space: 60, power: 12 },
+      },
+      {
+        level: 2,
+        cost: { funds: 520, level: 2 },
+        bonus: { power: 3, space: 0 },
+      },
+      {
+        level: 3,
+        cost: { funds: 560, level: 2 },
+        bonus: { power: 0, space: 5 },
+      },
+      {
+        level: 4,
+        cost: { funds: 620, level: 2 },
+        bonus: { power: 3, space: 0 },
+      },
+      {
+        level: 5,
+        cost: { funds: 700, level: 2 },
+        bonus: { power: 0, space: 5 },
+      },
+      {
+        level: 6,
+        cost: { funds: 800, level: 2 },
+        bonus: { power: 3, space: 0 },
+      },
+    ],
+    // 2 Shaggy office
+    [
+      {
+        level: 1,
+        cost: { funds: 2000, level: 4 },
+        values: { space: 100, power: 20 },
+      },
+      {
+        level: 2,
+        cost: { funds: 2100, level: 4 },
+        bonus: { power: 10, space: 0 },
+      },
+      {
+        level: 3,
+        cost: { funds: 2300, level: 4 },
+        bonus: { power: 0, space: 10 },
+      },
+      {
+        level: 4,
+        cost: { funds: 2600, level: 4 },
+        bonus: { power: 10, space: 0 },
+      },
+      {
+        level: 5,
+        cost: { funds: 3000, level: 4 },
+        bonus: { power: 0, space: 10 },
+      },
+      {
+        level: 6,
+        cost: { funds: 3500, level: 4 },
+        bonus: { power: 10, space: 0 },
+      },
+    ],
+    // 3 Downtown office
+    [
+      {
+        level: 1,
+        cost: { funds: 10000, level: 6 },
+        values: { space: 140, power: 50 },
+      },
+      {
+        level: 2,
+        cost: { funds: 12000, level: 6 },
+        bonus: { power: 20, space: 0 },
+      },
+      {
+        level: 3,
+        cost: { funds: 16000, level: 6 },
+        bonus: { power: 0, space: 20 },
+      },
+      {
+        level: 4,
+        cost: { funds: 22000, level: 6 },
+        bonus: { power: 20, space: 0 },
+      },
+      {
+        level: 5,
+        cost: { funds: 30000, level: 6 },
+        bonus: { power: 0, space: 20 },
+      },
+      {
+        level: 6,
+        cost: { funds: 40000, level: 6 },
+        bonus: { power: 20, space: 0 },
+      },
+    ],
+    // 4 Smart office
+    [
+      {
+        level: 1,
+        cost: { funds: 100000, level: 10 },
+        values: { space: 200, power: 110 },
+      },
+      {
+        level: 2,
+        cost: { funds: 102000, level: 10 },
+        bonus: { power: 40, space: 0 },
+      },
+      {
+        level: 3,
+        cost: { funds: 106000, level: 10 },
+        bonus: { power: 0, space: 10 },
+      },
+      {
+        level: 4,
+        cost: { funds: 112000, level: 10 },
+        bonus: { power: 40, space: 0 },
+      },
+      {
+        level: 5,
+        cost: { funds: 120000, level: 10 },
+        bonus: { power: 0, space: 10 },
+      },
+      {
+        level: 6,
+        cost: { funds: 130000, level: 10 },
+        bonus: { power: 40, space: 0 },
+      },
+    ],
+    // 5 Office building
+    [
+      {
+        level: 1,
+        cost: { funds: 1000000, level: 20 },
+        values: { space: 240, power: 230 },
+      },
+      {
+        level: 2,
+        cost: { funds: 1400000, level: 20 },
+        bonus: { power: 80, space: 0 },
+      },
+      {
+        level: 3,
+        cost: { funds: 2200000, level: 20 },
+        bonus: { power: 0, space: 20 },
+      },
+      {
+        level: 4,
+        cost: { funds: 3400000, level: 20 },
+        bonus: { power: 80, space: 0 },
+      },
+      {
+        level: 5,
+        cost: { funds: 5000000, level: 20 },
+        bonus: { power: 0, space: 20 },
+      },
+      {
+        level: 6,
+        cost: { funds: 7000000, level: 20 },
+        bonus: { power: 80, space: 0 },
+      },
+    ],
+    // 6 Computer case
     [
       {
         level: 1,
@@ -47,7 +245,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { space: 1 },
       },
     ],
-    // 1 Rig
+    // 7 Mining rig
     [
       {
         level: 1,
@@ -80,7 +278,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { space: 4 },
       },
     ],
-    // 2 Mount
+    // 8 ASIC Mount
     [
       {
         level: 1,
@@ -113,7 +311,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { space: 4 },
       },
     ],
-    // 3 CPU
+    // 9 CPU
     [
       {
         level: 1,
@@ -146,7 +344,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { funds: 0.1 },
       },
     ],
-    // 4 Graphics card
+    // 10 GPU
     [
       {
         level: 1,
@@ -179,7 +377,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { funds: 0.5 },
       },
     ],
-    // 5 ASIC miner
+    // 11 ASIC miner
     [
       {
         level: 1,
@@ -212,205 +410,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { funds: 10 },
       },
     ],
-    // 6 Garage
-    [
-      {
-        level: 1,
-        cost: { level: 1 },
-        values: { space: 40, power: 3 },
-      },
-      {
-        level: 2,
-        cost: { funds: 100, level: 1 },
-        bonus: { power: 3, space: 0 },
-      },
-      {
-        level: 3,
-        cost: { funds: 110, level: 1 },
-        bonus: { power: 0, space: 5 },
-      },
-      {
-        level: 4,
-        cost: { funds: 130, level: 1 },
-        bonus: { power: 3, space: 0 },
-      },
-      {
-        level: 5,
-        cost: { funds: 160, level: 1 },
-        bonus: { power: 0, space: 5 },
-      },
-      {
-        level: 6,
-        cost: { funds: 200, level: 1 },
-        bonus: { power: 3, space: 0 },
-      },
-    ],
-    // 7 Coworking space
-    [
-      {
-        level: 1,
-        cost: { funds: 500, level: 2 },
-        values: { space: 60, power: 9 },
-      },
-      {
-        level: 2,
-        cost: { funds: 520, level: 2 },
-        bonus: { power: 3, space: 0 },
-      },
-      {
-        level: 3,
-        cost: { funds: 560, level: 2 },
-        bonus: { power: 0, space: 5 },
-      },
-      {
-        level: 4,
-        cost: { funds: 620, level: 2 },
-        bonus: { power: 3, space: 0 },
-      },
-      {
-        level: 5,
-        cost: { funds: 700, level: 2 },
-        bonus: { power: 0, space: 5 },
-      },
-      {
-        level: 6,
-        cost: { funds: 800, level: 2 },
-        bonus: { power: 3, space: 0 },
-      },
-    ],
-    // 8 Shantytown office
-    [
-      {
-        level: 1,
-        cost: { funds: 2000, level: 4 },
-        values: { space: 80, power: 20 },
-      },
-      {
-        level: 2,
-        cost: { funds: 2100, level: 4 },
-        bonus: { power: 10, space: 0 },
-      },
-      {
-        level: 3,
-        cost: { funds: 2300, level: 4 },
-        bonus: { power: 0, space: 10 },
-      },
-      {
-        level: 4,
-        cost: { funds: 2600, level: 4 },
-        bonus: { power: 10, space: 0 },
-      },
-      {
-        level: 5,
-        cost: { funds: 3000, level: 4 },
-        bonus: { power: 0, space: 10 },
-      },
-      {
-        level: 6,
-        cost: { funds: 3500, level: 4 },
-        bonus: { power: 10, space: 0 },
-      },
-    ],
-    // 9 Downtown office
-    [
-      {
-        level: 1,
-        cost: { funds: 10000, level: 5 },
-        values: { space: 120, power: 50 },
-      },
-      {
-        level: 2,
-        cost: { funds: 12000, level: 6 },
-        bonus: { power: 20, space: 0 },
-      },
-      {
-        level: 3,
-        cost: { funds: 16000, level: 6 },
-        bonus: { power: 0, space: 20 },
-      },
-      {
-        level: 4,
-        cost: { funds: 22000, level: 6 },
-        bonus: { power: 20, space: 0 },
-      },
-      {
-        level: 5,
-        cost: { funds: 30000, level: 6 },
-        bonus: { power: 0, space: 20 },
-      },
-      {
-        level: 6,
-        cost: { funds: 40000, level: 6 },
-        bonus: { power: 20, space: 0 },
-      },
-    ],
-    // 10 Elite office
-    [
-      {
-        level: 1,
-        cost: { funds: 100000, level: 10 },
-        values: { space: 160, power: 110 },
-      },
-      {
-        level: 2,
-        cost: { funds: 102000, level: 10 },
-        bonus: { power: 40, space: 0 },
-      },
-      {
-        level: 3,
-        cost: { funds: 106000, level: 10 },
-        bonus: { power: 0, space: 10 },
-      },
-      {
-        level: 4,
-        cost: { funds: 112000, level: 10 },
-        bonus: { power: 40, space: 0 },
-      },
-      {
-        level: 5,
-        cost: { funds: 120000, level: 10 },
-        bonus: { power: 0, space: 10 },
-      },
-      {
-        level: 6,
-        cost: { funds: 130000, level: 10 },
-        bonus: { power: 40, space: 0 },
-      },
-    ],
-    // 11 Office building
-    [
-      {
-        level: 1,
-        cost: { funds: 1000000, level: 20 },
-        values: { space: 200, power: 230 },
-      },
-      {
-        level: 2,
-        cost: { funds: 1400000, level: 20 },
-        bonus: { power: 80, space: 0 },
-      },
-      {
-        level: 3,
-        cost: { funds: 2200000, level: 20 },
-        bonus: { power: 0, space: 20 },
-      },
-      {
-        level: 4,
-        cost: { funds: 3400000, level: 20 },
-        bonus: { power: 80, space: 0 },
-      },
-      {
-        level: 5,
-        cost: { funds: 5000000, level: 20 },
-        bonus: { power: 0, space: 20 },
-      },
-      {
-        level: 6,
-        cost: { funds: 7000000, level: 20 },
-        bonus: { power: 80, space: 0 },
-      },
-    ],
-    // 12 Intern developer
+    // 12 Intern programmer
     [
       {
         level: 1,
@@ -476,7 +476,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { development: 2 },
       },
     ],
-    // 14 Freelance expert
+    // 14 Freelance Consultant
     [
       {
         level: 1,
@@ -542,7 +542,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { development: 8 },
       },
     ],
-    // 16 Tech lead
+    // 16 Technical Team Leader
     [
       {
         level: 1,
@@ -608,7 +608,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { development: 12 },
       },
     ],
-    // 18 Hacker
+    // 18 Black Hat Hacker
     [
       {
         level: 1,
@@ -641,205 +641,8 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { development: 12 },
       },
     ],
-    // 19 Part-time Gig
-    [
-      {
-        level: 1,
-        cost: { development: 25, time: 55 },
-        bonus: { xp: 1000 },
-      },
-      {
-        level: 2,
-        cost: { funds: 51, level: 1 },
-        bonus: { funds: 100 },
-      },
-      {
-        level: 3,
-        cost: { funds: 53, level: 1 },
-        bonus: { funds: 200 },
-      },
-      {
-        level: 4,
-        cost: { funds: 56, level: 1 },
-        bonus: { funds: 300 },
-      },
-      {
-        level: 5,
-        cost: { funds: 60, level: 1 },
-        bonus: { funds: 400 },
-      },
-      {
-        level: 6,
-        cost: { funds: 65, level: 1 },
-        bonus: { funds: 500 },
-      },
-    ],
-    // 20 Bigtime outsource
-    [
-      {
-        level: 1,
-        cost: { development: 25, time: 55 },
-        bonus: { xp: 1000 },
-      },
-      {
-        level: 2,
-        cost: { funds: 51, level: 1 },
-        bonus: { funds: 100 },
-      },
-      {
-        level: 3,
-        cost: { funds: 53, level: 1 },
-        bonus: { funds: 200 },
-      },
-      {
-        level: 4,
-        cost: { funds: 56, level: 1 },
-        bonus: { funds: 300 },
-      },
-      {
-        level: 5,
-        cost: { funds: 60, level: 1 },
-        bonus: { funds: 400 },
-      },
-      {
-        level: 6,
-        cost: { funds: 65, level: 1 },
-        bonus: { funds: 500 },
-      },
-    ],
-    // 21 Optimize Mining algorithm
-    [
-      {
-        level: 1,
-        cost: { development: 25, time: 10 },
-        bonus: { xp: 1000 },
-      },
-      {
-        level: 2,
-        cost: { funds: 51, level: 1 },
-        bonus: { funds: 100 },
-      },
-      {
-        level: 3,
-        cost: { funds: 53, level: 1 },
-        bonus: { funds: 200 },
-      },
-      {
-        level: 4,
-        cost: { funds: 56, level: 1 },
-        bonus: { funds: 300 },
-      },
-      {
-        level: 5,
-        cost: { funds: 60, level: 1 },
-        bonus: { funds: 400 },
-      },
-      {
-        level: 6,
-        cost: { funds: 65, level: 1 },
-        bonus: { funds: 500 },
-      },
-    ],
-    // 22 No name project 1
-    [
-      {
-        level: 1,
-        cost: { development: 25, time: 5 },
-        bonus: { xp: 1000 },
-      },
-      {
-        level: 2,
-        cost: { funds: 51, level: 1 },
-        bonus: { funds: 100 },
-      },
-      {
-        level: 3,
-        cost: { funds: 53, level: 1 },
-        bonus: { funds: 200 },
-      },
-      {
-        level: 4,
-        cost: { funds: 56, level: 1 },
-        bonus: { funds: 300 },
-      },
-      {
-        level: 5,
-        cost: { funds: 60, level: 1 },
-        bonus: { funds: 400 },
-      },
-      {
-        level: 6,
-        cost: { funds: 65, level: 1 },
-        bonus: { funds: 500 },
-      },
-    ],
-    // 23 No name project 2
-    [
-      {
-        level: 1,
-        cost: { development: 25, time: 5 },
-        bonus: { xp: 1000 },
-      },
-      {
-        level: 2,
-        cost: { funds: 51, level: 1 },
-        bonus: { funds: 100 },
-      },
-      {
-        level: 3,
-        cost: { funds: 53, level: 1 },
-        bonus: { funds: 200 },
-      },
-      {
-        level: 4,
-        cost: { funds: 56, level: 1 },
-        bonus: { funds: 300 },
-      },
-      {
-        level: 5,
-        cost: { funds: 60, level: 1 },
-        bonus: { funds: 400 },
-      },
-      {
-        level: 6,
-        cost: { funds: 65, level: 1 },
-        bonus: { funds: 500 },
-      },
-    ],
-    // 24 No name project 3
-    [
-      {
-        level: 1,
-        cost: { development: 25, time: 55 },
-        bonus: { xp: 1000 },
-      },
-      {
-        level: 2,
-        cost: { funds: 51, level: 1 },
-        bonus: { funds: 100 },
-      },
-      {
-        level: 3,
-        cost: { funds: 53, level: 1 },
-        bonus: { funds: 200 },
-      },
-      {
-        level: 4,
-        cost: { funds: 56, level: 1 },
-        bonus: { funds: 300 },
-      },
-      {
-        level: 5,
-        cost: { funds: 60, level: 1 },
-        bonus: { funds: 400 },
-      },
-      {
-        level: 6,
-        cost: { funds: 65, level: 1 },
-        bonus: { funds: 500 },
-      },
-    ],
-    // 25 Solar panels
+
+    // 19 Solar panels
     [
       {
         level: 1,
@@ -872,7 +675,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { power: 25 },
       },
     ],
-    // 26 Black market batteries
+    // 20 Black market batteries
     [
       {
         level: 1,
@@ -905,7 +708,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { power: 50 },
       },
     ],
-    // 27 Jury-rigged generator
+    // 21 DIY Power Generator
     [
       {
         level: 1,
@@ -938,7 +741,7 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { power: 250 },
       },
     ],
-    // 28 GRID connector
+    // 22 GRID connector
     [
       {
         level: 1,
@@ -971,12 +774,210 @@ export const getLevelValuesForCard = (id, _level) => {
         bonus: { funds: 500 },
       },
     ],
-    // 28 Coffe miner
+    // 23 Coffee Machine Miner
     [
       {
         level: 1,
         cost: { funds: 50, level: 1 },
         bonus: null,
+      },
+      {
+        level: 2,
+        cost: { funds: 51, level: 1 },
+        bonus: { funds: 100 },
+      },
+      {
+        level: 3,
+        cost: { funds: 53, level: 1 },
+        bonus: { funds: 200 },
+      },
+      {
+        level: 4,
+        cost: { funds: 56, level: 1 },
+        bonus: { funds: 300 },
+      },
+      {
+        level: 5,
+        cost: { funds: 60, level: 1 },
+        bonus: { funds: 400 },
+      },
+      {
+        level: 6,
+        cost: { funds: 65, level: 1 },
+        bonus: { funds: 500 },
+      },
+    ],
+    // 24 Outsourced Project
+    [
+      {
+        level: 1,
+        cost: { development: 25, time: 55 },
+        bonus: { xp: 1000 },
+      },
+      {
+        level: 2,
+        cost: { funds: 51, level: 1 },
+        bonus: { funds: 100 },
+      },
+      {
+        level: 3,
+        cost: { funds: 53, level: 1 },
+        bonus: { funds: 200 },
+      },
+      {
+        level: 4,
+        cost: { funds: 56, level: 1 },
+        bonus: { funds: 300 },
+      },
+      {
+        level: 5,
+        cost: { funds: 60, level: 1 },
+        bonus: { funds: 400 },
+      },
+      {
+        level: 6,
+        cost: { funds: 65, level: 1 },
+        bonus: { funds: 500 },
+      },
+    ],
+    // 25 Profitable Đapp
+    [
+      {
+        level: 1,
+        cost: { development: 25, time: 55 },
+        bonus: { xp: 1000 },
+      },
+      {
+        level: 2,
+        cost: { funds: 51, level: 1 },
+        bonus: { funds: 100 },
+      },
+      {
+        level: 3,
+        cost: { funds: 53, level: 1 },
+        bonus: { funds: 200 },
+      },
+      {
+        level: 4,
+        cost: { funds: 56, level: 1 },
+        bonus: { funds: 300 },
+      },
+      {
+        level: 5,
+        cost: { funds: 60, level: 1 },
+        bonus: { funds: 400 },
+      },
+      {
+        level: 6,
+        cost: { funds: 65, level: 1 },
+        bonus: { funds: 500 },
+      },
+    ],
+    // 26 Mining Algorithm Optimization
+    [
+      {
+        level: 1,
+        cost: { development: 25, time: 10 },
+        bonus: { xp: 1000 },
+      },
+      {
+        level: 2,
+        cost: { funds: 51, level: 1 },
+        bonus: { funds: 100 },
+      },
+      {
+        level: 3,
+        cost: { funds: 53, level: 1 },
+        bonus: { funds: 200 },
+      },
+      {
+        level: 4,
+        cost: { funds: 56, level: 1 },
+        bonus: { funds: 300 },
+      },
+      {
+        level: 5,
+        cost: { funds: 60, level: 1 },
+        bonus: { funds: 400 },
+      },
+      {
+        level: 6,
+        cost: { funds: 65, level: 1 },
+        bonus: { funds: 500 },
+      },
+    ],
+    // 27 Initial Coin Offering"
+    [
+      {
+        level: 1,
+        cost: { development: 25, time: 5 },
+        bonus: { xp: 1000 },
+      },
+      {
+        level: 2,
+        cost: { funds: 51, level: 1 },
+        bonus: { funds: 100 },
+      },
+      {
+        level: 3,
+        cost: { funds: 53, level: 1 },
+        bonus: { funds: 200 },
+      },
+      {
+        level: 4,
+        cost: { funds: 56, level: 1 },
+        bonus: { funds: 300 },
+      },
+      {
+        level: 5,
+        cost: { funds: 60, level: 1 },
+        bonus: { funds: 400 },
+      },
+      {
+        level: 6,
+        cost: { funds: 65, level: 1 },
+        bonus: { funds: 500 },
+      },
+    ],
+    // 28 Decentralized Protocol Development
+    [
+      {
+        level: 1,
+        cost: { development: 25, time: 5 },
+        bonus: { xp: 1000 },
+      },
+      {
+        level: 2,
+        cost: { funds: 51, level: 1 },
+        bonus: { funds: 100 },
+      },
+      {
+        level: 3,
+        cost: { funds: 53, level: 1 },
+        bonus: { funds: 200 },
+      },
+      {
+        level: 4,
+        cost: { funds: 56, level: 1 },
+        bonus: { funds: 300 },
+      },
+      {
+        level: 5,
+        cost: { funds: 60, level: 1 },
+        bonus: { funds: 400 },
+      },
+      {
+        level: 6,
+        cost: { funds: 65, level: 1 },
+        bonus: { funds: 500 },
+      },
+    ],
+    // 29 Consensus Improvement
+    [
+      {
+        level: 1,
+        cost: { development: 25, time: 55 },
+        bonus: { xp: 1000 },
       },
       {
         level: 2,
@@ -1113,11 +1114,11 @@ export const getSlotForContainer = (_id, space) => {
   let accepts = [];
 
   // Computer Case only accepts CPU and Graphics card
-  if (id === 0) accepts = ['3', '4'];
-  // Rig only accepts Graphics card
-  if (id === 1) accepts = ['4'];
-  // Mount only accepts ASIC miner
-  if (id === 2) accepts = ['5'];
+  if (id === 6) accepts = ['9', '10'];
+  // Mining Rig only accepts Graphics card
+  if (id === 7) accepts = ['9'];
+  // ASIC Mount only accepts ASIC miner
+  if (id === 8) accepts = ['8'];
 
   for (let i = 0; i < space; i += 1) slots.push({ accepts, lastDroppedItem: null, slotType: 'container_slot' });
   return slots;

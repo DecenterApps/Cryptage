@@ -341,7 +341,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex);
 
     // handle special cards drop
-    if (item.card.metadata.id === '29') {
+    if (item.card.metadata.id === '23') {
       globalStats = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
     }
   } else {
