@@ -7,7 +7,14 @@ import bgLeft from '../assets/bg-left.png';
 import bgMiddle from '../assets/bg-middle.png';
 import bgRight from '../assets/bg-right.png';
 
-export default ({ boosters, isFetching, revealBooster, accountBalance, buyBoosterPack }) => {
+export default ({
+  boosters,
+  isFetching,
+  revealBooster,
+  accountBalance,
+  buyBoosterPack,
+  currentBlock,
+}) => {
   const images = [bgMiddle, bgLeft, bgRight];
   const classes = ['booster-middle', 'booster-left', 'booster-right'];
   return (
@@ -36,6 +43,12 @@ export default ({ boosters, isFetching, revealBooster, accountBalance, buyBooste
                   >
                     Open
                   </button>
+                  <div className="remaining">
+                    <div
+                      className={`_${Math.floor((currentBlock - item.blockNumber) / 51)}`}
+                      style={{ width: `${(currentBlock - item.blockNumber) / 2.55}%` }}
+                    />
+                  </div>
                 </div>
               ))
             }
@@ -79,4 +92,4 @@ export default ({ boosters, isFetching, revealBooster, accountBalance, buyBooste
       </div>
     </div>
   );
-}
+};

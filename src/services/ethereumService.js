@@ -121,6 +121,7 @@ const getBoughtBoosters = async () => {
         name: 'Unknown',
         numOfCards: '?',
         price: '?',
+        blockNumber,
       };
     });
 
