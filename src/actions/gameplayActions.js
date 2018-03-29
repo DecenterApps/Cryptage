@@ -640,7 +640,7 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       location = gameplay.activeLocationIndex;
       containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
 
-      cardSpecificNumber = containerCard.metadata.id === '1' ? 1 : 0;
+      cardSpecificNumber = containerCard[0].metadata.id === '1' ? 1 : 0;
       break;
     default:
       break;
@@ -656,4 +656,11 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       blockNumber: app.blockNumber,
     },
   });
+};
+
+export const handleCardCancel = locationIndex => (dispatch, getState) => {
+  const { gameplay } = getState();
+  // let locations = [...gameplay.locations];
+
+  // const locationDropSlot = locations[locationIndex];
 };

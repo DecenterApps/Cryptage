@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
+import { setActiveLocation, levelUpLocation, handleCardCancel } from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
 import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
@@ -12,6 +12,7 @@ import './LocationSidebarItem.scss';
 
 const LocationSidebarItem = ({
   isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
+  handleCardCancel,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
 
@@ -32,7 +33,7 @@ const LocationSidebarItem = ({
           <svg className="drop-background">
             <polygon points="0,0 29,29 29,46 0,46" fill="#1F1638" />
           </svg>
-          <div className="drop-icon">
+          <div className="drop-icon" onClick={() => { handleCardCancel(index); }}>
             <ChevronDownIcon width={17} />
           </div>
         </div>
@@ -108,6 +109,7 @@ LocationSidebarItem.propTypes = {
   level: PropTypes.number.isRequired,
   canLevelUp: PropTypes.bool.isRequired,
   levelUpLocation: PropTypes.func.isRequired,
+  handleCardCancel: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
@@ -116,7 +118,7 @@ const mapStateToProps = ({ gameplay }) => ({
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, levelUpLocation,
+  setActiveLocation, levelUpLocation, handleCardCancel,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(LocationSidebarItem);
