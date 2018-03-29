@@ -250,7 +250,7 @@ export const getLevelValuesForCard = (id, _level) => {
       {
         level: 1,
         cost: { funds: 500, level: 2 },
-        values: { space: 40, power: 3 },
+        values: { space: 60, power: 9 },
       },
       {
         level: 2,
