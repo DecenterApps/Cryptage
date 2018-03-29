@@ -12,6 +12,61 @@
     font-family: $font-secondary;
   }
 
+  .hover-addons {
+    display: none;
+    position: absolute;
+    padding: 2px 0;
+    z-index: 1;
+    overflow: hidden;
+    height: 44px;
+    .magnifying-glass-wrapper {
+      background: linear-gradient(0.22deg, rgba(54, 38, 95, 0.7) 31.59%, rgba(54, 38, 95, 0.3) 99.94%);
+      width: 73px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      svg {
+        margin: 11px;
+      }
+    }
+    .drop-wrapper {
+      cursor: pointer;
+      overflow: hidden;
+      .drop-background {
+        position: absolute;
+        height: 40px;
+        overflow: hidden;
+      }
+      .drop-icon {
+        position: relative;
+        line-height: 68px;
+        text-align: center;
+        width: 28px;
+      }
+    }
+  }
+  &.active {
+    .hover-addons {
+      height: 100%;
+      .magnifying-glass-wrapper {
+        width: 90px;
+        svg {
+          margin: 15px;
+        }
+      }
+      .drop-background {
+        height: 100%;
+      }
+      .drop-icon {
+        line-height: 78px;
+      }
+    }
+  }
+
+  &:hover .hover-addons {
+    display: flex;
+  }
   &:hover:not(:active) .card-hover-info-wrapper {
     display: flex;
     top: 0;

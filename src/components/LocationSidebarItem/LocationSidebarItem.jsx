@@ -5,6 +5,8 @@ import HoverInfo from '../HoverInfo/HoverInfo';
 import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
+import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
+import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 
 import './LocationSidebarItem.scss';
 
@@ -20,9 +22,21 @@ const LocationSidebarItem = ({
         ${isOver && 'hovering-with-card'}
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
-      onClick={() => { setActiveLocation(index); }}
     >
       <HoverInfo card={cards[0]} />
+      <div className="hover-addons">
+        <div className="magnifying-glass-wrapper" onClick={() => { setActiveLocation(index); }}>
+          <MagnifyingGlassIcon />
+        </div>
+        <div className="drop-wrapper">
+          <svg className="drop-background">
+            <polygon points="0,0 29,29 29,46 0,46" fill="#1F1638" />
+          </svg>
+          <div className="drop-icon">
+            <ChevronDownIcon width={17} />
+          </div>
+        </div>
+      </div>
       {
         ((activeLocationIndex === index) && gameplayView === GP_LOCATION) && false &&
         <svg className="location-progress-bar" viewBox="0 0 84 11">
