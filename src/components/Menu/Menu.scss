@@ -4,14 +4,17 @@
 
 .menu-wrapper {
   height: 40px;
-  width: 110px;
+  //width: 110px;
   margin-bottom: 70px;
   text-align: right;
+  position: relative;
 
   .hamburger {
     display: inline-block;
     position: relative;
     width: 40px;
+    margin-top: 20px;
+    margin-right: 20px;
     span {
       color: $yellow;
       transform: rotate(90deg);
@@ -22,25 +25,54 @@
       cursor: pointer;
       user-select: none;
     }
+  }
+  .menu-inner-wrapper {
+    position: absolute;
+    width: 1000px;
+    height: 620px;
+    top: 0;
+    right: 0;
+    z-index: 100000;
+    overflow: hidden;
+    visibility: hidden;
     .menu {
-      display: none;
-      width: 150px;
-      background-color: black;
-      position: absolute;
-      top: 40px;
-      right: 0;
-      z-index: 1;
-      box-shadow: 0 0 5px 2px rgba(black, .5);
+      height: 100%;
+      width: 280px;
+      margin-left: 720px;
+      box-shadow: 0 0 250px 100px rgba(#0A0712, 1);
+      background: linear-gradient(180deg, #36265F 0%, #1A122E 100%);
+      transform: translateX(100%);
+      transition: all .1s;
+      padding: 5px;
+      .close {
+        padding: 20px;
+        svg {
+          height: 18px;
+          width: 18px;
+        }
+      }
+      .links {
+        margin: 60px;
+      }
       a {
         display: block;
         cursor: pointer;
         text-decoration: none;
+        font-size: 20px;
+        font-family: $font-secondary;
         padding: 10px;
-        color: $yellow;
+        color: white;
+        text-transform: uppercase;
+        &:hover {
+          color: $yellow;
+        }
       }
     }
-    &:hover .menu {
-      display: block;
+    &.open {
+      visibility: visible;
+      .menu {
+        transform: translateX(0%);
+      }
     }
   }
 }
