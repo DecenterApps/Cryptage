@@ -1,7 +1,6 @@
 import update from 'immutability-helper';
 import {
   DROP_LOCATION,
-  GP_LOCATION,
   SET_ACTIVE_LOCATION,
   LOCATION_ITEM_DROP_SLOTS,
   USERS_CARDS_ERROR,
@@ -23,7 +22,7 @@ import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
 import {
   checkIfCanPlayCard, getLevelValuesForCard, getSlotForContainer,
-  handleCardMathematics,
+  handleCardMathematics, handleCoffeeMinerEffect,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
@@ -329,6 +328,11 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
 
   if (!slotItem) {
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex);
+
+    // handle special cards drop
+    if (item.card.metadata.id === '29') {
+      globalStats = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
+    }
   } else {
     // TODO put in separate function
     // handle asset level up here
@@ -346,7 +350,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...item.card });
   }
 
-  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, activeLocationIndex);
+  const mathRes = handleCardMathematics(item.card, locations, globalStats, activeLocationIndex);
   locations = mathRes.locations;
   globalStats = mathRes.globalStats;
 

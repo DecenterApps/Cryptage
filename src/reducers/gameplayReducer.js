@@ -16,7 +16,7 @@ const INITIAL_STATE = {
   activeLocationIndex: 0,
   activeContainerIndex: 0,
   globalStats: {
-    level: 1,
+    level: 10,
     experience: 0,
     earnedXp: 0,
     requiredXp: 16,

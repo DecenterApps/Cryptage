@@ -418,8 +418,7 @@
         "level": 1
       },
       "bonus": {
-        "TODO": true,
-        "funds": 10
+        "development": 10
       },
       "image": "coffe-miner.jpeg",
       "type": "Misc",

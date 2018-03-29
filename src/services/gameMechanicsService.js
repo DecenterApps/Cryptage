@@ -1069,36 +1069,22 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
  * @param {Object} cardStats
  * @param {Object} globalStats
  * @param {Object} activeLocation
- * @param {Boolean} showAlert
  * @return {Boolean}
  */
-export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null, showAlert = true) => {
+export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null) => {
   const {
     level, funds, development, power, space,
   } = cardStats.cost;
 
-  if (level > globalStats.level) {
-    if (showAlert) alert('Player level not high enough to play card!');
-    return false;
-  }
-  if (funds > globalStats.funds) {
-    if (showAlert) alert('You do not have enough funds to play card!');
-    return false;
-  }
-  if (development > globalStats.development) {
-    if (showAlert) alert('You do not have enough development points to play this card!');
-    return false;
-  }
+  if (level > globalStats.level) return false;
 
-  if (activeLocation && (power > activeLocation.values.power)) {
-    if (showAlert) alert('The desired location does not have enough power for you to play this card!');
-    return false;
-  }
+  if (funds > globalStats.funds) return false;
 
-  if (activeLocation && (space > activeLocation.values.space)) {
-    if (showAlert) alert('The desired location does not have enough space for you to play this card!');
-    return false;
-  }
+  if (development > globalStats.development) return false;
+
+  if (activeLocation && (power > activeLocation.values.power)) return false;
+
+  if (activeLocation && (space > activeLocation.values.space)) return false;
 
   return true;
 };
@@ -1226,7 +1212,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
         containerSlotsLength,
       );
 
-      return goodCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, null, false);
+      return goodCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, null);
     });
   }
 
@@ -1244,7 +1230,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
         containerSlotsLength,
       );
 
-      return !badCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
+      return !badCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, activeLocation);
     });
   }
 
@@ -1262,7 +1248,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
         containerSlotsLength,
       );
 
-      if (!isAsset) return goodCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, null, false);
+      if (!isAsset) return goodCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, null);
 
       // check if active container can take in that card type
       const { accepts } = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
@@ -1270,7 +1256,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       const goodSlotType = accepts.includes(metadata.id);
 
       return goodCardType && goodSlotType && availableSlots
-        && checkIfCanPlayCard(stats, globalStats, activeLocation, false);
+        && checkIfCanPlayCard(stats, globalStats, activeLocation);
     });
   }
 
@@ -1301,6 +1287,35 @@ export const calculateLevelData = (experience) => {
     level: currentLevel.level,
     earnedXp,
   };
+};
+
+/**
+ * In the dropped location for every dropped developer
+ * adds percent of their development to global development
+ *
+ * @param {Object} item
+ * @param {Array} locations
+ * @param {Number} activeLocationIndex
+ * @param {Object} _globalStats
+ */
+export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _globalStats) => {
+  const globalStats = { ..._globalStats };
+
+  const playedDevCards = locations[activeLocationIndex].lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
+    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Development'
+  )).map(dropSlot => dropSlot.lastDroppedItem.cards[0]);
+
+  // coffee miners bonus equals the percent of played dev card
+  playedDevCards.forEach(({ stats }) => {
+    // this is because of the hacker card
+    if (!stats.bonus || (stats.bonus && !stats.bonus.development)) return;
+
+    globalStats.development += ((stats.bonus.development / 100) * item.card.stats.bonus.development);
+  });
+
+  globalStats.development = Math.floor(globalStats.development);
+
+  return globalStats;
 };
 
 calculateLevelData(1);
