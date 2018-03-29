@@ -19,6 +19,7 @@ import {
   SWITCH_IN_GAMEPLAY_VIEW,
   PLAY_TURN, UPDATE_GLOBAL_VALUES,
   ADDITIONAL_LOCATION_DROP_SLOTS,
+  ADDITIONAL_LOCATION_ITEM_DROP_SLOTS,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -100,15 +101,19 @@ export const addLocationSlots = () => (dispatch, getState) => {
  */
 export const addAssetSlots = locationIndex => (dispatch, getState) => {
   let locations = [...getState().gameplay.locations];
-  const currentSlots = locations[locationIndex].lastDroppedItem.dropSlots;
+  const location = locations[locationIndex].lastDroppedItem;
+  const currentSlots = location.dropSlots;
+  console.log(locations[locationIndex].lastDroppedItem);
   const emptyLocations = currentSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null);
 
-  if (emptyLocations.length !== 0) return;
+  if (emptyLocations.length > 1) return;
+
+  if (location.values.space === 0) return;
 
   locations = update(locations, {
     [locationIndex]: {
       lastDroppedItem: {
-        dropSlots: { $set: [...currentSlots, ...LOCATION_ITEM_DROP_SLOTS] },
+        dropSlots: { $set: [...currentSlots, ...ADDITIONAL_LOCATION_ITEM_DROP_SLOTS] },
       },
     },
   });
@@ -176,8 +181,6 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   dispatch({
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
   });
-
-  dispatch(addLocationSlots());
 
   saveGameplayState(getState);
 };
@@ -374,6 +377,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     cards,
     globalStats,
   });
+  dispatch(addAssetSlots(activeLocationIndex));
   saveGameplayState(getState);
 };
 
