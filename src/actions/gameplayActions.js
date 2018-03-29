@@ -19,6 +19,7 @@ import {
   SWITCH_IN_GAMEPLAY_VIEW,
   PLAY_TURN, UPDATE_GLOBAL_VALUES,
   ADDITIONAL_LOCATION_DROP_SLOTS,
+  REMOVE_CARD, GP_NO_LOCATIONS,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -661,9 +662,55 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
   });
 };
 
-export const handleCardCancel = locationIndex => (dispatch, getState) => {
+export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispatch, getState) => {
   const { gameplay } = getState();
+  const _locations = [...gameplay.locations];
+  let { gameplayView } = gameplay;
+  const item = { ...slot.lastDroppedItem };
+  let currentItem;
+  let totalDev = 0;
+  let returnedCards = [];
   // let locations = [...gameplay.locations];
 
   // const locationDropSlot = locations[locationIndex];
+  console.log(slot, locationIndex, containerIndex);
+
+  for (let i = 0; i < item.dropSlots.length; i += 1) {
+    currentItem = item.dropSlots[i].lastDroppedItem;
+
+    if (currentItem !== null && currentItem.dropSlots === null) {
+      if (currentItem.cards[0].stats.type === 'Development') {
+        totalDev += currentItem.cards[0].stats.bonus.development;
+      }
+      returnedCards.push(currentItem.cards[0]);
+    }
+    if (currentItem !== null && currentItem.dropSlots !== null) {
+      handleCardCancel(currentItem, locationIndex, i);
+    }
+  }
+  if (totalDev > gameplay.globalStats.development) {
+    return null;
+  }
+
+  if (locationIndex !== undefined && containerIndex !== undefined) {
+    returnedCards.push(_locations[locationIndex].dropSlots[containerIndex].lastDroppedItem.cards[0]);
+    _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem = null;
+  } else if (locationIndex !== undefined && containerIndex === undefined) {
+    returnedCards.push(_locations[locationIndex].lastDroppedItem.cards[0]);
+    _locations[locationIndex].lastDroppedItem = null;
+  }
+  if (locationIndex === gameplay.activeLocationIndex && containerIndex === undefined) {
+    gameplayView = GP_NO_LOCATIONS;
+  }
+  console.log(locationIndex && containerIndex, _locations, returnedCards);
+  dispatch({
+    type: REMOVE_CARD,
+    locations: _locations,
+    cards: [...gameplay.cards, ...returnedCards],
+    globalStats: {
+      ...gameplay.globalStats,
+      development: gameplay.globalStats.development - totalDev,
+    },
+    gameplayView,
+  });
 };

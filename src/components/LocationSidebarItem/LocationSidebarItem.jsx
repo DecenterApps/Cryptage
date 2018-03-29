@@ -11,11 +11,12 @@ import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import './LocationSidebarItem.scss';
 
 const LocationSidebarItem = ({
-  isOver, cards, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
+  isOver, cards, slot, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp, levelUpLocation,
   handleCardCancel,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
-
+  console.log('AAAAA');
+  console.log(slot);
   return (
     <div
       className={`
@@ -33,7 +34,7 @@ const LocationSidebarItem = ({
           <svg className="drop-background">
             <polygon points="0,0 29,29 29,46 0,46" fill="#1F1638" />
           </svg>
-          <div className="drop-icon" onClick={() => { handleCardCancel(index); }}>
+          <div className="drop-icon" onClick={() => { handleCardCancel(slot, index); }}>
             <ChevronDownIcon width={17} />
           </div>
         </div>
@@ -110,6 +111,7 @@ LocationSidebarItem.propTypes = {
   canLevelUp: PropTypes.bool.isRequired,
   levelUpLocation: PropTypes.func.isRequired,
   handleCardCancel: PropTypes.func.isRequired,
+  slot: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({

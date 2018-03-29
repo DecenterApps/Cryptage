@@ -3,7 +3,7 @@ import {
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
   UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD, DROP_MINER, PROJECT_DROP_SLOTS, DROP_PROJECT,
   CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, ADD_ASSET_SLOTS, ADD_EXPERIENCE, GP_LOCATION_MAIN,
-  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_LOCATIONS, GP_LOCATION_COLLECTION, PLAY_TURN,
+  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_LOCATIONS, GP_LOCATION_COLLECTION, PLAY_TURN, REMOVE_CARD,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 
@@ -120,6 +120,16 @@ export default (state = INITIAL_STATE, action) => {
           action.turn,
         ],
       };
+
+    case REMOVE_CARD:
+      return {
+        ...state,
+        locations: action.locations,
+        cards: action.cards,
+        globalStats: action.globalStats,
+        gameplayView: action.gameplayView,
+      };
+
 
     default:
       return state;

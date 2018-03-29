@@ -35,6 +35,7 @@ class DropSlotWrapper extends Component {
       mainClass,
       index,
       emptyStateElem,
+      slot,
     } = this.props;
     const isFinished = lastDroppedItem !== null ? lastDroppedItem.isFinished : false;
     const isActive = isOver && canDrop;
@@ -51,7 +52,7 @@ class DropSlotWrapper extends Component {
 
     return connectDropTarget(
       <div className={className}>
-        {lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, index })}
+        {lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, index, slot })}
         {!lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem })}
       </div>,
     );
@@ -79,6 +80,7 @@ DropSlotWrapper.propTypes = {
   index: PropTypes.number,
   children: PropTypes.node.isRequired,
   emptyStateElem: PropTypes.node,
+  slot: PropTypes.object.isRequired,
 };
 const mapStateToProps = () => ({});
 
