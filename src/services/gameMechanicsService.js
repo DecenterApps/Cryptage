@@ -1118,7 +1118,7 @@ export const getSlotForContainer = (_id, space) => {
   // Mount only accepts ASIC miner
   if (id === 2) accepts = ['5'];
 
-  for (let i = 0; i < space; i += 1) slots.push({ accepts, lastDroppedItem: null });
+  for (let i = 0; i < space; i += 1) slots.push({ accepts, lastDroppedItem: null, slotType: 'container_slot' });
   return slots;
 };
 

@@ -8,13 +8,14 @@ import './DropSlotsWrapper.scss';
 const DropSlotsWrapper = props => (
   <div className="drop-slots-wrapper">
     {
-      props.dropSlots.map(({ accepts, lastDroppedItem }, index) => (
+      props.dropSlots.map(({ accepts, lastDroppedItem, slotType }, index) => (
         <DropSlotWrapper
           key={guid()}
           accepts={accepts}
           lastDroppedItem={lastDroppedItem}
           onDrop={item => props.onItemDrop(index, item)}
           index={index}
+          slotType={slotType}
           {...props}
         >
           {React.cloneElement(props.element)}

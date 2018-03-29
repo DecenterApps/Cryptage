@@ -433,3 +433,11 @@ export const formatBigNumber = (_number) => {
   if (number >= 1000) return `${number / 1000}k`;
   return number.toString();
 };
+
+export const getCardAtContainer = (locations, locationIndex, containerIndex) => {
+  try {
+    return locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards;
+  } catch (e) {
+    return null;
+  }
+};

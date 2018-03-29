@@ -17,6 +17,7 @@ import {
   LOCATION_DROP_SLOTS,
   ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
+  PLAY_TURN,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -26,7 +27,7 @@ import {
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
-  calcDataForNextLevel, updateContainerDropSlotItems,
+  calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
 } from '../services/utils';
 
 /**
@@ -234,7 +235,8 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   const cost = lastDroppedItem.level > 1 ? getLevelValuesForCard(
     parseInt(item.card.metadata.id, 10),
     lastDroppedItem.level,
-  ) : lastDroppedItem.cards[0].stats.cost.dev;
+  ) : lastDroppedItem.cards[0].stats.cost.development;
+  console.log(cost);
   const alterGlobalStats = {
     ...globalStats,
     development: globalStats.development - cost,
@@ -296,7 +298,7 @@ export const levelUpProject = index => (dispatch, getState) => {
   globalStats.development -= projects[index].lastDroppedItem.level > 1 ? getLevelValuesForCard(
     parseInt(projects[index].lastDroppedItem.cards[0].metadata.id, 10),
     projects[index].lastDroppedItem.level,
-  ) : projects[index].lastDroppedItem.cards[0].stats.cost.dev;
+  ) : projects[index].lastDroppedItem.cards[0].stats.cost.development;
 
   dispatch({ type: LEVEL_UP_CARD, payload: { projects, globalStats } });
 };
@@ -594,4 +596,55 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
  */
 export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => {
   dispatch({ type: SWITCH_IN_GAMEPLAY_VIEW, payload: { viewType, containerIndex } });
+};
+
+/**
+ * Saves the users turn for later contract submission
+ *
+ * @param item
+ * @param slotType
+ * @param index
+ * @param addOrRemove
+ * @return {Function}
+ */
+
+// 0 za rig 1 za computer case
+export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
+  const { card } = item;
+  const { app, gameplay } = getState();
+  const { activeLocationIndex, activeContainerIndex, locations } = gameplay;
+  let location;
+  let cardSpecificNumber = 0;
+  let containerCard;
+  switch (slotType) {
+    case 'location':
+      location = index;
+      break;
+    case 'project':
+      location = -1;
+      cardSpecificNumber = index;
+      break;
+    case 'location_slot':
+      location = gameplay.activeLocationIndex;
+      break;
+    case 'container_slot':
+      location = gameplay.activeLocationIndex;
+      containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
+
+      cardSpecificNumber = containerCard.metadata.id === '1' ? 1 : 0;
+      break;
+    default:
+      break;
+  }
+
+  dispatch({
+    type: PLAY_TURN,
+    turn: {
+      shift: addOrRemove ? 1 : 0,
+      location,
+      cardSpecificNumber,
+      cardId: card.metadata.id,
+      blockNumber: app.blockNumber,
+    },
+  });
 };

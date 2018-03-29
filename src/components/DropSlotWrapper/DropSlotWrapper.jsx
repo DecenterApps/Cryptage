@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { playTurn } from '../../actions/gameplayActions';
 import './DropSlotWrapper.scss';
 
-const dropTarget = { drop(props, monitor) { props.onDrop(monitor.getItem()); } };
+const dropTarget = {
+  drop(props, monitor, component) {
+    props.onDrop(monitor.getItem());
+    component.props.playTurn(monitor.getItem(), props.slotType, props.index, true);
+  },
+};
 
 @DropTarget(props => props.accepts, dropTarget, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
@@ -44,8 +51,8 @@ class DropSlotWrapper extends Component {
 
     return connectDropTarget(
       <div className={className}>
-        { lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, index }) }
-        { !lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem }) }
+        {lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, index })}
+        {!lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem })}
       </div>,
     );
   }
@@ -73,5 +80,10 @@ DropSlotWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   emptyStateElem: PropTypes.node,
 };
+const mapStateToProps = () => ({});
 
-export default DropSlotWrapper;
+const mapDispatchToProp = {
+  playTurn,
+};
+
+export default connect(mapStateToProps, mapDispatchToProp)(DropSlotWrapper);

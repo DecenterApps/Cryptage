@@ -101,7 +101,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
           parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
           _projects[i].lastDroppedItem.level,
-        ) : _projects[i].lastDroppedItem.cards[0].stats.cost.dev;
+        ) : _projects[i].lastDroppedItem.cards[0].stats.cost.development;
       }
     }
   }

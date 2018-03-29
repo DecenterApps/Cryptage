@@ -3,7 +3,7 @@ import {
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
   UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD, DROP_MINER, PROJECT_DROP_SLOTS, DROP_PROJECT,
   CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, ADD_ASSET_SLOTS, ADD_EXPERIENCE, GP_LOCATION_MAIN,
-  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_LOCATIONS,
+  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_LOCATIONS, PLAY_TURN,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 
@@ -15,13 +15,14 @@ const INITIAL_STATE = {
   projects: PROJECT_DROP_SLOTS,
   activeLocationIndex: 0,
   activeContainerIndex: 0,
+  playedTurns: [],
   globalStats: {
     level: 10,
     experience: 0,
     earnedXp: 0,
     requiredXp: 16,
     funds: 10000,
-    development: 0,
+    development: 10000,
   },
 };
 
@@ -105,6 +106,15 @@ export default (state = INITIAL_STATE, action) => {
 
     case SWITCH_IN_GAMEPLAY_VIEW:
       return { ...state, inGameplayView: payload.viewType, activeContainerIndex: payload.containerIndex };
+
+    case PLAY_TURN:
+      return {
+        ...state,
+        playedTurns: [
+          ...state.playedTurns,
+          action.turn,
+        ],
+      };
 
     default:
       return state;
