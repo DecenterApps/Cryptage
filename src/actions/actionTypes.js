@@ -72,4 +72,5 @@ export const GP_BUY_BOOSTER = 'buy_booster';
 export const GP_LOCATION = 'location';
 export const GP_LOCATION_MAIN = 'location_main';
 export const GP_LOCATION_CONTAINER = 'location_container';
+export const GP_LOCATION_COLLECTION = 'location_collection';
 export const GP_NO_LOCATIONS = 'no_locations';
