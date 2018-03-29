@@ -28,6 +28,12 @@ class App extends Component {
 
     return (
       <div className="app-wrapper">
+        {
+          this.props.accountError &&
+          <div className="app-error">
+            { this.props.accountError }
+          </div>
+        }
         <div className="app-top-section-wrapper">
           <Locations />
           <Gameplay />
@@ -48,6 +54,7 @@ App.propTypes = {
   loadingApp: PropTypes.bool.isRequired,
   listenForNewBlocks: PropTypes.func.isRequired,
   updateCurrentBlockNumber: PropTypes.func.isRequired,
+  accountError: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -56,6 +63,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = ({ app }) => ({
   loadingApp: app.loadingApp,
+  accountError: app.accountError,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

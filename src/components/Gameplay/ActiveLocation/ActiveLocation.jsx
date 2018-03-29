@@ -35,7 +35,7 @@ const ActiveLocation = ({
           <div className="title-and-bars-wrapper">
             <div className="bar-wrapper">
               <div className="bar-label left">
-                <span>Space</span> - {`${space} / ${maxSpace}`}
+                <span>Space</span>{`${space} / ${maxSpace}`}
               </div>
               <div className="bar left background" />
               <div className="bar left" style={{ width: `${spacePercent}%` }} />
@@ -43,7 +43,7 @@ const ActiveLocation = ({
             <div className="location-name">{card.stats.title}</div>
             <div className="bar-wrapper">
               <div className="bar-label">
-                <span>Power</span> - {`${power} / ${maxPower}`}
+                <span>Power</span>{`${power} / ${maxPower}`}
               </div>
               <div className="bar background" />
               <div className="bar" style={{ width: `${powerPercent}%` }} />
