@@ -12,8 +12,8 @@
     display: flex;
     height: 123px;
     margin-bottom: 20px;
+    overflow-y: hidden;
     overscroll-behavior: contain contain;
-
 
     .card-container {
       margin-right: 10px;
@@ -21,19 +21,6 @@
       .card-details {
         margin: 0 10px;
       }
-    }
-
-    &::-webkit-scrollbar {
-      height: 5px;
-    }
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #FF9D14;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-      background: #d8840e;
     }
   }
 

@@ -24,7 +24,7 @@ const LocationSidebarItem = ({
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
     >
-      <HoverInfo card={cards[0]} />
+      <HoverInfo card={cards[0]} center />
       <div className="hover-addons">
         <div className="magnifying-glass-wrapper" onClick={() => { setActiveLocation(index); }}>
           <MagnifyingGlassIcon />

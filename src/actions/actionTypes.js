@@ -20,6 +20,7 @@ const LOCATION_SLOT = { accepts: [...acceptedLocationDropIds], lastDroppedItem: 
 export const LOCATION_DROP_SLOTS = [
   LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT,
 ];
+export const ADDITIONAL_LOCATION_DROP_SLOTS = [LOCATION_SLOT];
 
 const PROJECT_SLOT = { accepts: [...acceptedProjectDropIds], lastDroppedItem: null, slotType: 'project' };
 export const PROJECT_DROP_SLOTS = [
