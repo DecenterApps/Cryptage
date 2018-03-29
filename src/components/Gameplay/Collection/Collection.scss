@@ -1,0 +1,57 @@
+@import "../../../common/flip.scss";
+@import "../../../common/colors";
+@import "../../../common/variables";
+
+.collection-wrapper {
+  position: relative;
+  width: 566px;
+  flex-grow: 1;
+  margin: 25px auto 0 auto;
+  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
+
+  .collection-progress {
+    text-align: center;
+    color: $yellow;
+    font-size: 27px;
+    font-family: $font-secondary;
+    text-shadow: 0px 0px 44px #000000;
+    margin: 20px 0;
+    span {
+      font-family: $font-secondary;
+      margin: 0 5px;
+    }
+  }
+
+  .collection-cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    height: 420px;
+    position: relative;
+    .large-card-wrapper {
+      margin-bottom: 40px;
+    }
+    .unknown {
+      width: 145px;
+      height: 252px;
+      margin: 0 auto 40px;
+      background-image: url('../../Gameplay/BoostersMenu/Reveal/assets/bg-back.png');
+      background-position: center;
+      background-size: cover;
+      border-radius: 12px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #FF9D14;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #d8840e;
+    }
+  }
+}

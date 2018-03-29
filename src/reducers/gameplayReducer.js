@@ -3,13 +3,14 @@ import {
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
   UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD, DROP_MINER, PROJECT_DROP_SLOTS, DROP_PROJECT,
   CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, ADD_ASSET_SLOTS, ADD_EXPERIENCE, GP_LOCATION_MAIN,
-  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_LOCATIONS, PLAY_TURN,
+  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_LOCATIONS, GP_LOCATION_COLLECTION, PLAY_TURN,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 
 const INITIAL_STATE = {
   gameplayView: GP_NO_LOCATIONS,
   inGameplayView: GP_LOCATION_MAIN,
+  allCards: [],
   cards: [],
   locations: LOCATION_DROP_SLOTS,
   projects: PROJECT_DROP_SLOTS,
@@ -86,7 +87,11 @@ export default (state = INITIAL_STATE, action) => {
 
     case USERS_CARDS_SUCCESS:
     case REVEAL_SUCCESS:
-      return { ...state, cards: action.cards };
+      return {
+        ...state,
+        allCards: action.allCards || state.allCards,
+        cards: action.cards,
+      };
 
     case LOAD_STATE_FROM_STORAGE:
       return { ...mergeDeep(state, payload) };

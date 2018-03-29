@@ -2,22 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeGameplayView } from '../../actions/gameplayActions';
-import { GP_BUY_BOOSTER } from '../../actions/actionTypes';
+import { GP_LOCATION_COLLECTION } from '../../actions/actionTypes';
 
 import './Menu.scss';
 
 const Menu = ({ gameplayView, changeGameplayView }) => (
   <div className="menu-wrapper">
-    <div className="buy-booster-wrapper">
-      <button
-        disabled={gameplayView === GP_BUY_BOOSTER}
-        onClick={() => { changeGameplayView(GP_BUY_BOOSTER); }}
-      >
-        Store
-      </button>
-
-      <div className="separator" />
-
+    <div className="hamburger">
+      <span>|||</span>
+      <div className="menu">
+        <a onClick={() => changeGameplayView(GP_LOCATION_COLLECTION)}>Collection</a>
+      </div>
     </div>
   </div>
 );

@@ -53,7 +53,11 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     const cardsIDs = await ethService.getUsersCards();
     const cards = await cardService.fetchCardsMeta(cardsIDs);
 
-    dispatch({ type: USERS_CARDS_SUCCESS, cards: removePlayedCards(cards, getState) });
+    dispatch({
+      type: USERS_CARDS_SUCCESS,
+      allCards: cards,
+      cards: removePlayedCards(cards, getState)
+    });
   } catch (error) {
     dispatch({ type: USERS_CARDS_ERROR, error });
   }

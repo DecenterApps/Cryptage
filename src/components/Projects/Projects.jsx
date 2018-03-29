@@ -5,11 +5,13 @@ import { handleProjectDrop } from '../../actions/gameplayActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import ProjectItem from '../ProjectItem/ProjectItem';
 import EmptyProjectSlot from '../EmptyProjectSlot/EmptyProjectSlot';
+import Menu from '../Menu/Menu';
 
 import './Projects.scss';
 
 const Projects = ({ projects, handleProjectDrop }) => (
   <div className="projects-wrapper">
+    <Menu />
     <div className="projects-header">
       <div className="bar-wrapper reverse-bar">
         <div className="bar-1" />

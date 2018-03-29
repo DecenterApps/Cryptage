@@ -3,25 +3,44 @@
 @import "../../common/text";
 
 .menu-wrapper {
-  border-right: 1px solid $border-color;
-  height: 100%;
-  width: 200px;
+  height: 40px;
+  width: 110px;
+  margin-bottom: 70px;
+  text-align: right;
 
-  .buy-booster-wrapper {
-    height: 100%;
-    padding: 20px;
-    text-align: center;
-
-    button {
-      @include fancy-button;
-      font-size: $font-size-regular;
-      margin: 0;
-      width: 100%;
+  .hamburger {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    span {
+      color: $yellow;
+      transform: rotate(90deg);
+      padding: 10px;
+      display: inline-block;
+      font-size: 20px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      user-select: none;
     }
-  }
-
-  .separator {
-    border-bottom: 1px solid $border-color;
-    margin: 18px 0 20px 0;
+    .menu {
+      display: none;
+      width: 150px;
+      background-color: black;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      z-index: 1;
+      box-shadow: 0 0 5px 2px rgba(black, .5);
+      a {
+        display: block;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 10px;
+        color: $yellow;
+      }
+    }
+    &:hover .menu {
+      display: block;
+    }
   }
 }
