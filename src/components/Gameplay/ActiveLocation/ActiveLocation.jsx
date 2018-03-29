@@ -22,7 +22,14 @@ const ActiveLocation = ({
   const { space, power } = location.lastDroppedItem.values;
   const card = location.lastDroppedItem.cards[0];
   const maxSpace = getMaxValueForLocation(card.metadata.id, location.lastDroppedItem.level, 'space');
-  const maxPower = getMaxValueForLocation(card.metadata.id, location.lastDroppedItem.level, 'power');
+  let maxPower = getMaxValueForLocation(card.metadata.id, location.lastDroppedItem.level, 'power');
+
+  const powerCards = location.lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
+    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Power'
+  )).map(({ lastDroppedItem }) => lastDroppedItem.cards[0]);
+
+  // recalculate max power for location if power cards were played
+  if (powerCards.length > 0) powerCards.forEach(({ stats }) => { maxPower += stats.bonus.power; });
 
   const spacePercent = Math.floor((space / maxSpace) * 100);
   const powerPercent = Math.floor((power / maxPower) * 100);
