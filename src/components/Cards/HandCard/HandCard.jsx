@@ -89,7 +89,7 @@ const HandCard = ({
         <div className="container-slots-wrapper">
           {
             range(0, card.stats.values.space).reverse()
-              .map(i => <span className={i < remainingSlots && 'empty'} />)
+              .map(i => <span className={i < remainingSlots ? 'empty' : 'no-class'} />)
           }
         </div>
       }

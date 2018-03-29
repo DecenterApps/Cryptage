@@ -53,6 +53,7 @@
       "bonus": {
         "funds": 1
       },
+      "special": true,
       "image": "cpu.jpg",
       "type": "Mining",
       "description": "CPU brate moy"
@@ -68,6 +69,7 @@
       "bonus": {
         "funds": 5
       },
+      "special": true,
       "image": "graphics-card.jpg",
       "type": "Mining",
       "description": ""
@@ -83,6 +85,7 @@
       "bonus": {
         "funds": 100
       },
+      "special": true,
       "image": "asic-miner.jpg",
       "type": "Mining",
       "description": ""
@@ -262,6 +265,7 @@
       "bonus": {
         "funds": 10
       },
+      "special": true,
       "image": "hacker.jpg",
       "type": "Development",
       "description": ""
@@ -276,6 +280,7 @@
         "xp": 8,
         "funds": 100
       },
+      "special": true,
       "image": "part-time-gig.jpg",
       "type": "Project",
       "description": ""
@@ -291,6 +296,7 @@
         "xp": 64,
         "funds": 200
       },
+      "special": true,
       "image": "outsourcing.jpeg",
       "type": "Project",
       "description": ""
@@ -306,6 +312,7 @@
         "xp": 512,
         "funds": 4000
       },
+      "special": true,
       "image": "algo.jpg",
       "type": "Project",
       "description": ""
@@ -321,6 +328,7 @@
         "xp": 4096,
         "funds": 20000
       },
+      "special": true,
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""
@@ -336,6 +344,7 @@
         "xp": 32796,
         "funds": 100000
       },
+      "special": true,
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""
@@ -351,6 +360,7 @@
         "xp": 262144,
         "funds": 500000
       },
+      "special": true,
       "image": "missing.jpeg",
       "type": "Project",
       "description": ""
@@ -405,9 +415,9 @@
         "level": 1
       },
       "bonus": {
-        "TODO": true,
         "funds": 1
       },
+      "special": true,
       "image": "connector.jpg",
       "type": "Misc",
       "description": ""
@@ -422,6 +432,7 @@
       "bonus": {
         "development": 10
       },
+      "special": true,
       "image": "coffe-miner.jpeg",
       "type": "Misc",
       "description": ""

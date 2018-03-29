@@ -1049,7 +1049,8 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
     const globalBonus = filterByKeys(bonus, global);
     const localBonus = filterByKeys(bonus, local);
 
-    if (Object.keys(globalBonus).length && card.stats.type !== 'Mining') {
+    // Special cards have unique mechanism for bonus
+    if (Object.keys(globalBonus).length && !card.stats.special) {
       Object.keys(globalBonus).forEach((statKey) => { globalStats[statKey] += globalBonus[statKey]; });
     }
 
