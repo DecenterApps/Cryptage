@@ -18,6 +18,7 @@ import {
   ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
   PLAY_TURN, UPDATE_GLOBAL_VALUES,
+  ADDITIONAL_LOCATION_DROP_SLOTS,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -84,9 +85,9 @@ export const addLocationSlots = () => (dispatch, getState) => {
   let locations = [...getState().gameplay.locations];
   const emptyLocations = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null);
 
-  if (emptyLocations.length !== 0) return;
+  if (emptyLocations.length > 1) return;
 
-  locations = [...locations, ...LOCATION_DROP_SLOTS];
+  locations = [...locations, ...ADDITIONAL_LOCATION_DROP_SLOTS];
   dispatch({ type: ADD_LOCATION_SLOTS, payload: locations });
 };
 
@@ -175,6 +176,8 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   dispatch({
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
   });
+
+  dispatch(addLocationSlots());
 
   saveGameplayState(getState);
 };

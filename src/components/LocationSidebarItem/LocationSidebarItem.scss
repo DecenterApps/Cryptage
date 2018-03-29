@@ -69,9 +69,6 @@
   }
   &:hover:not(:active) .card-hover-info-wrapper {
     display: flex;
-    top: 0;
-    left: auto;
-    right: -220px;
   }
   &.active:hover:not(:active) .card-hover-info-wrapper {
     right: -240px;
