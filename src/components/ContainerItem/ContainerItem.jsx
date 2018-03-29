@@ -6,7 +6,7 @@ import './ContainerItem.scss';
 
 const ContainerItem = ({ cards }) => (
   <div className="container-item-wrapper">
-    <HandCard showCount={false} card={cards[0]} />
+    <HandCard showCount={false} played card={cards[0]} />
   </div>
 );
 

@@ -7,6 +7,13 @@
   box-sizing: border-box;
   display: flex;
   position: relative;
+
+  &:hover {
+    .go-to-container-wrapper, .remove-card-wrapper {
+      display: flex;
+    }
+  }
+
   .card-image {
     flex-grow: 1;
     .card-image-inner {
@@ -60,6 +67,7 @@
   }
   .cost, .values {
     position: absolute;
+    z-index: 1;
     width: 20px;
     &.cost {
       top: 2px;
@@ -155,5 +163,46 @@
 
   &:hover:not(:active) .card-hover-info-wrapper {
     display: flex;
+  }
+
+  .remove-card-wrapper {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    width: 74px;
+    height: 29px;
+    background: linear-gradient(180deg, #1F1638 0%, #36265F 100%);
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+
+    svg {
+      transition: 0.2s ease-in;
+    }
+
+    svg:hover {
+      transform: scale(1.15);
+      cursor: pointer;
+    }
+  }
+
+  .go-to-container-wrapper {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 74px;
+    height: 61px;
+    background: linear-gradient(0.48deg, rgba(54, 38, 95, 0.9) 31.92%, rgba(54, 38, 95, 0.38) 99.75%);
+    opacity: 0.7;
+    position: absolute;
+
+    svg {
+      transition: 0.2s ease-in;
+    }
+
+    svg:hover {
+      transform: scale(1.15);
+      cursor: pointer;
+    }
   }
 }

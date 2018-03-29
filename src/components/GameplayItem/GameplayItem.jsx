@@ -20,6 +20,11 @@ const GameplayItem = ({
     remainingSlots = dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
   }
 
+  const goToContainer = () => {
+    if (!isContainer) return;
+    switchInGameplayView(index, GP_LOCATION_CONTAINER);
+  };
+
   return (
     <div
       className={`
@@ -27,13 +32,18 @@ const GameplayItem = ({
         ${isOver && 'hovering'}
         ${isContainer && 'container'}
       `}
-      onClick={() => {
-        if (!isContainer) return;
-        switchInGameplayView(index, GP_LOCATION_CONTAINER);
-      }}
     >
-      { !isContainer && <HandCard showCount={false} card={cards[0]} /> }
-      { isContainer && <HandCard showCount={false} card={cards[0]} played remainingSlots={remainingSlots} /> }
+      { !isContainer && <HandCard showCount={false} played card={cards[0]} /> }
+      {
+        isContainer &&
+        <HandCard
+          goToContainer={goToContainer}
+          showCount={false}
+          card={cards[0]}
+          played
+          remainingSlots={remainingSlots}
+        />
+      }
       <div className="level-up">
         { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
         {

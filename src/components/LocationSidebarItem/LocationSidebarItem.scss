@@ -16,10 +16,10 @@
     display: flex;
     top: 0;
     left: auto;
-    right: -140px;
+    right: -220px;
   }
   &.active:hover:not(:active) .card-hover-info-wrapper {
-    right: -155px;
+    right: -240px;
   }
 
   .location-progress-bar {

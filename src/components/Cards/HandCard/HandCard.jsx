@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { guid, formatBigNumber, range } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
+import ChevronDownIcon from '../../Decorative/ChevronDownIcon';
+import MagnifyingGlassIcon from '../../Decorative/MagnifyingGlassIcon';
 
 import './HandCard.scss';
 
@@ -16,7 +18,7 @@ const classForNumber = (_number) => {
 };
 
 const HandCard = ({
-  card, showCount, hoverCentered, played, remainingSlots
+  card, showCount, hoverCentered, played, remainingSlots, goToContainer,
 }) => {
   const uniqueId = guid();
   const gradients = {
@@ -182,6 +184,20 @@ const HandCard = ({
           }
         </div>
       }
+
+      {
+        played &&
+        <div className="remove-card-wrapper">
+          <ChevronDownIcon />
+        </div>
+      }
+
+      {
+        card.stats.type === 'Container' && played && goToContainer &&
+        <div className="go-to-container-wrapper" onClick={goToContainer}>
+          <MagnifyingGlassIcon />
+        </div>
+      }
     </div>
   );
 };
@@ -197,6 +213,7 @@ HandCard.defaultProps = {
   hoverCentered: false,
   played: false,
   remainingSlots: 0,
+  goToContainer: null,
 };
 
 HandCard.propTypes = {
@@ -210,6 +227,7 @@ HandCard.propTypes = {
   hoverCentered: PropTypes.bool,
   remainingSlots: PropTypes.number,
   played: PropTypes.bool,
+  goToContainer: PropTypes.func,
 };
 
 export default HandCard;
