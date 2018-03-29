@@ -1173,11 +1173,13 @@ const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) 
  * @param {Boolean} containerSlotsLength
  * @return {Boolean}
  */
-const checkSlotsAvailableForCardType = (type,
+const checkSlotsAvailableForCardType = (
+  type,
   locationSlotsLength,
   projectsSlotsLength,
   assetSlotsLength,
-  containerSlotsLength,) => {
+  containerSlotsLength,
+) => {
   if (type === 'Location') return locationSlotsLength;
   if (type === 'Project') return projectsSlotsLength;
   if (type === 'Mining') return containerSlotsLength;

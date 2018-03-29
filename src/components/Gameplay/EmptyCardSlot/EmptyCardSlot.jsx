@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { checkIfCanPlayCard } from '../../../services/gameMechanicsService';
 
 import './EmptyCardSlot.scss';
+import AvailableDropIcon from '../../Decorative/AvailableDropIcon';
+import UnavailableDropIcon from '../../Decorative/UnavailableDropIcon';
 
 const EmptyCardSlot = ({
   card, globalStats, activeLocation, acceptedType, activeContainerIndex,
@@ -38,15 +40,8 @@ const EmptyCardSlot = ({
     >
       <div className="inner-empty-slot">
         {
-          (!card || (card && !goodCardType)) &&
-          <div className="no-location-text">Drop<b>Card</b>here</div>
-        }
-
-        {
           card && goodCardType &&
-          <div className="drop-content">
-            You <b>{ canDrop ? 'Can' : 'Can\'t' }</b> Drop
-          </div>
+          <div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div>
         }
       </div>
     </div>
