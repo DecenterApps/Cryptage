@@ -1331,9 +1331,3 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
   return globalStats;
 };
 
-calculateLevelData(1);
-calculateLevelData(100);
-calculateLevelData(16);
-calculateLevelData(348);
-calculateLevelData(71325);
-

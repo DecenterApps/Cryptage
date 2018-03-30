@@ -672,13 +672,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispat
   const _locations = [...gameplay.locations];
   let { gameplayView } = gameplay;
   const item = { ...slot.lastDroppedItem };
+  const returnedCards = [];
   let currentItem;
   let totalDev = 0;
-  let returnedCards = [];
-  // let locations = [...gameplay.locations];
-
-  // const locationDropSlot = locations[locationIndex];
-  console.log(slot, locationIndex, containerIndex);
 
   for (let i = 0; i < item.dropSlots.length; i += 1) {
     currentItem = item.dropSlots[i].lastDroppedItem;
@@ -689,8 +685,13 @@ export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispat
       }
       returnedCards.push(currentItem.cards[0]);
     }
-    if (currentItem !== null && currentItem.dropSlots !== null) {
-      handleCardCancel(currentItem, locationIndex, i);
+    if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
+      console.log(`Current recursive item`, currentItem);
+      dispatch(handleCardCancel(item.dropSlots[i], locationIndex, i));
+    }
+
+    if (currentItem !== null && currentItem.dropSlots === undefined) {
+      returnedCards.push(currentItem.cards[0]);
     }
   }
   if (totalDev > gameplay.globalStats.development) {
@@ -698,7 +699,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispat
   }
 
   if (locationIndex !== undefined && containerIndex !== undefined) {
-    returnedCards.push(_locations[locationIndex].dropSlots[containerIndex].lastDroppedItem.cards[0]);
+    returnedCards.push(_locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards[0]);
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex === undefined) {
     returnedCards.push(_locations[locationIndex].lastDroppedItem.cards[0]);
@@ -707,14 +708,14 @@ export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispat
   if (locationIndex === gameplay.activeLocationIndex && containerIndex === undefined) {
     gameplayView = GP_NO_LOCATIONS;
   }
-  console.log(locationIndex && containerIndex, _locations, returnedCards);
+  /* DO NOT REMOVE getState() */
   dispatch({
     type: REMOVE_CARD,
     locations: _locations,
-    cards: [...gameplay.cards, ...returnedCards],
+    cards: [...getState().gameplay.cards, ...returnedCards],
     globalStats: {
-      ...gameplay.globalStats,
-      development: gameplay.globalStats.development - totalDev,
+      ...getState().gameplay.globalStats,
+      development: getState().gameplay.globalStats.development - totalDev,
     },
     gameplayView,
   });
