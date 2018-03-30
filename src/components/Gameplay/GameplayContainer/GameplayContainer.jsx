@@ -18,6 +18,8 @@ const GameplayContainer = ({
   const activeLocation = locations[activeLocationIndex].lastDroppedItem;
   const card = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.cards[0];
   const containerSlots = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots;
+  const remainingSlots = containerSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
+
   return (
     <div className="active-container-wrapper">
       <div
@@ -27,7 +29,7 @@ const GameplayContainer = ({
       </div>
 
       <div className="active-container-card-wrapper">
-        <HandCard showCount={false} played card={card} />
+        <HandCard showCount={false} remainingSlots={remainingSlots} played card={card} />
       </div>
 
       <div className="container-bottom-wrapper">
