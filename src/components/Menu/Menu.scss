@@ -4,22 +4,24 @@
 
 .menu-wrapper {
   height: 40px;
-  //width: 110px;
-  margin-bottom: 70px;
+  margin-bottom: 95px;
   text-align: right;
   position: relative;
 
   .actions-wrapper {
-    margin-top: 17px;
+    padding-top: 17px;
     margin-right: 30px;
     display: flex;
     align-items: center;
 
     .save-button-wrapper {
       position: relative;
-      margin-right: 16px;
+      margin-right: 32px;
 
       .orange-button {
+        position: relative;
+        left: 14px;
+        width: 65px;
         margin-left: 0;
       }
     }
