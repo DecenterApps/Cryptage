@@ -1,6 +1,15 @@
 import {
-  BOOSTERS_REQUEST, BOOSTERS_SUCCESS, BOOSTERS_ERROR, BUY_BOOSTER_REQUEST, BUY_BOOSTER_SUCCESS, BUY_BOOSTER_ERROR,
-  REVEAL_SUCCESS, REVEAL_REQUEST, REVEAL_ERROR,
+  BOOSTERS_REQUEST,
+  BOOSTERS_SUCCESS,
+  BOOSTERS_ERROR,
+  BUY_BOOSTER_REQUEST,
+  BUY_BOOSTER_SUCCESS,
+  BUY_BOOSTER_ERROR,
+  REVEAL_SUCCESS,
+  REVEAL_REQUEST,
+  REVEAL_ERROR,
+  CHANGE_GAMEPLAY_VIEW,
+  SWITCH_IN_GAMEPLAY_VIEW,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -60,6 +69,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: action.error,
+      };
+    case CHANGE_GAMEPLAY_VIEW:
+    case SWITCH_IN_GAMEPLAY_VIEW:
+      return {
+        ...state,
+        revealedCards: [],
       };
     default:
       return state;
