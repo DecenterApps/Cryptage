@@ -21,6 +21,7 @@ import {
   ADDITIONAL_LOCATION_DROP_SLOTS,
   ADDITIONAL_LOCATION_ITEM_DROP_SLOTS,
   REMOVE_CARD, GP_NO_LOCATIONS,
+  SUBMIT_NICKNAME_SUCCESS,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -717,4 +718,15 @@ export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispat
     },
     gameplayView,
   });
+};
+
+/**
+ * Fires when the nickname form is submitted
+ *
+ * @param {Object} data { nickname }
+ */
+export const submitNickname = ({ nickname }) => (dispatch) => {
+  // Add call to the contract here
+
+  dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
 };

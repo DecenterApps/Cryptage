@@ -3,12 +3,13 @@ import {
   LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
   UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD, DROP_MINER, PROJECT_DROP_SLOTS, DROP_PROJECT,
   CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, ADD_ASSET_SLOTS, ADD_EXPERIENCE, GP_LOCATION_MAIN,
-  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_LOCATIONS, GP_LOCATION_COLLECTION, PLAY_TURN, REMOVE_CARD,
+  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_NICKNAME, PLAY_TURN, REMOVE_CARD, SUBMIT_NICKNAME_SUCCESS, GP_NO_LOCATIONS,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 
 const INITIAL_STATE = {
-  gameplayView: GP_NO_LOCATIONS,
+  nickname: '',
+  gameplayView: GP_NO_NICKNAME,
   inGameplayView: GP_LOCATION_MAIN,
   allCards: [],
   cards: [],
@@ -130,6 +131,8 @@ export default (state = INITIAL_STATE, action) => {
         gameplayView: action.gameplayView,
       };
 
+    case SUBMIT_NICKNAME_SUCCESS:
+      return { ...state, nickname: payload, gameplayView: GP_NO_LOCATIONS };
 
     default:
       return state;

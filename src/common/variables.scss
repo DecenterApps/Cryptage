@@ -60,3 +60,9 @@ $project-size: 50px;
     position: relative;
   }
 }
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -103,13 +103,16 @@
           .name {
             font-family: $font-secondary;
             font-size: 23px;
-            text-transform: uppercase;
             text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
             width: 100%;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
             display:inline-block;
+
+            .no-name {
+              text-transform: uppercase;
+            }
           }
 
           .xp-wrapper {

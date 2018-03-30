@@ -48,6 +48,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
+    "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "stream-equal": "^1.1.0",

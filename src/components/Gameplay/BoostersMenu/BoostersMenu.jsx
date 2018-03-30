@@ -10,7 +10,7 @@ import { getBoosters, buyBoosterPack, revealBooster } from '../../../actions/boo
 import { changeGameplayView } from '../../../actions/gameplayActions';
 
 import './BoostersMenu.scss';
-import { GP_LOCATION, GP_NO_LOCATIONS } from '../../../actions/actionTypes';
+import { GP_LOCATION, GP_NO_LOCATIONS, GP_NO_NICKNAME } from '../../../actions/actionTypes';
 
 class BoostersMenu extends React.Component {
   constructor(props) {
@@ -24,7 +24,10 @@ class BoostersMenu extends React.Component {
   }
 
   exitBoosterView() {
-    const toGoView = this.props.locations.length === 0 ? GP_NO_LOCATIONS : GP_LOCATION;
+    let toGoView = GP_LOCATION;
+
+    if (this.props.locations.length === 0) toGoView = GP_NO_LOCATIONS;
+    if (!this.props.nickname) toGoView = GP_NO_NICKNAME;
 
     this.props.changeGameplayView(toGoView);
   }
@@ -75,6 +78,7 @@ BoostersMenu.propTypes = {
   buyBoosterPack: PropTypes.func.isRequired,
   revealBooster: PropTypes.func.isRequired,
   accountBalance: PropTypes.string,
+  nickname: PropTypes.string.isRequired,
   changeGameplayView: PropTypes.func.isRequired,
   locations: PropTypes.array.isRequired,
 };
@@ -88,6 +92,7 @@ const mapStateToProps = state => ({
   accountBalance: state.app.accountBalance,
   locations: state.gameplay.locations.filter(({ lastDroppedItem }) => lastDroppedItem !== null),
   currentBlock: state.app.blockNumber,
+  nickname: state.gameplay.nickname,
 });
 
 const mapDispatchToProps = {

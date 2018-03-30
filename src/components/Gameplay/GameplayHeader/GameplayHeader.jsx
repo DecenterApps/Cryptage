@@ -9,7 +9,7 @@ import shape1 from './header-shape-1.png';
 
 import './GameplayHeader.scss';
 
-const GameplayHeader = ({ blockNumber, globalStats }) => (
+const GameplayHeader = ({ blockNumber, globalStats, nickname }) => (
   <div className="gameplay-header-wrapper">
     <div className="gameplay-header-content">
 
@@ -39,7 +39,9 @@ const GameplayHeader = ({ blockNumber, globalStats }) => (
           <img src={shape1} alt="Header shape big" />
 
           <div className="big-stats">
-            <div className="name">Nickname</div>
+            <div className="name">
+              { nickname || 'NICKNAME' }
+            </div>
             <div className="xp-wrapper">{ globalStats.earnedXp } / { globalStats.requiredXp } exp</div>
           </div>
         </div>
@@ -76,11 +78,13 @@ const GameplayHeader = ({ blockNumber, globalStats }) => (
 GameplayHeader.propTypes = {
   blockNumber: PropTypes.number.isRequired,
   globalStats: PropTypes.object.isRequired,
+  nickname: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
   blockNumber: app.blockNumber,
   globalStats: gameplay.globalStats,
+  nickname: gameplay.nickname,
 });
 
 export default connect(mapStateToProps)(GameplayHeader);

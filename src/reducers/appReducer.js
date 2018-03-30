@@ -14,6 +14,9 @@ const INITIAL_STATE = {
 
   cardsFetching: true,
   cardsFetchingError: '',
+
+  nicknameError: '',
+  submittingNickname: false,
 };
 
 export default (state = INITIAL_STATE, action) => {

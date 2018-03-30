@@ -1,4 +1,5 @@
 import { routerReducer } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
 import { combineReducers } from 'redux';
 import appReducer from './appReducer';
 import shopReducer from './shopReducer';
@@ -9,4 +10,5 @@ export default combineReducers({
   app: appReducer,
   shop: shopReducer,
   gameplay: gameplayReducer,
+  form: formReducer,
 });

@@ -1,0 +1,72 @@
+@import "../../../common/variables";
+@import "../../../common/colors";
+
+.nickname-form-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+
+  .content {
+    width: 253px;
+    margin-top: 65px;
+
+    .form-label {
+      color: #fff;
+      text-shadow: $text-shadow-prime;
+      font-size: 23px;
+      text-transform: uppercase;
+      font-family: $font-secondary;
+      text-align: center;
+    }
+
+    form.form-wrapper {
+      margin-top: 6px;
+      position: relative;
+
+      .form-item-wrapper {
+        margin-bottom: 0;
+
+        .form-item {
+          height: 44px;
+          border: none;
+          background: none;
+          padding: 0 35px 0 5px;
+          border-bottom: 1px solid $purple;
+          font-size: 23px;
+
+          color: $yellow;
+          text-shadow: $text-shadow-prime;
+        }
+      }
+
+      .arrow-right-wrapper {
+        position: absolute;
+        right: 5px;
+        bottom: 13px;
+
+        &.disabled {
+          opacity: 0.2;
+
+          button {
+            pointer-events: none;
+          }
+        }
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: none;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .form-bottom-box {
+      height: 58px;
+      width: 100%;
+      background: $background-purple-gradient;
+    }
+  }
+}

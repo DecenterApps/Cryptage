@@ -12,6 +12,7 @@ module.exports = {
     'max-len': [2, 120, 2, {ignoreComments: true}],
     'class-methods-use-this': 0,
     'jsx-a11y/href-no-hash': 'off',
+    'jsx-a11y/no-autofocus': 0,
     'react/jsx-tag-spacing': 1,
     'no-unused-vars': 1,
     'react/no-danger': 0,

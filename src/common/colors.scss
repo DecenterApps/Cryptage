@@ -7,6 +7,9 @@ $yellow: #FF9D14;
 $empty-slot-can-drop: #33FF00;
 $red: #FF1414;
 
+$lightRed: #F57170;
+$dark-red: #C02727;
+
 $purple: #36265F;
 $dark-purple: #312853;
 $deep-dark-purple: #1C1C1C;
@@ -31,4 +34,7 @@ $development-gradient: linear-gradient(180deg, #9F00C7 0%, rgba(95, 38, 79, 0.41
 $project-gradient: linear-gradient(180deg, #FF9D14 0%, rgba(255, 157, 20, 0.36) 100%);
 $mining-gradient: linear-gradient(180deg, #75341F 0%, rgba(117, 52, 30, 0.57) 100%);
 $container-gradient: linear-gradient(180deg, #4A7420 0%, rgba(74, 116, 32, 0.41) 100%);
+$background-purple-gradient: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
+
+$text-shadow-prime: 0 0 30px rgba(33, 35, 234, 0.7);
 
