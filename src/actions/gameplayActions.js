@@ -97,8 +97,8 @@ export const addLocationSlots = () => (dispatch, getState) => {
 };
 
 /**
- * Checks if the active locations slots are full, if they are,
- * adds 6 new ones
+ * Checks if the active has only one empty slot, if it does do,
+ * adds 1 new empty slot. Unless the space of the active location equals 0.
  *
  * @param {Number} locationIndex
  * @return {Function}
@@ -107,6 +107,7 @@ export const addAssetSlots = locationIndex => (dispatch, getState) => {
   let locations = [...getState().gameplay.locations];
   const location = locations[locationIndex].lastDroppedItem;
   const currentSlots = location.dropSlots;
+
   const emptyLocations = currentSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null);
 
   if (emptyLocations.length > 1) return;
@@ -150,7 +151,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
     locations = update(locations, {
       [index]: {
         // only allow the card type that has been dropped now to be dropped again
-        accepts: { $set: [item.card.metadata.id] },
+        accepts: { $set: [] },
         lastDroppedItem: {
           $set: {
             level: 1,
@@ -218,7 +219,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
     // location drop when slot is empty
     alteredProjects[index] = {
       // only allow the card type that has been dropped now to be dropped again
-      accepts: [item.card.metadata.id],
+      accepts: [],
       lastDroppedItem: {
         level: 1,
         canLevelUp: false,
@@ -750,4 +751,11 @@ export const submitNickname = ({ nickname }) => (dispatch) => {
   // Add call to the contract here
 
   dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
+};
+
+/**
+ * Sends tx to contract to save current state
+ */
+export const saveStateToContract = () => () => {
+  // Add call to the contract here
 };

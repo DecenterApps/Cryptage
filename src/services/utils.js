@@ -247,7 +247,7 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
 
   const locationSlots = update(_locationSlots, {
     [index]: {
-      accepts: { $set: [item.card.metadata.id] },
+      accepts: { $set: [] },
       lastDroppedItem: {
         $set: {
           level: 1,
@@ -395,7 +395,7 @@ export const filterByKeys = (object, allowedKeys) =>
 export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations,) => {
   const containerSlots = update(_containerSlots, {
     [cardIndex]: {
-      accepts: { $set: [item.card.metadata.id] },
+      accepts: { $set: [] },
       lastDroppedItem: {
         $set: {
           level: 1,

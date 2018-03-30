@@ -4,28 +4,46 @@
 
 .menu-wrapper {
   height: 40px;
-  //width: 110px;
-  margin-bottom: 70px;
+  margin-bottom: 95px;
   text-align: right;
   position: relative;
 
-  .hamburger {
-    display: inline-block;
-    position: relative;
-    width: 40px;
-    margin-top: 20px;
-    margin-right: 20px;
-    span {
-      color: $yellow;
-      transform: rotate(90deg);
-      padding: 10px;
+  .actions-wrapper {
+    padding-top: 17px;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+
+    .save-button-wrapper {
+      position: relative;
+      margin-right: 32px;
+
+      .orange-button {
+        position: relative;
+        left: 14px;
+        width: 65px;
+        margin-left: 0;
+      }
+    }
+
+    .hamburger {
       display: inline-block;
-      font-size: 20px;
-      letter-spacing: 2px;
-      cursor: pointer;
-      user-select: none;
+      position: relative;
+      top: 1px;
+      width: 40px;
+
+      span {
+        color: $yellow;
+        transform: rotate(90deg);
+        display: inline-block;
+        font-size: 20px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        user-select: none;
+      }
     }
   }
+
   .menu-inner-wrapper {
     position: absolute;
     width: 1000px;

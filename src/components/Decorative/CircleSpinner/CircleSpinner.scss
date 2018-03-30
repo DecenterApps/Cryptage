@@ -1,0 +1,62 @@
+@import "../../../common/colors";
+
+.spinner-wrapper {
+  transform: scale(0.45);
+
+  #spinner {
+    stroke: $yellow;
+    stroke-width: 4px;
+    -webkit-transform-origin: 50%;
+    -ms-transform-origin: 50%;
+    transform-origin: 50%;
+    -webkit-animation: line 1.5s cubic-bezier(0.5, 0, 0.2, 1) infinite,
+    rotate 1.5s linear infinite;
+    animation: line 1.5s cubic-bezier(0.5, 0, 0.2, 1) infinite,
+    rotate 1.5s linear infinite;
+    box-shadow: 0 0 7px rgba(255, 157, 20, 0.7);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0); }
+  to {
+    -webkit-transform: rotate(450deg);
+    transform: rotate(450deg); } }
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0); }
+  to {
+    -webkit-transform: rotate(450deg);
+    transform: rotate(450deg); } }
+
+@-webkit-keyframes line {
+  0% {
+    stroke-dasharray: 2, 85;
+    -webkit-transform: rotate(0);
+    transform: rotate(0); }
+  50% {
+    stroke-dasharray: 65, 20;
+    stroke-dashoffset: 0; }
+  100% {
+    stroke-dasharray: 2, 85;
+    stroke-dashoffset: -65;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg); } }
+
+@keyframes line {
+  0% {
+    stroke-dasharray: 2, 85;
+    -webkit-transform: rotate(0);
+    transform: rotate(0); }
+  50% {
+    stroke-dasharray: 65, 20;
+    stroke-dashoffset: 0; }
+  100% {
+    stroke-dasharray: 2, 85;
+    stroke-dashoffset: -65;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg); } }
