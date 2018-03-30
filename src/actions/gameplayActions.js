@@ -730,3 +730,10 @@ export const submitNickname = ({ nickname }) => (dispatch) => {
 
   dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
 };
+
+/**
+ * Sends tx to contract to save current state
+ */
+export const saveStateToContract = () => () => {
+  // Add call to the contract here
+};
