@@ -15,8 +15,6 @@ const LocationSidebarItem = ({
   handleCardCancel,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
-  console.log('AAAAA');
-  console.log(slot);
   return (
     <div
       className={`
