@@ -1,4 +1,5 @@
 import React from 'react';
+import CircleSpinner from '../../../Decorative/CircleSpinner/CircleSpinner';
 
 import bgEmpty from '../assets/bg-empty.png';
 import ethCircle from '../../GameplayHeader/eth-circle.png';
@@ -20,13 +21,23 @@ export default ({
   return (
     <div className="booster-store-body">
       <div className="boosters-wrapper">
-        {(boosters.length === 0 && !isFetching) &&
-        <div className="boosters">
-          <div className="booster booster-middle">
-            <img src={bgEmpty} alt="" />
-            <p className="booster-empty-text">You <br /> don&apos;t <br /> have any boosters</p>
+        {(boosters.length === 0) &&
+          <div className="boosters">
+            <div className="booster booster-middle">
+              {
+                isFetching &&
+                <span className="circle-loader-wrapper">
+                  <CircleSpinner />
+                  <div>Loading</div>
+                </span>
+              }
+              <img src={bgEmpty} alt="" />
+              {
+                !isFetching &&
+                <p className="booster-empty-text">You <br /> don&apos;t <br /> have any boosters</p>
+              }
+            </div>
           </div>
-        </div>
         }
 
         {

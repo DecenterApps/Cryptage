@@ -155,6 +155,25 @@
         width: 154px;
       }
 
+      .circle-loader-wrapper {
+        position: absolute;
+        top: 90px;
+        left: 53px;
+        width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: $yellow;
+
+        div {
+          margin-top: -10px;
+          font-size: 13px;
+          font-family: $font-secondary;
+          text-shadow: 0 0 44px #000000;
+        }
+      }
+
       .remaining {
         width: 108px;
         margin: auto;
