@@ -22,6 +22,8 @@ import {
   ADDITIONAL_LOCATION_ITEM_DROP_SLOTS,
   REMOVE_CARD, GP_NO_LOCATIONS,
   SUBMIT_NICKNAME_SUCCESS,
+  acceptedLocationDropIds,
+  acceptedAssetDropIds,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -105,7 +107,6 @@ export const addAssetSlots = locationIndex => (dispatch, getState) => {
   let locations = [...getState().gameplay.locations];
   const location = locations[locationIndex].lastDroppedItem;
   const currentSlots = location.dropSlots;
-  console.log(locations[locationIndex].lastDroppedItem);
   const emptyLocations = currentSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null);
 
   if (emptyLocations.length > 1) return;
@@ -667,7 +668,7 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
   });
 };
 
-export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispatch, getState) => {
+export const handleCardCancel = (slot, locationIndex, containerIndex, containerSlotIndex) => (dispatch, getState) => {
   const { gameplay } = getState();
   const _locations = [...gameplay.locations];
   let { gameplayView } = gameplay;
@@ -675,34 +676,53 @@ export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispat
   const returnedCards = [];
   let currentItem;
   let totalDev = 0;
+  if (item.dropSlots) {
+    for (let i = 0; i < item.dropSlots.length; i += 1) {
+      currentItem = item.dropSlots[i].lastDroppedItem;
 
-  for (let i = 0; i < item.dropSlots.length; i += 1) {
-    currentItem = item.dropSlots[i].lastDroppedItem;
-
-    if (currentItem !== null && currentItem.dropSlots === null) {
-      if (currentItem.cards[0].stats.type === 'Development') {
-        totalDev += currentItem.cards[0].stats.bonus.development;
+      if (currentItem !== null && currentItem.dropSlots === null) {
+        if (currentItem.cards[0].stats.type === 'Development') {
+          totalDev += currentItem.cards[0].stats.bonus.development;
+        }
+        returnedCards.push(currentItem.cards[0]);
       }
-      returnedCards.push(currentItem.cards[0]);
-    }
-    if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
-      console.log(`Current recursive item`, currentItem);
-      dispatch(handleCardCancel(item.dropSlots[i], locationIndex, i));
-    }
+      if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
+        dispatch(handleCardCancel(item.dropSlots[i], locationIndex, i));
+      }
 
-    if (currentItem !== null && currentItem.dropSlots === undefined) {
-      returnedCards.push(currentItem.cards[0]);
+      if (currentItem !== null && currentItem.dropSlots === undefined) {
+        returnedCards.push(currentItem.cards[0]);
+      }
+    }
+  } else {
+    if (item.cards[0].stats.type === 'Development') {
+      totalDev += item.cards[0].stats.bonus.development;
     }
   }
+
   if (totalDev > gameplay.globalStats.development) {
     return null;
   }
 
-  if (locationIndex !== undefined && containerIndex !== undefined) {
+  if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex !== undefined) {
+    const { power } = item.cards[0].stats.cost;
+    returnedCards.push(item.cards[0]);
+    _locations[locationIndex].lastDroppedItem.values.power += power;
+    _locations[locationIndex].lastDroppedItem
+      .dropSlots[containerIndex].lastDroppedItem
+      .dropSlots[containerSlotIndex].lastDroppedItem = null;
+  } else if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex === undefined) {
+    let power = 0;
+    const { space } = item.cards[0].stats.cost;
+    if (item.cards[0].stats.bonus) power = item.cards[0].stats.bonus.power || 0;
     returnedCards.push(_locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards[0]);
+    _locations[locationIndex].lastDroppedItem.values.space += space;
+    _locations[locationIndex].lastDroppedItem.values.power -= power;
+    _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].accepts = acceptedAssetDropIds;
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex === undefined) {
     returnedCards.push(_locations[locationIndex].lastDroppedItem.cards[0]);
+    _locations[locationIndex].lastDroppedItem.accepts = acceptedLocationDropIds;
     _locations[locationIndex].lastDroppedItem = null;
   }
   if (locationIndex === gameplay.activeLocationIndex && containerIndex === undefined) {

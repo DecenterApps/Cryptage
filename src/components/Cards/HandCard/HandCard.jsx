@@ -18,7 +18,8 @@ const classForNumber = (_number) => {
 };
 
 const HandCard = ({
-  card, showCount, hoverCentered, played, remainingSlots, goToContainer,
+  card, showCount, hoverCentered, played, remainingSlots, goToContainer, handleCardCancel,
+  locationIndex, containerIndex, slot, containerSlotIndex,
 }) => {
   const uniqueId = guid();
   const gradients = {
@@ -37,9 +38,12 @@ const HandCard = ({
       <div className="level-wrapper">
         <svg className="level-background">
           <defs>
-            <linearGradient id={`card-level-gradient-${uniqueId}`} x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" style={{ stopColor: gradients[card.stats.type.toLowerCase()][0] }} />
-              <stop offset="100%" style={{ stopColor: gradients[card.stats.type.toLowerCase()][1] }} />
+            <linearGradient id={`card-level-gradient-${uniqueId}`} x1="0%" y1="0%" x2="0%"
+                            y2="100%">
+              <stop offset="0%"
+                    style={{ stopColor: gradients[card.stats.type.toLowerCase()][0] }} />
+              <stop offset="100%"
+                    style={{ stopColor: gradients[card.stats.type.toLowerCase()][1] }} />
             </linearGradient>
           </defs>
           <polygon points="0,0 27,0 27,27" fill={`url(#card-level-gradient-${uniqueId})`} />
@@ -187,7 +191,12 @@ const HandCard = ({
 
       {
         played &&
-        <div className="remove-card-wrapper">
+        <div
+          className="remove-card-wrapper"
+          onClick={() => {
+            handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex);
+          }}
+        >
           <ChevronDownIcon />
         </div>
       }
@@ -214,6 +223,11 @@ HandCard.defaultProps = {
   played: false,
   remainingSlots: 0,
   goToContainer: null,
+  locationIndex: undefined,
+  containerIndex: undefined,
+  containerSlotIndex: undefined,
+  slot: null,
+  handleCardCancel: () => {},
 };
 
 HandCard.propTypes = {
@@ -228,6 +242,11 @@ HandCard.propTypes = {
   remainingSlots: PropTypes.number,
   played: PropTypes.bool,
   goToContainer: PropTypes.func,
+  handleCardCancel: PropTypes.func,
+  locationIndex: PropTypes.number,
+  containerIndex: PropTypes.number,
+  containerSlotIndex: PropTypes.number,
+  slot: PropTypes.object,
 };
 
 export default HandCard;

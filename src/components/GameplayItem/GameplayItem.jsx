@@ -4,13 +4,14 @@ import { Line } from 'rc-progress';
 import { connect } from 'react-redux';
 import HandCard from '../Cards/HandCard/HandCard';
 import { calcDataForNextLevel } from '../../services/utils';
-import { levelUpAsset, switchInGameplayView } from '../../actions/gameplayActions';
+import { levelUpAsset, switchInGameplayView, handleCardCancel } from '../../actions/gameplayActions';
 import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 
 import './GameplayItem.scss';
 
 const GameplayItem = ({
-  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, switchInGameplayView, dropSlots,
+  cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, switchInGameplayView,
+  dropSlots, slot, handleCardCancel,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const isContainer = containerIds.includes(cards[0].metadata.id);
@@ -33,19 +34,33 @@ const GameplayItem = ({
         ${isContainer && 'container'}
       `}
     >
-      { !isContainer && <HandCard showCount={false} played card={cards[0]} /> }
+      {!isContainer &&
+      <HandCard
+        showCount={false}
+        card={cards[0]}
+        slot={slot}
+        handleCardCancel={handleCardCancel}
+        locationIndex={activeLocationIndex}
+        containerIndex={index}
+        played
+      />
+      }
       {
         isContainer &&
         <HandCard
           goToContainer={goToContainer}
           showCount={false}
           card={cards[0]}
-          played
           remainingSlots={remainingSlots}
+          handleCardCancel={handleCardCancel}
+          locationIndex={activeLocationIndex}
+          containerIndex={index}
+          slot={slot}
+          played
         />
       }
       <div className="level-up">
-        { !canLevelUp && <div>Cards to drop for next level: { remainingCardsToDropForNextLevel }</div> }
+        {!canLevelUp && <div>Cards to drop for next level: {remainingCardsToDropForNextLevel}</div>}
         {
           canLevelUp &&
           <button
@@ -75,6 +90,8 @@ GameplayItem.propTypes = {
   levelUpAsset: PropTypes.func.isRequired,
   switchInGameplayView: PropTypes.func.isRequired,
   dropSlots: PropTypes.array,
+  slot: PropTypes.object.isRequired,
+  handleCardCancel: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
@@ -82,7 +99,7 @@ const mapStateToProps = ({ gameplay }) => ({
 });
 
 const mapDispatchToProps = {
-  levelUpAsset, switchInGameplayView,
+  levelUpAsset, switchInGameplayView, handleCardCancel,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameplayItem);

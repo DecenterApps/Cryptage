@@ -1,14 +1,17 @@
 import cardConfig from '../constants/cards.json';
 
-const acceptedAssetDropIds =
+export const acceptedAssetDropIds =
   Object.keys(cardConfig.cards).filter(key =>
     cardConfig.cards[key].type !== 'Location' &&
     cardConfig.cards[key].type !== 'Mining' &&
     cardConfig.cards[key].type !== 'Project');
 
-const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Location');
-const acceptedProjectDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Project');
-export const containerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key].type === 'Container');
+export const acceptedLocationDropIds = Object.keys(cardConfig.cards)
+  .filter(key => cardConfig.cards[key].type === 'Location');
+export const acceptedProjectDropIds = Object.keys(cardConfig.cards)
+  .filter(key => cardConfig.cards[key].type === 'Project');
+export const containerIds = Object.keys(cardConfig.cards)
+  .filter(key => cardConfig.cards[key].type === 'Container');
 
 const LOCATION_ITEM_SLOT = { accepts: [...acceptedAssetDropIds], lastDroppedItem: null, slotType: 'location_slot' };
 export const LOCATION_ITEM_DROP_SLOTS = [
