@@ -24,6 +24,8 @@ import {
   SUBMIT_NICKNAME_SUCCESS,
   acceptedLocationDropIds,
   acceptedAssetDropIds,
+  acceptedProjectDropIds,
+  RETURN_CARD,
 } from './actionTypes';
 import cardService from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -229,6 +231,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         isFinished: false,
         expiryTime: app.blockNumber + item.card.stats.cost.time,
       },
+      slotType: 'project',
     };
   } else if (!projects[index].lastDroppedItem.isActive) {
     // location drop when there is/are already a card/cards in the slot
@@ -289,6 +292,32 @@ export const activateProject = (card, index) => (dispatch, getState) => {
     payload: alterGlobalStats,
   });
   saveGameplayState(getState);
+};
+
+/**
+ * Removes a project at an index
+ *
+ * @param {Object} card
+ * @param {Number} index
+ * @return {Function}
+ */
+export const removeProject = (card, index) => (dispatch, getState) => {
+  const { projects } = getState().gameplay;
+  const alteredProjects = [...projects];
+
+  alteredProjects[index].accepts = acceptedProjectDropIds;
+  alteredProjects[index].lastDroppedItem = null;
+
+  console.log(card, index);
+
+  dispatch({
+    type: CHANGE_PROJECT_STATE,
+    projects: alteredProjects,
+  });
+  dispatch({
+    type: RETURN_CARD,
+    card,
+  });
 };
 
 /**

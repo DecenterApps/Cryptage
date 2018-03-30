@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Line, Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import { setActiveLocation, levelUpProject, activateProject } from '../../actions/gameplayActions';
+import {
+  setActiveLocation,
+  levelUpProject,
+  activateProject,
+  removeProject
+} from '../../actions/gameplayActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
+import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 
 import './ProjectItem.scss';
 
@@ -18,7 +24,7 @@ const calculatePercent = (expiryTime, costTime) => {
 
 const ProjectItem = ({
   isOver, cards, index, level, isActive, expiryTime,
-  activateProject, blockNumber, isFinished,
+  activateProject, blockNumber, isFinished, removeProject,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
 
@@ -37,14 +43,10 @@ const ProjectItem = ({
           <img
             className="project-check"
             src={restart}
+            onClick={() => activateProject(cards[0], index)}
             alt="Checkmark icon"
           />
-          <button
-            onClick={() => activateProject(cards[0], index)}
-            className="empty-project"
-          >
-            Start Project Again
-          </button>
+          <ChevronDownIcon onClick={() => removeProject(cards[0], index)} />
         </div>
       }
       <img
@@ -88,6 +90,7 @@ ProjectItem.propTypes = {
   isActive: PropTypes.bool.isRequired,
   isFinished: PropTypes.bool.isRequired,
   activateProject: PropTypes.func.isRequired,
+  removeProject: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
 };
@@ -102,7 +105,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, levelUpProject, activateProject
+  setActiveLocation, levelUpProject, activateProject, removeProject,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(ProjectItem);

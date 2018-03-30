@@ -80,39 +80,39 @@
   .project-check {
     position: relative;
     z-index: 2;
-    width: 22px;
-    height: 24px;
+    width: 14px;
+    height: 16px;
   }
 
   &.project-finished {
     display: flex;
-    align-items: center;
     justify-content: center;
+    background: linear-gradient(180deg, transparent 50%, rgba(54, 38, 95, 0.8) 50%);
+
+    .repeat-project {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
 
     .project-thumbnail {
       opacity: 0.25;
     }
 
+    svg {
+      width: 20px;
+      height: 10px;
+      cursor: pointer;
+      z-index: 3;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
     .project-check {
       cursor: pointer;
-    }
-
-    .repeat-project .empty-project {
-      display: none;
-      position: relative;
-      cursor: pointer;
-      background: none;
-      outline: none;
-      z-index: 10;
-    }
-
-    &:hover {
-      .project-check {
-        display: none;
-      }
-      .repeat-project .empty-project {
-        display: block;
-      }
     }
   }
 }

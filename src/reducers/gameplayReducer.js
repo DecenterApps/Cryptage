@@ -1,9 +1,30 @@
 import {
-  DROP_LOCATION, CHANGE_GAMEPLAY_VIEW, SET_ACTIVE_LOCATION, DROP_ASSET, GP_LOCATION,
-  LOCATION_DROP_SLOTS, USERS_CARDS_SUCCESS, REVEAL_SUCCESS, LOAD_STATE_FROM_STORAGE,
-  UPDATE_GLOBAL_VALUES, LEVEL_UP_CARD, DROP_MINER, PROJECT_DROP_SLOTS, DROP_PROJECT,
-  CHANGE_PROJECT_STATE, ADD_LOCATION_SLOTS, ADD_ASSET_SLOTS, ADD_EXPERIENCE, GP_LOCATION_MAIN,
-  SWITCH_IN_GAMEPLAY_VIEW, GP_NO_NICKNAME, PLAY_TURN, REMOVE_CARD, SUBMIT_NICKNAME_SUCCESS, GP_NO_LOCATIONS,
+  DROP_LOCATION,
+  CHANGE_GAMEPLAY_VIEW,
+  SET_ACTIVE_LOCATION,
+  DROP_ASSET,
+  GP_LOCATION,
+  LOCATION_DROP_SLOTS,
+  USERS_CARDS_SUCCESS,
+  REVEAL_SUCCESS,
+  LOAD_STATE_FROM_STORAGE,
+  UPDATE_GLOBAL_VALUES,
+  LEVEL_UP_CARD,
+  DROP_MINER,
+  PROJECT_DROP_SLOTS,
+  DROP_PROJECT,
+  CHANGE_PROJECT_STATE,
+  ADD_LOCATION_SLOTS,
+  ADD_ASSET_SLOTS,
+  ADD_EXPERIENCE,
+  GP_LOCATION_MAIN,
+  SWITCH_IN_GAMEPLAY_VIEW,
+  GP_NO_NICKNAME,
+  PLAY_TURN,
+  REMOVE_CARD,
+  SUBMIT_NICKNAME_SUCCESS,
+  GP_NO_LOCATIONS,
+  RETURN_CARD,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 
@@ -111,7 +132,11 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, locations: payload };
 
     case SWITCH_IN_GAMEPLAY_VIEW:
-      return { ...state, inGameplayView: payload.viewType, activeContainerIndex: payload.containerIndex };
+      return {
+        ...state,
+        inGameplayView: payload.viewType,
+        activeContainerIndex: payload.containerIndex
+      };
 
     case PLAY_TURN:
       return {
@@ -129,6 +154,15 @@ export default (state = INITIAL_STATE, action) => {
         cards: action.cards,
         globalStats: action.globalStats,
         gameplayView: action.gameplayView,
+      };
+
+    case RETURN_CARD:
+      return {
+        ...state,
+        cards: [
+          ...state.cards,
+          action.card,
+        ],
       };
 
     case SUBMIT_NICKNAME_SUCCESS:

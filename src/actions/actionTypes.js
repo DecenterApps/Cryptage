@@ -72,6 +72,7 @@ export const ADD_EXPERIENCE = 'add_experience';
 export const SWITCH_IN_GAMEPLAY_VIEW = 'switch_in_gameplay_view';
 export const PLAY_TURN = 'play_turn';
 export const REMOVE_CARD = 'remove_card';
+export const RETURN_CARD = 'return_card';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
