@@ -752,7 +752,8 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex === undefined) {
     returnedCards.push(_locations[locationIndex].lastDroppedItem.cards[0]);
-    _locations[locationIndex].lastDroppedItem.accepts = acceptedLocationDropIds;
+    _locations[locationIndex].accepts = acceptedLocationDropIds;
+    console.log(acceptedLocationDropIds);
     _locations[locationIndex].lastDroppedItem = null;
   }
   if (locationIndex === gameplay.activeLocationIndex && containerIndex === undefined) {
