@@ -720,6 +720,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   const returnedCards = [];
   let currentItem;
   let totalDev = 0;
+  let totalPower = 0;
   if (item.dropSlots) {
     for (let i = 0; i < item.dropSlots.length; i += 1) {
       currentItem = item.dropSlots[i].lastDroppedItem;
@@ -738,6 +739,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       }
 
       if (currentItem !== null && currentItem.dropSlots === undefined) {
+        if (currentItem.cards[0].stats.type === 'Mining') {
+          totalPower -= currentItem.cards[0].stats.cost.power;
+        }
         returnedCards.push(currentItem.cards[0]);
       }
     }
@@ -774,7 +778,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       .dropSlots[containerIndex].lastDroppedItem
       .dropSlots[containerSlotIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex === undefined) {
-    let power = 0;
+    let power = totalPower;
     const { space } = item.cards[0].stats.cost;
     if (item.cards[0].stats.bonus) power = item.cards[0].stats.bonus.power || 0;
     returnedCards.push(_locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards[0]);
