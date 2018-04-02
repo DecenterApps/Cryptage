@@ -4,7 +4,7 @@ import { log } from './utils';
 
 const deckSize = 8;
 
-const fetchCardStats = (id) => {
+export const fetchCardStats = (id) => {
   if (cardStats.cards[id.toString()]) {
     const stats = { ...cardStats.cards[id.toString()] };
     stats.typeIndex = cardStats.cardTypes.findIndex(cardType => cardType === stats.type);

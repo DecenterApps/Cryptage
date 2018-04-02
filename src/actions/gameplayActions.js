@@ -14,7 +14,6 @@ import {
   DROP_PROJECT,
   CHANGE_PROJECT_STATE,
   ADD_LOCATION_SLOTS,
-  LOCATION_DROP_SLOTS,
   ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
   PLAY_TURN, UPDATE_GLOBAL_VALUES,
@@ -27,7 +26,7 @@ import {
   acceptedProjectDropIds,
   RETURN_CARD,
 } from './actionTypes';
-import cardService from '../services/cardService';
+import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
 import {
   checkIfCanPlayCard, getLevelValuesForCard, getSlotForContainer,
@@ -50,6 +49,19 @@ export const changeGameplayView = payload => (dispatch, getState) => {
 };
 
 /**
+ * gets Garage, Computer case and CPU because
+ * every played gets those cards for free
+ */
+const getOnboardingCards = async () => {
+  const cardTypes = [0, 6, 9];
+  return cardTypes.map((metadataId, index) => ({
+    id: -index,
+    stats: fetchCardStats(metadataId),
+    metadata: { id: metadataId.toString() },
+  }));
+};
+
+/**
  * Gets user cards from contract and crosschecks
  * if any of those cards were played
  *
@@ -59,12 +71,15 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
   dispatch({ type: USERS_CARDS_FETCH });
   try {
     const cardsIDs = await ethService.getUsersCards();
-    const cards = await cardService.fetchCardsMeta(cardsIDs);
+    let cards = await cardService.fetchCardsMeta(cardsIDs);
+
+    const onboardingCards = await getOnboardingCards();
+    cards = [...cards, ...onboardingCards];
 
     dispatch({
       type: USERS_CARDS_SUCCESS,
       allCards: cards,
-      cards: removePlayedCards(cards, getState)
+      cards: removePlayedCards(cards, getState),
     });
   } catch (error) {
     dispatch({ type: USERS_CARDS_ERROR, error });
