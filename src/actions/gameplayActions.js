@@ -240,7 +240,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
       lastDroppedItem: {
         level: 1,
         canLevelUp: false,
-        values: item.card.stats.values,
+        values: { ...item.card.stats.values },
         cards: [{ ...item.card, index }],
         isActive: true,
         isFinished: false,
