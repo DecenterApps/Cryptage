@@ -1313,6 +1313,7 @@ export const calculateLevelData = (experience) => {
  */
 export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _globalStats) => {
   const globalStats = { ..._globalStats };
+  let bonus = 0;
 
   const playedDevCards = locations[activeLocationIndex].lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
     lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Development'
@@ -1323,11 +1324,15 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
     // this is because of the hacker card
     if (!stats.bonus || (stats.bonus && !stats.bonus.development)) return;
 
-    globalStats.development += ((stats.bonus.development / 100) * item.card.stats.bonus.development);
+    bonus += ((stats.bonus.development / 100) * item.card.stats.bonus.development);
   });
 
-  globalStats.development = Math.floor(globalStats.development);
+  bonus = Math.floor(bonus);
+  globalStats.development = Math.floor(globalStats.development + bonus);
 
-  return globalStats;
+  return {
+    globalStats,
+    bonus,
+  };
 };
 

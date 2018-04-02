@@ -63,31 +63,6 @@ export default ({
                 </div>
               ))
             }
-            {/*{*/}
-            {/*boosters.map(item => (*/}
-            {/*<div className="flip-container" key={item.id}>*/}
-
-            {/*<div className="flipper booster">*/}
-            {/*<div className="front" style={{ backgroundImage: `url(${bg})` }}>*/}
-            {/*<p className="booster-text-gradient">BOOSTER</p>*/}
-
-            {/*{item.revealing &&*/}
-            {/*<span>Revealing booster <Spinner color="white" size={2} /></span>}*/}
-            {/*</div>*/}
-            {/*<div className="back" style={{ backgroundImage: `url(${bgBack})` }}>*/}
-            {/*<button*/}
-            {/*disabled={item.revealing}*/}
-            {/*onClick={() => this.props.revealBooster(item.id)}*/}
-            {/*className="booster-reveal"*/}
-            {/*>*/}
-            {/*{!item.revealing && 'Reveal'}*/}
-            {/*{item.revealing && 'revealing booster'}*/}
-            {/*</button>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*</div>*/}
-            {/*))*/}
-            {/*}*/}
           </div>
         }
       </div>
@@ -99,7 +74,7 @@ export default ({
         <img
           src={ethCircle}
           alt="Ethereum logo circle"
-        /> ETH {parseFloat(accountBalance).toFixed(2)}
+        /> ETH 0.01
       </div>
     </div>
   );

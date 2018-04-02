@@ -74,7 +74,6 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     let cards = await cardService.fetchCardsMeta(cardsIDs);
 
     const onboardingCards = await getOnboardingCards();
-    console.log('onboardingCards', onboardingCards);
     cards = [...cards, ...onboardingCards];
 
     dispatch({
@@ -287,7 +286,6 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects, globalStats } = getState().gameplay;
   const alteredProjects = [...projects];
-  console.log(card);
 
   if (!checkIfCanPlayCard(card.stats, globalStats)) return;
 
@@ -323,8 +321,6 @@ export const removeProject = (card, index) => (dispatch, getState) => {
 
   alteredProjects[index].accepts = acceptedProjectDropIds;
   alteredProjects[index].lastDroppedItem = null;
-
-  console.log(card, index);
 
   dispatch({
     type: CHANGE_PROJECT_STATE,
@@ -393,12 +389,14 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const slotItem = locationSlots[index].lastDroppedItem;
 
   if (!slotItem) {
-    locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex);
-
+    let special;
     // handle special cards drop
     if (item.card.metadata.id === '23') {
-      globalStats = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
+      const minerEffect = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
+      globalStats = minerEffect.globalStats;
+      special = minerEffect.bonus;
     }
+    locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
   } else {
     // TODO put in separate function
     // handle asset level up here
@@ -730,6 +728,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
         if (currentItem.cards[0].stats.type === 'Development') {
           totalDev += currentItem.cards[0].stats.bonus.development;
         }
+        if (currentItem.cards[0].metadata.id === '23') {
+          totalDev += currentItem.special;
+        }
         returnedCards.push(currentItem.cards[0]);
       }
       if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
@@ -741,6 +742,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       }
     }
   } else {
+    if (item.cards[0].metadata.id === '23') {
+      totalDev += item.special;
+    }
     if (item.cards[0].stats.type === 'Development') {
       totalDev += item.cards[0].stats.bonus.development;
     }
@@ -781,7 +785,6 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   } else if (locationIndex !== undefined && containerIndex === undefined) {
     returnedCards.push(_locations[locationIndex].lastDroppedItem.cards[0]);
     _locations[locationIndex].accepts = acceptedLocationDropIds;
-    console.log(acceptedLocationDropIds);
     _locations[locationIndex].lastDroppedItem = null;
   }
   if (locationIndex === gameplay.activeLocationIndex && containerIndex === undefined) {

@@ -242,7 +242,7 @@ export const saveGameplayState = (getState) => {
  * @param {Number} activeLocationIndex
  * @return {Array}
  */
-export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex) => {
+export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex, special) => {
   const addSlot = containerIds.includes(item.card.metadata.id);
 
   const locationSlots = update(_locationSlots, {
@@ -254,6 +254,7 @@ export const updateLocationDropSlotItems = (_locationSlots, index, item, _locati
           canLevelUp: false,
           cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }],
           dropSlots: addSlot ? getSlotForContainer(item.card.metadata.id, item.card.stats.values.space) : null,
+          special,
         },
       },
     },

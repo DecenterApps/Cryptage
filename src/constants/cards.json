@@ -320,7 +320,8 @@
       "unique": true,
       "cost": {
         "funds": 1000,
-        "level": 1
+        "level": 1,
+        "space": 10
       },
       "bonus": {
         "funds": 1
@@ -335,7 +336,8 @@
       "unique": true,
       "cost": {
         "funds": 20,
-        "level": 1
+        "level": 1,
+        "space": 10
       },
       "bonus": {
         "development": 10

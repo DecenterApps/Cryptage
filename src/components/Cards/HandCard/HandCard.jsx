@@ -127,12 +127,12 @@ const HandCard = ({
               {formatBigNumber(card.stats.cost.level, true)}
             </div>
           }
-          {
-            card.stats.cost.time &&
-            <div className={`circle yellow ${classForNumber(card.stats.cost.time)}`}>
-              {formatBigNumber(card.stats.cost.time, true)}
-            </div>
-          }
+          {/*{*/}
+            {/*card.stats.cost.time &&*/}
+            {/*<div className={`circle yellow ${classForNumber(card.stats.cost.time)}`}>*/}
+              {/*{formatBigNumber(card.stats.cost.time, true)}*/}
+            {/*</div>*/}
+          {/*}*/}
           {
             card.stats.cost.development &&
             <div className={`circle red ${classForNumber(card.stats.cost.development)}`}>
