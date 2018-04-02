@@ -8,7 +8,7 @@ import UnavailableDropIcon from '../../Decorative/UnavailableDropIcon';
 import './EmptyCardSlot.scss';
 
 const EmptyCardSlot = ({
-  card, globalStats, activeLocation, acceptedType, activeContainerIndex,
+  card, globalStats, activeLocation, acceptedType, activeContainerIndex, index,
 }) => {
   let canDrop = false;
   let goodCardType = false;
@@ -20,7 +20,7 @@ const EmptyCardSlot = ({
 
     // for miners you need to check if the container drop slot accepts that certain miner
     if (acceptedType === 'mining') {
-      const { accepts } = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots[0];
+      const { accepts } = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots[index];
       const goodSlotType = accepts.includes(card.metadata.id);
 
       goodCardType = goodSlotType && type === 'Mining';
@@ -50,6 +50,7 @@ const EmptyCardSlot = ({
 
 EmptyCardSlot.defaultProps = {
   card: null,
+  index: 0,
 };
 
 EmptyCardSlot.propTypes = {
@@ -58,6 +59,7 @@ EmptyCardSlot.propTypes = {
   activeLocation: PropTypes.object.isRequired,
   acceptedType: PropTypes.string.isRequired,
   activeContainerIndex: PropTypes.number.isRequired,
+  index: PropTypes.number,
 };
 
 const mapStateToProps = ({ gameplay }) => ({

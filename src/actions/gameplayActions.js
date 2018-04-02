@@ -751,8 +751,20 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
 
   if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex !== undefined) {
     const { power } = item.cards[0].stats.cost;
+    let accepts = [];
+    const id = parseInt(_locations[locationIndex].lastDroppedItem
+      .dropSlots[containerIndex].lastDroppedItem.cards[0].metadata.id, 10);
     returnedCards.push(item.cards[0]);
+    // Computer Case only accepts CPU and Graphics card
+    if (id === 6) accepts = ['9', '10'];
+    // Mining Rig only accepts Graphics card
+    if (id === 7) accepts = ['10'];
+    // ASIC Mount only accepts ASIC miner
+    if (id === 8) accepts = ['11'];
     _locations[locationIndex].lastDroppedItem.values.power += power;
+    _locations[locationIndex].lastDroppedItem
+      .dropSlots[containerIndex].lastDroppedItem
+      .dropSlots[containerSlotIndex].accepts = accepts;
     _locations[locationIndex].lastDroppedItem
       .dropSlots[containerIndex].lastDroppedItem
       .dropSlots[containerSlotIndex].lastDroppedItem = null;
