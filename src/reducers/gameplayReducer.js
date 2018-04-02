@@ -27,6 +27,7 @@ import {
   RETURN_CARD,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
+import config from '../constants/config.json';
 
 const INITIAL_STATE = {
   nickname: '',
@@ -40,12 +41,12 @@ const INITIAL_STATE = {
   activeContainerIndex: 0,
   playedTurns: [],
   globalStats: {
-    level: 10,
-    experience: 0,
+    level: config.globalStats.level,
+    experience: config.globalStats.experience,
     earnedXp: 0,
     requiredXp: 16,
-    funds: 10000,
-    development: 10000,
+    funds: config.globalStats.funds,
+    development: config.globalStats.development,
   },
 };
 
