@@ -31,7 +31,7 @@ const HandCard = ({
     mining: ['#75341F', 'rgba(117, 52, 30, 0.57)'],
     container: ['#4A7420', 'rgba(74, 116, 32, 0.41)'],
   };
-
+  console.log(card.stats.type.toLowerCase());
   return (
     <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
       <HoverInfo card={card} center={hoverCentered} />
@@ -53,6 +53,7 @@ const HandCard = ({
           // TODO Level is hardcoded to 1
         }
       </div>
+      <div className="overlay" />
       <svg className="card-image">
         <defs>
           <pattern

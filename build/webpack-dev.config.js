@@ -2,15 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-const compareConfig = require('./compareConfig');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-
-Promise.resolve(compareConfig.compareConfig())
-  .catch((error) => {
-    console.log("\x1b[31m", error);
-    process.exit(1);
-  });
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',

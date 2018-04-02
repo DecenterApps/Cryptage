@@ -61,7 +61,10 @@
         box-shadow: 0px 1px 18px rgba(26, 18, 46, 0.6);
       }
       .description {
-        padding: 20px 5px;
+        padding: 5px;
+        p {
+          margin: 10px 0;
+        }
       }
     }
   }
