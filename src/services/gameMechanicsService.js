@@ -1116,9 +1116,9 @@ export const getSlotForContainer = (_id, space) => {
   // Computer Case only accepts CPU and Graphics card
   if (id === 6) accepts = ['9', '10'];
   // Mining Rig only accepts Graphics card
-  if (id === 7) accepts = ['9'];
+  if (id === 7) accepts = ['10'];
   // ASIC Mount only accepts ASIC miner
-  if (id === 8) accepts = ['8'];
+  if (id === 8) accepts = ['11'];
 
   for (let i = 0; i < space; i += 1) slots.push({ accepts, lastDroppedItem: null, slotType: 'container_slot' });
   return slots;
