@@ -55,7 +55,7 @@ export const changeGameplayView = payload => (dispatch, getState) => {
 const getOnboardingCards = async () => {
   const cardTypes = [0, 6, 9];
   return cardTypes.map((metadataId, index) => ({
-    id: -index,
+    id: index - 3,
     stats: fetchCardStats(metadataId),
     metadata: { id: metadataId.toString() },
   }));
@@ -74,6 +74,7 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     let cards = await cardService.fetchCardsMeta(cardsIDs);
 
     const onboardingCards = await getOnboardingCards();
+    console.log('onboardingCards', onboardingCards);
     cards = [...cards, ...onboardingCards];
 
     dispatch({
