@@ -73,6 +73,7 @@ export const SWITCH_IN_GAMEPLAY_VIEW = 'switch_in_gameplay_view';
 export const PLAY_TURN = 'play_turn';
 export const REMOVE_CARD = 'remove_card';
 export const RETURN_CARD = 'return_card';
+export const UPDATE_FUNDS_PER_BLOCK = 'update_funds_per_block';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';

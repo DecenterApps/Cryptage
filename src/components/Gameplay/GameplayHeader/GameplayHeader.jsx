@@ -9,7 +9,7 @@ import shape1 from './header-shape-1.png';
 
 import './GameplayHeader.scss';
 
-const GameplayHeader = ({ blockNumber, globalStats, nickname }) => (
+const GameplayHeader = ({ blockNumber, globalStats, nickname, fundsPerBlock }) => (
   <div className="gameplay-header-wrapper">
     <div className="gameplay-header-content">
 
@@ -59,12 +59,19 @@ const GameplayHeader = ({ blockNumber, globalStats, nickname }) => (
             </div>
           </div>
 
-          <div className="stats-wrapper">
+          <div className="stats-wrapper funds-stats">
             <img src={fundsCircle} alt="Funds icon circle" />
 
             <div className="meta-wrapper">
-              <div className="count">{ globalStats.funds }</div>
-              <div className="label">Funds</div>
+              <div className="count">
+                <div>{ globalStats.funds }</div>
+                <div className="label">Funds</div>
+              </div>
+
+              <div className="fpb">
+                +{ fundsPerBlock }
+                <span>FPB</span>
+              </div>
             </div>
           </div>
         </div>
@@ -79,12 +86,14 @@ GameplayHeader.propTypes = {
   blockNumber: PropTypes.number.isRequired,
   globalStats: PropTypes.object.isRequired,
   nickname: PropTypes.string.isRequired,
+  fundsPerBlock: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
   blockNumber: app.blockNumber,
   globalStats: gameplay.globalStats,
   nickname: gameplay.nickname,
+  fundsPerBlock: gameplay.fundsPerBlock,
 });
 
 export default connect(mapStateToProps)(GameplayHeader);

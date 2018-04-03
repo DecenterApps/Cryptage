@@ -1,4 +1,9 @@
-import { UPDATE_GLOBAL_VALUES, CHANGE_PROJECT_STATE, ADD_EXPERIENCE } from '../actions/actionTypes';
+import {
+  UPDATE_GLOBAL_VALUES,
+  CHANGE_PROJECT_STATE,
+  ADD_EXPERIENCE,
+  UPDATE_FUNDS_PER_BLOCK,
+} from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
 import { getLevelValuesForCard, calculateLevelData } from '../services/gameMechanicsService';
 
@@ -11,6 +16,7 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
   const { gameplay } = getState();
   const locations = [...gameplay.locations];
   const globalStats = { ...gameplay.globalStats };
+  let miningFunds = 0;
 
   const containerCards = _cards.filter(_card => _card.stats.type === 'Container');
 
@@ -21,10 +27,14 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
       .filter(containerSlot => containerSlot.lastDroppedItem)
       .map(container => container.lastDroppedItem.cards[0]);
 
-    minerCards.forEach((minerCard) => { globalStats.funds += minerCard.stats.bonus.funds; });
+    minerCards.forEach((minerCard) => {
+      miningFunds += minerCard.stats.bonus.funds;
+      globalStats.funds += minerCard.stats.bonus.funds;
+    });
   });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  return miningFunds;
 };
 
 /**
@@ -37,6 +47,7 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
   const { gameplay } = getState();
   const locations = [...gameplay.locations];
   const globalStats = { ...gameplay.globalStats };
+  let gridConnectorsFunds = 0;
 
   const connectorCards = _cards.filter(_card => _card.metadata.id === '22');
 
@@ -44,11 +55,14 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
     const cardLocation = locations[locationIndex].lastDroppedItem;
     const { power } = cardLocation.values;
     const { funds } = cardLocation.dropSlots[slotIndex].lastDroppedItem.cards[0].stats.bonus;
+    const total = (power * funds);
 
-    globalStats.funds += (power * funds);
+    gridConnectorsFunds += total;
+    globalStats.funds += total;
   });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  return gridConnectorsFunds;
 };
 
 /**
@@ -58,12 +72,17 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
  */
 const addFundsForDroppedHacker = _cards => (dispatch, getState) => {
   const globalStats = { ...getState().gameplay.globalStats };
+  let hackersFunds = 0;
 
   const hackerCards = _cards.filter(_card => _card.metadata.id === '18');
 
-  hackerCards.forEach(({ stats }) => { globalStats.funds += stats.bonus.funds; });
+  hackerCards.forEach(({ stats }) => {
+    hackersFunds += stats.bonus.funds;
+    globalStats.funds += stats.bonus.funds;
+  });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  return hackersFunds;
 };
 
 /**
@@ -74,9 +93,15 @@ const addFundsForDroppedHacker = _cards => (dispatch, getState) => {
  */
 export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
   console.log('All Played cards', cards);
-  dispatch(addFundsForDroppedMiningRigs(cards));
-  dispatch(addFundsForDroppedGridConnectors(cards));
-  dispatch(addFundsForDroppedHacker(cards));
+
+  const miningFunds = dispatch(addFundsForDroppedMiningRigs(cards));
+  const gridConnectorsFunds = dispatch(addFundsForDroppedGridConnectors(cards));
+  const hackersFunds = dispatch(addFundsForDroppedHacker(cards));
+
+  const total = miningFunds + gridConnectorsFunds + hackersFunds;
+
+  if (total !== getState().gameplay.fundsPerBlock) dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: total });
+
   saveGameplayState(getState);
 };
 
@@ -128,4 +153,6 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     });
     saveGameplayState(getState);
   }
+
+  return receivedFunds;
 };

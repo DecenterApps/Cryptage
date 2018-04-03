@@ -25,6 +25,7 @@ import {
   SUBMIT_NICKNAME_SUCCESS,
   GP_NO_LOCATIONS,
   RETURN_CARD,
+  UPDATE_FUNDS_PER_BLOCK,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -32,6 +33,7 @@ import config from '../constants/config.json';
 const INITIAL_STATE = {
   nickname: '',
   lastSavedStateBlock: 0,
+  fundsPerBlock: 0,
   gameplayView: GP_NO_NICKNAME,
   inGameplayView: GP_LOCATION_MAIN,
   allCards: [],
@@ -169,6 +171,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case SUBMIT_NICKNAME_SUCCESS:
       return { ...state, nickname: payload, gameplayView: GP_NO_LOCATIONS };
+
+    case UPDATE_FUNDS_PER_BLOCK:
+      return { ...state, fundsPerBlock: payload };
 
     default:
       return state;

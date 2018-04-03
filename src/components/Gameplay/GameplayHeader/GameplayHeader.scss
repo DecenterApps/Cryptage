@@ -19,7 +19,6 @@
 
       .stats-container {
         display: flex;
-
       }
 
       .stats-wrapper {
@@ -33,6 +32,27 @@
           margin-left: 60px;
         }
 
+        &.funds-stats {
+          align-items: flex-start;
+
+          .label {
+            margin-left: 4px;
+          }
+
+          .fpb {
+            position: absolute;
+            display: flex;
+            font-size: 10px;
+            top: 33px;
+            color: $yellow;
+
+            span {
+              font-size: 8px;
+              margin-left: 4px;
+            }
+          }
+        }
+
         img {
           margin-right: 7px;
           width: 26px;
@@ -44,6 +64,8 @@
 
           .count {
             font-size: 16px;
+            display: flex;
+            align-items: baseline;
           }
           .label {
             font-size: 8px;
