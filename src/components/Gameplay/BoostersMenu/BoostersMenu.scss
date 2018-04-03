@@ -174,33 +174,13 @@
         }
       }
 
-      .remaining {
+      .blocks-loading-bar {
         width: 108px;
         margin: auto;
         position: absolute;
         bottom: 24px;
         left: 0;
         right: 0;
-        div {
-          background-color: black;
-          height: 2px;
-          position: relative;
-          &._0 {
-            background-color: #62FB47;
-          }
-          &._1 {
-            background-color: #FAFB51;
-          }
-          &._2 {
-            background-color: #FB9B3D;
-          }
-          &._3 {
-            background-color: #F95D34;
-          }
-          &._4 {
-            background-color: #F91628;
-          }
-        }
       }
 
       &.booster-right {
@@ -215,7 +195,7 @@
           width: 140px;
         }
 
-        .remaining {
+        .blocks-loading-bar {
           width: 98px;
         }
       }
@@ -232,7 +212,7 @@
           width: 140px;
         }
 
-        .remaining {
+        .blocks-loading-bar {
           width: 98px;
         }
       }

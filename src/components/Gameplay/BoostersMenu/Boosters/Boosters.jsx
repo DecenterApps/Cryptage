@@ -7,6 +7,7 @@ import ethCircle from '../../GameplayHeader/eth-circle.png';
 import bgLeft from '../assets/bg-left.png';
 import bgMiddle from '../assets/bg-middle.png';
 import bgRight from '../assets/bg-right.png';
+import BlocksLoadingBar from '../../../BlocksLoadingBar/BlocksLoadingBar';
 
 export default ({
   boosters,
@@ -54,12 +55,12 @@ export default ({
                   >
                     Open
                   </button>
-                  <div className="remaining">
-                    <div
-                      className={`_${Math.floor((currentBlock - item.blockNumber) / 51)}`}
-                      style={{ width: `${(currentBlock - item.blockNumber) / 2.55}%` }}
-                    />
-                  </div>
+
+                  <BlocksLoadingBar
+                    currentBlock={currentBlock}
+                    width={255}
+                    blockNumber={parseInt(item.blockNumber, 10)}
+                  />
                 </div>
               ))
             }
