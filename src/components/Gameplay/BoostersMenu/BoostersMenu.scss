@@ -4,7 +4,7 @@
 
 .booster-store-wrapper {
   position: relative;
-  width: 566px;
+  width: 626px;
   flex-grow: 1;
   margin: 25px auto 0 auto;
   background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
@@ -62,7 +62,7 @@
 
   .booster-text-gradient {
     font-family: $font-secondary;
-    font-size: 17px;
+    font-size: 16px;
     background: linear-gradient(to bottom, $yellow 0%, rgba(255, 157, 20, 0.23) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -84,10 +84,28 @@
     cursor: pointer;
     outline: none;
     margin: 0 0 11px 0;
+    width: auto;
+
+    &.button-buying {
+      border: none;
+      background: none;
+      div {
+        display: inline;
+        margin-right: 10px;
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 
   .booster-store-body {
     text-align: center;
+    height: 400px;
+    overflow: auto;
   }
 
   .boosters-wrapper {
@@ -98,14 +116,28 @@
     margin: 0;
   }
 
+  .reveal-done-button {
+    margin: 0 auto;
+  }
+
+
   .revealed-cards {
     display: flex;
-    overflow-x: auto;
     padding: 10px 25px 25px 25px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 
     .revealed-card {
       display: inline-block;
-      margin-right: 39px;
+      margin-right: 18px;
+      width: 145px;
+      height: 252px;
+      margin-bottom: 30px;
+
+      img {
+        width: 145px;
+        height: 252px;
+      }
     }
   }
 
@@ -214,6 +246,9 @@
 
         .blocks-loading-bar {
           width: 98px;
+        }
+        .booster-placeholder {
+          font-size: 14px;
         }
       }
 

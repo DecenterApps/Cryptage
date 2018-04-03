@@ -34,18 +34,10 @@ export default ({
                 <div>Loading</div>
               </span>
             }
-            {
-              (isBuying || isRevealing) &&
-              <span className="circle-loader-wrapper">
-                <CircleSpinner />
-                <div>{isBuying ? 'Buying' : 'Revealing'}</div>
-                <div>booster</div>
-              </span>
-            }
             <img src={bgEmpty} alt="" />
             {
               !isFetching &&
-              <p className="booster-empty-text">You <br /> don&apos;t <br /> have any boosters</p>
+              <p className="booster-empty-text">You <br /> don&apos;t <br /> have any card packs.</p>
             }
           </div>
         </div>
@@ -58,15 +50,15 @@ export default ({
               boosters.slice(0, 3).map((item, i) => (
                 <div className={`booster ${classes[i]}`} key={item.id}>
                   {
-                    i === 0 && (isBuying || isRevealing) &&
+                    i === 0 && (isRevealing) &&
                     <span className="circle-loader-wrapper">
                       <CircleSpinner />
-                      <div>{isBuying ? 'Buying' : 'Revealing'}</div>
+                      <div>Revealing</div>
                       <div>booster</div>
                     </span>
                   }
                   <img src={images[i]} alt="" />
-                  <p className="booster-placeholder booster-text-gradient">Booster</p>
+                  <p className="booster-placeholder booster-text-gradient">Card pack</p>
                   <button
                     onClick={() => revealBooster(item.id)}
                     className="open-booster-placeholder booster-text-gradient"
@@ -85,8 +77,14 @@ export default ({
           </div>
         }
       </div>
-      <button className="orange-button booster-button" onClick={buyBoosterPack}>BUY
-        BOOSTER
+      <button
+        disabled={isBuying}
+        className={`orange-button booster-button ${isBuying && 'button-buying'}`}
+        onClick={buyBoosterPack}
+      >
+        {
+          isBuying ? <span><CircleSpinner />Buying card pack...</span> : 'BUY CARD PACK'
+        }
       </button>
 
       <div className="shop-funds">

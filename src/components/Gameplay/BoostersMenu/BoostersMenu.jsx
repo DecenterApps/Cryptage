@@ -61,6 +61,7 @@ class BoostersMenu extends React.Component {
         {
           isReveal &&
           <Reveal
+            exitBoosterView={this.exitBoosterView}
             revealedCards={revealedCards}
           />
         }
