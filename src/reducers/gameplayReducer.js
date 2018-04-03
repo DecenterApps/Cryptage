@@ -31,6 +31,7 @@ import config from '../constants/config.json';
 
 const INITIAL_STATE = {
   nickname: '',
+  lastSavedStateBlock: 0,
   gameplayView: GP_NO_NICKNAME,
   inGameplayView: GP_LOCATION_MAIN,
   allCards: [],
