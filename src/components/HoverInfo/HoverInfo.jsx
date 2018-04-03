@@ -151,7 +151,13 @@ const HoverInfo = ({ card, center }) => (
         <div className="meta-inner">
           <div className="title">{card.stats.title}</div>
           <div className="description">
-            {card.stats.description}
+            <p>"{card.stats.flavorText}"</p>
+            {
+              card.stats.mechanicsText &&
+              <p>
+                {card.stats.mechanicsText}
+              </p>
+            }
           </div>
         </div>
       </div>
