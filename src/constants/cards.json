@@ -294,7 +294,8 @@
     "23": {
       "ID": "23",
       "bonus": {
-        "funds": 10
+        "funds": 10,
+        "development": 10
       },
       "cost": {
         "funds": 1000,

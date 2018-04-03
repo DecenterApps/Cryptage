@@ -10,7 +10,7 @@ export default ({ revealedCards }) => {
       <div className="revealed-cards">
         {
           revealedCards.map(card => (
-            <div className="revealed-card">
+            <div className="revealed-card" key={card.id}>
               <div
                 className="flip-container"
                 onClick={(e) => e.currentTarget.classList.toggle('hover')}

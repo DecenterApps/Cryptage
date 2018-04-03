@@ -80,7 +80,7 @@ export const revealRequest = (_id, _boosters) => {
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
   boosters[boosterIndex].revealing = true;
 
-  return { type: REVEAL_REQUEST, boosters };
+  return { type: REVEAL_REQUEST, boosters, isRevealing: true };
 };
 
 export const revealSuccess = (allCards, revealedCards, _id, _boosters, getState) => {
@@ -94,6 +94,7 @@ export const revealSuccess = (allCards, revealedCards, _id, _boosters, getState)
     cards,
     boosters,
     revealedCards,
+    isRevealing: false,
   };
 };
 

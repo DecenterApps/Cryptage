@@ -15,6 +15,7 @@ import {
 const INITIAL_STATE = {
   isFetching: false,
   isBuying: false,
+  isRevealing: false,
   boosters: [],
   revealedCards: [],
   error: '',
@@ -58,17 +59,20 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         boosters: action.boosters,
+        isRevealing: action.isRevealing,
       };
     case REVEAL_SUCCESS:
       return {
         ...state,
         boosters: action.boosters,
         revealedCards: action.revealedCards,
+        isRevealing: action.isRevealing,
       };
     case REVEAL_ERROR:
       return {
         ...state,
         error: action.error,
+        isRevealing: action.isRevealing,
       };
     case CHANGE_GAMEPLAY_VIEW:
     case SWITCH_IN_GAMEPLAY_VIEW:

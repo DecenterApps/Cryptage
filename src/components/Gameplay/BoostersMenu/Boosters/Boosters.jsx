@@ -12,6 +12,8 @@ import BlocksLoadingBar from '../../../BlocksLoadingBar/BlocksLoadingBar';
 export default ({
   boosters,
   isFetching,
+  isBuying,
+  isRevealing,
   revealBooster,
   accountBalance,
   buyBoosterPack,
@@ -23,22 +25,30 @@ export default ({
     <div className="booster-store-body">
       <div className="boosters-wrapper">
         {(boosters.length === 0) &&
-          <div className="boosters">
-            <div className="booster booster-middle">
-              {
-                isFetching &&
-                <span className="circle-loader-wrapper">
-                  <CircleSpinner />
-                  <div>Loading</div>
-                </span>
-              }
-              <img src={bgEmpty} alt="" />
-              {
-                !isFetching &&
-                <p className="booster-empty-text">You <br /> don&apos;t <br /> have any boosters</p>
-              }
-            </div>
+        <div className="boosters">
+          <div className="booster booster-middle">
+            {
+              isFetching &&
+              <span className="circle-loader-wrapper">
+                <CircleSpinner />
+                <div>Loading</div>
+              </span>
+            }
+            {
+              (isBuying || isRevealing) &&
+              <span className="circle-loader-wrapper">
+                <CircleSpinner />
+                <div>{isBuying ? 'Buying' : 'Revealing'}</div>
+                <div>booster</div>
+              </span>
+            }
+            <img src={bgEmpty} alt="" />
+            {
+              !isFetching &&
+              <p className="booster-empty-text">You <br /> don&apos;t <br /> have any boosters</p>
+            }
           </div>
+        </div>
         }
 
         {
@@ -47,6 +57,14 @@ export default ({
             {
               boosters.slice(0, 3).map((item, i) => (
                 <div className={`booster ${classes[i]}`} key={item.id}>
+                  {
+                    i === 0 && (isBuying || isRevealing) &&
+                    <span className="circle-loader-wrapper">
+                      <CircleSpinner />
+                      <div>{isBuying ? 'Buying' : 'Revealing'}</div>
+                      <div>booster</div>
+                    </span>
+                  }
                   <img src={images[i]} alt="" />
                   <p className="booster-placeholder booster-text-gradient">Booster</p>
                   <button
