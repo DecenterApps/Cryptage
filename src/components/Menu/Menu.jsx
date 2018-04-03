@@ -38,7 +38,7 @@ class Menu extends Component {
             </button>
 
             {
-              lastSavedStateBlock &&
+              (lastSavedStateBlock !== 0) &&
               <BlocksLoadingBar currentBlock={currentBlock} width={65} blockNumber={blocksLeftToSave} />
             }
           </div>
