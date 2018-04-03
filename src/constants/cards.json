@@ -12,7 +12,7 @@
       "rarityScore": "750",
       "title": "Garage",
       "type": "Location",
-      "unique": true,
+      "unique": false,
       "values": {
         "power": 5,
         "space": 40
@@ -30,7 +30,7 @@
       "rarityScore": "375",
       "title": "Coworking Space",
       "type": "Location",
-      "unique": true,
+      "unique": false,
       "values": {
         "power": 12,
         "space": 60
@@ -53,7 +53,7 @@
       "rarityScore": "750",
       "title": "GPU",
       "type": "Mining",
-      "unique": true
+      "unique": false
     },
     "11": {
       "ID": "11",
@@ -66,13 +66,13 @@
         "power": 16,
         "space": 1
       },
-      "flavorText": "A truly efficient miner, from a more... profitable age.",
+      "flavorText": "A truly efficient miner, from a more profitable age.",
       "image": "asic-miner.jpg",
       "mechanicsText": "",
       "rarityScore": "750",
       "title": "ASIC Miner",
       "type": "Mining",
-      "unique": true
+      "unique": false
     },
     "12": {
       "ID": "12",
@@ -90,7 +90,7 @@
       "rarityScore": "750",
       "title": "Intern Programmer",
       "type": "Development",
-      "unique": true
+      "unique": false
     },
     "13": {
       "ID": "13",
@@ -108,7 +108,7 @@
       "rarityScore": "750",
       "title": "Junior Developer",
       "type": "Development",
-      "unique": true
+      "unique": false
     },
     "14": {
       "ID": "14",
@@ -126,7 +126,7 @@
       "rarityScore": "750",
       "title": "Freelance Consultant",
       "type": "Development",
-      "unique": true
+      "unique": false
     },
     "15": {
       "ID": "15",
@@ -144,7 +144,7 @@
       "rarityScore": "750",
       "title": "Senior Developer",
       "type": "Development",
-      "unique": true
+      "unique": false
     },
     "16": {
       "ID": "16",
@@ -162,7 +162,7 @@
       "rarityScore": "375",
       "title": "Techical Team Leader",
       "type": "Development",
-      "unique": true
+      "unique": false
     },
     "17": {
       "ID": "17",
@@ -180,7 +180,7 @@
       "rarityScore": "175",
       "title": "Project Architect",
       "type": "Development",
-      "unique": true
+      "unique": false
     },
     "18": {
       "ID": "18",
@@ -199,7 +199,7 @@
       "rarityScore": "375",
       "title": "Black Hat Hacker",
       "type": "Development",
-      "unique": true
+      "unique": false
     },
     "19": {
       "ID": "19",
@@ -217,7 +217,7 @@
       "rarityScore": "750",
       "title": "Solar Panels",
       "type": "Power",
-      "unique": true
+      "unique": false
     },
     "2": {
       "ID": "2",
@@ -231,7 +231,7 @@
       "rarityScore": "750",
       "title": "Shaggy Office",
       "type": "Location",
-      "unique": true,
+      "unique": false,
       "values": {
         "power": 20,
         "space": 100
@@ -253,7 +253,7 @@
       "rarityScore": "750",
       "title": "Black Market Batteries",
       "type": "Power",
-      "unique": true
+      "unique": false
     },
     "21": {
       "ID": "21",
@@ -271,7 +271,7 @@
       "rarityScore": "175",
       "title": "DIY Power Generator",
       "type": "Power",
-      "unique": true
+      "unique": false
     },
     "22": {
       "ID": "22",
@@ -294,7 +294,8 @@
     "23": {
       "ID": "23",
       "bonus": {
-        "funds": 10
+        "funds": 10,
+        "development": 10
       },
       "cost": {
         "funds": 1000,
@@ -326,7 +327,7 @@
       "rarityScore": "750",
       "title": "Outourced Project",
       "type": "Project",
-      "unique": true
+      "unique": false
     },
     "25": {
       "ID": "25",
@@ -346,7 +347,7 @@
       "rarityScore": "750",
       "title": "Profitable Đapp",
       "type": "Project",
-      "unique": true
+      "unique": false
     },
     "26": {
       "ID": "26",
@@ -366,7 +367,7 @@
       "rarityScore": "750",
       "title": "Mining Algorithm Optimization",
       "type": "Project",
-      "unique": true
+      "unique": false
     },
     "27": {
       "ID": "27",
@@ -386,7 +387,7 @@
       "rarityScore": "750",
       "title": "Initial Coin Offering",
       "type": "Project",
-      "unique": true
+      "unique": false
     },
     "28": {
       "ID": "28",
@@ -406,7 +407,7 @@
       "rarityScore": "350",
       "title": "Decentralized Protocol Development",
       "type": "Project",
-      "unique": true
+      "unique": false
     },
     "29": {
       "ID": "29",
@@ -426,7 +427,7 @@
       "rarityScore": "175",
       "title": "Consensus Improvement",
       "type": "Project",
-      "unique": true
+      "unique": false
     },
     "3": {
       "ID": "3",
@@ -440,7 +441,7 @@
       "rarityScore": "750",
       "title": "Downtown Office",
       "type": "Location",
-      "unique": true,
+      "unique": false,
       "values": {
         "power": 50,
         "space": 140
@@ -458,7 +459,7 @@
       "rarityScore": "750",
       "title": "Smart Office",
       "type": "Location",
-      "unique": true,
+      "unique": false,
       "values": {
         "power": 110,
         "space": 200
@@ -476,7 +477,7 @@
       "rarityScore": "375",
       "title": "Office Building",
       "type": "Location",
-      "unique": true,
+      "unique": false,
       "values": {
         "power": 230,
         "space": 240
@@ -495,7 +496,7 @@
       "rarityScore": "750",
       "title": "Computer Case",
       "type": "Container",
-      "unique": true,
+      "unique": false,
       "values": {
         "space": 2
       }
@@ -513,7 +514,7 @@
       "rarityScore": "750",
       "title": "Mining Rig",
       "type": "Container",
-      "unique": true,
+      "unique": false,
       "values": {
         "space": 4
       }
@@ -531,7 +532,7 @@
       "rarityScore": "750",
       "title": "ASIC Mount",
       "type": "Container",
-      "unique": true,
+      "unique": false,
       "values": {
         "space": 4
       }
@@ -553,7 +554,7 @@
       "rarityScore": "750",
       "title": "CPU",
       "type": "Mining",
-      "unique": true
+      "unique": false
     }
   },
   "cardTypes": ["Location", "Container", "Development", "Mining", "Project", "Power", "Misc", "Vanity"],

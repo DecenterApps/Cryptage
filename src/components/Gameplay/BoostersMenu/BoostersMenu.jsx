@@ -33,7 +33,7 @@ class BoostersMenu extends React.Component {
   }
 
   render() {
-    const { boosters, isBuying, isFetching, revealedCards } = this.props.shop;
+    const { boosters, isBuying, isFetching, revealedCards, isRevealing } = this.props.shop;
     const { accountBalance, revealBooster, buyBoosterPack, currentBlock } = this.props;
     const isReveal = revealedCards.length > 0;
 
@@ -49,6 +49,8 @@ class BoostersMenu extends React.Component {
           !isReveal &&
           <Boosters
             boosters={boosters}
+            isBuying={isBuying}
+            isRevealing={isRevealing}
             isFetching={isFetching}
             revealBooster={revealBooster}
             buyBoosterPack={buyBoosterPack}
@@ -73,6 +75,7 @@ BoostersMenu.propTypes = {
     revealedCards: PropTypes.array,
     isBuying: PropTypes.bool,
     isFetching: PropTypes.bool,
+    isRevealing: PropTypes.bool,
   }).isRequired,
   getBoosters: PropTypes.func.isRequired,
   buyBoosterPack: PropTypes.func.isRequired,
