@@ -66,3 +66,12 @@ $project-size: 50px;
   align-items: center;
   justify-content: center;
 }
+
+@mixin elementInAndOut {
+  animation: fadeinout 2s linear forwards;
+  opacity: 0;
+
+  @keyframes fadeinout {
+    50% { opacity: 1; }
+  }
+}

@@ -1,2 +1,18 @@
+@import "../../common/variables";
+@import "../../common/colors";
+
 .container-item-wrapper {
+  position: relative;
+
+  .fpb {
+    position: absolute;
+    bottom: 90px;
+    z-index: 20;
+    font-family: $font-secondary;
+    font-size: 12px;
+    color: $yellow;
+    text-shadow: 0 0 13px rgba(255, 157, 20, 0.7);
+
+    @include elementInAndOut;
+  }
 }
