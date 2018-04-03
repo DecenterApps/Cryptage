@@ -64,7 +64,6 @@ class GameplayItem extends Component {
 
         return acc;
       }, 0);
-      console.log('fpb', fpb);
     }
 
     return (

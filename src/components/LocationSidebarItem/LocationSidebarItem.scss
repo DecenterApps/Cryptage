@@ -12,6 +12,14 @@
     font-family: $font-secondary;
   }
 
+  .fpb {
+    position: absolute;
+    top: 2px;
+    right: -5px;
+
+    @include elementInAndOut;
+  }
+
   .hover-addons {
     display: none;
     position: absolute;
