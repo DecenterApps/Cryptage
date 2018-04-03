@@ -1324,7 +1324,7 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
     // this is because of the hacker card
     if (!stats.bonus || (stats.bonus && !stats.bonus.development)) return;
 
-    bonus += ((stats.bonus.development / 100) * item.card.stats.bonus.development);
+    bonus += ((stats.bonus.development / 100) * (item.card.stats.bonus.development || 0));
   });
 
   bonus = Math.floor(bonus);
