@@ -21,6 +21,9 @@ class ContainerItem extends Component {
     setTimeout(this.toggleFundsStat, 2000);
   }
 
+  /**
+   * Shows or hides funds stats per block
+   */
   toggleFundsStat() {
     this.setState({ show: !this.state.show });
   }
