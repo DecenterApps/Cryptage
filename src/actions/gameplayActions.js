@@ -24,7 +24,7 @@ import {
   acceptedLocationDropIds,
   acceptedAssetDropIds,
   acceptedProjectDropIds,
-  RETURN_CARD,
+  RETURN_CARD, GP_LOCATION, GP_NO_NICKNAME
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -824,4 +824,18 @@ export const submitNickname = ({ nickname }) => (dispatch) => {
  */
 export const saveStateToContract = () => () => {
   // Add call to the contract here
+};
+
+/**
+ * Used in shop and collections view to get back to game
+ */
+export const exitNotLocationsView = () => (dispatch, getState) => {
+  let toGoView = GP_LOCATION;
+  const { gameplay } = getState();
+  const locations = gameplay.locations.filter(({ lastDroppedItem }) => lastDroppedItem !== null);
+
+  if (locations.length === 0) toGoView = GP_NO_LOCATIONS;
+  if (!gameplay.nickname) toGoView = GP_NO_NICKNAME;
+
+  dispatch(changeGameplayView(toGoView));
 };

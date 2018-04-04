@@ -7,41 +7,30 @@ import HeaderBar from '../../HeaderBar/HeaderBar';
 import CloseIcon from '../../CloseIcon/CloseIcon';
 
 import { getBoosters, buyBoosterPack, revealBooster } from '../../../actions/boosterActions';
-import { changeGameplayView } from '../../../actions/gameplayActions';
+import { exitNotLocationsView } from '../../../actions/gameplayActions';
 
 import './BoostersMenu.scss';
-import { GP_LOCATION, GP_NO_LOCATIONS, GP_NO_NICKNAME } from '../../../actions/actionTypes';
 
 class BoostersMenu extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.exitBoosterView = this.exitBoosterView.bind(this);
-  }
-
   componentWillMount() {
     this.props.getBoosters();
   }
 
-  exitBoosterView() {
-    let toGoView = GP_LOCATION;
-
-    if (this.props.locations.length === 0) toGoView = GP_NO_LOCATIONS;
-    if (!this.props.nickname) toGoView = GP_NO_NICKNAME;
-
-    this.props.changeGameplayView(toGoView);
-  }
-
   render() {
-    const { boosters, isBuying, isFetching, revealedCards, isRevealing } = this.props.shop;
-    const { accountBalance, revealBooster, buyBoosterPack, currentBlock } = this.props;
+    const {
+      boosters, isBuying, isFetching, revealedCards, isRevealing,
+    } = this.props.shop;
+    const {
+      accountBalance, revealBooster, buyBoosterPack, currentBlock,
+      exitNotLocationsView,
+    } = this.props;
     const isReveal = revealedCards.length > 0;
 
     return (
       <div className="booster-store-wrapper">
         <HeaderBar title={isReveal ? 'Open' : 'BUY'} color="#FF9D14" fontSize="13px" />
 
-        <div onClick={this.exitBoosterView}>
+        <div onClick={exitNotLocationsView}>
           <CloseIcon />
         </div>
 
@@ -82,9 +71,8 @@ BoostersMenu.propTypes = {
   buyBoosterPack: PropTypes.func.isRequired,
   revealBooster: PropTypes.func.isRequired,
   accountBalance: PropTypes.string,
-  nickname: PropTypes.string.isRequired,
-  changeGameplayView: PropTypes.func.isRequired,
-  locations: PropTypes.array.isRequired,
+  exitNotLocationsView: PropTypes.func.isRequired,
+  currentBlock: PropTypes.number.isRequired,
 };
 
 BoostersMenu.defaultProps = {
@@ -94,16 +82,14 @@ BoostersMenu.defaultProps = {
 const mapStateToProps = state => ({
   shop: state.shop,
   accountBalance: state.app.accountBalance,
-  locations: state.gameplay.locations.filter(({ lastDroppedItem }) => lastDroppedItem !== null),
   currentBlock: state.app.blockNumber,
-  nickname: state.gameplay.nickname,
 });
 
 const mapDispatchToProps = {
   getBoosters,
   buyBoosterPack,
   revealBooster,
-  changeGameplayView,
+  exitNotLocationsView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoostersMenu);
