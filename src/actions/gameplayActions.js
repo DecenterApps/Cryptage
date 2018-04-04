@@ -53,7 +53,7 @@ export const changeGameplayView = payload => (dispatch, getState) => {
  * every played gets those cards for free
  */
 const getOnboardingCards = async () => {
-  const cardTypes = [0, 6, 9];
+  const cardTypes = [0, 6, 9, 12, 24];
   return cardTypes.map((metadataId, index) => ({
     id: index - 3,
     stats: fetchCardStats(metadataId),

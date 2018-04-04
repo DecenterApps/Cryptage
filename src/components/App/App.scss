@@ -62,6 +62,10 @@ body {
       height: 131px;
       background: url("./logo.png") center center no-repeat;
       background-size: cover;
+
+      @media (max-height: 800px) {
+        display: none;
+      }
     }
   }
 }
