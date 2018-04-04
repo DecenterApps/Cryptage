@@ -2,6 +2,26 @@
 @import "../../../common/colors";
 @import "../../../common/variables";
 
+
+@keyframes revealNudge {
+  0% {
+    transform: rotateY(0deg);
+  }
+  25% {
+    transform: rotateY(30deg);
+
+  }
+  50% {
+    transform: rotateY(0deg);
+  }
+  75% {
+    transform: rotateY(-15deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
 .booster-store-wrapper {
   position: relative;
   width: 626px;
@@ -108,9 +128,6 @@
     overflow: auto;
   }
 
-  .boosters-wrapper {
-  }
-
   .reveal-text {
     font-size: 27px;
     margin: 0;
@@ -132,6 +149,11 @@
       width: 145px;
       height: 252px;
       margin-bottom: 30px;
+
+
+      .front:hover {
+        animation: revealNudge 0.5s linear;
+      }
 
       img {
         width: 145px;

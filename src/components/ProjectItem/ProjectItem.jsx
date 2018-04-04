@@ -73,7 +73,7 @@ const ProjectItem = ({
               <img className="project-thumbnail" src={activeBg} alt="" />
               <div className="blocks-left">{expiryTime - blockNumber}</div>
               <div>BLOCKS</div>
-              <div>MORE</div>
+              <div>LEFT</div>
             </span>
           </div>
         }
