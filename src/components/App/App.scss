@@ -34,8 +34,8 @@ body {
   max-width: 1000px;
   height: 620px;
   margin: auto;
-  box-shadow: 0 0 24px #36265F;
-  background: rgba(54, 25, 25, .00004);
+  background: url("./game-background.png") center center no-repeat;
+  background-size: cover;
 
   .app-error {
     position: fixed;
