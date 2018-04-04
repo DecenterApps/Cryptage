@@ -5,7 +5,7 @@ import {
   UPDATE_FUNDS_PER_BLOCK,
 } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
-import { getLevelValuesForCard, calculateLevelData } from '../services/gameMechanicsService';
+import { getLevelValuesForCard, calculateLevelData, doNotShowProjectFpb } from '../services/gameMechanicsService';
 
 /**
  * Updates global funds based on played mining rig card power in the gameplay state
@@ -123,12 +123,17 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         _projects[i].lastDroppedItem.expiryTime = null;
         _projects[i].lastDroppedItem.isActive = false;
         _projects[i].lastDroppedItem.isFinished = true;
+        _projects[i].lastDroppedItem.showFpb = true;
         acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
         releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
           parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
           _projects[i].lastDroppedItem.level,
         ) : _projects[i].lastDroppedItem.cards[0].stats.cost.development;
         receivedFunds += _projects[i].lastDroppedItem.cards[0].stats.bonus.funds;
+
+        setTimeout(() => {
+          dispatch(doNotShowProjectFpb(i));
+        }, 2000);
       }
     }
   }

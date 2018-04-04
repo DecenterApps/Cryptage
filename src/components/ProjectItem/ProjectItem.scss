@@ -27,6 +27,26 @@
     padding: 2px;
   }
 
+  .fpb {
+    position: absolute;
+    top: 0;
+    width: 100px;
+    white-space: nowrap;
+
+    @include elementInAndOut;
+
+    &.left {
+      left: -20px;
+      top: -15px;
+      text-align: left;
+    }
+
+    &.right {
+      left: -42px;
+      top: 47px;
+      text-align: right;
+    }
+  }
 
   button.activate-button {
     border-radius: 100%;

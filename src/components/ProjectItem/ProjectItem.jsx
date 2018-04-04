@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Line, Circle } from 'rc-progress';
+import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
 import {
   setActiveLocation,
   levelUpProject,
   activateProject,
-  removeProject
+  removeProject,
 } from '../../actions/gameplayActions';
-import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 
@@ -18,13 +17,10 @@ import './ProjectItem.scss';
 import activeBg from './assets/active-item-bg.png';
 import restart from './assets/restart.png';
 
-const calculatePercent = (expiryTime, costTime) => {
-  return (expiryTime / costTime) * 100;
-};
+const calculatePercent = (expiryTime, costTime) => (expiryTime / costTime) * 100;
 
 const ProjectItem = ({
-  isOver, cards, index, level, isActive, expiryTime,
-  activateProject, blockNumber, isFinished, removeProject,
+  isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished, removeProject,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
 
@@ -37,6 +33,14 @@ const ProjectItem = ({
     `}
     >
       <HoverInfo card={cards[0]} />
+
+      {
+        showFpb &&
+        <div className={`fpb ${index % 2 === 0 ? 'left' : 'right'}`}>
+          + { cards[0].stats.bonus.funds }
+        </div>
+      }
+
       {
         !isActive && isFinished &&
         <div className="repeat-project">
@@ -89,6 +93,7 @@ ProjectItem.propTypes = {
   level: PropTypes.number.isRequired,
   isActive: PropTypes.bool.isRequired,
   isFinished: PropTypes.bool.isRequired,
+  showFpb: PropTypes.bool,
   activateProject: PropTypes.func.isRequired,
   removeProject: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
@@ -97,6 +102,7 @@ ProjectItem.propTypes = {
 
 ProjectItem.defaultProps = {
   expiryTime: null,
+  showFpb: null,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({

@@ -1,7 +1,11 @@
 import levels from '../constants/levels.json';
 import { filterByKeys } from './utils';
 import {
-  GP_BUY_BOOSTER, GP_LOCATION, GP_LOCATION_CONTAINER, GP_LOCATION_MAIN,
+  CHANGE_PROJECT_STATE,
+  GP_BUY_BOOSTER,
+  GP_LOCATION,
+  GP_LOCATION_CONTAINER,
+  GP_LOCATION_MAIN,
   GP_NO_LOCATIONS,
 } from '../actions/actionTypes';
 
@@ -1336,3 +1340,14 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
   };
 };
 
+/**
+ * Hides the project fpb animation
+ *
+ * @param {Number} projectIndex
+ */
+export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
+  const projects = [...getState().gameplay.projects];
+
+  projects[projectIndex].lastDroppedItem.showFpb = false;
+  dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
