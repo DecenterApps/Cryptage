@@ -13,9 +13,10 @@
   }
 
   .fpb {
+    width: 130px;
     position: absolute;
     top: 2px;
-    right: -5px;
+    left: 109px;
 
     @include elementInAndOut;
   }

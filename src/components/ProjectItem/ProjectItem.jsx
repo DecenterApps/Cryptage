@@ -23,6 +23,7 @@ const ProjectItem = ({
   isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished, removeProject,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
+  const fpb = cards[0].stats.bonus.funds;
 
   return (
     <div
@@ -37,7 +38,7 @@ const ProjectItem = ({
       {
         showFpb &&
         <div className={`fpb ${index % 2 === 0 ? 'left' : 'right'}`}>
-          + { cards[0].stats.bonus.funds }
+          + { fpb } { fpb === 1 ? 'fund' : 'funds' }
         </div>
       }
 

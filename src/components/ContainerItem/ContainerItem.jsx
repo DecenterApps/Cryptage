@@ -32,11 +32,12 @@ class ContainerItem extends Component {
     const {
       index, cards, locationIndex, containerIndex, slot, handleCardCancel,
     } = this.props;
+    const fpb = cards[0].stats.bonus.funds;
 
     return (
       <div className="container-item-wrapper">
         {
-          this.state.show && <div className="fpb">+ { cards[0].stats.bonus.funds }</div>
+          this.state.show && <div className="fpb">+ { fpb } { fpb === 1 ? 'fund' : 'funds' }</div>
         }
 
         <HandCard

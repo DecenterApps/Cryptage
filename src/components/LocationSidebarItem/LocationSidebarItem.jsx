@@ -66,7 +66,7 @@ class LocationSidebarItem extends Component {
           (activeLocationIndex !== index) &&
           (fpb > 0) &&
           this.state.show &&
-          <div className="fpb">+ { fpb }</div>
+          <div className="fpb">+ { fpb } { fpb === 1 ? 'fund' : 'funds' }</div>
         }
 
         <div className="hover-addons">
