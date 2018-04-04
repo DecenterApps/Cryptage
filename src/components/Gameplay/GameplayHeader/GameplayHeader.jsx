@@ -9,7 +9,9 @@ import shape1 from './header-shape-1.png';
 
 import './GameplayHeader.scss';
 
-const GameplayHeader = ({ blockNumber, globalStats, nickname, fundsPerBlock }) => (
+const GameplayHeader = ({
+  blockNumber, globalStats, nickname, fundsPerBlock,
+}) => (
   <div className="gameplay-header-wrapper">
     <div className="gameplay-header-content">
 
@@ -69,7 +71,7 @@ const GameplayHeader = ({ blockNumber, globalStats, nickname, fundsPerBlock }) =
               </div>
 
               <div className="fpb">
-                +{ fundsPerBlock }
+                { fundsPerBlock }
                 <span>FPB</span>
               </div>
             </div>

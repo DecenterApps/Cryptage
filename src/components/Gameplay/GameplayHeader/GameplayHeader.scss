@@ -39,14 +39,21 @@
             margin-left: 4px;
           }
 
+          .count div {
+            font-family: $font-secondary;
+          }
+
           .fpb {
+            font-family: $font-secondary;
             position: absolute;
             display: flex;
-            font-size: 10px;
+            font-size: 12px;
+            line-height: 8px;
             top: 33px;
             color: $yellow;
 
             span {
+              font-family: $font-secondary;
               font-size: 8px;
               margin-left: 4px;
             }
@@ -63,9 +70,11 @@
           text-transform: uppercase;
 
           .count {
+            font-family: $font-secondary;
             font-size: 16px;
             display: flex;
             align-items: baseline;
+            line-height: 18px;
           }
           .label {
             font-size: 8px;
@@ -151,6 +160,7 @@
           width: 350px;
           top: -42px;
           left: -90px;
+          z-index: 2;
         }
       }
     }
