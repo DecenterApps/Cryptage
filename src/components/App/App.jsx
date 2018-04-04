@@ -35,6 +35,8 @@ class App extends Component {
           </div>
         }
         <div className="app-top-section-wrapper">
+          <div className="logo-wrapper" />
+
           <Locations />
           <Gameplay />
           {/*<Menu />*/}

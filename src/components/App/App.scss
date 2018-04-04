@@ -17,20 +17,25 @@ body {
   margin: 0;
   padding: 0;
   font-size: $font-size-regular;
-  min-height: 100vh;
+  background: #101327;
+}
+
+#root {
+  background: url("./background.png") center center no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #101327;
+  height: 100vh;
 }
 
 .app-wrapper {
+  width: 1000px;
   max-width: 1000px;
   height: 620px;
   margin: auto;
-  box-shadow: 0px 0px 24px #36265F;
-  background: url("./background.png") center center no-repeat;
-  background-size: cover;
+  box-shadow: 0 0 24px #36265F;
+  background: rgba(54, 25, 25, .00004);
 
   .app-error {
     position: fixed;
@@ -45,8 +50,19 @@ body {
   }
 
   .app-top-section-wrapper {
+    position: relative;
     display: flex;
     height: 100%;
+
+    .logo-wrapper {
+      position: absolute;
+      width: 291px;
+      top: -111px;
+      left: 350px;
+      height: 131px;
+      background: url("./logo.png") center center no-repeat;
+      background-size: cover;
+    }
   }
 }
 
