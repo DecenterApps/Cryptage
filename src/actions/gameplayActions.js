@@ -608,8 +608,9 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
     ...locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots,
   ];
   const slotItem = containerSlots[cardIndex].lastDroppedItem;
+  const locationItem = locations[locationIndex].lastDroppedItem;
 
-  const play = checkIfCanPlayCard(item.card.stats, gameplay.globalStats, locations[locationIndex].lastDroppedItem);
+  const play = checkIfCanPlayCard(item.card.stats, gameplay.globalStats, locationItem, true);
   if (!play) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));

@@ -1075,9 +1075,10 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
  * @param {Object} cardStats
  * @param {Object} globalStats
  * @param {Object} activeLocation
+ * @param {Object} ignoreSpace - this is only for mining cards
  * @return {Boolean}
  */
-export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null) => {
+export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null, ignoreSpace = false) => {
   const {
     level, funds, development, power, space,
   } = cardStats.cost;
@@ -1090,7 +1091,7 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
 
   if (activeLocation && (power > activeLocation.values.power)) return false;
 
-  if (activeLocation && (space > activeLocation.values.space)) return false;
+  if (activeLocation && !ignoreSpace && (space > activeLocation.values.space)) return false;
 
   // checks for duplicates in active location
   if (activeLocation && cardStats.unique) {
@@ -1268,12 +1269,13 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       if (!isAsset) return goodCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, null);
 
       // check if active container can take in that card type
-      const { accepts } = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
-        .lastDroppedItem.dropSlots[0];
-      const goodSlotType = accepts.includes(metadata.id);
+      const containerId = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
+        .lastDroppedItem.cards[0].metadata.id;
+      const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
+      const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
 
       return goodCardType && goodSlotType && availableSlots
-        && checkIfCanPlayCard(stats, globalStats, activeLocation);
+        && checkIfCanPlayCard(stats, globalStats, activeLocation, true);
     });
   }
 
