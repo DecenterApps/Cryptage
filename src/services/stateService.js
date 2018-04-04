@@ -16,196 +16,196 @@
 // /add/dynamic-static/cardSpecificBits/card/blockNumberOffset            
 // n * 1 1 4 10 16        n * 32
 
-const bigInt = require("big-integer");
+
+import BigInt from 'big-integer';
 
 // Example of the state used for testing packing moves
 const state = {
-        blockNumber: 2000000,
-        moves: [{
-            add: 1,
-            dynamicStatic: 1,
-            cardSpecificBits: 0,
-            card: 0,
-            blockNumberOffset: 0
-        },
-        {
-            add: 1,
-            dynamicStatic: 1,
-            cardSpecificBits: 0,
-            card: 36,
-            blockNumberOffset: 1
-        },
-        {
-            add: 1,
-            dynamicStatic: 1,
-            cardSpecificBits: 0,
-            card: 54,
-            blockNumberOffset: 2
-        },
-        {
-            add: 1,
-            dynamicStatic: 1,
-            cardSpecificBits: 0,
-            card: 150,
-            blockNumberOffset: 500
-        }]
+  blockNumber: 2000000,
+  moves: [
+    {
+      add: 1,
+      dynamicStatic: 1,
+      cardSpecificBits: 0,
+      card: 0,
+      blockNumberOffset: 0,
+    },
+    {
+      add: 1,
+      dynamicStatic: 1,
+      cardSpecificBits: 0,
+      card: 36,
+      blockNumberOffset: 1,
+    },
+    {
+      add: 1,
+      dynamicStatic: 1,
+      cardSpecificBits: 0,
+      card: 54,
+      blockNumberOffset: 2,
+    },
+    {
+      add: 1,
+      dynamicStatic: 1,
+      cardSpecificBits: 0,
+      card: 150,
+      blockNumberOffset: 500,
+    }],
 };
+
+const dec2bin = (d, l) => (d >>> 0).toString(2).padStart(l, '0');
+const bin2dec = bin => parseInt(bin, 2);
+
+function readDynamic(bin) {
+  const arr = [];
+
+  for (let i = 0; i < bin.length / 16; i += 1) {
+    const cardType = bin2dec(bin.substr(0 + (i * 16), 10));
+    const numberOfCards = bin2dec(bin.substr(10 + (i * 16), 6));
+
+    if (!Number.isNaN(cardType) && Number.isNaN(numberOfCards)) {
+      arr.push({ cardType, numberOfCards });
+    }
+  }
+
+  return arr;
+}
+
+function readLocation(bin) {
+  const locations = [];
+
+  for (let i = 0; i < 3; i += 1) {
+    locations.push({
+      card: bin2dec(bin.substr(0 + (i * 85), 6)),
+      numberOfCards: bin2dec(bin.substr(6 + (i * 85), 10)),
+      space: bin2dec(bin.substr(16 + (i * 85), 13)),
+      computeCaseSpaceLeft: bin2dec(bin.substr(29 + (i * 85), 10)),
+      rigSpaceLeft: bin2dec(bin.substr(39 + (i * 85), 10)),
+      mountSpaceLeft: bin2dec(bin.substr(49 + (i * 85), 10)),
+      powerLeft: bin2dec(bin.substr(59 + (i * 85), 13)),
+      devPointsCount: bin2dec(bin.substr(72 + (i * 85), 11)),
+      gridConnector: bin2dec(bin.substr(83 + (i * 85), 1)),
+      coffeMiner: bin2dec(bin.substr(84 + (i * 85), 1))
+    });
+  }
+
+  return locations;
+}
 
 // reads state as an array of uints in decimal format
 // uints must be passed as string in an array
 function readState(arr) {
-    let bin = (new bigInt(arr[0], 10).toString(2));
-    bin = bin.padStart(256, 0);
+  let bin = (new BigInt(arr[0], 10).toString(2));
+  bin = bin.padStart(256, 0);
 
-    let bin2 = (new bigInt(arr[1], 10).toString(2));
-    bin2 = bin2.padStart(256, 0);
+  let bin2 = (new BigInt(arr[1], 10).toString(2));
+  bin2 = bin2.padStart(240, 0);
 
-    let bin3 = (new bigInt(arr[2], 10).toString(2));
-    bin3 = bin3.padStart(255, 0);
+  let bin3 = (new BigInt(arr[2], 10).toString(2));
+  bin3 = bin3.padStart(255, 0);
 
-    let bin4 = (new bigInt(arr[3], 10).toString(2));
-    bin4 = bin4.padStart(255, 0);
+  let bin4 = (new BigInt(arr[3], 10).toString(2));
+  bin4 = bin4.padStart(255, 0);
 
-    const dynamicBins = [];
+  const dynamicBins = [];
 
-    const dynamic = arr.slice(4);
+  const dynamic = arr.slice(4);
 
-    for(let i = 0; i < dynamic.length; ++i) {
-        let bin5 = (new bigInt(dynamic[i], 10).toString(2));
-        
-        bin5 = bin5.padStart(256, 0);
-        
-        dynamicBins.push(bin5);
-    }
+  for (let i = 0; i < dynamic.length; i += 1) {
+    let bin5 = (new BigInt(dynamic[i], 10).toString(2));
 
-    const state = {};
+    bin5 = bin5.padStart(256, 0);
 
-    state.funds = bin2dec(bin.substr(0, 48));
-    state.fundsPerBlock = bin2dec(bin.substr(48, 16));
-    state.experience = bin2dec(bin.substr(64, 32));
-    state.devLeft = bin2dec(bin.substr(96, 20));
-    state.blockNum = bin2dec(bin.substr(116, 32));
-    state.registryPosition = bin2dec(bin.substr(148, 8));
+    dynamicBins.push(bin5);
+  }
 
-    state.projects = [];
+  const state = {};
 
-    for(let i = 0; i < 10; ++i) {
-        state.projects.push({
-            card: bin2dec(bin2.substr(0 + (i*24), 6)),
-            blockNumberUntilFinished: bin2dec(bin2.substr(6 + (i*24), 18))
-        });
-    }
+  state.funds = bin2dec(bin.substr(0, 48));
+  state.fundsPerBlock = bin2dec(bin.substr(48, 16));
+  state.experience = bin2dec(bin.substr(64, 32));
+  state.devLeft = bin2dec(bin.substr(96, 20));
+  state.blockNum = bin2dec(bin.substr(116, 32));
+  state.registryPosition = bin2dec(bin.substr(148, 8));
 
+  state.projects = [];
 
-    state.locations = [];
-
-    state.locations.push(...readLocation(bin3));
-    state.locations.push(...readLocation(bin4));
-
-    state.dynamic = [];
-
-    dynamicBins.forEach(d => {
-        state.dynamic = readDynamic(d);
+  for (let i = 0; i < 10; i += 1) {
+    state.projects.push({
+      card: bin2dec(bin2.substr(0 + (i * 24), 6)),
+      blockNumberUntilFinished: bin2dec(bin2.substr(6 + (i * 24), 18))
     });
+  }
 
-    return state;
-}
+  state.locations = [];
 
-function readLocation(bin) {
-    const locations = [];
+  state.locations.push(...readLocation(bin3));
+  state.locations.push(...readLocation(bin4));
 
-    for(let i = 0; i < 3; ++i) {
-        locations.push({
-            card: bin2dec(bin.substr(0 + (i*85), 6)),
-            numberOfCards:  bin2dec(bin.substr(6 + (i*85), 10)),
-            space: bin2dec(bin.substr(16 + (i*85), 13)),
-            computeCaseSpaceLeft: bin2dec(bin.substr(29 + (i*85), 10)),
-            rigSpaceLeft: bin2dec(bin.substr(39 + (i*85), 10)),
-            mountSpaceLeft: bin2dec(bin.substr(49 + (i*85), 10)),
-            powerLeft: bin2dec(bin.substr(59 + (i*85), 13)),
-            devPointsCount: bin2dec(bin.substr(72 + (i*85), 11)),
-            gridConnector: bin2dec(bin.substr(83 + (i*85), 1)),
-            coffeMiner: bin2dec(bin.substr(84 + (i*85), 1))
-        });
-    }
+  state.dynamic = [];
 
-    return locations;
-}
+  dynamicBins.forEach(d => {
+    state.dynamic = readDynamic(d);
+  });
 
-function readDynamic(bin) {
-    const arr = [];
-
-    for(let i = 0; i < bin.length/16; ++i) {
-        const cardType = bin2dec(bin.substr(0 + (i*16), 10));
-        const numberOfCards = bin2dec(bin.substr(10 + (i*16), 6));
-
-        if (cardType != NaN && numberOfCards != NaN) {
-            arr.push({cardType, numberOfCards});
-        }
-    }
-
-    return arr;
+  return state;
 }
 
 function printState(_state) {
-    for (var key in _state) {
-        if (_state.hasOwnProperty(key)) {
-            if (key === "projects") {
-                console.log("Projects: ");
-                _state[key].forEach(p => console.log(p));
-            } else if(key === "locations") {
-                console.log("Locations: ");
-                _state[key].forEach(p => console.log(p));
-            } else if(key === "dynamic") {
-                console.log("Dynamic: ");
-                _state[key].forEach(p => console.log(p));
-            } else {
-                console.log(key + " -> " + _state[key]);
-            }
-        }
+  for (const key in _state) {
+    if (_state.hasOwnProperty(key)) {
+      if (key === 'projects') {
+        console.log('Projects: ');
+        _state[key].forEach(p => console.log(p));
+      } else if (key === 'locations') {
+        console.log('Locations: ');
+        _state[key].forEach(p => console.log(p));
+      } else if (key === 'dynamic') {
+        console.log('Dynamic: ');
+        _state[key].forEach(p => console.log(p));
+      } else {
+        console.log(key + ' -> ' + _state[key]);
+      }
     }
+  }
 }
 
 function packMoves(_state) {
-    let blockNum = bin2Hex(dec2bin(_state.blockNumber, 32), 8);
+  const blockNum = bin2Hex(dec2bin(_state.blockNumber, 32), 8);
+  const binMoves = _state.moves.map(move => bin2Hex(dec2bin(move.add, 1) + dec2bin(move.dynamicStatic, 1) + dec2bin(move.cardSpecificBits, 4) + dec2bin(move.card, 10) + dec2bin(move.blockNumberOffset, 16)));
 
-    let binMoves = _state.moves.map(move => bin2Hex(dec2bin(move.add, 1) + dec2bin(move.dynamicStatic, 1) + dec2bin(move.cardSpecificBits, 4) + dec2bin(move.card, 10) + dec2bin(move.blockNumberOffset, 16)));  
-
-    return _pack(binMoves, blockNum);
+  return _pack(binMoves, blockNum);
 }
 
 // helper functions
 function _pack(arr, start) {
-    const hexValues = [];
-    let str = start;
+  const hexValues = [];
+  let str = start;
 
-    arr.forEach(b => {
-        if ((str.length + b.length) < 64) {
-            str += b;
-        } else {
-            hexValues.push(str);
-            str = "";
-        }
-    });
-
-    if (str.length !== 0) {
-        hexValues.push(str);
+  arr.forEach(b => {
+    if ((str.length + b.length) < 64) {
+      str += b;
+    } else {
+      hexValues.push(str);
+      str = '';
     }
+  });
 
-    if (hexValues[hexValues.length - 1].length < 64) {
-        hexValues[hexValues.length - 1] += 'FFFFFFFF';
-    }
+  if (str.length !== 0) {
+    hexValues.push(str);
+  }
 
-    return hexValues.map(h => h.padEnd(64, 0));
+  if (hexValues[hexValues.length - 1].length < 64) {
+    hexValues[hexValues.length - 1] += 'FFFFFFFF';
+  }
+
+  return hexValues.map(h => h.padEnd(64, 0));
 }
 
-const dec2bin = (d, l) => (d >>> 0).toString(2).padStart(l, '0');
-const bin2dec = (bin) => parseInt(bin, 2);
-
 const getBinary = (value, l) => dec2bin(value, l);
-const toHex = (str) => '0x' + ((new bigInt(str.padStart(256, '0'), 2)).toString(16)).padStart(64, 0);
-const toHexPadEnd = (str) => '0x' + ((new bigInt(str.padEnd(256, '0'), 2)).toString(16)).padEnd(64, 0);
-const bin2Hex = (bin, l) => (new bigInt(bin, 2)).toString(16).padStart(l, 0);
+const toHex = (str) => '0x' + ((new BigInt(str.padStart(256, '0'), 2)).toString(16)).padStart(64, 0);
+const toHexPadEnd = (str) => '0x' + ((new BigInt(str.padEnd(256, '0'), 2)).toString(16)).padEnd(64, 0);
+const bin2Hex = (bin, l) => (new BigInt(bin, 2)).toString(16).padStart(l, 0);
 
 // call the methods
 console.log(packMoves(state));

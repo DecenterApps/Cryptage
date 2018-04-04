@@ -20,6 +20,7 @@ const HoverInfo = ({ card, center }) => (
       className="inner-wrapper"
       style={{ backgroundImage: `url('/cardImages/${card.stats.image}')` }}
     >
+      <div className={`rarity-overlay rarity-${card.stats.rarityScore}`} />
       {
         card.stats.cost &&
         <div className="cost" data-name="Cost">
