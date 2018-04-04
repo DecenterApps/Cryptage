@@ -52,7 +52,7 @@ class DropSlotWrapper extends Component {
 
     return connectDropTarget(
       <div className={className}>
-        {lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, index, slot })}
+        {lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, dragItem, index, slot })}
         {!lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem, index })}
       </div>,
     );

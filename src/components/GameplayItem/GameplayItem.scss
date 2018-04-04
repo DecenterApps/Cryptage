@@ -32,5 +32,39 @@
 
       @include elementInAndOut;
     }
+
+    &.can-drop-miner {
+
+      .card-details {
+
+        .overlay {
+          top: 2px;
+          left: 2px;
+          height: 96%;
+          width: 94%;
+        }
+
+        .card-image .card-image-inner {
+          stroke: $empty-slot-can-drop;
+        }
+      }
+    }
+
+    &.no-drop-miner {
+
+      .card-details {
+
+        .overlay {
+          top: 2px;
+          left: 2px;
+          height: 96%;
+          width: 95%;
+        }
+
+        .card-image .card-image-inner {
+          stroke: $red;
+        }
+      }
+    }
   }
 }

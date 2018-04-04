@@ -2,7 +2,8 @@ import {
   GET_ACCOUNT_SUCCESS,
   GET_ACCOUNT_ERROR,
   LOADING_ENDED,
-  UPDATE_BLOCK_NUMBER
+  UPDATE_BLOCK_NUMBER,
+  TOGGLE_CARD_DRAG,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
@@ -73,4 +74,13 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
     dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
     dispatch(checkProjectsExpiry());
   });
+};
+
+/**
+ * Toggles if a card is being dragged in the game
+ *
+ * @param {Boolean} payload
+ */
+export const toggleCardDrag = payload => (dispatch) => {
+  dispatch({ type: TOGGLE_CARD_DRAG, payload });
 };

@@ -244,10 +244,12 @@ export const saveGameplayState = (getState) => {
  */
 export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex, special) => {
   const addSlot = containerIds.includes(item.card.metadata.id);
+  const typeId = item.card.metadata.id;
+  const isContainer = containerIds.includes(typeId);
 
   const locationSlots = update(_locationSlots, {
     [index]: {
-      accepts: { $set: [] },
+      accepts: { $set: isContainer ? [...getSlotForContainer(typeId, 1)[0].accepts] : [] },
       lastDroppedItem: {
         $set: {
           level: 1,

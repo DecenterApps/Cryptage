@@ -1156,7 +1156,7 @@ export const getMaxValueForLocation = (type, level, stat) => {
  * @param {Number} activeContainerIndex
  * @return {boolean}
  */
-const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) => {
+export const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) => {
   let length = false;
 
   if (locationItem) {
@@ -1236,8 +1236,8 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
   // when location drop slots are available only do not show miner type cards
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_MAIN) {
-    return cards.filter(({ stats }) => {
-      const badCardType = stats.type === 'Mining';
+    return cards.filter(({ stats, metadata }) => {
+      const miningCardType = stats.type === 'Mining';
       const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
       const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
       const availableSlots = checkSlotsAvailableForCardType(
@@ -1248,7 +1248,37 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
         containerSlotsLength,
       );
 
-      return !badCardType && availableSlots && checkIfCanPlayCard(stats, globalStats, activeLocation);
+      if (!miningCardType) return availableSlots && checkIfCanPlayCard(stats, globalStats, activeLocation);
+
+      // In active gameplay view checks if miner can be dropped in at least one location
+      let canPlayInOneContainer = false;
+
+      const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
+        if (lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Container') {
+          const lastDroppedItemCopy = { ...lastDroppedItem };
+          lastDroppedItemCopy.containerIndex = slotIndex;
+          return lastDroppedItemCopy;
+        }
+
+        return false;
+      }).filter(item => item);
+
+      droppedContainers.forEach((droppedContainerItem) => {
+        const containerId = droppedContainerItem.cards[0].metadata.id;
+        const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
+        const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
+        const containerSlotLength = getContainerSlotsLength(
+          locations,
+          locationItem,
+          droppedContainerItem.containerIndex,
+        );
+
+        if (goodSlotType && containerSlotLength && checkIfCanPlayCard(stats, globalStats, activeLocation, true)) {
+          canPlayInOneContainer = true;
+        }
+      });
+
+      return canPlayInOneContainer;
     });
   }
 

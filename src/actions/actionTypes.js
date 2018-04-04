@@ -37,6 +37,7 @@ export const LOADING_ENDED = 'loading_ended';
 export const GET_ACCOUNT_SUCCESS = 'get_account_success';
 export const GET_ACCOUNT_ERROR = 'get_account_error';
 export const UPDATE_BLOCK_NUMBER = 'update_block_number';
+export const TOGGLE_CARD_DRAG = 'toggle_card_drag';
 
 // BOOSTER
 export const BOOSTERS_REQUEST = 'boosters_request';

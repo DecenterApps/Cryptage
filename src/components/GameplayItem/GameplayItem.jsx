@@ -8,6 +8,12 @@ import { levelUpAsset, switchInGameplayView, handleCardCancel } from '../../acti
 import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 
 import './GameplayItem.scss';
+import {
+  checkIfCanPlayCard,
+  checkSlotsAvailableForCardType,
+  getContainerSlotsLength,
+  getSlotForContainer,
+} from '../../services/gameMechanicsService';
 
 class GameplayItem extends Component {
   constructor() {
@@ -47,14 +53,38 @@ class GameplayItem extends Component {
   render() {
     const {
       cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, dropSlots, slot, handleCardCancel,
+      dragItem, locations, globalStats,
     } = this.props;
 
     const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
+
+    const isDragMiner = dragItem && dragItem.card.stats.type === 'Mining';
     const isContainer = containerIds.includes(cards[0].metadata.id);
     let remainingSlots = null;
+    let canDropMiner = false;
+    let goodMinerSlotType = false;
     let fpb = 0;
 
     if (isContainer) {
+      // export this to another function
+      if (isDragMiner) {
+        const locationItem = locations[activeLocationIndex].lastDroppedItem;
+        const containerSlotsLength = getContainerSlotsLength(locations, locationItem, index);
+
+        const containerId = locationItem.dropSlots[index].lastDroppedItem.cards[0].metadata.id;
+        const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
+        goodMinerSlotType = emptyContainerSlotArr[0].accepts.includes(dragItem.card.metadata.id);
+        const { stats } = dragItem.card;
+
+        canDropMiner =
+          goodMinerSlotType && containerSlotsLength && checkIfCanPlayCard(stats, globalStats, locationItem, true);
+      }
+
+      // go to third level view if dragging a mining card
+      if (isOver && dragItem.card.stats.type === 'Mining' && canDropMiner) {
+        this.goToContainer(isContainer);
+      }
+
       remainingSlots = dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
 
       fpb = slot.lastDroppedItem.dropSlots.reduce((acc, currVal) => {
@@ -87,7 +117,13 @@ class GameplayItem extends Component {
         }
         {
           isContainer &&
-          <div className="container-card-wrapper">
+          <div
+            className={`
+              container-card-wrapper
+              ${isDragMiner && goodMinerSlotType && canDropMiner && 'can-drop-miner'}
+              ${isDragMiner && goodMinerSlotType && !canDropMiner && 'no-drop-miner'}
+            `}
+          >
             {
               this.state.show &&
               (fpb > 0) &&
@@ -127,6 +163,7 @@ GameplayItem.defaultProps = {
   cards: [],
   isOver: false,
   dropSlots: null,
+  dragItem: null,
 };
 
 GameplayItem.propTypes = {
@@ -139,14 +176,19 @@ GameplayItem.propTypes = {
   levelUpAsset: PropTypes.func.isRequired,
   switchInGameplayView: PropTypes.func.isRequired,
   dropSlots: PropTypes.array,
+  locations: PropTypes.array.isRequired,
   slot: PropTypes.object.isRequired,
   handleCardCancel: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
+  dragItem: PropTypes.object,
+  globalStats: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   blockNumber: app.blockNumber,
+  locations: gameplay.locations,
+  globalStats: gameplay.globalStats,
 });
 
 const mapDispatchToProps = {

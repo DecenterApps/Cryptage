@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { guid, formatBigNumber, range } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
@@ -19,7 +20,7 @@ const classForNumber = (_number) => {
 
 const HandCard = ({
   card, showCount, hoverCentered, played, remainingSlots, goToContainer, handleCardCancel,
-  locationIndex, containerIndex, slot, containerSlotIndex,
+  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard,
 }) => {
   const uniqueId = guid();
   const gradients = {
@@ -31,10 +32,10 @@ const HandCard = ({
     mining: ['#75341F', 'rgba(117, 52, 30, 0.57)'],
     container: ['#4A7420', 'rgba(74, 116, 32, 0.41)'],
   };
-  console.log(card.stats.type.toLowerCase());
+
   return (
     <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
-      <HoverInfo card={card} center={hoverCentered} />
+      { !draggingCard && <HoverInfo card={card} center={hoverCentered} /> }
       <div className="level-wrapper">
         <svg className="level-background">
           <defs>
@@ -248,6 +249,11 @@ HandCard.propTypes = {
   containerIndex: PropTypes.number,
   containerSlotIndex: PropTypes.number,
   slot: PropTypes.object,
+  draggingCard: PropTypes.bool.isRequired,
 };
 
-export default HandCard;
+const mapStateToProps = ({ app }) => ({
+  draggingCard: app.draggingCard,
+});
+
+export default connect(mapStateToProps)(HandCard);

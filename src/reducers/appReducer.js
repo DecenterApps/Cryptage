@@ -1,5 +1,5 @@
 import {
-  USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR,
+  USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR, TOGGLE_CARD_DRAG,
   GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED, UPDATE_BLOCK_NUMBER,
 } from '../actions/actionTypes';
 
@@ -17,6 +17,8 @@ const INITIAL_STATE = {
 
   nicknameError: '',
   submittingNickname: false,
+
+  draggingCard: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -52,6 +54,9 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state, account: '', accountBalance: '', accountError: action.error,
       };
+
+    case TOGGLE_CARD_DRAG:
+      return { ...state, draggingCard: payload };
 
     default:
       return state;
