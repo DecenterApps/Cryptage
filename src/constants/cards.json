@@ -9,7 +9,7 @@
       "flavorText": "Well, you gotta start somewhere...",
       "image": "garage.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Garage",
       "type": "Location",
       "unique": false,
@@ -22,12 +22,12 @@
       "ID": "1",
       "cost": {
         "funds": 500,
-        "level": 2
+        "level": 1
       },
       "flavorText": "",
       "image": "coworking-space.jpg",
       "mechanicsText": "",
-      "rarityScore": "375",
+      "rarityScore": "576",
       "title": "Coworking Space",
       "type": "Location",
       "unique": false,
@@ -43,14 +43,14 @@
       },
       "cost": {
         "funds": 100,
-        "level": 3,
+        "level": 1,
         "power": 4,
         "space": 1
       },
       "flavorText": "Legend says that these were used to play the mighty videogames of old...",
       "image": "gpu.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "GPU",
       "type": "Mining",
       "unique": false
@@ -62,14 +62,14 @@
       },
       "cost": {
         "funds": 10000,
-        "level": 6,
+        "level": 1,
         "power": 16,
         "space": 1
       },
       "flavorText": "A truly efficient miner, from a more profitable age.",
       "image": "asic-miner.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "ASIC Miner",
       "type": "Mining",
       "unique": false
@@ -87,7 +87,7 @@
       "flavorText": "I have no idea what I'm doing...",
       "image": "intern-programmer.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Intern Programmer",
       "type": "Development",
       "unique": false
@@ -99,13 +99,13 @@
       },
       "cost": {
         "funds": 100,
-        "level": 2,
+        "level": 1,
         "space": 10
       },
       "flavorText": "It compiled! That means it's working.",
       "image": "junior-developer.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Junior Developer",
       "type": "Development",
       "unique": false
@@ -117,13 +117,13 @@
       },
       "cost": {
         "funds": 500,
-        "level": 4,
+        "level": 1,
         "space": 20
       },
       "flavorText": "You've just hired me for 14.5 seconds. How can I help?",
       "image": "freelance-consultant.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Freelance Consultant",
       "type": "Development",
       "unique": false
@@ -135,13 +135,13 @@
       },
       "cost": {
         "funds": 3000,
-        "level": 5,
+        "level": 1,
         "space": 20
       },
       "flavorText": "I remeber the old days: The DAO hack, Parity bug, optimizing around gas limits... You kids have it easy.",
       "image": "senior-developer.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Senior Developer",
       "type": "Development",
       "unique": false
@@ -153,13 +153,13 @@
       },
       "cost": {
         "funds": 10000,
-        "level": 6,
+        "level": 1,
         "space": 40
       },
       "flavorText": "I'm sure you can accomplish ALL these tasks today! Just don't forget to SMILE.",
       "image": "techical-team-leader.jpg",
       "mechanicsText": "",
-      "rarityScore": "375",
+      "rarityScore": "576",
       "title": "Techical Team Leader",
       "type": "Development",
       "unique": false
@@ -171,13 +171,13 @@
       },
       "cost": {
         "funds": 40000,
-        "level": 10,
+        "level": 1,
         "space": 40
       },
       "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
       "image": "project-architect.jpg",
       "mechanicsText": "",
-      "rarityScore": "175",
+      "rarityScore": "485",
       "title": "Project Architect",
       "type": "Development",
       "unique": false
@@ -190,13 +190,13 @@
       },
       "cost": {
         "funds": 500,
-        "level": 4,
+        "level": 1,
         "space": 20
       },
       "flavorText": "",
       "image": "black-hat-hacker.jpg",
       "mechanicsText": "Gain X funds each block.",
-      "rarityScore": "375",
+      "rarityScore": "576",
       "title": "Black Hat Hacker",
       "type": "Development",
       "unique": false
@@ -208,13 +208,13 @@
       },
       "cost": {
         "funds": 500,
-        "level": 2,
+        "level": 1,
         "space": 15
       },
       "flavorText": "Free power, free people!",
       "image": "solar-panels.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Solar Panels",
       "type": "Power",
       "unique": false
@@ -223,12 +223,12 @@
       "ID": "2",
       "cost": {
         "funds": 2000,
-        "level": 4
+        "level": 1
       },
       "flavorText": "I love the smell of damp mould in the morning...",
       "image": "shaggy-office.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Shaggy Office",
       "type": "Location",
       "unique": false,
@@ -244,13 +244,13 @@
       },
       "cost": {
         "funds": 3000,
-        "level": 6,
+        "level": 1,
         "space": 30
       },
       "flavorText": "I know a guy who boosts these bad boys from parked self driving cars at the MegaMall.",
       "image": "black-market-batteries.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Black Market Batteries",
       "type": "Power",
       "unique": false
@@ -262,13 +262,13 @@
       },
       "cost": {
         "funds": 10000,
-        "level": 10,
+        "level": 1,
         "space": 60
       },
       "flavorText": "We hacked this together from 3D printed parts and retired Chineese tech. It's only slightly radioactive.",
       "image": "diy-power-generator.jpg",
       "mechanicsText": "",
-      "rarityScore": "175",
+      "rarityScore": "485",
       "title": "DIY Power Generator",
       "type": "Power",
       "unique": false
@@ -280,13 +280,13 @@
       },
       "cost": {
         "funds": 1000,
-        "level": 4,
+        "level": 1,
         "space": 10
       },
       "flavorText": "GRIDCONEEEEEEEEECT",
       "image": "grid-connector.jpg",
       "mechanicsText": "Unique. For each unit of unspent POWER at location, gain X FUNDS.",
-      "rarityScore": "50",
+      "rarityScore": "250",
       "title": "GRID Connector",
       "type": "Misc",
       "unique": true
@@ -294,18 +294,17 @@
     "23": {
       "ID": "23",
       "bonus": {
-        "funds": 10,
-        "development": 10
+        "funds": 10
       },
       "cost": {
         "funds": 1000,
-        "level": 3,
+        "level": 1,
         "space": 10
       },
       "flavorText": "Make money by grinding sweet sweet coffee... Truly makind's greatest invention. ",
       "image": "coffee-machine-miner.jpg",
       "mechanicsText": "Unique. Gain X funds each block. All developers on location gain X% bonus DEV. ",
-      "rarityScore": "175",
+      "rarityScore": "576",
       "title": "Coffee Machine Miner",
       "type": "Misc",
       "unique": true
@@ -324,7 +323,7 @@
       "flavorText": "Hey, this isn't what I signed up for!",
       "image": "outourced-project.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Outourced Project",
       "type": "Project",
       "unique": false
@@ -344,7 +343,7 @@
       "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
       "image": "profitable-dapp.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Profitable Đapp",
       "type": "Project",
       "unique": false
@@ -358,13 +357,13 @@
       "cost": {
         "development": 32,
         "funds": 1000,
-        "level": 5,
+        "level": 4,
         "time": 420
       },
       "flavorText": "-We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!\n -Genius!",
       "image": "mining-algorithm-optimization.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Mining Algorithm Optimization",
       "type": "Project",
       "unique": false
@@ -378,13 +377,13 @@
       "cost": {
         "development": 56,
         "funds": 5000,
-        "level": 7,
+        "level": 8,
         "time": 2520
       },
       "flavorText": "Get your buzzwords here! Get'em while they're hot!",
       "image": "initial-coin-offering.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Initial Coin Offering",
       "type": "Project",
       "unique": false
@@ -398,13 +397,13 @@
       "cost": {
         "development": 120,
         "funds": 20000,
-        "level": 9,
+        "level": 12,
         "time": 10080
       },
       "flavorText": "It's not just a protocol exchange protocol, it's a protocol exchange protocol FRAMEWORK.",
       "image": "decentralized-protocol-development.jpg",
       "mechanicsText": "",
-      "rarityScore": "350",
+      "rarityScore": "576",
       "title": "Decentralized Protocol Development",
       "type": "Project",
       "unique": false
@@ -418,13 +417,13 @@
       "cost": {
         "development": 240,
         "funds": 100000,
-        "level": 11,
+        "level": 16,
         "time": 20160
       },
       "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
       "image": "consensus-improvement.jpg",
       "mechanicsText": "",
-      "rarityScore": "175",
+      "rarityScore": "485",
       "title": "Consensus Improvement",
       "type": "Project",
       "unique": false
@@ -433,12 +432,12 @@
       "ID": "3",
       "cost": {
         "funds": 10000,
-        "level": 6
+        "level": 1
       },
       "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
       "image": "downtown-office.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Downtown Office",
       "type": "Location",
       "unique": false,
@@ -451,12 +450,12 @@
       "ID": "4",
       "cost": {
         "funds": 100000,
-        "level": 10
+        "level": 1
       },
       "flavorText": "I swear, one day these things are going to run themselves.",
       "image": "smart-office.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "576",
       "title": "Smart Office",
       "type": "Location",
       "unique": false,
@@ -469,12 +468,12 @@
       "ID": "5",
       "cost": {
         "funds": 1000000,
-        "level": 20
+        "level": 1
       },
       "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
       "image": "office-building.jpg",
       "mechanicsText": "",
-      "rarityScore": "375",
+      "rarityScore": "900",
       "title": "Office Building",
       "type": "Location",
       "unique": false,
@@ -493,7 +492,7 @@
       "flavorText": "NOTICE: Stop playing VR Minesweeper as it interfeers with our revenue stream!",
       "image": "computer-case.jpg",
       "mechanicsText": "Can contain CPU-s and Graphics Cards.",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Computer Case",
       "type": "Container",
       "unique": false,
@@ -505,13 +504,13 @@
       "ID": "7",
       "cost": {
         "funds": 1000,
-        "level": 3,
+        "level": 1,
         "space": 15
       },
       "flavorText": "How this thing is holding together is anybody's guess...",
       "image": "mining-rig.jpg",
       "mechanicsText": "Can contain Graphics Cards.",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "Mining Rig",
       "type": "Container",
       "unique": false,
@@ -523,13 +522,13 @@
       "ID": "8",
       "cost": {
         "funds": 10000,
-        "level": 6,
+        "level": 1,
         "space": 25
       },
       "flavorText": "It's basically a glorified fridge. But it has shiny buttons.",
       "image": "asic-mount.jpg",
       "mechanicsText": "Can contain ASIC miners.",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "ASIC Mount",
       "type": "Container",
       "unique": false,
@@ -551,7 +550,7 @@
       "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
       "image": "cpu.jpg",
       "mechanicsText": "",
-      "rarityScore": "750",
+      "rarityScore": "900",
       "title": "CPU",
       "type": "Mining",
       "unique": false
