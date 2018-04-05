@@ -312,7 +312,8 @@
       "ID": "23",
       "bonus": {
         "funds": 10,
-        "multiplier-dev": "10%"
+        "multiplier-dev": "10%",
+        "development": 10
       },
       "cost": {
         "funds": 1000,
