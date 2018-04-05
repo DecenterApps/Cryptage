@@ -401,6 +401,11 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       special = minerEffect.bonus;
     }
 
+    // handle hacker unique special case
+    if (item.card.metadata.id === '18') {
+      globalStats.development += item.card.stats.bonus.development;
+    }
+
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
     // On developer drop checks if a coffee miner was dropped in that location
