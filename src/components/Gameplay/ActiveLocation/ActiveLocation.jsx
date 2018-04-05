@@ -60,7 +60,7 @@ const ActiveLocation = ({
           <div
             className="background-drop"
             style={{
-              backgroundImage: `url(/cardImages/${
+              backgroundImage: `url(cardImages/${
                 inGameplayView === GP_LOCATION_CONTAINER
                   ? location.lastDroppedItem.dropSlots[activeContainerIndex]
                     .lastDroppedItem.cards[0].stats.image

@@ -56,7 +56,7 @@ const ProjectItem = ({
       }
       <img
         className="project-thumbnail main-thumbnail"
-        src={`/cardImages/${cards[0].stats.image}`}
+        src={`cardImages/${cards[0].stats.image}`}
         alt=""
       />
       <div className="project-info">

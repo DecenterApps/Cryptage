@@ -118,7 +118,7 @@ class LocationSidebarItem extends Component {
         }
         <div
           className="location-sidebar-item-inner-wrapper"
-          style={{ backgroundImage: `url('/cardImages/${cards[0].stats.image}')` }}
+          style={{ backgroundImage: `url('cardImages/${cards[0].stats.image}')` }}
         >
           <div className="level-outer">
             <svg className="level-background">

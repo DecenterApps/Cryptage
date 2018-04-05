@@ -69,7 +69,7 @@ const HandCard = ({
               height="1"
               width="1"
               preserveAspectRatio="xMidYMid slice"
-              href={`/cardImages/${card.stats.image}`}
+              href={`cardImages/${card.stats.image}`}
             />
           </pattern>
           <clipPath id="card-image-cut">

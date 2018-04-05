@@ -25,7 +25,7 @@ const classForRarity = (_rarity) => {
 const LargeCard = ({ card }) => (
   <div
     className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
-    style={{ backgroundImage: `url('/cardImages/${card.stats.image}')` }}
+    style={{ backgroundImage: `url('cardImages/${card.stats.image}')` }}
   >
     <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
     <div className="title">{card.stats.title}</div>

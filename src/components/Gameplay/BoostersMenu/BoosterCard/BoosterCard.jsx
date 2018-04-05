@@ -6,7 +6,7 @@ import './BoosterCard.scss';
 const Card = ({ card }) => (
   <div className={`card-wrapper type-${card.stats.type}`}>
     <div className="card-image">
-      <img src={`/cardImages/${card.stats.image}`} alt="" />
+      <img src={`cardImages/${card.stats.image}`} alt="" />
     </div>
   </div>
 );
