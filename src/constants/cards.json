@@ -328,7 +328,8 @@
       "rarityScore": "900",
       "title": "Outourced Project",
       "type": "Project",
-      "unique": false
+      "unique": false,
+      "special": true
     },
     "25": {
       "ID": "25",
@@ -348,7 +349,8 @@
       "rarityScore": "900",
       "title": "Profitable Đapp",
       "type": "Project",
-      "unique": false
+      "unique": false,
+      "special": true
     },
     "26": {
       "ID": "26",
@@ -368,7 +370,8 @@
       "rarityScore": "900",
       "title": "Mining Algorithm Optimization",
       "type": "Project",
-      "unique": false
+      "unique": false,
+      "special": true
     },
     "27": {
       "ID": "27",
@@ -388,7 +391,8 @@
       "rarityScore": "900",
       "title": "Initial Coin Offering",
       "type": "Project",
-      "unique": false
+      "unique": false,
+      "special": true
     },
     "28": {
       "ID": "28",
@@ -408,7 +412,8 @@
       "rarityScore": "576",
       "title": "Decentralized Protocol Development",
       "type": "Project",
-      "unique": false
+      "unique": false,
+      "special": true
     },
     "29": {
       "ID": "29",
@@ -428,7 +433,8 @@
       "rarityScore": "485",
       "title": "Consensus Improvement",
       "type": "Project",
-      "unique": false
+      "unique": false,
+      "special": true
     },
     "3": {
       "ID": "3",
