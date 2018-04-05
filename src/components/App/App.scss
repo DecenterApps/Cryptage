@@ -57,10 +57,11 @@ body {
 
     .logo-wrapper {
       position: absolute;
-      width: 291px;
-      top: -111px;
-      left: 350px;
+      width: 429px;
+      top: -115px;
+      left: 300px;
       height: 131px;
+      z-index: 20;
       background: url("./logo.png") center center no-repeat;
       background-size: cover;
 
