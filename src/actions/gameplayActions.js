@@ -746,6 +746,7 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
 };
 
 export const handleCardCancel = (slot, locationIndex, containerIndex, containerSlotIndex) => (dispatch, getState) => {
+  if (!confirm('Withdrawing a card will not return spent funds. Are you sure you want to do this?')) return;
   const { gameplay } = getState();
   const _locations = [...gameplay.locations];
   let { gameplayView } = gameplay;

@@ -14,11 +14,20 @@ const classForNumber = (_number) => {
   return '';
 };
 
+const classForRarity = (_rarity) => {
+  const number = parseInt(_rarity, 10);
+  if (number >= 900) return 'normal';
+  if (number >= 576) return 'blue';
+  if (number >= 485) return 'gold';
+  return 'red';
+};
+
 const LargeCard = ({ card }) => (
   <div
     className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
     style={{ backgroundImage: `url('/cardImages/${card.stats.image}')` }}
   >
+    <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
     <div className="title">{card.stats.title}</div>
     {
       card.stats.cost &&
@@ -152,10 +161,17 @@ const LargeCard = ({ card }) => (
       </div>
     }
     <div className="meta">
-      <div className="meta-inner">
-        <div className="description">
-          {card.stats.description}
-        </div>
+      <div className="description">
+        {
+          card.stats.mechanicsText &&
+          <p className="mechanics">
+            {card.stats.mechanicsText}
+          </p>
+        }
+        {
+          card.stats.flavorText &&
+          <p className="flavor">"{card.stats.flavorText}"</p>
+        }
       </div>
       <div className="type">{card.stats.type}</div>
     </div>

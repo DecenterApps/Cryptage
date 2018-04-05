@@ -25,9 +25,9 @@
         "funds": 500,
         "level": 1
       },
-      "flavorText": "",
+      "flavorText": "I better not catch any of you mining in the kitchen, you hear!",
       "image": "coworking-space.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Great for placing developers but does not have power.",
       "rarityScore": "576",
       "special": false,
       "title": "Coworking Space",
@@ -235,7 +235,7 @@
       "ID": "2",
       "cost": {
         "funds": 2000,
-        "level": 1
+        "level": 2
       },
       "flavorText": "I love the smell of damp mould in the morning...",
       "image": "shaggy-office.jpg",
@@ -260,7 +260,7 @@
         "level": 1,
         "space": 30
       },
-      "flavorText": "I know a guy who boosts these bad boys from parked self driving cars at the MegaMall.",
+      "flavorText": "",
       "image": "black-market-batteries.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
@@ -311,9 +311,9 @@
     "23": {
       "ID": "23",
       "bonus": {
+        "development": 10,
         "funds": 10,
-        "multiplier-dev": "10%",
-        "development": 10
+        "multiplier-dev": "10%"
       },
       "cost": {
         "funds": 1000,
@@ -352,12 +352,12 @@
     "25": {
       "ID": "25",
       "bonus": {
-        "funds": 100,
+        "funds": 3500,
         "xp": 32
       },
       "cost": {
         "development": 8,
-        "funds": 50,
+        "funds": 2000,
         "level": 2,
         "time": 150
       },
@@ -373,12 +373,12 @@
     "26": {
       "ID": "26",
       "bonus": {
-        "funds": 4000,
+        "funds": 8000,
         "xp": 512
       },
       "cost": {
         "development": 32,
-        "funds": 1000,
+        "funds": 4000,
         "level": 4,
         "time": 420
       },
@@ -394,14 +394,14 @@
     "27": {
       "ID": "27",
       "bonus": {
-        "funds": 20000,
-        "xp": 4096
+        "funds": 64000,
+        "xp": 4000
       },
       "cost": {
         "development": 56,
-        "funds": 5000,
+        "funds": 16000,
         "level": 8,
-        "time": 2520
+        "time": 2500
       },
       "flavorText": "Get your buzzwords here! Get'em while they're hot!",
       "image": "initial-coin-offering.jpg",
@@ -415,16 +415,16 @@
     "28": {
       "ID": "28",
       "bonus": {
-        "funds": 100000,
-        "xp": 32796
+        "funds": 512000,
+        "xp": 32000
       },
       "cost": {
         "development": 120,
-        "funds": 20000,
+        "funds": 64000,
         "level": 12,
-        "time": 10080
+        "time": 10000
       },
-      "flavorText": "It's not just a protocol exchange protocol, it's a protocol exchange protocol FRAMEWORK.",
+      "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK.",
       "image": "decentralized-protocol-development.jpg",
       "mechanicsText": "",
       "rarityScore": "576",
@@ -436,14 +436,13 @@
     "29": {
       "ID": "29",
       "bonus": {
-        "funds": 500000,
-        "xp": 262144
+        "xp": 500000
       },
       "cost": {
         "development": 240,
         "funds": 100000,
         "level": 16,
-        "time": 20160
+        "time": 30000
       },
       "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
       "image": "consensus-improvement.jpg",
@@ -458,7 +457,7 @@
       "ID": "3",
       "cost": {
         "funds": 10000,
-        "level": 1
+        "level": 4
       },
       "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
       "image": "downtown-office.jpg",
@@ -477,7 +476,7 @@
       "ID": "4",
       "cost": {
         "funds": 200000,
-        "level": 1
+        "level": 8
       },
       "flavorText": "I swear, one day these things are going to run themselves.",
       "image": "smart-office.jpg",
@@ -496,7 +495,7 @@
       "ID": "5",
       "cost": {
         "funds": 1000000,
-        "level": 1
+        "level": 16
       },
       "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
       "image": "office-building.jpg",
@@ -520,7 +519,7 @@
       },
       "flavorText": "NOTICE: Stop playing VR Minesweeper as it interfeers with our revenue stream!",
       "image": "computer-case.jpg",
-      "mechanicsText": "Can contain CPU-s and Graphics Cards.",
+      "mechanicsText": "Can contain CPUs and Graphics Cards.",
       "rarityScore": "900",
       "special": false,
       "title": "Computer Case",
