@@ -53,7 +53,7 @@ class LocationSidebarItem extends Component {
 
       // get grid connector fpb
       if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '22') {
-        const { power } = slot.lastDroppedItem.cards[0].stats.values;
+        const { power } = slot.lastDroppedItem.values;
         fpb += (power * lastDroppedItem.cards[0].stats.bonus.funds);
       }
 
