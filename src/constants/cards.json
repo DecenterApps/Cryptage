@@ -382,7 +382,7 @@
         "level": 4,
         "time": 420
       },
-      "flavorText": "-We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!\n -Genius!",
+      "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
       "image": "mining-algorithm-optimization.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
