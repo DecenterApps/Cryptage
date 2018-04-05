@@ -207,6 +207,18 @@
       color: #fff;
       max-width: 154px;
 
+      .num-of-boosters {
+        display: none;
+        position: absolute;
+        top: 30px;
+        right: 35px;
+        font-family: Baloo;
+        font-size: 18px;
+
+        text-shadow: 0 0 44px #000000;
+        color: $yellow;
+      }
+
       img {
         height: 227px;
         width: 154px;
@@ -282,6 +294,10 @@
         left: 0;
         right: 0;
         margin: auto;
+
+        .num-of-boosters {
+          display: block;
+        }
 
         &:hover {
           .booster-placeholder {
