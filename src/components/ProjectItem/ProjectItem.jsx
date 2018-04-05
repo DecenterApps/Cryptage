@@ -17,7 +17,7 @@ import './ProjectItem.scss';
 import activeBg from './assets/active-item-bg.png';
 import restart from './assets/restart.png';
 
-const calculatePercent = (expiryTime, costTime) => (expiryTime / costTime) * 100;
+const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime) * 100);
 
 const ProjectItem = ({
   isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished, removeProject,
