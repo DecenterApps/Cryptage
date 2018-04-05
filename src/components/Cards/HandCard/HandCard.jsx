@@ -145,6 +145,7 @@ const HandCard = ({
       }
       {
         (card.stats.values || card.stats.bonus) &&
+        card.stats.type !== 'Container' &&
         <div className="values">
           {
             card.stats.values &&

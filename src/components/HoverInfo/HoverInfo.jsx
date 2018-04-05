@@ -94,6 +94,7 @@ const HoverInfo = ({ card, center }) => (
       }
       {
         (card.stats.values || card.stats.bonus) &&
+        card.stats.type !== 'Container' &&
         <div className="gains" data-name="Gains">
           {
             card.stats.values &&
@@ -119,9 +120,14 @@ const HoverInfo = ({ card, center }) => (
             card.stats.bonus &&
             card.stats.bonus.funds &&
             <div
-              data-name="Funds"
+              data-name={
+                (
+                  card.stats.type === 'Mining' ||
+                  (card.stats.special === true && card.stats.type !== 'Project')
+                ) ? 'FPB' : 'Funds'}
               className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
             >
+              {console.log(card)}
               {formatBigNumber(card.stats.bonus.funds)}
             </div>
           }
