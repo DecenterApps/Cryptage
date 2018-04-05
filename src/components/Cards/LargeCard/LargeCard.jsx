@@ -19,6 +19,7 @@ const LargeCard = ({ card }) => (
     className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
     style={{ backgroundImage: `url('/cardImages/${card.stats.image}')` }}
   >
+    <div className="title">{card.stats.title}</div>
     {
       card.stats.cost &&
       <div className="cost" data-name="Cost">
@@ -27,7 +28,7 @@ const LargeCard = ({ card }) => (
           card.stats.cost.space > 1 &&
           <div
             data-name="Space"
-            className={`orb blue ${classForNumber(card.stats.cost.space)}`}
+            className={`orb space ${classForNumber(card.stats.cost.space)}`}
           >
             {formatBigNumber(card.stats.cost.space)}
           </div>
@@ -36,7 +37,7 @@ const LargeCard = ({ card }) => (
           card.stats.cost.power &&
           <div
             data-name="Power"
-            className={`orb red ${classForNumber(card.stats.cost.power)}`}
+            className={`orb power ${classForNumber(card.stats.cost.power)}`}
           >
             {formatBigNumber(card.stats.cost.power)}
           </div>
@@ -45,7 +46,7 @@ const LargeCard = ({ card }) => (
           card.stats.cost.funds &&
           <div
             data-name="Funds"
-            className={`orb yellow ${classForNumber(card.stats.cost.funds)}`}
+            className={`orb funds ${classForNumber(card.stats.cost.funds)}`}
           >
             {formatBigNumber(card.stats.cost.funds)}
           </div>
@@ -55,25 +56,25 @@ const LargeCard = ({ card }) => (
           card.stats.cost.level > 1 &&
           <div
             data-name="Level"
-            className={`orb blue ${classForNumber(card.stats.cost.level)}`}
+            className={`orb level ${classForNumber(card.stats.cost.level)}`}
           >
             {formatBigNumber(card.stats.cost.level)}
           </div>
         }
-        {
-          card.stats.cost.time &&
-          <div
-            data-name="Time"
-            className={`orb yellow ${classForNumber(card.stats.cost.time)}`}
-          >
-            {formatBigNumber(card.stats.cost.time)}
-          </div>
-        }
+        {/*{*/}
+        {/*card.stats.cost.time &&*/}
+        {/*<div*/}
+        {/*data-name="Time"*/}
+        {/*className={`orb time ${classForNumber(card.stats.cost.time)}`}*/}
+        {/*>*/}
+        {/*{formatBigNumber(card.stats.cost.time)}*/}
+        {/*</div>*/}
+        {/*}*/}
         {
           card.stats.cost.development &&
           <div
             data-name="Dev"
-            className={`orb red ${classForNumber(card.stats.cost.development)}`}
+            className={`orb development ${classForNumber(card.stats.cost.development)}`}
           >
             {formatBigNumber(card.stats.cost.development)}
           </div>
@@ -88,7 +89,7 @@ const LargeCard = ({ card }) => (
           card.stats.values.space &&
           <div
             data-name="Space"
-            className={`orb blue ${classForNumber(card.stats.values.space)}`}
+            className={`orb space ${classForNumber(card.stats.values.space)}`}
           >
             {formatBigNumber(card.stats.values.space)}
           </div>
@@ -98,7 +99,7 @@ const LargeCard = ({ card }) => (
           card.stats.values.power &&
           <div
             data-name="Power"
-            className={`orb red ${classForNumber(card.stats.values.power)}`}
+            className={`orb power ${classForNumber(card.stats.values.power)}`}
           >
             {formatBigNumber(card.stats.values.power)}
           </div>
@@ -108,7 +109,7 @@ const LargeCard = ({ card }) => (
           card.stats.bonus.funds &&
           <div
             data-name="Funds"
-            className={`orb yellow ${classForNumber(card.stats.bonus.funds)}`}
+            className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
           >
             {formatBigNumber(card.stats.bonus.funds)}
           </div>
@@ -118,7 +119,7 @@ const LargeCard = ({ card }) => (
           card.stats.bonus.xp &&
           <div
             data-name="XP"
-            className={`orb yellow ${classForNumber(card.stats.bonus.xp)}`}
+            className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
           >
             {formatBigNumber(card.stats.bonus.xp)}
           </div>
@@ -128,7 +129,7 @@ const LargeCard = ({ card }) => (
           card.stats.bonus.power &&
           <div
             data-name="Power"
-            className={`orb red ${classForNumber(card.stats.bonus.power)}`}
+            className={`orb power ${classForNumber(card.stats.bonus.power)}`}
           >
             {formatBigNumber(card.stats.bonus.power)}
           </div>
@@ -138,7 +139,7 @@ const LargeCard = ({ card }) => (
           card.stats.bonus.development &&
           <div
             data-name="Dev"
-            className={`orb red ${classForNumber(card.stats.bonus.development)}`}
+            className={`orb development ${classForNumber(card.stats.bonus.development)}`}
           >
             {formatBigNumber(card.stats.bonus.development)}
           </div>
@@ -146,13 +147,12 @@ const LargeCard = ({ card }) => (
       </div>
     }
     <div className="meta">
-      <div className="type">{card.stats.type}</div>
       <div className="meta-inner">
-        <div className="title">{card.stats.title}</div>
         <div className="description">
           {card.stats.description}
         </div>
       </div>
+      <div className="type">{card.stats.type}</div>
     </div>
   </div>
 );
