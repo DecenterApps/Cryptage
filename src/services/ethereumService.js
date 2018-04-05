@@ -118,9 +118,6 @@ const getBoughtBoosters = async () => {
 
       return cardsInfo.boosters[id] || {
         id,
-        name: 'Unknown',
-        numOfCards: '?',
-        price: '?',
         blockNumber,
       };
     });

@@ -49,9 +49,10 @@ export const buyBoosterRequest = () => ({
   isBuying: true,
 });
 
-export const buyBoosterSuccess = () => ({
+export const buyBoosterSuccess = booster => ({
   type: BUY_BOOSTER_SUCCESS,
   isBuying: false,
+  booster,
 });
 
 export const buyBoosterError = error => ({
@@ -60,15 +61,18 @@ export const buyBoosterError = error => ({
   error,
 });
 
-export const buyBoosterPack = () => async (dispatch) => {
+export const buyBoosterPack = () => async (dispatch, getState) => {
+  const { blockNumber } = getState().app;
   dispatch(buyBoosterRequest());
   try {
     const result = await ethService.buyBooster();
     log(result);
-    dispatch(buyBoosterSuccess());
+    const booster = {
+      id: result.events.BoosterBought.returnValues.boosterId,
+      blockNumber,
+    };
+    dispatch(buyBoosterSuccess(booster));
     // notify('Booster bought!')(dispatch);
-    // Has to delay refetching for nodes to pick up the block
-    setTimeout(() => dispatch(getBoosters()), 1000);
   } catch (e) {
     dispatch(buyBoosterError(e.message));
     // notify(e.message, 'error', 5000)(dispatch);

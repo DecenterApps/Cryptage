@@ -49,6 +49,10 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isBuying: action.isBuying,
+        boosters: [
+          ...state.boosters,
+          action.booster,
+        ],
       };
     case BUY_BOOSTER_ERROR:
       return {
