@@ -289,7 +289,8 @@
       "rarityScore": "250",
       "title": "GRID Connector",
       "type": "Misc",
-      "unique": true
+      "unique": true,
+      "special": true
     },
     "23": {
       "ID": "23",
@@ -307,7 +308,8 @@
       "rarityScore": "576",
       "title": "Coffee Machine Miner",
       "type": "Misc",
-      "unique": true
+      "unique": true,
+      "special": true
     },
     "24": {
       "ID": "24",

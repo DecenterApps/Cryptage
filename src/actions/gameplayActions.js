@@ -385,18 +385,41 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
 
-  const locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+  let locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
   const slotItem = locationSlots[index].lastDroppedItem;
 
   if (!slotItem) {
     let special;
+
     // handle special cards drop
     if (item.card.metadata.id === '23') {
       const minerEffect = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
       globalStats = minerEffect.globalStats;
       special = minerEffect.bonus;
     }
+
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
+
+    // On developer drop checks if a coffee miner was dropped in that location
+    // If it was recalculate coffee miner effect
+    if (item.card.stats.type === 'Development') {
+      const coffeeMinerIndex = locationSlots.findIndex(({ lastDroppedItem }) =>
+        lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23');
+
+      if (coffeeMinerIndex !== -1) {
+        locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+
+        const coffeeMiner = locationSlots[coffeeMinerIndex].lastDroppedItem;
+        const coffeeMinerItem = { card: coffeeMiner.cards[0] };
+        globalStats.development -= coffeeMiner.special;
+
+        const minerEffect = handleCoffeeMinerEffect(coffeeMinerItem, locations, activeLocationIndex, globalStats);
+        globalStats = minerEffect.globalStats;
+        const coffeeSpecial = minerEffect.bonus;
+
+        locations = updateLocationDropSlotItems(locationSlots, coffeeMinerIndex, coffeeMinerItem, locations, activeLocationIndex, coffeeSpecial); // eslint-disable-line
+      }
+    }
   } else {
     // TODO put in separate function
     // handle asset level up here
