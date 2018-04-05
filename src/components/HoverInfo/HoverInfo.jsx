@@ -45,6 +45,7 @@ const HoverInfo = ({ card, center }) => (
           }
           {
             card.stats.cost.power &&
+            card.stats.cost.power > 0 &&
             <div
               data-name="Power"
               className={`orb power ${classForNumber(card.stats.cost.power)}`}
@@ -96,7 +97,7 @@ const HoverInfo = ({ card, center }) => (
         <div className="gains" data-name="Gains">
           {
             card.stats.values &&
-            card.stats.values.space &&
+            card.stats.values.space > 0 &&
             <div
               data-name="Space"
               className={`orb space ${classForNumber(card.stats.values.space)}`}
@@ -106,7 +107,7 @@ const HoverInfo = ({ card, center }) => (
           }
           {
             card.stats.values &&
-            card.stats.values.power &&
+            card.stats.values.power > 0 &&
             <div
               data-name="Power"
               className={`orb power ${classForNumber(card.stats.values.power)}`}
@@ -136,7 +137,7 @@ const HoverInfo = ({ card, center }) => (
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.power &&
+            card.stats.bonus.power > 0 &&
             <div
               data-name="Power"
               className={`orb power ${classForNumber(card.stats.bonus.power)}`}
