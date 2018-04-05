@@ -16,6 +16,14 @@ let NicknameForm = ({
 }) => (
   <div className="nickname-form-wrapper">
     <div className="content">
+      <p className="form-description-title">
+        Welcome to the world of Cryptage!
+      </p>
+      <p className="form-description">
+        As a welcome gift and to help you kick off your
+        own crypto venture, we will give you 5 free cards. But please choose your username
+        first.
+      </p>
       <div className="form-label">
         Enter your name
       </div>

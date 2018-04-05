@@ -10,6 +10,19 @@
     width: 253px;
     margin-top: 65px;
 
+    .form-description-title, .form-description {
+      font-family: $font-primary;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      text-align: center;
+      color: #FFFFFF;
+    }
+
+    .form-description-title {
+      font-size: 14px;
+    }
+
     .form-label {
       color: #fff;
       text-shadow: $text-shadow-prime;
