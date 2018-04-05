@@ -29,7 +29,8 @@ class GameplayItem extends Component {
 
     if (
       containerIds.includes(this.props.cards[0].metadata.id) ||
-      this.props.cards[0].metadata.id === '18'
+      this.props.cards[0].metadata.id === '18' ||
+      this.props.cards[0].metadata.id === '22'
     ) {
       this.toggleFundsStat();
       setTimeout(this.toggleFundsStat, 2000);
@@ -61,6 +62,7 @@ class GameplayItem extends Component {
     } = this.props;
 
     const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
+    const locationItem = locations[activeLocationIndex].lastDroppedItem;
 
     const isDragMiner = dragItem && dragItem.card.stats.type === 'Mining';
     const isContainer = containerIds.includes(cards[0].metadata.id);
@@ -69,12 +71,16 @@ class GameplayItem extends Component {
     let goodMinerSlotType = false;
     let fpb = 0;
 
+    // handle hacker fpb
     if (cards[0].metadata.id === '18') fpb = cards[0].stats.bonus.funds;
+
+    if (cards[0].metadata.id === '22') {
+      fpb = locationItem.cards[0].stats.values.power * cards[0].stats.bonus.funds;
+    }
 
     if (isContainer) {
       // export this to another function
       if (isDragMiner) {
-        const locationItem = locations[activeLocationIndex].lastDroppedItem;
         const containerSlotsLength = getContainerSlotsLength(locations, locationItem, index);
 
         const containerId = locationItem.dropSlots[index].lastDroppedItem.cards[0].metadata.id;

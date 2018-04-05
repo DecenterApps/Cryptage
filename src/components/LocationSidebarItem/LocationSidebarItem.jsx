@@ -48,6 +48,12 @@ class LocationSidebarItem extends Component {
         fpb += lastDroppedItem.cards[0].stats.bonus.funds;
       }
 
+      // get grid connector fpb
+      if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '22') {
+        const { power } = slot.lastDroppedItem.cards[0].stats.values;
+        fpb += (power * lastDroppedItem.cards[0].stats.bonus.funds);
+      }
+
       // get containers fpb
       if (lastDroppedItem && lastDroppedItem.dropSlots) {
         lastDroppedItem.dropSlots.forEach((containerSlot) => {
