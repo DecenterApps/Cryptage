@@ -816,6 +816,8 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     if (item.cards[0].stats.bonus) power = item.cards[0].stats.bonus.power || 0;
     returnedCards.push(_locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards[0]);
     _locations[locationIndex].lastDroppedItem.values.space += space;
+    // HANDLE ERROR HERE
+    if (_locations[locationIndex].lastDroppedItem.values.power - power < 0) return;
     _locations[locationIndex].lastDroppedItem.values.power -= power;
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].accepts = acceptedAssetDropIds;
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem = null;
