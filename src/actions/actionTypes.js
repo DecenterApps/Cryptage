@@ -76,6 +76,7 @@ export const PLAY_TURN = 'play_turn';
 export const REMOVE_CARD = 'remove_card';
 export const RETURN_CARD = 'return_card';
 export const UPDATE_FUNDS_PER_BLOCK = 'update_funds_per_block';
+export const UPDATE_LOCATIONS = 'update_locations';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
