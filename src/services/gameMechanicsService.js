@@ -88,7 +88,7 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { funds: 2000, level: 1 },
+        cost: { funds: 2000, level: 2 },
         values: { space: 80, power: 24 },
       },
       {
@@ -121,7 +121,7 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { funds: 10000, level: 1 },
+        cost: { funds: 10000, level: 4 },
         values: { space: 120, power: 48 },
       },
       {
@@ -154,7 +154,7 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { funds: 200000, level: 1 },
+        cost: { funds: 200000, level: 8 },
         values: { space: 160, power: 96 },
       },
       {
@@ -187,7 +187,7 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { funds: 1000000, level: 1 },
+        cost: { funds: 1000000, level: 16 },
         values: { space: 200, power: 192 },
       },
       {
@@ -848,8 +848,8 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { development: 8, time: 150, funds: 50, level: 2 },
-        bonus: { xp: 32, funds: 100 },
+        cost: { development: 8, time: 150, funds: 2000, level: 2 },
+        bonus: { xp: 32, funds: 3500 },
       },
       {
         level: 2,
@@ -881,8 +881,8 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { development: 32, time: 420, level: 4, funds: 1000 },
-        bonus: { xp: 512, funds: 4000 },
+        cost: { development: 32, time: 420, level: 4, funds: 4000 },
+        bonus: { xp: 512, funds: 8000 },
       },
       {
         level: 2,
@@ -914,8 +914,8 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { development: 56, time: 2520, level: 8, funds: 5000 },
-        bonus: { xp: 4096, funds: 20000 },
+        cost: { development: 56, time: 2500, level: 8, funds: 16000 },
+        bonus: { xp: 4000, funds: 64000 },
       },
       {
         level: 2,
@@ -947,8 +947,8 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { development: 120, funds: 20000, level: 12, time: 10080 },
-        bonus: { xp: 32796, funds: 100000 },
+        cost: { development: 120, funds: 64000, level: 12, time: 10000 },
+        bonus: { xp: 32000, funds: 512000 },
       },
       {
         level: 2,
@@ -980,8 +980,8 @@ export const getLevelValuesForCard = (id, _level) => {
     [
       {
         level: 1,
-        cost: { development: 240, funds: 100000, level: 16, time: 20160 },
-        bonus: { xp: 262144, funds: 500000 },
+        cost: { development: 240, level: 16, time: 30000 },
+        bonus: { xp: 500000, funds: 500000 },
       },
       {
         level: 2,
