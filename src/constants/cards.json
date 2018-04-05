@@ -10,11 +10,12 @@
       "image": "garage.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Garage",
       "type": "Location",
       "unique": false,
       "values": {
-        "power": 5,
+        "power": 4,
         "space": 40
       }
     },
@@ -28,11 +29,12 @@
       "image": "coworking-space.jpg",
       "mechanicsText": "",
       "rarityScore": "576",
+      "special": false,
       "title": "Coworking Space",
       "type": "Location",
       "unique": false,
       "values": {
-        "power": 12,
+        "power": 0,
         "space": 60
       }
     },
@@ -42,7 +44,7 @@
         "funds": 5
       },
       "cost": {
-        "funds": 100,
+        "funds": 120,
         "level": 1,
         "power": 4,
         "space": 1
@@ -51,6 +53,7 @@
       "image": "gpu.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "GPU",
       "type": "Mining",
       "unique": false
@@ -58,10 +61,10 @@
     "11": {
       "ID": "11",
       "bonus": {
-        "funds": 100
+        "funds": 20
       },
       "cost": {
-        "funds": 10000,
+        "funds": 6000,
         "level": 1,
         "power": 16,
         "space": 1
@@ -70,6 +73,7 @@
       "image": "asic-miner.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "ASIC Miner",
       "type": "Mining",
       "unique": false
@@ -88,6 +92,7 @@
       "image": "intern-programmer.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Intern Programmer",
       "type": "Development",
       "unique": false
@@ -106,6 +111,7 @@
       "image": "junior-developer.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Junior Developer",
       "type": "Development",
       "unique": false
@@ -124,6 +130,7 @@
       "image": "freelance-consultant.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Freelance Consultant",
       "type": "Development",
       "unique": false
@@ -142,6 +149,7 @@
       "image": "senior-developer.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Senior Developer",
       "type": "Development",
       "unique": false
@@ -160,6 +168,7 @@
       "image": "techical-team-leader.jpg",
       "mechanicsText": "",
       "rarityScore": "576",
+      "special": false,
       "title": "Techical Team Leader",
       "type": "Development",
       "unique": false
@@ -178,6 +187,7 @@
       "image": "project-architect.jpg",
       "mechanicsText": "",
       "rarityScore": "485",
+      "special": false,
       "title": "Project Architect",
       "type": "Development",
       "unique": false
@@ -185,11 +195,11 @@
     "18": {
       "ID": "18",
       "bonus": {
-        "development": 2,
-        "funds": 2
+        "development": 4,
+        "funds": 10
       },
       "cost": {
-        "funds": 500,
+        "funds": 1000,
         "level": 1,
         "space": 20
       },
@@ -197,6 +207,7 @@
       "image": "black-hat-hacker.jpg",
       "mechanicsText": "Gain X funds each block.",
       "rarityScore": "576",
+      "special": true,
       "title": "Black Hat Hacker",
       "type": "Development",
       "unique": false
@@ -204,7 +215,7 @@
     "19": {
       "ID": "19",
       "bonus": {
-        "power": 15
+        "power": 24
       },
       "cost": {
         "funds": 500,
@@ -215,6 +226,7 @@
       "image": "solar-panels.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Solar Panels",
       "type": "Power",
       "unique": false
@@ -229,18 +241,19 @@
       "image": "shaggy-office.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Shaggy Office",
       "type": "Location",
       "unique": false,
       "values": {
-        "power": 20,
-        "space": 100
+        "power": 24,
+        "space": 80
       }
     },
     "20": {
       "ID": "20",
       "bonus": {
-        "power": 50
+        "power": 48
       },
       "cost": {
         "funds": 3000,
@@ -251,6 +264,7 @@
       "image": "black-market-batteries.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Black Market Batteries",
       "type": "Power",
       "unique": false
@@ -258,7 +272,7 @@
     "21": {
       "ID": "21",
       "bonus": {
-        "power": 500
+        "power": 192
       },
       "cost": {
         "funds": 10000,
@@ -269,6 +283,7 @@
       "image": "diy-power-generator.jpg",
       "mechanicsText": "",
       "rarityScore": "485",
+      "special": false,
       "title": "DIY Power Generator",
       "type": "Power",
       "unique": false
@@ -276,7 +291,8 @@
     "22": {
       "ID": "22",
       "bonus": {
-        "funds": 10
+        "funds": 1,
+        "multiplier-funds": 1
       },
       "cost": {
         "funds": 1000,
@@ -287,70 +303,71 @@
       "image": "grid-connector.jpg",
       "mechanicsText": "Unique. For each unit of unspent POWER at location, gain X FUNDS.",
       "rarityScore": "250",
+      "special": true,
       "title": "GRID Connector",
       "type": "Misc",
-      "unique": true,
-      "special": true
+      "unique": true
     },
     "23": {
       "ID": "23",
       "bonus": {
-        "funds": 10
+        "funds": 10,
+        "multiplier-dev": "10%"
       },
       "cost": {
         "funds": 1000,
         "level": 1,
         "space": 10
       },
-      "flavorText": "Make money by grinding sweet sweet coffee... Truly makind's greatest invention. ",
+      "flavorText": "Make money by grinding sweet sweet coffee... Truly mankind's greatest invention. ",
       "image": "coffee-machine-miner.jpg",
       "mechanicsText": "Unique. Gain X funds each block. All developers on location gain X% bonus DEV. ",
       "rarityScore": "576",
+      "special": true,
       "title": "Coffee Machine Miner",
       "type": "Misc",
-      "unique": true,
-      "special": true
+      "unique": true
     },
     "24": {
       "ID": "24",
       "bonus": {
-        "funds": 100,
-        "xp": 8
+        "funds": 50,
+        "xp": 4
       },
       "cost": {
         "development": 1,
         "level": 1,
-        "time": 70
+        "time": 50
       },
       "flavorText": "Hey, this isn't what I signed up for!",
       "image": "outourced-project.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": true,
       "title": "Outourced Project",
       "type": "Project",
-      "unique": false,
-      "special": true
+      "unique": false
     },
     "25": {
       "ID": "25",
       "bonus": {
-        "funds": 200,
-        "xp": 64
+        "funds": 100,
+        "xp": 32
       },
       "cost": {
         "development": 8,
         "funds": 50,
         "level": 2,
-        "time": 210
+        "time": 150
       },
       "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
       "image": "profitable-dapp.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": true,
       "title": "Profitable Đapp",
       "type": "Project",
-      "unique": false,
-      "special": true
+      "unique": false
     },
     "26": {
       "ID": "26",
@@ -368,10 +385,10 @@
       "image": "mining-algorithm-optimization.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": true,
       "title": "Mining Algorithm Optimization",
       "type": "Project",
-      "unique": false,
-      "special": true
+      "unique": false
     },
     "27": {
       "ID": "27",
@@ -389,10 +406,10 @@
       "image": "initial-coin-offering.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": true,
       "title": "Initial Coin Offering",
       "type": "Project",
-      "unique": false,
-      "special": true
+      "unique": false
     },
     "28": {
       "ID": "28",
@@ -410,10 +427,10 @@
       "image": "decentralized-protocol-development.jpg",
       "mechanicsText": "",
       "rarityScore": "576",
+      "special": true,
       "title": "Decentralized Protocol Development",
       "type": "Project",
-      "unique": false,
-      "special": true
+      "unique": false
     },
     "29": {
       "ID": "29",
@@ -431,10 +448,10 @@
       "image": "consensus-improvement.jpg",
       "mechanicsText": "",
       "rarityScore": "485",
+      "special": true,
       "title": "Consensus Improvement",
       "type": "Project",
-      "unique": false,
-      "special": true
+      "unique": false
     },
     "3": {
       "ID": "3",
@@ -446,30 +463,32 @@
       "image": "downtown-office.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "Downtown Office",
       "type": "Location",
       "unique": false,
       "values": {
-        "power": 50,
-        "space": 140
+        "power": 48,
+        "space": 120
       }
     },
     "4": {
       "ID": "4",
       "cost": {
-        "funds": 100000,
+        "funds": 200000,
         "level": 1
       },
       "flavorText": "I swear, one day these things are going to run themselves.",
       "image": "smart-office.jpg",
       "mechanicsText": "",
-      "rarityScore": "576",
+      "rarityScore": "900",
+      "special": false,
       "title": "Smart Office",
       "type": "Location",
       "unique": false,
       "values": {
-        "power": 110,
-        "space": 200
+        "power": 96,
+        "space": 160
       }
     },
     "5": {
@@ -481,13 +500,14 @@
       "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
       "image": "office-building.jpg",
       "mechanicsText": "",
-      "rarityScore": "900",
+      "rarityScore": "576",
+      "special": false,
       "title": "Office Building",
       "type": "Location",
       "unique": false,
       "values": {
-        "power": 230,
-        "space": 240
+        "power": 192,
+        "space": 200
       }
     },
     "6": {
@@ -501,6 +521,7 @@
       "image": "computer-case.jpg",
       "mechanicsText": "Can contain CPU-s and Graphics Cards.",
       "rarityScore": "900",
+      "special": false,
       "title": "Computer Case",
       "type": "Container",
       "unique": false,
@@ -511,7 +532,7 @@
     "7": {
       "ID": "7",
       "cost": {
-        "funds": 1000,
+        "funds": 1200,
         "level": 1,
         "space": 15
       },
@@ -519,17 +540,18 @@
       "image": "mining-rig.jpg",
       "mechanicsText": "Can contain Graphics Cards.",
       "rarityScore": "900",
+      "special": false,
       "title": "Mining Rig",
       "type": "Container",
       "unique": false,
       "values": {
-        "space": 4
+        "space": 6
       }
     },
     "8": {
       "ID": "8",
       "cost": {
-        "funds": 10000,
+        "funds": 4800,
         "level": 1,
         "space": 25
       },
@@ -537,11 +559,12 @@
       "image": "asic-mount.jpg",
       "mechanicsText": "Can contain ASIC miners.",
       "rarityScore": "900",
+      "special": false,
       "title": "ASIC Mount",
       "type": "Container",
       "unique": false,
       "values": {
-        "space": 4
+        "space": 6
       }
     },
     "9": {
@@ -559,6 +582,7 @@
       "image": "cpu.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
+      "special": false,
       "title": "CPU",
       "type": "Mining",
       "unique": false
