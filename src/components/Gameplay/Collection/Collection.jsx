@@ -10,6 +10,7 @@ import { exitNotLocationsView } from '../../../actions/gameplayActions';
 
 import './Collection.scss';
 
+
 const Collection = ({ cards, exitNotLocationsView }) => (
   <div className="collection-wrapper">
     <HeaderBar title="My collection" color="#FF9D14" fontSize="13px" />

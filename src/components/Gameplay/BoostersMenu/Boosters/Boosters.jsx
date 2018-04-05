@@ -54,7 +54,8 @@ export default ({
                     <span className="circle-loader-wrapper">
                       <CircleSpinner />
                       <div>Revealing</div>
-                      <div>card pack</div>
+                      <div>card</div>
+                      <div>pack</div>
                     </span>
                   }
                   <img src={images[i]} alt="" />

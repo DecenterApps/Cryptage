@@ -4,6 +4,7 @@ import {
   LOADING_ENDED,
   UPDATE_BLOCK_NUMBER,
   TOGGLE_CARD_DRAG,
+  CLEAR_STORE,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
@@ -84,3 +85,12 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
 export const toggleCardDrag = payload => (dispatch) => {
   dispatch({ type: TOGGLE_CARD_DRAG, payload });
 };
+
+/**
+ * Toggles if a card is being dragged in the game
+ *
+ * @param {Boolean} payload
+ */
+export const resetGame = () => (dispatch) => {
+  dispatch({ type: CLEAR_STORE });
+}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CloseIcon from '../CloseIcon/CloseIcon';
 import { changeGameplayView, saveStateToContract } from '../../actions/gameplayActions';
+import { resetGame } from '../../actions/appActions';
 import { GP_LOCATION_COLLECTION, GP_BUY_BOOSTER } from '../../actions/actionTypes';
 import BlocksLoadingBar from '../BlocksLoadingBar/BlocksLoadingBar';
 
@@ -19,6 +20,7 @@ class Menu extends Component {
       changeGameplayView,
       saveStateToContract,
       currentBlock,
+      resetGame,
     } = this.props;
 
     let blocksLeftToSave = null;
@@ -76,6 +78,15 @@ class Menu extends Component {
               >
                 Shop
               </a>
+              <a
+                onClick={() => {
+                  localStorage.clear();
+                  resetGame();
+                  this.setState({ open: false });
+                }}
+              >
+                Reset Game
+              </a>
             </div>
           </div>
         </div>
@@ -89,6 +100,7 @@ Menu.propTypes = {
   saveStateToContract: PropTypes.func.isRequired,
   lastSavedStateBlock: PropTypes.number.isRequired,
   currentBlock: PropTypes.number.isRequired,
+  resetGame: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
@@ -97,7 +109,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProps = {
-  changeGameplayView, saveStateToContract,
+  changeGameplayView, saveStateToContract, resetGame,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);
