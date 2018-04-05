@@ -4,11 +4,10 @@
 
 .collection-wrapper {
   position: relative;
-  width: 566px;
+  width: 640px;
   flex-grow: 1;
   margin: 25px auto 0 auto;
   background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
-  overflow: hidden;
 
   .close-icon {
     position: absolute;
@@ -40,15 +39,18 @@
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    height: 420px;
+    height: 413px;
     position: relative;
+    justify-content: space-around;
+    padding: 0 20px;
+    box-sizing: border-box;
     .large-card-wrapper {
-      margin-bottom: 40px;
+      margin: 0 5px 40px;
     }
     .unknown {
       width: 145px;
       height: 252px;
-      margin: 0 auto 40px;
+      margin: 0 5px 40px;
       background-image: url('../../Gameplay/BoostersMenu/Reveal/assets/bg-back.png');
       background-position: center;
       background-size: cover;
