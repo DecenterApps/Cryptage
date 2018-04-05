@@ -24,7 +24,10 @@ import {
   acceptedLocationDropIds,
   acceptedAssetDropIds,
   acceptedProjectDropIds,
-  RETURN_CARD, GP_LOCATION, GP_NO_NICKNAME
+  RETURN_CARD,
+  GP_LOCATION,
+  GP_NO_NICKNAME,
+  UPDATE_LOCATIONS,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -398,11 +401,17 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       special = minerEffect.bonus;
     }
 
+    // handle hacker unique special case
+    if (item.card.metadata.id === '18') {
+      globalStats.development += item.card.stats.bonus.development;
+    }
+
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
     // On developer drop checks if a coffee miner was dropped in that location
     // If it was recalculate coffee miner effect
     if (item.card.stats.type === 'Development') {
+      // TODO export this to func
       const coffeeMinerIndex = locationSlots.findIndex(({ lastDroppedItem }) =>
         lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23');
 
@@ -829,6 +838,37 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     },
     gameplayView,
   });
+
+  if (item.cards[0].stats.type === 'Development') {
+    // TODO export this to separate function
+    const gameplay = { ...getState().gameplay };
+    let locations = [...gameplay.locations];
+    let globalStats = { ...gameplay.globalStats };
+
+    // check if coffee miner was dropped and recalculate
+    let locationSlots = [...locations[locationIndex].lastDroppedItem.dropSlots];
+
+    const coffeeMinerIndex = locationSlots.findIndex(({ lastDroppedItem }) =>
+      lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23');
+
+    if (coffeeMinerIndex !== -1) {
+      locationSlots = [..._locations[locationIndex].lastDroppedItem.dropSlots];
+
+      const coffeeMiner = locationSlots[coffeeMinerIndex].lastDroppedItem;
+      const coffeeMinerItem = { card: coffeeMiner.cards[0] };
+      globalStats.development -= coffeeMiner.special;
+
+      const minerEffect = handleCoffeeMinerEffect(coffeeMinerItem, locations, locationIndex, globalStats);
+
+      ({ globalStats } = minerEffect);
+      const coffeeSpecial = minerEffect.bonus;
+
+      dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+
+      locations = updateLocationDropSlotItems(locationSlots, coffeeMinerIndex, coffeeMinerItem, locations, locationIndex, coffeeSpecial); // eslint-disable-line
+      dispatch({ type: UPDATE_LOCATIONS, payload: locations });
+    }
+  }
 };
 
 /**

@@ -26,6 +26,7 @@ import {
   GP_NO_LOCATIONS,
   RETURN_CARD,
   UPDATE_FUNDS_PER_BLOCK,
+  UPDATE_LOCATIONS,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -174,6 +175,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case UPDATE_FUNDS_PER_BLOCK:
       return { ...state, fundsPerBlock: payload };
+
+    case UPDATE_LOCATIONS:
+      return { ...state, locations: payload };
 
     default:
       return state;

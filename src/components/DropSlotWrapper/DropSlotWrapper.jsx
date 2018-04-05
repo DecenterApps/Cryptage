@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { playTurn } from '../../actions/gameplayActions';
+import { toggleCardDrag } from '../../actions/appActions';
 import './DropSlotWrapper.scss';
 
 const dropTarget = {
   drop(props, monitor, component) {
     props.onDrop(monitor.getItem());
     component.props.playTurn(monitor.getItem(), props.slotType, props.index, true);
+    component.props.toggleCardDrag();
   },
 };
 
@@ -85,7 +87,7 @@ DropSlotWrapper.propTypes = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProp = {
-  playTurn,
+  playTurn, toggleCardDrag,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(DropSlotWrapper);

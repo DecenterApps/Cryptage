@@ -132,6 +132,8 @@
 
     .drop-slots-wrapper {
       @include gameplayEmptySlot();
+      //max-height: 250px;
+      //overflow: auto;
 
       .drop-slot-component {
         &.drop-slot-active, &.drop-slot-item-hover {
