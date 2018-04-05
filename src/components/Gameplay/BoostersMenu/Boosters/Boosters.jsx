@@ -58,6 +58,9 @@ export default ({
                       <div>pack</div>
                     </span>
                   }
+                  <div className="num-of-boosters">
+                    +{boosters.length - 3}
+                  </div>
                   <img src={images[i]} alt="" />
                   <p className="booster-placeholder booster-text-gradient">Card pack</p>
                   <button
