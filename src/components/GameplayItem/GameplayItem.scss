@@ -22,16 +22,20 @@
     display: none;
   }
 
+  .fpb {
+    position: absolute;
+    bottom: 90px;
+    z-index: 20;
+
+    @include elementInAndOut;
+  }
+
+  .asset-card-wrapper {
+    position: relative;
+  }
+
   .container-card-wrapper {
     position: relative;
-
-    .fpb {
-      position: absolute;
-      bottom: 90px;
-      z-index: 20;
-
-      @include elementInAndOut;
-    }
 
     &.can-drop-miner {
 

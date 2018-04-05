@@ -43,6 +43,12 @@ class LocationSidebarItem extends Component {
     let fpb = 0;
 
     slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
+      // get hackers fpb
+      if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '18') {
+        fpb += lastDroppedItem.cards[0].stats.bonus.funds;
+      }
+
+      // get containers fpb
       if (lastDroppedItem && lastDroppedItem.dropSlots) {
         lastDroppedItem.dropSlots.forEach((containerSlot) => {
           if (containerSlot.lastDroppedItem) {

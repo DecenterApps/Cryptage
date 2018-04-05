@@ -25,11 +25,15 @@ class GameplayItem extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!containerIds.includes(this.props.cards[0].metadata.id)) return;
     if (nextProps.blockNumber === this.props.blockNumber) return;
 
-    this.toggleFundsStat();
-    setTimeout(this.toggleFundsStat, 2000);
+    if (
+      containerIds.includes(this.props.cards[0].metadata.id) ||
+      this.props.cards[0].metadata.id === '18'
+    ) {
+      this.toggleFundsStat();
+      setTimeout(this.toggleFundsStat, 2000);
+    }
   }
 
   /**
@@ -64,6 +68,8 @@ class GameplayItem extends Component {
     let canDropMiner = false;
     let goodMinerSlotType = false;
     let fpb = 0;
+
+    if (cards[0].metadata.id === '18') fpb = cards[0].stats.bonus.funds;
 
     if (isContainer) {
       // export this to another function
@@ -104,16 +110,25 @@ class GameplayItem extends Component {
         ${isContainer && 'container'}
       `}
       >
-        {!isContainer &&
-        <HandCard
-          showCount={false}
-          card={cards[0]}
-          slot={slot}
-          handleCardCancel={handleCardCancel}
-          locationIndex={activeLocationIndex}
-          containerIndex={index}
-          played
-        />
+        {
+          !isContainer &&
+          <div className="asset-card-wrapper">
+            {
+              this.state.show &&
+              (fpb > 0) &&
+              <div className="fpb">+ { fpb } { fpb === 1 ? 'fund' : 'funds' }</div>
+            }
+
+            <HandCard
+              showCount={false}
+              card={cards[0]}
+              slot={slot}
+              handleCardCancel={handleCardCancel}
+              locationIndex={activeLocationIndex}
+              containerIndex={index}
+              played
+            />
+          </div>
         }
         {
           isContainer &&
