@@ -60,6 +60,20 @@
           }
         }
 
+        .funds-circle,
+        .dev-circle {
+          margin-right: 7px;
+          width: 26px;
+          height: 26px;
+          border-radius: 50px;
+        }
+        .dev-circle {
+          background: linear-gradient(180deg, #9B01C1 24.31%, rgba(155, 1, 193, 0.67) 100%);
+        }
+        .funds-circle {
+          background: linear-gradient(180deg, #FF9D14 24.31%, rgba(255, 157, 20, 0.67) 100%);;
+        }
+
         img {
           margin-right: 7px;
           width: 26px;
