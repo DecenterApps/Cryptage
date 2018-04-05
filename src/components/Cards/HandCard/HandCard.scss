@@ -94,10 +94,10 @@
       height: 20px;
       border-radius: 50%;
       display: block;
-      margin: 2px 0;
+      margin: 4px 0;
       line-height: 22px;
       color: white;
-      border: 2px solid #36265F;
+      //border: 2px solid #36265F;
       box-sizing: content-box;
       font-size: 12px;
       font-family: $font-secondary;
@@ -113,14 +113,23 @@
       &.smaller {
         font-size: 9px;
       }
-      &.red {
-        background: radial-gradient(9.50px at 50% 50%, #FF0000 0%, #7A120D 100%);
+      &.funds {
+        background: linear-gradient(to bottom, darken(#FF9D14, 5%) 0%, rgba(#FF9D14, .8) 100%);
       }
-      &.blue {
-        background: radial-gradient(9.50px at 50% 50%, #41E0E0 0%, #2B7678 100%);
+      &.power {
+        background: linear-gradient(to bottom, darken(#BC0924, 5%) 0%, rgba(#BC0924, .8) 100%);
       }
-      &.yellow {
-        background: radial-gradient(9.50px at 50% 50%, #FF9D14 0%, #8F570A 100%);
+      &.xp {
+        background: linear-gradient(to bottom, darken(#2209BC, 5%) 0%, rgba(#2209BC, .8) 100%);
+      }
+      &.space {
+        background: linear-gradient(to bottom, darken(#3CC8CC, 5%) 0%, rgba(#3CC8CC, .8) 100%);
+      }
+      &.development {
+        background: linear-gradient(to bottom, darken(#9B01C1, 5%) 0%, rgba(#9B01C1, .8) 100%);
+      }
+      &.level {
+        background: linear-gradient(to bottom, darken(#2AD100, 5%) 0%, rgba(#2AD100, .8) 100%);
       }
     }
   }

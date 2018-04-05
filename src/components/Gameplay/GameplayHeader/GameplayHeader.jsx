@@ -53,7 +53,7 @@ const GameplayHeader = ({
       <div className="section">
         <div className="stats-container">
           <div className="stats-wrapper dev-stats">
-            <img src={devCircle} alt="Development icon circle" />
+            <div className="dev-circle" />
 
             <div className="meta-wrapper">
               <div className="count">{ globalStats.development }</div>
@@ -62,7 +62,7 @@ const GameplayHeader = ({
           </div>
 
           <div className="stats-wrapper funds-stats">
-            <img src={fundsCircle} alt="Funds icon circle" />
+            <div className="funds-circle" />
 
             <div className="meta-wrapper">
               <div className="count">
