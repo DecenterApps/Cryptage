@@ -97,7 +97,9 @@ class GameplayItem extends Component {
 
       // go to third level view if dragging a mining card
       if (isOver && dragItem.card.stats.type === 'Mining' && canDropMiner) {
-        this.goToContainer(isContainer);
+        setTimeout(() => {
+          this.goToContainer(isContainer);
+        }, 200);
       }
 
       remainingSlots = dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
