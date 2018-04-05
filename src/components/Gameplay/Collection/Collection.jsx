@@ -12,7 +12,7 @@ import './Collection.scss';
 
 const Collection = ({ cards, exitNotLocationsView }) => (
   <div className="collection-wrapper">
-    <HeaderBar title="Collection" color="#FF9D14" fontSize="13px" />
+    <HeaderBar title="My collection" color="#FF9D14" fontSize="13px" />
 
     <div onClick={exitNotLocationsView}>
       <CloseIcon />

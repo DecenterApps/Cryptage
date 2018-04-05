@@ -66,7 +66,7 @@ class Menu extends Component {
                   changeGameplayView(GP_LOCATION_COLLECTION);
                 }}
               >
-                Collection
+                My collection
               </a>
               <a
                 onClick={() => {
