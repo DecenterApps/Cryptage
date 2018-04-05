@@ -8,10 +8,16 @@ import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
 import Projects from '../Projects/Projects';
-import { checkAccount, loadingEnded, listenForNewBlocks, updateCurrentBlockNumber } from '../../actions/appActions';
+import {
+  checkAccount,
+  loadingEnded,
+  listenForNewBlocks,
+  updateCurrentBlockNumber
+} from '../../actions/appActions';
 import { loadGameplayState } from '../../actions/gameplayActions';
 
 import './App.scss';
+import bug from './bug.png';
 
 @DragDropContext(HTML5Backend)
 class App extends Component {
@@ -31,7 +37,7 @@ class App extends Component {
         {
           this.props.accountError &&
           <div className="app-error">
-            { this.props.accountError }
+            {this.props.accountError}
           </div>
         }
         <div className="app-top-section-wrapper">
@@ -44,6 +50,15 @@ class App extends Component {
         </div>
 
         {/*<Cards />*/}
+        <a
+          className="bug-report"
+          href="https://insights.hotjar.com/s?siteId=836110&surveyId=45077"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src={bug} alt="Report a bug" />
+          <p>Report a bug</p>
+        </a>
       </div>
     );
   }

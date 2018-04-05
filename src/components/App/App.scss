@@ -38,6 +38,32 @@ body {
   background: url("./game-background.png") center center no-repeat;
   background-size: cover;
 
+  .bug-report {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    right: 10px;
+    bottom: 10px;
+    text-decoration: none;
+
+    p {
+      color: #fff;
+      font-family: $font-primary;
+      font-size: 8px;
+      margin: 5px 0 0 0;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  }
+
   .app-error {
     position: fixed;
     top: 0;
