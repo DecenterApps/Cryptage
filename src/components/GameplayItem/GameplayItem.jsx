@@ -30,7 +30,8 @@ class GameplayItem extends Component {
     if (
       containerIds.includes(this.props.cards[0].metadata.id) ||
       this.props.cards[0].metadata.id === '18' ||
-      this.props.cards[0].metadata.id === '22'
+      this.props.cards[0].metadata.id === '22' ||
+      this.props.cards[0].metadata.id === '23'
     ) {
       this.toggleFundsStat();
       setTimeout(this.toggleFundsStat, 2000);
@@ -71,9 +72,10 @@ class GameplayItem extends Component {
     let goodMinerSlotType = false;
     let fpb = 0;
 
-    // handle hacker fpb
-    if (cards[0].metadata.id === '18') fpb = cards[0].stats.bonus.funds;
+    // handle hacker and coffee miner fpb
+    if (cards[0].metadata.id === '18' || cards[0].metadata.id === '23') fpb = cards[0].stats.bonus.funds;
 
+    // handle grid connector fpb
     if (cards[0].metadata.id === '22') {
       fpb = locationItem.cards[0].stats.values.power * cards[0].stats.bonus.funds;
     }
@@ -99,6 +101,7 @@ class GameplayItem extends Component {
 
       remainingSlots = dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
 
+      // handle container fpb
       fpb = slot.lastDroppedItem.dropSlots.reduce((acc, currVal) => {
         if (currVal.lastDroppedItem) {
           acc += currVal.lastDroppedItem.cards[0].stats.bonus.funds;

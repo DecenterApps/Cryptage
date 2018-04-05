@@ -86,6 +86,26 @@ const addFundsForDroppedHacker = _cards => (dispatch, getState) => {
 };
 
 /**
+ * Adds funds for every dropped coffee miner per block
+ *
+ * @param _cards
+ */
+const addFundsForDroppedCoffeeMiners = _cards => (dispatch, getState) => {
+  const globalStats = { ...getState().gameplay.globalStats };
+  let coffeeFunds = 0;
+
+  const coffeeCards = _cards.filter(_card => _card.metadata.id === '23');
+
+  coffeeCards.forEach(({ stats }) => {
+    coffeeFunds += stats.bonus.funds;
+    globalStats.funds += stats.bonus.funds;
+  });
+
+  dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  return coffeeFunds;
+};
+
+/**
  * Updates gameplay stats for each played asset card that has
  * that defined
  *
@@ -97,8 +117,9 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
   const miningFunds = dispatch(addFundsForDroppedMiningRigs(cards));
   const gridConnectorsFunds = dispatch(addFundsForDroppedGridConnectors(cards));
   const hackersFunds = dispatch(addFundsForDroppedHacker(cards));
+  const coffeeMinerFunds = dispatch(addFundsForDroppedCoffeeMiners(cards));
 
-  const total = miningFunds + gridConnectorsFunds + hackersFunds;
+  const total = miningFunds + gridConnectorsFunds + hackersFunds + coffeeMinerFunds;
 
   if (total !== getState().gameplay.fundsPerBlock) dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: total });
 
