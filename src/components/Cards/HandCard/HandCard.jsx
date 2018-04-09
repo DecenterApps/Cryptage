@@ -107,38 +107,38 @@ const HandCard = ({
             card.stats.cost.space &&
             card.stats.cost.space > 1 &&
             <div className={`circle space ${classForNumber(card.stats.cost.space)}`}>
-              {formatBigNumber(card.stats.cost.space, true)}
+              {formatBigNumber(card.stats.cost.space)}
             </div>
           }
           {
             card.stats.cost.power &&
             <div className={`circle power ${classForNumber(card.stats.cost.power)}`}>
-              {formatBigNumber(card.stats.cost.power, true)}
+              {formatBigNumber(card.stats.cost.power)}
             </div>
           }
           {
             card.stats.cost.funds &&
             <div className={`circle funds ${classForNumber(card.stats.cost.funds)}`}>
-              {formatBigNumber(card.stats.cost.funds, true)}
+              {formatBigNumber(card.stats.cost.funds)}
             </div>
           }
           {
             card.stats.cost.level &&
             card.stats.cost.level > 1 &&
             <div className={`circle level ${classForNumber(card.stats.cost.level)}`}>
-              {formatBigNumber(card.stats.cost.level, true)}
+              {formatBigNumber(card.stats.cost.level)}
             </div>
           }
           {/*{*/}
             {/*card.stats.cost.time &&*/}
             {/*<div className={`circle yellow ${classForNumber(card.stats.cost.time)}`}>*/}
-              {/*{formatBigNumber(card.stats.cost.time, true)}*/}
+              {/*{formatBigNumber(card.stats.cost.time)}*/}
             {/*</div>*/}
           {/*}*/}
           {
             card.stats.cost.development &&
             <div className={`circle development ${classForNumber(card.stats.cost.development)}`}>
-              {formatBigNumber(card.stats.cost.development, true)}
+              {formatBigNumber(card.stats.cost.development)}
             </div>
           }
         </div>
@@ -151,42 +151,42 @@ const HandCard = ({
             card.stats.values &&
             card.stats.values.space &&
             <div className={`circle space ${classForNumber(card.stats.values.space)}`}>
-              {formatBigNumber(card.stats.values.space, true)}
+              {formatBigNumber(card.stats.values.space)}
             </div>
           }
           {
             card.stats.values &&
             card.stats.values.power &&
             <div className={`circle power ${classForNumber(card.stats.values.power)}`}>
-              {formatBigNumber(card.stats.values.power, true)}
+              {formatBigNumber(card.stats.values.power)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.funds &&
             <div className={`circle funds ${classForNumber(card.stats.bonus.funds)}`}>
-              {formatBigNumber(card.stats.bonus.funds, true)}
+              {formatBigNumber(card.stats.bonus.funds)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.xp &&
             <div className={`circle xp ${classForNumber(card.stats.bonus.xp)}`}>
-              {formatBigNumber(card.stats.bonus.xp, true)}
+              {formatBigNumber(card.stats.bonus.xp)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.power &&
             <div className={`circle power ${classForNumber(card.stats.bonus.power)}`}>
-              {formatBigNumber(card.stats.bonus.power, true)}
+              {formatBigNumber(card.stats.bonus.power)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.development &&
             <div className={`circle development ${classForNumber(card.stats.bonus.development)}`}>
-              {formatBigNumber(card.stats.bonus.development, true)}
+              {formatBigNumber(card.stats.bonus.development)}
             </div>
           }
         </div>

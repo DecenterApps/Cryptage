@@ -65,7 +65,7 @@ class GameplayItem extends Component {
     const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
     const locationItem = locations[activeLocationIndex].lastDroppedItem;
 
-    const isDragMiner = dragItem && dragItem.card.stats.type === 'Mining';
+    const isDragMiner = dragItem && dragItem.card && dragItem.card.stats.type === 'Mining';
     const isContainer = containerIds.includes(cards[0].metadata.id);
     let remainingSlots = null;
     let canDropMiner = false;
