@@ -98,7 +98,7 @@ export default ({
         <img
           src={ethCircle}
           alt="Ethereum logo circle"
-        /> ETH 0.01
+        /> ETH 0.001
       </div>
     </div>
   );
