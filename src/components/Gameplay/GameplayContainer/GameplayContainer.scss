@@ -43,6 +43,8 @@
         @include gameplayEmptySlot();
 
         justify-content: center;
+        max-width: 455px;
+        margin: auto;
 
         .drop-slot-component:not(:first-child) {
           margin-left: 27px;
