@@ -45,12 +45,12 @@ const INITIAL_STATE = {
   activeContainerIndex: 0,
   playedTurns: [],
   globalStats: {
-    level: config.globalStats.level,
+    level: 10,
     experience: config.globalStats.experience,
     earnedXp: 0,
     requiredXp: 16,
-    funds: config.globalStats.funds,
-    development: config.globalStats.development,
+    funds: 100000,
+    development: 100000,
   },
 };
 
@@ -87,6 +87,7 @@ export default (state = INITIAL_STATE, action) => {
         locations: action.locations,
         cards: action.cards,
         globalStats: action.globalStats,
+        fundsPerBlock: action.fundsPerBlock,
       };
 
     case DROP_PROJECT:
@@ -140,7 +141,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         inGameplayView: payload.viewType,
-        activeContainerIndex: payload.containerIndex
+        activeContainerIndex: payload.containerIndex,
       };
 
     case PLAY_TURN:
@@ -159,6 +160,7 @@ export default (state = INITIAL_STATE, action) => {
         cards: action.cards,
         globalStats: action.globalStats,
         gameplayView: action.gameplayView,
+        fundsPerBlock: action.fundsPerBlock,
       };
 
     case RETURN_CARD:

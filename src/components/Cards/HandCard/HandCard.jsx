@@ -231,6 +231,7 @@ HandCard.defaultProps = {
   containerSlotIndex: undefined,
   slot: null,
   handleCardCancel: () => {},
+  draggingCard: false,
 };
 
 HandCard.propTypes = {
@@ -250,7 +251,7 @@ HandCard.propTypes = {
   containerIndex: PropTypes.number,
   containerSlotIndex: PropTypes.number,
   slot: PropTypes.object,
-  draggingCard: PropTypes.bool.isRequired,
+  draggingCard: PropTypes.bool,
 };
 
 const mapStateToProps = ({ app }) => ({

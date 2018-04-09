@@ -199,8 +199,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   }
 
   const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, index);
-  locations = mathRes.locations;
-  globalStats = mathRes.globalStats;
+  ({ locations, globalStats } = mathRes);
 
   dispatch({
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
@@ -367,6 +366,25 @@ export const levelUpProject = index => (dispatch, getState) => {
 };
 
 /**
+ * Checks if dropped card should update global fpb
+ *
+ * @param {Number} _fpb
+ * @param {Object} card
+ * @param {Boolean} addOrReduce - true is add, false is reduce
+ * @return {Number}
+ */
+const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
+  let fpb = _fpb;
+
+  if (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project')) {
+    if (addOrReduce) fpb += card.stats.bonus.funds;
+    else fpb -= card.stats.bonus.funds;
+  }
+
+  return fpb;
+};
+
+/**
  * Fires when the player drags a card from his hand
  * to a empty location asset deck slot
  *
@@ -397,7 +415,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     // handle special cards drop
     if (item.card.metadata.id === '23') {
       const minerEffect = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
-      globalStats = minerEffect.globalStats;
+      ({ globalStats } = minerEffect);
       special = minerEffect.bonus;
     }
 
@@ -423,7 +441,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
         globalStats.development -= coffeeMiner.special;
 
         const minerEffect = handleCoffeeMinerEffect(coffeeMinerItem, locations, activeLocationIndex, globalStats);
-        globalStats = minerEffect.globalStats;
+        ({ globalStats } = minerEffect);
         const coffeeSpecial = minerEffect.bonus;
 
         locations = updateLocationDropSlotItems(locationSlots, coffeeMinerIndex, coffeeMinerItem, locations, activeLocationIndex, coffeeSpecial); // eslint-disable-line
@@ -447,14 +465,12 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   }
 
   const mathRes = handleCardMathematics(item.card, locations, globalStats, activeLocationIndex);
-  locations = mathRes.locations;
-  globalStats = mathRes.globalStats;
+  ({ locations, globalStats } = mathRes);
+
+  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, item.card, true);
 
   dispatch({
-    type: DROP_ASSET,
-    locations,
-    cards,
-    globalStats,
+    type: DROP_ASSET, locations, cards, globalStats, fundsPerBlock,
   });
   dispatch(addAssetSlots(activeLocationIndex));
   saveGameplayState(getState);
@@ -671,13 +687,12 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
 
   const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, locationIndex);
   const { globalStats } = mathRes;
-  locations = mathRes.locations;
+  ({ locations } = mathRes);
+
+  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, item.card, true);
 
   dispatch({
-    type: DROP_MINER,
-    locations,
-    cards,
-    globalStats,
+    type: DROP_MINER, locations, cards, globalStats, fundsPerBlock,
   });
   saveGameplayState(getState);
 };
@@ -830,6 +845,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   if (locationIndex === gameplay.activeLocationIndex && containerIndex === undefined) {
     gameplayView = GP_NO_LOCATIONS;
   }
+
+  const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.cards[0], false);
+
   /* DO NOT REMOVE getState() */
   dispatch({
     type: REMOVE_CARD,
@@ -839,6 +857,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       ...getState().gameplay.globalStats,
       development: getState().gameplay.globalStats.development - totalDev,
     },
+    fundsPerBlock,
     gameplayView,
   });
 

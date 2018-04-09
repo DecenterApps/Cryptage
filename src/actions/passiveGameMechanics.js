@@ -112,7 +112,7 @@ const addFundsForDroppedCoffeeMiners = _cards => (dispatch, getState) => {
  * @param cards
  */
 export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
-  console.log('All Played cards', cards);
+  console.log('All played asset cards', cards);
 
   const miningFunds = dispatch(addFundsForDroppedMiningRigs(cards));
   const gridConnectorsFunds = dispatch(addFundsForDroppedGridConnectors(cards));

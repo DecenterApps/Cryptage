@@ -127,7 +127,6 @@ const HoverInfo = ({ card, center }) => (
                 ) ? 'FPB' : 'Funds'}
               className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
             >
-              {console.log(card)}
               {formatBigNumber(card.stats.bonus.funds)}
             </div>
           }
