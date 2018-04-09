@@ -21,6 +21,10 @@
     @include elementInAndOut;
   }
 
+  .card-hover-info-wrapper {
+    left: 180px;
+  }
+
   .hover-addons {
     display: none;
     position: absolute;
@@ -56,6 +60,11 @@
     }
   }
   &.active {
+
+    .card-hover-info-wrapper {
+      left: 200px;
+    }
+
     .hover-addons {
       height: 100%;
       .magnifying-glass-wrapper {
