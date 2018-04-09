@@ -8,16 +8,6 @@ import MagnifyingGlassIcon from '../../Decorative/MagnifyingGlassIcon';
 
 import './HandCard.scss';
 
-const classForNumber = (_number) => {
-  const number = parseInt(_number, 10);
-  if (number >= 10000000) return 'small';
-  if (number >= 1000000) return '';
-  if (number >= 10000) return 'small';
-  if (number >= 1000) return '';
-  if (number >= 100) return 'smaller';
-  return '';
-};
-
 const HandCard = ({
   card, showCount, hoverCentered, played, remainingSlots, goToContainer, handleCardCancel,
   locationIndex, containerIndex, slot, containerSlotIndex, draggingCard,
@@ -39,12 +29,21 @@ const HandCard = ({
       <div className="level-wrapper">
         <svg className="level-background">
           <defs>
-            <linearGradient id={`card-level-gradient-${uniqueId}`} x1="0%" y1="0%" x2="0%"
-                            y2="100%">
-              <stop offset="0%"
-                    style={{ stopColor: gradients[card.stats.type.toLowerCase()][0] }} />
-              <stop offset="100%"
-                    style={{ stopColor: gradients[card.stats.type.toLowerCase()][1] }} />
+            <linearGradient
+              id={`card-level-gradient-${uniqueId}`}
+              x1="0%"
+              y1="0%"
+              x2="0%"
+              y2="100%"
+            >
+              <stop
+                offset="0%"
+                style={{ stopColor: gradients[card.stats.type.toLowerCase()][0] }}
+              />
+              <stop
+                offset="100%"
+                style={{ stopColor: gradients[card.stats.type.toLowerCase()][1] }}
+              />
             </linearGradient>
           </defs>
           <polygon points="0,0 27,0 27,27" fill={`url(#card-level-gradient-${uniqueId})`} />
@@ -106,38 +105,32 @@ const HandCard = ({
           {
             card.stats.cost.space &&
             card.stats.cost.space > 1 &&
-            <div className={`circle space ${classForNumber(card.stats.cost.space)}`}>
+            <div className="circle space">
               {formatBigNumber(card.stats.cost.space)}
             </div>
           }
           {
             card.stats.cost.power &&
-            <div className={`circle power ${classForNumber(card.stats.cost.power)}`}>
+            <div className="circle power">
               {formatBigNumber(card.stats.cost.power)}
             </div>
           }
           {
             card.stats.cost.funds &&
-            <div className={`circle funds ${classForNumber(card.stats.cost.funds)}`}>
+            <div className="circle funds">
               {formatBigNumber(card.stats.cost.funds)}
             </div>
           }
           {
             card.stats.cost.level &&
             card.stats.cost.level > 1 &&
-            <div className={`circle level ${classForNumber(card.stats.cost.level)}`}>
+            <div className="circle level">
               {formatBigNumber(card.stats.cost.level)}
             </div>
           }
-          {/*{*/}
-            {/*card.stats.cost.time &&*/}
-            {/*<div className={`circle yellow ${classForNumber(card.stats.cost.time)}`}>*/}
-              {/*{formatBigNumber(card.stats.cost.time)}*/}
-            {/*</div>*/}
-          {/*}*/}
           {
             card.stats.cost.development &&
-            <div className={`circle development ${classForNumber(card.stats.cost.development)}`}>
+            <div className="circle development">
               {formatBigNumber(card.stats.cost.development)}
             </div>
           }
@@ -150,42 +143,42 @@ const HandCard = ({
           {
             card.stats.values &&
             card.stats.values.space &&
-            <div className={`circle space ${classForNumber(card.stats.values.space)}`}>
+            <div className="circle space">
               {formatBigNumber(card.stats.values.space)}
             </div>
           }
           {
             card.stats.values &&
             card.stats.values.power &&
-            <div className={`circle power ${classForNumber(card.stats.values.power)}`}>
+            <div className="circle power">
               {formatBigNumber(card.stats.values.power)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.funds &&
-            <div className={`circle funds ${classForNumber(card.stats.bonus.funds)}`}>
+            <div className="circle funds">
               {formatBigNumber(card.stats.bonus.funds)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.xp &&
-            <div className={`circle xp ${classForNumber(card.stats.bonus.xp)}`}>
+            <div className="circle xp">
               {formatBigNumber(card.stats.bonus.xp)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.power &&
-            <div className={`circle power ${classForNumber(card.stats.bonus.power)}`}>
+            <div className="circle power">
               {formatBigNumber(card.stats.bonus.power)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.development &&
-            <div className={`circle development ${classForNumber(card.stats.bonus.development)}`}>
+            <div className="circle development">
               {formatBigNumber(card.stats.bonus.development)}
             </div>
           }

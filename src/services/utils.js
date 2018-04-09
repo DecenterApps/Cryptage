@@ -431,9 +431,7 @@ export const updateContainerDropSlotItems = (locationIndex, containerIndex, card
 export const formatBigNumber = (_number) => {
   const number = parseFloat(_number);
 
-  if (number >= 10000000) return `${number / 1000000}\nm`;
   if (number >= 1000000) return `${number / 1000000}m`;
-  if (number >= 10000) return `${number / 1000}\nk`;
   if (number >= 1000) return `${number / 1000}k`;
 
   return number.toString();
