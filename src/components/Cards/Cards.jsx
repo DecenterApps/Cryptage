@@ -19,6 +19,12 @@ class Cards extends Component {
 
   componentDidMount() {
     this.props.usersCardsFetch();
+
+    const that = this.innerCards;
+    $(that).mousewheel((event, delta) => {
+      that.scrollLeft -= (delta * 20);
+      event.preventDefault();
+    });
   }
 
   groupDuplicates(cards) {
@@ -85,7 +91,7 @@ class Cards extends Component {
             ))
           }
         </div>
-        <div className="cards-inner-wrapper">
+        <div className="cards-inner-wrapper" ref={(e) => { this.innerCards = e; }}>
           {
             cardsFetching &&
             <div className="loading-cards">

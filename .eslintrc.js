@@ -34,6 +34,7 @@ module.exports = {
   },
   globals: {
     web3: true,
+    $: true,
     window: true,
     document: true,
     fetch: true,
