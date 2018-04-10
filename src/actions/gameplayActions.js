@@ -41,6 +41,8 @@ import {
 } from '../services/utils';
 
 import { packMoves } from '../services/stateService';
+// import { toggleModal } from './modalActions';
+// import { CONFIRM_REMOVE_MODAL } from '../components/Modals/modalTypes';
 
 /**
  * Dispatches action to change the view of central gameplay view

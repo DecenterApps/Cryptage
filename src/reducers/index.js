@@ -5,6 +5,7 @@ import { CLEAR_STORE } from '../actions/actionTypes';
 import appReducer from './appReducer';
 import shopReducer from './shopReducer';
 import gameplayReducer from './gameplayReducer';
+import modalReducer from './modalReducer';
 
 const mainReducer = combineReducers({
   routing: routerReducer,
@@ -12,6 +13,7 @@ const mainReducer = combineReducers({
   shop: shopReducer,
   gameplay: gameplayReducer,
   form: formReducer,
+  modal: modalReducer,
 });
 
 /*   Clears the store state    */
