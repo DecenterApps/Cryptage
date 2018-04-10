@@ -3,18 +3,17 @@ import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
-import Menu from '../Menu/Menu';
-import Cards from '../Cards/Cards';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
 import Projects from '../Projects/Projects';
+import NoMetaMask from './NoMetaMask/NoMetaMask';
+import { loadGameplayState } from '../../actions/gameplayActions';
 import {
   checkAccount,
   loadingEnded,
   listenForNewBlocks,
-  updateCurrentBlockNumber
+  updateCurrentBlockNumber,
 } from '../../actions/appActions';
-import { loadGameplayState } from '../../actions/gameplayActions';
 
 import './App.scss';
 import bug from './bug.png';
@@ -30,26 +29,26 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.loadingApp) return (<div>Loading app</div>);
+    const { loadingApp, accountError } = this.props;
+
+    if (loadingApp) return (<div />);
 
     return (
-      <div className="app-wrapper">
-        {
-          this.props.accountError &&
-          <div className="app-error">
-            {this.props.accountError}
-          </div>
-        }
+      <div className={`app-wrapper ${accountError ? 'no-acc' : 'has-acc'}`}>
+
         <div className="app-top-section-wrapper">
           <div className="logo-wrapper" />
 
-          <Locations />
-          <Gameplay />
-          {/*<Menu />*/}
-          <Projects />
-        </div>
+          { accountError && <NoMetaMask accountError={accountError} /> }
 
-        {/*<Cards />*/}
+          {
+            !accountError && [
+              <Locations key="A" />,
+              <Gameplay key="B" />,
+              <Projects key="C" />,
+            ]
+          }
+        </div>
         <a
           className="bug-report"
           href="https://insights.hotjar.com/s?siteId=836110&surveyId=45077"

@@ -1,0 +1,53 @@
+@import "../../../common/variables";
+
+.no-meta-mask-wrapper {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .welcome-text {
+    text-transform: uppercase;
+    position: absolute;
+    font-family: $font-secondary;
+    font-size: 20px;
+    top: 10px;
+    text-align: center;
+    left: 381px;
+  }
+
+  img {
+    width: 70px;
+    margin-bottom: 15px;
+  }
+
+  .main-text {
+    max-width: 270px;
+    text-align: center;
+    font-family: $font-secondary;
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .secondary-text {
+    text-align: center;
+    max-width: 140px;
+    text-decoration: underline;
+    line-height: 22px;
+    font-size: 12px;
+    font-family: $font-primary;
+    transition: 0.2s ease-in;
+
+    &:active, &:visited {
+      color: white;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

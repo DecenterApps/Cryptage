@@ -8,6 +8,7 @@ import {
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
+import { loadGameplayState } from '../actions/gameplayActions';
 import { handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
 import config from '../constants/config.json';
 
@@ -36,6 +37,7 @@ export const checkAccount = () => async (dispatch, getState) => {
       if (getState().app.account === '') {
         const balance = await ethService.getBalance(account);
         dispatch({ type: GET_ACCOUNT_SUCCESS, account, balance });
+        dispatch(loadGameplayState());
       } else {
         console.log('reload');
         window.location.reload();
