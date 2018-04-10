@@ -40,6 +40,8 @@ import {
   calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
 } from '../services/utils';
 
+import { packMoves } from '../services/stateService';
+
 /**
  * Dispatches action to change the view of central gameplay view
  *
@@ -907,8 +909,17 @@ export const submitNickname = ({ nickname }) => (dispatch) => {
 /**
  * Sends tx to contract to save current state
  */
-export const saveStateToContract = () => () => {
+export const saveStateToContract = () => (dispatch, getState) => {
   // Add call to the contract here
+  const { account } = getState().app;
+
+  if (!account) return;
+
+  const state = JSON.parse(localStorage.getItem(`player-location-${account}`));
+
+  const packedState = packMoves(state.playedTurns);
+
+  console.log('Packed State: ', packedState);
 };
 
 /**

@@ -12,8 +12,8 @@
 
 // MOVES
 // /blockNumber/
-// 32                total 32    
-// /add/dynamic-static/cardSpecificBits/card/blockNumberOffset            
+// 32                total 32
+// /add/dynamic-static/cardSpecificBits/card/blockNumberOffset
 // n * 1 1 4 10 16        n * 32
 
 
@@ -24,37 +24,43 @@ const state = {
   blockNumber: 2000000,
   moves: [
     {
-      add: 1,
-      dynamicStatic: 1,
-      cardSpecificBits: 0,
-      card: 0,
-      blockNumberOffset: 0,
+      shift: 1,
+      location: 1,
+      cardSpecificNumber: 0,
+      cardId: 0,
+      blockNumber: 0,
     },
     {
-      add: 1,
-      dynamicStatic: 1,
-      cardSpecificBits: 0,
-      card: 36,
-      blockNumberOffset: 1,
+      shift: 1,
+      location: 1,
+      cardSpecificNumber: 0,
+      cardId: 36,
+      blockNumber: 1,
     },
     {
-      add: 1,
-      dynamicStatic: 1,
-      cardSpecificBits: 0,
-      card: 54,
-      blockNumberOffset: 2,
+      shift: 1,
+      location: 1,
+      cardSpecificNumber: 0,
+      cardId: 54,
+      blockNumber: 2,
     },
     {
-      add: 1,
-      dynamicStatic: 1,
-      cardSpecificBits: 0,
-      card: 150,
-      blockNumberOffset: 500,
+      shift: 1,
+      location: 1,
+      cardSpecificNumber: 0,
+      cardId: 150,
+      blockNumber: 500,
     }],
 };
 
-const dec2bin = (d, l) => (d >>> 0).toString(2).padStart(l, '0');
+const dec2bin = (d, l) => (d >>> 0).toString(2).padStart(l, '0'); //eslint-disable-line
 const bin2dec = bin => parseInt(bin, 2);
+
+
+const getBinary = (value, l) => dec2bin(value, l);
+const toHex = str => `0x + ${((new BigInt(str.padStart(256, '0'), 2)).toString(16)).padStart(64, 0)}`;
+const toHexPadEnd = str => `0x + ${((new BigInt(str.padEnd(256, '0'), 2)).toString(16)).padEnd(64, 0)}`;
+const bin2Hex = (bin, l) => (new BigInt(bin, 2)).toString(16).padStart(l, 0);
 
 function readDynamic(bin) {
   const arr = [];
@@ -85,7 +91,7 @@ function readLocation(bin) {
       powerLeft: bin2dec(bin.substr(59 + (i * 85), 13)),
       devPointsCount: bin2dec(bin.substr(72 + (i * 85), 11)),
       gridConnector: bin2dec(bin.substr(83 + (i * 85), 1)),
-      coffeMiner: bin2dec(bin.substr(84 + (i * 85), 1))
+      coffeMiner: bin2dec(bin.substr(84 + (i * 85), 1)),
     });
   }
 
@@ -133,7 +139,7 @@ function readState(arr) {
   for (let i = 0; i < 10; i += 1) {
     state.projects.push({
       card: bin2dec(bin2.substr(0 + (i * 24), 6)),
-      blockNumberUntilFinished: bin2dec(bin2.substr(6 + (i * 24), 18))
+      blockNumberUntilFinished: bin2dec(bin2.substr(6 + (i * 24), 18)),
     });
   }
 
@@ -144,7 +150,7 @@ function readState(arr) {
 
   state.dynamic = [];
 
-  dynamicBins.forEach(d => {
+  dynamicBins.forEach((d) => {
     state.dynamic = readDynamic(d);
   });
 
@@ -152,29 +158,22 @@ function readState(arr) {
 }
 
 function printState(_state) {
-  for (const key in _state) {
-    if (_state.hasOwnProperty(key)) {
-      if (key === 'projects') {
-        console.log('Projects: ');
-        _state[key].forEach(p => console.log(p));
-      } else if (key === 'locations') {
-        console.log('Locations: ');
-        _state[key].forEach(p => console.log(p));
-      } else if (key === 'dynamic') {
-        console.log('Dynamic: ');
-        _state[key].forEach(p => console.log(p));
-      } else {
-        console.log(key + ' -> ' + _state[key]);
-      }
+  const keys = Object.keys(_state);
+
+  keys.forEach((key) => {
+    if (key === 'projects') {
+      console.log('Projects: ');
+      _state[key].forEach(p => console.log(p));
+    } else if (key === 'locations') {
+      console.log('Locations: ');
+      _state[key].forEach(p => console.log(p));
+    } else if (key === 'dynamic') {
+      console.log('Dynamic: ');
+      _state[key].forEach(p => console.log(p));
+    } else {
+      console.log(`${key} ->  ${_state[key]}`);
     }
-  }
-}
-
-function packMoves(_state) {
-  const blockNum = bin2Hex(dec2bin(_state.blockNumber, 32), 8);
-  const binMoves = _state.moves.map(move => bin2Hex(dec2bin(move.add, 1) + dec2bin(move.dynamicStatic, 1) + dec2bin(move.cardSpecificBits, 4) + dec2bin(move.card, 10) + dec2bin(move.blockNumberOffset, 16)));
-
-  return _pack(binMoves, blockNum);
+  });
 }
 
 // helper functions
@@ -182,7 +181,7 @@ function _pack(arr, start) {
   const hexValues = [];
   let str = start;
 
-  arr.forEach(b => {
+  arr.forEach((b) => {
     if ((str.length + b.length) < 64) {
       str += b;
     } else {
@@ -202,12 +201,25 @@ function _pack(arr, start) {
   return hexValues.map(h => h.padEnd(64, 0));
 }
 
-const getBinary = (value, l) => dec2bin(value, l);
-const toHex = (str) => '0x' + ((new BigInt(str.padStart(256, '0'), 2)).toString(16)).padStart(64, 0);
-const toHexPadEnd = (str) => '0x' + ((new BigInt(str.padEnd(256, '0'), 2)).toString(16)).padEnd(64, 0);
-const bin2Hex = (bin, l) => (new BigInt(bin, 2)).toString(16).padStart(l, 0);
+export function packMoves(_moves) {
+  if (_moves.length === 0) {
+    return;
+  }
+
+  const blockNumber = _moves[0].blockNumber; //eslint-disable-line
+
+  const blockNumHex = bin2Hex(dec2bin(blockNumber, 32), 8);
+
+  _moves.forEach((m) => {
+    m.blockNumber -= blockNumber; //eslint-disable-line
+  });
+
+  const binMoves = _moves.map(move =>
+    bin2Hex(dec2bin(move.shift, 1) + dec2bin(move.location, 1) + dec2bin(move.cardSpecificNumber, 4)
+    + dec2bin(move.cardId, 10) + dec2bin(move.blockNumber, 16)));
+
+  return _pack(binMoves, blockNumHex);
+}
 
 // call the methods
-console.log(packMoves(state));
-
-//printState(readState(['6277101735386680764208986147815940821741181726117909757952', '0', '1770621562624077136751594888481572415259330284799763914617723870913757184', '0', '10180572787253050507058960199280696488197962213797316436696694931848075149312']));
+// console.log(packMoves(state));
