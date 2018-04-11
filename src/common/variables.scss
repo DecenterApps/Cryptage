@@ -85,3 +85,9 @@ $border-radius-modal: 19px;
     50% { opacity: 1; }
   }
 }
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-items: center;
+}
