@@ -905,8 +905,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
 
   const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.cards[0], false);
 
-  let turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();
-  console.log(turnIndex);
+  const turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();
   dispatch(playTurn(item, slot.slotType, turnIndex, false));
 
   /* DO NOT REMOVE getState() */
