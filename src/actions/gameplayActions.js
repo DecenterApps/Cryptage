@@ -41,6 +41,7 @@ import {
 } from '../services/utils';
 
 import { packMoves } from '../services/stateService';
+import ethereumService from '../services/ethereumService';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -723,7 +724,7 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
 
 // 0 za rig 1 za computer case
 export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
-  const { card } = item;
+  const card = item.card || item.cards[0];
   const { app, gameplay } = getState();
   const { activeLocationIndex, activeContainerIndex, locations } = gameplay;
   let location;
@@ -744,19 +745,22 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       location = gameplay.activeLocationIndex;
       containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
 
-      cardSpecificNumber = containerCard[0].metadata.id === '1' ? 1 : 0;
+      cardSpecificNumber = containerCard[0].metadata.id === '6' ? 1 : 0;
       break;
     default:
       break;
   }
 
+  // we multiple the location with the cardId, if location is 0 we multiple by 1
+  location = location === 0 ? 1 : location;
+
   dispatch({
     type: PLAY_TURN,
     turn: {
       shift: addOrRemove ? 1 : 0,
-      location,
+      location: 1, // TODO: for the cards that arent repeated in the container this is always 1, otherwise 0 and cardId is the location of that card in state
       cardSpecificNumber,
-      cardId: card.metadata.id,
+      cardId: card.metadata.id * location,
       blockNumber: app.blockNumber,
     },
   });
@@ -850,6 +854,10 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
 
   const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.cards[0], false);
 
+  let turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();  
+  console.log(turnIndex);
+  dispatch(playTurn(item, slot.slotType, turnIndex, false));
+
   /* DO NOT REMOVE getState() */
   dispatch({
     type: REMOVE_CARD,
@@ -909,17 +917,33 @@ export const submitNickname = ({ nickname }) => (dispatch) => {
 /**
  * Sends tx to contract to save current state
  */
-export const saveStateToContract = () => (dispatch, getState) => {
+export const saveStateToContract = () => async (dispatch, getState) => {
   // Add call to the contract here
   const { account } = getState().app;
 
   if (!account) return;
 
+  // const state = await ethereumService.getState();
+
+  // console.log(state);
+
   const state = JSON.parse(localStorage.getItem(`player-location-${account}`));
 
-  const packedState = packMoves(state.playedTurns);
+  if (state.playedTurns.length === 0) {
+    return;
+  }
 
-  console.log('Packed State: ', packedState);
+  const packedMoves = packMoves(state.playedTurns);
+
+  console.log('Packed Moves: ', packedMoves);
+
+  const res = await ethereumService.updateMoves(packedMoves);
+
+  state.playedTurns = [];
+
+  // localStorage.setItem(`player-location-${account}`);
+
+  console.log(res);
 };
 
 /**
