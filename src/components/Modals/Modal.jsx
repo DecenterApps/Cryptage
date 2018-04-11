@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleModal } from '../../actions/modalActions';
 
 import './modals.scss';
 
@@ -10,13 +8,11 @@ class Modal extends PureComponent {
     super(props);
 
     this.state = { children: null, show: null };
-
-    this.closeModal = this.closeModal.bind(this);
   }
 
   componentWillMount() {
     document.addEventListener('keydown', (event) => {
-      if (event.keyCode === 27) this.closeModal();
+      if (event.keyCode === 27) this.props.closeModal();
     });
   }
 
@@ -32,10 +28,8 @@ class Modal extends PureComponent {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.closeModal);
+    document.removeEventListener('keydown', this.props.closeModal);
   }
-
-  closeModal() { this.props.toggleModal('', {}, false); }
 
   render() {
     return (
@@ -43,26 +37,29 @@ class Modal extends PureComponent {
         className={`modal-backdrop ${this.state.show ? 'open' : ''}`}
         role="button"
         tabIndex={0}
-        onClick={() => { this.closeModal(); }}
+        onClick={this.props.closeModal}
       >
-        <div
-          role="dialog"
-          className="modal"
-          onClick={(e) => { e.stopPropagation(); }}
-        >
-          {this.state.children}
+        <div className="modal-wrapper" style={{ width: this.props.width }}>
+          <div
+            role="dialog"
+            className="modal"
+            onClick={(e) => { e.stopPropagation(); }}
+          >
+            { (this.state.children !== null) && this.state.children }
+          </div>
         </div>
       </div>
     );
   }
 }
 
+Modal.defaultProps = {
+  width: '100%',
+};
+
 Modal.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  width: PropTypes.string,
 };
 
-const mapDispatchToProps = {
-  toggleModal,
-};
-
-export default connect(null, mapDispatchToProps)(Modal);
+export default Modal;

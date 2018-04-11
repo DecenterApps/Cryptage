@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import HandCard from '../Cards/HandCard/HandCard';
 
 import './ContainerItem.scss';
-import { handleCardCancel } from '../../actions/gameplayActions';
 
 class ContainerItem extends Component {
   constructor() {
@@ -30,7 +29,7 @@ class ContainerItem extends Component {
 
   render() {
     const {
-      index, cards, locationIndex, containerIndex, slot, handleCardCancel,
+      index, cards, locationIndex, containerIndex, slot,
     } = this.props;
     const fpb = cards[0].stats.bonus.funds;
 
@@ -45,7 +44,6 @@ class ContainerItem extends Component {
           played
           card={cards[0]}
           slot={slot}
-          handleCardCancel={handleCardCancel}
           locationIndex={locationIndex}
           containerIndex={containerIndex}
           containerSlotIndex={index}
@@ -64,7 +62,6 @@ ContainerItem.propTypes = {
   locationIndex: PropTypes.number.isRequired,
   containerIndex: PropTypes.number.isRequired,
   slot: PropTypes.object.isRequired,
-  handleCardCancel: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   blockNumber: PropTypes.number.isRequired,
 };
@@ -75,8 +72,4 @@ const mapStateToProps = ({ gameplay, app }) => ({
   blockNumber: app.blockNumber,
 });
 
-const mapDispatchToProp = {
-  handleCardCancel,
-};
-
-export default connect(mapStateToProps, mapDispatchToProp)(ContainerItem);
+export default connect(mapStateToProps)(ContainerItem);

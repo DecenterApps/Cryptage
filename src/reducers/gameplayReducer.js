@@ -45,12 +45,12 @@ const INITIAL_STATE = {
   activeContainerIndex: 0,
   playedTurns: [],
   globalStats: {
-    level: 10,
+    level: config.globalStats.level,
     experience: config.globalStats.experience,
     earnedXp: 0,
     requiredXp: 16,
-    funds: 100000,
-    development: 100000,
+    funds: config.globalStats.funds,
+    development: config.globalStats.development,
   },
 };
 

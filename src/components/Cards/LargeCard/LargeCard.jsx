@@ -33,7 +33,6 @@ const LargeCard = ({ card }) => (
       card.stats.cost &&
       <div className="cost" data-name="Cost">
         {
-          card.stats.cost.space &&
           card.stats.cost.space > 1 &&
           <div
             data-name="Space"
@@ -43,7 +42,7 @@ const LargeCard = ({ card }) => (
           </div>
         }
         {
-          card.stats.cost.power &&
+          card.stats.cost.power > 0 &&
           <div
             data-name="Power"
             className={`orb power ${classForNumber(card.stats.cost.power)}`}
@@ -52,7 +51,7 @@ const LargeCard = ({ card }) => (
           </div>
         }
         {
-          card.stats.cost.funds &&
+          card.stats.cost.funds > 0 &&
           <div
             data-name="Funds"
             className={`orb funds ${classForNumber(card.stats.cost.funds)}`}
@@ -61,7 +60,6 @@ const LargeCard = ({ card }) => (
           </div>
         }
         {
-          card.stats.cost.level &&
           card.stats.cost.level > 1 &&
           <div
             data-name="Level"
@@ -80,7 +78,7 @@ const LargeCard = ({ card }) => (
         {/*</div>*/}
         {/*}*/}
         {
-          card.stats.cost.development &&
+          card.stats.cost.development > 0 &&
           <div
             data-name="Dev"
             className={`orb development ${classForNumber(card.stats.cost.development)}`}
@@ -96,7 +94,7 @@ const LargeCard = ({ card }) => (
       <div className="gains" data-name="Gains">
         {
           card.stats.values &&
-          card.stats.values.space &&
+          card.stats.values.space > 0 &&
           <div
             data-name="Space"
             className={`orb space ${classForNumber(card.stats.values.space)}`}
@@ -106,7 +104,7 @@ const LargeCard = ({ card }) => (
         }
         {
           card.stats.values &&
-          card.stats.values.power &&
+          card.stats.values.power > 0 &&
           <div
             data-name="Power"
             className={`orb power ${classForNumber(card.stats.values.power)}`}
@@ -116,7 +114,7 @@ const LargeCard = ({ card }) => (
         }
         {
           card.stats.bonus &&
-          card.stats.bonus.funds &&
+          card.stats.bonus.funds > 0 &&
           <div
             data-name={
               (
@@ -130,7 +128,7 @@ const LargeCard = ({ card }) => (
         }
         {
           card.stats.bonus &&
-          card.stats.bonus.xp &&
+          card.stats.bonus.xp > 0 &&
           <div
             data-name="XP"
             className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
@@ -140,7 +138,7 @@ const LargeCard = ({ card }) => (
         }
         {
           card.stats.bonus &&
-          card.stats.bonus.power &&
+          card.stats.bonus.power > 0 &&
           <div
             data-name="Power"
             className={`orb power ${classForNumber(card.stats.bonus.power)}`}
@@ -150,7 +148,7 @@ const LargeCard = ({ card }) => (
         }
         {
           card.stats.bonus &&
-          card.stats.bonus.development &&
+          card.stats.bonus.development > 0 &&
           <div
             data-name="Dev"
             className={`orb development ${classForNumber(card.stats.bonus.development)}`}
