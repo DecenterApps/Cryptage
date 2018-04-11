@@ -383,7 +383,7 @@ export const mergeDeep = (target, source) => {
  */
 export const filterByKeys = (object, allowedKeys) =>
   Object.keys(object)
-    .filter(key => allowedKeys.includes(key))
+    .filter(key => allowedKeys.includes(key) && object[key] > 0)
     .reduce((_obj, key) => {
       const obj = { ..._obj };
       obj[key] = object[key];
