@@ -100,7 +100,7 @@ function readLocation(bin) {
 
 // reads state as an array of uints in decimal format
 // uints must be passed as string in an array
-function readState(arr) {
+export function readState(arr) {
   let bin = (new BigInt(arr[0], 10).toString(2));
   bin = bin.padStart(256, 0);
 

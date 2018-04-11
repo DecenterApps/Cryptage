@@ -40,7 +40,7 @@ import {
   calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
 } from '../services/utils';
 
-import { packMoves } from '../services/stateService';
+import { packMoves, readState } from '../services/stateService';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -758,8 +758,8 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
     turn: {
       shift: addOrRemove ? 1 : 0,
       location: 1, // TODO: for the cards that arent repeated in the container this is always 1, otherwise 0 and cardId is the location of that card in state
-      cardSpecificNumber,
-      cardId: card.metadata.id * location,
+      cardSpecificNumber: 0,
+      cardId: Math.abs(card.metadata.id * location) * 6,
       blockNumber: app.blockNumber,
     },
   });
@@ -922,15 +922,11 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  // const state = await ethService.getState();
+  const currState = await ethService.getState();
 
-  // console.log(state);
+  console.log(currState, readState(currState));
 
   const state = JSON.parse(localStorage.getItem(`player-location-${account}`));
-
-  if (state.playedTurns.length === 0) {
-    return;
-  }
 
   const packedMoves = packMoves(state.playedTurns);
 

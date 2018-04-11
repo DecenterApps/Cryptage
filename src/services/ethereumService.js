@@ -169,7 +169,12 @@ const updateMoves = async (moves) => {
 
 const getState = async () => {
   const stateContract = await getStateContract();
-  return stateContract.methods.get().send();
+  return stateContract.methods.get().call();
+};
+
+const resetState = async () => {
+  const stateContract = await getStateContract();
+  return stateContract.methods.reset().send();
 };
 
 export default {
@@ -186,4 +191,5 @@ export default {
   revealBooster,
   updateMoves,
   getState,
+  resetState,
 };
