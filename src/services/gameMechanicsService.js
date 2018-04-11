@@ -1159,7 +1159,7 @@ export const getMaxValueForLocation = (type, level, stat) => {
 export const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) => {
   let length = false;
 
-  if (locationItem) {
+  if (locationItem && locationItem.dropSlots[activeContainerIndex]) {
     const containerItem = locationItem.dropSlots[activeContainerIndex].lastDroppedItem;
 
     if (containerItem && containerItem.dropSlots) {
