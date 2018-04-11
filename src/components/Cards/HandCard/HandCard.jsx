@@ -5,12 +5,13 @@ import { guid, formatBigNumber, range } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import ChevronDownIcon from '../../Decorative/ChevronDownIcon';
 import MagnifyingGlassIcon from '../../Decorative/MagnifyingGlassIcon';
+import { openConfirmRemoveModal } from '../../../actions/modalActions';
 
 import './HandCard.scss';
 
 const HandCard = ({
-  card, showCount, hoverCentered, played, remainingSlots, goToContainer, handleCardCancel,
-  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard,
+  card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
+  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove,
 }) => {
   const uniqueId = guid();
   const gradients = {
@@ -185,10 +186,11 @@ const HandCard = ({
 
       {
         played &&
+        canRemove &&
         <div
           className="remove-card-wrapper"
           onClick={() => {
-            handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex);
+            openConfirmRemoveModal(slot, locationIndex, containerIndex, containerSlotIndex);
           }}
         >
           <ChevronDownIcon />
@@ -212,6 +214,7 @@ HandCard.defaultProps = {
       image: '',
     },
   },
+  canRemove: true,
   showCount: true,
   hoverCentered: false,
   played: false,
@@ -221,7 +224,6 @@ HandCard.defaultProps = {
   containerIndex: undefined,
   containerSlotIndex: undefined,
   slot: null,
-  handleCardCancel: () => {},
   draggingCard: false,
 };
 
@@ -237,16 +239,21 @@ HandCard.propTypes = {
   remainingSlots: PropTypes.number,
   played: PropTypes.bool,
   goToContainer: PropTypes.func,
-  handleCardCancel: PropTypes.func,
+  openConfirmRemoveModal: PropTypes.func.isRequired,
   locationIndex: PropTypes.number,
   containerIndex: PropTypes.number,
   containerSlotIndex: PropTypes.number,
   slot: PropTypes.object,
   draggingCard: PropTypes.bool,
+  canRemove: PropTypes.bool,
 };
 
 const mapStateToProps = ({ app }) => ({
   draggingCard: app.draggingCard,
 });
 
-export default connect(mapStateToProps)(HandCard);
+const mapDispatchToProps = {
+  openConfirmRemoveModal,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HandCard);

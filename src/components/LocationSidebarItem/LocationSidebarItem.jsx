@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import { setActiveLocation, levelUpLocation, handleCardCancel } from '../../actions/gameplayActions';
+import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
+import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { calcDataForNextLevel } from '../../services/utils';
 import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
@@ -35,7 +36,7 @@ class LocationSidebarItem extends Component {
   render() {
     const {
       isOver, cards, slot, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp,
-      levelUpLocation, handleCardCancel,
+      levelUpLocation, openConfirmRemoveModal,
     } = this.props;
 
     const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
@@ -92,7 +93,7 @@ class LocationSidebarItem extends Component {
             <svg className="drop-background">
               <polygon points="0,0 29,29 29,46 0,46" fill="#1F1638" />
             </svg>
-            <div className="drop-icon" onClick={() => { handleCardCancel(slot, index); }}>
+            <div className="drop-icon" onClick={() => { openConfirmRemoveModal(slot, index); }}>
               <ChevronDownIcon width={17} />
             </div>
           </div>
@@ -169,7 +170,7 @@ LocationSidebarItem.propTypes = {
   level: PropTypes.number.isRequired,
   canLevelUp: PropTypes.bool.isRequired,
   levelUpLocation: PropTypes.func.isRequired,
-  handleCardCancel: PropTypes.func.isRequired,
+  openConfirmRemoveModal: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
   blockNumber: PropTypes.number.isRequired,
 };
@@ -181,7 +182,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, levelUpLocation, handleCardCancel,
+  setActiveLocation, levelUpLocation, openConfirmRemoveModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(LocationSidebarItem);

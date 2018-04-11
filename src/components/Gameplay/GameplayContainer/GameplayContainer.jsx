@@ -29,7 +29,7 @@ const GameplayContainer = ({
       </div>
 
       <div className="active-container-card-wrapper">
-        <HandCard showCount={false} remainingSlots={remainingSlots} played card={card} />
+        <HandCard canRemove={false} showCount={false} remainingSlots={remainingSlots} played card={card} />
       </div>
 
       <div className="container-bottom-wrapper">

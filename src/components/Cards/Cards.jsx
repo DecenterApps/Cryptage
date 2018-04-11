@@ -22,7 +22,7 @@ class Cards extends Component {
 
     const that = this.innerCards;
     $(that).mousewheel((event, delta) => {
-      that.scrollLeft -= (delta * 20);
+      that.scrollLeft -= (delta * 25);
       event.preventDefault();
     });
   }

@@ -765,8 +765,60 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
   });
 };
 
+/**
+ * Checks if player can cancel a card;
+ *
+ * @param slot
+ * @param locationIndex
+ * @param containerIndex
+ */
+export const canCancelCard = (slot, locationIndex, containerIndex) => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const item = { ...slot.lastDroppedItem };
+  const returnedCards = [];
+  let currentItem;
+  let totalDev = 0;
+
+  if (item.dropSlots) {
+    for (let i = 0; i < item.dropSlots.length; i += 1) {
+      currentItem = item.dropSlots[i].lastDroppedItem;
+
+      if (currentItem !== null && currentItem.dropSlots === null) {
+        if (currentItem.cards[0].stats.type === 'Development') {
+          totalDev += currentItem.cards[0].stats.bonus.development;
+        }
+        if (currentItem.cards[0].metadata.id === '23') {
+          totalDev += currentItem.special;
+        }
+        returnedCards.push(currentItem.cards[0]);
+      }
+
+      if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
+        const canCancelSlotItem = canCancelCard(item.dropSlots[i], locationIndex, i);
+        if (!canCancelSlotItem) return false;
+      }
+    }
+  } else {
+    if (item.cards[0].metadata.id === '23') {
+      totalDev += item.special;
+    }
+    if (item.cards[0].stats.type === 'Development') {
+      totalDev += item.cards[0].stats.bonus.development;
+    }
+  }
+
+  return gameplay.globalStats.development > totalDev;
+};
+
+/**
+ * Removes cards from gameplay
+ *
+ * @param slot
+ * @param locationIndex
+ * @param containerIndex
+ * @param containerSlotIndex
+ */
 export const handleCardCancel = (slot, locationIndex, containerIndex, containerSlotIndex) => (dispatch, getState) => {
-  if (!confirm('Withdrawing a card will not return spent funds. Are you sure you want to do this?')) return;
   const { gameplay } = getState();
   const _locations = [...gameplay.locations];
   let { gameplayView } = gameplay;
@@ -853,8 +905,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
 
   const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.cards[0], false);
 
-  let turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();  
-  console.log(turnIndex);
+  const turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();
   dispatch(playTurn(item, slot.slotType, turnIndex, false));
 
   /* DO NOT REMOVE getState() */

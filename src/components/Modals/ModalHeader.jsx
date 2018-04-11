@@ -1,15 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CloseIcon from '../CloseIcon/CloseIcon';
-import { toggleModal } from '../../actions/modalActions';
 
 import './modals.scss';
 
-const ModalHeader = ({ toggleModal }) => (
+const ModalHeader = ({ closeModal }) => (
   <div className="modal-header">
     <span
-      onClick={() => { toggleModal('', {}, false); }}
+      onClick={closeModal}
       className="icon-close"
     >
       <CloseIcon />
@@ -18,11 +16,7 @@ const ModalHeader = ({ toggleModal }) => (
 );
 
 ModalHeader.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = {
-  toggleModal,
-};
-
-export default connect(null, mapDispatchToProps)(ModalHeader);
+export default ModalHeader;
