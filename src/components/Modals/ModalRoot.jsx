@@ -3,15 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 import modalTypes from './modalTypes';
+import { closeModal } from '../../actions/modalActions';
 
 const ModalRoot = ({
-  SpecificModal, modalProps, modalType, modalOpen,
+  SpecificModal, modalProps, modalType, modalOpen, closeModal,
 }) => (
-  <Modal modalOpen={modalOpen}>
+  <Modal modalOpen={modalOpen} closeModal={closeModal} width={modalProps.width} >
     {
       SpecificModal ?
         <SpecificModal
           modalType={modalType}
+          closeModal={closeModal}
           {...modalProps}
         /> : null
     }
@@ -26,6 +28,7 @@ ModalRoot.propTypes = {
   modalProps: PropTypes.object.isRequired,
   modalType: PropTypes.string.isRequired,
   modalOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
   SpecificModal: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -40,4 +43,8 @@ const mapStateToProps = ({ modal }) => ({
   modalType: modal.modalType,
 });
 
-export default connect(mapStateToProps)(ModalRoot);
+const mapDispatchtoProps = {
+  closeModal,
+};
+
+export default connect(mapStateToProps, mapDispatchtoProps)(ModalRoot);
