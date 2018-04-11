@@ -88,3 +88,6 @@ export const GP_NO_LOCATIONS = 'no_locations';
 export const GP_NO_NICKNAME = 'no_nickname';
 
 export const SUBMIT_NICKNAME_SUCCESS = 'submit_nickname_success';
+
+// MODAL
+export const TOGGLE_MODAL = 'toggle_modal';

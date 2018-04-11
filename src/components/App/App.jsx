@@ -7,6 +7,7 @@ import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
 import Projects from '../Projects/Projects';
 import NoMetaMask from './NoMetaMask/NoMetaMask';
+import ModalRoot from '../Modals/ModalRoot';
 import { loadGameplayState } from '../../actions/gameplayActions';
 import {
   checkAccount,
@@ -49,6 +50,8 @@ class App extends Component {
             ]
           }
         </div>
+
+        <ModalRoot />
         <a
           className="bug-report"
           href="https://insights.hotjar.com/s?siteId=836110&surveyId=45077"

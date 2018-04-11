@@ -41,7 +41,6 @@ import {
 } from '../services/utils';
 
 import { packMoves } from '../services/stateService';
-import ethereumService from '../services/ethereumService';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -923,7 +922,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  // const state = await ethereumService.getState();
+  // const state = await ethService.getState();
 
   // console.log(state);
 
@@ -937,7 +936,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   console.log('Packed Moves: ', packedMoves);
 
-  const res = await ethereumService.updateMoves(packedMoves);
+  const res = await ethService.updateMoves(packedMoves);
 
   state.playedTurns = [];
 
