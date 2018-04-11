@@ -3,16 +3,20 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalHeader from '../ModalHeader';
 import ModalBody from '../ModalBody';
-import { canCancelCard, handleCardCancel } from '../../../actions/gameplayActions';
+import { canCancelCard, handleCardCancel, removeProject } from '../../../actions/gameplayActions';
 
 import './ConfirmRemoveModal.scss';
 
 const ConfirmRemoveModal = ({
   slot, locationIndex, containerIndex, containerSlotIndex, handleCardCancel, closeModal, canCancelCard,
+  projectCard, projectIndex, removeProject,
 }) => {
-  const canCancel = canCancelCard(slot, locationIndex, containerIndex, containerSlotIndex);
+  let canCancel = true;
 
-  console.log('canCancel', canCancel);
+  let onClose = () => { handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex); };
+
+  if (projectCard) onClose = () => { removeProject(projectCard, projectIndex); };
+  else canCancel = canCancelCard(slot, locationIndex, containerIndex);
 
   return (
     <div className="confirm-modal-wrapper">
@@ -23,7 +27,7 @@ const ConfirmRemoveModal = ({
         {
           !canCancel && [
             <div key="D">You can not currently withdraw this card from the game.</div>,
-            <button key="E" onClick={closeModal}>Close</button>
+            <button key="E" onClick={closeModal}>Close</button>,
           ]
         }
 
@@ -43,7 +47,7 @@ const ConfirmRemoveModal = ({
               <button
                 className="orange-button"
                 onClick={() => {
-                  handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex);
+                  onClose();
                   closeModal();
                 }}
               >
@@ -58,22 +62,29 @@ const ConfirmRemoveModal = ({
 };
 
 ConfirmRemoveModal.defaultProps = {
+  slot: undefined,
+  locationIndex: undefined,
   containerIndex: undefined,
   containerSlotIndex: undefined,
+  projectCard: undefined,
+  projectIndex: undefined,
 };
 
 ConfirmRemoveModal.propTypes = {
-  slot: PropTypes.object.isRequired,
-  locationIndex: PropTypes.number.isRequired,
+  slot: PropTypes.object,
+  locationIndex: PropTypes.number,
   handleCardCancel: PropTypes.func.isRequired,
   canCancelCard: PropTypes.func.isRequired,
+  removeProject: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   containerIndex: PropTypes.number,
   containerSlotIndex: PropTypes.number,
+  projectCard: PropTypes.object,
+  projectIndex: PropTypes.number,
 };
 
 const mapDispatchToProps = {
-  handleCardCancel, canCancelCard,
+  handleCardCancel, canCancelCard, removeProject,
 };
 
 export default connect(null, mapDispatchToProps)(ConfirmRemoveModal);

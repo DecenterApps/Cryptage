@@ -7,10 +7,10 @@ import {
   setActiveLocation,
   levelUpProject,
   activateProject,
-  removeProject,
 } from '../../actions/gameplayActions';
 import { calcDataForNextLevel } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
+import { openConfirmRemoveModal } from '../../actions/modalActions';
 
 import './ProjectItem.scss';
 
@@ -20,7 +20,8 @@ import restart from './assets/restart.png';
 const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime) * 100);
 
 const ProjectItem = ({
-  isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished, removeProject,
+  isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
+  openConfirmRemoveModal,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const fpb = cards[0].stats.bonus.funds;
@@ -51,7 +52,10 @@ const ProjectItem = ({
             onClick={() => activateProject(cards[0], index)}
             alt="Checkmark icon"
           />
-          <ChevronDownIcon onClick={() => removeProject(cards[0], index)} />
+          <ChevronDownIcon onClick={() => {
+            openConfirmRemoveModal(undefined, undefined, undefined, undefined, cards[0], index);
+          }}
+          />
         </div>
       }
       <img
@@ -96,7 +100,7 @@ ProjectItem.propTypes = {
   isFinished: PropTypes.bool.isRequired,
   showFpb: PropTypes.bool,
   activateProject: PropTypes.func.isRequired,
-  removeProject: PropTypes.func.isRequired,
+  openConfirmRemoveModal: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
 };
@@ -112,7 +116,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, levelUpProject, activateProject, removeProject,
+  setActiveLocation, levelUpProject, activateProject, openConfirmRemoveModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(ProjectItem);

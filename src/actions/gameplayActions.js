@@ -771,9 +771,8 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
  * @param slot
  * @param locationIndex
  * @param containerIndex
- * @param containerSlotIndex
  */
-export const canCancelCard = (slot, locationIndex, containerIndex, containerSlotIndex) => (dispatch, getState) => {
+export const canCancelCard = (slot, locationIndex, containerIndex) => (dispatch, getState) => {
   const { gameplay } = getState();
   const item = { ...slot.lastDroppedItem };
   const returnedCards = [];
@@ -793,9 +792,10 @@ export const canCancelCard = (slot, locationIndex, containerIndex, containerSlot
         }
         returnedCards.push(currentItem.cards[0]);
       }
+
       if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
-        // dispatch(canCancelCard(item.dropSlots[i], locationIndex, i));
-        console.log('can cancel', canCancelCard(item.dropSlots[i], locationIndex, i));
+        const canCancelSlotItem = canCancelCard(item.dropSlots[i], locationIndex, i);
+        if (!canCancelSlotItem) return false;
       }
     }
   } else {

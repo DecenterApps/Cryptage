@@ -33,9 +33,11 @@ export const openConfirmRemoveModal = (
   locationIndex,
   containerIndex = undefined,
   containerSlotIndex = undefined,
+  projectCard = undefined,
+  projectIndex = undefined,
 ) => (dispatch) => {
   const props = {
-    slot, locationIndex, containerIndex, containerSlotIndex, width: '271px',
+    slot, locationIndex, containerIndex, containerSlotIndex, projectCard, projectIndex, width: '271px',
   };
   dispatch(toggleModal(CONFIRM_REMOVE_MODAL, props, true));
 };
