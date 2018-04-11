@@ -807,7 +807,7 @@ export const canCancelCard = (slot, locationIndex, containerIndex) => (dispatch,
     }
   }
 
-  return gameplay.globalStats.development > totalDev;
+  return gameplay.globalStats.development >= totalDev;
 };
 
 /**

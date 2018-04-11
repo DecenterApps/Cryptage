@@ -45,7 +45,7 @@ class Modal extends PureComponent {
             className="modal"
             onClick={(e) => { e.stopPropagation(); }}
           >
-            {this.state.children}
+            { (this.state.children !== null) && this.state.children }
           </div>
         </div>
       </div>
