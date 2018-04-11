@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Boosters from './Boosters/Boosters';
-import Reveal from './Reveal/Reveal';
+import Reveal from './RevealBoosterCards/RevealBoosterCards';
 import HeaderBar from '../../HeaderBar/HeaderBar';
 import CloseIcon from '../../CloseIcon/CloseIcon';
 

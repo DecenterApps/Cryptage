@@ -5,7 +5,12 @@ import {
   UPDATE_FUNDS_PER_BLOCK,
 } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
-import { getLevelValuesForCard, calculateLevelData, doNotShowProjectFpb } from '../services/gameMechanicsService';
+import {
+  getLevelValuesForCard,
+  calculateLevelData,
+  doNotShowProjectFpb,
+  checkIfNewLevel,
+} from '../services/gameMechanicsService';
 
 /**
  * Updates global funds based on played mining rig card power in the gameplay state
@@ -132,7 +137,9 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
 export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
-  const { experience, development, funds } = getState().gameplay.globalStats;
+  const {
+    experience, development, funds, level,
+  } = getState().gameplay.globalStats;
   const _projects = [...projects];
   let acquiredXp = 0;
   let releasedDev = 0;
@@ -177,6 +184,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         funds: funds + receivedFunds,
       },
     });
+    dispatch(checkIfNewLevel(level));
     saveGameplayState(getState);
   }
 

@@ -1,5 +1,5 @@
 import { TOGGLE_MODAL } from './actionTypes';
-import { CONFIRM_REMOVE_MODAL } from '../components/Modals/modalTypes';
+import { CONFIRM_REMOVE_MODAL, NEW_LEVEL_MODAL } from '../components/Modals/modalTypes';
 
 /**
  * Dispatches action to toggle modal.
@@ -40,4 +40,14 @@ export const openConfirmRemoveModal = (
     slot, locationIndex, containerIndex, containerSlotIndex, projectCard, projectIndex, width: '271px',
   };
   dispatch(toggleModal(CONFIRM_REMOVE_MODAL, props, true));
+};
+
+/**
+ * Opens confirm remove modal when player wants to remove card
+ *
+ * @param {Number} level
+ * @param {Object} cards
+ */
+export const openNewLevelModal = (level, cards) => (dispatch) => {
+  dispatch(toggleModal(NEW_LEVEL_MODAL, { level, cards, width: '635px' }, true));
 };
