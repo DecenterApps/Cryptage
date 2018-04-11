@@ -34,7 +34,6 @@ const HoverInfo = ({ card, center }) => (
         card.stats.cost &&
         <div className="cost" data-name="Cost">
           {
-            card.stats.cost.space &&
             card.stats.cost.space > 1 &&
             <div
               data-name="Space"
@@ -44,7 +43,6 @@ const HoverInfo = ({ card, center }) => (
             </div>
           }
           {
-            card.stats.cost.power &&
             card.stats.cost.power > 0 &&
             <div
               data-name="Power"
@@ -54,7 +52,7 @@ const HoverInfo = ({ card, center }) => (
             </div>
           }
           {
-            card.stats.cost.funds &&
+            card.stats.cost.funds > 0 &&
             <div
               data-name="Funds"
               className={`orb funds ${classForNumber(card.stats.cost.funds)}`}
@@ -63,7 +61,6 @@ const HoverInfo = ({ card, center }) => (
             </div>
           }
           {
-            card.stats.cost.level &&
             card.stats.cost.level > 1 &&
             <div
               data-name="Level"
@@ -82,7 +79,7 @@ const HoverInfo = ({ card, center }) => (
           {/*</div>*/}
           {/*}*/}
           {
-            card.stats.cost.development &&
+            card.stats.cost.development > 0 &&
             <div
               data-name="Dev"
               className={`orb development ${classForNumber(card.stats.cost.development)}`}
@@ -118,7 +115,7 @@ const HoverInfo = ({ card, center }) => (
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.funds &&
+            card.stats.bonus.funds > 0 &&
             <div
               data-name={
                 (
@@ -132,7 +129,7 @@ const HoverInfo = ({ card, center }) => (
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.xp &&
+            card.stats.bonus.xp > 0 &&
             <div
               data-name="XP"
               className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
@@ -152,7 +149,7 @@ const HoverInfo = ({ card, center }) => (
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.development &&
+            card.stats.bonus.development > 0 &&
             <div
               data-name="Dev"
               className={`orb development ${classForNumber(card.stats.bonus.development)}`}

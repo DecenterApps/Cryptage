@@ -3,8 +3,12 @@
     "0": {
       "ID": "0",
       "cost": {
+        "development": 0,
         "funds": 100,
-        "level": 1
+        "level": 1,
+        "power": 0,
+        "space": 0,
+        "time": 0
       },
       "flavorText": "Well, you gotta start somewhere...",
       "image": "garage.jpg",
@@ -15,15 +19,24 @@
       "type": "Location",
       "unique": false,
       "values": {
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
         "power": 4,
-        "space": 40
+        "space": 40,
+        "xp": 0
       }
     },
     "1": {
       "ID": "1",
       "cost": {
+        "development": 0,
         "funds": 500,
-        "level": 1
+        "level": 1,
+        "power": 0,
+        "space": 0,
+        "time": 0
       },
       "flavorText": "I better not catch any of you mining in the kitchen, you hear!",
       "image": "coworking-space.jpg",
@@ -34,20 +47,33 @@
       "type": "Location",
       "unique": false,
       "values": {
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
         "power": 0,
-        "space": 60
+        "space": 60,
+        "xp": 0
       }
     },
     "10": {
       "ID": "10",
       "bonus": {
-        "funds": 5
+        "development": 0,
+        "funds": 5,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 120,
         "level": 1,
         "power": 4,
-        "space": 1
+        "space": 1,
+        "time": 0
       },
       "flavorText": "Legend says that these were used to play the mighty videogames of old...",
       "image": "gpu.jpg",
@@ -61,13 +87,21 @@
     "11": {
       "ID": "11",
       "bonus": {
-        "funds": 20
+        "development": 0,
+        "funds": 20,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 6000,
         "level": 1,
         "power": 16,
-        "space": 1
+        "space": 1,
+        "time": 0
       },
       "flavorText": "A truly efficient miner, from a more profitable age.",
       "image": "asic-miner.jpg",
@@ -81,12 +115,21 @@
     "12": {
       "ID": "12",
       "bonus": {
-        "development": 1
+        "development": 1,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 15,
         "level": 1,
-        "space": 10
+        "power": 0,
+        "space": 10,
+        "time": 0
       },
       "flavorText": "I have no idea what I'm doing...",
       "image": "intern-programmer.jpg",
@@ -100,12 +143,21 @@
     "13": {
       "ID": "13",
       "bonus": {
-        "development": 4
+        "development": 4,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 100,
         "level": 1,
-        "space": 10
+        "power": 0,
+        "space": 10,
+        "time": 0
       },
       "flavorText": "It compiled! That means it's working.",
       "image": "junior-developer.jpg",
@@ -119,12 +171,21 @@
     "14": {
       "ID": "14",
       "bonus": {
-        "development": 10
+        "development": 10,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 500,
-        "level": 1,
-        "space": 20
+        "level": 4,
+        "power": 0,
+        "space": 20,
+        "time": 0
       },
       "flavorText": "You've just hired me for 14.5 seconds. How can I help?",
       "image": "freelance-consultant.jpg",
@@ -138,12 +199,21 @@
     "15": {
       "ID": "15",
       "bonus": {
-        "development": 22
+        "development": 22,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 3000,
-        "level": 1,
-        "space": 20
+        "level": 4,
+        "power": 0,
+        "space": 20,
+        "time": 0
       },
       "flavorText": "I remeber the old days: The DAO hack, Parity bug, optimizing around gas limits... You kids have it easy.",
       "image": "senior-developer.jpg",
@@ -157,12 +227,21 @@
     "16": {
       "ID": "16",
       "bonus": {
-        "development": 46
+        "development": 46,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 10000,
-        "level": 1,
-        "space": 40
+        "level": 8,
+        "power": 0,
+        "space": 40,
+        "time": 0
       },
       "flavorText": "I'm sure you can accomplish ALL these tasks today! Just don't forget to SMILE.",
       "image": "techical-team-leader.jpg",
@@ -176,12 +255,21 @@
     "17": {
       "ID": "17",
       "bonus": {
-        "development": 76
+        "development": 76,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 40000,
-        "level": 1,
-        "space": 40
+        "level": 8,
+        "power": 0,
+        "space": 40,
+        "time": 0
       },
       "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
       "image": "project-architect.jpg",
@@ -196,16 +284,24 @@
       "ID": "18",
       "bonus": {
         "development": 4,
-        "funds": 10
+        "funds": 10,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 1000,
         "level": 1,
-        "space": 20
+        "power": 0,
+        "space": 20,
+        "time": 0
       },
       "flavorText": "",
       "image": "black-hat-hacker.jpg",
-      "mechanicsText": "Gain X funds each block.",
+      "mechanicsText": "Gain 10 funds each block.",
       "rarityScore": "576",
       "special": true,
       "title": "Black Hat Hacker",
@@ -215,12 +311,21 @@
     "19": {
       "ID": "19",
       "bonus": {
-        "power": 24
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 24,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 500,
         "level": 1,
-        "space": 15
+        "power": 0,
+        "space": 30,
+        "time": 0
       },
       "flavorText": "Free power, free people!",
       "image": "solar-panels.jpg",
@@ -234,8 +339,12 @@
     "2": {
       "ID": "2",
       "cost": {
+        "development": 0,
         "funds": 2000,
-        "level": 2
+        "level": 2,
+        "power": 0,
+        "space": 0,
+        "time": 0
       },
       "flavorText": "I love the smell of damp mould in the morning...",
       "image": "shaggy-office.jpg",
@@ -246,19 +355,33 @@
       "type": "Location",
       "unique": false,
       "values": {
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
         "power": 24,
-        "space": 80
+        "space": 80,
+        "xp": 0
       }
     },
     "20": {
       "ID": "20",
       "bonus": {
-        "power": 48
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 48,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 3000,
         "level": 1,
-        "space": 30
+        "power": 0,
+        "space": 30,
+        "time": 0
       },
       "flavorText": "",
       "image": "black-market-batteries.jpg",
@@ -272,12 +395,21 @@
     "21": {
       "ID": "21",
       "bonus": {
-        "power": 192
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 192,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 10000,
         "level": 1,
-        "space": 60
+        "power": 0,
+        "space": 60,
+        "time": 0
       },
       "flavorText": "We hacked this together from 3D printed parts and retired Chineese tech. It's only slightly radioactive.",
       "image": "diy-power-generator.jpg",
@@ -291,17 +423,25 @@
     "22": {
       "ID": "22",
       "bonus": {
+        "development": 0,
         "funds": 1,
-        "multiplier-funds": 1
+        "multiplier-dev": 0,
+        "multiplier-funds": 1,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 1000,
-        "level": 1,
-        "space": 10
+        "level": 8,
+        "power": 0,
+        "space": 10,
+        "time": 0
       },
-      "flavorText": "GRIDCONEEEEEEEEECT",
+      "flavorText": "GRIDCONEEEEEEEEECT!",
       "image": "grid-connector.jpg",
-      "mechanicsText": "Unique. For each unit of unspent POWER at location, gain X FUNDS.",
+      "mechanicsText": "Unique. For each unit of unspent POWER at location, gain 10 FUNDS.",
       "rarityScore": "250",
       "special": true,
       "title": "GRID Connector",
@@ -313,16 +453,23 @@
       "bonus": {
         "development": 10,
         "funds": 10,
-        "multiplier-dev": "10%"
+        "multiplier-dev": "10%",
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 1000,
         "level": 1,
-        "space": 10
+        "power": 0,
+        "space": 10,
+        "time": 0
       },
       "flavorText": "Make money by grinding sweet sweet coffee... Truly mankind's greatest invention. ",
       "image": "coffee-machine-miner.jpg",
-      "mechanicsText": "Unique. Gain X funds each block. All developers on location gain X% bonus DEV. ",
+      "mechanicsText": "Unique. Gain 10 funds each block. All developers on location gain 10% bonus DEV. ",
       "rarityScore": "576",
       "special": true,
       "title": "Coffee Machine Miner",
@@ -332,12 +479,20 @@
     "24": {
       "ID": "24",
       "bonus": {
+        "development": 0,
         "funds": 50,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
         "xp": 4
       },
       "cost": {
         "development": 1,
+        "funds": 0,
         "level": 1,
+        "power": 0,
+        "space": 0,
         "time": 50
       },
       "flavorText": "Hey, this isn't what I signed up for!",
@@ -352,13 +507,20 @@
     "25": {
       "ID": "25",
       "bonus": {
+        "development": 0,
         "funds": 3500,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
         "xp": 32
       },
       "cost": {
         "development": 8,
         "funds": 2000,
         "level": 2,
+        "power": 0,
+        "space": 0,
         "time": 150
       },
       "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
@@ -373,13 +535,20 @@
     "26": {
       "ID": "26",
       "bonus": {
+        "development": 0,
         "funds": 8000,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
         "xp": 512
       },
       "cost": {
         "development": 32,
         "funds": 4000,
         "level": 4,
+        "power": 0,
+        "space": 0,
         "time": 420
       },
       "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
@@ -394,13 +563,20 @@
     "27": {
       "ID": "27",
       "bonus": {
+        "development": 0,
         "funds": 64000,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
         "xp": 4000
       },
       "cost": {
         "development": 56,
         "funds": 16000,
         "level": 8,
+        "power": 0,
+        "space": 0,
         "time": 2500
       },
       "flavorText": "Get your buzzwords here! Get'em while they're hot!",
@@ -415,13 +591,20 @@
     "28": {
       "ID": "28",
       "bonus": {
+        "development": 0,
         "funds": 512000,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
         "xp": 32000
       },
       "cost": {
         "development": 120,
         "funds": 64000,
         "level": 12,
+        "power": 0,
+        "space": 0,
         "time": 10000
       },
       "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK.",
@@ -436,12 +619,20 @@
     "29": {
       "ID": "29",
       "bonus": {
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
         "xp": 500000
       },
       "cost": {
         "development": 240,
         "funds": 100000,
         "level": 16,
+        "power": 0,
+        "space": 0,
         "time": 30000
       },
       "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
@@ -456,8 +647,12 @@
     "3": {
       "ID": "3",
       "cost": {
+        "development": 0,
         "funds": 10000,
-        "level": 4
+        "level": 4,
+        "power": 0,
+        "space": 0,
+        "time": 0
       },
       "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
       "image": "downtown-office.jpg",
@@ -468,15 +663,24 @@
       "type": "Location",
       "unique": false,
       "values": {
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
         "power": 48,
-        "space": 120
+        "space": 120,
+        "xp": 0
       }
     },
     "4": {
       "ID": "4",
       "cost": {
+        "development": 0,
         "funds": 200000,
-        "level": 8
+        "level": 8,
+        "power": 0,
+        "space": 0,
+        "time": 0
       },
       "flavorText": "I swear, one day these things are going to run themselves.",
       "image": "smart-office.jpg",
@@ -487,15 +691,24 @@
       "type": "Location",
       "unique": false,
       "values": {
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
         "power": 96,
-        "space": 160
+        "space": 160,
+        "xp": 0
       }
     },
     "5": {
       "ID": "5",
       "cost": {
+        "development": 0,
         "funds": 1000000,
-        "level": 16
+        "level": 16,
+        "power": 0,
+        "space": 0,
+        "time": 0
       },
       "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
       "image": "office-building.jpg",
@@ -506,18 +719,26 @@
       "type": "Location",
       "unique": false,
       "values": {
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
         "power": 192,
-        "space": 200
+        "space": 200,
+        "xp": 0
       }
     },
     "6": {
       "ID": "6",
       "cost": {
+        "development": 0,
         "funds": 10,
         "level": 1,
-        "space": 5
+        "power": 0,
+        "space": 5,
+        "time": 0
       },
-      "flavorText": "NOTICE: Stop playing VR Minesweeper as it interfeers with our revenue stream!",
+      "flavorText": "NOTICE: Stop playing VR Minesweeper as it interferes with our revenue stream!",
       "image": "computer-case.jpg",
       "mechanicsText": "Can contain CPUs and Graphics Cards.",
       "rarityScore": "900",
@@ -526,15 +747,24 @@
       "type": "Container",
       "unique": false,
       "values": {
-        "space": 2
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 2,
+        "xp": 0
       }
     },
     "7": {
       "ID": "7",
       "cost": {
+        "development": 0,
         "funds": 1200,
         "level": 1,
-        "space": 15
+        "power": 0,
+        "space": 15,
+        "time": 0
       },
       "flavorText": "How this thing is holding together is anybody's guess...",
       "image": "mining-rig.jpg",
@@ -545,15 +775,24 @@
       "type": "Container",
       "unique": false,
       "values": {
-        "space": 6
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 6,
+        "xp": 0
       }
     },
     "8": {
       "ID": "8",
       "cost": {
+        "development": 0,
         "funds": 4800,
         "level": 1,
-        "space": 25
+        "power": 0,
+        "space": 25,
+        "time": 0
       },
       "flavorText": "It's basically a glorified fridge. But it has shiny buttons.",
       "image": "asic-mount.jpg",
@@ -564,19 +803,33 @@
       "type": "Container",
       "unique": false,
       "values": {
-        "space": 6
+        "development": 0,
+        "funds": 0,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 6,
+        "xp": 0
       }
     },
     "9": {
       "ID": "9",
       "bonus": {
-        "funds": 1
+        "development": 0,
+        "funds": 1,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
       },
       "cost": {
+        "development": 0,
         "funds": 40,
         "level": 1,
         "power": 1,
-        "space": 1
+        "space": 1,
+        "time": 0
       },
       "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
       "image": "cpu.jpg",
