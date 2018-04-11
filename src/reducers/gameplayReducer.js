@@ -27,6 +27,7 @@ import {
   RETURN_CARD,
   UPDATE_FUNDS_PER_BLOCK,
   UPDATE_LOCATIONS,
+  ADD_NEW_LEVEL_CARDS,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -171,6 +172,9 @@ export default (state = INITIAL_STATE, action) => {
           action.card,
         ],
       };
+
+    case ADD_NEW_LEVEL_CARDS:
+      return { ...state, cards: payload };
 
     case SUBMIT_NICKNAME_SUCCESS:
       return { ...state, nickname: payload, gameplayView: GP_NO_LOCATIONS };

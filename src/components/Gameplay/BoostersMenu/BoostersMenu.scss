@@ -141,31 +141,6 @@
     justify-content: center;
   }
 
-  .revealed-cards {
-    display: flex;
-    padding: 10px 25px 25px 25px;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-
-    .revealed-card {
-      display: inline-block;
-      margin-right: 18px;
-      width: 145px;
-      height: 252px;
-      margin-bottom: 30px;
-
-
-      .front:hover {
-        animation: revealNudge 0.5s linear;
-      }
-
-      img {
-        width: 145px;
-        height: 252px;
-      }
-    }
-  }
-
   .shop-funds {
     display: flex;
     width: 100%;

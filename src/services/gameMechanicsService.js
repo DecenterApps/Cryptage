@@ -1,5 +1,7 @@
 import levels from '../constants/levels.json';
+import cardsPerLevel from '../constants/cardsPerLevel.json';
 import { filterByKeys } from './utils';
+import { openNewLevelModal } from '../actions/modalActions';
 import {
   CHANGE_PROJECT_STATE,
   GP_BUY_BOOSTER,
@@ -7,7 +9,9 @@ import {
   GP_LOCATION_CONTAINER,
   GP_LOCATION_MAIN,
   GP_NO_LOCATIONS,
+  ADD_NEW_LEVEL_CARDS,
 } from '../actions/actionTypes';
+import { fetchCardStats } from './cardService';
 
 /**
  * Returns initial values for stack of cards
@@ -1159,7 +1163,7 @@ export const getMaxValueForLocation = (type, level, stat) => {
 export const getContainerSlotsLength = (locations, locationItem, activeContainerIndex) => {
   let length = false;
 
-  if (locationItem) {
+  if (locationItem && locationItem.dropSlots[activeContainerIndex]) {
     const containerItem = locationItem.dropSlots[activeContainerIndex].lastDroppedItem;
 
     if (containerItem && containerItem.dropSlots) {
@@ -1382,4 +1386,43 @@ export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
 
   projects[projectIndex].lastDroppedItem.showFpb = false;
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
+
+/**
+ * Adds new free cards to hand for new level
+ *
+ * @param {Number} level
+ */
+const addCardsForNewLevel = level => async (dispatch, getState) => {
+  const cards = [...getState().gameplay.cards];
+
+  const minId = cards.reduce((min, card) => { // eslint-disable-line
+    return card.id < min ? card.id : min;
+  }, cards[0].id);
+
+  const newCards = cardsPerLevel[level - 2].map((metadataId, index) => ({
+    id: minId - (index + 1),
+    stats: fetchCardStats(metadataId),
+    metadata: { id: metadataId.toString() },
+  }));
+
+  dispatch({ type: ADD_NEW_LEVEL_CARDS, payload: [...cards, ...newCards] });
+
+  return newCards;
+};
+
+/**
+ * Checks if new level. If new level opens new level modal with added cards
+ *
+ * @param {Number} currLevel
+ */
+export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
+  const { level } = getState().gameplay.globalStats;
+
+  if (currLevel === level) return;
+  if ((level - 2) < 0) return;
+
+  const cards = await dispatch(addCardsForNewLevel(level));
+
+  dispatch(openNewLevelModal(level, cards));
 };
