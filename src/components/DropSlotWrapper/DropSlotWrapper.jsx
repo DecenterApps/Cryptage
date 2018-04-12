@@ -5,13 +5,16 @@ import { connect } from 'react-redux';
 
 import { playTurn } from '../../actions/gameplayActions';
 import { toggleCardDrag } from '../../actions/appActions';
+import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
 import './DropSlotWrapper.scss';
 
 const dropTarget = {
   drop(props, monitor, component) {
     props.onDrop(monitor.getItem());
-    component.props.playTurn(monitor.getItem(), props.slotType, props.index, true);
     component.props.toggleCardDrag();
+    if (checkIfCanPlayCard(monitor.getItem().card.stats, props.globalStats)) {
+      component.props.playTurn(monitor.getItem(), props.slotType, props.index, true);
+    }
   },
 };
 
@@ -84,7 +87,9 @@ DropSlotWrapper.propTypes = {
   emptyStateElem: PropTypes.node,
   slot: PropTypes.object.isRequired,
 };
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  globalStats: state.gameplay.globalStats,
+});
 
 const mapDispatchToProp = {
   playTurn, toggleCardDrag,
