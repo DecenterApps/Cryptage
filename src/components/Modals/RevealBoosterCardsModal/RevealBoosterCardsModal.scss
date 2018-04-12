@@ -1,0 +1,36 @@
+@import '../../../common/colors';
+@import '../../../common/variables';
+
+.reveal-booster-cards-wrapper {
+  background: linear-gradient(180deg, rgba(54, 38, 95, 0.5) 0%, rgba(54, 38, 95, 0) 60%);
+  height: 497px;
+
+  h4 {
+    margin-top: 7px;
+    font-size: 17px;
+    margin-bottom: 8px;
+    color: $yellow;
+  }
+
+  h3 {
+    font-size: 37px;
+    margin: 0 0 15px 0;
+    font-family: $font-secondary;
+    color: $yellow;
+    text-transform: uppercase;
+  }
+
+  .reveal-cards-wrapper {
+    padding: 0 10px;
+  }
+
+  .button-wrapper {
+    @include flex-center;
+
+    button {
+      margin-left: 0;
+      width: 86px;
+      padding: 0;
+    }
+  }
+}

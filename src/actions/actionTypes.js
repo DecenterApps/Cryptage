@@ -78,6 +78,7 @@ export const RETURN_CARD = 'return_card';
 export const UPDATE_FUNDS_PER_BLOCK = 'update_funds_per_block';
 export const UPDATE_LOCATIONS = 'update_locations';
 export const ADD_NEW_LEVEL_CARDS = 'add_new_cards';
+export const CLEAR_REVEALED_CARDS = 'clear_revealed_cards';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';

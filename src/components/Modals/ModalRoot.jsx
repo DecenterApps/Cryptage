@@ -8,7 +8,7 @@ import { closeModal } from '../../actions/modalActions';
 const ModalRoot = ({
   SpecificModal, modalProps, modalType, modalOpen, closeModal,
 }) => (
-  <Modal modalOpen={modalOpen} closeModal={closeModal} width={modalProps.width} >
+  <Modal modalOpen={modalOpen} closeModal={closeModal} width={modalProps.width} className={modalProps.className} >
     {
       SpecificModal ?
         <SpecificModal

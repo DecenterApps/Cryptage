@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Boosters from './Boosters/Boosters';
-import Reveal from './RevealBoosterCards/RevealBoosterCards';
 import HeaderBar from '../../HeaderBar/HeaderBar';
 import CloseIcon from '../../CloseIcon/CloseIcon';
 
@@ -34,26 +33,16 @@ class BoostersMenu extends React.Component {
           <CloseIcon />
         </div>
 
-        {
-          !isReveal &&
-          <Boosters
-            boosters={boosters}
-            isBuying={isBuying}
-            isRevealing={isRevealing}
-            isFetching={isFetching}
-            revealBooster={revealBooster}
-            buyBoosterPack={buyBoosterPack}
-            accountBalance={accountBalance}
-            currentBlock={currentBlock}
-          />
-        }
-        {
-          isReveal &&
-          <Reveal
-            exitBoosterView={exitNotLocationsView}
-            revealedCards={revealedCards}
-          />
-        }
+        <Boosters
+          boosters={boosters}
+          isBuying={isBuying}
+          isRevealing={isRevealing}
+          isFetching={isFetching}
+          revealBooster={revealBooster}
+          buyBoosterPack={buyBoosterPack}
+          accountBalance={accountBalance}
+          currentBlock={currentBlock}
+        />
       </div>
     );
   }

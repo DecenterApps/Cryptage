@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalHeader from '../ModalHeader';
 import ModalBody from '../ModalBody';
-import { canCancelCard, handleCardCancel, removeProject } from '../../../actions/gameplayActions';
+import { canCancelCard, handleCardCancel, removeProject } from '../../../actions/removeCardActions';
 
 import './ConfirmRemoveModal.scss';
 
@@ -16,7 +16,7 @@ const ConfirmRemoveModal = ({
   let onClose = () => { handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex); };
 
   if (projectCard) onClose = () => { removeProject(projectCard, projectIndex); };
-  else canCancel = canCancelCard(slot, locationIndex, containerIndex);
+  else canCancel = canCancelCard(slot, locationIndex);
 
   return (
     <div className="confirm-modal-wrapper">
