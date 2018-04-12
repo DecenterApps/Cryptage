@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CloseIcon from '../CloseIcon/CloseIcon';
 import { changeGameplayView, saveStateToContract } from '../../actions/gameplayActions';
 import { resetGame } from '../../actions/appActions';
-import { GP_LOCATION_COLLECTION, GP_BUY_BOOSTER } from '../../actions/actionTypes';
+import { GP_LOCATION_COLLECTION, GP_BUY_BOOSTER, GP_LEADERBOARD } from '../../actions/actionTypes';
 import BlocksLoadingBar from '../BlocksLoadingBar/BlocksLoadingBar';
 
 import ethereumService  from '../../services/ethereumService';
@@ -71,6 +71,14 @@ class Menu extends Component {
                 }}
               >
                 My collection
+              </a>
+              <a
+                onClick={() => {
+                  this.setState({ open: false });
+                  changeGameplayView(GP_LEADERBOARD);
+                }}
+              >
+                Leaderboard
               </a>
               <a
                 onClick={() => {

@@ -1,0 +1,110 @@
+@import "../../../common/variables";
+@import "../../../common/colors";
+
+.leaderboard-wrapper {
+  position: relative;
+  width: 467px;
+  height: 496px;
+  flex-grow: 1;
+  margin: 25px auto 0 auto;
+  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 39.58%);
+
+  .close-icon {
+    position: absolute;
+    z-index: 10;
+    top: -25px;
+    right: 0;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .data-wrapper {
+    margin-top: 40px;
+    color: white;
+    height: 430px;
+    overflow: auto;
+
+    .data-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+
+      &>span {
+        font-size: 11px;
+        font-family: $font-secondary;
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      .nickname, .xp {
+        max-width: 210px;
+      }
+
+      .level {
+        max-width: 47px;
+      }
+    }
+
+    .data-table {
+
+      .player-rank {
+        display: flex;
+        height: 20px;
+        font-size: 12px;
+        white-space: pre;
+
+        & > div {
+          display: flex;
+          align-items: center;
+        }
+
+        * {
+          font-family: $font-secondary;
+        }
+
+        &:nth-child(-n+10) .nickname .rank {
+          color: $yellow;
+        }
+
+        &:first-child, &:nth-child(2), &:nth-child(3) {
+          height: 33px;
+          background: linear-gradient(180deg, rgba(54, 38, 95, 0.4) 0%, rgba(54, 38, 95, 0) 100%);
+        }
+
+        &:first-child .nickname .text { font-size: 18px; }
+        &:nth-child(2) .nickname .text { font-size: 15px; }
+        &:nth-child(3) .nickname .text { font-size: 13px; }
+
+        .nickname {
+          margin-left: 64px;
+          width: 145px;
+
+          .rank {
+            margin-right: 6px;
+          }
+
+          .text {
+            width: 120px;
+            @include ellipsis;
+          }
+        }
+
+        .level {
+          width: 47px;
+          justify-content: center;
+        }
+
+        .xp {
+          width: 115px;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}

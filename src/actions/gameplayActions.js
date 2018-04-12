@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import cardsPerLevel from '../constants/cardsPerLevel.json';
 import {
   DROP_LOCATION,
   SET_ACTIVE_LOCATION,
@@ -41,6 +42,7 @@ import {
 } from '../services/utils';
 
 import { packMoves, readState } from '../services/stateService';
+import config from '../constants/config.json';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -54,16 +56,45 @@ export const changeGameplayView = payload => (dispatch, getState) => {
 };
 
 /**
- * gets Garage, Computer case and CPU because
+ * gets onboarding cards defined in config because
  * every played gets those cards for free
  */
-const getOnboardingCards = async () => {
-  const cardTypes = [0, 6, 9, 12, 24];
+const getOnboardingCards = () => {
+  const cardTypes = config.onboardingCards;
   return cardTypes.map((metadataId, index) => ({
-    id: index - 3,
+    id: index - cardTypes.length,
     stats: fetchCardStats(metadataId),
     metadata: { id: metadataId.toString() },
   }));
+};
+
+/**
+ * gets Garage, Computer case and CPU because
+ * every played gets those cards for free
+ */
+const getNewLevelCards = (level, cards) => {
+  if ((level - 2) < 0) return [];
+
+  let minId = cards.reduce((min, card) => { // eslint-disable-line
+    return card.id < min ? card.id : min;
+  }, cards[0].id);
+
+  let newCards = [];
+
+  for (let i = 2; i <= level; i += 1) {
+    const cardTypes = cardsPerLevel[i - 2];
+    const newLevelCards = cardTypes.map((metadataId, index) => ({
+      id: minId - (index + 1),
+      stats: fetchCardStats(metadataId),
+      metadata: { id: metadataId.toString() },
+    }));
+
+    newCards = [...newCards, ...newLevelCards];
+
+    minId = newCards[newCards.length - 1].id;
+  }
+
+  return newCards;
 };
 
 /**
@@ -77,9 +108,13 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
   try {
     const cardsIDs = await ethService.getUsersCards();
     let cards = await cardService.fetchCardsMeta(cardsIDs);
+    const { level } = getState().gameplay.globalStats;
 
-    const onboardingCards = await getOnboardingCards();
+    const onboardingCards = getOnboardingCards();
     cards = [...cards, ...onboardingCards];
+
+    const newLevelCards = getNewLevelCards(level, cards);
+    cards = [...cards, ...newLevelCards];
 
     dispatch({
       type: USERS_CARDS_SUCCESS,
@@ -813,7 +848,7 @@ export const canCancelCard = (slot, locationIndex, containerIndex) => (dispatch,
     }
   }
 
-  return gameplay.globalStats.development > totalDev;
+  return gameplay.globalStats.development >= totalDev;
 };
 
 /**

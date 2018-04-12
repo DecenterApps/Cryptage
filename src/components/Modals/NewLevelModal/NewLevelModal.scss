@@ -1,0 +1,31 @@
+@import '../../../common/colors';
+@import '../../../common/variables';
+
+.new-level-modal-wrapper {
+  background: $modal-bg;
+  height: 358px;
+  border-top-left-radius: $border-radius-modal;
+  border-top-right-radius: $border-radius-modal;
+
+  .main-text {
+    text-align: center;
+
+    .congratulation {
+      font-family: $font-primary;
+      margin: 39px 0 10px 0;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+
+    .level {
+      font-family: $font-secondary;
+      color: rgb(255, 157, 20);
+      text-shadow: 0 0 44px #0D0A17;
+      font-size: 87px;
+    }
+  }
+
+  .reveal-cards-wrapper {
+    padding-top: 0;
+  }
+}

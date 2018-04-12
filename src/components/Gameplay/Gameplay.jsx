@@ -7,12 +7,14 @@ import ActiveLocation from './ActiveLocation/ActiveLocation';
 import GameplayHeader from './GameplayHeader/GameplayHeader';
 import NoLocations from './NoLocations/NoLocations';
 import NicknameForm from './NicknameForm/NicknameForm';
+import Leaderboard from './Leaderboard/Leaderboard';
 import {
   GP_BUY_BOOSTER,
   GP_LOCATION,
   GP_NO_LOCATIONS,
   GP_LOCATION_COLLECTION,
   GP_NO_NICKNAME,
+  GP_LEADERBOARD,
 } from '../../actions/actionTypes';
 import Cards from '../Cards/Cards';
 
@@ -27,6 +29,7 @@ const Gameplay = ({ gameplayView, locations, nickname }) => (
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }
     { gameplayView === GP_LOCATION && <ActiveLocation />}
     { gameplayView === GP_LOCATION_COLLECTION && <Collection /> }
+    { gameplayView === GP_LEADERBOARD && <Leaderboard /> }
 
     {
       (gameplayView === GP_NO_LOCATIONS || gameplayView === GP_LOCATION) &&
