@@ -753,13 +753,19 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
   // we multiple the location with the cardId, if location is 0 we multiple by 1
   location = location === 0 ? 1 : location;
 
+  let convertedCardId = Math.abs(card.metadata.id * location) * 6;
+
+  if (convertedCardId >= 144 && convertedCardId <= 174) {
+    convertedCardId += 720;
+  }
+
   dispatch({
     type: PLAY_TURN,
     turn: {
       shift: addOrRemove ? 1 : 0,
       location: 1, // TODO: for the cards that arent repeated in the container this is always 1, otherwise 0 and cardId is the location of that card in state
       cardSpecificNumber: 0,
-      cardId: Math.abs(card.metadata.id * location) * 6,
+      cardId: convertedCardId,
       blockNumber: app.blockNumber,
     },
   });
