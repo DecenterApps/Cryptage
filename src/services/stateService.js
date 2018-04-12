@@ -202,10 +202,6 @@ function _pack(arr, start) {
 }
 
 export function packMoves(_moves) {
-  if (_moves.length === 0) {
-    return;
-  }
-
   const blockNumber = _moves[0].blockNumber; //eslint-disable-line
 
   const blockNumHex = bin2Hex(dec2bin(blockNumber, 32), 8);
@@ -218,8 +214,7 @@ export function packMoves(_moves) {
     bin2Hex(dec2bin(move.shift, 1) + dec2bin(move.location, 1) + dec2bin(move.cardSpecificNumber, 4)
     + dec2bin(move.cardId, 10) + dec2bin(move.blockNumber, 16)));
 
+  console.log(binMoves);
+
   return _pack(binMoves, blockNumHex);
 }
-
-// call the methods
-// console.log(packMoves(state));

@@ -77,6 +77,7 @@ export const REMOVE_CARD = 'remove_card';
 export const RETURN_CARD = 'return_card';
 export const UPDATE_FUNDS_PER_BLOCK = 'update_funds_per_block';
 export const UPDATE_LOCATIONS = 'update_locations';
+export const ADD_NEW_LEVEL_CARDS = 'add_new_cards';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
@@ -88,3 +89,6 @@ export const GP_NO_LOCATIONS = 'no_locations';
 export const GP_NO_NICKNAME = 'no_nickname';
 
 export const SUBMIT_NICKNAME_SUCCESS = 'submit_nickname_success';
+
+// MODAL
+export const TOGGLE_MODAL = 'toggle_modal';

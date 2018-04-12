@@ -5,12 +5,13 @@ import { guid, formatBigNumber, range } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import ChevronDownIcon from '../../Decorative/ChevronDownIcon';
 import MagnifyingGlassIcon from '../../Decorative/MagnifyingGlassIcon';
+import { openConfirmRemoveModal } from '../../../actions/modalActions';
 
 import './HandCard.scss';
 
 const HandCard = ({
-  card, showCount, hoverCentered, played, remainingSlots, goToContainer, handleCardCancel,
-  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard,
+  card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
+  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove,
 }) => {
   const uniqueId = guid();
   const gradients = {
@@ -103,33 +104,31 @@ const HandCard = ({
         card.stats.cost &&
         <div className="cost">
           {
-            card.stats.cost.space &&
             card.stats.cost.space > 1 &&
             <div className="circle space">
               {formatBigNumber(card.stats.cost.space)}
             </div>
           }
           {
-            card.stats.cost.power &&
+            card.stats.cost.power > 0 &&
             <div className="circle power">
               {formatBigNumber(card.stats.cost.power)}
             </div>
           }
           {
-            card.stats.cost.funds &&
+            card.stats.cost.funds > 0 &&
             <div className="circle funds">
               {formatBigNumber(card.stats.cost.funds)}
             </div>
           }
           {
-            card.stats.cost.level &&
             card.stats.cost.level > 1 &&
             <div className="circle level">
               {formatBigNumber(card.stats.cost.level)}
             </div>
           }
           {
-            card.stats.cost.development &&
+            card.stats.cost.development > 0 &&
             <div className="circle development">
               {formatBigNumber(card.stats.cost.development)}
             </div>
@@ -142,42 +141,42 @@ const HandCard = ({
         <div className="values">
           {
             card.stats.values &&
-            card.stats.values.space &&
+            card.stats.values.space > 0 &&
             <div className="circle space">
               {formatBigNumber(card.stats.values.space)}
             </div>
           }
           {
             card.stats.values &&
-            card.stats.values.power &&
+            card.stats.values.power > 0 &&
             <div className="circle power">
               {formatBigNumber(card.stats.values.power)}
             </div>
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.funds &&
+            card.stats.bonus.funds > 0 &&
             <div className="circle funds">
               {formatBigNumber(card.stats.bonus.funds)}
             </div>
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.xp &&
+            card.stats.bonus.xp > 0 &&
             <div className="circle xp">
               {formatBigNumber(card.stats.bonus.xp)}
             </div>
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.power &&
+            card.stats.bonus.power > 0 &&
             <div className="circle power">
               {formatBigNumber(card.stats.bonus.power)}
             </div>
           }
           {
             card.stats.bonus &&
-            card.stats.bonus.development &&
+            card.stats.bonus.development > 0 &&
             <div className="circle development">
               {formatBigNumber(card.stats.bonus.development)}
             </div>
@@ -187,10 +186,11 @@ const HandCard = ({
 
       {
         played &&
+        canRemove &&
         <div
           className="remove-card-wrapper"
           onClick={() => {
-            handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex);
+            openConfirmRemoveModal(slot, locationIndex, containerIndex, containerSlotIndex);
           }}
         >
           <ChevronDownIcon />
@@ -214,6 +214,7 @@ HandCard.defaultProps = {
       image: '',
     },
   },
+  canRemove: true,
   showCount: true,
   hoverCentered: false,
   played: false,
@@ -223,7 +224,6 @@ HandCard.defaultProps = {
   containerIndex: undefined,
   containerSlotIndex: undefined,
   slot: null,
-  handleCardCancel: () => {},
   draggingCard: false,
 };
 
@@ -239,16 +239,21 @@ HandCard.propTypes = {
   remainingSlots: PropTypes.number,
   played: PropTypes.bool,
   goToContainer: PropTypes.func,
-  handleCardCancel: PropTypes.func,
+  openConfirmRemoveModal: PropTypes.func.isRequired,
   locationIndex: PropTypes.number,
   containerIndex: PropTypes.number,
   containerSlotIndex: PropTypes.number,
   slot: PropTypes.object,
   draggingCard: PropTypes.bool,
+  canRemove: PropTypes.bool,
 };
 
 const mapStateToProps = ({ app }) => ({
   draggingCard: app.draggingCard,
 });
 
-export default connect(mapStateToProps)(HandCard);
+const mapDispatchToProps = {
+  openConfirmRemoveModal,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HandCard);

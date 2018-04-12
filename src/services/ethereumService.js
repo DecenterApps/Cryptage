@@ -49,6 +49,13 @@ const getBoosterContract = async () => {
   });
 };
 
+const getStateContract = async () => {
+  const account = await getAccount();
+  return new web3.eth.Contract(config.stateContract.abi, config.stateContract.address, {
+    from: account,
+  });
+};
+
 /**
  * DEV HELPER
  * Adds a card to an account
@@ -155,6 +162,16 @@ const revealBooster = async (id) => {
   return boosterContract.methods.revealBooster(parseInt(id, 10)).send();
 };
 
+const updateMoves = async (moves) => {
+  const stateContract = await getStateContract();
+  return stateContract.methods.update(moves).send();
+};
+
+const getState = async () => {
+  const stateContract = await getStateContract();
+  return stateContract.methods.get().send();
+};
+
 export default {
   getAccount,
   getBalance,
@@ -167,4 +184,6 @@ export default {
   getCardsFromBooster,
   buyBooster,
   revealBooster,
+  updateMoves,
+  getState,
 };

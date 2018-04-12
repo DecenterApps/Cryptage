@@ -27,6 +27,7 @@ import {
   RETURN_CARD,
   UPDATE_FUNDS_PER_BLOCK,
   UPDATE_LOCATIONS,
+  ADD_NEW_LEVEL_CARDS,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -45,12 +46,12 @@ const INITIAL_STATE = {
   activeContainerIndex: 0,
   playedTurns: [],
   globalStats: {
-    level: 10,
+    level: config.globalStats.level,
     experience: config.globalStats.experience,
     earnedXp: 0,
     requiredXp: 16,
-    funds: 100000,
-    development: 100000,
+    funds: config.globalStats.funds,
+    development: config.globalStats.development,
   },
 };
 
@@ -171,6 +172,9 @@ export default (state = INITIAL_STATE, action) => {
           action.card,
         ],
       };
+
+    case ADD_NEW_LEVEL_CARDS:
+      return { ...state, cards: payload };
 
     case SUBMIT_NICKNAME_SUCCESS:
       return { ...state, nickname: payload, gameplayView: GP_NO_LOCATIONS };

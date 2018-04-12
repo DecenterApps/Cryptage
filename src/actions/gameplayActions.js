@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import cardsPerLevel from '../constants/cardsPerLevel.json';
 import {
   DROP_LOCATION,
   SET_ACTIVE_LOCATION,
@@ -39,8 +40,8 @@ import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
 } from '../services/utils';
-
 import { packMoves } from '../services/stateService';
+import config from '../constants/config.json';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -54,16 +55,45 @@ export const changeGameplayView = payload => (dispatch, getState) => {
 };
 
 /**
- * gets Garage, Computer case and CPU because
+ * gets onboarding cards defined in config because
  * every played gets those cards for free
  */
-const getOnboardingCards = async () => {
-  const cardTypes = [0, 6, 9, 12, 24];
+const getOnboardingCards = () => {
+  const cardTypes = config.onboardingCards;
   return cardTypes.map((metadataId, index) => ({
-    id: index - 3,
+    id: index - cardTypes.length,
     stats: fetchCardStats(metadataId),
     metadata: { id: metadataId.toString() },
   }));
+};
+
+/**
+ * gets Garage, Computer case and CPU because
+ * every played gets those cards for free
+ */
+const getNewLevelCards = (level, cards) => {
+  if ((level - 2) < 0) return [];
+
+  let minId = cards.reduce((min, card) => { // eslint-disable-line
+    return card.id < min ? card.id : min;
+  }, cards[0].id);
+
+  let newCards = [];
+
+  for (let i = 2; i <= level; i += 1) {
+    const cardTypes = cardsPerLevel[i - 2];
+    const newLevelCards = cardTypes.map((metadataId, index) => ({
+      id: minId - (index + 1),
+      stats: fetchCardStats(metadataId),
+      metadata: { id: metadataId.toString() },
+    }));
+
+    newCards = [...newCards, ...newLevelCards];
+
+    minId = newCards[newCards.length - 1].id;
+  }
+
+  return newCards;
 };
 
 /**
@@ -77,9 +107,13 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
   try {
     const cardsIDs = await ethService.getUsersCards();
     let cards = await cardService.fetchCardsMeta(cardsIDs);
+    const { level } = getState().gameplay.globalStats;
 
-    const onboardingCards = await getOnboardingCards();
+    const onboardingCards = getOnboardingCards();
     cards = [...cards, ...onboardingCards];
+
+    const newLevelCards = getNewLevelCards(level, cards);
+    cards = [...cards, ...newLevelCards];
 
     dispatch({
       type: USERS_CARDS_SUCCESS,
@@ -723,7 +757,7 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
 
 // 0 za rig 1 za computer case
 export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
-  const { card } = item;
+  const card = item.card || item.cards[0];
   const { app, gameplay } = getState();
   const { activeLocationIndex, activeContainerIndex, locations } = gameplay;
   let location;
@@ -744,26 +778,81 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       location = gameplay.activeLocationIndex;
       containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
 
-      cardSpecificNumber = containerCard[0].metadata.id === '1' ? 1 : 0;
+      cardSpecificNumber = containerCard[0].metadata.id === '6' ? 1 : 0;
       break;
     default:
       break;
   }
 
+  // we multiple the location with the cardId, if location is 0 we multiple by 1
+  location = location === 0 ? 1 : location;
+
   dispatch({
     type: PLAY_TURN,
     turn: {
       shift: addOrRemove ? 1 : 0,
-      location,
+      location: 1, // TODO: for the cards that arent repeated in the container this is always 1, otherwise 0 and cardId is the location of that card in state
       cardSpecificNumber,
-      cardId: card.metadata.id,
+      cardId: card.metadata.id * location,
       blockNumber: app.blockNumber,
     },
   });
 };
 
+/**
+ * Checks if player can cancel a card;
+ *
+ * @param slot
+ * @param locationIndex
+ * @param containerIndex
+ */
+export const canCancelCard = (slot, locationIndex, containerIndex) => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const item = { ...slot.lastDroppedItem };
+  const returnedCards = [];
+  let currentItem;
+  let totalDev = 0;
+
+  if (item.dropSlots) {
+    for (let i = 0; i < item.dropSlots.length; i += 1) {
+      currentItem = item.dropSlots[i].lastDroppedItem;
+
+      if (currentItem !== null && currentItem.dropSlots === null) {
+        if (currentItem.cards[0].stats.type === 'Development') {
+          totalDev += currentItem.cards[0].stats.bonus.development;
+        }
+        if (currentItem.cards[0].metadata.id === '23') {
+          totalDev += currentItem.special;
+        }
+        returnedCards.push(currentItem.cards[0]);
+      }
+
+      if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
+        const canCancelSlotItem = canCancelCard(item.dropSlots[i], locationIndex, i);
+        if (!canCancelSlotItem) return false;
+      }
+    }
+  } else {
+    if (item.cards[0].metadata.id === '23') {
+      totalDev += item.special;
+    }
+    if (item.cards[0].stats.type === 'Development') {
+      totalDev += item.cards[0].stats.bonus.development;
+    }
+  }
+
+  return gameplay.globalStats.development >= totalDev;
+};
+
+/**
+ * Removes cards from gameplay
+ *
+ * @param slot
+ * @param locationIndex
+ * @param containerIndex
+ * @param containerSlotIndex
+ */
 export const handleCardCancel = (slot, locationIndex, containerIndex, containerSlotIndex) => (dispatch, getState) => {
-  if (!confirm('Withdrawing a card will not return spent funds. Are you sure you want to do this?')) return;
   const { gameplay } = getState();
   const _locations = [...gameplay.locations];
   let { gameplayView } = gameplay;
@@ -850,6 +939,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
 
   const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.cards[0], false);
 
+  const turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();
+  dispatch(playTurn(item, slot.slotType, turnIndex, false));
+
   /* DO NOT REMOVE getState() */
   dispatch({
     type: REMOVE_CARD,
@@ -909,17 +1001,33 @@ export const submitNickname = ({ nickname }) => (dispatch) => {
 /**
  * Sends tx to contract to save current state
  */
-export const saveStateToContract = () => (dispatch, getState) => {
+export const saveStateToContract = () => async (dispatch, getState) => {
   // Add call to the contract here
   const { account } = getState().app;
 
   if (!account) return;
 
+  // const state = await ethService.getState();
+
+  // console.log(state);
+
   const state = JSON.parse(localStorage.getItem(`player-location-${account}`));
 
-  const packedState = packMoves(state.playedTurns);
+  if (state.playedTurns.length === 0) {
+    return;
+  }
 
-  console.log('Packed State: ', packedState);
+  const packedMoves = packMoves(state.playedTurns);
+
+  console.log('Packed Moves: ', packedMoves);
+
+  const res = await ethService.updateMoves(packedMoves);
+
+  state.playedTurns = [];
+
+  // localStorage.setItem(`player-location-${account}`);
+
+  console.log(res);
 };
 
 /**

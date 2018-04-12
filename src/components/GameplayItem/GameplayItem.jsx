@@ -4,7 +4,7 @@ import { Line } from 'rc-progress';
 import { connect } from 'react-redux';
 import HandCard from '../Cards/HandCard/HandCard';
 import { calcDataForNextLevel } from '../../services/utils';
-import { levelUpAsset, switchInGameplayView, handleCardCancel } from '../../actions/gameplayActions';
+import { levelUpAsset, switchInGameplayView } from '../../actions/gameplayActions';
 import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 
 import './GameplayItem.scss';
@@ -58,7 +58,7 @@ class GameplayItem extends Component {
 
   render() {
     const {
-      cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, dropSlots, slot, handleCardCancel,
+      cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, dropSlots, slot,
       dragItem, locations, globalStats,
     } = this.props;
 
@@ -135,7 +135,6 @@ class GameplayItem extends Component {
               showCount={false}
               card={cards[0]}
               slot={slot}
-              handleCardCancel={handleCardCancel}
               locationIndex={activeLocationIndex}
               containerIndex={index}
               played
@@ -162,7 +161,6 @@ class GameplayItem extends Component {
               showCount={false}
               card={cards[0]}
               remainingSlots={remainingSlots}
-              handleCardCancel={handleCardCancel}
               locationIndex={activeLocationIndex}
               containerIndex={index}
               slot={slot}
@@ -205,7 +203,6 @@ GameplayItem.propTypes = {
   dropSlots: PropTypes.array,
   locations: PropTypes.array.isRequired,
   slot: PropTypes.object.isRequired,
-  handleCardCancel: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
   dragItem: PropTypes.object,
   globalStats: PropTypes.object.isRequired,
@@ -219,7 +216,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProps = {
-  levelUpAsset, switchInGameplayView, handleCardCancel,
+  levelUpAsset, switchInGameplayView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameplayItem);

@@ -38,6 +38,16 @@ body {
   background: url("./game-background.png") center center no-repeat;
   background-size: cover;
 
+  &.no-acc {
+    background: none;
+    box-shadow: none;
+
+    .app-top-section-wrapper .logo-wrapper {
+      left: 295px;
+      top: 20px;
+    }
+  }
+
   .bug-report {
     position: fixed;
     display: flex;

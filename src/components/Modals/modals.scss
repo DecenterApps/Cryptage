@@ -1,0 +1,75 @@
+@import "../../common/variables";
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all 0.15s ease-out;
+  text-align: center;
+  visibility: hidden;
+  font-family: $font-primary;
+
+  .modal-wrapper {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.25);
+  }
+
+  .modal {
+    margin-top: 0;
+    top: 0;
+    transform: translateY(0);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+    border-bottom-left-radius: $border-radius-modal;
+    border-bottom-right-radius: $border-radius-modal;
+
+    .modal-header {
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+
+      h1 {
+        margin: 0;
+      }
+
+      .icon-close {
+        display: flex;
+        position: absolute;
+        right: 0;
+        top: -25px;
+        z-index: 2;
+        outline: none;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+
+    .modal-body {
+      color: white;
+      text-align: left;
+    }
+  }
+
+  &.open {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow: auto;
+    visibility: visible;
+
+    .modal {
+      transform: translateY(200px);
+      opacity: 1;
+    }
+  }
+}
