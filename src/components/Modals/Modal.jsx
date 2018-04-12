@@ -34,7 +34,7 @@ class Modal extends PureComponent {
   render() {
     return (
       <div
-        className={`modal-backdrop ${this.state.show ? 'open' : ''}`}
+        className={`modal-backdrop ${this.state.show ? 'open' : ''} ${this.props.className}`}
         role="button"
         tabIndex={0}
         onClick={this.props.closeModal}
@@ -55,11 +55,13 @@ class Modal extends PureComponent {
 
 Modal.defaultProps = {
   width: '100%',
+  className: '',
 };
 
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   width: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Modal;

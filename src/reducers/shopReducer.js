@@ -8,8 +8,7 @@ import {
   REVEAL_SUCCESS,
   REVEAL_REQUEST,
   REVEAL_ERROR,
-  CHANGE_GAMEPLAY_VIEW,
-  SWITCH_IN_GAMEPLAY_VIEW,
+  CLEAR_REVEALED_CARDS,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -78,12 +77,8 @@ export default (state = INITIAL_STATE, action) => {
         error: action.error,
         isRevealing: action.isRevealing,
       };
-    case CHANGE_GAMEPLAY_VIEW:
-    case SWITCH_IN_GAMEPLAY_VIEW:
-      return {
-        ...state,
-        revealedCards: [],
-      };
+    case CLEAR_REVEALED_CARDS:
+      return { ...state, revealedCards: [] };
     default:
       return state;
   }

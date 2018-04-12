@@ -10,9 +10,10 @@ import {
   REVEAL_ERROR,
 } from './actionTypes';
 
-import { log, removePlayedCards } from '../services/utils';
+import { log } from '../services/utils';
 import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
+import { openRevealBoosterCardsModal } from './modalActions';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -87,19 +88,21 @@ export const revealRequest = (_id, _boosters) => {
   return { type: REVEAL_REQUEST, boosters, isRevealing: true };
 };
 
-export const revealSuccess = (allCards, revealedCards, _id, _boosters, getState) => {
+export const revealSuccess = (allCards, revealedCards, _id, _boosters) => (dispatch) => {
   const cards = [...allCards, ...revealedCards];
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
   boosters.splice(boosterIndex, 1);
 
-  return {
+  dispatch({
     type: REVEAL_SUCCESS,
     cards,
     boosters,
     revealedCards,
     isRevealing: false,
-  };
+  });
+
+  dispatch(openRevealBoosterCardsModal(revealedCards));
 };
 
 export const revealError = (error, _id, _boosters) => {
@@ -123,7 +126,7 @@ export const revealBooster = id => async (dispatch, getState) => {
     const allCards = [...getState().gameplay.cards];
     const cards = await cardService.fetchCardsMeta(cardIds);
 
-    dispatch(revealSuccess(allCards, cards, id, getState().shop.boosters, getState));
+    dispatch(revealSuccess(allCards, cards, id, getState().shop.boosters));
   } catch (e) {
     console.error(e);
     dispatch(revealError(e, id, getState().shop.boosters));

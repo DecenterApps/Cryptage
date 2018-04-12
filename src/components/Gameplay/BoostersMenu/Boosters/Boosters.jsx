@@ -66,12 +66,16 @@ export default ({
                   }
                   <img src={images[i]} alt="" />
                   <p className="booster-placeholder booster-text-gradient">Card pack</p>
-                  <button
-                    onClick={() => revealBooster(item.id)}
-                    className="open-booster-placeholder booster-text-gradient"
-                  >
-                    Open
-                  </button>
+
+                  {
+                    !isRevealing &&
+                    <button
+                      onClick={() => revealBooster(item.id)}
+                      className="open-booster-placeholder booster-text-gradient"
+                    >
+                      Open
+                    </button>
+                  }
 
                   <BlocksLoadingBar
                     currentBlock={currentBlock}

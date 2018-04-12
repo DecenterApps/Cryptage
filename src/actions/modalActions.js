@@ -1,5 +1,9 @@
 import { TOGGLE_MODAL } from './actionTypes';
-import { CONFIRM_REMOVE_MODAL, NEW_LEVEL_MODAL } from '../components/Modals/modalTypes';
+import {
+  CONFIRM_REMOVE_MODAL,
+  NEW_LEVEL_MODAL,
+  REVEAL_BOOSTER_CARDS_MODAL,
+} from '../components/Modals/modalTypes';
 
 /**
  * Dispatches action to toggle modal.
@@ -51,3 +55,12 @@ export const openConfirmRemoveModal = (
 export const openNewLevelModal = (level, cards) => (dispatch) => {
   dispatch(toggleModal(NEW_LEVEL_MODAL, { level, cards, width: '635px' }, true));
 };
+
+/**
+ * Opens the reveal new booster cards modal
+ *
+ * @param {Object} cards
+ */
+export const openRevealBoosterCardsModal = cards => (dispatch) => {
+  dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { cards, width: '912px', className: 'reveal-modal' }, true));
+}
