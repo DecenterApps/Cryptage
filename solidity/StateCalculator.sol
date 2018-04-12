@@ -260,496 +260,499 @@ contract StateCalculator {
                     }
 
                     // generated code begin
-                    if lt(card, 36) {
-                        if and(iszero(and(location, 0x7FE00000000000000000)), eq(0, gt(and(move32, 0x80000000), 0))) {
-                            location := 0
-                            card := add(card, 0x400)
-                        }
+					if lt(card, 36) {
+						if and(iszero(and(location, 0x7FE00000000000000000)), eq(0, gt(and(move32, 0x80000000), 0))) {
+							location := 0
+							card := add(card, 0x400)
+						}
 
-                        if and(iszero(location), eq(1, gt(and(move32, 0x80000000), 0))) {
-                            switch card
-                            case 0 {
-                                if not(lt(funds, 100)) {
-                                    funds := sub(funds, 100)
-                                    card := add(card, 0x400)
-                                    location := add(add(add(location, 0x300000000000000000000), 0x2800000000000000), 0xA000)
-                                }
-                            }
-                            case 6 {
-                                if not(lt(funds, 500)) {
-                                    funds := sub(funds, 500)
-                                    card := add(card, 0x400)
-                                    location := add(add(add(location, 0x600000000000000000000), 0x3C00000000000000), 0x18000)
-                                }
-                            }
-                            case 12 {
-                                if not(lt(funds, 2000)) {
-                                    funds := sub(funds, 2000)
-                                    card := add(card, 0x400)
-                                    location := add(add(add(location, 0x900000000000000000000), 0x6400000000000000), 0x28000)
-                                }
-                            }
-                            case 18 {
-                                if not(lt(funds, 10000)) {
-                                    funds := sub(funds, 10000)
-                                    card := add(card, 0x400)
-                                    location := add(add(add(location, 0xC00000000000000000000), 0x8C00000000000000), 0x64000)
-                                }
-                            }
-                            case 24 {
-                                if not(lt(funds, 100000)) {
-                                    funds := sub(funds, 100000)
-                                    card := add(card, 0x400)
-                                    location := add(add(add(location, 0xF00000000000000000000), 0xC800000000000000), 0xDC000)
-                                }
-                            }
-                            case 30 {
-                                if not(lt(funds, 1000000)) {
-                                    funds := sub(funds, 1000000)
-                                    card := add(card, 0x400)
-                                    location := add(add(add(location, 0x1200000000000000000000), 0xF000000000000000), 0x1CC000)
-                                }
-                            }
-                        }
-                    }
+						if and(iszero(location), eq(1, gt(and(move32, 0x80000000), 0))) {
+							switch card
+							case 0 {
+								if not(lt(funds, 100)) {
+									funds := sub(funds, 100)
+									card := add(card, 0x400)
+									location := add(add(add(location, 0x300000000000000000000), 0x2800000000000000), 0x8000)
+								}
+							}
+							case 6 {
+								if not(lt(funds, 500)) {
+									funds := sub(funds, 500)
+									card := add(card, 0x400)
+									location := add(add(add(location, 0x600000000000000000000), 0x3C00000000000000), 0x0)
+								}
+							}
+							case 12 {
+								if and(not(lt(experience, 16)), not(lt(funds, 2000))) {
+									funds := sub(funds, 2000)
+									card := add(card, 0x400)
+									location := add(add(add(location, 0x900000000000000000000), 0x5000000000000000), 0x30000)
+								}
+							}
+							case 18 {
+								if and(not(lt(experience, 64)), not(lt(funds, 10000))) {
+									funds := sub(funds, 10000)
+									card := add(card, 0x400)
+									location := add(add(add(location, 0xC00000000000000000000), 0x7800000000000000), 0x60000)
+								}
+							}
+							case 24 {
+								if and(not(lt(experience, 1024)), not(lt(funds, 200000))) {
+									funds := sub(funds, 200000)
+									card := add(card, 0x400)
+									location := add(add(add(location, 0xF00000000000000000000), 0xA000000000000000), 0xC0000)
+								}
+							}
+							case 30 {
+								if and(not(lt(experience, 262144)), not(lt(funds, 1000000))) {
+									funds := sub(funds, 1000000)
+									card := add(card, 0x400)
+									location := add(add(add(location, 0x1200000000000000000000), 0xC800000000000000), 0x180000)
+								}
+							}
+						}
+					}
 
-                    if and(gt(card, 35), lt(card, 54)) {
-                        if eq(0, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 36 {
-                                if not(lt(and(location, 0xFFC00000000000), 0x800000000000)) {
-                                    location := sub(sub(add(location, 0x500000000000000), 0x800000000000), 0x200000000000000000)
-                                    card := add(card, 0x400)
-                                }
-                            }
-                            case 42 {
-                                if not(lt(and(location, 0x3FF000000000), 0x4000000000)) {
-                                    location := sub(sub(add(location, 0xF00000000000000), 0x4000000000), 0x200000000000000000)
-                                    card := add(card, 0x400)
-                                }
-                            }
-                            case 48 {
-                                if not(lt(and(location, 0xFFC000000), 0x10000000)) {
-                                    location := sub(sub(add(location, 0x1900000000000000), 0x10000000), 0x200000000000000000)
-                                    card := add(card, 0x400)
-                                }
-                            }
-                        }
+					if and(gt(card, 35), lt(card, 54)) {
+						if eq(0, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 36 {
+								if not(lt(and(location, 0xFFC00000000000), 0x800000000000)) {
+									location := sub(sub(add(location, 0x500000000000000), 0x800000000000), 0x200000000000000000)
+									card := add(card, 0x400)
+								}
+							}
+							case 42 {
+								if not(lt(and(location, 0x3FF000000000), 0x6000000000)) {
+									location := sub(sub(add(location, 0xF00000000000000), 0x6000000000), 0x200000000000000000)
+									card := add(card, 0x400)
+								}
+							}
+							case 48 {
+								if not(lt(and(location, 0xFFC000000), 0x18000000)) {
+									location := sub(sub(add(location, 0x1900000000000000), 0x18000000), 0x200000000000000000)
+									card := add(card, 0x400)
+								}
+							}
+						}
 
-                        if eq(1, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 36 {
-                                if and(not(lt(funds, 10)), not(lt(and(location, 0x1FFF00000000000000), 0x500000000000000))) {
-                                    funds := sub(funds, 10)
-                                    card := add(card, 0x400)
-                                    location := add(add(sub(location, 0x500000000000000), 0x800000000000), 0x200000000000000000)
-                                }
-                            }
-                            case 42 {
-                                if and(not(lt(funds, 1000)), not(lt(and(location, 0x1FFF00000000000000), 0xF00000000000000))) {
-                                    funds := sub(funds, 1000)
-                                    card := add(card, 0x400)
-                                    location := add(add(sub(location, 0xF00000000000000), 0x4000000000), 0x200000000000000000)
-                                }
-                            }
-                            case 48 {
-                                if and(not(lt(funds, 10000)), not(lt(and(location, 0x1FFF00000000000000), 0x1900000000000000))) {
-                                    funds := sub(funds, 10000)
-                                    card := add(card, 0x400)
-                                    location := add(add(sub(location, 0x1900000000000000), 0x10000000), 0x200000000000000000)
-                                }
-                            }
-                        }
-                    }
+						if eq(1, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 36 {
+								if and(not(lt(funds, 10)), not(lt(and(location, 0x1FFF00000000000000), 0x500000000000000))) {
+									funds := sub(funds, 10)
+									card := add(card, 0x400)
+									location := add(add(sub(location, 0x500000000000000), 0x800000000000), 0x200000000000000000)
+								}
+							}
+							case 42 {
+								if and(not(lt(funds, 1200)), not(lt(and(location, 0x1FFF00000000000000), 0xF00000000000000))) {
+									funds := sub(funds, 1200)
+									card := add(card, 0x400)
+									location := add(add(sub(location, 0xF00000000000000), 0x6000000000), 0x200000000000000000)
+								}
+							}
+							case 48 {
+								if and(not(lt(funds, 4800)), not(lt(and(location, 0x1FFF00000000000000), 0x1900000000000000))) {
+									funds := sub(funds, 4800)
+									card := add(card, 0x400)
+									location := add(add(sub(location, 0x1900000000000000), 0x18000000), 0x200000000000000000)
+								}
+							}
+						}
+					}
 
-                    if and(gt(card, 53), lt(card, 72)) {
-                        if eq(0, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 54 {
-                                if and(iszero(and(location, 0x2)), not(lt(fundsPerBlock, 1))) {
-                                    fundsPerBlock := sub(fundsPerBlock, 1)
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(1, 10))}
-                                    location := sub(add(add(location, 0x2000), 0x400000000000), 0x200000000000000000)
-                                    card := add(card, 0x400)
-                                }
-                            }
-                            case 60 {
-                                if and(iszero(and(location, 0x2)), not(lt(fundsPerBlock, 5))) {
-                                    fundsPerBlock := sub(fundsPerBlock, 5)
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(4, 10))}
-                                    location := sub(add(add(location, 0x8000), mul(1, exp(2, add(36, mul(10, gt(and(move32, 0x20000000), 0)))))), 0x200000000000000000)
-                                    card := add(card, 0x400)
-                                }
-                            }
-                            case 66 {
-                                if and(iszero(and(location, 0x2)), not(lt(fundsPerBlock, 100))) {
-                                    fundsPerBlock := sub(fundsPerBlock, 100)
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(16, 10))}
-                                    location := sub(add(add(location, 0x20000), 0x4000000), 0x200000000000000000)
-                                    card := add(card, 0x400)
-                                }
-                            }
-                        }
+					if and(gt(card, 53), lt(card, 72)) {
+						if eq(0, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 54 {
+								if and(iszero(and(location, 0x2)), not(lt(fundsPerBlock, 1))) {
+									fundsPerBlock := sub(fundsPerBlock, 1)
+									if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(1, 10))}
+									location := sub(add(add(location, 0x2000), 0x400000000000), 0x200000000000000000)
+									card := add(card, 0x400)
+								}
+							}
+							case 60 {
+								if and(iszero(and(location, 0x2)), not(lt(fundsPerBlock, 5))) {
+									fundsPerBlock := sub(fundsPerBlock, 5)
+									if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(4, 10))}
+									location := sub(add(add(location, 0x8000), mul(1, exp(2, add(36, mul(10, gt(and(move32, 0x20000000), 0)))))), 0x200000000000000000)
+									card := add(card, 0x400)
+								}
+							}
+							case 66 {
+								if and(iszero(and(location, 0x2)), not(lt(fundsPerBlock, 20))) {
+									fundsPerBlock := sub(fundsPerBlock, 20)
+									if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(16, 10))}
+									location := sub(add(add(location, 0x20000), 0x4000000), 0x200000000000000000)
+									card := add(card, 0x400)
+								}
+							}
+						}
 
-                        if eq(1, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 54 {
-                                if and(or(gt(fundsPerBlock, mul(1, 10)), iszero(and(location, 0x2))), and(iszero(and(location, 0x2)), and(not(lt(funds, 40)), and(not(lt(and(location, 0x3FFE000), 0x2000)), not(lt(and(location, 0xFFC00000000000), 0x400000000000)))))) {
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(1, 10))}
-                                    fundsPerBlock := add(fundsPerBlock, 1)
-                                    funds := sub(funds, 40)
-                                    card := add(card, 0x400)
-                                    location := add(sub(sub(location, 0x400000000000), 0x2000), 0x200000000000000000)
-                                }
-                            }
-                            case 60 {
-                                if and(or(gt(fundsPerBlock, mul(4, 10)), iszero(and(location, 0x2))), and(iszero(and(location, 0x2)), and(not(lt(funds, 100)), and(not(lt(and(location, 0x3FFE000), 0x8000)), not(lt(and(location, mul(exp(2, add(36, mul(10, gt(and(move32, 0x20000000), 0)))), sub(exp(2, add(10, mul(2, gt(and(move32, 0x20000000), 0)))), 1))), mul(1, exp(2, add(36, mul(10, gt(and(move32, exp(2, 29)), 0))))))))))) {
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(4, 10))}
-                                    fundsPerBlock := add(fundsPerBlock, 5)
-                                    funds := sub(funds, 100)
-                                    card := add(card, 0x400)
-                                    location := add(sub(sub(location, mul(1, exp(2, add(36, mul(10, gt(and(move32, 0x20000000), 0)))))), 0x8000), 0x200000000000000000)
-                                }
-                            }
-                            case 66 {
-                                if and(or(gt(fundsPerBlock, mul(16, 10)), iszero(and(location, 0x2))), and(iszero(and(location, 0x2)), and(not(lt(funds, 10000)), and(not(lt(and(location, 0x3FFE000), 0x20000)), not(lt(and(location, 0xFFC000000), 0x4000000)))))) {
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(16, 10))}
-                                    fundsPerBlock := add(fundsPerBlock, 100)
-                                    funds := sub(funds, 10000)
-                                    card := add(card, 0x400)
-                                    location := add(sub(sub(location, 0x4000000), 0x20000), 0x200000000000000000)
-                                }
-                            }
-                        }
-                    }
+						if eq(1, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 54 {
+								if and(or(gt(fundsPerBlock, mul(1, 10)), iszero(and(location, 0x2))), and(iszero(and(location, 0x2)), and(not(lt(funds, 40)), and(not(lt(and(location, 0x3FFE000), 0x2000)), not(lt(and(location, 0xFFC00000000000), 0x400000000000)))))) {
+									if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(1, 10))}
+									fundsPerBlock := add(fundsPerBlock, 1)
+									funds := sub(funds, 40)
+									card := add(card, 0x400)
+									location := add(sub(sub(location, 0x400000000000), 0x2000), 0x200000000000000000)
+								}
+							}
+							case 60 {
+								if and(or(gt(fundsPerBlock, mul(4, 10)), iszero(and(location, 0x2))), and(iszero(and(location, 0x2)), and(not(lt(funds, 120)), and(not(lt(and(location, 0x3FFE000), 0x8000)), not(lt(and(location, mul(exp(2, add(36, mul(10, gt(and(move32, 0x20000000), 0)))), sub(exp(2, add(10, mul(2, gt(and(move32, 0x20000000), 0)))), 1))), mul(1, exp(2, add(36, mul(10, gt(and(move32, exp(2, 29)), 0))))))))))) {
+									if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(4, 10))}
+									fundsPerBlock := add(fundsPerBlock, 5)
+									funds := sub(funds, 120)
+									card := add(card, 0x400)
+									location := add(sub(sub(location, mul(1, exp(2, add(36, mul(10, gt(and(move32, 0x20000000), 0)))))), 0x8000), 0x200000000000000000)
+								}
+							}
+							case 66 {
+								if and(or(gt(fundsPerBlock, mul(16, 10)), iszero(and(location, 0x2))), and(iszero(and(location, 0x2)), and(not(lt(funds, 6000)), and(not(lt(and(location, 0x3FFE000), 0x20000)), not(lt(and(location, 0xFFC000000), 0x4000000)))))) {
+									if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(16, 10))}
+									fundsPerBlock := add(fundsPerBlock, 20)
+									funds := sub(funds, 6000)
+									card := add(card, 0x400)
+									location := add(sub(sub(location, 0x4000000), 0x20000), 0x200000000000000000)
+								}
+							}
+						}
+					}
 
-                    if and(gt(card, 71), lt(card, 114)) {
-                        if eq(0, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 72 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(1, 0x4))), and(not(lt(devLeft, 1)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 1)
-                                    location := sub(sub(add(location, mul(15, 0x1000000000000)), mul(1, 0x4)), 0x200000000000000000)
-                                }
-                            }
-                            case 78 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(4, 0x4))), and(not(lt(devLeft, 4)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 4)
-                                    location := sub(sub(add(location, mul(100, 0x1000000000000)), mul(4, 0x4)), 0x200000000000000000)
-                                }
-                            }
-                            case 84 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(10, 0x4))), and(not(lt(devLeft, 10)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 10)
-                                    location := sub(sub(add(location, mul(500, 0x1000000000000)), mul(10, 0x4)), 0x200000000000000000)
-                                }
-                            }
-                            case 90 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(22, 0x4))), and(not(lt(devLeft, 22)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 22)
-                                    location := sub(sub(add(location, mul(3000, 0x1000000000000)), mul(22, 0x4)), 0x200000000000000000)
-                                }
-                            }
-                            case 96 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(46, 0x4))), and(not(lt(devLeft, 46)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 46)
-                                    location := sub(sub(add(location, mul(10000, 0x1000000000000)), mul(46, 0x4)), 0x200000000000000000)
-                                }
-                            }
-                            case 102 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(76, 0x4))), and(not(lt(devLeft, 76)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 76)
-                                    location := sub(sub(add(location, mul(40000, 0x1000000000000)), mul(76, 0x4)), 0x200000000000000000)
-                                }
-                            }
-                            case 108 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(2, 0x4))), and(not(lt(devLeft, 2)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 2)
-                                    location := sub(sub(add(location, mul(500, 0x1000000000000)), mul(2, 0x4)), 0x200000000000000000)
-                                }
-                            }
-                        }
+					if and(gt(card, 71), lt(card, 114)) {
+						if eq(0, gt(and(move32, 0x80000000), 0)) {
+							let dev := div(and(location, 0x1FFC), 0x4)
+							switch card
+							case 72 {
+								if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(1, 0x4))), and(not(lt(devLeft, add(1, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 1), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 1), 11), 10)))))), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, add(1, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 1), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 1), 11), 10)))))
+									location := sub(sub(add(location, mul(15, 0x1000000000000)), mul(add(1, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 1), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 1), 11), 10)))), 0x4)), 0x200000000000000000)
+								}
+							}
+							case 78 {
+								if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(4, 0x4))), and(not(lt(devLeft, add(4, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 4), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10)))))), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, add(4, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 4), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10)))))
+									location := sub(sub(add(location, mul(100, 0x1000000000000)), mul(add(4, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 4), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10)))), 0x4)), 0x200000000000000000)
+								}
+							}
+							case 84 {
+								if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(10, 0x4))), and(not(lt(devLeft, add(10, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 10), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 10), 11), 10)))))), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, add(10, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 10), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 10), 11), 10)))))
+									location := sub(sub(add(location, mul(500, 0x1000000000000)), mul(add(10, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 10), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 10), 11), 10)))), 0x4)), 0x200000000000000000)
+								}
+							}
+							case 90 {
+								if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(22, 0x4))), and(not(lt(devLeft, add(22, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 22), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 22), 11), 10)))))), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, add(22, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 22), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 22), 11), 10)))))
+									location := sub(sub(add(location, mul(3000, 0x1000000000000)), mul(add(22, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 22), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 22), 11), 10)))), 0x4)), 0x200000000000000000)
+								}
+							}
+							case 96 {
+								if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(46, 0x4))), and(not(lt(devLeft, add(46, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 46), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 46), 11), 10)))))), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, add(46, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 46), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 46), 11), 10)))))
+									location := sub(sub(add(location, mul(10000, 0x1000000000000)), mul(add(46, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 46), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 46), 11), 10)))), 0x4)), 0x200000000000000000)
+								}
+							}
+							case 102 {
+								if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(76, 0x4))), and(not(lt(devLeft, add(76, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 76), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 76), 11), 10)))))), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, add(76, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 76), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 76), 11), 10)))))
+									location := sub(sub(add(location, mul(40000, 0x1000000000000)), mul(add(76, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 76), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 76), 11), 10)))), 0x4)), 0x200000000000000000)
+								}
+							}
+							case 108 {
+								if and(iszero(and(location, 0x1)), and(not(lt(and(location, 0x1FFC), mul(4, 0x4))), and(not(lt(devLeft, add(4, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 4), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10)))))), and(iszero(and(location, 1)), not(lt(fundsPerBlock, 10)))))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, add(4, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 4), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10)))))
+									location := sub(sub(add(location, mul(1000, 0x1000000000000)), mul(add(4, mul(and(location, 0x1), sub(dev, div(mul(sub(sub(sub(dev, 4), add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10)))), 0x4)), 0x200000000000000000)
+									fundsPerBlock := sub(fundsPerBlock, 10)
+								}
+							}
+						}
 
-                        if eq(1, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 72 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(funds, 15)), and(not(lt(and(location, 0x1FFF00000000000000), 0x14000)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 15)
-                                    location := add(add(sub(location, mul(10, 0x100000000000000)), mul(1, 0x4)), 0x200000000000000000)
-                                    devLeft := add(devLeft, 1)
-                                }
-                            }
-                            case 78 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(funds, 100)), and(not(lt(and(location, 0x1FFF00000000000000), 0x14000)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 100)
-                                    location := add(add(sub(location, mul(10, 0x100000000000000)), mul(4, 0x4)), 0x200000000000000000)
-                                    devLeft := add(devLeft, 4)
-                                }
-                            }
-                            case 84 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(funds, 500)), and(not(lt(and(location, 0x1FFF00000000000000), 0x28000)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 500)
-                                    location := add(add(sub(location, mul(20, 0x100000000000000)), mul(10, 0x4)), 0x200000000000000000)
-                                    devLeft := add(devLeft, 10)
-                                }
-                            }
-                            case 90 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(funds, 3000)), and(not(lt(and(location, 0x1FFF00000000000000), 0x28000)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 3000)
-                                    location := add(add(sub(location, mul(20, 0x100000000000000)), mul(22, 0x4)), 0x200000000000000000)
-                                    devLeft := add(devLeft, 22)
-                                }
-                            }
-                            case 96 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(funds, 10000)), and(not(lt(and(location, 0x1FFF00000000000000), 0x50000)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 10000)
-                                    location := add(add(sub(location, mul(40, 0x100000000000000)), mul(46, 0x4)), 0x200000000000000000)
-                                    devLeft := add(devLeft, 46)
-                                }
-                            }
-                            case 102 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(funds, 40000)), and(not(lt(and(location, 0x1FFF00000000000000), 0x50000)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 40000)
-                                    location := add(add(sub(location, mul(40, 0x100000000000000)), mul(76, 0x4)), 0x200000000000000000)
-                                    devLeft := add(devLeft, 76)
-                                }
-                            }
-                            case 108 {
-                                if and(iszero(and(location, 0x1)), and(not(lt(funds, 500)), and(not(lt(and(location, 0x1FFF00000000000000), 0x28000)), iszero(and(location, 1))))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 500)
-                                    location := add(add(sub(location, mul(20, 0x100000000000000)), mul(2, 0x4)), 0x200000000000000000)
-                                    devLeft := add(devLeft, 2)
-                                }
-                            }
-                        }
-                    }
+						if eq(1, gt(and(move32, 0x80000000), 0)) {
+							let dev := div(and(location, 0x1FFC), 0x4)
+							switch card
+							case 72 {
+								if and(iszero(and(location, 0x1)), and(not(lt(funds, 15)), and(not(lt(and(location, 0x1FFF00000000000000), 0x14000)), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 15)
+									location := add(add(sub(location, mul(10, 0x100000000000000)), mul(add(1, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 1), 11), 10), dev))), 0x4)), 0x200000000000000000)
+									devLeft := add(devLeft, add(1, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 1), 11), 10), dev))))
+								}
+							}
+							case 78 {
+								if and(iszero(and(location, 0x1)), and(not(lt(funds, 100)), and(not(lt(and(location, 0x1FFF00000000000000), 0x14000)), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 100)
+									location := add(add(sub(location, mul(10, 0x100000000000000)), mul(add(4, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10), dev))), 0x4)), 0x200000000000000000)
+									devLeft := add(devLeft, add(4, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10), dev))))
+								}
+							}
+							case 84 {
+								if and(iszero(and(location, 0x1)), and(not(lt(funds, 500)), and(not(lt(and(location, 0x1FFF00000000000000), 0x28000)), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 500)
+									location := add(add(sub(location, mul(20, 0x100000000000000)), mul(add(10, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 10), 11), 10), dev))), 0x4)), 0x200000000000000000)
+									devLeft := add(devLeft, add(10, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 10), 11), 10), dev))))
+								}
+							}
+							case 90 {
+								if and(iszero(and(location, 0x1)), and(not(lt(funds, 3000)), and(not(lt(and(location, 0x1FFF00000000000000), 0x28000)), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 3000)
+									location := add(add(sub(location, mul(20, 0x100000000000000)), mul(add(22, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 22), 11), 10), dev))), 0x4)), 0x200000000000000000)
+									devLeft := add(devLeft, add(22, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 22), 11), 10), dev))))
+								}
+							}
+							case 96 {
+								if and(iszero(and(location, 0x1)), and(not(lt(funds, 10000)), and(not(lt(and(location, 0x1FFF00000000000000), 0x50000)), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 10000)
+									location := add(add(sub(location, mul(40, 0x100000000000000)), mul(add(46, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 46), 11), 10), dev))), 0x4)), 0x200000000000000000)
+									devLeft := add(devLeft, add(46, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 46), 11), 10), dev))))
+								}
+							}
+							case 102 {
+								if and(iszero(and(location, 0x1)), and(not(lt(funds, 40000)), and(not(lt(and(location, 0x1FFF00000000000000), 0x50000)), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 40000)
+									location := add(add(sub(location, mul(40, 0x100000000000000)), mul(add(76, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 76), 11), 10), dev))), 0x4)), 0x200000000000000000)
+									devLeft := add(devLeft, add(76, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 76), 11), 10), dev))))
+								}
+							}
+							case 108 {
+								if and(iszero(and(location, 0x1)), and(not(lt(funds, 1000)), and(not(lt(and(location, 0x1FFF00000000000000), 0x28000)), iszero(and(location, 1))))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 1000)
+									location := add(add(sub(location, mul(20, 0x100000000000000)), mul(add(4, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10), dev))), 0x4)), 0x200000000000000000)
+									devLeft := add(devLeft, add(4, mul(and(location, 0x1), sub(div(mul(add(sub(dev, add(div(mul(dev, 10), 11), gt(mod(mul(dev, 10), 11), 0))), 4), 11), 10), dev))))
+									fundsPerBlock := add(fundsPerBlock, 10)
+								}
+							}
+						}
+					}
 
-                    if and(gt(card, 113), lt(card, 132)) {
-                        if eq(0, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 114 {
-                                if and(not(lt(and(location, 0x3FFE000), 0x1E000)), and(gt(fundsPerBlock, mul(15, 10)),  gt(and(location, 0x2), 0))) {
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(15, 10))}
-                                    card := add(card, 0x400)
-                                    location := sub(sub(add(location, 0xF000000000000), 0x1E000), 0x200000000000000000)
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(15, 10))}
-                                }
-                            }
-                            case 120 {
-                                if and(not(lt(and(location, 0x3FFE000), 0x64000)), and(gt(fundsPerBlock, mul(50, 10)),  gt(and(location, 0x2), 0))) {
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(50, 10))}
-                                    card := add(card, 0x400)
-                                    location := sub(sub(add(location, 0x1E000000000000), 0x64000), 0x200000000000000000)
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(50, 10))}
-                                }
-                            }
-                            case 126 {
-                                if and(not(lt(and(location, 0x3FFE000), 0x3E8000)), and(gt(fundsPerBlock, mul(500, 10)),  gt(and(location, 0x2), 0))) {
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(500, 10))}
-                                    card := add(card, 0x400)
-                                    location := sub(sub(add(location, 0x3C000000000000), 0x3E8000), 0x200000000000000000)
-                                    if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(500, 10))}
-                                }
-                            }
-                        }
+					if and(gt(card, 113), lt(card, 132)) {
+						if eq(0, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 114 {
+								if and(not(lt(and(location, 0x3FFE000), 0x30000)), and(gt(fundsPerBlock, mul(24, 10)),  gt(and(location, 0x2), 0))) {
+									if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(24, 10))}
+									card := add(card, 0x400)
+									location := sub(sub(add(location, 0x1E000000000000), 0x30000), 0x200000000000000000)
+									if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(24, 10))}
+								}
+							}
+							case 120 {
+								if and(not(lt(and(location, 0x3FFE000), 0x60000)), and(gt(fundsPerBlock, mul(48, 10)),  gt(and(location, 0x2), 0))) {
+									if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(48, 10))}
+									card := add(card, 0x400)
+									location := sub(sub(add(location, 0x1E000000000000), 0x60000), 0x200000000000000000)
+									if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(48, 10))}
+								}
+							}
+							case 126 {
+								if and(not(lt(and(location, 0x3FFE000), 0x180000)), and(gt(fundsPerBlock, mul(192, 10)),  gt(and(location, 0x2), 0))) {
+									if gt(and(location, 0x2), 0) {fundsPerBlock := add(fundsPerBlock, mul(192, 10))}
+									card := add(card, 0x400)
+									location := sub(sub(add(location, 0x3C000000000000), 0x180000), 0x200000000000000000)
+									if gt(and(location, 0x2), 0) {fundsPerBlock := sub(fundsPerBlock, mul(192, 10))}
+								}
+							}
+						}
 
-                        if and(not(lt(experience, 16)), eq(1, gt(and(move32, 0x80000000), 0))) {
-                            switch card
-                            case 114 {
-                                if and(not(lt(funds, 500)), not(lt(and(location, 0x1FFF00000000000000), 0xF00000000000000))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 500)
-                                    location := add(add(sub(location, 0xF00000000000000), 0x1E000), 0x200000000000000000)
-                                }
-                            }
-                            case 120 {
-                                if and(not(lt(funds, 3000)), not(lt(and(location, 0x1FFF00000000000000), 0x1E00000000000000))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 3000)
-                                    location := add(add(sub(location, 0x1E00000000000000), 0x64000), 0x200000000000000000)
-                                }
-                            }
-                            case 126 {
-                                if and(not(lt(funds, 10000)), not(lt(and(location, 0x1FFF00000000000000), 0x3C00000000000000))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 10000)
-                                    location := add(add(sub(location, 0x3C00000000000000), 0x3E8000), 0x200000000000000000)
-                                }
-                            }
-                        }
-                    }
+						if eq(1, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 114 {
+								if and(not(lt(funds, 500)), not(lt(and(location, 0x1FFF00000000000000), 0x1E00000000000000))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 500)
+									location := add(add(sub(location, 0x1E00000000000000), 0x30000), 0x200000000000000000)
+								}
+							}
+							case 120 {
+								if and(not(lt(funds, 3000)), not(lt(and(location, 0x1FFF00000000000000), 0x1E00000000000000))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 3000)
+									location := add(add(sub(location, 0x1E00000000000000), 0x60000), 0x200000000000000000)
+								}
+							}
+							case 126 {
+								if and(not(lt(funds, 10000)), not(lt(and(location, 0x1FFF00000000000000), 0x3C00000000000000))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 10000)
+									location := add(add(sub(location, 0x3C00000000000000), 0x180000), 0x200000000000000000)
+								}
+							}
+						}
+					}
 
-                    if and(gt(card, 131), lt(card, 138)) {
-                        if eq(0, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 132 {
-                                if and(gt(and(location, 0x2), 0), not(lt(fundsPerBlock, mul(10, div(and(location, 0x1FFF), 0x2000))))) {
-                                    card := add(card, 0x400)
-                                    fundsPerBlock := sub(fundsPerBlock, mul(10, div(and(location, 0x1FFF), 0x2000)))
-                                    location := sub(sub(location, 0x2), 0x200000000000000000)
-                                }
-                            }
-                        }
+					if and(gt(card, 131), lt(card, 138)) {
+						if eq(0, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 132 {
+								if and(gt(and(location, 0x2), 0), not(lt(fundsPerBlock, mul(1, div(and(location, 0x1FFF), 0x2000))))) {
+									card := add(card, 0x400)
+									fundsPerBlock := sub(fundsPerBlock, mul(1, div(and(location, 0x1FFF), 0x2000)))
+									location := sub(sub(location, 0x2), 0x200000000000000000)
+								}
+							}
+						}
 
-                        if and(not(lt(experience, 64)), eq(1, gt(and(move32, 0x80000000), 0))) {
-                            switch card
-                            case 132 {
-                                if and(not(lt(funds, 1000)), iszero(and(location, 0x2))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 1000)
-                                    fundsPerBlock := add(fundsPerBlock, mul(10, div(and(location, 0x1FFF), 0x2000)))
-                                    location := add(add(location, 0x2), 0x200000000000000000)
-                                }
-                            }
-                        }
-                    }
+						if and(not(lt(experience, 1024)), eq(1, gt(and(move32, 0x80000000), 0))) {
+							switch card
+							case 132 {
+								if and(not(lt(funds, 1000)), iszero(and(location, 0x2))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 1000)
+									fundsPerBlock := add(fundsPerBlock, mul(1, div(and(location, 0x1FFF), 0x2000)))
+									location := add(add(location, 0x2), 0x200000000000000000)
+								}
+							}
+						}
+					}
 
-                    if and(gt(card, 137), lt(card, 144)) {
-                        if eq(0, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 138 {
-                                if and(gt(and(location, 0x1), 0), not(lt(fundsPerBlock, 10))) {
-                                    card := add(card, 0x400)
-                                    fundsPerBlock := sub(fundsPerBlock, 10)
-                                    devLeft := sub(devLeft, div(mul(devLeft, 10), 11))
-                                    devLeft := sub(devLeft, sub(div(and(location, 0x1FFC), 0x4), add(div(mul(div(and(location, 0x1FFC), 0x4), 10), 11), gt(mod(mul(div(and(location, 0x1FFC), 0x4), 10), 11), 0))))
-                                    location := sub(sub(sub(location, 0x1), mul(sub(div(and(location, 0x1FFC), 0x4), add(div(mul(div(and(location, 0x1FFC), 0x4), 10), 11), gt(mod(mul(div(and(location, 0x1FFC), 0x4), 10), 11), 0))), 0x4)), 0x200000000000000000)
-                                }
-                            }
-                        }
+					if and(gt(card, 137), lt(card, 144)) {
+						if eq(0, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 138 {
+								if and(gt(and(location, 0x1), 0), and(not(lt(fundsPerBlock, 10)), not(lt(devLeft, add(div(mul(div(and(location, 0x1FFC), 0x4), 10), 11), gt(mod(mul(div(and(location, 0x1FFC), 0x4), 10), 11), 0)))))) {
+									card := add(card, 0x400)
+									fundsPerBlock := sub(fundsPerBlock, 10)
+									devLeft := sub(devLeft, add(div(mul(div(and(location, 0x1FFC), 0x4), 10), 11), gt(mod(mul(div(and(location, 0x1FFC), 0x4), 10), 11), 0)))
+									location := sub(sub(sub(location, 0x1), mul(add(div(mul(div(and(location, 0x1FFC), 0x4), 10), 11), gt(mod(mul(div(and(location, 0x1FFC), 0x4), 10), 11), 0)), 0x4)), 0x200000000000000000)
+								}
+							}
+						}
 
-                        if and(not(lt(experience, 32)), eq(1, gt(and(move32, 0x80000000), 0))) {
-                            switch card
-                            case 138 {
-                                if and(not(lt(funds, 20)), iszero(and(location, 0x1))) {
-                                    card := add(card, 0x400)
-                                    funds := sub(funds, 20)
-                                    fundsPerBlock := add(fundsPerBlock, 10)
-                                    devLeft := add(devLeft, sub(div(mul(div(and(location, 0x1FFC), 0x4), 11), 10), div(and(location, 0x1FFC), 0x4)))
-                                    location := add(add(add(location, 0x1), mul(sub(div(mul(div(and(location, 0x1FFC), 0x4), 11), 10), div(and(location, 0x1FFC), 0x4)), 0x4)), 0x200000000000000000)
-                                }
-                            }
-                        }
-                    }
+						if eq(1, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 138 {
+								if and(not(lt(funds, 1000)), iszero(and(location, 0x1))) {
+									card := add(card, 0x400)
+									funds := sub(funds, 1000)
+									fundsPerBlock := add(fundsPerBlock, 10)
+									devLeft := add(devLeft, div(mul(div(and(location, 0x1FFC), 0x4), 11), 10))
+									location := add(add(add(location, 0x1), mul(div(mul(div(and(location, 0x1FFC), 0x4), 11), 10), 0x4)), 0x200000000000000000)
+								}
+							}
+						}
+					}
 
-                    if and(gt(card, 143), lt(card, 180)) {
-                        if eq(0, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 144 {
-                                if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
-                                    card := add(card, 0x400)
-                                    funds := add(funds, 100)
-                                    experience := add(experience, 8)
-                                    mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
-                                }
-                            }
-                            case 150 {
-                                if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
-                                    card := add(card, 0x400)
-                                    funds := add(funds, 200)
-                                    experience := add(experience, 64)
-                                    mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
-                                }
-                            }
-                            case 156 {
-                                if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
-                                    card := add(card, 0x400)
-                                    funds := add(funds, 4000)
-                                    experience := add(experience, 512)
-                                    mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
-                                }
-                            }
-                            case 162 {
-                                if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
-                                    card := add(card, 0x400)
-                                    funds := add(funds, 20000)
-                                    experience := add(experience, 4096)
-                                    mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
-                                }
-                            }
-                            case 168 {
-                                if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
-                                    card := add(card, 0x400)
-                                    funds := add(funds, 100000)
-                                    experience := add(experience, 32796)
-                                    mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
-                                }
-                            }
-                            case 174 {
-                                if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
-                                    card := add(card, 0x400)
-                                    funds := add(funds, 500000)
-                                    experience := add(experience, 262144)
-                                    mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
-                                }
-                            }
-                        }
+					if and(gt(card, 143), lt(card, 180)) {
+						if eq(0, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 144 {
+								if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
+									card := add(card, 0x400)
+									funds := add(funds, 50)
+									experience := add(experience, 4)
+									mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
+								}
+							}
+							case 150 {
+								if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
+									card := add(card, 0x400)
+									funds := add(funds, 3500)
+									experience := add(experience, 32)
+									mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
+								}
+							}
+							case 156 {
+								if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
+									card := add(card, 0x400)
+									funds := add(funds, 8000)
+									experience := add(experience, 512)
+									mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
+								}
+							}
+							case 162 {
+								if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
+									card := add(card, 0x400)
+									funds := add(funds, 64000)
+									experience := add(experience, 4000)
+									mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
+								}
+							}
+							case 168 {
+								if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
+									card := add(card, 0x400)
+									funds := add(funds, 512000)
+									experience := add(experience, 32000)
+									mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
+								}
+							}
+							case 174 {
+								if eq(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)), mul(mul(sub(card, 0x8A), 0x40000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))) {
+									card := add(card, 0x400)
+									experience := add(experience, 500000)
+									mstore(add(state, 0x20), and(mload(add(state, 0x20)), not(mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))
+								}
+							}
+						}
 
-                        if eq(1, gt(and(move32, 0x80000000), 0)) {
-                            switch card
-                            case 144 {
-                                if and(not(lt(devLeft, 1)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)))) {
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 1)
-                                    mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 70), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
-                                }
-                            }
-                            case 150 {
-                                if and(not(lt(funds, 50)), and(not(lt(devLeft, 8)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
-                                    funds := sub(funds, 50)
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 8)
-                                    mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 210), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
-                                }
-                            }
-                            case 156 {
-                                if and(not(lt(funds, 1000)), and(not(lt(devLeft, 32)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
-                                    funds := sub(funds, 1000)
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 32)
-                                    mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 420), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
-                                }
-                            }
-                            case 162 {
-                                if and(not(lt(funds, 5000)), and(not(lt(devLeft, 56)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
-                                    funds := sub(funds, 5000)
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 56)
-                                    mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 2520), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
-                                }
-                            }
-                            case 168 {
-                                if and(not(lt(funds, 20000)), and(not(lt(devLeft, 120)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
-                                    funds := sub(funds, 20000)
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 120)
-                                    mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 10080), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
-                                }
-                            }
-                            case 174 {
-                                if and(not(lt(funds, 100000)), and(not(lt(devLeft, 240)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
-                                    funds := sub(funds, 100000)
-                                    card := add(card, 0x400)
-                                    devLeft := sub(devLeft, 240)
-                                    mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 20160), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
-                                }
-                            }
-                        }
-                    }
+						if eq(1, gt(and(move32, 0x80000000), 0)) {
+							switch card
+							case 144 {
+								if and(not(lt(devLeft, 1)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF)))) {
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, 1)
+									mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 50), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
+								}
+							}
+							case 150 {
+								if and(not(lt(funds, 2000)), and(not(lt(devLeft, 8)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
+									funds := sub(funds, 2000)
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, 8)
+									mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 150), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
+								}
+							}
+							case 156 {
+								if and(not(lt(funds, 4000)), and(not(lt(devLeft, 32)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
+									funds := sub(funds, 4000)
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, 32)
+									mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 420), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
+								}
+							}
+							case 162 {
+								if and(not(lt(funds, 16000)), and(not(lt(devLeft, 56)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
+									funds := sub(funds, 16000)
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, 56)
+									mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 2500), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
+								}
+							}
+							case 168 {
+								if and(not(lt(funds, 64000)), and(not(lt(devLeft, 120)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
+									funds := sub(funds, 64000)
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, 120)
+									mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 10000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
+								}
+							}
+							case 174 {
+								if and(not(lt(funds, 100000)), and(not(lt(devLeft, 240)), iszero(and(mload(add(state, 0x20)), mul(exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)), 0xFFFFFF))))) {
+									funds := sub(funds, 100000)
+									card := add(card, 0x400)
+									devLeft := sub(devLeft, 240)
+									mstore(add(state, 0x20), add(mload(add(state, 0x20)), mul(add(mul(sub(card, 0x48A), 0x40000), 30000), exp(2, mul(sub(9, mod(div(and(move32, 0x3C000000), 0x4000000), 10)), 24)))))
+								}
+							}
+						}
+					}
+
                     // generated code end
 
 
