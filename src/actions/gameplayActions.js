@@ -785,10 +785,17 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       break;
   }
 
+  console.log(item, slotType, index, location);
+
   // we multiple the location with the cardId, if location is 0 we multiple by 1
   location = location === 0 ? 1 : location;
 
   let convertedCardId = Math.abs(card.metadata.id * location) * 6;
+
+  // if we played the graphic card
+  // if (card.metadata.id === 10) {
+
+  // }
 
   if (convertedCardId >= 144 && convertedCardId <= 174) {
     convertedCardId += 720;
