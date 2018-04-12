@@ -16,9 +16,8 @@ contract State is Leaderboard{
         resetState(msg.sender);
     }
 
-    //add argument
-    function get() public view returns (uint[20]) {
-        return states[msg.sender];
+    function get(address _user) public view returns (uint[20]) {
+        return states[_user];
     }
 
     function update(uint[] moves, bool updateLeaderBoard) public {
