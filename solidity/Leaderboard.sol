@@ -5,13 +5,13 @@ contract Leaderboard {
 	uint constant N = 10;
 
 	mapping(address => uint) public scores;
-	address[] public leaderboard; 
+	address[] public leaderboard;
 
 	function Leaderboard () public {
 		for (uint i=0; i<N; i++) {
 			leaderboard.push(address(0x0));
 		}
-	}	
+	}
 
 	/// @dev no need for require as we don't want to kill transaction
 	/// @param _user address to add to leaderboard
@@ -25,20 +25,20 @@ contract Leaderboard {
 		if (min < _score) {
 			scores[_user] = _score;
 			res = true;
-			
+
 			for (uint i=0; i<N; i++) {
 			    if (leaderboard[i] == _user) {
 			        return;
 			    }
 			}
-			
+
 			leaderboard[pos] = _user;
 		}
 
 		res = false;
 	}
 
-	/// @notice returns current min on leaderboard and position
+	/// @return returns current min on leaderboard and position
 	function findMin() public view returns(uint min, uint pos) {
 		min = 2**256 - 1;
 
@@ -50,9 +50,9 @@ contract Leaderboard {
 		}
 	}
 
-	/// @noteice returns leaderboard as array of addresses
-	function getLeaderboard() public view returns(uint[]) {
+	/// @return returns leaderboard as array of addresses
+	function getLeaderboard() public view returns(address[]) {
 		return leaderboard;
 	}
-	
+
 }
