@@ -95,4 +95,5 @@ export const toggleCardDrag = payload => (dispatch) => {
  */
 export const resetGame = () => (dispatch) => {
   dispatch({ type: CLEAR_STORE });
-}
+};
+

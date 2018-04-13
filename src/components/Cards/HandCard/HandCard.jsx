@@ -11,7 +11,7 @@ import './HandCard.scss';
 
 const HandCard = ({
   card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
-  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove,
+  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
 }) => {
   const uniqueId = guid();
   const gradients = {
@@ -101,35 +101,43 @@ const HandCard = ({
       }
 
       {
+        costErrors && costErrors.special &&
+        <div className="special-errors">{ costErrors.special }</div>
+      }
+
+      {
         card.stats.cost &&
         <div className="cost">
           {
             card.stats.cost.space > 1 &&
-            <div className="circle space">
+            <div data-name="Space" className={`circle space ${costErrors && costErrors.space ? 'error' : ''}`}>
               {formatBigNumber(card.stats.cost.space)}
             </div>
           }
           {
             card.stats.cost.power > 0 &&
-            <div className="circle power">
+            <div data-name="Power" className={`circle power ${costErrors && costErrors.power ? 'error' : ''}`}>
               {formatBigNumber(card.stats.cost.power)}
             </div>
           }
           {
             card.stats.cost.funds > 0 &&
-            <div className="circle funds">
+            <div data-name="Funds" className={`circle funds ${costErrors && costErrors.funds ? 'error' : ''}`}>
               {formatBigNumber(card.stats.cost.funds)}
             </div>
           }
           {
             card.stats.cost.level > 1 &&
-            <div className="circle level">
+            <div data-name="Level" className={`circle level ${costErrors && costErrors.level ? 'error' : ''}`}>
               {formatBigNumber(card.stats.cost.level)}
             </div>
           }
           {
             card.stats.cost.development > 0 &&
-            <div className="circle development">
+            <div
+              className={`circle development ${costErrors && costErrors.development ? 'error' : ''}`}
+              data-name="Dev"
+            >
               {formatBigNumber(card.stats.cost.development)}
             </div>
           }
@@ -225,6 +233,7 @@ HandCard.defaultProps = {
   containerSlotIndex: undefined,
   slot: null,
   draggingCard: false,
+  costErrors: null,
 };
 
 HandCard.propTypes = {
@@ -246,6 +255,7 @@ HandCard.propTypes = {
   slot: PropTypes.object,
   draggingCard: PropTypes.bool,
   canRemove: PropTypes.bool,
+  costErrors: PropTypes.object,
 };
 
 const mapStateToProps = ({ app }) => ({

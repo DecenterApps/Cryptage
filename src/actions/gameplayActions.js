@@ -78,15 +78,17 @@ const getNewLevelCards = (level, cards) => {
 
   for (let i = 2; i <= level; i += 1) {
     const cardTypes = cardsPerLevel[i - 2];
-    const newLevelCards = cardTypes.map((metadataId, index) => ({
-      id: minId - (index + 1),
-      stats: fetchCardStats(metadataId),
-      metadata: { id: metadataId.toString() },
-    }));
+    if (cardTypes) {
+      const newLevelCards = cardTypes.map((metadataId, index) => ({
+        id: minId - (index + 1),
+        stats: fetchCardStats(metadataId),
+        metadata: { id: metadataId.toString() },
+      }));
 
-    newCards = [...newCards, ...newLevelCards];
+      newCards = [...newCards, ...newLevelCards];
 
-    minId = newCards[newCards.length - 1].id;
+      minId = newCards[newCards.length - 1].id;
+    }
   }
 
   return newCards;

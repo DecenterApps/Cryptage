@@ -14,6 +14,17 @@
     }
   }
 
+  .special-errors {
+    font-family: $font-secondary;
+    position: absolute;
+    top: 90px;
+    color: #FF0000;
+    width: 100px;
+    line-height: 15px;
+    text-align: center;
+    right: -14px;
+  }
+
   .overlay {
     background-image: url('./handcard-overlay.png');
     background-size: cover;
@@ -103,16 +114,25 @@
       font-family: $font-secondary;
       text-align: center;
       background: radial-gradient(9.50px at 50% 50%, #555 0%, #000 100%);
-      &.small {
-        padding-top: 3px;
-        height: 17px;
-        font-size: 9px;
-        white-space: pre;
-        line-height: 8px;
+
+      &.error {
+        border: 1px solid #FF0000;
+        position: relative;
+
+        &:after {
+          content: attr(data-name);
+          text-transform: capitalize;
+          height: 22px;
+          position: absolute;
+          top: 0;
+          background: linear-gradient(270deg, rgba(255, 0, 0, 0.306) 23.39%, rgba(255, 0, 0, 0) 100%);
+          width: 75px;
+          left: -62px;
+          z-index: -1;
+          font-size: 12px;
+        }
       }
-      &.smaller {
-        font-size: 9px;
-      }
+
       &.funds {
         background: linear-gradient(to bottom, darken(#FF9D14, 5%) 0%, rgba(#FF9D14, .8) 100%);
       }
