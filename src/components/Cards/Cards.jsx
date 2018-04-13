@@ -76,7 +76,7 @@ class Cards extends Component {
               ['location', 'Locations'],
               ['container', 'Containers'],
               ['mining', 'Mining'],
-              ['development', 'Development'],
+              ['development', 'Person'],
               ['misc', 'Miscellaneous'],
               ['power', 'Power'],
               ['project', 'Projects'],
