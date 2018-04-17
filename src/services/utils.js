@@ -444,3 +444,27 @@ export const getCardAtContainer = (locations, locationIndex, containerIndex) => 
     return null;
   }
 };
+
+const getElemType = (loc, i) => loc.lastDroppedItem.cards[0] ? loc.lastDroppedItem.cards[0].metadata.id : []; //eslint-disable-line
+const getSlots = loc => loc.lastDroppedItem.dropSlots;
+
+/**
+ * Gets cards ids for all the cards in the given location
+ *
+ */
+export const getCardIdsFromLocation = (location, items) => {
+  if (!getSlots(location)) {
+    return;
+  }
+
+  getSlots(location).forEach((elem, i) => {
+    if (elem.lastDroppedItem) {
+      if (getElemType(elem, i) === []) {
+        return;
+      }
+
+      items.push(getElemType(elem, i));
+      getCardIdsFromLocation(elem, items);
+    }
+  });
+};

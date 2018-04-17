@@ -19,40 +19,6 @@
 
 import BigInt from 'big-integer';
 
-// Example of the state used for testing packing moves
-const state = {
-  blockNumber: 2000000,
-  moves: [
-    {
-      shift: 1,
-      location: 1,
-      cardSpecificNumber: 0,
-      cardId: 0,
-      blockNumber: 0,
-    },
-    {
-      shift: 1,
-      location: 1,
-      cardSpecificNumber: 0,
-      cardId: 36,
-      blockNumber: 1,
-    },
-    {
-      shift: 1,
-      location: 1,
-      cardSpecificNumber: 0,
-      cardId: 54,
-      blockNumber: 2,
-    },
-    {
-      shift: 1,
-      location: 1,
-      cardSpecificNumber: 0,
-      cardId: 150,
-      blockNumber: 500,
-    }],
-};
-
 const dec2bin = (d, l) => (d >>> 0).toString(2).padStart(l, '0'); //eslint-disable-line
 const bin2dec = bin => parseInt(bin, 2);
 
@@ -69,7 +35,7 @@ function readDynamic(bin) {
     const cardType = bin2dec(bin.substr(0 + (i * 16), 10));
     const numberOfCards = bin2dec(bin.substr(10 + (i * 16), 6));
 
-    if (!Number.isNaN(cardType) && Number.isNaN(numberOfCards)) {
+    if (!Number.isNaN(cardType) && !Number.isNaN(numberOfCards)) {
       arr.push({ cardType, numberOfCards });
     }
   }
@@ -118,12 +84,15 @@ export function readState(arr) {
   const dynamic = arr.slice(4);
 
   for (let i = 0; i < dynamic.length; i += 1) {
-    let bin5 = (new BigInt(dynamic[i], 10).toString(2));
+    if (dynamic[i] !== '0') {
+      let bin5 = (new BigInt(dynamic[i], 10).toString(2));
+      bin5 = bin5.padStart(256, 0);
 
-    bin5 = bin5.padStart(256, 0);
-
-    dynamicBins.push(bin5);
+      dynamicBins.push(bin5);
+    }
   }
+
+  console.log(dynamic, dynamicBins);
 
   const state = {};
 
@@ -151,7 +120,7 @@ export function readState(arr) {
   state.dynamic = [];
 
   dynamicBins.forEach((d) => {
-    state.dynamic = readDynamic(d);
+    state.dynamic.push(...readDynamic(d));
   });
 
   return state;
@@ -198,7 +167,7 @@ function _pack(arr, start) {
     hexValues[hexValues.length - 1] += 'FFFFFFFF';
   }
 
-  return hexValues.map(h => h.padEnd(64, 0));
+  return hexValues.map(h => `0x${h.padEnd(64, 0)}`);
 }
 
 export function packMoves(_moves) {
@@ -206,15 +175,17 @@ export function packMoves(_moves) {
 
   const blockNumHex = bin2Hex(dec2bin(blockNumber, 32), 8);
 
-  _moves.forEach((m) => {
-    m.blockNumber -= blockNumber; //eslint-disable-line
-  });
+  const blockNums = [];
 
-  const binMoves = _moves.map(move =>
+  for (let i = 1; i < _moves.length; i += 1) {
+    blockNums[i] = _moves[i].blockNumber - _moves[i - 1].blockNumber;
+  }
+
+  blockNums[0] = 0;
+
+  const binMoves = _moves.map((move, i) =>
     bin2Hex(dec2bin(move.shift, 1) + dec2bin(move.location, 1) + dec2bin(move.cardSpecificNumber, 4)
-    + dec2bin(move.cardId, 10) + dec2bin(move.blockNumber, 16)));
-
-  console.log(binMoves);
+    + dec2bin(move.cardId, 10) + dec2bin(blockNums[i], 16)));
 
   return _pack(binMoves, blockNumHex);
 }

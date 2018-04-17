@@ -24,6 +24,7 @@ import {
   SUBMIT_NICKNAME_SUCCESS,
   GP_LOCATION,
   GP_NO_NICKNAME,
+  CLEAR_TURNS,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -34,6 +35,7 @@ import {
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
+  getCardIdsFromLocation,
 } from '../services/utils';
 
 import { packMoves, readState } from '../services/stateService';
@@ -731,7 +733,12 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
 export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
   const card = item.card || item.cards[0];
   const { app, gameplay } = getState();
-  const { activeLocationIndex, activeContainerIndex, locations } = gameplay;
+
+  const {
+    activeLocationIndex, activeContainerIndex, locations,
+    playedTurns,
+  } = gameplay;
+
   let location;
   let cardSpecificNumber = 0;
   let containerCard;
@@ -740,7 +747,6 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       location = index;
       break;
     case 'project':
-      location = -1;
       cardSpecificNumber = index;
       break;
     case 'location_slot':
@@ -750,34 +756,48 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       location = gameplay.activeLocationIndex;
       containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
 
-      cardSpecificNumber = containerCard[0].metadata.id === '6' ? 1 : 0;
+      // cardSpecificNumber = containerCard[0].metadata.id === '6' ? 1 : 0;
       break;
     default:
       break;
   }
 
-  console.log(item, slotType, index, location);
+  const items = [];
 
-  // we multiple the location with the cardId, if location is 0 we multiple by 1
-  location = location === 0 ? 1 : location;
+  if (slotType !== 'project') {
+    getCardIdsFromLocation(locations[location], items);
+  }
+  const numOfRepetitions = items.filter(i => i === item.card.stats.ID).length;
 
-  let convertedCardId = Math.abs(card.metadata.id * location) * 6;
-
-  // if we played the graphic card
-  // if (card.metadata.id === 10) {
-
-  // }
+  let convertedCardId = Math.abs(card.metadata.id) * 6;
 
   if (convertedCardId >= 144 && convertedCardId <= 174) {
     convertedCardId += 720;
+  }
+
+  // if the card is already on location
+  if (numOfRepetitions > 1) {
+    location = 0;
+    // get cardId with the conversion
+    const index = playedTurns.map(p => p.cardId).lastIndexOf(convertedCardId);
+
+    convertedCardId = index;
+  } else {
+    location = 1;
+  }
+
+  if (slotType === 'project') {
+    const index = gameplay.projects.findIndex(g => g.lastDroppedItem !== null);
+
+    cardSpecificNumber = 0;
   }
 
   dispatch({
     type: PLAY_TURN,
     turn: {
       shift: addOrRemove ? 1 : 0,
-      location: 1, // TODO: for the cards that arent repeated in the container this is always 1, otherwise 0 and cardId is the location of that card in state
-      cardSpecificNumber: 0,
+      location,
+      cardSpecificNumber,
       cardId: convertedCardId,
       blockNumber: app.blockNumber,
     },
@@ -800,27 +820,27 @@ export const submitNickname = ({ nickname }) => (dispatch) => {
  */
 export const saveStateToContract = () => async (dispatch, getState) => {
   // Add call to the contract here
-  const { account } = getState().app;
+  const { gameplay } = getState();
 
-  if (!account) return;
 
-  const currState = await ethService.getState();
+  if (gameplay.playedTurns.length === 0) {
+    const currState = await ethService.getState();
+    console.log(currState, readState(currState));
+    return;
+  }
 
-  console.log(currState, readState(currState));
-
-  const state = JSON.parse(localStorage.getItem(`player-location-${account}`));
-
-  const packedMoves = packMoves(state.playedTurns);
+  const packedMoves = packMoves(gameplay.playedTurns);
 
   console.log('Packed Moves: ', packedMoves);
 
-  const res = await ethService.updateMoves(packedMoves);
+  try {
+    await ethService.updateMoves(packedMoves);
 
-  state.playedTurns = [];
-
-  // localStorage.setItem(`player-location-${account}`);
-
-  console.log(res);
+    dispatch({ type: CLEAR_TURNS });
+    saveGameplayState(getState);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 /**

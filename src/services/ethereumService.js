@@ -164,14 +164,14 @@ const revealBooster = async (id) => {
 
 const updateMoves = async (moves) => {
   const stateContract = await getStateContract();
-  return stateContract.methods.update(moves, true).send();
+  return stateContract.methods.update(moves, '', false).send();
 };
 
 const getState = async () => {
   const stateContract = await getStateContract();
   const account = await getAccount();
 
-  return stateContract.methods.get(account).call();
+  return stateContract.methods.get().call();
 };
 
 const resetState = async () => {
