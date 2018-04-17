@@ -7,7 +7,7 @@ import { resetGame } from '../../actions/appActions';
 import { GP_LOCATION_COLLECTION, GP_BUY_BOOSTER, GP_LEADERBOARD } from '../../actions/actionTypes';
 import BlocksLoadingBar from '../BlocksLoadingBar/BlocksLoadingBar';
 
-import ethereumService  from '../../services/ethereumService';
+import ethereumService from '../../services/ethereumService';
 
 import './Menu.scss';
 
@@ -90,10 +90,10 @@ class Menu extends Component {
               </a>
               <a
                 onClick={async () => {
-                  await ethereumService.resetState();
                   localStorage.clear();
                   resetGame();
                   this.setState({ open: false });
+                  await ethereumService.resetState();
                 }}
               >
                 Reset Game

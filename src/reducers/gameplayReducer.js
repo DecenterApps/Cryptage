@@ -28,6 +28,7 @@ import {
   UPDATE_FUNDS_PER_BLOCK,
   UPDATE_LOCATIONS,
   ADD_NEW_LEVEL_CARDS,
+  CLEAR_TURNS,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -152,6 +153,12 @@ export default (state = INITIAL_STATE, action) => {
           ...state.playedTurns,
           action.turn,
         ],
+      };
+
+    case CLEAR_TURNS:
+      return {
+        ...state,
+        playedTurns: [],
       };
 
     case REMOVE_CARD:
