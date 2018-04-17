@@ -27,24 +27,43 @@
     padding: 2px;
   }
 
-  .fpb {
+  .bouns {
     position: absolute;
-    top: 0;
-    width: 100px;
+    top: -1px;
+    left: 0;
     white-space: nowrap;
+    background: rgba(54, 38, 95, 0.86);
+    width: 50px;
+    height: 51px;
+    border-radius: 100%;
+    text-transform: uppercase;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 1;
+    z-index: 10;
+    animation: fadeOut 1s ease-out 2s forwards;
 
-    @include elementInAndOut;
-
-    &.left {
-      left: -20px;
-      top: -15px;
-      text-align: left;
+    @keyframes fadeOut {
+      0% {opacity: 1;}
+      100% {opacity: 0;}
     }
 
-    &.right {
-      left: -42px;
-      top: 47px;
-      text-align: right;
+    div {
+      font-family: $font-secondary;
+      text-shadow: 0 0 13px rgba(255, 157, 20, 0.7);
+      text-align: center;
+      line-height: 10px;
+
+      &:first-child {
+        color: #33FF00;
+      }
+
+      &:nth-child(2) {
+        color: $yellow;
+      }
     }
   }
 

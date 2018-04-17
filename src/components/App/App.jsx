@@ -8,6 +8,8 @@ import Gameplay from '../Gameplay/Gameplay';
 import Projects from '../Projects/Projects';
 import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ModalRoot from '../Modals/ModalRoot';
+import ReportABug from './ReportABug/ReportABug';
+import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
 import { loadGameplayState } from '../../actions/gameplayActions';
 import {
   checkAccount,
@@ -17,7 +19,6 @@ import {
 } from '../../actions/appActions';
 
 import './App.scss';
-import bug from './bug.png';
 
 @DragDropContext(HTML5Backend)
 class App extends Component {
@@ -52,15 +53,8 @@ class App extends Component {
         </div>
 
         <ModalRoot />
-        <a
-          className="bug-report"
-          href="https://insights.hotjar.com/s?siteId=836110&surveyId=45077"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src={bug} alt="Report a bug" />
-          <p>Report a bug</p>
-        </a>
+        <ReportABug />
+        <CustomDragLayer />
       </div>
     );
   }

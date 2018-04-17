@@ -76,7 +76,7 @@ class Cards extends Component {
               ['location', 'Locations'],
               ['container', 'Containers'],
               ['mining', 'Mining'],
-              ['development', 'Development'],
+              ['development', 'Person'],
               ['misc', 'Miscellaneous'],
               ['power', 'Power'],
               ['project', 'Projects'],
@@ -103,7 +103,7 @@ class Cards extends Component {
           {
             !cardsFetching && cards.length === 0 &&
             <div className="no-cards">
-              <span>You currently do not own any cards.</span>
+              <span>You currently do not have any cards to play.</span>
             </div>
           }
 

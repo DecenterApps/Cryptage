@@ -1074,6 +1074,54 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
 };
 
 /**
+ * Returns corresponding array of drop slots for
+ * provided container card id and space
+ *
+ * @param {Number} _id
+ * @param {Number} space
+ * @return {Array}
+ */
+export const getSlotForContainer = (_id, space) => {
+  const id = parseInt(_id, 10);
+  const slots = [];
+  let accepts = [];
+
+  // Computer Case only accepts CPU and Graphics card
+  if (id === 6) accepts = ['9', '10'];
+  // Mining Rig only accepts Graphics card
+  if (id === 7) accepts = ['10'];
+  // ASIC Mount only accepts ASIC miner
+  if (id === 8) accepts = ['11'];
+
+  for (let i = 0; i < space; i += 1) slots.push({ accepts, lastDroppedItem: null, slotType: 'container_slot' });
+  return slots;
+};
+
+
+/**
+ * Checks if a card can be played because of number of available drop slots
+ *
+ * @param {String} type
+ * @param {Boolean} locationSlotsLength
+ * @param {Boolean} projectsSlotsLength
+ * @param {Boolean} assetSlotsLength
+ * @param {Boolean} containerSlotsLength
+ * @return {Boolean}
+ */
+const checkSlotsAvailableForCardType = (
+  type,
+  locationSlotsLength,
+  projectsSlotsLength,
+  assetSlotsLength,
+  containerSlotsLength,
+) => {
+  if (type === 'Location') return locationSlotsLength;
+  if (type === 'Project') return projectsSlotsLength;
+  if (type === 'Mining') return containerSlotsLength;
+  if (type !== 'Location' || type !== 'Project' || type !== 'Mining') return assetSlotsLength;
+};
+
+/**
  * Checks if the cards the user wants to play can be played
  *
  * @param {Object} cardStats
@@ -1110,48 +1158,6 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
 };
 
 /**
- * Returns corresponding array of drop slots for
- * provided container card id and space
- *
- * @param {Number} _id
- * @param {Number} space
- * @return {Array}
- */
-export const getSlotForContainer = (_id, space) => {
-  const id = parseInt(_id, 10);
-  const slots = [];
-  let accepts = [];
-
-  // Computer Case only accepts CPU and Graphics card
-  if (id === 6) accepts = ['9', '10'];
-  // Mining Rig only accepts Graphics card
-  if (id === 7) accepts = ['10'];
-  // ASIC Mount only accepts ASIC miner
-  if (id === 8) accepts = ['11'];
-
-  for (let i = 0; i < space; i += 1) slots.push({ accepts, lastDroppedItem: null, slotType: 'container_slot' });
-  return slots;
-};
-
-/**
- * Returns the maximum space a specific location
- * has for a specific level
- *
- * @param {Number} type
- * @param {Number} level
- * @param {String} stat
- * @return {Number}
- */
-export const getMaxValueForLocation = (type, level, stat) => {
-  let base = getLevelValuesForCard(type, 1).values[stat];
-
-  if (level === 1) return base;
-
-  for (let i = 2; i <= level; i += 1) base += getLevelValuesForCard(type, i).bonus[stat];
-  return base;
-};
-
-/**
  * Returns true if there are available slots for
  * current active container
  *
@@ -1175,26 +1181,177 @@ export const getContainerSlotsLength = (locations, locationItem, activeContainer
 };
 
 /**
- * Checks if a card can be played because of number of available drop slots
+ * Returns errors caused checkIfCanPlayCard
  *
- * @param {String} type
- * @param {Boolean} locationSlotsLength
- * @param {Boolean} projectsSlotsLength
- * @param {Boolean} assetSlotsLength
- * @param {Boolean} containerSlotsLength
- * @return {Boolean}
+ * @param cardStats
+ * @param globalStats
+ * @param activeLocation
+ * @param ignoreSpace
+ * @return {Object}
  */
-const checkSlotsAvailableForCardType = (
-  type,
-  locationSlotsLength,
-  projectsSlotsLength,
-  assetSlotsLength,
-  containerSlotsLength,
-) => {
-  if (type === 'Location') return locationSlotsLength;
-  if (type === 'Project') return projectsSlotsLength;
-  if (type === 'Mining') return containerSlotsLength;
-  if (type !== 'Location' || type !== 'Project' || type !== 'Mining') return assetSlotsLength;
+const getMathErrors = (cardStats, globalStats, activeLocation = null, ignoreSpace = false) => {
+  const {
+    level, funds, development, power, space,
+  } = cardStats.cost;
+  const errors = {
+    level: false,
+    funds: false,
+    development: false,
+    power: false,
+    space: false,
+    special: [],
+  };
+
+  if (level > globalStats.level) errors.level = true;
+
+  if (funds > globalStats.funds) errors.funds = true;
+
+  if (development > globalStats.development) errors.development = true;
+
+  if (activeLocation && (power > activeLocation.values.power)) errors.power = true;
+
+  if (activeLocation && !ignoreSpace && (space > activeLocation.values.space)) errors.space = true;
+
+  // checks for duplicates in active location
+  if (activeLocation && cardStats.unique) {
+    const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
+      lastDroppedItem && (lastDroppedItem.cards[0].stats.title === cardStats.title)
+    ));
+
+    if (foundElem) errors.special.push('You can play only one per location');
+  }
+
+  return errors;
+};
+
+/**
+ * Gets all stats why a card can't be played;
+ *
+ * @param {Object} card
+ * @param {Number} activeLocationIndex
+ * @param {Number} activeContainerIndex
+ * @param {Array} locations
+ * @param {Array} projects
+ * @param {String} gameplayView
+ * @param {String} inGameplayView
+ * @param {Object} globalStats
+ * @param {Object} _activeLocation
+ * @param {Object} ignoreSpace - this is only for mining cards
+ * @return {Object}
+ */
+export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, locations, projects, gameplayView, inGameplayView, globalStats, _activeLocation = null, ignoreSpace = false) => { // eslint-disable-line
+  let errors = { special: [] };
+  const { metadata, stats } = card;
+  let activeLocation = _activeLocation ? { ..._activeLocation } : null;
+
+  const locationSlotsLength = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
+  const projectsSlotsLength = projects.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
+
+  let assetSlotsLength = false;
+
+  const locationItem = locations[activeLocationIndex].lastDroppedItem;
+  if (locationItem) assetSlotsLength = locationItem.dropSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0; // eslint-disable-line
+
+  const containerSlotsLength = getContainerSlotsLength(locations, locationItem, activeContainerIndex);
+
+  // ////////////////////////////////////////////////////////////////////////
+  if (gameplayView === GP_NO_LOCATIONS || gameplayView === GP_BUY_BOOSTER) {
+    const goodCardType = stats.type === 'Location' || stats.type === 'Project';
+    const availableSlots = checkSlotsAvailableForCardType(stats.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength); // eslint-disable-line
+
+    if (!goodCardType) errors.special.push('You can\'t play this card here');
+    if (goodCardType && !availableSlots) errors.special.push('No available slots');
+  }
+
+  // ////////////////////////////////////////////////////////////////////////
+  if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_MAIN) {
+    const miningCardType = stats.type === 'Mining';
+    const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+    activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+    const availableSlots = checkSlotsAvailableForCardType(stats.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength);  // eslint-disable-line
+
+    if (!miningCardType && !availableSlots) errors.special.push('No available slots');
+
+    if (miningCardType) {
+      // In active gameplay view checks if miner can be dropped in at least one location
+      let canPlayInOneContainer = false;
+
+      const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
+        if (lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Container') {
+          const lastDroppedItemCopy = { ...lastDroppedItem };
+          lastDroppedItemCopy.containerIndex = slotIndex;
+          return lastDroppedItemCopy;
+        }
+
+        return false;
+      }).filter(item => item);
+
+      droppedContainers.forEach((droppedContainerItem) => {
+        const containerId = droppedContainerItem.cards[0].metadata.id;
+        const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
+        const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
+        const containerSlotLength = getContainerSlotsLength(
+          locations,
+          locationItem,
+          droppedContainerItem.containerIndex,
+        );
+
+        if (goodSlotType && containerSlotLength && checkIfCanPlayCard(stats, globalStats, activeLocation, true)) {
+          canPlayInOneContainer = true;
+        }
+      });
+
+      if (!canPlayInOneContainer) errors.special.push('No available containers');
+    }
+  }
+
+  // ////////////////////////////////////////////////////////////////////////
+  if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_CONTAINER) {
+    const goodCardType = stats.type === 'Location' || stats.type === 'Project' || stats.type === 'Mining';
+    const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+    activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+    const availableSlots = checkSlotsAvailableForCardType(stats.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength); // eslint-disable-line
+
+    if (isAsset) {
+      // check if active container can take in that card type
+      const containerId = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
+        .lastDroppedItem.cards[0].metadata.id;
+      const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
+      const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
+
+      if (!goodCardType) errors.special.push('You can\'t play this card here');
+      if (goodCardType && !goodSlotType) errors.special.push('Can\'t play this miner in this container');
+      if (goodCardType && goodSlotType && !availableSlots) errors.special.push('No available slots in this container');
+    } else {
+      if (!goodCardType) errors.special.push('You can\'t play this card here');
+      if (goodCardType && !availableSlots) errors.special.push('No available slots');
+    }
+  }
+
+  const mathErrors = getMathErrors(stats, globalStats, activeLocation, ignoreSpace);
+  errors = { ...errors, ...mathErrors, special: [...errors.special, ...mathErrors.special] };
+
+  if (errors.special.length > 0) errors.special = errors.special.join('. ');
+
+  return errors;
+};
+
+/**
+ * Returns the maximum space a specific location
+ * has for a specific level
+ *
+ * @param {Number} type
+ * @param {Number} level
+ * @param {String} stat
+ * @return {Number}
+ */
+export const getMaxValueForLocation = (type, level, stat) => {
+  let base = getLevelValuesForCard(type, 1).values[stat];
+
+  if (level === 1) return base;
+
+  for (let i = 2; i <= level; i += 1) base += getLevelValuesForCard(type, i).bonus[stat];
+  return base;
 };
 
 /**
@@ -1400,7 +1557,7 @@ const addCardsForNewLevel = level => async (dispatch, getState) => {
     return card.id < min ? card.id : min;
   }, cards[0].id);
 
-  const newCards = cardsPerLevel[level - 2].map((metadataId, index) => ({
+  const newCards = cardsPerLevel[level - 1].map((metadataId, index) => ({
     id: minId - (index + 1),
     stats: fetchCardStats(metadataId),
     metadata: { id: metadataId.toString() },
@@ -1420,7 +1577,7 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
   const { level } = getState().gameplay.globalStats;
 
   if (currLevel === level) return;
-  if ((level - 2) < 0) return;
+  if ((level - 1) < 0) return;
 
   const cards = await dispatch(addCardsForNewLevel(level));
 

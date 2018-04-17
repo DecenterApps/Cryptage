@@ -301,7 +301,7 @@
       },
       "flavorText": "",
       "image": "black-hat-hacker.jpg",
-      "mechanicsText": "Gain 10 funds each block.",
+      "mechanicsText": "Gain 10 FUNDS each block.",
       "rarityScore": "576",
       "special": true,
       "title": "Black Hat Hacker",
@@ -493,11 +493,11 @@
         "level": 1,
         "power": 0,
         "space": 0,
-        "time": 50
+        "time": 20
       },
       "flavorText": "Hey, this isn't what I signed up for!",
       "image": "outourced-project.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Time to complete: 2 blocks",
       "rarityScore": "900",
       "special": true,
       "title": "Outourced Project",
@@ -513,7 +513,7 @@
         "multiplier-funds": 0,
         "power": 0,
         "space": 0,
-        "xp": 32
+        "xp": 16
       },
       "cost": {
         "development": 8,
@@ -521,11 +521,11 @@
         "level": 2,
         "power": 0,
         "space": 0,
-        "time": 150
+        "time": 40
       },
       "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
       "image": "profitable-dapp.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Time to complete: 40 blocks",
       "rarityScore": "900",
       "special": true,
       "title": "Profitable Đapp",
@@ -541,19 +541,19 @@
         "multiplier-funds": 0,
         "power": 0,
         "space": 0,
-        "xp": 512
+        "xp": 32
       },
       "cost": {
         "development": 32,
-        "funds": 4000,
+        "funds": 6000,
         "level": 4,
         "power": 0,
         "space": 0,
-        "time": 420
+        "time": 100
       },
       "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
       "image": "mining-algorithm-optimization.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Time to complete: 100 blocks",
       "rarityScore": "900",
       "special": true,
       "title": "Mining Algorithm Optimization",
@@ -569,19 +569,19 @@
         "multiplier-funds": 0,
         "power": 0,
         "space": 0,
-        "xp": 4000
+        "xp": 512
       },
       "cost": {
         "development": 56,
-        "funds": 16000,
+        "funds": 32000,
         "level": 8,
         "power": 0,
         "space": 0,
-        "time": 2500
+        "time": 200
       },
       "flavorText": "Get your buzzwords here! Get'em while they're hot!",
       "image": "initial-coin-offering.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Time to complete: 200 blocks",
       "rarityScore": "900",
       "special": true,
       "title": "Initial Coin Offering",
@@ -592,7 +592,7 @@
       "ID": "28",
       "bonus": {
         "development": 0,
-        "funds": 512000,
+        "funds": 200000,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
@@ -605,11 +605,11 @@
         "level": 12,
         "power": 0,
         "space": 0,
-        "time": 10000
+        "time": 500
       },
       "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK.",
       "image": "decentralized-protocol-development.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Time to complete: 500 blocks",
       "rarityScore": "576",
       "special": true,
       "title": "Decentralized Protocol Development",
@@ -620,7 +620,7 @@
       "ID": "29",
       "bonus": {
         "development": 0,
-        "funds": 0,
+        "funds": 500000,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
@@ -633,11 +633,11 @@
         "level": 16,
         "power": 0,
         "space": 0,
-        "time": 30000
+        "time": 2000
       },
       "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
       "image": "consensus-improvement.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Time to complete: 2000 blocks",
       "rarityScore": "485",
       "special": true,
       "title": "Consensus Improvement",
@@ -671,6 +671,34 @@
         "space": 120,
         "xp": 0
       }
+    },
+    "30": {
+      "ID": "30",
+      "bonus": {
+        "development": 0,
+        "funds": 1,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 1
+      },
+      "cost": {
+        "development": 0,
+        "funds": 0,
+        "level": 1,
+        "power": 0,
+        "space": 0,
+        "time": 2
+      },
+      "flavorText": "Let's see if you can click your way out of the gutter!",
+      "image": "corporate-clickfarming.jpg",
+      "mechanicsText": "Time to complete: 1 block",
+      "rarityScore": "-",
+      "special": true,
+      "title": "Corporate Clickfarming",
+      "type": "Project",
+      "unique": false
     },
     "4": {
       "ID": "4",
@@ -740,7 +768,7 @@
       },
       "flavorText": "NOTICE: Stop playing VR Minesweeper as it interferes with our revenue stream!",
       "image": "computer-case.jpg",
-      "mechanicsText": "Can contain CPUs and Graphics Cards.",
+      "mechanicsText": "Can contain up to 2 CPUs or GPUs.",
       "rarityScore": "900",
       "special": false,
       "title": "Computer Case",
@@ -768,7 +796,7 @@
       },
       "flavorText": "How this thing is holding together is anybody's guess...",
       "image": "mining-rig.jpg",
-      "mechanicsText": "Can contain Graphics Cards.",
+      "mechanicsText": "Can contain up to 6 GPUs.",
       "rarityScore": "900",
       "special": false,
       "title": "Mining Rig",
@@ -796,7 +824,7 @@
       },
       "flavorText": "It's basically a glorified fridge. But it has shiny buttons.",
       "image": "asic-mount.jpg",
-      "mechanicsText": "Can contain ASIC miners.",
+      "mechanicsText": "Can contain up to 6 ASIC miners.",
       "rarityScore": "900",
       "special": false,
       "title": "ASIC Mount",
