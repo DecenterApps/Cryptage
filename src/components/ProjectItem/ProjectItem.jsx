@@ -8,7 +8,7 @@ import {
   levelUpProject,
   activateProject,
 } from '../../actions/gameplayActions';
-import { calcDataForNextLevel } from '../../services/utils';
+import { calcDataForNextLevel, formatBigNumber } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 
@@ -25,6 +25,7 @@ const ProjectItem = ({
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const fpb = cards[0].stats.bonus.funds;
+  const xpb = cards[0].stats.bonus.xp;
 
   return (
     <div
@@ -38,8 +39,9 @@ const ProjectItem = ({
 
       {
         showFpb &&
-        <div className={`fpb ${index % 2 === 0 ? 'left' : 'right'}`}>
-          + { fpb } { fpb === 1 ? 'fund' : 'funds' }
+        <div className="bouns">
+          <div>+ { formatBigNumber(xpb) } <br /> xp</div>
+          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'fund' : 'funds' }</div>
         </div>
       }
 

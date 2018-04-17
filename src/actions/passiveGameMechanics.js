@@ -161,7 +161,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
 
         setTimeout(() => {
           dispatch(doNotShowProjectFpb(i));
-        }, 2000);
+        }, 3500);
       }
     }
   }
