@@ -77,9 +77,15 @@ const ProjectItem = ({
             />
             <span className="project-time-left">
               <img className="project-thumbnail" src={activeBg} alt="" />
-              <div className="blocks-left">{expiryTime - blockNumber}</div>
-              <div>BLOCKS</div>
-              <div>LEFT</div>
+              {
+                blockNumber > 0 && [
+                  <div key="PIK1" className="blocks-left">{ expiryTime - blockNumber }</div>,
+                  <div key="PIK2">BLOCKS</div>,
+                  <div key="PIK3">LEFT</div>,
+                ]
+              }
+
+              { blockNumber === 0 && <div className="loading-blocks">Loading...</div> }
             </span>
           </div>
         }

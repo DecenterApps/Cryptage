@@ -67,8 +67,10 @@ export const updateCurrentBlockNumber = () => async (dispatch) => {
  * Listens to new blocks on the Ethereum network
  */
 export const listenForNewBlocks = () => (dispatch, getState) => {
-  window.web3Subscriber.eth.subscribe('newBlockHeaders', async (error, { number }) => {
+  window.web3Subscriber.eth.subscribe('newBlockHeaders', async (error, _number) => {
     if (error) return console.error('newBlockHeaders listener error', error);
+
+    const { number } = _number;
 
     dispatch({ type: UPDATE_BLOCK_NUMBER, payload: number });
 
