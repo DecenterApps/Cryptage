@@ -26,7 +26,7 @@ const ConfirmRemoveModal = ({
 
         {
           !canCancel && [
-            <div key="D" className="main-text">You can not currently withdraw this card from the game.</div>,
+            <div key="D" className="main-text">You can&#39;t currently withdraw this card from the game.</div>,
             <button key="E" className="orange-button" onClick={closeModal}>Close</button>,
           ]
         }
