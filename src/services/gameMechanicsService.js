@@ -1557,7 +1557,7 @@ const addCardsForNewLevel = level => async (dispatch, getState) => {
     return card.id < min ? card.id : min;
   }, cards[0].id);
 
-  const newCards = cardsPerLevel[level - 2].map((metadataId, index) => ({
+  const newCards = cardsPerLevel[level - 1].map((metadataId, index) => ({
     id: minId - (index + 1),
     stats: fetchCardStats(metadataId),
     metadata: { id: metadataId.toString() },
@@ -1577,7 +1577,7 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
   const { level } = getState().gameplay.globalStats;
 
   if (currLevel === level) return;
-  if ((level - 2) < 0) return;
+  if ((level - 1) < 0) return;
 
   const cards = await dispatch(addCardsForNewLevel(level));
 

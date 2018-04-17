@@ -50,34 +50,36 @@ export const changeGameplayView = payload => (dispatch, getState) => {
   saveGameplayState(getState);
 };
 
-/**
- * gets onboarding cards defined in config because
- * every played gets those cards for free
- */
-const getOnboardingCards = () => {
-  const cardTypes = config.onboardingCards;
-  return cardTypes.map((metadataId, index) => ({
-    id: index - cardTypes.length,
-    stats: fetchCardStats(metadataId),
-    metadata: { id: metadataId.toString() },
-  }));
-};
+// /**
+//  * gets onboarding cards defined in config because
+//  * every played gets those cards for free
+//  */
+// const getOnboardingCards = () => {
+//   const cardTypes = config.onboardingCards;
+//   return cardTypes.map((metadataId, index) => ({
+//     id: index - cardTypes.length,
+//     stats: fetchCardStats(metadataId),
+//     metadata: { id: metadataId.toString() },
+//   }));
+// };
 
 /**
  * gets Garage, Computer case and CPU because
  * every played gets those cards for free
  */
 const getNewLevelCards = (level, cards) => {
-  if ((level - 2) < 0) return [];
+  if ((level - 1) < 0) return [];
 
-  let minId = cards.reduce((min, card) => { // eslint-disable-line
-    return card.id < min ? card.id : min;
-  }, cards[0].id);
+  let minId = -1;
+
+  if (cards.length > 0) {
+    cards.reduce((min, card) => card.id < min ? card.id : min, cards[0].id);  // eslint-disable-line
+  }
 
   let newCards = [];
 
-  for (let i = 2; i <= level; i += 1) {
-    const cardTypes = cardsPerLevel[i - 2];
+  for (let i = 1; i <= level; i += 1) {
+    const cardTypes = cardsPerLevel[i - 1];
     if (cardTypes) {
       const newLevelCards = cardTypes.map((metadataId, index) => ({
         id: minId - (index + 1),
@@ -106,9 +108,6 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     const cardsIDs = await ethService.getUsersCards();
     let cards = await cardService.fetchCardsMeta(cardsIDs);
     const { level } = getState().gameplay.globalStats;
-
-    const onboardingCards = getOnboardingCards();
-    cards = [...cards, ...onboardingCards];
 
     const newLevelCards = getNewLevelCards(level, cards);
     cards = [...cards, ...newLevelCards];
