@@ -6,6 +6,7 @@ import appReducer from './appReducer';
 import shopReducer from './shopReducer';
 import gameplayReducer from './gameplayReducer';
 import modalReducer from './modalReducer';
+import leaderboardReducer from './leaderboardReducer';
 
 const mainReducer = combineReducers({
   routing: routerReducer,
@@ -14,6 +15,7 @@ const mainReducer = combineReducers({
   gameplay: gameplayReducer,
   form: formReducer,
   modal: modalReducer,
+  leaderboard: leaderboardReducer,
 });
 
 /*   Clears the store state    */

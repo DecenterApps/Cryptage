@@ -94,3 +94,8 @@ export const SUBMIT_NICKNAME_SUCCESS = 'submit_nickname_success';
 
 // MODAL
 export const TOGGLE_MODAL = 'toggle_modal';
+
+// LEADERBOARD
+export const FETCH_LEADERBOARD_DATA = 'fetch_leaderboard_data';
+export const FETCH_LEADERBOARD_DATA_SUCCESS = 'fetch_leaderboard_data_success';
+export const FETCH_LEADERBOARD_DATA_ERROR = 'fetch_leaderboard_data_error';
