@@ -119,7 +119,7 @@ class Cards extends Component {
                   type.map(card => (
                     <div key={card.id} className="card-container">
                       <DragWrapper key={card.id} {...{ card }}>
-                        <HandCard card={card} hoverCentered />
+                        <HandCard inHand card={card} hoverCentered />
                       </DragWrapper>
                     </div>
                   ))
@@ -140,7 +140,7 @@ class Cards extends Component {
                   type.map(card => (
                     <div key={card.id} className="card-container">
                       <DragWrapper key={card.id} {...{ card }}>
-                        <HandCard card={card} hoverCentered />
+                        <HandCard inHand card={card} hoverCentered />
                       </DragWrapper>
                     </div>
                   ))
@@ -158,7 +158,7 @@ class Cards extends Component {
             ).map(card => (
               <div key={card.id} className="card-container">
                 <DragWrapper key={card.id} {...{ card }}>
-                  <HandCard card={card} hoverCentered />
+                  <HandCard inHand card={card} hoverCentered />
                 </DragWrapper>
               </div>
             ))

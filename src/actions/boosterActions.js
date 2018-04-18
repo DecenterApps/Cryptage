@@ -88,8 +88,19 @@ export const revealRequest = (_id, _boosters) => {
   return { type: REVEAL_REQUEST, boosters, isRevealing: true };
 };
 
-export const revealSuccess = (allCards, revealedCards, _id, _boosters) => (dispatch) => {
-  const cards = [...allCards, ...revealedCards];
+export const revealSuccess = (revealedCards, _id, _boosters) => (dispatch, getState) => {
+  let allCards = [...getState().gameplay.allCards];
+  let cards = [...getState().gameplay.cards];
+
+  let newCardTypes = revealedCards
+    .filter(revealedCard => allCards.findIndex(card => card.metadata.id === revealedCard.metadata.id) === -1)
+    .map(({ metadata }) => metadata.id);
+
+  newCardTypes = newCardTypes.filter((type, index) => newCardTypes.indexOf(type) === index);
+
+  cards = [...cards, ...revealedCards];
+  allCards = [...allCards, ...revealedCards];
+
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
   boosters.splice(boosterIndex, 1);
@@ -97,9 +108,11 @@ export const revealSuccess = (allCards, revealedCards, _id, _boosters) => (dispa
   dispatch({
     type: REVEAL_SUCCESS,
     cards,
+    allCards,
     boosters,
     revealedCards,
     isRevealing: false,
+    newCardTypes,
   });
 
   dispatch(openRevealBoosterCardsModal(revealedCards));
@@ -123,10 +136,9 @@ export const revealBooster = id => async (dispatch, getState) => {
     const cardIds = await ethService.getCardsFromBooster(boosterId);
     log('Cards in booster: ', cardIds);
 
-    const allCards = [...getState().gameplay.cards];
-    const cards = await cardService.fetchCardsMeta(cardIds);
+    const revealedCards = await cardService.fetchCardsMeta(cardIds);
 
-    dispatch(revealSuccess(allCards, cards, id, getState().shop.boosters));
+    dispatch(revealSuccess(revealedCards, id, getState().shop.boosters));
   } catch (e) {
     console.error(e);
     dispatch(revealError(e, id, getState().shop.boosters));

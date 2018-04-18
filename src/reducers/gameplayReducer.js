@@ -29,6 +29,7 @@ import {
   UPDATE_LOCATIONS,
   ADD_NEW_LEVEL_CARDS,
   CLEAR_TURNS,
+  REMOVE_NEW_FROM_CARD,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -41,6 +42,7 @@ const INITIAL_STATE = {
   inGameplayView: GP_LOCATION_MAIN,
   allCards: [],
   cards: [],
+  newCardTypes: [],
   locations: LOCATION_DROP_SLOTS,
   projects: PROJECT_DROP_SLOTS,
   activeLocationIndex: 0,
@@ -116,12 +118,22 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case USERS_CARDS_SUCCESS:
-    case REVEAL_SUCCESS:
       return {
         ...state,
         allCards: action.allCards || state.allCards,
         cards: action.cards,
       };
+
+    case REVEAL_SUCCESS:
+      return {
+        ...state,
+        allCards: action.allCards || state.allCards,
+        cards: action.cards,
+        newCardTypes: [...state.newCardTypes, ...action.newCardTypes],
+      };
+
+    case REMOVE_NEW_FROM_CARD:
+      return { ...state, newCardTypes: payload };
 
     case LOAD_STATE_FROM_STORAGE:
       return { ...mergeDeep(state, payload) };
@@ -181,7 +193,12 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case ADD_NEW_LEVEL_CARDS:
-      return { ...state, cards: payload };
+      return {
+        ...state,
+        cards: payload.cards,
+        allCards: payload.allCards,
+        newCardTypes: [...state.newCardTypes, ...payload.newCardTypes],
+      };
 
     case SUBMIT_NICKNAME_SUCCESS:
       return { ...state, nickname: payload, gameplayView: GP_NO_LOCATIONS };

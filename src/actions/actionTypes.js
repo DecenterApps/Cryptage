@@ -80,6 +80,7 @@ export const UPDATE_LOCATIONS = 'update_locations';
 export const ADD_NEW_LEVEL_CARDS = 'add_new_cards';
 export const CLEAR_REVEALED_CARDS = 'clear_revealed_cards';
 export const CLEAR_TURNS = 'clear_turns';
+export const REMOVE_NEW_FROM_CARD = 'remove_new_from_card';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';

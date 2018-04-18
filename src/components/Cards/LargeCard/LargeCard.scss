@@ -37,6 +37,20 @@
     }
   }
 
+  .new-card {
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    bottom: 252px;
+    left: 35px;
+    height: 16px;
+    width: 75px;
+    background: linear-gradient(180.78deg, rgba(255, 157, 20, 0) 0.92%, rgba(255, 157, 20, 0.2784) 81.11%);
+    font-size: 10px;
+    color: #FF9D14;
+    text-shadow: 0 0 10px rgba(255, 157, 20, 0.9);
+  }
+
   .title {
     z-index: 2;
     position: relative;
