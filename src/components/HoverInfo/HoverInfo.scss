@@ -86,6 +86,7 @@
       }
       .type {
         padding: 12px 0 2px;
+        text-transform: uppercase;
         &:before {
           content: '';
           display: block;
