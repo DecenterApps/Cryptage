@@ -56,6 +56,9 @@ const getStateContract = async () => {
   });
 };
 
+const getLeaderboardContract = acc =>
+  new web3.eth.Contract(config.leaderboardContract.abi, config.leaderboardContract.address, { from: acc });
+
 /**
  * DEV HELPER
  * Adds a card to an account
@@ -194,4 +197,5 @@ export default {
   updateMoves,
   getState,
   resetState,
+  getLeaderboardContract,
 };

@@ -3,6 +3,7 @@ import {
   CONFIRM_REMOVE_MODAL,
   NEW_LEVEL_MODAL,
   REVEAL_BOOSTER_CARDS_MODAL,
+  NO_RESTART_PROJECT_MODAL,
 } from '../components/Modals/modalTypes';
 
 /**
@@ -63,4 +64,11 @@ export const openNewLevelModal = (level, cards) => (dispatch) => {
  */
 export const openRevealBoosterCardsModal = cards => (dispatch) => {
   dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { cards, width: '912px', className: 'reveal-modal' }, true));
-}
+};
+
+/**
+ * Opens the no restart project modal
+ */
+export const openNoRestartProjectModal = () => (dispatch) => {
+  dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '271px' }, true));
+};

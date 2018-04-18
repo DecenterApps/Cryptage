@@ -40,6 +40,7 @@ import {
 
 import { packMoves, readState, createGameplayState } from '../services/stateService';
 import config from '../constants/config.json';
+import { openNoRestartProjectModal } from './modalActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -324,7 +325,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const { projects, globalStats } = getState().gameplay;
   const alteredProjects = [...projects];
 
-  if (!checkIfCanPlayCard(card.stats, globalStats)) return;
+  if (!checkIfCanPlayCard(card.stats, globalStats)) return dispatch(openNoRestartProjectModal());
 
   alteredProjects[index].lastDroppedItem.isFinished = false;
   alteredProjects[index].lastDroppedItem.isActive = true;

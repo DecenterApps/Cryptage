@@ -95,6 +95,16 @@
     .blocks-left {
       font-size: 14px;
     }
+
+    .loading-blocks {
+      font-size: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      top: -6px;
+      position: relative;
+    }
   }
 
 

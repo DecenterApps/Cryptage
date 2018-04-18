@@ -22,6 +22,23 @@
     }
   }
 
+  .fetching {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30%;
+
+    .spinner-wrapper {
+      transform: scale(1);
+    }
+  }
+
+  .fetching-error {
+    font-family: $font-secondary;
+    text-align: center;
+    margin-top: 40px;
+  }
+
   .data-wrapper {
     margin-top: 40px;
     color: white;
@@ -59,6 +76,13 @@
         font-size: 12px;
         white-space: pre;
 
+        $curr-player-bg: linear-gradient(180deg, rgba(54, 38, 95, 0) 0%, rgba(54, 38, 95, 0.7) 51.38%, rgba(54, 38, 95, 0) 100%);
+
+        &.curr-player {
+          height: 33px;
+          background: $curr-player-bg;
+        }
+
         & > div {
           display: flex;
           align-items: center;
@@ -75,6 +99,10 @@
         &:first-child, &:nth-child(2), &:nth-child(3) {
           height: 33px;
           background: linear-gradient(180deg, rgba(54, 38, 95, 0.4) 0%, rgba(54, 38, 95, 0) 100%);
+
+          &.curr-player {
+            background: $curr-player-bg;
+          }
         }
 
         &:first-child .nickname .text { font-size: 18px; }

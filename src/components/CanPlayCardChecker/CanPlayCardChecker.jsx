@@ -8,6 +8,8 @@ const CanPlayCardChecker = ({
   card, globalStats, getAvailableCards, gameplayView, inGameplayView, locations, projects, activeLocationIndex,
   activeContainerIndex,
 }) => {
+  if (!card) return (<div />);
+
   let costErrors = null;
   const activeLocation = card.stats.type === 'Mining' ? locations[activeLocationIndex].lastDroppedItem : null;
   const ignoreSpace = card.stats.type === 'Mining';
@@ -26,10 +28,11 @@ const CanPlayCardChecker = ({
 };
 
 CanPlayCardChecker.defaultProps = {
+  card: null,
 };
 
 CanPlayCardChecker.propTypes = {
-  card: PropTypes.object.isRequired,
+  card: PropTypes.object,
   globalStats: PropTypes.object.isRequired,
   getAvailableCards: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
