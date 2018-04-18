@@ -126,6 +126,42 @@ export function readState(arr) {
   return state;
 }
 
+export function createGameplayState(_state) {
+
+  const locations = [];
+
+  _state.locations.forEach((loc) => {
+    if (loc.card !== 0) {
+      locations.push({
+
+      });
+    }
+  });
+
+  return {
+    activeContainerIndex: 0,
+    activeLocationIndex: 0,
+    fundsPerBlock: _state.fundsPerBlock,
+    gameplayView: 'location',
+    inGameplayView: 'location_main',
+    lastSavedStateBlock: 0, // TODO: update this
+    nickname: '', // Load from contract
+    allCards: [],
+    cards: [],
+    globalStats: {
+      development: _state.devLeft,
+      funds: _state.funds,
+      level: 1, // TODO: calculate based on exp
+      earnedXp: _state.experience, // TODO: what is earned exp.?
+      experience: _state.experience,
+      requiredXp: 16, // TODO: based on a current lvl.
+    },
+    locations,
+    playedTurns: [],
+    projects: [],
+  };
+}
+
 function printState(_state) {
   const keys = Object.keys(_state);
 

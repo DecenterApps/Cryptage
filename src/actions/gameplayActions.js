@@ -38,7 +38,7 @@ import {
   getCardIdsFromLocation,
 } from '../services/utils';
 
-import { packMoves, readState } from '../services/stateService';
+import { packMoves, readState, createGameplayState } from '../services/stateService';
 import config from '../constants/config.json';
 import { openNoRestartProjectModal } from './modalActions';
 
@@ -494,14 +494,25 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
  *
  * @return {Function}
  */
-export const loadGameplayState = () => (dispatch, getState) => {
+export const loadGameplayState = () => async (dispatch, getState) => {
   const { account } = getState().app;
 
   if (!account) return;
 
   const payload = JSON.parse(localStorage.getItem(`player-location-${account}`));
 
-  if (!payload) return;
+  if (!payload) {
+    // const currState = await ethService.getState();
+    // console.log(readState(currState));
+
+    // // TODO: better check for inital state
+    // if (readState(currState).funds === 150) {
+    //   return;
+    // }
+
+    // payload = createGameplayState(readState(currState));
+    return;
+  }
 
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 };
