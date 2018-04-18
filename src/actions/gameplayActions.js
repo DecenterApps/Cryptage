@@ -28,6 +28,7 @@ import {
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
+import ipfsService from '../services/ipfsService';
 import {
   checkIfCanPlayCard, getLevelValuesForCard, getSlotForContainer,
   handleCardMathematics, handleCoffeeMinerEffect,
@@ -835,7 +836,6 @@ export const saveStateToContract = () => async (dispatch, getState) => {
   // Add call to the contract here
   const { gameplay } = getState();
 
-
   if (gameplay.playedTurns.length === 0) {
     const currState = await ethService.getState();
     console.log(currState, readState(currState));
@@ -847,7 +847,11 @@ export const saveStateToContract = () => async (dispatch, getState) => {
   console.log('Packed Moves: ', packedMoves);
 
   try {
-    await ethService.updateMoves(packedMoves);
+    const ipfs = await ipfsService.uploadData(gameplay);
+
+    console.log(ipfs[0].hash);
+
+    await ethService.updateMoves(packedMoves, ipfs[0].hash);
 
     dispatch({ type: CLEAR_TURNS });
     saveGameplayState(getState);
