@@ -1551,7 +1551,8 @@ export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
  * @param {Number} level
  */
 const addCardsForNewLevel = level => async (dispatch, getState) => {
-  const cards = [...getState().gameplay.cards];
+  let cards = [...getState().gameplay.cards];
+  let allCards = [...getState().gameplay.allCards];
 
   const minId = cards.reduce((min, card) => { // eslint-disable-line
     return card.id < min ? card.id : min;
@@ -1563,7 +1564,16 @@ const addCardsForNewLevel = level => async (dispatch, getState) => {
     metadata: { id: metadataId.toString() },
   }));
 
-  dispatch({ type: ADD_NEW_LEVEL_CARDS, payload: [...cards, ...newCards] });
+  let newCardTypes = newCards
+    .filter(newCard => allCards.findIndex(card => card.metadata.id === newCard.metadata.id) === -1)
+    .map(({ metadata }) => metadata.id);
+
+  newCardTypes = newCardTypes.filter((type, index) => newCardTypes.indexOf(type) === index);
+
+  cards = [...cards, ...newCards];
+  allCards = [...allCards, ...newCards];
+
+  dispatch({ type: ADD_NEW_LEVEL_CARDS, payload: { newCardTypes, cards, allCards } });
 
   return newCards;
 };

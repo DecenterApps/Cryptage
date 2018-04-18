@@ -8,10 +8,12 @@
   .cards-inner-wrapper {
     overflow-y: auto;
     width: 100%;
-    padding: 10px 0;
+    padding: 10px 5px;
     display: flex;
-    height: 123px;
-    margin-bottom: 20px;
+    height: 133px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
     overflow-y: hidden;
     overscroll-behavior: contain contain;
 

@@ -36,6 +36,17 @@
     width: 100%;
   }
 
+  .new-card {
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: $yellow;
+    text-shadow: 0 0 13px rgba(255, 157, 20, 0.7);
+    position: absolute;
+    left: 0;
+    bottom: 88px;
+  }
+
   .card-image {
     flex-grow: 1;
     .card-image-inner {
