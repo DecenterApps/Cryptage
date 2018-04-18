@@ -689,14 +689,14 @@
         "level": 1,
         "power": 0,
         "space": 0,
-        "time": 2
+        "time": 1
       },
-      "flavorText": "Let's see if you can click your way out of the gutter!",
-      "image": "corporate-clickfarming.jpg",
+      "flavorText": "Making profit from day trading is easy - you just need to buy high and sell low... I think.",
+      "image": "day-trading.jpg",
       "mechanicsText": "Time to complete: 1 block",
       "rarityScore": "-",
       "special": true,
-      "title": "Corporate Clickfarming",
+      "title": "Day Trading",
       "type": "Project",
       "unique": false
     },
