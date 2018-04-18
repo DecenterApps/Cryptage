@@ -4,7 +4,7 @@ import Web3 from 'web3';
 import Routes from './Routes';
 import store from './store';
 import NoMetaMask from './components/NoMetaMask/NoMetaMask';
-import config from './constants/config.dist.json';
+import config from './constants/config.json';
 
 const startApp = () => {
   const hasMetaMask = typeof web3 !== 'undefined';

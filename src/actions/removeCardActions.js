@@ -8,6 +8,7 @@ import {
   RETURN_CARD,
   UPDATE_LOCATIONS,
   CLEAR_REVEALED_CARDS,
+  REMOVE_NEW_FROM_CARD,
 } from './actionTypes';
 import { addOrReduceFromFundsPerBlock, playTurn } from './gameplayActions';
 import { updateLocationDropSlotItems } from '../services/utils';
@@ -229,4 +230,20 @@ export const removeProject = (card, index) => (dispatch, getState) => {
  */
 export const clearRevealedCards = () => (dispatch) => {
   dispatch({ type: CLEAR_REVEALED_CARDS });
+};
+
+/**
+ * Fires when the user hovers over a card element with "new".
+ *
+ * @param cardType
+ */
+export const removeNewCardOnHover = cardType => (dispatch, getState) => {
+  const newCardTypes = [...getState().gameplay.newCardTypes];
+
+  if (!newCardTypes.includes(cardType)) return;
+
+  const spliceIndex = newCardTypes.findIndex(newCardType => newCardType === cardType);
+  newCardTypes.splice(spliceIndex, 1);
+
+  dispatch({ type: REMOVE_NEW_FROM_CARD, payload: newCardTypes });
 };

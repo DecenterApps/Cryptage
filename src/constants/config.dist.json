@@ -1,6 +1,5 @@
 {
   "network": 42,
-  "webSocketServer": "wss://cards.decenter.com/ws?",
   "wsProvider": "wss://kovan.decenter.com:4443",
   "cardContract": {
     "address": "0x5ec791c848ca5c4bf7ad760cb1b1249ed694fdf9",

@@ -5,13 +5,15 @@ import HeaderBar from '../../HeaderBar/HeaderBar';
 import CloseIcon from '../../CloseIcon/CloseIcon';
 import LargeCard from '../../Cards/LargeCard/LargeCard';
 import { range } from '../../../services/utils';
+import cardsConfig from '../../../constants/cards.json';
 
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 
 import './Collection.scss';
 
+const cardsLength = Object.keys(cardsConfig.cards).length;
 
-const Collection = ({ cards, exitNotLocationsView }) => (
+const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
   <div className="collection-wrapper">
     <HeaderBar title="My collection" color="#FF9D14" fontSize="13px" />
 
@@ -25,15 +27,21 @@ const Collection = ({ cards, exitNotLocationsView }) => (
           if (cards.indexOf(card.metadata.id) === -1) cards.push(card.metadata.id);
           return cards;
         }, []).length
-      }<span>/</span>30
+      }<span>/</span>{ cardsLength }
     </h1>
 
     <div className="collection-cards-wrapper">
       {
-        range(0, 30).map((cardIndex) => {
-          if (cards.find(card => card.metadata.id == cardIndex)) {
-            return (<LargeCard key={cardIndex} card={cards.find(card => card.metadata.id == cardIndex)} />);
+        range(0, cardsLength).map((cardIndex) => {
+          const foundCard = cards.find(card => (parseInt(card.metadata.id, 10) === cardIndex));
+
+          if (foundCard) {
+            const newCard = cards.find(card =>
+              (parseInt(card.metadata.id, 10) === cardIndex) && newCardTypes.includes(card.metadata.id));
+
+            return (<LargeCard showNew={Boolean(newCard)} key={cardIndex} card={foundCard} />);
           }
+
           return (<div key={cardIndex} className="unknown" />);
         })
       }
@@ -44,10 +52,12 @@ const Collection = ({ cards, exitNotLocationsView }) => (
 Collection.propTypes = {
   exitNotLocationsView: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
+  newCardTypes: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = state => ({
-  cards: state.gameplay.allCards,
+const mapStateToProps = ({ gameplay }) => ({
+  cards: gameplay.allCards,
+  newCardTypes: gameplay.newCardTypes,
 });
 
 const mapDispatchToProps = {

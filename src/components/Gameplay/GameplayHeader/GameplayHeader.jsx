@@ -44,7 +44,7 @@ const GameplayHeader = ({
             <div className="name">
               { nickname || 'NICKNAME' }
             </div>
-            <div className="xp-wrapper">{ globalStats.earnedXp } / { globalStats.requiredXp } exp</div>
+            <div className="xp-wrapper">{ globalStats.earnedXp } / { globalStats.requiredXp } EXP</div>
           </div>
         </div>
       </div>

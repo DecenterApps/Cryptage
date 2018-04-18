@@ -6,12 +6,14 @@ import HoverInfo from '../../HoverInfo/HoverInfo';
 import ChevronDownIcon from '../../Decorative/ChevronDownIcon';
 import MagnifyingGlassIcon from '../../Decorative/MagnifyingGlassIcon';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
+import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 
 import './HandCard.scss';
 
 const HandCard = ({
   card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
   locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
+  inHand, removeNewCardOnHover, newCardTypes,
 }) => {
   const uniqueId = guid();
   const gradients = {
@@ -25,7 +27,10 @@ const HandCard = ({
   };
 
   return (
-    <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
+    <div
+      className={`card-details type-${card.stats.type.toLowerCase()}`}
+      onMouseEnter={() => { removeNewCardOnHover(card.metadata.id); }}
+    >
       { !draggingCard && <HoverInfo card={card} center={hoverCentered} /> }
       <div className="level-wrapper">
         <svg className="level-background">
@@ -88,6 +93,11 @@ const HandCard = ({
         <div className="count-wrapper">
           <div className="count">x{card.count}</div>
         </div>
+      }
+
+      {
+        inHand && newCardTypes.includes(card.metadata.id) &&
+        <div className="new-card">new</div>
       }
 
       {
@@ -234,6 +244,7 @@ HandCard.defaultProps = {
   slot: null,
   draggingCard: false,
   costErrors: null,
+  inHand: false,
 };
 
 HandCard.propTypes = {
@@ -256,14 +267,18 @@ HandCard.propTypes = {
   draggingCard: PropTypes.bool,
   canRemove: PropTypes.bool,
   costErrors: PropTypes.object,
+  inHand: PropTypes.bool,
+  removeNewCardOnHover: PropTypes.func.isRequired,
+  newCardTypes: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app, gameplay }) => ({
   draggingCard: app.draggingCard,
+  newCardTypes: gameplay.newCardTypes,
 });
 
 const mapDispatchToProps = {
-  openConfirmRemoveModal,
+  openConfirmRemoveModal, removeNewCardOnHover,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HandCard);

@@ -108,6 +108,7 @@ const getNewLevelCards = (level, cards) => {
  */
 export const usersCardsFetch = () => async (dispatch, getState) => {
   dispatch({ type: USERS_CARDS_FETCH });
+
   try {
     const cardsIDs = await ethService.getUsersCards();
     let cards = await cardService.fetchCardsMeta(cardsIDs);

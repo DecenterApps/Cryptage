@@ -32,11 +32,11 @@ const HoverInfo = ({ card, center }) => (
       <div className="title">{card.stats.title}</div>
       {
         card.stats.cost &&
-        <div className="cost" data-name="Cost">
+        <div className="cost" data-name="COST">
           {
             card.stats.cost.space > 1 &&
             <div
-              data-name="Space"
+              data-name="SPACE"
               className={`orb space ${classForNumber(card.stats.cost.space)}`}
             >
               {formatBigNumber(card.stats.cost.space)}
@@ -45,7 +45,7 @@ const HoverInfo = ({ card, center }) => (
           {
             card.stats.cost.power > 0 &&
             <div
-              data-name="Power"
+              data-name="POWER"
               className={`orb power ${classForNumber(card.stats.cost.power)}`}
             >
               {formatBigNumber(card.stats.cost.power)}
@@ -54,7 +54,7 @@ const HoverInfo = ({ card, center }) => (
           {
             card.stats.cost.funds > 0 &&
             <div
-              data-name="Funds"
+              data-name="FUNDS"
               className={`orb funds ${classForNumber(card.stats.cost.funds)}`}
             >
               {formatBigNumber(card.stats.cost.funds)}
@@ -63,7 +63,7 @@ const HoverInfo = ({ card, center }) => (
           {
             card.stats.cost.level > 1 &&
             <div
-              data-name="Level"
+              data-name="LEVEL"
               className={`orb level ${classForNumber(card.stats.cost.level)}`}
             >
               {formatBigNumber(card.stats.cost.level)}
@@ -81,7 +81,7 @@ const HoverInfo = ({ card, center }) => (
           {
             card.stats.cost.development > 0 &&
             <div
-              data-name="Dev"
+              data-name="DEV"
               className={`orb development ${classForNumber(card.stats.cost.development)}`}
             >
               {formatBigNumber(card.stats.cost.development)}
@@ -92,12 +92,12 @@ const HoverInfo = ({ card, center }) => (
       {
         (card.stats.values || card.stats.bonus) &&
         card.stats.type !== 'Container' &&
-        <div className="gains" data-name="Gains">
+        <div className="gains" data-name="GAINS">
           {
             card.stats.values &&
             card.stats.values.space > 0 &&
             <div
-              data-name="Space"
+              data-name="SPACE"
               className={`orb space ${classForNumber(card.stats.values.space)}`}
             >
               {formatBigNumber(card.stats.values.space)}
@@ -107,7 +107,7 @@ const HoverInfo = ({ card, center }) => (
             card.stats.values &&
             card.stats.values.power > 0 &&
             <div
-              data-name="Power"
+              data-name="POWER"
               className={`orb power ${classForNumber(card.stats.values.power)}`}
             >
               {formatBigNumber(card.stats.values.power)}
@@ -121,7 +121,7 @@ const HoverInfo = ({ card, center }) => (
                 (
                   card.stats.type === 'Mining' ||
                   (card.stats.special === true && card.stats.type !== 'Project')
-                ) ? 'FPB' : 'Funds'}
+                ) ? 'FPB' : 'FUNDS'}
               className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
             >
               {formatBigNumber(card.stats.bonus.funds)}
@@ -131,7 +131,7 @@ const HoverInfo = ({ card, center }) => (
             card.stats.bonus &&
             card.stats.bonus.xp > 0 &&
             <div
-              data-name="XP"
+              data-name="EXP"
               className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
             >
               {formatBigNumber(card.stats.bonus.xp)}
@@ -141,7 +141,7 @@ const HoverInfo = ({ card, center }) => (
             card.stats.bonus &&
             card.stats.bonus.power > 0 &&
             <div
-              data-name="Power"
+              data-name="POWER"
               className={`orb power ${classForNumber(card.stats.bonus.power)}`}
             >
               {formatBigNumber(card.stats.bonus.power)}
@@ -151,7 +151,7 @@ const HoverInfo = ({ card, center }) => (
             card.stats.bonus &&
             card.stats.bonus.development > 0 &&
             <div
-              data-name="Dev"
+              data-name="DEV"
               className={`orb development ${classForNumber(card.stats.bonus.development)}`}
             >
               {formatBigNumber(card.stats.bonus.development)}

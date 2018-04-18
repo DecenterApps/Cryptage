@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { formatBigNumber } from '../../../services/utils';
+import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 
 import './LargeCard.scss';
 
@@ -22,12 +24,22 @@ const classForRarity = (_rarity) => {
   return 'red';
 };
 
-const LargeCard = ({ card }) => (
+const LargeCard = ({
+  card, showNew, removeNewCardOnHover, removeNew,
+}) => (
   <div
     className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
     style={{ backgroundImage: `url('cardImages/${card.stats.image}')` }}
+    onMouseEnter={() => {
+      if (!removeNew) return;
+
+      removeNewCardOnHover(card.metadata.id);
+    }}
   >
     <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+
+    { showNew && <div className="new-card">new</div> }
+
     <div className="title">{card.stats.title}</div>
     {
       card.stats.cost &&
@@ -68,15 +80,7 @@ const LargeCard = ({ card }) => (
             {formatBigNumber(card.stats.cost.level)}
           </div>
         }
-        {/*{*/}
-        {/*card.stats.cost.time &&*/}
-        {/*<div*/}
-        {/*data-name="Time"*/}
-        {/*className={`orb time ${classForNumber(card.stats.cost.time)}`}*/}
-        {/*>*/}
-        {/*{formatBigNumber(card.stats.cost.time)}*/}
-        {/*</div>*/}
-        {/*}*/}
+
         {
           card.stats.cost.development > 0 &&
           <div
@@ -168,7 +172,7 @@ const LargeCard = ({ card }) => (
         }
         {
           card.stats.flavorText &&
-          <p className="flavor">"{card.stats.flavorText}"</p>
+          <p className="flavor">&quot;{card.stats.flavorText}&quot;</p>
         }
       </div>
       <div className="type">{card.stats.type}</div>
@@ -177,12 +181,19 @@ const LargeCard = ({ card }) => (
 );
 
 LargeCard.defaultProps = {
-  center: false,
+  showNew: false,
+  removeNew: true,
 };
 
 LargeCard.propTypes = {
-  center: PropTypes.bool,
   card: PropTypes.shape({}).isRequired,
+  removeNewCardOnHover: PropTypes.func.isRequired,
+  showNew: PropTypes.bool,
+  removeNew: PropTypes.bool,
 };
 
-export default LargeCard;
+const mapDispatchToProps = {
+  removeNewCardOnHover,
+};
+
+export default connect(null, mapDispatchToProps)(LargeCard);
