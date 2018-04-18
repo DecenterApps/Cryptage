@@ -40,8 +40,8 @@ const ProjectItem = ({
       {
         showFpb &&
         <div className="bouns">
-          <div>+ { formatBigNumber(xpb) } <br /> xp</div>
-          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'fund' : 'funds' }</div>
+          <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
+          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         </div>
       }
 

@@ -128,7 +128,7 @@ class GameplayItem extends Component {
             {
               this.state.show &&
               (fpb > 0) &&
-              <div className="fpb">+ { fpb } { fpb === 1 ? 'fund' : 'funds' }</div>
+              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
             }
 
             <HandCard
@@ -153,7 +153,7 @@ class GameplayItem extends Component {
             {
               this.state.show &&
               (fpb > 0) &&
-              <div className="fpb">+ { fpb } { fpb === 1 ? 'fund' : 'funds' }</div>
+              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
             }
 
             <HandCard

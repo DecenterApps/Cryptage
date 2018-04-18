@@ -36,7 +36,7 @@ class ContainerItem extends Component {
     return (
       <div className="container-item-wrapper">
         {
-          this.state.show && <div className="fpb">+ { fpb } { fpb === 1 ? 'fund' : 'funds' }</div>
+          this.state.show && <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         }
 
         <HandCard

@@ -95,12 +95,13 @@
           }
         }
       }
-
+      
       .bar {
         border: 2px solid $dark-purple;
         box-shadow: 0 0 44px #441E83;
         width: 100%;
       }
+
     }
 
     .central {
@@ -140,10 +141,9 @@
           z-index: 2;
           position: absolute;
           text-align: center;
-          left: 10px;
+          left: 8px;
           top: 26px;
-          min-width: 150px;
-          max-width: 150px;
+          width: 155px;
 
           .name {
             font-family: $font-secondary;
@@ -161,11 +161,31 @@
           }
 
           .xp-wrapper {
+            
+            //background: linear-gradient(180deg, rgba(54, 38, 95, 0.6) 14.29%, rgba(54, 38, 95, 0.29) 100%);
             font-family: $font-secondary;
             font-size: 12px;
-            color: $yellow;
+            color: white;
             position: relative;
-            top: -11px;
+            top: -5px;
+            z-index: 12;
+          }
+
+          .xp-loader-wrapper {
+            position: absolute;
+            bottom: 7px;
+            left: 0;
+            height: 14px;
+            width: 156px;
+            // width: 146px;
+            // height: 14px;
+            // z-index: 11;
+            // background: linear-gradient(180deg, rgba(51, 255, 0, 0.8) 14.29%, rgba(51, 255, 0, 0.384) 100%);
+            // transform-origin: 50% 50% 0;
+            // transform: perspective(10px) rotateX(-4.9deg);
+            // position: absolute;
+            // top: 37px;
+            // left: 2px;
           }
         }
 

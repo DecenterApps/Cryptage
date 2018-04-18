@@ -32,7 +32,7 @@ const HoverInfo = ({ card, center }) => (
       <div className="title">{card.stats.title}</div>
       {
         card.stats.cost &&
-        <div className="cost" data-name="COST">
+        <div className="cost" data-name="Cost">
           {
             card.stats.cost.space > 1 &&
             <div
@@ -92,7 +92,7 @@ const HoverInfo = ({ card, center }) => (
       {
         (card.stats.values || card.stats.bonus) &&
         card.stats.type !== 'Container' &&
-        <div className="gains" data-name="GAINS">
+        <div className="gains" data-name="Gains">
           {
             card.stats.values &&
             card.stats.values.space > 0 &&
