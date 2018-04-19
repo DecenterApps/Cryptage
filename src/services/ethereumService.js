@@ -151,7 +151,7 @@ const getCardsFromBooster = async (boosterId) => {
 const buyBooster = async () => {
   const boosterContract = await getBoosterContract();
   try {
-    return boosterContract.methods.buyBooster().send({
+    return boosterContract.methods.buyInstantBooster().send({
       value: web3.utils.toWei('0.001', 'ether'),
     });
   } catch (e) {

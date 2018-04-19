@@ -33,6 +33,7 @@ import {
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
+import levels from '../constants/levels.json';
 
 const INITIAL_STATE = {
   nickname: '',
@@ -52,7 +53,7 @@ const INITIAL_STATE = {
     level: config.globalStats.level,
     experience: config.globalStats.experience,
     earnedXp: 0,
-    requiredXp: 16,
+    requiredXp: levels[1].change,
     funds: config.globalStats.funds,
     development: config.globalStats.development,
   },

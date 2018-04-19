@@ -1,26 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleLocationDrop, changeGameplayView } from '../../actions/gameplayActions';
+import { handleLocationDrop } from '../../actions/gameplayActions';
+import { buyBoosterPack } from '../../actions/boosterActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
-import { GP_BUY_BOOSTER } from '../../actions/actionTypes';
 import EmptyLocationSlot from '../EmptyLocationSlot/EmptyLocationSlot';
+import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 
 import './Locations.scss';
 
 const Locations = ({
-  locations, handleLocationDrop, gameplayView, changeGameplayView
+  locations, handleLocationDrop, isBuying, buyBoosterPack,
 }) => (
   <div className="locations-wrapper">
     <div className="buy-boosters-wrapper">
       <button
-        className="orange-button"
-        disabled={gameplayView === GP_BUY_BOOSTER}
-        onClick={() => { changeGameplayView(GP_BUY_BOOSTER); }}
+        className="orange-button buy-booster-button"
+        disabled={isBuying}
+        onClick={buyBoosterPack}
       >
-        SHOP
+        BUY CARD PACK
       </button>
+
+      { isBuying && <div className="buying-card-pack"><CircleSpinner /></div> }
     </div>
 
     <div className="locations-header">
@@ -48,19 +51,18 @@ const Locations = ({
 Locations.propTypes = {
   locations: PropTypes.array.isRequired,
   handleLocationDrop: PropTypes.func.isRequired,
-  changeGameplayView: PropTypes.func.isRequired,
-  gameplayView: PropTypes.string.isRequired,
+  isBuying: PropTypes.bool.isRequired,
+  buyBoosterPack: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ gameplay }) => ({
+const mapStateToProps = ({ gameplay, shop }) => ({
   locations: gameplay.locations,
   activeLocationIndex: gameplay.activeLocationIndex,
-  gameplayView: gameplay.gameplayView,
+  isBuying: shop.isBuying,
 });
 
 const mapDispatchToProp = {
-  handleLocationDrop,
-  changeGameplayView,
+  handleLocationDrop, buyBoosterPack,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Locations);
