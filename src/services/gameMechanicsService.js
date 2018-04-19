@@ -558,9 +558,9 @@ const addCardsForNewLevel = level => async (dispatch, getState) => {
   let cards = [...getState().gameplay.cards];
   let allCards = [...getState().gameplay.allCards];
 
-  const minId = cards.reduce((min, card) => { // eslint-disable-line
+  const minId = allCards.reduce((min, card) => { // eslint-disable-line
     return card.id < min ? card.id : min;
-  }, cards[0].id);
+  }, allCards[0].id);
 
   const newCards = cardsPerLevel[level - 1].map((metadataId, index) => ({
     id: minId - (index + 1),
