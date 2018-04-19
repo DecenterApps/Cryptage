@@ -165,14 +165,14 @@ const LargeCard = ({
     <div className="meta">
       <div className="description">
         {
+          card.stats.flavorText &&
+          <p className="flavor">&quot;{card.stats.flavorText}&quot;</p>
+        }
+        {
           card.stats.mechanicsText &&
           <p className="mechanics">
             {card.stats.mechanicsText}
           </p>
-        }
-        {
-          card.stats.flavorText &&
-          <p className="flavor">&quot;{card.stats.flavorText}&quot;</p>
         }
       </div>
       <div className="type">{card.stats.type}</div>

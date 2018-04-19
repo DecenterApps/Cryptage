@@ -74,6 +74,7 @@
     }
     .type {
       text-transform: uppercase;
+      margin-top: -10px;
       padding: 12px 0 2px;
       &:before {
         content: '';
@@ -83,7 +84,7 @@
       }
     }
     .description {
-      padding: 5px 5px 0;
+      padding: 5px 5px 5px;
       p {
         margin: 5px 0 0;
         font-family: $font-primary;
@@ -99,31 +100,31 @@
   }
 
 
-  &.misc { .type {
+  &.misc { .type, .description {
     background: linear-gradient(to bottom, rgba($misc, 0), rgba($misc, .7));
     &:before { border-top: 1px solid $misc; }
   } }
-  &.power { .type {
+  &.power { .type, .description {
     background: linear-gradient(to bottom, rgba($power, 0), rgba($power, .7));
     &:before { border-top: 1px solid $power; }
   } }
-  &.location { .type {
+  &.location { .type, .description {
     background: linear-gradient(to bottom, rgba($location, 0), rgba($location, .7));
     &:before { border-top: 1px solid $location; }
   } }
-  &.development { .type {
+  &.development { .type, .description {
     background: linear-gradient(to bottom, rgba($development, 0), rgba($development, .7));
     &:before { border-top: 1px solid $development; }
   } }
-  &.project { .type {
+  &.project { .type, .description {
     background: linear-gradient(to bottom, rgba($project, 0), rgba($project, .7));
     &:before { border-top: 1px solid $project; }
   } }
-  &.mining { .type {
+  &.mining { .type, .description {
     background: linear-gradient(to bottom, rgba($mining, 0), rgba($mining, .7));
     &:before { border-top: 1px solid $mining; }
   } }
-  &.container { .type {
+  &.container { .type, .description {
     background: linear-gradient(to bottom, rgba($container, 0), rgba($container, .7));
     &:before { border-top: 1px solid $container; }
   } }
