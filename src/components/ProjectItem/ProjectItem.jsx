@@ -80,7 +80,7 @@ const ProjectItem = ({
               {
                 blockNumber > 0 && [
                   <div key="PIK1" className="blocks-left">{ expiryTime - blockNumber }</div>,
-                  <div key="PIK2">BLOCKS</div>,
+                  <div key="PIK2">{ ((expiryTime - blockNumber) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
                   <div key="PIK3">LEFT</div>,
                 ]
               }
