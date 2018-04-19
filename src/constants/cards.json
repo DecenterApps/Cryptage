@@ -23,7 +23,7 @@
         "funds": 0,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
-        "power": 4,
+        "power": 5,
         "space": 40,
         "xp": 0
       }
@@ -209,7 +209,7 @@
       },
       "cost": {
         "development": 0,
-        "funds": 3000,
+        "funds": 1500,
         "level": 4,
         "power": 0,
         "space": 20,
@@ -324,7 +324,7 @@
         "funds": 500,
         "level": 1,
         "power": 0,
-        "space": 30,
+        "space": 5,
         "time": 0
       },
       "flavorText": "Free power, free people!",
@@ -493,11 +493,11 @@
         "level": 1,
         "power": 0,
         "space": 0,
-        "time": 20
+        "time": 10
       },
       "flavorText": "Hey, this isn't what I signed up for!",
       "image": "outourced-project.jpg",
-      "mechanicsText": "Time to complete: 2 blocks",
+      "mechanicsText": "Time to complete: 10 blocks",
       "rarityScore": "900",
       "special": true,
       "title": "Outourced Project",
@@ -508,7 +508,7 @@
       "ID": "25",
       "bonus": {
         "development": 0,
-        "funds": 3500,
+        "funds": 1500,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
@@ -516,9 +516,9 @@
         "xp": 16
       },
       "cost": {
-        "development": 8,
-        "funds": 2000,
-        "level": 2,
+        "development": 5,
+        "funds": 1000,
+        "level": 4,
         "power": 0,
         "space": 0,
         "time": 40
@@ -536,7 +536,7 @@
       "ID": "26",
       "bonus": {
         "development": 0,
-        "funds": 8000,
+        "funds": 0,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
@@ -545,7 +545,7 @@
       },
       "cost": {
         "development": 32,
-        "funds": 6000,
+        "funds": 0,
         "level": 4,
         "power": 0,
         "space": 0,
