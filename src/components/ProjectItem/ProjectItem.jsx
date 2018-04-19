@@ -35,7 +35,7 @@ const ProjectItem = ({
       ${!isActive && isFinished && 'project-finished'}
     `}
     >
-      <HoverInfo card={cards[0]} />
+      <HoverInfo card={cards[0]} center />
 
       {
         showFpb &&

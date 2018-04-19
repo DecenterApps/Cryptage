@@ -22,7 +22,7 @@
   }
 
   .card-hover-info-wrapper {
-    left: 180px;
+    //left: 180px;
   }
 
   .hover-addons {
@@ -62,7 +62,7 @@
   &.active {
 
     .card-hover-info-wrapper {
-      left: 200px;
+      //left: 200px;
     }
 
     .hover-addons {
@@ -89,7 +89,7 @@
     display: flex;
   }
   &.active:hover:not(:active) .card-hover-info-wrapper {
-    right: -240px;
+    //right: -240px;
   }
 
   .location-progress-bar {

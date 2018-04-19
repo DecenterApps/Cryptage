@@ -172,14 +172,14 @@ const HoverInfo = ({ card, center }) => {
         <div className="meta">
           <div className="description">
             {
+              card.stats.flavorText &&
+              <p className="flavor">"{card.stats.flavorText}"</p>
+            }
+            {
               card.stats.mechanicsText &&
               <p className="mechanics">
                 {card.stats.mechanicsText}
               </p>
-            }
-            {
-              card.stats.flavorText &&
-              <p className="flavor">"{card.stats.flavorText}"</p>
             }
           </div>
           <div className="type">{card.stats.type}</div>
