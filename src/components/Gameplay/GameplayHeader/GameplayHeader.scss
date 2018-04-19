@@ -89,6 +89,16 @@
             display: flex;
             align-items: baseline;
             line-height: 18px;
+
+            &.small {
+              font-size: 11px;
+            }
+            &.mid {
+              font-size: 14px;
+            }
+            &.large {
+              font-size: 16px;
+            }
           }
           .label {
             font-size: 8px;
@@ -101,6 +111,7 @@
         box-shadow: 0 0 44px #441E83;
         width: 100%;
       }
+
     }
 
     .central {
@@ -140,10 +151,9 @@
           z-index: 2;
           position: absolute;
           text-align: center;
-          left: 10px;
+          left: 8px;
           top: 26px;
-          min-width: 150px;
-          max-width: 150px;
+          width: 155px;
 
           .name {
             font-family: $font-secondary;
@@ -163,9 +173,18 @@
           .xp-wrapper {
             font-family: $font-secondary;
             font-size: 12px;
-            color: $yellow;
+            color: white;
             position: relative;
-            top: -11px;
+            top: -4px;
+            z-index: 12;
+          }
+
+          .xp-loader-wrapper {
+            position: absolute;
+            bottom: 7px;
+            left: 0;
+            height: 14px;
+            width: 156px;
           }
         }
 

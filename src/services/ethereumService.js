@@ -151,7 +151,7 @@ const getCardsFromBooster = async (boosterId) => {
 const buyBooster = async () => {
   const boosterContract = await getBoosterContract();
   try {
-    return boosterContract.methods.buyBooster().send({
+    return boosterContract.methods.buyInstantBooster().send({
       value: web3.utils.toWei('0.001', 'ether'),
     });
   } catch (e) {
@@ -165,15 +165,13 @@ const revealBooster = async (id) => {
   return boosterContract.methods.revealBooster(parseInt(id, 10)).send();
 };
 
-const updateMoves = async (moves) => {
+const updateMoves = async (moves, ipfsHash) => {
   const stateContract = await getStateContract();
-  return stateContract.methods.update(moves, '', false).send();
+  return stateContract.methods.update(moves, ipfsHash, false).send();
 };
 
 const getState = async () => {
   const stateContract = await getStateContract();
-  const account = await getAccount();
-
   return stateContract.methods.get().call();
 };
 

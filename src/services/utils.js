@@ -446,7 +446,7 @@ export const getCardAtContainer = (locations, locationIndex, containerIndex) => 
 };
 
 const getElemType = (loc, i) => loc.lastDroppedItem.cards[0] ? loc.lastDroppedItem.cards[0].metadata.id : []; //eslint-disable-line
-const getSlots = loc => loc.lastDroppedItem.dropSlots;
+const getSlots = loc => loc.lastDroppedItem ? loc.lastDroppedItem.dropSlots : []; //eslint-disable-line
 
 /**
  * Gets cards ids for all the cards in the given location

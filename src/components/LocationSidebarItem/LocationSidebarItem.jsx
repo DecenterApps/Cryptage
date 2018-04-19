@@ -76,13 +76,13 @@ class LocationSidebarItem extends Component {
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
       >
-        <HoverInfo card={cards[0]} />
+        <HoverInfo card={cards[0]} center />
 
         {
           (activeLocationIndex !== index) &&
           (fpb > 0) &&
           this.state.show &&
-          <div className="fpb">+ { fpb } { fpb === 1 ? 'fund' : 'funds' }</div>
+          <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         }
 
         <div className="hover-addons">

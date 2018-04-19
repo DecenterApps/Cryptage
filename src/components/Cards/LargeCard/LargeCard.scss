@@ -59,7 +59,7 @@
     text-transform: uppercase;
   }
   .meta {
-    position: absolutche;
+    position: absolute;
     bottom: 0;
     width: 100%;
     font-size: 9px;
@@ -73,7 +73,8 @@
       background-color: #2D224E;
     }
     .type {
-      
+      text-transform: uppercase;
+      padding: 12px 0 2px;
       &:before {
         content: '';
         display: block;

@@ -11,6 +11,26 @@
   .buy-boosters-wrapper {
     margin-top: 17px;
     margin-bottom: 79px;
+    position: relative;
+
+    .buy-booster-button {
+      width: auto;
+
+      &:disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    }
+
+    .buying-card-pack {
+      color: white;
+
+      .spinner-wrapper {
+        position: absolute;
+        right: -9px;
+        top: -4px;
+      }
+    }
   }
 
   .locations-header {

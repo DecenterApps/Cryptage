@@ -18,8 +18,8 @@
 
     .card-hover-info-wrapper {
       display: flex;
-      top: 0;
-      left: -200px;
+      //top: 0;
+      //left: -200px;
     }
   }
 
@@ -45,6 +45,7 @@
     opacity: 1;
     z-index: 10;
     animation: fadeOut 1s ease-out 2s forwards;
+    pointer-events: none;
 
     @keyframes fadeOut {
       0% {opacity: 1;}

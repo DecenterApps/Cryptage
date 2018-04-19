@@ -35,13 +35,13 @@ const ProjectItem = ({
       ${!isActive && isFinished && 'project-finished'}
     `}
     >
-      <HoverInfo card={cards[0]} />
+      <HoverInfo card={cards[0]} center />
 
       {
         showFpb &&
         <div className="bouns">
-          <div>+ { formatBigNumber(xpb) } <br /> xp</div>
-          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'fund' : 'funds' }</div>
+          <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
+          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         </div>
       }
 
@@ -80,7 +80,7 @@ const ProjectItem = ({
               {
                 blockNumber > 0 && [
                   <div key="PIK1" className="blocks-left">{ expiryTime - blockNumber }</div>,
-                  <div key="PIK2">BLOCKS</div>,
+                  <div key="PIK2">{ ((expiryTime - blockNumber) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
                   <div key="PIK3">LEFT</div>,
                 ]
               }

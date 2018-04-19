@@ -6,6 +6,7 @@ import { getAvailableCards } from '../../services/gameMechanicsService';
 import HandCard from './HandCard/HandCard';
 import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
+import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
 
 import './Cards.scss';
 
@@ -65,6 +66,7 @@ class Cards extends Component {
     } = this.props;
 
     const availableCards = getAvailableCards(cards, gameplayView, inGameplayView, locations, projects);
+    const containerAndMinerCards = cards.filter(({ stats }) => stats.type === 'Mining' || stats.type === 'Container');
 
     return (
       <div className="cards-wrapper">
@@ -74,9 +76,8 @@ class Cards extends Component {
               ['all', 'All'],
               ['available', 'Available'],
               ['location', 'Locations'],
-              ['container', 'Containers'],
               ['mining', 'Mining'],
-              ['development', 'Person'],
+              ['development', 'People'],
               ['misc', 'Miscellaneous'],
               ['power', 'Power'],
               ['project', 'Projects'],
@@ -110,57 +111,36 @@ class Cards extends Component {
           {
             !cardsFetching && cards.length > 0 &&
             this.state.tab === 'all' &&
-            this.groupCardsByType(cards).map(type => (
-              <div className="card-type-wrapper" key={`${type[0].stats.type}-${type.length}`}>
-                <div className="card-type-title-wrapper">
-                  <h1 className="card-type-title">{type[0].stats.type}</h1>
-                </div>
-                {
-                  type.map(card => (
-                    <div key={card.id} className="card-container">
-                      <DragWrapper key={card.id} {...{ card }}>
-                        <HandCard inHand card={card} hoverCentered />
-                      </DragWrapper>
-                    </div>
-                  ))
-                }
-              </div>
-            ))
+            this.groupCardsByType(cards).map(type =>
+              <CardsTabGroup key={`${type[0].stats.type}-${type.length}`} type={type} />)
           }
 
           {
             !cardsFetching && cards.length > 0 &&
             this.state.tab === 'available' &&
-            this.groupCardsByType(availableCards).map(type => (
-              <div className="card-type-wrapper" key={`${type[0].stats.type}-${type.length}`}>
-                <div className="card-type-title-wrapper">
-                  <h1 className="card-type-title">{type[0].stats.type}</h1>
-                </div>
-                {
-                  type.map(card => (
-                    <div key={card.id} className="card-container">
-                      <DragWrapper key={card.id} {...{ card }}>
-                        <HandCard inHand card={card} hoverCentered />
-                      </DragWrapper>
-                    </div>
-                  ))
-                }
-              </div>
-            ))
+            this.groupCardsByType(availableCards).map(type =>
+              <CardsTabGroup key={`${type[0].stats.type}-${type.length}`} type={type} />)
+          }
+          {
+
+            !cardsFetching && cards.length > 0 &&
+            this.state.tab === 'mining' &&
+            this.groupCardsByType(containerAndMinerCards).map(type =>
+              <CardsTabGroup key={`${type[0].stats.type}-${type.length}`} type={type} />)
           }
 
           {
             !cardsFetching && cards.length > 0 &&
             this.state.tab !== 'all' &&
             this.state.tab !== 'available' &&
-            this.groupDuplicates(
-              cards.filter(card => card.stats.type.toLowerCase() === this.state.tab),
-            ).map(card => (
-              <div key={card.id} className="card-container">
-                <DragWrapper key={card.id} {...{ card }}>
-                  <HandCard inHand card={card} hoverCentered />
-                </DragWrapper>
-              </div>
+            this.state.tab !== 'mining' &&
+            this.groupDuplicates(cards.filter(card => card.stats.type.toLowerCase() === this.state.tab))
+              .map(card => (
+                <div key={card.id} className="card-container">
+                  <DragWrapper key={card.id} {...{ card }}>
+                    <HandCard inHand card={card} hoverCentered />
+                  </DragWrapper>
+                </div>
             ))
           }
         </div>
