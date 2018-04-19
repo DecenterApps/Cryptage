@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LargeCard from '../../Cards/LargeCard/LargeCard';
+import { classForRarity } from '../../../services/utils';
 
 import bgBack from './bg-back.png';
 import './RevealCards.scss';
@@ -13,7 +14,7 @@ const RevealCards = ({ cards, newCardTypes }) => (
         const showNew = newCardTypes.includes(card.metadata.id);
 
         return (
-          <div className="revealed-card" key={card.id}>
+          <div className={`revealed-card ${classForRarity(card.stats.rarityScore)}`} key={card.id}>
             <div
               className="flip-container"
               onClick={e => e.currentTarget.classList.toggle('hover')}
