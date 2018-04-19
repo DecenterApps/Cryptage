@@ -76,11 +76,12 @@ class Cards extends Component {
               ['all', 'All'],
               ['available', 'Available'],
               ['location', 'Locations'],
-              ['mining', 'Mining'],
               ['development', 'People'],
-              ['misc', 'Miscellaneous'],
-              ['power', 'Power'],
               ['project', 'Projects'],
+              ['mining', 'Mining'],
+              ['power', 'Power'],
+              ['misc', 'Miscellaneous'],
+
             ].map(type => (
               <div
                 key={type[0]}
