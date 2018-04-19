@@ -89,6 +89,16 @@
             display: flex;
             align-items: baseline;
             line-height: 18px;
+
+            &.small {
+              font-size: 11px;
+            }
+            &.mid {
+              font-size: 14px;
+            }
+            &.large {
+              font-size: 16px;
+            }
           }
           .label {
             font-size: 8px;

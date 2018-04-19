@@ -9,39 +9,56 @@ import shape1 from './header-shape-1.png';
 
 import './GameplayHeader.scss';
 
+function getlength(number) {
+  return number.toString().length;
+}
+
+const getClassForFont = (maxDev,available) => {
+  let sum = getlength(maxDev) + getlength(available) + 1;
+  if (sum > 7) return 'small';
+  else if (sum > 5) return 'mid';
+  else return 'large';
+}
+
 const GameplayHeader = ({
-  blockNumber, globalStats, nickname, fundsPerBlock,
+  blockNumber, globalStats, nickname, fundsPerBlock, projects,
 }) => {
-  const expPercantage = (globalStats.earnedXp * 100 / globalStats.requiredXp)
+  const expPercantage = (globalStats.earnedXp * 100 / globalStats.requiredXp);
+
+  const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
+    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.cards[0].stats.cost.development;
+    return acc;
+  }, 0);
+
   return (
     <div className="gameplay-header-wrapper">
       <div className="gameplay-header-content">
-  
+
         {/* Left section */}
         <div className="section">
           <div className="stats-wrapper">
             <img src={ethCircle} alt="Ethereum logo circle" />
-  
+
             <div className="meta-wrapper">
               <div className="count">{ blockNumber }</div>
               <div className="label">Eth Blocks</div>
             </div>
           </div>
-  
+
           <div className="bar" />
         </div>
-  
+
         {/* Central section */}
         <div className="central">
           <div className="central-small">
             <img src={shape1} alt="Header shape small" />
-  
+
             <div className="level">Level { globalStats.level }</div>
           </div>
-  
+
           <div className="central-big">
             <img src={shape1} alt="Header shape big" />
-  
+
             <div className="big-stats">
               <div className="name">
                 { nickname || 'NICKNAME' }
@@ -73,32 +90,32 @@ const GameplayHeader = ({
                     clipPath="url(#xp-progress-clip)"
                   />
               </svg>
-      
+
             </div>
           </div>
         </div>
-  
+
         {/* Right section */}
         <div className="section">
           <div className="stats-container">
             <div className="stats-wrapper dev-stats">
               <div className="dev-circle" />
-  
+
               <div className="meta-wrapper">
-                <div className="count">{ globalStats.development }</div>
+                <div className={`count ${getClassForFont(maxDev,globalStats.development)}`}>{ globalStats.development } / {maxDev} </div>
                 <div className="label">Development</div>
               </div>
             </div>
-  
+
             <div className="stats-wrapper funds-stats">
               <div className="funds-circle" />
-  
+
               <div className="meta-wrapper">
-                <div className="count">
+                <div className={`count ${getClassForFont(maxDev,globalStats.development)}`}>
                   <div>{ globalStats.funds }</div>
                   <div className="label">Funds</div>
                 </div>
-  
+
                 <div className="fpb">
                   { fundsPerBlock }
                   <span>FPB</span>
@@ -106,7 +123,7 @@ const GameplayHeader = ({
               </div>
             </div>
           </div>
-  
+
           <div className="bar" />
         </div>
       </div>
@@ -119,6 +136,7 @@ GameplayHeader.propTypes = {
   globalStats: PropTypes.object.isRequired,
   nickname: PropTypes.string.isRequired,
   fundsPerBlock: PropTypes.number.isRequired,
+  projects: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
@@ -126,6 +144,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
   globalStats: gameplay.globalStats,
   nickname: gameplay.nickname,
   fundsPerBlock: gameplay.fundsPerBlock,
+  projects: gameplay.projects,
 });
 
 export default connect(mapStateToProps)(GameplayHeader);
