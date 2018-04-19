@@ -779,7 +779,9 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
 
   const items = [];
 
-  if (slotType !== 'project') {
+  console.log(slotType);
+
+  if (slotType !== 'project' || slotType !== 'location') {
     getCardIdsFromLocation(locations[location], items);
   }
   const numOfRepetitions = items.filter(i => i === item.card.stats.ID).length;
