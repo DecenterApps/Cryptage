@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber } from '../../services/utils';
+import { formatBigNumber, classForRarity } from '../../services/utils';
 
 import './HoverInfo.scss';
 
@@ -12,14 +12,6 @@ const classForNumber = (_number) => {
   if (number >= 1000) return '';
   if (number >= 100) return 'smaller';
   return '';
-};
-
-const classForRarity = (_rarity) => {
-  const number = parseInt(_rarity, 10);
-  if (number >= 900) return 'normal';
-  if (number >= 576) return 'blue';
-  if (number >= 485) return 'gold';
-  return 'red';
 };
 
 const HoverInfo = ({ card, center }) => {
