@@ -1,7 +1,8 @@
 @import "../../common/variables";
 
 .modal-backdrop {
-  position: fixed;
+  position: absolute;
+  outline: none;
   top: 0;
   right: 0;
   bottom: 0;
@@ -62,7 +63,7 @@
   }
 
   &.open {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(#0A0F1E, 0.95);
     z-index: 1000;
     overflow: auto;
     visibility: visible;
@@ -71,12 +72,12 @@
       background: rgba(26, 18, 46, 0.9);
 
       .modal {
-        transform: translateY(145px);
+        transform: translateY(100px);
       }
     }
 
     .modal {
-      transform: translateY(200px);
+      transform: translateY(70px);
       opacity: 1;
     }
   }

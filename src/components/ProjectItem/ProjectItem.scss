@@ -21,13 +21,17 @@
       //top: 0;
       //left: -200px;
     }
+
+    .bonus {
+      display: none;
+    }
   }
 
   .project-progress {
     padding: 2px;
   }
 
-  .bouns {
+  .bonus {
     position: absolute;
     top: -1px;
     left: 0;

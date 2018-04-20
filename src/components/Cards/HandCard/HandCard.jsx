@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { guid, formatBigNumber, range } from '../../../services/utils';
+import { guid, formatBigNumberWithBreak, range, classForRarity } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import ChevronDownIcon from '../../Decorative/ChevronDownIcon';
 import MagnifyingGlassIcon from '../../Decorative/MagnifyingGlassIcon';
@@ -10,11 +10,26 @@ import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 
 import './HandCard.scss';
 
+const classForNumber = (_number) => {
+  const number = formatBigNumberWithBreak(_number);
+  if (number.length > 3) return 'small';
+  if (number.length === 3) return 'smaller';
+  return '';
+
+  // const number = parseInt(_number, 10);
+  // if (number >= 10000000) return 'small';
+  // if (number >= 1000000) return '';
+  // if (number >= 10000) return 'small';
+  // if (number >= 1000) return '';
+  // if (number >= 100) return 'smaller';
+  // return '';
+};
+
 const HandCard = ({
-  card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
-  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-  inHand, removeNewCardOnHover, newCardTypes,
-}) => {
+                    card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
+                    locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
+                    inHand, removeNewCardOnHover, newCardTypes,
+                  }) => {
   const uniqueId = guid();
   const gradients = {
     misc: ['#3215E6', 'rgba(49, 20, 230, 0.33)'],
@@ -31,7 +46,7 @@ const HandCard = ({
       className={`card-details type-${card.stats.type.toLowerCase()}`}
       onMouseEnter={() => { removeNewCardOnHover(card.metadata.id); }}
     >
-      { !draggingCard && <HoverInfo card={card} center={hoverCentered} /> }
+      {!draggingCard && <HoverInfo card={card} center={hoverCentered} />}
       <div className="level-wrapper">
         <svg className="level-background">
           <defs>
@@ -60,6 +75,7 @@ const HandCard = ({
         }
       </div>
       <div className="overlay" />
+      <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
       <svg className="card-image">
         <defs>
           <pattern
@@ -112,7 +128,7 @@ const HandCard = ({
 
       {
         costErrors && costErrors.special &&
-        <div className="special-errors">{ costErrors.special }</div>
+        <div className="special-errors">{costErrors.special}</div>
       }
 
       {
@@ -120,35 +136,57 @@ const HandCard = ({
         <div className="cost">
           {
             card.stats.cost.space > 1 &&
-            <div data-name="Space" className={`circle space ${costErrors && costErrors.space ? 'error' : ''}`}>
-              {formatBigNumber(card.stats.cost.space)}
+            <div
+              data-name="Space"
+              className={`circle space
+                ${classForNumber(card.stats.cost.space)}
+                ${costErrors && costErrors.space ? 'error' : ''}`}
+            >
+              {formatBigNumberWithBreak(card.stats.cost.space)}
             </div>
           }
           {
             card.stats.cost.power > 0 &&
-            <div data-name="Power" className={`circle power ${costErrors && costErrors.power ? 'error' : ''}`}>
-              {formatBigNumber(card.stats.cost.power)}
+            <div
+              data-name="Power"
+              className={`circle power
+                ${classForNumber(card.stats.cost.power)}
+                ${costErrors && costErrors.power ? 'error' : ''}`}
+            >
+              {formatBigNumberWithBreak(card.stats.cost.power)}
             </div>
           }
           {
             card.stats.cost.funds > 0 &&
-            <div data-name="Funds" className={`circle funds ${costErrors && costErrors.funds ? 'error' : ''}`}>
-              {formatBigNumber(card.stats.cost.funds)}
+            <div
+              data-name="Funds"
+              className={`circle funds
+                ${classForNumber(card.stats.cost.funds)}
+                ${costErrors && costErrors.funds ? 'error' : ''}`}
+            >
+              {formatBigNumberWithBreak(card.stats.cost.funds)}
             </div>
           }
           {
             card.stats.cost.level > 1 &&
-            <div data-name="Level" className={`circle level ${costErrors && costErrors.level ? 'error' : ''}`}>
-              {formatBigNumber(card.stats.cost.level)}
+            <div
+              data-name="Level"
+              className={`circle level
+                ${classForNumber(card.stats.cost.level)}
+                ${costErrors && costErrors.level ? 'error' : ''}`}
+            >
+              {formatBigNumberWithBreak(card.stats.cost.level)}
             </div>
           }
           {
             card.stats.cost.development > 0 &&
             <div
-              className={`circle development ${costErrors && costErrors.development ? 'error' : ''}`}
               data-name="Dev"
+              className={`circle development
+                ${classForNumber(card.stats.cost.development)}
+                ${costErrors && costErrors.development ? 'error' : ''}`}
             >
-              {formatBigNumber(card.stats.cost.development)}
+              {formatBigNumberWithBreak(card.stats.cost.development)}
             </div>
           }
         </div>
@@ -160,43 +198,43 @@ const HandCard = ({
           {
             card.stats.values &&
             card.stats.values.space > 0 &&
-            <div className="circle space">
-              {formatBigNumber(card.stats.values.space)}
+            <div className={`circle space ${classForNumber(card.stats.values.space)}`}>
+              {formatBigNumberWithBreak(card.stats.values.space)}
             </div>
           }
           {
             card.stats.values &&
             card.stats.values.power > 0 &&
-            <div className="circle power">
-              {formatBigNumber(card.stats.values.power)}
+            <div className={`circle power ${classForNumber(card.stats.values.power)}`}>
+              {formatBigNumberWithBreak(card.stats.values.power)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.funds > 0 &&
-            <div className="circle funds">
-              {formatBigNumber(card.stats.bonus.funds)}
+            <div className={`circle funds ${classForNumber(card.stats.bonus.funds)}`}>
+              {formatBigNumberWithBreak(card.stats.bonus.funds)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.xp > 0 &&
-            <div className="circle xp">
-              {formatBigNumber(card.stats.bonus.xp)}
+            <div className={`circle xp ${classForNumber(card.stats.bonus.xp)}`}>
+              {formatBigNumberWithBreak(card.stats.bonus.xp)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.power > 0 &&
-            <div className="circle power">
-              {formatBigNumber(card.stats.bonus.power)}
+            <div className={`circle power ${classForNumber(card.stats.bonus.power)}`}>
+              {formatBigNumberWithBreak(card.stats.bonus.power)}
             </div>
           }
           {
             card.stats.bonus &&
             card.stats.bonus.development > 0 &&
-            <div className="circle development">
-              {formatBigNumber(card.stats.bonus.development)}
+            <div className={`circle development ${classForNumber(card.stats.bonus.development)}`}>
+              {formatBigNumberWithBreak(card.stats.bonus.development)}
             </div>
           }
         </div>

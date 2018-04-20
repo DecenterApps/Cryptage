@@ -103,7 +103,7 @@ const GameplayHeader = ({
 
               <div className="meta-wrapper">
                 <div className={`count ${getClassForFont(maxDev,globalStats.development)}`}>{ globalStats.development } / {maxDev} </div>
-                <div className="label">Development</div>
+                <div className="label fun">dev available</div>
               </div>
             </div>
 

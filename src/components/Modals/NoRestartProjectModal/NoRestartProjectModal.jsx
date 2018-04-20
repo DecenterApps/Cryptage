@@ -12,7 +12,7 @@ const NoRestartProjectModal = ({ closeModal }) => (
       <h3 className="title">Restart project</h3>
 
       <div key="D" className="main-text">
-        You can&#39;t currently restart this project. You don&#39;t have enough development.
+        This project can&#39;t be restarted right new because you don&#39;t have enough available development.
       </div>
       <button key="E" className="orange-button" onClick={closeModal}>Close</button>
     </ModalBody>

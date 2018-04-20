@@ -25,15 +25,23 @@
     right: -14px;
   }
 
+  .rarity-overlay,
   .overlay {
-    background-image: url('./handcard-overlay.png');
-    background-size: cover;
-    background-position: center;
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
+  }
+  .overlay {
+    background-image: url('./handcard-overlay.png');
+    background-size: cover;
+    background-position: center;
+  }
+  .rarity-overlay {
+    &.blue { background: linear-gradient(142.75deg, rgba(5, 0, 255, 0.6) 0%, rgba(63, 60, 205, 0) 65.28%); }
+    &.gold { background: linear-gradient(142.75deg, rgba(255, 157, 20, 0.6) 0%, rgba(255, 157, 20, 0) 65.28%); }
+    &.red { background: linear-gradient(142.75deg, rgba(224, 0, 0, 0.6) 0%, rgba(224, 0, 0, 0) 65.28%); }
   }
 
   .new-card {
@@ -62,6 +70,7 @@
     width: 27px;
     height: 27px;
     color: white;
+    z-index: 1;
     .level-background {
       position: absolute;
       width: 27px;
@@ -126,6 +135,17 @@
       text-align: center;
       background: radial-gradient(9.50px at 50% 50%, #555 0%, #000 100%);
 
+      &.small {
+        padding-top: 3px;
+        height: 17px;
+        font-size: 9px;
+        white-space: pre;
+        line-height: 8px;
+      }
+      &.smaller {
+        font-size: 9px;
+      }
+
       &.error {
         border: 1px solid #FF0000;
         position: relative;
@@ -141,6 +161,7 @@
           left: -62px;
           z-index: -1;
           font-size: 12px;
+          line-height: 22px;
         }
       }
 
