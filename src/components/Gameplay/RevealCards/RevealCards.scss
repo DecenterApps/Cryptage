@@ -16,22 +16,26 @@
       margin-right: 0;
     }
 
+    .back,
     .front {
       border-radius: 15px;
       padding: 3px;
       font-size: 0;
     }
 
+    &.gold .back,
     &.gold .front {
       border: 1px solid $gold-rarity;
       box-shadow: 0px 0px 5.53768px $gold-rarity;
     }
 
+    &.red .back,
     &.red .front {
       border: 1px solid $red-rarity;
       box-shadow: 0px 0px 5.53768px $red-rarity;
     }
 
+    &.blue .back,
     &.blue .front {
       border: 1px solid $blue-rarity;
       box-shadow: 0px 0px 5.53768px $blue-rarity;
