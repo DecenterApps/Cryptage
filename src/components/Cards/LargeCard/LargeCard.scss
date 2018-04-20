@@ -15,7 +15,30 @@
   * {
     font-family: $font-secondary;
   }
-
+  .count-wrapper {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    left: -15px;
+    width: 27px;
+    height: 27px;
+    color: white;
+    &:before {
+      position: absolute;
+      bottom: 0;
+      content: '';
+      border-bottom: 38px solid rgba(#36265F, 1);
+      border-right: 38px solid transparent;
+    }
+    .count {
+      position: absolute;
+      bottom: 5px;
+      left: 21px;
+      font-size: 10px;
+      line-height: 10px;
+      font-family: $font-secondary;
+    }
+  }
   .rarity-overlay {
     position: absolute;
     top: 0;
@@ -75,7 +98,7 @@
     .type {
       text-transform: uppercase;
       margin-top: -10px;
-      padding: 12px 0 2px;
+      padding: 12px 0px 2px;
       &:before {
         content: '';
         display: block;
@@ -84,7 +107,7 @@
       }
     }
     .description {
-      padding: 5px 5px 5px;
+      padding: 5px 10px 5px;
       p {
         margin: 5px 0 0;
         font-family: $font-primary;
