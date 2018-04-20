@@ -383,7 +383,7 @@
         "space": 30,
         "time": 0
       },
-      "flavorText": "",
+      "flavorText": "They tend to fry rigs. Guess you could call them... overpowered.",
       "image": "black-market-batteries.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
@@ -480,7 +480,7 @@
       "ID": "24",
       "bonus": {
         "development": 0,
-        "funds": 0,
+        "funds": 1,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
