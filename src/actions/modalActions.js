@@ -54,7 +54,7 @@ export const openConfirmRemoveModal = (
  * @param {Object} cards
  */
 export const openNewLevelModal = (level, cards) => (dispatch) => {
-  dispatch(toggleModal(NEW_LEVEL_MODAL, { level, cards, width: '635px' }, true));
+  dispatch(toggleModal(NEW_LEVEL_MODAL, { level, cards }, true));
 };
 
 /**
@@ -63,7 +63,7 @@ export const openNewLevelModal = (level, cards) => (dispatch) => {
  * @param {Object} cards
  */
 export const openRevealBoosterCardsModal = cards => (dispatch) => {
-  dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { cards, width: '912px', className: 'reveal-modal' }, true));
+  dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { cards, className: 'reveal-modal' }, true));
 };
 
 /**

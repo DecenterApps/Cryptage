@@ -25,7 +25,7 @@ const classForRarity = (_rarity) => {
 };
 
 const LargeCard = ({
-  card, showNew, removeNewCardOnHover, removeNew,
+  card, showNew, removeNewCardOnHover, removeNew, showCount, duplicates,
 }) => (
   <div
     className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
@@ -175,6 +175,12 @@ const LargeCard = ({
           </p>
         }
       </div>
+      {
+        showCount && duplicates > 1 &&
+        <div className="count-wrapper">
+          <div className="count">{duplicates}x</div>
+        </div>
+      }
       <div className="type">{card.stats.type}</div>
     </div>
   </div>
@@ -182,7 +188,9 @@ const LargeCard = ({
 
 LargeCard.defaultProps = {
   showNew: false,
+  showCount: false,
   removeNew: true,
+  duplicates: 0,
 };
 
 LargeCard.propTypes = {
@@ -190,6 +198,8 @@ LargeCard.propTypes = {
   removeNewCardOnHover: PropTypes.func.isRequired,
   showNew: PropTypes.bool,
   removeNew: PropTypes.bool,
+  showCount: PropTypes.bool,
+  duplicates: PropTypes.number,
 };
 
 const mapDispatchToProps = {

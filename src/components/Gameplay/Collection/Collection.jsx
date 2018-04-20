@@ -36,10 +36,14 @@ const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
           const foundCard = cards.find(card => (parseInt(card.metadata.id, 10) === cardIndex));
 
           if (foundCard) {
+            let occurences = 0;
+            cards.map((card) => {
+                if (parseInt(foundCard.metadata.id, 10) === parseInt(card.metadata.id, 10)) { occurences += 1; }
+            });
             const newCard = cards.find(card =>
               (parseInt(card.metadata.id, 10) === cardIndex) && newCardTypes.includes(card.metadata.id));
 
-            return (<LargeCard showNew={Boolean(newCard)} key={cardIndex} card={foundCard} />);
+            return (<LargeCard showNew={Boolean(newCard)} key={cardIndex} card={foundCard} showCount duplicates={occurences} />);
           }
 
           return (<div key={cardIndex} className="unknown" />);
@@ -53,6 +57,7 @@ Collection.propTypes = {
   exitNotLocationsView: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
   newCardTypes: PropTypes.array.isRequired,
+
 };
 
 const mapStateToProps = ({ gameplay }) => ({

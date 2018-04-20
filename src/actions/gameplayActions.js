@@ -770,55 +770,53 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
     case 'container_slot':
       location = gameplay.activeLocationIndex;
       containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
-
-      // cardSpecificNumber = containerCard[0].metadata.id === '6' ? 1 : 0;
       break;
     default:
       break;
   }
 
-  const items = [];
+  // const items = [];
 
-  console.log(slotType);
+  // console.log(slotType);
 
-  if (slotType !== 'project' || slotType !== 'location') {
-    getCardIdsFromLocation(locations[location], items);
-  }
-  const numOfRepetitions = items.filter(i => i === item.card.stats.ID).length;
+  // if (slotType !== 'project' || slotType !== 'location') {
+  //   getCardIdsFromLocation(locations[location], items);
+  // }
+  // const numOfRepetitions = items.filter(i => i === item.card.stats.ID).length;
 
-  let convertedCardId = Math.abs(card.metadata.id) * 6;
+  // let convertedCardId = Math.abs(card.metadata.id) * 6;
 
-  if (convertedCardId >= 144 && convertedCardId <= 174) {
-    convertedCardId += 720;
-  }
+  // if (convertedCardId >= 144 && convertedCardId <= 174) {
+  //   convertedCardId += 720;
+  // }
 
-  // if the card is already on location
-  if (numOfRepetitions > 1) {
-    location = 0;
-    // get cardId with the conversion
-    const index = playedTurns.map(p => p.cardId).lastIndexOf(convertedCardId);
+  // // if the card is already on location
+  // if (numOfRepetitions > 1) {
+  //   location = 0;
+  //   // get cardId with the conversion
+  //   const index = playedTurns.map(p => p.cardId).lastIndexOf(convertedCardId);
 
-    convertedCardId = index;
-  } else {
-    location = 1;
-  }
+  //   convertedCardId = index;
+  // } else {
+  //   location = 1;
+  // }
 
-  if (slotType === 'project') {
-    const index = gameplay.projects.findIndex(g => g.lastDroppedItem !== null);
+  // if (slotType === 'project') {
+  //   const index = gameplay.projects.findIndex(g => g.lastDroppedItem !== null);
 
-    cardSpecificNumber = 0;
-  }
+  //   cardSpecificNumber = 0;
+  // }
 
-  dispatch({
-    type: PLAY_TURN,
-    turn: {
-      shift: addOrRemove ? 1 : 0,
-      location,
-      cardSpecificNumber,
-      cardId: convertedCardId,
-      blockNumber: app.blockNumber,
-    },
-  });
+  // dispatch({
+  //   type: PLAY_TURN,
+  //   turn: {
+  //     add: addOrRemove ? 1 : 0,
+  //     specificCard: 0,
+  //     location,
+  //     cardId: cardId,
+  //     blockNumber: app.blockNumber,
+  //   },
+  // });
 };
 
 /**

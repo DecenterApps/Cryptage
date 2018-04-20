@@ -8,27 +8,34 @@
 
   .revealed-card {
     display: inline-block;
-    margin-right: 18px;
+    margin-right: 25px;
     width: 145px;
     height: 252px;
     margin-bottom: 30px;
+    &:last-of-type {
+      margin-right: 0;
+    }
 
+    .back,
     .front {
       border-radius: 15px;
       padding: 3px;
       font-size: 0;
     }
 
+    &.gold .back,
     &.gold .front {
       border: 1px solid $gold-rarity;
       box-shadow: 0px 0px 5.53768px $gold-rarity;
     }
 
+    &.red .back,
     &.red .front {
       border: 1px solid $red-rarity;
       box-shadow: 0px 0px 5.53768px $red-rarity;
     }
 
+    &.blue .back,
     &.blue .front {
       border: 1px solid $blue-rarity;
       box-shadow: 0px 0px 5.53768px $blue-rarity;

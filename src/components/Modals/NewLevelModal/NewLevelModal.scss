@@ -2,10 +2,14 @@
 @import '../../../common/variables';
 
 .new-level-modal-wrapper {
-  background: $modal-bg;
   height: 358px;
-  border-top-left-radius: $border-radius-modal;
-  border-top-right-radius: $border-radius-modal;
+  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
+  width: auto;
+  min-width: 635px;
+
+  .bar-name {
+    width: 100px;
+  }
 
   .main-text {
     text-align: center;
@@ -22,10 +26,13 @@
       color: rgb(255, 157, 20);
       text-shadow: 0 0 44px #0D0A17;
       font-size: 87px;
+      line-height: 80px;
     }
   }
 
-  .reveal-cards-wrapper {
-    padding-top: 0;
+  .reveal-cards-wrapper {}
+
+  .button-wrapper {
+    text-align: center;
   }
 }

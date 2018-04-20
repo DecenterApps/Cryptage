@@ -4,3 +4,4 @@ package-lock.json
 yarn.lock
 src/constants/config.json
 dist/
+yarn-error.log

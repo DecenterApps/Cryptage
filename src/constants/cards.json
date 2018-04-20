@@ -33,14 +33,14 @@
       "cost": {
         "development": 0,
         "funds": 500,
-        "level": 1,
+        "level": 2,
         "power": 0,
         "space": 0,
         "time": 0
       },
       "flavorText": "I better not catch any of you mining in the kitchen, you hear!",
       "image": "coworking-space.jpg",
-      "mechanicsText": "Great for placing developers but does not have power.",
+      "mechanicsText": "Great for placing developers, but does not have free power.",
       "rarityScore": "576",
       "special": false,
       "title": "Coworking Space",
@@ -75,7 +75,7 @@
         "space": 1,
         "time": 0
       },
-      "flavorText": "Legend says that these were used to play the mighty videogames of old...",
+      "flavorText": "Legend says that these were used to play the mighty video games of old...",
       "image": "gpu.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
@@ -115,7 +115,7 @@
     "12": {
       "ID": "12",
       "bonus": {
-        "development": 1,
+        "development": 2,
         "funds": 0,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
@@ -215,7 +215,7 @@
         "space": 20,
         "time": 0
       },
-      "flavorText": "I remeber the old days: The DAO hack, Parity bug, optimizing around gas limits... You kids have it easy.",
+      "flavorText": "I remember the old days: The DAO hack, Parity bug, optimizing around gas limits... You kids have it easy.",
       "image": "senior-developer.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
@@ -301,7 +301,7 @@
       },
       "flavorText": "",
       "image": "black-hat-hacker.jpg",
-      "mechanicsText": "Gain 10 FUNDS each block.",
+      "mechanicsText": "Gain 10 funds each block.",
       "rarityScore": "576",
       "special": true,
       "title": "Black Hat Hacker",
@@ -383,7 +383,7 @@
         "space": 30,
         "time": 0
       },
-      "flavorText": "",
+      "flavorText": "They tend to fry rigs. Guess you could call them... overpowered.",
       "image": "black-market-batteries.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
@@ -411,7 +411,7 @@
         "space": 60,
         "time": 0
       },
-      "flavorText": "We hacked this together from 3D printed parts and retired Chineese tech. It's only slightly radioactive.",
+      "flavorText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
       "image": "diy-power-generator.jpg",
       "mechanicsText": "",
       "rarityScore": "485",
@@ -441,7 +441,7 @@
       },
       "flavorText": "GRIDCONEEEEEEEEECT!",
       "image": "grid-connector.jpg",
-      "mechanicsText": "Unique. For each unit of unspent POWER at location, gain 10 FUNDS.",
+      "mechanicsText": "Unique. For each unit of unspent POWER at location, gain 1 FPB.",
       "rarityScore": "250",
       "special": true,
       "title": "GRID Connector",
@@ -469,7 +469,7 @@
       },
       "flavorText": "Make money by grinding sweet sweet coffee... Truly mankind's greatest invention. ",
       "image": "coffee-machine-miner.jpg",
-      "mechanicsText": "Unique. Gain 10 funds each block. All developers on location gain 10% bonus DEV. ",
+      "mechanicsText": "Unique. Gain 10 funds per block. All developers on the same location gain 10% bonus DEV. ",
       "rarityScore": "576",
       "special": true,
       "title": "Coffee Machine Miner",
@@ -478,6 +478,34 @@
     },
     "24": {
       "ID": "24",
+      "bonus": {
+        "development": 0,
+        "funds": 1,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 1
+      },
+      "cost": {
+        "development": 0,
+        "funds": 0,
+        "level": 1,
+        "power": 0,
+        "space": 0,
+        "time": 1
+      },
+      "flavorText": "Hey, this isn't what I signed up for!",
+      "image": "day-trading.jpg",
+      "mechanicsText": "Time to complete: 1 block",
+      "rarityScore": "900",
+      "special": true,
+      "title": "Day Trading",
+      "type": "Project",
+      "unique": false
+    },
+    "25": {
+      "ID": "25",
       "bonus": {
         "development": 0,
         "funds": 50,
@@ -490,7 +518,7 @@
       "cost": {
         "development": 1,
         "funds": 0,
-        "level": 1,
+        "level": 2,
         "power": 0,
         "space": 0,
         "time": 10
@@ -504,8 +532,8 @@
       "type": "Project",
       "unique": false
     },
-    "25": {
-      "ID": "25",
+    "26": {
+      "ID": "26",
       "bonus": {
         "development": 0,
         "funds": 1500,
@@ -525,15 +553,15 @@
       },
       "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
       "image": "profitable-dapp.jpg",
-      "mechanicsText": "Time to complete: 40 blocks",
+      "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks",
       "rarityScore": "900",
       "special": true,
       "title": "Profitable Đapp",
       "type": "Project",
       "unique": false
     },
-    "26": {
-      "ID": "26",
+    "27": {
+      "ID": "27",
       "bonus": {
         "development": 0,
         "funds": 0,
@@ -546,22 +574,22 @@
       "cost": {
         "development": 32,
         "funds": 0,
-        "level": 4,
+        "level": 6,
         "power": 0,
         "space": 0,
         "time": 100
       },
       "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
       "image": "mining-algorithm-optimization.jpg",
-      "mechanicsText": "Time to complete: 100 blocks",
+      "mechanicsText": "Boosts all mining efficiency by 1%. Time to complete: 100 blocks",
       "rarityScore": "900",
       "special": true,
       "title": "Mining Algorithm Optimization",
       "type": "Project",
       "unique": false
     },
-    "27": {
-      "ID": "27",
+    "28": {
+      "ID": "28",
       "bonus": {
         "development": 0,
         "funds": 64000,
@@ -588,59 +616,31 @@
       "type": "Project",
       "unique": false
     },
-    "28": {
-      "ID": "28",
-      "bonus": {
-        "development": 0,
-        "funds": 200000,
-        "multiplier-dev": 0,
-        "multiplier-funds": 0,
-        "power": 0,
-        "space": 0,
-        "xp": 32000
-      },
-      "cost": {
-        "development": 120,
-        "funds": 64000,
-        "level": 12,
-        "power": 0,
-        "space": 0,
-        "time": 500
-      },
-      "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK.",
-      "image": "decentralized-protocol-development.jpg",
-      "mechanicsText": "Time to complete: 500 blocks",
-      "rarityScore": "576",
-      "special": true,
-      "title": "Decentralized Protocol Development",
-      "type": "Project",
-      "unique": false
-    },
     "29": {
       "ID": "29",
       "bonus": {
         "development": 0,
-        "funds": 500000,
+        "funds": 50,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
         "space": 0,
-        "xp": 500000
+        "xp": 4
       },
       "cost": {
-        "development": 240,
-        "funds": 100000,
-        "level": 16,
+        "development": 1,
+        "funds": 0,
+        "level": 2,
         "power": 0,
         "space": 0,
-        "time": 2000
+        "time": 10
       },
-      "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
-      "image": "consensus-improvement.jpg",
-      "mechanicsText": "Time to complete: 2000 blocks",
-      "rarityScore": "485",
+      "flavorText": "Imagine renting all computing from a single company... Ridiculous!",
+      "image": "rent-computing-power.jpg",
+      "mechanicsText": "Gains 50 FUNDS per CPU and 150 FUNDS per GPU played. Time to complete: 10 blocks",
+      "rarityScore": "900",
       "special": true,
-      "title": "Consensus Improvement",
+      "title": "Rent Computing Power",
       "type": "Project",
       "unique": false
     },
@@ -676,27 +676,83 @@
       "ID": "30",
       "bonus": {
         "development": 0,
-        "funds": 1,
+        "funds": 50,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
         "space": 0,
-        "xp": 1
+        "xp": 4
       },
       "cost": {
-        "development": 0,
+        "development": 1,
         "funds": 0,
-        "level": 1,
+        "level": 2,
         "power": 0,
         "space": 0,
-        "time": 1
+        "time": 10
       },
-      "flavorText": "Making profit from day trading is easy - you just need to buy high and sell low... I think.",
-      "image": "day-trading.jpg",
-      "mechanicsText": "Time to complete: 1 block",
-      "rarityScore": "-",
+      "flavorText": "It pays to HODL.",
+      "image": "pos-pool-participation.jpg",
+      "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 10 blocks",
+      "rarityScore": "900",
       "special": true,
-      "title": "Day Trading",
+      "title": "POS Pool Participation",
+      "type": "Project",
+      "unique": false
+    },
+    "31": {
+      "ID": "31",
+      "bonus": {
+        "development": 0,
+        "funds": 200000,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 32000
+      },
+      "cost": {
+        "development": 120,
+        "funds": 64000,
+        "level": 12,
+        "power": 0,
+        "space": 0,
+        "time": 500
+      },
+      "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK.",
+      "image": "decentralized-protocol-development.jpg",
+      "mechanicsText": "Decreases time needed to complete other projects by 5%. Time to complete: 500 blocks",
+      "rarityScore": "576",
+      "special": true,
+      "title": "Decentralized Protocol Development",
+      "type": "Project",
+      "unique": false
+    },
+    "32": {
+      "ID": "32",
+      "bonus": {
+        "development": 0,
+        "funds": 500000,
+        "multiplier-dev": 0,
+        "multiplier-funds": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 500000
+      },
+      "cost": {
+        "development": 240,
+        "funds": 100000,
+        "level": 16,
+        "power": 0,
+        "space": 0,
+        "time": 2000
+      },
+      "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
+      "image": "consensus-improvement.jpg",
+      "mechanicsText": "Time to complete: 2000 blocks",
+      "rarityScore": "485",
+      "special": true,
+      "title": "Consensus Improvement",
       "type": "Project",
       "unique": false
     },
