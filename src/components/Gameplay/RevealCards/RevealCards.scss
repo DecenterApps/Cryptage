@@ -8,10 +8,13 @@
 
   .revealed-card {
     display: inline-block;
-    margin-right: 18px;
+    margin-right: 25px;
     width: 145px;
     height: 252px;
     margin-bottom: 30px;
+    &:last-of-type {
+      margin-right: 0;
+    }
 
     .front {
       border-radius: 15px;

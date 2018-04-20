@@ -54,7 +54,7 @@ class Modal extends PureComponent {
 }
 
 Modal.defaultProps = {
-  width: '100%',
+  width: 'auto',
   className: '',
 };
 
