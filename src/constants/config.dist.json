@@ -1304,5 +1304,5 @@
   },
   "network": 42,
   "webSocketServer": "wss://cards.decenter.com/ws?",
-  "wsProvider": "wss://kovan.decenter.com:4443"
+  "wsProvider": "wss://testnet.decenter.com:4443"
 }
