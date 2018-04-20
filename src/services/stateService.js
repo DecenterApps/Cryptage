@@ -11,11 +11,11 @@
 // 10 6 karta
 
 // MOVES
-// /blockNumber/
-// 32                total 32
-// /add/dynamic-static/cardSpecificBits/card/blockNumberOffset
-// n * 1 1 4 10 16        n * 32
-
+// 1/0 add/remove
+// 1 specific card (for GPU)
+// 3 location
+// 11 card
+// 16 blockNumber
 
 import BigInt from 'big-integer';
 
@@ -220,8 +220,8 @@ export function packMoves(_moves) {
   blockNums[0] = 0;
 
   const binMoves = _moves.map((move, i) =>
-    bin2Hex(dec2bin(move.shift, 1) + dec2bin(move.location, 1) + dec2bin(move.cardSpecificNumber, 4)
-    + dec2bin(move.cardId, 10) + dec2bin(blockNums[i], 16)));
+    bin2Hex(dec2bin(move.add, 1) + dec2bin(move.specificCard, 1) + dec2bin(move.location, 3)
+    + dec2bin(move.card, 11) + dec2bin(blockNums[i], 16)));
 
   return _pack(binMoves, blockNumHex);
 }
