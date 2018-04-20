@@ -5,8 +5,9 @@
   "repository": "https://github.com/DecenterApps/IncrementalCryptoGame",
   "author": "astankovic <aleksa.stankovic@berkeley.edu>",
   "scripts": {
-    "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js",
+    "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js --host=0.0.0.0",
     "prod": "webpack --config ./build/webpack-prod.config.js",
+    "staging": "webpack --config ./build/webpack-staging.config.js",
     "prod-serve": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-prod.config.js"
   },
   "dependencies": {
