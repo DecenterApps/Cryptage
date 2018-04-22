@@ -536,7 +536,7 @@
       "ID": "26",
       "bonus": {
         "development": 0,
-        "funds": 1500,
+        "funds": 0,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
@@ -545,7 +545,7 @@
       },
       "cost": {
         "development": 5,
-        "funds": 750,
+        "funds": 500,
         "level": 4,
         "power": 0,
         "space": 0,
