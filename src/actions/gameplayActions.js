@@ -285,6 +285,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         isActive: true,
         isFinished: false,
         expiryTime: app.blockNumber + item.card.stats.cost.time,
+        timesFinished: 0,
       },
       slotType: 'project',
     };
