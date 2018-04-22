@@ -111,6 +111,30 @@ const addFundsForDroppedCoffeeMiners = _cards => (dispatch, getState) => {
 };
 
 /**
+ * Adds funds for every dropped profitable dapp project
+ */
+const addFundsForDroppedDappProject = () => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const { projects } = gameplay;
+  const globalStats = { ...gameplay.globalStats };
+  let dappProjectFunds = 0;
+
+  const dappProjects = projects.filter((({ lastDroppedItem }) =>
+    lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '26'));
+
+  dappProjects.forEach(({ lastDroppedItem }) => {
+    const { timesFinished, cards } = lastDroppedItem;
+    const toAdd = (timesFinished * cards[0].stats.bonus.funds);
+
+    dappProjectFunds += toAdd;
+    globalStats.funds += toAdd;
+  });
+
+  dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  return dappProjectFunds;
+};
+
+/**
  * Updates gameplay stats for each played asset card that has
  * that defined
  *
@@ -123,8 +147,9 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
   const gridConnectorsFunds = dispatch(addFundsForDroppedGridConnectors(cards));
   const hackersFunds = dispatch(addFundsForDroppedHacker(cards));
   const coffeeMinerFunds = dispatch(addFundsForDroppedCoffeeMiners(cards));
+  const profitableDappFunds = dispatch(addFundsForDroppedDappProject());
 
-  const total = miningFunds + gridConnectorsFunds + hackersFunds + coffeeMinerFunds;
+  const total = miningFunds + gridConnectorsFunds + hackersFunds + coffeeMinerFunds + profitableDappFunds;
 
   if (total !== getState().gameplay.fundsPerBlock) dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: total });
 
@@ -152,6 +177,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         _projects[i].lastDroppedItem.isActive = false;
         _projects[i].lastDroppedItem.isFinished = true;
         _projects[i].lastDroppedItem.showFpb = true;
+        _projects[i].lastDroppedItem.timesFinished += 1;
         acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
         releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
           parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
