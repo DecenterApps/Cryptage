@@ -152,6 +152,8 @@
       }
       &.blue::before {
         background-color: $blue-rarity;
+        background: linear-gradient(to left, $blue-rarity 0%, rgba($blue-rarity, 0) 80%);
+        animation: spin 5s infinite linear;
       }
       &.gold::before {
         background: linear-gradient(to left, $gold-rarity 0%, rgba($gold-rarity, 0) 80%);

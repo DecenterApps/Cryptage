@@ -43,22 +43,20 @@
 
     .rarity-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 145px;
-      height: 252px;
-      border-radius: 12px;
-      background-image: url('./CardFront01.png');
+      top: -25px;
+      left: -25px;
+      width: 195px;
+      height: 300px;
       background-size: cover;
       z-index: 1;
       &.rarity-blue {
-        background-image: url('./CardFront02.png');
+        background-image: url('./scarce.png');
       }
       &.rarity-gold {
-        background-image: url('./CardFront03.png');
+        background-image: url('./elite.png');
       }
       &.rarity-red {
-        background-image: url('./CardFront04.png');
+        background-image: url('./rare.png');
       }
     }
 

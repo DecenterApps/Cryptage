@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Web3 from 'web3';
 import Routes from './Routes';
 import store from './store';
-import NoMetaMask from './components/NoMetaMask/NoMetaMask';
+import NoMetaMask from './components/App/NoMetaMask/NoMetaMask';
 import config from './constants/config.json';
 
 const startApp = () => {
