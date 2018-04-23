@@ -120,9 +120,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       .dropSlots[containerIndex].lastDroppedItem.cards[0].metadata.id, 10);
     returnedCards.push(item.cards[0]);
     // Computer Case only accepts CPU and Graphics card
-    if (id === 6) accepts = ['9', '10'];
+    if (id === 6) accepts = ['9', '10', '33', '34', '35'];
     // Mining Rig only accepts Graphics card
-    if (id === 7) accepts = ['10'];
+    if (id === 7) accepts = ['10', '33', '34', '35'];
     // ASIC Mount only accepts ASIC miner
     if (id === 8) accepts = ['11'];
     _locations[locationIndex].lastDroppedItem.values.power += power;
