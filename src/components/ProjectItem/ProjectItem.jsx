@@ -8,7 +8,7 @@ import {
   levelUpProject,
   activateProject,
 } from '../../actions/gameplayActions';
-import { calcDataForNextLevel, formatBigNumber } from '../../services/utils';
+import { calcDataForNextLevel, classForRarity, formatBigNumber } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 
@@ -75,6 +75,9 @@ const ProjectItem = ({
         src={`cardImages/${cards[0].stats.image}`}
         alt=""
       />
+      <div className={`rarity-border ${classForRarity(cards[0].stats.rarityScore)}`} >
+        <div className="helper" />
+      </div>
       <div className="project-info">
         {
           isActive &&
