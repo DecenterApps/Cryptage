@@ -66,10 +66,10 @@ ContainerItem.propTypes = {
   blockNumber: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ gameplay, app }) => ({
+const mapStateToProps = ({ gameplay }) => ({
   projects: gameplay.projects,
   activeLocationIndex: gameplay.activeLocationIndex,
-  blockNumber: app.blockNumber,
+  blockNumber: gameplay.blockNumber,
 });
 
 export default connect(mapStateToProps)(ContainerItem);
