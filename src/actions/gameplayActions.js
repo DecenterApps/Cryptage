@@ -284,6 +284,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         cards: [{ ...item.card, index }],
         isActive: true,
         isFinished: false,
+        timeDecrease: 0,
         expiryTime: gameplay.blockNumber + item.card.stats.cost.time,
         timesFinished: 0,
       },

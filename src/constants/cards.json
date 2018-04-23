@@ -707,6 +707,7 @@
         "funds": 200000,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
+        "multiplierTime": 5,
         "power": 0,
         "space": 0,
         "xp": 32000

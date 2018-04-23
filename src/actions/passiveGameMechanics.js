@@ -10,6 +10,7 @@ import {
   calculateLevelData,
   doNotShowProjectFpb,
   checkIfNewLevel,
+  decreaseExecutionTimeForAllProjects,
 } from '../services/gameMechanicsService';
 import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
@@ -167,14 +168,14 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
   const {
     experience, development, funds, level,
   } = getState().gameplay.globalStats;
-  const _projects = [...projects];
+  let _projects = [...projects];
   let acquiredXp = 0;
   let releasedDev = 0;
   let receivedFunds = 0;
 
   for (let i = 0; i < _projects.length; i += 1) {
     if (_projects[i].lastDroppedItem != null && _projects[i].lastDroppedItem.expiryTime != null) {
-      if (_projects[i].lastDroppedItem.expiryTime - blockNumber <= 0) {
+      if ((_projects[i].lastDroppedItem.expiryTime - _projects[i].lastDroppedItem.timeDecrease) - blockNumber <= 0) {
         const item = _projects[i].lastDroppedItem;
         const card = item.cards[0];
 
@@ -183,6 +184,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         _projects[i].lastDroppedItem.isFinished = true;
         _projects[i].lastDroppedItem.showFpb = true;
         _projects[i].lastDroppedItem.timesFinished += 1;
+        _projects[i].lastDroppedItem.timeDecrease = 0;
         acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
         releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
           parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
@@ -190,9 +192,8 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         ) : _projects[i].lastDroppedItem.cards[0].stats.cost.development;
         receivedFunds += _projects[i].lastDroppedItem.cards[0].stats.bonus.funds;
 
-        if (card.metadata.id === '26') {
-          fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true);
-        }
+        if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true);
+        if (card.metadata.id === '31') _projects = decreaseExecutionTimeForAllProjects(_projects, item, blockNumber);
 
         setTimeout(() => {
           dispatch(doNotShowProjectFpb(i));
