@@ -28,10 +28,10 @@
   .rarity-overlay,
   .overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+    top: 2px;
+    left: 2px;
+    height: 95%;
+    width: 94%;
   }
   .overlay {
     background-image: url('./handcard-overlay.png');
@@ -39,9 +39,43 @@
     background-position: center;
   }
   .rarity-overlay {
-    &.blue { background: linear-gradient(142.75deg, rgba(5, 0, 255, 0.6) 0%, rgba(63, 60, 205, 0) 65.28%); }
-    &.gold { background: linear-gradient(142.75deg, rgba(255, 157, 20, 0.6) 0%, rgba(255, 157, 20, 0) 65.28%); }
-    &.red { background: linear-gradient(142.75deg, rgba(224, 0, 0, 0.6) 0%, rgba(224, 0, 0, 0) 65.28%); }
+    //&.blue { background: linear-gradient(142.75deg, rgba(5, 0, 255, 0.6) 0%, rgba(63, 60, 205, 0) 65.28%); }
+    //&.gold { background: linear-gradient(142.75deg, rgba(255, 157, 20, 0.6) 0%, rgba(255, 157, 20, 0) 65.28%); }
+    //&.red { background: linear-gradient(142.75deg, rgba(224, 0, 0, 0.6) 0%, rgba(224, 0, 0, 0) 65.28%); }
+    &.gold {
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -6px;
+        left: -2px;
+        height: 2px;
+        width: 40px;
+        background: linear-gradient(to right, $gold-rarity 0%, rgba($gold-rarity, 0) 100%);
+      }
+    }
+    &.red {
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        height: 40px;
+        width: 2px;
+        background: linear-gradient(to bottom, $red-rarity 0%, rgba($red-rarity, 0) 100%);
+      }
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -6px;
+        left: -4px;
+        height: 2px;
+        width: 40px;
+        background: linear-gradient(to right, $red-rarity 0%, rgba($red-rarity, 0) 100%);
+      }
+    }
   }
 
   .new-card {
@@ -57,11 +91,7 @@
 
   .card-image {
     flex-grow: 1;
-    .card-image-inner {
-      stroke: #36265f;
-      stroke-miterlimit: 10;
-      stroke-width: 4;
-    }
+    .card-image-inner {}
   }
   .level-wrapper {
     position: absolute;
@@ -172,7 +202,7 @@
         background: linear-gradient(to bottom, darken(#BC0924, 5%) 0%, rgba(#BC0924, .8) 100%);
       }
       &.xp {
-        background: linear-gradient(to bottom, darken(#2209BC, 5%) 0%, rgba(#2209BC, .8) 100%);
+        background: linear-gradient(to bottom, darken(#2AD100, 5%) 0%, rgba(#2AD100, .8) 100%);
       }
       &.space {
         background: linear-gradient(to bottom, darken(#3CC8CC, 5%) 0%, rgba(#3CC8CC, .8) 100%);
