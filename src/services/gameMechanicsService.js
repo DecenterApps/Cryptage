@@ -90,10 +90,10 @@ export const getSlotForContainer = (_id, space) => {
   const slots = [];
   let accepts = [];
 
-  // Computer Case only accepts CPU and Graphics card
-  if (id === 6) accepts = ['9', '10'];
+  // Computer Case only accepts CPU and Graphics cards
+  if (id === 6) accepts = ['9', '10', '33', '34', '35'];
   // Mining Rig only accepts Graphics card
-  if (id === 7) accepts = ['10'];
+  if (id === 7) accepts = ['10', '33', '34', '35'];
   // ASIC Mount only accepts ASIC miner
   if (id === 8) accepts = ['11'];
 
