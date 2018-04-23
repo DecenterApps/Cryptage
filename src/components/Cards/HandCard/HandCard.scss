@@ -31,7 +31,7 @@
     top: 2px;
     left: 2px;
     height: 95%;
-    width: 94%;
+    width: 95%;
   }
   .overlay {
     background-image: url('./handcard-overlay.png');
@@ -61,7 +61,7 @@
         position: absolute;
         top: -6px;
         left: -6px;
-        height: 40px;
+        height: 90px;
         width: 2px;
         background: linear-gradient(to bottom, $red-rarity 0%, rgba($red-rarity, 0) 100%);
       }
@@ -236,13 +236,6 @@
       }
     }
   }
-
-  &.type-mining { border-color: #F2C5C5; }
-  &.type-development { border-color: #D4E7CD; }
-  &.type-location { border-color: #C8DEF1; }
-  &.type-project { border-color: #EDEDED; }
-  &.type-power { border-color: #9F609C; }
-  &.type-misc { border-color: #FFF0C5; }
 
   .section-wrapper {
     border: 1px solid black;

@@ -125,6 +125,7 @@
     left: -1px;
     border-radius: 50%;
     background: $blue-rarity;
+    background: linear-gradient(to left, $blue-rarity 0%, rgba($blue-rarity, 0) 80%);
     animation: spin 5s infinite linear;
     z-index: 0;
     box-shadow: 0 0 6px rgba($blue-rarity, .5);

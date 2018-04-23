@@ -36,16 +36,16 @@ const HandCard = ({
     power: ['#CE060D', 'rgba(206, 5, 13, 0.43)'],
     location: ['#3CC8CC', 'rgba(60, 200, 204, 0.33)'],
     development: ['#9F00C7', 'rgba(95, 38, 79, 0.41)'],
-    project: ['#FF9D14', 'rgba(255, 157, 20, 0.36)'],
+    project: ['#878787', 'rgba(135, 135, 135, 0.36)'],
     mining: ['#75341F', 'rgba(117, 52, 30, 0.57)'],
     container: ['#4A7420', 'rgba(74, 116, 32, 0.41)'],
   };
   const rarities = {
     normal: '#36265f',
-    blue: '#0500FF',
-    gold: '#FF9D14',
-    red: '#FF0000',
-  }
+    blue: '#0086D1',
+    gold: '#9B01C1',
+    red: '#FF9D14',
+  };
 
   return (
     <div
