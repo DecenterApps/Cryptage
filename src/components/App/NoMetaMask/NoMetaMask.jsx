@@ -6,23 +6,37 @@ import metaMaskLogo from './metamask.png';
 
 const NoMetaMask = ({ accountError }) => (
   <div className="no-meta-mask-wrapper">
-    <div className="welcome-text">Welcome to the world of</div>
+    <div className="welcome-text">Welcome to Cryptage</div>
 
     <img src={metaMaskLogo} alt="MetaMask logo" />
-    <div className="main-text">{ accountError }</div>
-    <a
-      href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="secondary-text"
-    >
-      HOW TO <br /> Get Chrome Extension
-    </a>
+    {
+      accountError &&
+      <div className="main-text">{ accountError }</div>
+    }
+    {
+      !accountError &&
+      <div className="main-text">You&apos;ll need MetaMask to play</div>
+    }
+    {
+      !accountError &&
+      <a
+        href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="secondary-text"
+      >
+        Get Chrome Extension
+      </a>
+    }
   </div>
 );
 
 NoMetaMask.propTypes = {
-  accountError: PropTypes.string.isRequired,
+  accountError: PropTypes.string,
+};
+
+NoMetaMask.defaultProps = {
+  accountError: '',
 };
 
 export default NoMetaMask;

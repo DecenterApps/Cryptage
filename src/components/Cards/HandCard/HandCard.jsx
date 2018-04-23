@@ -36,9 +36,15 @@ const HandCard = ({
     power: ['#CE060D', 'rgba(206, 5, 13, 0.43)'],
     location: ['#3CC8CC', 'rgba(60, 200, 204, 0.33)'],
     development: ['#9F00C7', 'rgba(95, 38, 79, 0.41)'],
-    project: ['#FF9D14', 'rgba(255, 157, 20, 0.36)'],
+    project: ['#878787', 'rgba(135, 135, 135, 0.36)'],
     mining: ['#75341F', 'rgba(117, 52, 30, 0.57)'],
     container: ['#4A7420', 'rgba(74, 116, 32, 0.41)'],
+  };
+  const rarities = {
+    normal: '#36265f',
+    blue: '#0086D1',
+    gold: '#9B01C1',
+    red: '#FF9D14',
   };
 
   return (
@@ -93,15 +99,32 @@ const HandCard = ({
               href={`cardImages/${card.stats.image}`}
             />
           </pattern>
-          <clipPath id="card-image-cut">
-            <polygon points="0,0 40,0 70,30 70,90 0,90" />
-          </clipPath>
+          <linearGradient
+            id={`card-rarity-gradient-${uniqueId}`}
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              style={{ stopColor: rarities[classForRarity(card.stats.rarityScore)] }}
+            />
+            <stop
+              offset="50%"
+              style={{ stopColor: '#36265f' }}
+            />
+          </linearGradient>
         </defs>
         <polygon
-          className="card-image-inner"
+          className="card-image-bg"
           points="0,0 40,0 70,30 70,90 0,90"
+          fill={`url(#card-rarity-gradient-${uniqueId})`}
+        />
+        <polygon
+          className="card-image-inner"
+          points="2,2 39,2 68,31 68,88 2,88"
           fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
-          clipPath="url(#card-image-cut)"
         />
       </svg>
       {

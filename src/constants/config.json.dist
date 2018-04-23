@@ -1303,6 +1303,5 @@
     "address": "0xca7578ffcc5386b25c2b75e28d830bf8d6af42a3"
   },
   "network": 42,
-  "webSocketServer": "wss://cards.decenter.com/ws?",
   "wsProvider": "wss://testnet.decenter.com:4443"
 }

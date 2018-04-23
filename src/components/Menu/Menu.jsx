@@ -116,7 +116,7 @@ Menu.propTypes = {
 
 const mapStateToProps = ({ gameplay, app }) => ({
   lastSavedStateBlock: gameplay.lastSavedStateBlock,
-  currentBlock: app.blockNumber,
+  currentBlock: gameplay.blockNumber,
 });
 
 const mapDispatchToProps = {

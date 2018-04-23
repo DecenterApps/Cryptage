@@ -5,7 +5,7 @@ import HoverInfo from '../HoverInfo/HoverInfo';
 import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
-import { calcDataForNextLevel } from '../../services/utils';
+import { calcDataForNextLevel, classForRarity } from '../../services/utils';
 import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 
@@ -117,6 +117,7 @@ class LocationSidebarItem extends Component {
             />
           </svg>
         }
+        <div className={`rarity-border ${classForRarity(cards[0].stats.rarityScore)}`} />
         <div
           className="location-sidebar-item-inner-wrapper"
           style={{ backgroundImage: `url('cardImages/${cards[0].stats.image}')` }}
@@ -175,10 +176,10 @@ LocationSidebarItem.propTypes = {
   blockNumber: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ gameplay, app }) => ({
+const mapStateToProps = ({ gameplay }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
-  blockNumber: app.blockNumber,
+  blockNumber: gameplay.blockNumber,
 });
 
 const mapDispatchToProp = {

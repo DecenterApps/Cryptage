@@ -284,7 +284,10 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         cards: [{ ...item.card, index }],
         isActive: true,
         isFinished: false,
-        expiryTime: app.blockNumber + item.card.stats.cost.time,
+        timeDecrease: 0,
+        expiryTime: gameplay.blockNumber + item.card.stats.cost.time,
+        timesFinished: 0,
+        modifiedFundsBonus: 0,
       },
       slotType: 'project',
     };
@@ -390,9 +393,18 @@ export const levelUpProject = index => (dispatch, getState) => {
 export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
   let fpb = _fpb;
 
-  if (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project')) {
+  if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
     if (addOrReduce) fpb += card.stats.bonus.funds;
     else fpb -= card.stats.bonus.funds;
+  }
+
+  // Special mechanics for card with id 26, Adds fpb when completed;
+  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '26') {
+    const { timesFinished, cards } = card;
+    const multiplier = cards[0].stats.bonus.funds;
+
+    if (addOrReduce === true) fpb += multiplier;
+    else fpb -= (timesFinished * multiplier);
   }
 
   return fpb;
@@ -517,6 +529,27 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   }
 
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+};
+
+export const updateFundsBlockDifference = () => async (dispatch, getState) => {
+  const { app: { account }, gameplay } = getState();
+
+  if (!account) return;
+
+  const previousState = JSON.parse(localStorage.getItem(`player-location-${account}`));
+
+  if (previousState) {
+    const currentBlock = await ethService.getBlockNumber();
+    const blockDiff = currentBlock - previousState.blockNumber;
+    console.log(`Add ${previousState.fundsPerBlock} funds for ${blockDiff} blocks`);
+
+    const locations = [...gameplay.locations];
+    const globalStats = { ...gameplay.globalStats };
+
+    globalStats.funds += blockDiff * previousState.fundsPerBlock;
+
+    dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  }
 };
 
 /**
