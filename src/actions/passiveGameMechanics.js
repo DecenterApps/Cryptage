@@ -11,6 +11,7 @@ import {
   doNotShowProjectFpb,
   checkIfNewLevel,
   decreaseExecutionTimeForAllProjects,
+  increaseFundsByMultiplier,
 } from '../services/gameMechanicsService';
 import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
@@ -27,7 +28,6 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
 
   const containerCards = _cards.filter(_card => _card.stats.type === 'Container');
 
-  // add 1 funds for each card in container asset drop slot
   containerCards.forEach(({ locationIndex, slotIndex }) => {
     const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
     const minerCards = containerSlots
@@ -194,6 +194,11 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
 
         if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true);
         if (card.metadata.id === '31') _projects = decreaseExecutionTimeForAllProjects(_projects, item, blockNumber);
+        if (card.metadata.id === '30') {
+          const modifiedFundsBonus = increaseFundsByMultiplier(receivedFunds + funds, item);
+          _projects[i].lastDroppedItem.modifiedFundsBonus = modifiedFundsBonus + receivedFunds;
+          receivedFunds += modifiedFundsBonus;
+        }
 
         setTimeout(() => {
           dispatch(doNotShowProjectFpb(i));

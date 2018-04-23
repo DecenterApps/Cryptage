@@ -287,6 +287,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         timeDecrease: 0,
         expiryTime: gameplay.blockNumber + item.card.stats.cost.time,
         timesFinished: 0,
+        modifiedFundsBonus: 0,
       },
       slotType: 'project',
     };

@@ -21,12 +21,17 @@ const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime
 
 const ProjectItem = ({
   isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
-  openConfirmRemoveModal, timeDecrease,
+  openConfirmRemoveModal, timeDecrease, modifiedFundsBonus,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const timeLeft = expiryTime - timeDecrease - blockNumber;
+  const cardFundsBonus = cards[0].stats.bonus.funds;
+  const metadataId = cards[0].metadata.id;
+  let fpb = 0;
 
-  const fpb = cards[0].stats.bonus.funds;
+  if (metadataId === '30') fpb = modifiedFundsBonus;
+  else fpb = cardFundsBonus;
+
   const xpb = cards[0].stats.bonus.xp;
 
   return (
@@ -117,6 +122,7 @@ ProjectItem.propTypes = {
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
   timeDecrease: PropTypes.number.isRequired,
+  modifiedFundsBonus: PropTypes.number.isRequired,
 };
 
 ProjectItem.defaultProps = {

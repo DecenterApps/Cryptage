@@ -548,6 +548,7 @@ export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
   if (!projects[projectIndex].lastDroppedItem) return;
 
   projects[projectIndex].lastDroppedItem.showFpb = false;
+  projects[projectIndex].lastDroppedItem.modifiedFundsBonus = 0;
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
 
@@ -593,7 +594,7 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
   const { level } = getState().gameplay.globalStats;
 
   if (currLevel === level) return;
-  if ((level - 1) < 0) return;
+  if ((level - 1) <= 0) return;
   if (level >= cardsPerLevel.length) return;
 
   const cards = await dispatch(addCardsForNewLevel(level));
@@ -627,3 +628,13 @@ export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber
     return project;
   });
 };
+
+/**
+ * Calculates how much funds should be increased by the multiplier
+ *
+ * @param {Number} funds
+ * @param {Object} item
+ * @return {Number}
+ */
+export const increaseFundsByMultiplier = (funds, item) =>
+  Math.ceil((funds * ((item.cards[0].stats.bonus.multiplierFunds) / 100)));
