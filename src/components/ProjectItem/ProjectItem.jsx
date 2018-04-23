@@ -21,9 +21,11 @@ const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime
 
 const ProjectItem = ({
   isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
-  openConfirmRemoveModal,
+  openConfirmRemoveModal, timeDecrease,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
+  const timeLeft = expiryTime - timeDecrease - blockNumber;
+
   const fpb = cards[0].stats.bonus.funds;
   const xpb = cards[0].stats.bonus.xp;
 
@@ -36,12 +38,15 @@ const ProjectItem = ({
     `}
     >
       <HoverInfo card={cards[0]} center />
-
       {
         showFpb &&
         <div className="bonus">
           <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
-          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+          { cards[0].metadata.id === '26' && <div>+ { formatBigNumber(fpb) } <br /> FPB</div> }
+          {
+            cards[0].metadata.id !== '26' &&
+            <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+          }
         </div>
       }
 
@@ -79,8 +84,8 @@ const ProjectItem = ({
               <img className="project-thumbnail" src={activeBg} alt="" />
               {
                 blockNumber > 0 && [
-                  <div key="PIK1" className="blocks-left">{ expiryTime - blockNumber }</div>,
-                  <div key="PIK2">{ ((expiryTime - blockNumber) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
+                  <div key="PIK1" className="blocks-left">{ timeLeft }</div>,
+                  <div key="PIK2">{ ((timeLeft) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
                   <div key="PIK3">LEFT</div>,
                 ]
               }
@@ -111,6 +116,7 @@ ProjectItem.propTypes = {
   openConfirmRemoveModal: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
+  timeDecrease: PropTypes.number.isRequired,
 };
 
 ProjectItem.defaultProps = {

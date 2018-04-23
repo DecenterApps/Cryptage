@@ -10,7 +10,9 @@ import {
   calculateLevelData,
   doNotShowProjectFpb,
   checkIfNewLevel,
+  decreaseExecutionTimeForAllProjects,
 } from '../services/gameMechanicsService';
+import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
 /**
  * Updates global funds based on played mining rig card power in the gameplay state
@@ -162,28 +164,36 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
 export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
+  let { fundsPerBlock } = getState().gameplay;
   const {
     experience, development, funds, level,
   } = getState().gameplay.globalStats;
-  const _projects = [...projects];
+  let _projects = [...projects];
   let acquiredXp = 0;
   let releasedDev = 0;
   let receivedFunds = 0;
 
   for (let i = 0; i < _projects.length; i += 1) {
     if (_projects[i].lastDroppedItem != null && _projects[i].lastDroppedItem.expiryTime != null) {
-      if (_projects[i].lastDroppedItem.expiryTime - blockNumber <= 0) {
+      if ((_projects[i].lastDroppedItem.expiryTime - _projects[i].lastDroppedItem.timeDecrease) - blockNumber <= 0) {
+        const item = _projects[i].lastDroppedItem;
+        const card = item.cards[0];
+
         _projects[i].lastDroppedItem.expiryTime = null;
         _projects[i].lastDroppedItem.isActive = false;
         _projects[i].lastDroppedItem.isFinished = true;
         _projects[i].lastDroppedItem.showFpb = true;
         _projects[i].lastDroppedItem.timesFinished += 1;
+        _projects[i].lastDroppedItem.timeDecrease = 0;
         acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
         releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
           parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
           _projects[i].lastDroppedItem.level,
         ) : _projects[i].lastDroppedItem.cards[0].stats.cost.development;
         receivedFunds += _projects[i].lastDroppedItem.cards[0].stats.bonus.funds;
+
+        if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true);
+        if (card.metadata.id === '31') _projects = decreaseExecutionTimeForAllProjects(_projects, item, blockNumber);
 
         setTimeout(() => {
           dispatch(doNotShowProjectFpb(i));
@@ -193,10 +203,9 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
   }
 
   if (acquiredXp > 0) {
-    dispatch({
-      type: CHANGE_PROJECT_STATE,
-      projects: _projects,
-    });
+    dispatch({ type: CHANGE_PROJECT_STATE, projects: _projects });
+    dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
+
     dispatch({
       type: ADD_EXPERIENCE,
       experience: experience + acquiredXp,

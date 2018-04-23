@@ -545,6 +545,8 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
 export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
   const projects = [...getState().gameplay.projects];
 
+  if (!projects[projectIndex].lastDroppedItem) return;
+
   projects[projectIndex].lastDroppedItem.showFpb = false;
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
@@ -592,8 +594,36 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
 
   if (currLevel === level) return;
   if ((level - 1) < 0) return;
+  if (level >= cardsPerLevel.length) return;
 
   const cards = await dispatch(addCardsForNewLevel(level));
 
   dispatch(openNewLevelModal(level, cards));
+};
+
+/**
+ * Decreases time execution for all project
+ *
+ * @param {Array} _projects
+ * @param {Object} item
+ * @param {Number} blockNumber
+ *
+ * @return {Array}
+ */
+export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber) => {
+  const projects = [..._projects];
+
+  return projects.map((_project) => {
+    const project = { ..._project };
+
+    if (project.lastDroppedItem && project.lastDroppedItem.isActive) {
+      const { expiryTime, timeDecrease } = _project.lastDroppedItem;
+      const { multiplierTime } = item.cards[0].stats.bonus;
+      const timeLeft = expiryTime - timeDecrease - blockNumber;
+
+      project.lastDroppedItem.timeDecrease += Math.ceil((timeLeft * ((multiplierTime) / 100)));
+    }
+
+    return project;
+  });
 };
