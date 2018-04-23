@@ -29,7 +29,7 @@ const ProjectItem = ({
   const metadataId = cards[0].metadata.id;
   let fpb = 0;
 
-  if (metadataId === '30' || metadataId === '27') fpb = modifiedFundsBonus;
+  if (metadataId === '30' || metadataId === '27' || metadataId === '29') fpb = modifiedFundsBonus;
   else fpb = cardFundsBonus;
 
   const xpb = cards[0].stats.bonus.xp;
@@ -46,13 +46,17 @@ const ProjectItem = ({
       {
         showFpb &&
         <div className="bonus">
-          <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
+          {
+            (xpb > 0) && <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
+          }
           {
             (metadataId === '26' || metadataId === '27') &&
+            (fpb > 0) &&
             <div>+ { formatBigNumber(fpb) } <br /> FPB</div>
           }
           {
             (metadataId !== '26' && metadataId !== '27') &&
+            (fpb > 0) &&
             <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
           }
         </div>

@@ -707,3 +707,30 @@ export const calcFpbBonusForMiners = (locations, assetCards, item) => {
 
   return bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
 };
+
+/**
+ * Calculates how much funds should Rent Computing Power project add
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcFundsForDroppedCpuAndGpu = (locations, assetCards, item) => {
+  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+
+  return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
+    const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
+    const minerCards = containerSlots
+      .filter(containerSlot => containerSlot.lastDroppedItem)
+      .map(container => container.lastDroppedItem.cards[0]);
+
+    const cpuCards = minerCards.filter(({ metadata }) => metadata.id === '9');
+    const gpuCards = minerCards.filter(({ metadata }) => metadata.id === '10');
+
+    acc += cpuCards.length * (item.cards[0].stats.bonus.multiplierFunds / 3);
+    acc += gpuCards.length * item.cards[0].stats.bonus.multiplierFunds;
+
+    return acc;
+  }, 0);
+};

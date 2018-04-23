@@ -14,6 +14,7 @@ import {
   increaseFundsByMultiplier,
   calcDiffFpbBonusForMiners,
   bonusFpbMiningAlgo,
+  calcFundsForDroppedCpuAndGpu,
 } from '../services/gameMechanicsService';
 import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
@@ -208,6 +209,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
   let acquiredXp = 0;
   let releasedDev = 0;
   let receivedFunds = 0;
+  let saveProjects = false;
 
   for (let i = 0; i < _projects.length; i += 1) {
     if (_projects[i].lastDroppedItem != null && _projects[i].lastDroppedItem.expiryTime != null) {
@@ -240,6 +242,14 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
           _projects[i].lastDroppedItem.modifiedFundsBonus = fpbDiff;
           fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true, fpbDiff);
         }
+        if (card.metadata.id === '29') {
+          const assetCards = getPlayedAssetCards([...locations]);
+          const fundsForDroppedCpuAndGpu = calcFundsForDroppedCpuAndGpu(locations, assetCards, item);
+
+          _projects[i].lastDroppedItem.modifiedFundsBonus = fundsForDroppedCpuAndGpu;
+          receivedFunds += fundsForDroppedCpuAndGpu;
+          saveProjects = true;
+        }
 
         setTimeout(() => {
           dispatch(doNotShowProjectFpb(i));
@@ -248,7 +258,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     }
   }
 
-  if (acquiredXp > 0) {
+  if (acquiredXp > 0 || receivedFunds > 0 || saveProjects) {
     dispatch({ type: CHANGE_PROJECT_STATE, projects: _projects });
     dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
 
