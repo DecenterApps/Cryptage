@@ -555,7 +555,7 @@
       "ID": "26",
       "bonus": {
         "development": 0,
-        "funds": 0,
+        "funds": 1,
         "multiplierDev": 0,
         "multiplierFunds": 0,
         "multiplierTime": 0,
