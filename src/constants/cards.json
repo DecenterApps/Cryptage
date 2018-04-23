@@ -565,7 +565,7 @@
       },
       "cost": {
         "development": 5,
-        "funds": 750,
+        "funds": 500,
         "level": 4,
         "power": 0,
         "space": 0,
@@ -585,8 +585,8 @@
       "bonus": {
         "development": 0,
         "funds": 0,
-        "multiplierDev": 1,
-        "multiplierFunds": 0,
+        "multiplierDev": 0,
+        "multiplierFunds": 1,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -642,21 +642,21 @@
       "ID": "29",
       "bonus": {
         "development": 0,
-        "funds": 50,
+        "funds": 0,
         "multiplierDev": 0,
         "multiplierFunds": 0,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 4
+        "xp": 0
       },
       "cost": {
-        "development": 1,
+        "development": 0,
         "funds": 0,
-        "level": 2,
+        "level": 8,
         "power": 0,
         "space": 0,
-        "time": 10
+        "time": 2000
       },
       "flavorText": "Wait, are you saying that in the past corporations were in complete control of cloud computing resources?",
       "image": "rent-computing-power.jpg",
@@ -700,21 +700,21 @@
       "ID": "30",
       "bonus": {
         "development": 0,
-        "funds": 50,
+        "funds": 0,
         "multiplierDev": 0,
         "multiplierFunds": 2,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 4
+        "xp": 0
       },
       "cost": {
-        "development": 1,
+        "development": 0,
         "funds": 0,
-        "level": 2,
+        "level": 8,
         "power": 0,
         "space": 0,
-        "time": 10
+        "time": 2000
       },
       "flavorText": "HODL!",
       "image": "pos-pool-participation.jpg",
@@ -740,10 +740,10 @@
       "cost": {
         "development": 120,
         "funds": 64000,
-        "level": 12,
+        "level": 10,
         "power": 0,
         "space": 0,
-        "time": 500
+        "time": 4000
       },
       "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK.",
       "image": "decentralized-protocol-development.jpg",
@@ -769,17 +769,162 @@
       "cost": {
         "development": 240,
         "funds": 100000,
-        "level": 16,
+        "level": 12,
         "power": 0,
         "space": 0,
-        "time": 2000
+        "time": 300000
       },
       "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
       "image": "consensus-improvement.jpg",
-      "mechanicsText": "Time to complete: 2000 blocks.",
+      "mechanicsText": "Time to complete: Two weeks™",
       "rarityScore": "485",
       "special": true,
       "title": "Consensus Improvement",
+      "type": "Project",
+      "unique": false
+    },
+    "33": {
+      "ID": "33",
+      "bonus": {
+        "development": 0,
+        "funds": 4,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 160,
+        "level": 1,
+        "power": 1,
+        "space": 1,
+        "time": 0
+      },
+      "flavorText": "Foundation holo-tech. Shiny!",
+      "image": "holographic-gpu.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": false,
+      "title": "Holographic GPU",
+      "type": "Mining",
+      "unique": false
+    },
+    "34": {
+      "ID": "34",
+      "bonus": {
+        "development": 0,
+        "funds": 4,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 120,
+        "level": 1,
+        "power": 2,
+        "space": 1,
+        "time": 0
+      },
+      "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
+      "image": "render-farm-gpu.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": false,
+      "title": "Render Farm GPU",
+      "type": "Mining",
+      "unique": false
+    },
+    "35": {
+      "ID": "35",
+      "bonus": {
+        "development": 0,
+        "funds": 2,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 80,
+        "level": 1,
+        "power": 1,
+        "space": 1,
+        "time": 0
+      },
+      "flavorText": "Home made. It MOSTLY works.",
+      "image": "3d-printed-gpu.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": false,
+      "title": "3D Printed GPU",
+      "type": "Mining",
+      "unique": false
+    },
+    "36": {
+      "ID": "36",
+      "bonus": {
+        "development": 4,
+        "funds": 10,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 1000,
+        "level": 1,
+        "power": 0,
+        "space": 20,
+        "time": 0
+      },
+      "flavorText": "I look for security holes and pllug them. Guess you could say I put the EX in exploit.",
+      "image": "white-hat-hacker.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": true,
+      "title": "White Hat Hacker",
+      "type": "Development",
+      "unique": false
+    },
+    "37": {
+      "ID": "37",
+      "bonus": {
+        "development": 0,
+        "funds": 4,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 1
+      },
+      "cost": {
+        "development": 0,
+        "funds": 0,
+        "level": 1,
+        "power": 0,
+        "space": 0,
+        "time": 1
+      },
+      "flavorText": "They say prediction markets were barely a thing before blockchain came along. How the hell were people predicting the future before?",
+      "image": "prediction-market-participation.jpg",
+      "mechanicsText": "Time to complete: 1 block.",
+      "rarityScore": "900",
+      "special": true,
+      "title": "Prediction Market Participation",
       "type": "Project",
       "unique": false
     },
