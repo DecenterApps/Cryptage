@@ -12,8 +12,8 @@ import {
   UPDATE_FUNDS_PER_BLOCK,
 } from './actionTypes';
 import { addOrReduceFromFundsPerBlock, playTurn } from './gameplayActions';
-import { updateLocationDropSlotItems } from '../services/utils';
-import { handleCoffeeMinerEffect } from '../services/gameMechanicsService';
+import { getPlayedAssetCards, updateLocationDropSlotItems } from '../services/utils';
+import { calcFpbBonusForMiners, handleCoffeeMinerEffect } from '../services/gameMechanicsService';
 
 /**
  * Checks if player can cancel a card;
@@ -211,10 +211,17 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
  */
 export const removeProject = (card, index) => (dispatch, getState) => {
   const { projects } = getState().gameplay;
+  const { locations } = getState().gameplay;
   let { fundsPerBlock } = getState().gameplay;
   const alteredProjects = [...projects];
+  const item = alteredProjects[index].lastDroppedItem;
 
-  fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, alteredProjects[index].lastDroppedItem, false);
+  if (card.metadata.id === '27') {
+    const toRemove = calcFpbBonusForMiners(locations, getPlayedAssetCards([...locations]), item);
+    fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, false, toRemove);
+  } else {
+    fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, false);
+  }
 
   alteredProjects[index].accepts = acceptedProjectDropIds;
   alteredProjects[index].lastDroppedItem = null;

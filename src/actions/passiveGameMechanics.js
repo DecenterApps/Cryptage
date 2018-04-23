@@ -4,7 +4,7 @@ import {
   ADD_EXPERIENCE,
   UPDATE_FUNDS_PER_BLOCK,
 } from '../actions/actionTypes';
-import { saveGameplayState } from '../services/utils';
+import { getPlayedAssetCards, saveGameplayState } from '../services/utils';
 import {
   getLevelValuesForCard,
   calculateLevelData,
@@ -12,6 +12,8 @@ import {
   checkIfNewLevel,
   decreaseExecutionTimeForAllProjects,
   increaseFundsByMultiplier,
+  calcDiffFpbBonusForMiners,
+  bonusFpbMiningAlgo,
 } from '../services/gameMechanicsService';
 import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
@@ -137,6 +139,37 @@ const addFundsForDroppedDappProject = () => (dispatch, getState) => {
 };
 
 /**
+ * Adds bonus funds based on miners dropped for dropped mining optimization projects
+ */
+export const addBonusMiningFunds = (_cards, miningFpb) => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const { projects } = gameplay;
+  const globalStats = { ...gameplay.globalStats };
+
+  const validMiningOptimizationProjects = projects.filter((({ lastDroppedItem }) => {
+    if (!lastDroppedItem) return false;
+
+    const rightType = lastDroppedItem.cards[0].metadata.id === '27';
+    const finishedMoreThanOnce = lastDroppedItem.timesFinished > 0;
+
+    return rightType && finishedMoreThanOnce;
+  }));
+
+  const validMiningOptimizationProjectsFunds = validMiningOptimizationProjects.reduce((acc, { lastDroppedItem }) => {
+    const { multiplierFunds } = lastDroppedItem.cards[0].stats.bonus;
+    const { timesFinished } = lastDroppedItem;
+    acc += bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
+
+    return acc;
+  }, 0);
+
+  globalStats.funds += validMiningOptimizationProjectsFunds;
+
+  dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  return validMiningOptimizationProjectsFunds;
+};
+
+/**
  * Updates gameplay stats for each played asset card that has
  * that defined
  *
@@ -146,12 +179,14 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
   console.log('All played asset cards', cards);
 
   const miningFunds = dispatch(addFundsForDroppedMiningRigs(cards));
+  const bonusMiningFunds = dispatch(addBonusMiningFunds(cards, miningFunds));
   const gridConnectorsFunds = dispatch(addFundsForDroppedGridConnectors(cards));
   const hackersFunds = dispatch(addFundsForDroppedHacker(cards));
   const coffeeMinerFunds = dispatch(addFundsForDroppedCoffeeMiners(cards));
   const profitableDappFunds = dispatch(addFundsForDroppedDappProject());
 
-  const total = miningFunds + gridConnectorsFunds + hackersFunds + coffeeMinerFunds + profitableDappFunds;
+  const total = miningFunds + bonusMiningFunds + gridConnectorsFunds + hackersFunds + coffeeMinerFunds
+    + profitableDappFunds;
 
   if (total !== getState().gameplay.fundsPerBlock) dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: total });
 
@@ -164,6 +199,7 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
 export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
+  const { locations } = getState().gameplay;
   let { fundsPerBlock } = getState().gameplay;
   const {
     experience, development, funds, level,
@@ -198,6 +234,11 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
           const modifiedFundsBonus = increaseFundsByMultiplier(receivedFunds + funds, item);
           _projects[i].lastDroppedItem.modifiedFundsBonus = modifiedFundsBonus + receivedFunds;
           receivedFunds += modifiedFundsBonus;
+        }
+        if (card.metadata.id === '27') {
+          const fpbDiff = calcDiffFpbBonusForMiners(locations, getPlayedAssetCards([...locations]), item);
+          _projects[i].lastDroppedItem.modifiedFundsBonus = fpbDiff;
+          fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true, fpbDiff);
         }
 
         setTimeout(() => {

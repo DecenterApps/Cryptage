@@ -637,4 +637,74 @@ export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber
  * @return {Number}
  */
 export const increaseFundsByMultiplier = (funds, item) =>
-  Math.ceil((funds * ((item.cards[0].stats.bonus.multiplierFunds) / 100)));
+  Math.floor((funds * (item.cards[0].stats.bonus.multiplierFunds / 100)));
+
+/**
+ * Calculates how much a single Mining Algorithm Optimization adds bonus funds
+ *
+ * @param {Number} miningFpb
+ * @param {Number} multiplierFunds
+ * @param {Number} timesFinished
+ * @return {Number}
+ */
+export const bonusFpbMiningAlgo = (miningFpb, multiplierFunds, timesFinished) =>
+  Math.floor(miningFpb * ((((100 + multiplierFunds) / 100) ** timesFinished) - 1));
+
+/**
+ * Calculates how much fpb miners generate
+ *
+ * @param {Array} assetCards
+ * @param {Array} locations
+ * @return {Number}
+ */
+const getMinersFpb = (assetCards, locations) => {
+  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+
+  return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
+    const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
+    const minerCards = containerSlots
+      .filter(containerSlot => containerSlot.lastDroppedItem)
+      .map(container => container.lastDroppedItem.cards[0]);
+
+    minerCards.forEach((minerCard) => {
+      acc += minerCard.stats.bonus.funds;
+    });
+
+    return acc;
+  }, 0);
+};
+
+/**
+ * Calculates how much more fpb a single Mining Algorithm Optimization add on finish
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcDiffFpbBonusForMiners = (locations, assetCards, item) => {
+  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { timesFinished } = item;
+  const miningFpb = getMinersFpb(assetCards, locations);
+
+  const currBonus = bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
+  const pastBonus = bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished - 1);
+
+  return currBonus - pastBonus;
+};
+
+/**
+ * Calculates how much fpb a single Mining Algorithm Optimization adds
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcFpbBonusForMiners = (locations, assetCards, item) => {
+  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { timesFinished } = item;
+  const miningFpb = getMinersFpb(assetCards, locations);
+
+  return bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
+};

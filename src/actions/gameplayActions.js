@@ -388,9 +388,11 @@ export const levelUpProject = index => (dispatch, getState) => {
  * @param {Number} _fpb
  * @param {Object} card
  * @param {Boolean} addOrReduce - true is add, false is reduce
+ * @param {Number} numToAddOrReduce - number which takes a lot of logic to calculate
+ * (on purpose outside of function)
  * @return {Number}
  */
-export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
+export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
   let fpb = _fpb;
 
   if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
@@ -405,6 +407,11 @@ export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
 
     if (addOrReduce === true) fpb += multiplier;
     else fpb -= (timesFinished * multiplier);
+  }
+
+  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '27') {
+    if (addOrReduce) fpb += numToAddOrReduce;
+    else fpb -= numToAddOrReduce;
   }
 
   return fpb;
