@@ -30,6 +30,7 @@ import {
   ADD_NEW_LEVEL_CARDS,
   CLEAR_TURNS,
   REMOVE_NEW_FROM_CARD,
+  UPDATE_BLOCK_NUMBER,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -37,6 +38,7 @@ import levels from '../constants/levels.json';
 
 const INITIAL_STATE = {
   nickname: '',
+  blockNumber: 0,
   lastSavedStateBlock: 0,
   fundsPerBlock: 0,
   gameplayView: GP_NO_NICKNAME,
@@ -209,6 +211,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case UPDATE_LOCATIONS:
       return { ...state, locations: payload };
+
+    case UPDATE_BLOCK_NUMBER:
+      return { ...state, blockNumber: payload };
 
     default:
       return state;

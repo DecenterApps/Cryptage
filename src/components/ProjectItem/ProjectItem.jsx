@@ -123,7 +123,7 @@ ProjectItem.defaultProps = {
 
 const mapStateToProps = ({ gameplay, app }) => ({
   gameplayView: gameplay.gameplayView,
-  blockNumber: app.blockNumber,
+  blockNumber: gameplay.blockNumber,
 });
 
 const mapDispatchToProp = {

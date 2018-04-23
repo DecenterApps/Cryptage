@@ -10,7 +10,7 @@ import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
-import { loadGameplayState } from '../../actions/gameplayActions';
+import { loadGameplayState, updateFundsBlockDifference } from '../../actions/gameplayActions';
 import {
   checkAccount,
   loadingEnded,
@@ -25,6 +25,7 @@ class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
     await this.props.loadGameplayState();
+    await this.props.updateFundsBlockDifference();
     this.props.listenForNewBlocks();
     this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
@@ -41,7 +42,7 @@ class App extends Component {
         <div className="app-top-section-wrapper">
           <div className="logo-wrapper" />
 
-          { accountError && <NoMetaMask accountError={accountError} /> }
+          {accountError && <NoMetaMask accountError={accountError} />}
 
           {
             !accountError && [
@@ -68,10 +69,16 @@ App.propTypes = {
   listenForNewBlocks: PropTypes.func.isRequired,
   updateCurrentBlockNumber: PropTypes.func.isRequired,
   accountError: PropTypes.string.isRequired,
+  updateFundsBlockDifference: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  checkAccount, loadGameplayState, loadingEnded, listenForNewBlocks, updateCurrentBlockNumber,
+  checkAccount,
+  loadGameplayState,
+  loadingEnded,
+  listenForNewBlocks,
+  updateCurrentBlockNumber,
+  updateFundsBlockDifference,
 };
 
 const mapStateToProps = ({ app }) => ({

@@ -60,7 +60,7 @@
       "ID": "10",
       "bonus": {
         "development": 0,
-        "funds": 5,
+        "funds": 6,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
@@ -97,7 +97,7 @@
       },
       "cost": {
         "development": 0,
-        "funds": 6000,
+        "funds": 2500,
         "level": 1,
         "power": 16,
         "space": 1,
@@ -181,7 +181,7 @@
       },
       "cost": {
         "development": 0,
-        "funds": 500,
+        "funds": 250,
         "level": 4,
         "power": 0,
         "space": 20,
@@ -209,7 +209,7 @@
       },
       "cost": {
         "development": 0,
-        "funds": 1500,
+        "funds": 1000,
         "level": 4,
         "power": 0,
         "space": 20,
@@ -229,7 +229,7 @@
       "bonus": {
         "development": 46,
         "funds": 0,
-        "multiplier-dev": 0,
+        "multiplier-dev": "10%",
         "multiplier-funds": 0,
         "power": 0,
         "space": 0,
@@ -245,7 +245,7 @@
       },
       "flavorText": "I'm sure you can accomplish ALL these tasks today! Just don't forget to SMILE.",
       "image": "techical-team-leader.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "All developers on the same location gain 10% bonus DEV",
       "rarityScore": "576",
       "special": false,
       "title": "Techical Team Leader",
@@ -495,7 +495,7 @@
         "space": 0,
         "time": 1
       },
-      "flavorText": "Hey, this isn't what I signed up for!",
+      "flavorText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
       "image": "day-trading.jpg",
       "mechanicsText": "Time to complete: 1 block",
       "rarityScore": "900",
@@ -592,16 +592,16 @@
       "ID": "28",
       "bonus": {
         "development": 0,
-        "funds": 64000,
+        "funds": 32000,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,
         "space": 0,
-        "xp": 512
+        "xp": 256
       },
       "cost": {
-        "development": 56,
-        "funds": 32000,
+        "development": 96,
+        "funds": 16000,
         "level": 8,
         "power": 0,
         "space": 0,
@@ -844,7 +844,7 @@
       "ID": "7",
       "cost": {
         "development": 0,
-        "funds": 1200,
+        "funds": 360,
         "level": 1,
         "power": 0,
         "space": 15,
@@ -872,7 +872,7 @@
       "ID": "8",
       "cost": {
         "development": 0,
-        "funds": 4800,
+        "funds": 4000,
         "level": 1,
         "power": 0,
         "space": 25,
@@ -900,7 +900,7 @@
       "ID": "9",
       "bonus": {
         "development": 0,
-        "funds": 1,
+        "funds": 2,
         "multiplier-dev": 0,
         "multiplier-funds": 0,
         "power": 0,

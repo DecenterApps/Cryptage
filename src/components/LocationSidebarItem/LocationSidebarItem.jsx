@@ -175,10 +175,10 @@ LocationSidebarItem.propTypes = {
   blockNumber: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ gameplay, app }) => ({
+const mapStateToProps = ({ gameplay }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
-  blockNumber: app.blockNumber,
+  blockNumber: gameplay.blockNumber,
 });
 
 const mapDispatchToProp = {

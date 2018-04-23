@@ -284,7 +284,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         cards: [{ ...item.card, index }],
         isActive: true,
         isFinished: false,
-        expiryTime: app.blockNumber + item.card.stats.cost.time,
+        expiryTime: gameplay.blockNumber + item.card.stats.cost.time,
         timesFinished: 0,
       },
       slotType: 'project',
@@ -527,6 +527,27 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   }
 
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+};
+
+export const updateFundsBlockDifference = () => async (dispatch, getState) => {
+  const { app: { account }, gameplay } = getState();
+
+  if (!account) return;
+
+  const previousState = JSON.parse(localStorage.getItem(`player-location-${account}`));
+
+  if (previousState) {
+    const currentBlock = await ethService.getBlockNumber();
+    const blockDiff = currentBlock - previousState.blockNumber;
+    console.log(`Add ${previousState.fundsPerBlock} funds for ${blockDiff} blocks`);
+
+    const locations = [...gameplay.locations];
+    const globalStats = { ...gameplay.globalStats };
+
+    globalStats.funds += blockDiff * previousState.fundsPerBlock;
+
+    dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  }
 };
 
 /**

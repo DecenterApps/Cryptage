@@ -20,8 +20,7 @@ let NicknameForm = ({
         Welcome to the world of Cryptage!
       </p>
       <p className="form-description">
-        As a welcome gift and to help you kick off your
-        own crypto venture, we will give you 5 free cards. But please choose your username
+        Since this appears to be your first time playing, we will be happy to walk you through the basic game mechanics. But please choose your username
         first.
       </p>
       <div className="form-label">
