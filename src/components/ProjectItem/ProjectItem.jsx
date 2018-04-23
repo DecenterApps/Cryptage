@@ -36,12 +36,15 @@ const ProjectItem = ({
     `}
     >
       <HoverInfo card={cards[0]} center />
-
       {
         showFpb &&
         <div className="bonus">
           <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
-          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+          { cards[0].metadata.id === '26' && <div>+ { formatBigNumber(fpb) } <br /> FPB</div> }
+          {
+            cards[0].metadata.id !== '26' &&
+            <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+          }
         </div>
       }
 

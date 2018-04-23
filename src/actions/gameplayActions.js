@@ -391,9 +391,18 @@ export const levelUpProject = index => (dispatch, getState) => {
 export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
   let fpb = _fpb;
 
-  if (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project')) {
+  if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
     if (addOrReduce) fpb += card.stats.bonus.funds;
     else fpb -= card.stats.bonus.funds;
+  }
+
+  // Special mechanics for card with id 26, Adds fpb when completed;
+  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '26') {
+    const { timesFinished, cards } = card;
+    const multiplier = cards[0].stats.bonus.funds;
+
+    if (addOrReduce === true) fpb += multiplier;
+    else fpb -= (timesFinished * multiplier);
   }
 
   return fpb;

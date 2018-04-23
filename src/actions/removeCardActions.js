@@ -9,6 +9,7 @@ import {
   UPDATE_LOCATIONS,
   CLEAR_REVEALED_CARDS,
   REMOVE_NEW_FROM_CARD,
+  UPDATE_FUNDS_PER_BLOCK,
 } from './actionTypes';
 import { addOrReduceFromFundsPerBlock, playTurn } from './gameplayActions';
 import { updateLocationDropSlotItems } from '../services/utils';
@@ -210,19 +211,17 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
  */
 export const removeProject = (card, index) => (dispatch, getState) => {
   const { projects } = getState().gameplay;
+  let { fundsPerBlock } = getState().gameplay;
   const alteredProjects = [...projects];
+
+  fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, alteredProjects[index].lastDroppedItem, false);
 
   alteredProjects[index].accepts = acceptedProjectDropIds;
   alteredProjects[index].lastDroppedItem = null;
 
-  dispatch({
-    type: CHANGE_PROJECT_STATE,
-    projects: alteredProjects,
-  });
-  dispatch({
-    type: RETURN_CARD,
-    card,
-  });
+  dispatch({ type: CHANGE_PROJECT_STATE, projects: alteredProjects });
+  dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
+  dispatch({ type: RETURN_CARD, card });
 };
 
 /**

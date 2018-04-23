@@ -545,6 +545,8 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
 export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
   const projects = [...getState().gameplay.projects];
 
+  if (!projects[projectIndex].lastDroppedItem) return;
+
   projects[projectIndex].lastDroppedItem.showFpb = false;
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
