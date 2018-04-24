@@ -226,6 +226,7 @@ export const removeProject = (card, index) => (dispatch, getState) => {
   alteredProjects[index].accepts = acceptedProjectDropIds;
   alteredProjects[index].lastDroppedItem = null;
 
+  dispatch(playTurn(item, 'project', index, false));
   dispatch({ type: CHANGE_PROJECT_STATE, projects: alteredProjects });
   dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
   dispatch({ type: RETURN_CARD, card });

@@ -340,6 +340,21 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const mathRes = handleCardMathematics(card, [], globalStats, index);
   const alterGlobalStats = mathRes.globalStats;
 
+  // if the project is activated again
+  if (card !== 'project') {
+    dispatch({
+      type: PLAY_TURN,
+      turn: {
+        add: 1,
+        specificCard: 0,
+        location: index,
+        containerPosition: index,
+        cardType: card.stats.ID,
+        blockNumber,
+      },
+    });
+  }
+
   dispatch({
     type: CHANGE_PROJECT_STATE,
     projects: alteredProjects,
@@ -817,8 +832,6 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       break;
   }
 
-  console.log(slotType, index);
-
   // cardtype == gpu set specificCard to 1
   if (card.stats.ID === 10) {
     specificCard = 1;
@@ -867,9 +880,6 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   try {
     const ipfs = await ipfsService.uploadData(gameplay);
-    await ipfsService.replicate(ipfs[0].hash, '');
-
-    console.log(ipfs[0].hash);
 
     await ethService.updateMoves(packedMoves, ipfs[0].hash);
 
