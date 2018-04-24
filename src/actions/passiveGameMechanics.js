@@ -107,8 +107,8 @@ const addFundsForDroppedCoffeeMiners = _cards => (dispatch, getState) => {
   const coffeeCards = _cards.filter(_card => _card.metadata.id === '23');
 
   coffeeCards.forEach(({ stats }) => {
-    coffeeFunds += stats.bonus.funds;
-    globalStats.funds += stats.bonus.funds;
+    coffeeFunds += stats.bonus.multiplierFunds;
+    globalStats.funds += stats.bonus.multiplierFunds;
   });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });

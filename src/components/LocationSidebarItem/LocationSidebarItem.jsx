@@ -45,11 +45,12 @@ class LocationSidebarItem extends Component {
 
     slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
       // get hackers and coffee miners fpb
-      if (
-        (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '18') ||
-        (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23')
-      ) {
+      if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '18') {
         fpb += lastDroppedItem.cards[0].stats.bonus.funds;
+      }
+
+      if ((lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23')) {
+        fpb += lastDroppedItem.cards[0].stats.bonus.multiplierFunds;
       }
 
       // get grid connector fpb

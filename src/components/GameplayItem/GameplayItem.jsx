@@ -73,7 +73,8 @@ class GameplayItem extends Component {
     let fpb = 0;
 
     // handle hacker and coffee miner fpb
-    if (cards[0].metadata.id === '18' || cards[0].metadata.id === '23') fpb = cards[0].stats.bonus.funds;
+    if (cards[0].metadata.id === '18') fpb = cards[0].stats.bonus.funds;
+    if (cards[0].metadata.id === '23') fpb = cards[0].stats.bonus.multiplierFunds;
 
     // handle grid connector fpb
     if (cards[0].metadata.id === '22') {

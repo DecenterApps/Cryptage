@@ -256,10 +256,10 @@
       "image": "techical-team-leader.jpg",
       "mechanicsText": "All developers on the same location gain 10% bonus DEV.",
       "rarityScore": "576",
-      "special": false,
-      "title": "Techical Team Leader",
+      "special": true,
+      "title": "Technical Team Leader",
       "type": "Development",
-      "unique": false
+      "unique": true
     },
     "17": {
       "ID": "17",
@@ -467,10 +467,10 @@
     "23": {
       "ID": "23",
       "bonus": {
-        "development": 10,
-        "funds": 10,
+        "development": 0,
+        "funds": 0,
         "multiplierDev": 10,
-        "multiplierFunds": 0,
+        "multiplierFunds": 10,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -555,9 +555,9 @@
       "ID": "26",
       "bonus": {
         "development": 0,
-        "funds": 1,
+        "funds": 0,
         "multiplierDev": 0,
-        "multiplierFunds": 0,
+        "multiplierFunds": 1,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -962,7 +962,7 @@
       "bonus": {
         "development": 22,
         "funds": 0,
-        "multiplierDev": 0,
+        "multiplierDev": 20,
         "multiplierFunds": 0,
         "multiplierTime": 0,
         "power": 0,
@@ -981,10 +981,10 @@
       "image": "efficiency-expert.jpg",
       "mechanicsText": "All developers on the same location gain 20% bonus DEV.",
       "rarityScore": "576",
-      "special": false,
+      "special": true,
       "title": "Efficiency Expert",
       "type": "Development",
-      "unique": false
+      "unique": true
     },
     "4": {
       "ID": "4",
