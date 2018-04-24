@@ -93,7 +93,7 @@ class Menu extends Component {
                   localStorage.clear();
                   resetGame();
                   this.setState({ open: false });
-                  await ethereumService.resetState();
+                  // await ethereumService.resetState();
                 }}
               >
                 Reset Game

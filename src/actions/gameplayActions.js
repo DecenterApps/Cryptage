@@ -757,6 +757,8 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
   let location;
   let cardSpecificNumber = 0;
   let containerCard;
+  let specificCard = 0;
+
   switch (slotType) {
     case 'location':
       location = index;
@@ -775,48 +777,24 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       break;
   }
 
-  // const items = [];
+  console.log(slotType, index);
 
-  // console.log(slotType);
+  // cardtype == gpu set specificCard to 1
+  if (card.stats.ID === 10) {
+    specificCard = 1;
+  }
 
-  // if (slotType !== 'project' || slotType !== 'location') {
-  //   getCardIdsFromLocation(locations[location], items);
-  // }
-  // const numOfRepetitions = items.filter(i => i === item.card.stats.ID).length;
-
-  // let convertedCardId = Math.abs(card.metadata.id) * 6;
-
-  // if (convertedCardId >= 144 && convertedCardId <= 174) {
-  //   convertedCardId += 720;
-  // }
-
-  // // if the card is already on location
-  // if (numOfRepetitions > 1) {
-  //   location = 0;
-  //   // get cardId with the conversion
-  //   const index = playedTurns.map(p => p.cardId).lastIndexOf(convertedCardId);
-
-  //   convertedCardId = index;
-  // } else {
-  //   location = 1;
-  // }
-
-  // if (slotType === 'project') {
-  //   const index = gameplay.projects.findIndex(g => g.lastDroppedItem !== null);
-
-  //   cardSpecificNumber = 0;
-  // }
-
-  // dispatch({
-  //   type: PLAY_TURN,
-  //   turn: {
-  //     add: addOrRemove ? 1 : 0,
-  //     specificCard: 0,
-  //     location,
-  //     cardId: cardId,
-  //     blockNumber: app.blockNumber,
-  //   },
-  // });
+  dispatch({
+    type: PLAY_TURN,
+    turn: {
+      add: addOrRemove ? 1 : 0,
+      specificCard,
+      location,
+      containerPosition: index,
+      cardType: card.stats.ID,
+      blockNumber: app.blockNumber,
+    },
+  });
 };
 
 /**
@@ -849,6 +827,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   try {
     const ipfs = await ipfsService.uploadData(gameplay);
+    await ipfsService.replicate(ipfs[0].hash, '');
 
     console.log(ipfs[0].hash);
 
