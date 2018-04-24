@@ -32,6 +32,8 @@ export const PROJECT_DROP_SLOTS = [
   PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT,
 ];
 
+export const bonusDevPerLocationCards = ['16', '23', '39'];
+
 // APP
 export const LOADING_ENDED = 'loading_ended';
 export const GET_ACCOUNT_SUCCESS = 'get_account_success';
