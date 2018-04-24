@@ -39,7 +39,7 @@
         "space": 0,
         "time": 0
       },
-      "flavorText": "I better not catch any of you mining in the kitchen, you hear!",
+      "flavorText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
       "image": "coworking-space.jpg",
       "mechanicsText": "Does not have any free power.",
       "rarityScore": "576",
@@ -310,7 +310,7 @@
         "space": 20,
         "time": 0
       },
-      "flavorText": "",
+      "flavorText": "\nHack the planet!",
       "image": "black-hat-hacker.jpg",
       "mechanicsText": "Gain 10 FUNDS each block.",
       "rarityScore": "576",
@@ -919,7 +919,7 @@
         "space": 0,
         "time": 1
       },
-      "flavorText": "They say prediction markets were barely a thing before blockchain came along. How the hell were people predicting the future then?",
+      "flavorText": "They say prediction markets were barely a thing before blockchain came along. How the hell were people predicting the future back then!?",
       "image": "prediction-market-participation.jpg",
       "mechanicsText": "Time to complete: 1 block.",
       "rarityScore": "900",
@@ -1015,6 +1015,93 @@
         "xp": 0
       }
     },
+    "40": {
+      "ID": "40",
+      "bonus": {
+        "development": 0,
+        "funds": 0,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 5,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 40000,
+        "level": 8,
+        "power": 0,
+        "space": 40,
+        "time": 0
+      },
+      "flavorText": "You may call our buisness practices unethical. I call them effective.",
+      "image": "corporate-executive.jpg",
+      "mechanicsText": "Reduces project duration by 5%.",
+      "rarityScore": "576",
+      "special": false,
+      "title": "Corporate Executive",
+      "type": "Development",
+      "unique": true
+    },
+    "41": {
+      "ID": "41",
+      "bonus": {
+        "development": 0,
+        "funds": 10,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 4000,
+        "level": 1,
+        "power": 0,
+        "space": 20,
+        "time": 0
+      },
+      "flavorText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
+      "image": "day-trader.jpg",
+      "mechanicsText": "Day Trading gains 1 more FUNDS.",
+      "rarityScore": "576",
+      "special": true,
+      "title": "Day Trader",
+      "type": "Development",
+      "unique": false
+    },
+    "42": {
+      "ID": "42",
+      "bonus": {
+        "development": 0,
+        "funds": 10,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 4000,
+        "level": 4,
+        "power": 0,
+        "space": 0,
+        "time": 0
+      },
+      "flavorText": "I might have something you need... for the right price.",
+      "image": "information-dealer.jpg",
+      "mechanicsText": "Prediction Market Participation gains 2 more FUNDS.",
+      "rarityScore": "576",
+      "special": true,
+      "title": "Information Dealer",
+      "type": "Development",
+      "unique": false
+    },
     "5": {
       "ID": "5",
       "cost": {
@@ -1054,7 +1141,7 @@
         "space": 5,
         "time": 0
       },
-      "flavorText": "NOTICE: Stop playing VR Minesweeper as it interferes with our revenue stream!",
+      "flavorText": "",
       "image": "computer-case.jpg",
       "mechanicsText": "Can contain up to 2 CPUs or GPUs.",
       "rarityScore": "900",
