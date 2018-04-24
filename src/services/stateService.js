@@ -14,14 +14,14 @@
 // 1/0 add/remove
 // 1 specific card (for GPU)
 // 3 location
-// 11 card
+// 8 containerPosition
+// 11 cardType
 // 16 blockNumber
 
 import BigInt from 'big-integer';
 
 const dec2bin = (d, l) => (d >>> 0).toString(2).padStart(l, '0'); //eslint-disable-line
 const bin2dec = bin => parseInt(bin, 2);
-
 
 const getBinary = (value, l) => dec2bin(value, l);
 const toHex = str => `0x + ${((new BigInt(str.padStart(256, '0'), 2)).toString(16)).padStart(64, 0)}`;
@@ -221,7 +221,8 @@ export function packMoves(_moves) {
 
   const binMoves = _moves.map((move, i) =>
     bin2Hex(dec2bin(move.add, 1) + dec2bin(move.specificCard, 1) + dec2bin(move.location, 3)
-    + dec2bin(move.card, 11) + dec2bin(blockNums[i], 16)));
+    + dec2bin(move.containerPosition, 8) + dec2bin(move.cardType, 11)
+    + dec2bin(blockNums[i], 16)));
 
   return _pack(binMoves, blockNumHex);
 }

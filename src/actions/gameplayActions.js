@@ -284,8 +284,10 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
         cards: [{ ...item.card, index }],
         isActive: true,
         isFinished: false,
-        expiryTime: app.blockNumber + item.card.stats.cost.time,
+        timeDecrease: 0,
+        expiryTime: gameplay.blockNumber + item.card.stats.cost.time,
         timesFinished: 0,
+        modifiedFundsBonus: 0,
       },
       slotType: 'project',
     };
@@ -386,14 +388,30 @@ export const levelUpProject = index => (dispatch, getState) => {
  * @param {Number} _fpb
  * @param {Object} card
  * @param {Boolean} addOrReduce - true is add, false is reduce
+ * @param {Number} numToAddOrReduce - number which takes a lot of logic to calculate
+ * (on purpose outside of function)
  * @return {Number}
  */
-export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
+export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
   let fpb = _fpb;
 
-  if (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project')) {
+  if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
     if (addOrReduce) fpb += card.stats.bonus.funds;
     else fpb -= card.stats.bonus.funds;
+  }
+
+  // Special mechanics for card with id 26, Adds fpb when completed;
+  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '26') {
+    const { timesFinished, cards } = card;
+    const multiplier = cards[0].stats.bonus.funds;
+
+    if (addOrReduce === true) fpb += multiplier;
+    else fpb -= (timesFinished * multiplier);
+  }
+
+  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '27') {
+    if (addOrReduce) fpb += numToAddOrReduce;
+    else fpb -= numToAddOrReduce;
   }
 
   return fpb;
@@ -518,6 +536,27 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   }
 
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+};
+
+export const updateFundsBlockDifference = () => async (dispatch, getState) => {
+  const { app: { account }, gameplay } = getState();
+
+  if (!account) return;
+
+  const previousState = JSON.parse(localStorage.getItem(`player-location-${account}`));
+
+  if (previousState) {
+    const currentBlock = await ethService.getBlockNumber();
+    const blockDiff = currentBlock - previousState.blockNumber;
+    console.log(`Add ${previousState.fundsPerBlock} funds for ${blockDiff} blocks`);
+
+    const locations = [...gameplay.locations];
+    const globalStats = { ...gameplay.globalStats };
+
+    globalStats.funds += blockDiff * previousState.fundsPerBlock;
+
+    dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  }
 };
 
 /**
@@ -758,6 +797,8 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
   let location;
   let cardSpecificNumber = 0;
   let containerCard;
+  let specificCard = 0;
+
   switch (slotType) {
     case 'location':
       location = index;
@@ -776,48 +817,24 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       break;
   }
 
-  // const items = [];
+  console.log(slotType, index);
 
-  // console.log(slotType);
+  // cardtype == gpu set specificCard to 1
+  if (card.stats.ID === 10) {
+    specificCard = 1;
+  }
 
-  // if (slotType !== 'project' || slotType !== 'location') {
-  //   getCardIdsFromLocation(locations[location], items);
-  // }
-  // const numOfRepetitions = items.filter(i => i === item.card.stats.ID).length;
-
-  // let convertedCardId = Math.abs(card.metadata.id) * 6;
-
-  // if (convertedCardId >= 144 && convertedCardId <= 174) {
-  //   convertedCardId += 720;
-  // }
-
-  // // if the card is already on location
-  // if (numOfRepetitions > 1) {
-  //   location = 0;
-  //   // get cardId with the conversion
-  //   const index = playedTurns.map(p => p.cardId).lastIndexOf(convertedCardId);
-
-  //   convertedCardId = index;
-  // } else {
-  //   location = 1;
-  // }
-
-  // if (slotType === 'project') {
-  //   const index = gameplay.projects.findIndex(g => g.lastDroppedItem !== null);
-
-  //   cardSpecificNumber = 0;
-  // }
-
-  // dispatch({
-  //   type: PLAY_TURN,
-  //   turn: {
-  //     add: addOrRemove ? 1 : 0,
-  //     specificCard: 0,
-  //     location,
-  //     cardId: cardId,
-  //     blockNumber: app.blockNumber,
-  //   },
-  // });
+  dispatch({
+    type: PLAY_TURN,
+    turn: {
+      add: addOrRemove ? 1 : 0,
+      specificCard,
+      location,
+      containerPosition: index,
+      cardType: card.stats.ID,
+      blockNumber: app.blockNumber,
+    },
+  });
 };
 
 /**
@@ -850,6 +867,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   try {
     const ipfs = await ipfsService.uploadData(gameplay);
+    await ipfsService.replicate(ipfs[0].hash, '');
 
     console.log(ipfs[0].hash);
 

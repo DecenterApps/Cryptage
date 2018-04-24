@@ -71,7 +71,7 @@ BoostersMenu.defaultProps = {
 const mapStateToProps = state => ({
   shop: state.shop,
   accountBalance: state.app.accountBalance,
-  currentBlock: state.app.blockNumber,
+  currentBlock: state.gameplay.blockNumber,
 });
 
 const mapDispatchToProps = {

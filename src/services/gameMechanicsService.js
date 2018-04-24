@@ -90,10 +90,10 @@ export const getSlotForContainer = (_id, space) => {
   const slots = [];
   let accepts = [];
 
-  // Computer Case only accepts CPU and Graphics card
-  if (id === 6) accepts = ['9', '10'];
+  // Computer Case only accepts CPU and Graphics cards
+  if (id === 6) accepts = ['9', '10', '33', '34', '35'];
   // Mining Rig only accepts Graphics card
-  if (id === 7) accepts = ['10'];
+  if (id === 7) accepts = ['10', '33', '34', '35'];
   // ASIC Mount only accepts ASIC miner
   if (id === 8) accepts = ['11'];
 
@@ -545,7 +545,10 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
 export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
   const projects = [...getState().gameplay.projects];
 
+  if (!projects[projectIndex].lastDroppedItem) return;
+
   projects[projectIndex].lastDroppedItem.showFpb = false;
+  projects[projectIndex].lastDroppedItem.modifiedFundsBonus = 0;
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
 
@@ -591,9 +594,143 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
   const { level } = getState().gameplay.globalStats;
 
   if (currLevel === level) return;
-  if ((level - 1) < 0) return;
-
-  const cards = await dispatch(addCardsForNewLevel(level));
+  if ((level - 1) <= 0) return;
+  let cards = [];
+  if (level < cardsPerLevel.length) cards = await dispatch(addCardsForNewLevel(level));
 
   dispatch(openNewLevelModal(level, cards));
+};
+
+/**
+ * Decreases time execution for all project
+ *
+ * @param {Array} _projects
+ * @param {Object} item
+ * @param {Number} blockNumber
+ *
+ * @return {Array}
+ */
+export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber) => {
+  const projects = [..._projects];
+
+  return projects.map((_project) => {
+    const project = { ..._project };
+
+    if (project.lastDroppedItem && project.lastDroppedItem.isActive) {
+      const { expiryTime, timeDecrease } = _project.lastDroppedItem;
+      const { multiplierTime } = item.cards[0].stats.bonus;
+      const timeLeft = expiryTime - timeDecrease - blockNumber;
+
+      project.lastDroppedItem.timeDecrease += Math.ceil((timeLeft * ((multiplierTime) / 100)));
+    }
+
+    return project;
+  });
+};
+
+/**
+ * Calculates how much funds should be increased by the multiplier
+ *
+ * @param {Number} funds
+ * @param {Object} item
+ * @return {Number}
+ */
+export const increaseFundsByMultiplier = (funds, item) =>
+  Math.floor((funds * (item.cards[0].stats.bonus.multiplierFunds / 100)));
+
+/**
+ * Calculates how much a single Mining Algorithm Optimization adds bonus funds
+ *
+ * @param {Number} miningFpb
+ * @param {Number} multiplierFunds
+ * @param {Number} timesFinished
+ * @return {Number}
+ */
+export const bonusFpbMiningAlgo = (miningFpb, multiplierFunds, timesFinished) =>
+  Math.floor(miningFpb * ((((100 + multiplierFunds) / 100) ** timesFinished) - 1));
+
+/**
+ * Calculates how much fpb miners generate
+ *
+ * @param {Array} assetCards
+ * @param {Array} locations
+ * @return {Number}
+ */
+const getMinersFpb = (assetCards, locations) => {
+  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+
+  return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
+    const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
+    const minerCards = containerSlots
+      .filter(containerSlot => containerSlot.lastDroppedItem)
+      .map(container => container.lastDroppedItem.cards[0]);
+
+    minerCards.forEach((minerCard) => {
+      acc += minerCard.stats.bonus.funds;
+    });
+
+    return acc;
+  }, 0);
+};
+
+/**
+ * Calculates how much more fpb a single Mining Algorithm Optimization add on finish
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcDiffFpbBonusForMiners = (locations, assetCards, item) => {
+  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { timesFinished } = item;
+  const miningFpb = getMinersFpb(assetCards, locations);
+
+  const currBonus = bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
+  const pastBonus = bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished - 1);
+
+  return currBonus - pastBonus;
+};
+
+/**
+ * Calculates how much fpb a single Mining Algorithm Optimization adds
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcFpbBonusForMiners = (locations, assetCards, item) => {
+  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { timesFinished } = item;
+  const miningFpb = getMinersFpb(assetCards, locations);
+
+  return bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
+};
+
+/**
+ * Calculates how much funds should Rent Computing Power project add
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcFundsForDroppedCpuAndGpu = (locations, assetCards, item) => {
+  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+
+  return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
+    const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
+    const minerCards = containerSlots
+      .filter(containerSlot => containerSlot.lastDroppedItem)
+      .map(container => container.lastDroppedItem.cards[0]);
+
+    const cpuCards = minerCards.filter(({ metadata }) => metadata.id === '9');
+    const gpuCards = minerCards.filter(({ metadata }) => metadata.id === '10');
+
+    acc += cpuCards.length * (item.cards[0].stats.bonus.multiplierFunds / 3);
+    acc += gpuCards.length * item.cards[0].stats.bonus.multiplierFunds;
+
+    return acc;
+  }, 0);
 };

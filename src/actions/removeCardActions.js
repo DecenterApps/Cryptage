@@ -9,10 +9,11 @@ import {
   UPDATE_LOCATIONS,
   CLEAR_REVEALED_CARDS,
   REMOVE_NEW_FROM_CARD,
+  UPDATE_FUNDS_PER_BLOCK,
 } from './actionTypes';
 import { addOrReduceFromFundsPerBlock, playTurn } from './gameplayActions';
-import { updateLocationDropSlotItems } from '../services/utils';
-import { handleCoffeeMinerEffect } from '../services/gameMechanicsService';
+import { getPlayedAssetCards, updateLocationDropSlotItems } from '../services/utils';
+import { calcFpbBonusForMiners, handleCoffeeMinerEffect } from '../services/gameMechanicsService';
 
 /**
  * Checks if player can cancel a card;
@@ -119,9 +120,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       .dropSlots[containerIndex].lastDroppedItem.cards[0].metadata.id, 10);
     returnedCards.push(item.cards[0]);
     // Computer Case only accepts CPU and Graphics card
-    if (id === 6) accepts = ['9', '10'];
+    if (id === 6) accepts = ['9', '10', '33', '34', '35'];
     // Mining Rig only accepts Graphics card
-    if (id === 7) accepts = ['10'];
+    if (id === 7) accepts = ['10', '33', '34', '35'];
     // ASIC Mount only accepts ASIC miner
     if (id === 8) accepts = ['11'];
     _locations[locationIndex].lastDroppedItem.values.power += power;
@@ -210,19 +211,24 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
  */
 export const removeProject = (card, index) => (dispatch, getState) => {
   const { projects } = getState().gameplay;
+  const { locations } = getState().gameplay;
+  let { fundsPerBlock } = getState().gameplay;
   const alteredProjects = [...projects];
+  const item = alteredProjects[index].lastDroppedItem;
+
+  if (card.metadata.id === '27') {
+    const toRemove = calcFpbBonusForMiners(locations, getPlayedAssetCards([...locations]), item);
+    fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, false, toRemove);
+  } else {
+    fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, false);
+  }
 
   alteredProjects[index].accepts = acceptedProjectDropIds;
   alteredProjects[index].lastDroppedItem = null;
 
-  dispatch({
-    type: CHANGE_PROJECT_STATE,
-    projects: alteredProjects,
-  });
-  dispatch({
-    type: RETURN_CARD,
-    card,
-  });
+  dispatch({ type: CHANGE_PROJECT_STATE, projects: alteredProjects });
+  dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
+  dispatch({ type: RETURN_CARD, card });
 };
 
 /**

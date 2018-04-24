@@ -14,13 +14,14 @@ const RevealCards = ({ cards, newCardTypes }) => (
         const showNew = newCardTypes.includes(card.metadata.id);
 
         return (
-          <div className={`revealed-card ${classForRarity(card.stats.rarityScore)}`} key={card.id}>
+          <div className="revealed-card" key={card.id}>
             <div
               className="flip-container"
               onClick={e => e.currentTarget.classList.toggle('hover')}
             >
               <div className="flipper">
                 <div className="front">
+                  <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
                   <img src={bgBack} alt="" />
                 </div>
                 <div className="back">

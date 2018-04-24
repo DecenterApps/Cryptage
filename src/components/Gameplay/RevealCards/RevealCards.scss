@@ -16,29 +16,23 @@
       margin-right: 0;
     }
 
-    .back,
-    .front {
-      border-radius: 15px;
-      padding: 3px;
-      font-size: 0;
-    }
-
-    &.gold .back,
-    &.gold .front {
-      border: 1px solid $gold-rarity;
-      box-shadow: 0px 0px 5.53768px $gold-rarity;
-    }
-
-    &.red .back,
-    &.red .front {
-      border: 1px solid $red-rarity;
-      box-shadow: 0px 0px 5.53768px $red-rarity;
-    }
-
-    &.blue .back,
-    &.blue .front {
-      border: 1px solid $blue-rarity;
-      box-shadow: 0px 0px 5.53768px $blue-rarity;
+    .rarity-overlay {
+      position: absolute;
+      top: -25px;
+      left: -25px;
+      width: 195px;
+      height: 300px;
+      background-size: cover;
+      z-index: 1;
+      &.rarity-blue {
+        background-image: url('../../HoverInfo/scarce.png');
+      }
+      &.rarity-gold {
+        background-image: url('../../HoverInfo/elite.png');
+      }
+      &.rarity-red {
+        background-image: url('../../HoverInfo/rare.png');
+      }
     }
 
     .front:hover {

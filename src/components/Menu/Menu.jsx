@@ -93,7 +93,7 @@ class Menu extends Component {
                   localStorage.clear();
                   resetGame();
                   this.setState({ open: false });
-                  await ethereumService.resetState();
+                  // await ethereumService.resetState();
                 }}
               >
                 Reset Game
@@ -116,7 +116,7 @@ Menu.propTypes = {
 
 const mapStateToProps = ({ gameplay, app }) => ({
   lastSavedStateBlock: gameplay.lastSavedStateBlock,
-  currentBlock: app.blockNumber,
+  currentBlock: gameplay.blockNumber,
 });
 
 const mapDispatchToProps = {

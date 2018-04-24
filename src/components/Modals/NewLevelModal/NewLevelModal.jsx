@@ -14,6 +14,7 @@ const NewLevelModal = ({ closeModal, level, cards }) => (
     <ModalBody>
       <div className="main-text">
         <div className="congratulation">congratulations!</div>
+        <div className="secondary">You&apos;ve reached</div>
         <div className="level">Level { level }</div>
       </div>
 
