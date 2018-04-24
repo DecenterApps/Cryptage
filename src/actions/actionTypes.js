@@ -103,3 +103,5 @@ export const TOGGLE_MODAL = 'toggle_modal';
 export const FETCH_LEADERBOARD_DATA = 'fetch_leaderboard_data';
 export const FETCH_LEADERBOARD_DATA_SUCCESS = 'fetch_leaderboard_data_success';
 export const FETCH_LEADERBOARD_DATA_ERROR = 'fetch_leaderboard_data_error';
+
+export const TOGGLE_TUTORIAL = 'toggle_tutorial';

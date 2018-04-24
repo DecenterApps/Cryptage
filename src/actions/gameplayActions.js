@@ -46,7 +46,7 @@ import {
 } from '../services/utils';
 
 import { packMoves, readState } from '../services/stateService';
-import { openNoRestartProjectModal } from './modalActions';
+import { openNewLevelModal, openNoRestartProjectModal } from './modalActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -839,8 +839,16 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
  *
  * @param {Object} data { nickname }
  */
-export const submitNickname = ({ nickname }) => (dispatch) => {
+export const submitNickname = ({ nickname }) => async (dispatch) => {
   // Add call to the contract here
+
+  const cards = cardsPerLevel[0].map((metadataId, index) => ({
+    id: 0 - (index + 1),
+    stats: fetchCardStats(metadataId),
+    metadata: { id: metadataId.toString() },
+  }));
+
+  dispatch(openNewLevelModal(1, cards));
 
   dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
 };

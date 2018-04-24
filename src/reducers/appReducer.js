@@ -1,6 +1,6 @@
 import {
   USERS_CARDS_FETCH, USERS_CARDS_SUCCESS, USERS_CARDS_ERROR, TOGGLE_CARD_DRAG,
-  GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED, UPDATE_BLOCK_NUMBER,
+  GET_ACCOUNT_SUCCESS, GET_ACCOUNT_ERROR, LOADING_ENDED, UPDATE_BLOCK_NUMBER, TOGGLE_TUTORIAL,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -19,6 +19,8 @@ const INITIAL_STATE = {
   submittingNickname: false,
 
   draggingCard: false,
+
+  tutorialOpen: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -57,6 +59,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case TOGGLE_CARD_DRAG:
       return { ...state, draggingCard: payload };
+
+    case TOGGLE_TUTORIAL:
+      return { ...state, tutorialOpen: !state.tutorialOpen };
 
     default:
       return state;
