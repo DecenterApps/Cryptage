@@ -25,6 +25,7 @@ import {
   GP_LOCATION,
   GP_NO_NICKNAME,
   CLEAR_TURNS,
+  PLAY_TURN,
   bonusDevPerLocationCards,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
@@ -37,6 +38,7 @@ import {
   handleCardMathematics,
   calcLocationPerDevBonus,
   handleBonusDevMechanics,
+  assetReduceTimeForProjects,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
@@ -447,6 +449,8 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
       globalStats.development += item.card.stats.bonus.development;
     }
+
+    if (metaDataId === '40') dispatch(assetReduceTimeForProjects(item));
 
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 

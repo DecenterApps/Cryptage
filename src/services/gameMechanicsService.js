@@ -770,3 +770,17 @@ export const handleBonusDevMechanics = (_locations, activeLocationIndex, _global
 
   return { globalStats, locations };
 };
+
+/**
+ * Reduces running projects execution time when dropped
+ * @param item
+ */
+export const assetReduceTimeForProjects = item => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const { blockNumber } = gameplay;
+  let projects = [...gameplay.projects];
+
+  projects = decreaseExecutionTimeForAllProjects(projects, { cards: [item.card] }, blockNumber);
+
+  dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
