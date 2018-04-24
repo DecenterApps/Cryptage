@@ -79,11 +79,11 @@
         "time": 0
       },
       "flavorText": "Legend says that these were used to play the mighty video games of old...",
-      "image": "gpu.jpg",
+      "image": "classic-gpu.jpg",
       "mechanicsText": "",
       "rarityScore": "900",
       "special": false,
-      "title": "GPU",
+      "title": "Classic GPU",
       "type": "Mining",
       "unique": false
     },
@@ -102,7 +102,7 @@
       "cost": {
         "development": 0,
         "funds": 2400,
-        "level": 1,
+        "level": 4,
         "power": 16,
         "space": 1,
         "time": 0
@@ -253,18 +253,18 @@
         "time": 0
       },
       "flavorText": "I'm sure you can accomplish ALL these tasks today! Just don't forget to SMILE.",
-      "image": "techical-team-leader.jpg",
+      "image": "technical-team-leader.jpg",
       "mechanicsText": "All developers on the same location gain 10% bonus DEV.",
       "rarityScore": "576",
-      "special": false,
-      "title": "Techical Team Leader",
+      "special": true,
+      "title": "Technical Team Leader",
       "type": "Development",
-      "unique": false
+      "unique": true
     },
     "17": {
       "ID": "17",
       "bonus": {
-        "development": 0,
+        "development": 72,
         "funds": 0,
         "multiplierDev": 0,
         "multiplierFunds": 0,
@@ -283,7 +283,7 @@
       },
       "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
       "image": "project-architect.jpg",
-      "mechanicsText": "",
+      "mechanicsText": "Decreases time needed to complete projects by 2%.",
       "rarityScore": "485",
       "special": false,
       "title": "Project Architect",
@@ -305,7 +305,7 @@
       "cost": {
         "development": 0,
         "funds": 1000,
-        "level": 1,
+        "level": 4,
         "power": 0,
         "space": 20,
         "time": 0
@@ -421,7 +421,7 @@
       "cost": {
         "development": 0,
         "funds": 10000,
-        "level": 1,
+        "level": 6,
         "power": 0,
         "space": 40,
         "time": 0
@@ -467,10 +467,10 @@
     "23": {
       "ID": "23",
       "bonus": {
-        "development": 10,
-        "funds": 10,
+        "development": 0,
+        "funds": 0,
         "multiplierDev": 10,
-        "multiplierFunds": 0,
+        "multiplierFunds": 10,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -557,7 +557,7 @@
         "development": 0,
         "funds": 0,
         "multiplierDev": 0,
-        "multiplierFunds": 0,
+        "multiplierFunds": 1,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -565,7 +565,7 @@
       },
       "cost": {
         "development": 5,
-        "funds": 750,
+        "funds": 500,
         "level": 4,
         "power": 0,
         "space": 0,
@@ -585,8 +585,8 @@
       "bonus": {
         "development": 0,
         "funds": 0,
-        "multiplierDev": 1,
-        "multiplierFunds": 0,
+        "multiplierDev": 0,
+        "multiplierFunds": 5,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -602,7 +602,7 @@
       },
       "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
       "image": "mining-algorithm-optimization.jpg",
-      "mechanicsText": "Boosts all mining efficiency by 1%. Time to complete: 100 blocks.",
+      "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
       "rarityScore": "900",
       "special": true,
       "title": "Mining Algorithm Optimization",
@@ -642,25 +642,25 @@
       "ID": "29",
       "bonus": {
         "development": 0,
-        "funds": 50,
+        "funds": 0,
         "multiplierDev": 0,
-        "multiplierFunds": 0,
+        "multiplierFunds": 150,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 4
+        "xp": 1000
       },
       "cost": {
-        "development": 1,
+        "development": 0,
         "funds": 0,
-        "level": 2,
+        "level": 8,
         "power": 0,
         "space": 0,
-        "time": 10
+        "time": 2000
       },
-      "flavorText": "Wait, are you saying that in the past corporations were in complete control of cloud computing resources?",
+      "flavorText": "Wait, are you saying that in the past all cloud computing resources were owned by a handful of private corporations?",
       "image": "rent-computing-power.jpg",
-      "mechanicsText": "Gains 50 FUNDS per CPU and 150 FUNDS per GPU played. Time to complete: 10 blocks.",
+      "mechanicsText": "Gains 50 FUNDS per CPU and 150 FUNDS per GPU played. Time to complete: 2000 blocks.",
       "rarityScore": "900",
       "special": true,
       "title": "Rent Computing Power",
@@ -700,28 +700,28 @@
       "ID": "30",
       "bonus": {
         "development": 0,
-        "funds": 50,
+        "funds": 0,
         "multiplierDev": 0,
         "multiplierFunds": 2,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 4
+        "xp": 4000
       },
       "cost": {
-        "development": 1,
+        "development": 0,
         "funds": 0,
-        "level": 2,
+        "level": 8,
         "power": 0,
         "space": 0,
-        "time": 10
+        "time": 2000
       },
       "flavorText": "HODL!",
-      "image": "pos-pool-participation.jpg",
-      "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 10 blocks.",
+      "image": "coin-staking.jpg",
+      "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
       "rarityScore": "900",
       "special": true,
-      "title": "PoS Pool Participation",
+      "title": "Coin Staking",
       "type": "Project",
       "unique": false
     },
@@ -729,25 +729,25 @@
       "ID": "31",
       "bonus": {
         "development": 0,
-        "funds": 200000,
+        "funds": 0,
         "multiplierDev": 0,
         "multiplierFunds": 0,
         "multiplierTime": 2,
         "power": 0,
         "space": 0,
-        "xp": 32000
+        "xp": 8000
       },
       "cost": {
         "development": 120,
         "funds": 64000,
-        "level": 12,
+        "level": 10,
         "power": 0,
         "space": 0,
-        "time": 500
+        "time": 4000
       },
       "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK.",
       "image": "decentralized-protocol-development.jpg",
-      "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 500 blocks.",
+      "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 4000 blocks.",
       "rarityScore": "576",
       "special": true,
       "title": "Decentralized Protocol Development",
@@ -758,30 +758,233 @@
       "ID": "32",
       "bonus": {
         "development": 0,
-        "funds": 500000,
+        "funds": 0,
         "multiplierDev": 0,
         "multiplierFunds": 0,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 500000
+        "xp": 16000
       },
       "cost": {
         "development": 240,
         "funds": 100000,
-        "level": 16,
+        "level": 12,
         "power": 0,
         "space": 0,
-        "time": 2000
+        "time": 300000
       },
       "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
       "image": "consensus-improvement.jpg",
-      "mechanicsText": "Time to complete: 2000 blocks.",
+      "mechanicsText": "Time to complete: Two weeks™",
       "rarityScore": "485",
       "special": true,
       "title": "Consensus Improvement",
       "type": "Project",
       "unique": false
+    },
+    "33": {
+      "ID": "33",
+      "bonus": {
+        "development": 0,
+        "funds": 4,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 160,
+        "level": 1,
+        "power": 1,
+        "space": 1,
+        "time": 0
+      },
+      "flavorText": "Foundation holo-tech. Shiny!",
+      "image": "holographic-gpu.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": false,
+      "title": "Holographic GPU",
+      "type": "Mining",
+      "unique": false
+    },
+    "34": {
+      "ID": "34",
+      "bonus": {
+        "development": 0,
+        "funds": 4,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 120,
+        "level": 1,
+        "power": 2,
+        "space": 1,
+        "time": 0
+      },
+      "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
+      "image": "corporate-grade-gpu.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": false,
+      "title": "Corporate-grade GPU",
+      "type": "Mining",
+      "unique": false
+    },
+    "35": {
+      "ID": "35",
+      "bonus": {
+        "development": 0,
+        "funds": 2,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 80,
+        "level": 1,
+        "power": 1,
+        "space": 1,
+        "time": 0
+      },
+      "flavorText": "Home made. It MOSTLY works.",
+      "image": "3d-printed-gpu.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": false,
+      "title": "3D Printed GPU",
+      "type": "Mining",
+      "unique": false
+    },
+    "36": {
+      "ID": "36",
+      "bonus": {
+        "development": 4,
+        "funds": 10,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 1000,
+        "level": 1,
+        "power": 0,
+        "space": 20,
+        "time": 0
+      },
+      "flavorText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
+      "image": "white-hat-hacker.jpg",
+      "mechanicsText": "",
+      "rarityScore": "900",
+      "special": true,
+      "title": "White Hat Hacker",
+      "type": "Development",
+      "unique": false
+    },
+    "37": {
+      "ID": "37",
+      "bonus": {
+        "development": 0,
+        "funds": 4,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 4
+      },
+      "cost": {
+        "development": 0,
+        "funds": 0,
+        "level": 4,
+        "power": 0,
+        "space": 0,
+        "time": 1
+      },
+      "flavorText": "They say prediction markets were barely a thing before blockchain came along. How the hell were people predicting the future then?",
+      "image": "prediction-market-participation.jpg",
+      "mechanicsText": "Time to complete: 1 block.",
+      "rarityScore": "900",
+      "special": true,
+      "title": "Prediction Market Participation",
+      "type": "Project",
+      "unique": false
+    },
+    "38": {
+      "ID": "38",
+      "cost": {
+        "development": 0,
+        "funds": 800000,
+        "level": 16,
+        "power": 0,
+        "space": 0,
+        "time": 0
+      },
+      "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
+      "image": "corporate-tower.jpg",
+      "mechanicsText": "",
+      "rarityScore": "485",
+      "special": false,
+      "title": "Corporate Tower",
+      "type": "Location",
+      "unique": false,
+      "values": {
+        "development": 0,
+        "funds": 0,
+        "multiplierDev": 0,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 120,
+        "space": 320,
+        "xp": 0
+      }
+    },
+    "39": {
+      "ID": "39",
+      "bonus": {
+        "development": 22,
+        "funds": 0,
+        "multiplierDev": 20,
+        "multiplierFunds": 0,
+        "multiplierTime": 0,
+        "power": 0,
+        "space": 0,
+        "xp": 0
+      },
+      "cost": {
+        "development": 0,
+        "funds": 30000,
+        "level": 6,
+        "power": 0,
+        "space": 20,
+        "time": 0
+      },
+      "flavorText": "I'll make sure to look over your evaluations for last quarter. I'm sure they will be... adequate. ",
+      "image": "efficiency-expert.jpg",
+      "mechanicsText": "All developers on the same location gain 20% bonus DEV.",
+      "rarityScore": "576",
+      "special": true,
+      "title": "Efficiency Expert",
+      "type": "Development",
+      "unique": true
     },
     "4": {
       "ID": "4",
@@ -904,7 +1107,7 @@
       "cost": {
         "development": 0,
         "funds": 4000,
-        "level": 1,
+        "level": 4,
         "power": 0,
         "space": 25,
         "time": 0

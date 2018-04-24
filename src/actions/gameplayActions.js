@@ -17,7 +17,7 @@ import {
   ADD_LOCATION_SLOTS,
   ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
-  PLAY_TURN, UPDATE_GLOBAL_VALUES,
+  UPDATE_GLOBAL_VALUES,
   ADDITIONAL_LOCATION_DROP_SLOTS,
   ADDITIONAL_LOCATION_ITEM_DROP_SLOTS,
   GP_NO_LOCATIONS,
@@ -25,22 +25,25 @@ import {
   GP_LOCATION,
   GP_NO_NICKNAME,
   CLEAR_TURNS,
+  bonusDevPerLocationCards,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
 import ipfsService from '../services/ipfsService';
 import {
-  checkIfCanPlayCard, getLevelValuesForCard, getSlotForContainer,
-  handleCardMathematics, handleCoffeeMinerEffect,
+  checkIfCanPlayCard,
+  getLevelValuesForCard,
+  getSlotForContainer,
+  handleCardMathematics,
+  calcLocationPerDevBonus,
+  handleBonusDevMechanics,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
-  getCardIdsFromLocation,
 } from '../services/utils';
 
-import { packMoves, readState, createGameplayState } from '../services/stateService';
-import config from '../constants/config.json';
+import { packMoves, readState } from '../services/stateService';
 import { openNoRestartProjectModal } from './modalActions';
 
 /**
@@ -53,19 +56,6 @@ export const changeGameplayView = payload => (dispatch, getState) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
   saveGameplayState(getState);
 };
-
-// /**
-//  * gets onboarding cards defined in config because
-//  * every played gets those cards for free
-//  */
-// const getOnboardingCards = () => {
-//   const cardTypes = config.onboardingCards;
-//   return cardTypes.map((metadataId, index) => ({
-//     id: index - cardTypes.length,
-//     stats: fetchCardStats(metadataId),
-//     metadata: { id: metadataId.toString() },
-//   }));
-// };
 
 /**
  * gets Garage, Computer case and CPU because
@@ -340,6 +330,21 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const mathRes = handleCardMathematics(card, [], globalStats, index);
   const alterGlobalStats = mathRes.globalStats;
 
+  // if the project is activated again
+  if (card !== 'project') {
+    dispatch({
+      type: PLAY_TURN,
+      turn: {
+        add: 1,
+        specificCard: 0,
+        location: index,
+        containerPosition: index,
+        cardType: card.stats.ID,
+        blockNumber,
+      },
+    });
+  }
+
   dispatch({
     type: CHANGE_PROJECT_STATE,
     projects: alteredProjects,
@@ -388,9 +393,11 @@ export const levelUpProject = index => (dispatch, getState) => {
  * @param {Number} _fpb
  * @param {Object} card
  * @param {Boolean} addOrReduce - true is add, false is reduce
+ * @param {Number} numToAddOrReduce - number which takes a lot of logic to calculate
+ * (on purpose outside of function)
  * @return {Number}
  */
-export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
+export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
   let fpb = _fpb;
 
   if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
@@ -401,10 +408,15 @@ export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce) => {
   // Special mechanics for card with id 26, Adds fpb when completed;
   if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '26') {
     const { timesFinished, cards } = card;
-    const multiplier = cards[0].stats.bonus.funds;
+    const multiplier = cards[0].stats.bonus.multiplierFunds;
 
     if (addOrReduce === true) fpb += multiplier;
     else fpb -= (timesFinished * multiplier);
+  }
+
+  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '27') {
+    if (addOrReduce) fpb += numToAddOrReduce;
+    else fpb -= numToAddOrReduce;
   }
 
   return fpb;
@@ -425,6 +437,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const cards = [...gameplay.cards];
   let locations = [...gameplay.locations];
   let globalStats = { ...gameplay.globalStats };
+  const metaDataId = item.card.metadata.id;
 
   const play = checkIfCanPlayCard(item.card.stats, globalStats, locations[activeLocationIndex].lastDroppedItem);
   if (!play) return;
@@ -432,46 +445,30 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
 
-  let locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+  const locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
   const slotItem = locationSlots[index].lastDroppedItem;
 
   if (!slotItem) {
     let special;
 
     // handle special cards drop
-    if (item.card.metadata.id === '23') {
-      const minerEffect = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
-      ({ globalStats } = minerEffect);
-      special = minerEffect.bonus;
+    if (bonusDevPerLocationCards.includes(metaDataId)) {
+      const cardEffect = calcLocationPerDevBonus(item, locations, activeLocationIndex, globalStats);
+      ({ globalStats } = cardEffect);
+      special = cardEffect.bonus;
     }
 
     // handle hacker unique special case
-    if (item.card.metadata.id === '18') {
+    if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
       globalStats.development += item.card.stats.bonus.development;
     }
 
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
-    // On developer drop checks if a coffee miner was dropped in that location
-    // If it was recalculate coffee miner effect
+    // On developer drop recalculates location per dev bonus
+    // if cards that have that effect were dropped
     if (item.card.stats.type === 'Development') {
-      // TODO export this to func
-      const coffeeMinerIndex = locationSlots.findIndex(({ lastDroppedItem }) =>
-        lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23');
-
-      if (coffeeMinerIndex !== -1) {
-        locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
-
-        const coffeeMiner = locationSlots[coffeeMinerIndex].lastDroppedItem;
-        const coffeeMinerItem = { card: coffeeMiner.cards[0] };
-        globalStats.development -= coffeeMiner.special;
-
-        const minerEffect = handleCoffeeMinerEffect(coffeeMinerItem, locations, activeLocationIndex, globalStats);
-        ({ globalStats } = minerEffect);
-        const coffeeSpecial = minerEffect.bonus;
-
-        locations = updateLocationDropSlotItems(locationSlots, coffeeMinerIndex, coffeeMinerItem, locations, activeLocationIndex, coffeeSpecial); // eslint-disable-line
-      }
+      ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
     }
   } else {
     // TODO put in separate function
@@ -790,6 +787,8 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
   let location;
   let cardSpecificNumber = 0;
   let containerCard;
+  let specificCard = 0;
+
   switch (slotType) {
     case 'location':
       location = index;
@@ -808,48 +807,22 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       break;
   }
 
-  // const items = [];
+  // cardtype == gpu set specificCard to 1
+  if (card.stats.ID === 10) {
+    specificCard = 1;
+  }
 
-  // console.log(slotType);
-
-  // if (slotType !== 'project' || slotType !== 'location') {
-  //   getCardIdsFromLocation(locations[location], items);
-  // }
-  // const numOfRepetitions = items.filter(i => i === item.card.stats.ID).length;
-
-  // let convertedCardId = Math.abs(card.metadata.id) * 6;
-
-  // if (convertedCardId >= 144 && convertedCardId <= 174) {
-  //   convertedCardId += 720;
-  // }
-
-  // // if the card is already on location
-  // if (numOfRepetitions > 1) {
-  //   location = 0;
-  //   // get cardId with the conversion
-  //   const index = playedTurns.map(p => p.cardId).lastIndexOf(convertedCardId);
-
-  //   convertedCardId = index;
-  // } else {
-  //   location = 1;
-  // }
-
-  // if (slotType === 'project') {
-  //   const index = gameplay.projects.findIndex(g => g.lastDroppedItem !== null);
-
-  //   cardSpecificNumber = 0;
-  // }
-
-  // dispatch({
-  //   type: PLAY_TURN,
-  //   turn: {
-  //     add: addOrRemove ? 1 : 0,
-  //     specificCard: 0,
-  //     location,
-  //     cardId: cardId,
-  //     blockNumber: app.blockNumber,
-  //   },
-  // });
+  dispatch({
+    type: PLAY_TURN,
+    turn: {
+      add: addOrRemove ? 1 : 0,
+      specificCard,
+      location,
+      containerPosition: index,
+      cardType: card.stats.ID,
+      blockNumber: app.blockNumber,
+    },
+  });
 };
 
 /**
@@ -882,8 +855,6 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   try {
     const ipfs = await ipfsService.uploadData(gameplay);
-
-    console.log(ipfs[0].hash);
 
     await ethService.updateMoves(packedMoves, ipfs[0].hash);
 

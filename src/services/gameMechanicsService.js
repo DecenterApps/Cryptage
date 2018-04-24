@@ -1,7 +1,7 @@
 import levels from '../constants/levels.json';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import cardsConfig from '../constants/cards.json';
-import { filterByKeys } from './utils';
+import { filterByKeys, updateLocationDropSlotItems } from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
 import {
   CHANGE_PROJECT_STATE,
@@ -11,6 +11,7 @@ import {
   GP_LOCATION_MAIN,
   GP_NO_LOCATIONS,
   ADD_NEW_LEVEL_CARDS,
+  bonusDevPerLocationCards,
 } from '../actions/actionTypes';
 import { fetchCardStats } from './cardService';
 
@@ -90,10 +91,10 @@ export const getSlotForContainer = (_id, space) => {
   const slots = [];
   let accepts = [];
 
-  // Computer Case only accepts CPU and Graphics card
-  if (id === 6) accepts = ['9', '10'];
+  // Computer Case only accepts CPU and Graphics cards
+  if (id === 6) accepts = ['9', '10', '33', '34', '35'];
   // Mining Rig only accepts Graphics card
-  if (id === 7) accepts = ['10'];
+  if (id === 7) accepts = ['10', '33', '34', '35'];
   // ASIC Mount only accepts ASIC miner
   if (id === 8) accepts = ['11'];
 
@@ -512,7 +513,7 @@ export const calculateLevelData = (experience) => {
  * @param {Number} activeLocationIndex
  * @param {Object} _globalStats
  */
-export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _globalStats) => {
+export const calcLocationPerDevBonus = (item, locations, activeLocationIndex, _globalStats) => {
   const globalStats = { ..._globalStats };
   let bonus = 0;
 
@@ -525,7 +526,7 @@ export const handleCoffeeMinerEffect = (item, locations, activeLocationIndex, _g
     // this is because of the hacker card
     if (!stats.bonus || (stats.bonus && !stats.bonus.development)) return;
 
-    bonus += ((stats.bonus.development / 100) * (item.card.stats.bonus.development || 0));
+    bonus += ((stats.bonus.development / 100) * (item.card.stats.bonus.multiplierDev || 0));
   });
 
   bonus = Math.floor(bonus);
@@ -596,7 +597,7 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
   if (currLevel === level) return;
   if ((level - 1) <= 0) return;
   let cards = [];
-  if (level < cardsPerLevel.length) cards = await dispatch(addCardsForNewLevel(level));
+  if (level <= cardsPerLevel.length) cards = await dispatch(addCardsForNewLevel(level));
 
   dispatch(openNewLevelModal(level, cards));
 };
@@ -636,4 +637,136 @@ export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber
  * @return {Number}
  */
 export const increaseFundsByMultiplier = (funds, item) =>
-  Math.ceil((funds * ((item.cards[0].stats.bonus.multiplierFunds) / 100)));
+  Math.floor((funds * (item.cards[0].stats.bonus.multiplierFunds / 100)));
+
+/**
+ * Calculates how much a single Mining Algorithm Optimization adds bonus funds
+ *
+ * @param {Number} miningFpb
+ * @param {Number} multiplierFunds
+ * @param {Number} timesFinished
+ * @return {Number}
+ */
+export const bonusFpbMiningAlgo = (miningFpb, multiplierFunds, timesFinished) =>
+  Math.floor(miningFpb * ((((100 + multiplierFunds) / 100) ** timesFinished) - 1));
+
+/**
+ * Calculates how much fpb miners generate
+ *
+ * @param {Array} assetCards
+ * @param {Array} locations
+ * @return {Number}
+ */
+const getMinersFpb = (assetCards, locations) => {
+  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+
+  return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
+    const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
+    const minerCards = containerSlots
+      .filter(containerSlot => containerSlot.lastDroppedItem)
+      .map(container => container.lastDroppedItem.cards[0]);
+
+    minerCards.forEach((minerCard) => {
+      acc += minerCard.stats.bonus.funds;
+    });
+
+    return acc;
+  }, 0);
+};
+
+/**
+ * Calculates how much more fpb a single Mining Algorithm Optimization add on finish
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcDiffFpbBonusForMiners = (locations, assetCards, item) => {
+  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { timesFinished } = item;
+  const miningFpb = getMinersFpb(assetCards, locations);
+
+  const currBonus = bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
+  const pastBonus = bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished - 1);
+
+  return currBonus - pastBonus;
+};
+
+/**
+ * Calculates how much fpb a single Mining Algorithm Optimization adds
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcFpbBonusForMiners = (locations, assetCards, item) => {
+  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { timesFinished } = item;
+  const miningFpb = getMinersFpb(assetCards, locations);
+
+  return bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
+};
+
+/**
+ * Calculates how much funds should Rent Computing Power project add
+ *
+ * @param locations
+ * @param assetCards
+ * @param item
+ * @return {number}
+ */
+export const calcFundsForDroppedCpuAndGpu = (locations, assetCards, item) => {
+  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+
+  return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
+    const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
+    const minerCards = containerSlots
+      .filter(containerSlot => containerSlot.lastDroppedItem)
+      .map(container => container.lastDroppedItem.cards[0]);
+
+    const cpuCards = minerCards.filter(({ metadata }) => metadata.id === '9');
+    const gpuCards = minerCards.filter(({ metadata }) => metadata.id === '10');
+
+    acc += cpuCards.length * (item.cards[0].stats.bonus.multiplierFunds / 3);
+    acc += gpuCards.length * item.cards[0].stats.bonus.multiplierFunds;
+
+    return acc;
+  }, 0);
+};
+
+/**
+ * Updates locations and global dev if any bonus dev per location
+ * needs to be added
+ *
+ * @param _locations
+ * @param activeLocationIndex
+ * @param _globalStats
+ * @return {{globalStats: {}, locations: [null]}}
+ */
+export const handleBonusDevMechanics = (_locations, activeLocationIndex, _globalStats) => {
+  let locations = [..._locations];
+  let globalStats = { ..._globalStats };
+  let locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+
+  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+
+  droppedBonusDevPerLocationCards.forEach(({ lastDroppedItem }) => {
+    locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.cards[0].metadata.id === lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+
+    const coffeeMiner = locationSlots[cardLocationIndex].lastDroppedItem;
+    const coffeeMinerItem = { card: coffeeMiner.cards[0] };
+    globalStats.development -= coffeeMiner.special;
+
+    const cardEffect = calcLocationPerDevBonus(coffeeMinerItem, locations, activeLocationIndex, globalStats);
+
+    ({ globalStats } = cardEffect);
+    const cardSpecial = cardEffect.bonus;
+
+    locations = updateLocationDropSlotItems(locationSlots, cardLocationIndex, coffeeMinerItem, locations, activeLocationIndex, cardSpecial); // eslint-disable-line
+  });
+
+  return { globalStats, locations };
+};

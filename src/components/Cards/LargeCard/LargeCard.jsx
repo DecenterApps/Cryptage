@@ -134,7 +134,7 @@ const LargeCard = ({
           card.stats.bonus &&
           card.stats.bonus.xp > 0 &&
           <div
-            data-name="EXP"
+            data-name="XP"
             className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
           >
             {formatBigNumber(card.stats.bonus.xp)}

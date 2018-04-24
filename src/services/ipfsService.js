@@ -1,11 +1,6 @@
-const getMultiaddressString = node =>
-    `/${node.connectionType}/${node.host}/tcp/${node.wsPort}/${node.protocol === 'https' ? 'wss' : 'wss'}/ipfs/${node.id}`; //eslint-disable-line
-
-const getGatewayAddressString = node =>
-  `${node.protocol}${node.host}:${node.gatewayPort}`;
 
 const ipfsBootstrapNodesList = [
-  '/dns4/ipfs.decenter.com/tcp/4443/wss/ipfs/QmNxpsbNJzvXpUbv9Kp9YnNAdgSzNz8DGWay8ie7pyLy5q',
+  '/dns4/ipfs.decenter.com/tcp/4443/wss/ipfs/QmWv5BiGHbZNQKg48cA1FLJaiM7aBj4NNDc1HmBkxbxhLz',
 ];
 
 const defaultRepNodes = [
