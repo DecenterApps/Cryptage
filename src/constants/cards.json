@@ -253,7 +253,7 @@
         "time": 0
       },
       "flavorText": "I'm sure you can accomplish ALL these tasks today! Just don't forget to SMILE.",
-      "image": "techical-team-leader.jpg",
+      "image": "technical-team-leader.jpg",
       "mechanicsText": "All developers on the same location gain 10% bonus DEV.",
       "rarityScore": "576",
       "special": true,
@@ -586,7 +586,7 @@
         "development": 0,
         "funds": 0,
         "multiplierDev": 0,
-        "multiplierFunds": 1,
+        "multiplierFunds": 5,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -602,7 +602,7 @@
       },
       "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
       "image": "mining-algorithm-optimization.jpg",
-      "mechanicsText": "Boosts all mining efficiency by 1%. Time to complete: 100 blocks.",
+      "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
       "rarityScore": "900",
       "special": true,
       "title": "Mining Algorithm Optimization",
@@ -648,7 +648,7 @@
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 1024
+        "xp": 1000
       },
       "cost": {
         "development": 0,
@@ -706,7 +706,7 @@
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 4096
+        "xp": 4000
       },
       "cost": {
         "development": 0,
@@ -735,7 +735,7 @@
         "multiplierTime": 2,
         "power": 0,
         "space": 0,
-        "xp": 8192
+        "xp": 8000
       },
       "cost": {
         "development": 120,
@@ -764,7 +764,7 @@
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 16384
+        "xp": 16000
       },
       "cost": {
         "development": 240,
