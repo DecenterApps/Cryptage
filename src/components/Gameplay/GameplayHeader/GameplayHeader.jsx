@@ -63,7 +63,7 @@ const GameplayHeader = ({
               <div className="name">
                 { nickname || 'NICKNAME' }
               </div>
-              <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} EXP </div>
+              <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
               {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
               <svg className="xp-loader-wrapper">
                   <defs>
