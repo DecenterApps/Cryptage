@@ -89,7 +89,7 @@ class Tutorial extends Component {
     return (
       <div className={`tutorial-wrapper ${this.state.tutorialVisible ? 'shown' : ''}`}>
         <div className="buttons-wrapper">
-          <button className="orange-button" onClick={() => this.finishTutorial()}>Skip</button>
+          <button className="orange-button skip" onClick={() => this.finishTutorial()}>Skip</button>
         </div>
         <div className="slider-wrapper">
           {

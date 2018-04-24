@@ -13,15 +13,15 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  background-color: rgba(#090E1C, .8);
+  opacity: 0;
+  transition: opacity .3s;
   &.shown {
-    background-color: rgba(#090E1C, .8);
-    .slider-wrapper {
-      opacity: 1;
-    }
+    opacity: 1;
   }
 
   .buttons-wrapper {
-    height: 65px;
+    height: 50px;
     width: 1000px;
     margin: 0 auto;
     text-align: right;
@@ -30,7 +30,12 @@
     flex-flow: row-reverse;
     z-index: 1;
     button {
-      margin: 20px 0;
+      margin: 20px 0 0;
+      &.skip {
+        background: transparent;
+        border: 0;
+        outline: none;
+      }
     }
   }
 
@@ -40,8 +45,6 @@
     margin: 0 auto;
     position: relative;
     background-color: black;
-    opacity: 0;
-    transition: all .3s;
 
     .slide {
       height: 100%;
