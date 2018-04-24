@@ -597,7 +597,7 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
   if (currLevel === level) return;
   if ((level - 1) <= 0) return;
   let cards = [];
-  if (level < cardsPerLevel.length) cards = await dispatch(addCardsForNewLevel(level));
+  if (level <= cardsPerLevel.length) cards = await dispatch(addCardsForNewLevel(level));
 
   dispatch(openNewLevelModal(level, cards));
 };

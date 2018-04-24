@@ -34,7 +34,7 @@ const HoverInfo = ({ card, center }) => {
         {
           card.stats.cost &&
           showCost &&
-          <div className="cost" data-name="Requirements">
+          <div className="cost" data-name="Requires">
             {
               card.stats.cost.space > 1 &&
               <div

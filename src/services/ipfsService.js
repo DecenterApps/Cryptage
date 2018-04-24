@@ -14,7 +14,9 @@ try {
     repo: 'ipfs-cryptage',
     config: {
       Bootstrap: ipfsBootstrapNodesList,
-      Swarm: [],
+      Addresses: {
+        Swarm: [],
+      },
     },
   });
 } catch (e) {
