@@ -47,7 +47,7 @@ const ProjectItem = ({
         showFpb &&
         <div className="bonus">
           {
-            (xpb > 0) && <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
+            (xpb > 0) && <div>+ { formatBigNumber(xpb) } <br /> XP</div>
           }
           {
             (metadataId === '26' || metadataId === '27') &&
