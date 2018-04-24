@@ -2,25 +2,25 @@ pragma solidity ^0.4.22;
 
 contract StateCodec {
 
-  mapping(address => State) states;
+  mapping(address => State) public states;
 
   struct State {
-    uint48 funds;
-    uint16 fundsPerBlock;
-    uint32 experience;
-    uint16 developmentLeft;
-    uint32 blockNumber;
+    uint funds;
+    uint fundsPerBlock;
+    uint experience;
+    uint developmentLeft;
+    uint blockNumber;
     Location[6] locations;
     Project[10] projects;
   }
 
   struct Location {
-    uint16 card;
-    uint16 numberOfCards;
-    uint16 spaceLeft;
-    uint16 powerLeft;
-    uint8 coffeeMiner;
-    uint8 gridConnect;
+    uint card;
+    uint numberOfCards;
+    uint spaceLeft;
+    uint powerLeft;
+    uint coffeeMiner;
+    uint gridConnect;
     Power[] powers;
     ComputerCase[] computerCases;
     RigCase[] rigCases;
@@ -29,31 +29,34 @@ contract StateCodec {
   }
 
   struct Power {
-    uint16 card;
-    uint8 count;
+    uint card;
+    uint count;
   }
 
   struct ComputerCase {
-    uint8 cpuCount;
-    uint8 gpuCount;
+    uint card;
+    uint cpuCount;
+    uint gpuCount;
   }
 
   struct RigCase {
-    uint8 gpuCount;
+    uint card;
+    uint gpuCount;
   }
 
   struct MountCase {
-    uint8 asicCount;
+    uint card;
+    uint asicCount;
   }
 
   struct Developer {
-    uint16 card;
-    uint8 count;
+    uint card;
+    uint count;
   }
 
   struct Project {
-    uint16 card;
-    uint16 timeLeft;
+    uint card;
+    uint timeLeft;
   }
 
   function encode(State state) internal pure returns (bytes) {
