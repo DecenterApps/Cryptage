@@ -253,13 +253,13 @@
         "time": 0
       },
       "flavorText": "I'm sure you can accomplish ALL these tasks today! Just don't forget to SMILE.",
-      "image": "techical-team-leader.jpg",
+      "image": "technical-team-leader.jpg",
       "mechanicsText": "All developers on the same location gain 10% bonus DEV.",
       "rarityScore": "576",
-      "special": false,
-      "title": "Techical Team Leader",
+      "special": true,
+      "title": "Technical Team Leader",
       "type": "Development",
-      "unique": false
+      "unique": true
     },
     "17": {
       "ID": "17",
@@ -467,10 +467,10 @@
     "23": {
       "ID": "23",
       "bonus": {
-        "development": 10,
-        "funds": 10,
+        "development": 0,
+        "funds": 0,
         "multiplierDev": 10,
-        "multiplierFunds": 0,
+        "multiplierFunds": 10,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -555,9 +555,9 @@
       "ID": "26",
       "bonus": {
         "development": 0,
-        "funds": 1,
+        "funds": 0,
         "multiplierDev": 0,
-        "multiplierFunds": 0,
+        "multiplierFunds": 1,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -586,7 +586,7 @@
         "development": 0,
         "funds": 0,
         "multiplierDev": 0,
-        "multiplierFunds": 1,
+        "multiplierFunds": 5,
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
@@ -602,7 +602,7 @@
       },
       "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
       "image": "mining-algorithm-optimization.jpg",
-      "mechanicsText": "Boosts all mining efficiency by 1%. Time to complete: 100 blocks.",
+      "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
       "rarityScore": "900",
       "special": true,
       "title": "Mining Algorithm Optimization",
@@ -648,7 +648,7 @@
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 1024
+        "xp": 1000
       },
       "cost": {
         "development": 0,
@@ -706,7 +706,7 @@
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 4096
+        "xp": 4000
       },
       "cost": {
         "development": 0,
@@ -735,7 +735,7 @@
         "multiplierTime": 2,
         "power": 0,
         "space": 0,
-        "xp": 8192
+        "xp": 8000
       },
       "cost": {
         "development": 120,
@@ -764,7 +764,7 @@
         "multiplierTime": 0,
         "power": 0,
         "space": 0,
-        "xp": 16384
+        "xp": 16000
       },
       "cost": {
         "development": 240,
@@ -962,7 +962,7 @@
       "bonus": {
         "development": 22,
         "funds": 0,
-        "multiplierDev": 0,
+        "multiplierDev": 20,
         "multiplierFunds": 0,
         "multiplierTime": 0,
         "power": 0,
@@ -981,10 +981,10 @@
       "image": "efficiency-expert.jpg",
       "mechanicsText": "All developers on the same location gain 20% bonus DEV.",
       "rarityScore": "576",
-      "special": false,
+      "special": true,
       "title": "Efficiency Expert",
       "type": "Development",
-      "unique": false
+      "unique": true
     },
     "4": {
       "ID": "4",

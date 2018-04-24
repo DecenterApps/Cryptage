@@ -240,6 +240,7 @@ export const saveGameplayState = (getState) => {
  * @param {Object} item
  * @param {Array} _locations
  * @param {Number} activeLocationIndex
+ * @param {Object} special
  * @return {Array}
  */
 export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex, special) => {

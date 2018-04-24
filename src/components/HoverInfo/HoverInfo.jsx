@@ -34,7 +34,7 @@ const HoverInfo = ({ card, center }) => {
         {
           card.stats.cost &&
           showCost &&
-          <div className="cost" data-name="Requirements">
+          <div className="cost" data-name="Requires">
             {
               card.stats.cost.space > 1 &&
               <div
@@ -133,7 +133,7 @@ const HoverInfo = ({ card, center }) => {
               card.stats.bonus &&
               card.stats.bonus.xp > 0 &&
               <div
-                data-name="EXP"
+                data-name="XP"
                 className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
               >
                 {formatBigNumber(card.stats.bonus.xp)}

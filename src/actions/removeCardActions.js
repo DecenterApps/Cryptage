@@ -10,10 +10,11 @@ import {
   CLEAR_REVEALED_CARDS,
   REMOVE_NEW_FROM_CARD,
   UPDATE_FUNDS_PER_BLOCK,
+  bonusDevPerLocationCards,
 } from './actionTypes';
 import { addOrReduceFromFundsPerBlock, playTurn } from './gameplayActions';
 import { getPlayedAssetCards, updateLocationDropSlotItems } from '../services/utils';
-import { calcFpbBonusForMiners, handleCoffeeMinerEffect } from '../services/gameMechanicsService';
+import { calcFpbBonusForMiners, calcLocationPerDevBonus } from '../services/gameMechanicsService';
 
 /**
  * Checks if player can cancel a card;
@@ -36,7 +37,7 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
         if (currentItem.cards[0].stats.type === 'Development') {
           totalDev += currentItem.cards[0].stats.bonus.development;
         }
-        if (currentItem.cards[0].metadata.id === '23') {
+        if (bonusDevPerLocationCards.includes(currentItem.cards[0].metadata.id)) {
           totalDev += currentItem.special;
         }
         returnedCards.push(currentItem.cards[0]);
@@ -48,7 +49,7 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
       }
     }
   } else {
-    if (item.cards[0].metadata.id === '23') {
+    if (bonusDevPerLocationCards.includes(item.cards[0].metadata.id)) {
       totalDev += item.special;
     }
     if (item.cards[0].stats.type === 'Development') {
@@ -57,6 +58,39 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
   }
 
   return gameplay.globalStats.development >= totalDev;
+};
+
+/**
+ * On development card drop recalculates how much bonus should a card
+ * with bonus dev per location add
+ * @param locationIndex
+ */
+export const cardCancelRecalcBonusDevPerLocation = locationIndex => (dispatch, getState) => {
+  const gameplay = { ...getState().gameplay };
+  let locations = [...gameplay.locations];
+  let globalStats = { ...gameplay.globalStats };
+  let locationSlots = [...locations[locationIndex].lastDroppedItem.dropSlots];
+
+  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+
+  droppedBonusDevPerLocationCards.forEach(({ lastDroppedItem }) => {
+    locationSlots = [...locations[locationIndex].lastDroppedItem.dropSlots];
+    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.cards[0].metadata.id === lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+
+    const bonusDevCard = locationSlots[cardLocationIndex].lastDroppedItem;
+    const coffeeMinerItem = { card: bonusDevCard.cards[0] };
+    globalStats.development -= bonusDevCard.special;
+
+    const cardEffect = calcLocationPerDevBonus(coffeeMinerItem, locations, locationIndex, globalStats);
+
+    ({ globalStats } = cardEffect);
+    const cardSpecial = cardEffect.bonus;
+
+    dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+
+    locations = updateLocationDropSlotItems(locationSlots, cardLocationIndex, coffeeMinerItem, locations, locationIndex, cardSpecial); // eslint-disable-line
+    dispatch({ type: UPDATE_LOCATIONS, payload: locations });
+  });
 };
 
 /**
@@ -76,6 +110,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   let currentItem;
   let totalDev = 0;
   let totalPower = 0;
+
   if (item.dropSlots) {
     for (let i = 0; i < item.dropSlots.length; i += 1) {
       currentItem = item.dropSlots[i].lastDroppedItem;
@@ -84,7 +119,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
         if (currentItem.cards[0].stats.type === 'Development') {
           totalDev += currentItem.cards[0].stats.bonus.development;
         }
-        if (currentItem.cards[0].metadata.id === '23') {
+        if (bonusDevPerLocationCards.includes(currentItem.cards[0].metadata.id)) {
           totalDev += currentItem.special;
         }
         returnedCards.push(currentItem.cards[0]);
@@ -101,7 +136,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       }
     }
   } else {
-    if (item.cards[0].metadata.id === '23') {
+    if (bonusDevPerLocationCards.includes(item.cards[0].metadata.id)) {
       totalDev += item.special;
     }
     if (item.cards[0].stats.type === 'Development') {
@@ -170,36 +205,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     gameplayView,
   });
 
-  if (item.cards[0].stats.type === 'Development') {
-    // TODO export this to separate function
-    const gameplay = { ...getState().gameplay };
-    let locations = [...gameplay.locations];
-    let globalStats = { ...gameplay.globalStats };
-
-    // check if coffee miner was dropped and recalculate
-    let locationSlots = [...locations[locationIndex].lastDroppedItem.dropSlots];
-
-    const coffeeMinerIndex = locationSlots.findIndex(({ lastDroppedItem }) =>
-      lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23');
-
-    if (coffeeMinerIndex !== -1) {
-      locationSlots = [..._locations[locationIndex].lastDroppedItem.dropSlots];
-
-      const coffeeMiner = locationSlots[coffeeMinerIndex].lastDroppedItem;
-      const coffeeMinerItem = { card: coffeeMiner.cards[0] };
-      globalStats.development -= coffeeMiner.special;
-
-      const minerEffect = handleCoffeeMinerEffect(coffeeMinerItem, locations, locationIndex, globalStats);
-
-      ({ globalStats } = minerEffect);
-      const coffeeSpecial = minerEffect.bonus;
-
-      dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
-
-      locations = updateLocationDropSlotItems(locationSlots, coffeeMinerIndex, coffeeMinerItem, locations, locationIndex, coffeeSpecial); // eslint-disable-line
-      dispatch({ type: UPDATE_LOCATIONS, payload: locations });
-    }
-  }
+  if (item.cards[0].stats.type === 'Development') dispatch(cardCancelRecalcBonusDevPerLocation(locationIndex));
 };
 
 /**
