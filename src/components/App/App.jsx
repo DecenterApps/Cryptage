@@ -20,6 +20,7 @@ import {
 
 import './App.scss';
 import Tutorial from '../Tutorial/Tutorial';
+import Feedback from './Feedback/Feedback';
 
 @DragDropContext(HTML5Backend)
 class App extends Component {
@@ -55,6 +56,7 @@ class App extends Component {
         </div>
 
         <ModalRoot />
+        <Feedback />
         <ReportABug />
         <CustomDragLayer />
 
