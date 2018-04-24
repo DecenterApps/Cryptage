@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleTutorial } from '../../actions/appActions';
+import pagesForLevel from '../../constants/tutorialConfig.json';
 
 import './Tutorial.scss';
 
@@ -22,19 +23,7 @@ class Tutorial extends Component {
   }
 
   componentWillMount() {
-    console.log(this.props.level);
-    const pagesForLevel = {
-      1: ['Step 01.jpg', 'Step 02.jpg', 'Step 03.jpg', 'Step 04.jpg', 'Step 05.jpg', 'Step 05a.jpg'],
-      2: ['Step 06.jpg', 'Step 07.jpg', 'Step 07.1.jpg'],
-      3: ['Step 07.2.jpg', 'Step 07.4.jpg', 'Step 07.7.jpg', 'Step 07.3.jpg'],
-      4: ['Step 07.5.jpg', 'Step 07.8.jpg'],
-      5: ['Step 07.6.jpg'],
-      6: ['Step 07.9.jpg'],
-      7: ['Step 07.10.jpg'],
-      8: ['Step 07.11.jpg', 'Step 07.12.jpg', 'Step 07.14.jpg'],
-    };
-
-    if (!pagesForLevel[this.props.level]) return;
+    if (!pagesForLevel[this.props.level]) return this.props.toggleTutorial();
 
     this.setState({
       pages: pagesForLevel[this.props.level],

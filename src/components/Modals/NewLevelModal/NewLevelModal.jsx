@@ -57,6 +57,7 @@ NewLevelModal.defaultProps = {
 
 NewLevelModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
   level: PropTypes.number.isRequired,
   cards: PropTypes.array.isRequired,
 };
