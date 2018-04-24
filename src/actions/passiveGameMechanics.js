@@ -15,6 +15,8 @@ import {
   calcDiffFpbBonusForMiners,
   bonusFpbMiningAlgo,
   calcFundsForDroppedCpuAndGpu,
+  checkIfDayTradersDropped,
+  checkIfInformationDealerDropped,
 } from '../services/gameMechanicsService';
 import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
@@ -249,6 +251,14 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
           _projects[i].lastDroppedItem.modifiedFundsBonus = fundsForDroppedCpuAndGpu;
           receivedFunds += fundsForDroppedCpuAndGpu;
           saveProjects = true;
+        }
+        if (card.metadata.id === '24') {
+          receivedFunds += checkIfDayTradersDropped(getPlayedAssetCards([...locations]));
+          _projects[i].lastDroppedItem.modifiedFundsBonus = receivedFunds;
+        }
+        if (card.metadata.id === '37') {
+          receivedFunds += checkIfInformationDealerDropped(getPlayedAssetCards([...locations]));
+          _projects[i].lastDroppedItem.modifiedFundsBonus = receivedFunds;
         }
 
         setTimeout(() => {

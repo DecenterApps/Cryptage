@@ -77,10 +77,7 @@ class GameplayItem extends Component {
     if (cards[0].metadata.id === '23') fpb = cards[0].stats.bonus.multiplierFunds;
 
     // handle grid connector fpb
-    if (cards[0].metadata.id === '22') {
-      console.log('locationItem.cards[0].stats.values.power', locationItem.cards[0].stats.values.power);
-      fpb = locationItem.values.power * cards[0].stats.bonus.funds;
-    }
+    if (cards[0].metadata.id === '22') fpb = locationItem.values.power * cards[0].stats.bonus.funds;
 
     if (isContainer) {
       // export this to another function

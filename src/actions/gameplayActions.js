@@ -387,9 +387,14 @@ export const levelUpProject = index => (dispatch, getState) => {
 export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
   let fpb = _fpb;
 
-  if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
+  if (card.stats && (card.stats.type === 'Mining' || card.metadata.id === '18' || card.metadata.id === '22')) { // eslint-disable-line
     if (addOrReduce) fpb += card.stats.bonus.funds;
     else fpb -= card.stats.bonus.funds;
+  }
+
+  if (card.stats && card.metadata.id === '23') {
+    if (addOrReduce) fpb += card.stats.bonus.multiplierFunds;
+    else fpb -= card.stats.bonus.multiplierFunds;
   }
 
   // Special mechanics for card with id 26, Adds fpb when completed;

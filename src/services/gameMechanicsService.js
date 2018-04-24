@@ -784,3 +784,25 @@ export const assetReduceTimeForProjects = item => (dispatch, getState) => {
 
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
+
+/**
+ * Claculates bonus funds for day trading project for every day trader
+ * @param {Array} assetCards
+ * @return {Number}
+ */
+export const checkIfDayTradersDropped = assetCards =>
+  assetCards.reduce((acc, card) => {
+    if (card.metadata.id === '41') acc += card.stats.bonus.multiplierFunds;
+    return acc;
+  }, 0);
+
+/**
+ * Claculates bonus funds for day trading project for every day trader
+ * @param {Array} assetCards
+ * @return {Number}
+ */
+export const checkIfInformationDealerDropped = assetCards =>
+  assetCards.reduce((acc, card) => {
+    if (card.metadata.id === '42') acc += card.stats.bonus.multiplierFunds;
+    return acc;
+  }, 0);
