@@ -23,7 +23,7 @@ const NewLevelModal = ({ closeModal, level, cards, toggleTutorial }) => (
         level === 1 &&
         <div className="main-text">
           <div className="level">Welcome!</div>
-          <div className="secondary">Here are some cards to get you starded</div>
+          <div className="secondary">Here are some free cards to get you started (click to reveal)</div>
         </div>
       }
       {
