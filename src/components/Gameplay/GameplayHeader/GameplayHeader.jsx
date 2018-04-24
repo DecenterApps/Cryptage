@@ -139,8 +139,8 @@ GameplayHeader.propTypes = {
   projects: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ gameplay, app }) => ({
-  blockNumber: app.blockNumber,
+const mapStateToProps = ({ gameplay }) => ({
+  blockNumber: gameplay.blockNumber,
   globalStats: gameplay.globalStats,
   nickname: gameplay.nickname,
   fundsPerBlock: gameplay.fundsPerBlock,

@@ -184,6 +184,7 @@ export default {
   getAccount,
   getBalance,
   getNetwork,
+  getBlockNumber,
   createCard,
   getNumberOfCardsOwned,
   getUsersCards,

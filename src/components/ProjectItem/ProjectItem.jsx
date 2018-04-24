@@ -8,7 +8,7 @@ import {
   levelUpProject,
   activateProject,
 } from '../../actions/gameplayActions';
-import { calcDataForNextLevel, formatBigNumber } from '../../services/utils';
+import { calcDataForNextLevel, classForRarity, formatBigNumber } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 
@@ -21,10 +21,17 @@ const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime
 
 const ProjectItem = ({
   isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
-  openConfirmRemoveModal,
+  openConfirmRemoveModal, timeDecrease, modifiedFundsBonus,
 }) => {
   const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
-  const fpb = cards[0].stats.bonus.funds;
+  const timeLeft = expiryTime - timeDecrease - blockNumber;
+  const cardFundsBonus = cards[0].stats.bonus.funds;
+  const metadataId = cards[0].metadata.id;
+  let fpb = 0;
+
+  if (metadataId === '30' || metadataId === '27' || metadataId === '29') fpb = modifiedFundsBonus;
+  else fpb = cardFundsBonus;
+
   const xpb = cards[0].stats.bonus.xp;
 
   return (
@@ -36,12 +43,22 @@ const ProjectItem = ({
     `}
     >
       <HoverInfo card={cards[0]} center />
-
       {
         showFpb &&
         <div className="bonus">
-          <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
-          <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+          {
+            (xpb > 0) && <div>+ { formatBigNumber(xpb) } <br /> EXP</div>
+          }
+          {
+            (metadataId === '26' || metadataId === '27') &&
+            (fpb > 0) &&
+            <div>+ { formatBigNumber(fpb) } <br /> FPB</div>
+          }
+          {
+            (metadataId !== '26' && metadataId !== '27') &&
+            (fpb > 0) &&
+            <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+          }
         </div>
       }
 
@@ -65,6 +82,9 @@ const ProjectItem = ({
         src={`cardImages/${cards[0].stats.image}`}
         alt=""
       />
+      <div className={`rarity-border ${classForRarity(cards[0].stats.rarityScore)}`} >
+        <div className="helper" />
+      </div>
       <div className="project-info">
         {
           isActive &&
@@ -79,8 +99,8 @@ const ProjectItem = ({
               <img className="project-thumbnail" src={activeBg} alt="" />
               {
                 blockNumber > 0 && [
-                  <div key="PIK1" className="blocks-left">{ expiryTime - blockNumber }</div>,
-                  <div key="PIK2">{ ((expiryTime - blockNumber) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
+                  <div key="PIK1" className="blocks-left">{ timeLeft }</div>,
+                  <div key="PIK2">{ ((timeLeft) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
                   <div key="PIK3">LEFT</div>,
                 ]
               }
@@ -111,6 +131,8 @@ ProjectItem.propTypes = {
   openConfirmRemoveModal: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
+  timeDecrease: PropTypes.number.isRequired,
+  modifiedFundsBonus: PropTypes.number.isRequired,
 };
 
 ProjectItem.defaultProps = {
@@ -120,7 +142,7 @@ ProjectItem.defaultProps = {
 
 const mapStateToProps = ({ gameplay, app }) => ({
   gameplayView: gameplay.gameplayView,
-  blockNumber: app.blockNumber,
+  blockNumber: gameplay.blockNumber,
 });
 
 const mapDispatchToProp = {
