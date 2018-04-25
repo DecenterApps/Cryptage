@@ -17,7 +17,7 @@ import {
   ADD_LOCATION_SLOTS,
   ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
-  PLAY_TURN, UPDATE_GLOBAL_VALUES,
+  UPDATE_GLOBAL_VALUES,
   ADDITIONAL_LOCATION_DROP_SLOTS,
   ADDITIONAL_LOCATION_ITEM_DROP_SLOTS,
   GP_NO_LOCATIONS,
@@ -25,23 +25,28 @@ import {
   GP_LOCATION,
   GP_NO_NICKNAME,
   CLEAR_TURNS,
+  PLAY_TURN,
+  bonusDevPerLocationCards,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
 import ipfsService from '../services/ipfsService';
 import {
-  checkIfCanPlayCard, getLevelValuesForCard, getSlotForContainer,
-  handleCardMathematics, handleCoffeeMinerEffect,
+  checkIfCanPlayCard,
+  getLevelValuesForCard,
+  getSlotForContainer,
+  handleCardMathematics,
+  calcLocationPerDevBonus,
+  handleBonusDevMechanics,
+  assetReduceTimeForProjects,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
   calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
-  getCardIdsFromLocation,
 } from '../services/utils';
 
-import { packMoves, readState, createGameplayState } from '../services/stateService';
-import config from '../constants/config.json';
-import { openNoRestartProjectModal } from './modalActions';
+import { packMoves, readState } from '../services/stateService';
+import { openNewLevelModal, openNoRestartProjectModal } from './modalActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -53,19 +58,6 @@ export const changeGameplayView = payload => (dispatch, getState) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
   saveGameplayState(getState);
 };
-
-// /**
-//  * gets onboarding cards defined in config because
-//  * every played gets those cards for free
-//  */
-// const getOnboardingCards = () => {
-//   const cardTypes = config.onboardingCards;
-//   return cardTypes.map((metadataId, index) => ({
-//     id: index - cardTypes.length,
-//     stats: fetchCardStats(metadataId),
-//     metadata: { id: metadataId.toString() },
-//   }));
-// };
 
 /**
  * gets Garage, Computer case and CPU because
@@ -340,6 +332,21 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const mathRes = handleCardMathematics(card, [], globalStats, index);
   const alterGlobalStats = mathRes.globalStats;
 
+  // if the project is activated again
+  if (card !== 'project') {
+    dispatch({
+      type: PLAY_TURN,
+      turn: {
+        add: 1,
+        specificCard: 0,
+        location: index,
+        containerPosition: index,
+        cardType: card.stats.ID,
+        blockNumber,
+      },
+    });
+  }
+
   dispatch({
     type: CHANGE_PROJECT_STATE,
     projects: alteredProjects,
@@ -395,15 +402,20 @@ export const levelUpProject = index => (dispatch, getState) => {
 export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
   let fpb = _fpb;
 
-  if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
+  if (card.stats && (card.stats.type === 'Mining' || card.metadata.id === '18' || card.metadata.id === '22')) { // eslint-disable-line
     if (addOrReduce) fpb += card.stats.bonus.funds;
     else fpb -= card.stats.bonus.funds;
+  }
+
+  if (card.stats && card.metadata.id === '23') {
+    if (addOrReduce) fpb += card.stats.bonus.multiplierFunds;
+    else fpb -= card.stats.bonus.multiplierFunds;
   }
 
   // Special mechanics for card with id 26, Adds fpb when completed;
   if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '26') {
     const { timesFinished, cards } = card;
-    const multiplier = cards[0].stats.bonus.funds;
+    const multiplier = cards[0].stats.bonus.multiplierFunds;
 
     if (addOrReduce === true) fpb += multiplier;
     else fpb -= (timesFinished * multiplier);
@@ -432,6 +444,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const cards = [...gameplay.cards];
   let locations = [...gameplay.locations];
   let globalStats = { ...gameplay.globalStats };
+  const metaDataId = item.card.metadata.id;
 
   const play = checkIfCanPlayCard(item.card.stats, globalStats, locations[activeLocationIndex].lastDroppedItem);
   if (!play) return;
@@ -439,46 +452,32 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
 
-  let locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+  const locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
   const slotItem = locationSlots[index].lastDroppedItem;
 
   if (!slotItem) {
     let special;
 
     // handle special cards drop
-    if (item.card.metadata.id === '23') {
-      const minerEffect = handleCoffeeMinerEffect(item, locations, activeLocationIndex, globalStats);
-      ({ globalStats } = minerEffect);
-      special = minerEffect.bonus;
+    if (bonusDevPerLocationCards.includes(metaDataId)) {
+      const cardEffect = calcLocationPerDevBonus(item, locations, activeLocationIndex, globalStats);
+      ({ globalStats } = cardEffect);
+      special = cardEffect.bonus;
     }
 
     // handle hacker unique special case
-    if (item.card.metadata.id === '18') {
+    if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
       globalStats.development += item.card.stats.bonus.development;
     }
 
+    if (metaDataId === '40') dispatch(assetReduceTimeForProjects(item));
+
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
-    // On developer drop checks if a coffee miner was dropped in that location
-    // If it was recalculate coffee miner effect
-    if (item.card.stats.type === 'Person') {
-      // TODO export this to func
-      const coffeeMinerIndex = locationSlots.findIndex(({ lastDroppedItem }) =>
-        lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23');
-
-      if (coffeeMinerIndex !== -1) {
-        locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
-
-        const coffeeMiner = locationSlots[coffeeMinerIndex].lastDroppedItem;
-        const coffeeMinerItem = { card: coffeeMiner.cards[0] };
-        globalStats.development -= coffeeMiner.special;
-
-        const minerEffect = handleCoffeeMinerEffect(coffeeMinerItem, locations, activeLocationIndex, globalStats);
-        ({ globalStats } = minerEffect);
-        const coffeeSpecial = minerEffect.bonus;
-
-        locations = updateLocationDropSlotItems(locationSlots, coffeeMinerIndex, coffeeMinerItem, locations, activeLocationIndex, coffeeSpecial); // eslint-disable-line
-      }
+    // On developer drop recalculates location per dev bonus
+    // if cards that have that effect were dropped
+    if (item.card.stats.type === 'Development') {
+      ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
     }
   } else {
     // TODO put in separate function
@@ -523,15 +522,12 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   const payload = JSON.parse(localStorage.getItem(`player-location-${account}`));
 
   if (!payload) {
-    // const currState = await ethService.getState();
-    // console.log(readState(currState));
+    // TODO
+    // Check to see if the user has already saved the state
+    // const state = await ipfsService.getFileStream('ipfsHash');
 
-    // // TODO: better check for inital state
-    // if (readState(currState).funds === 150) {
-    //   return;
-    // }
-
-    // payload = createGameplayState(readState(currState));
+    // console.log(state.toString('utf8'));
+    // Get ipfs hash and pull the content
     return;
   }
 
@@ -817,8 +813,6 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       break;
   }
 
-  console.log(slotType, index);
-
   // cardtype == gpu set specificCard to 1
   if (card.stats.ID === 10) {
     specificCard = 1;
@@ -842,8 +836,16 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
  *
  * @param {Object} data { nickname }
  */
-export const submitNickname = ({ nickname }) => (dispatch) => {
+export const submitNickname = ({ nickname }) => async (dispatch) => {
   // Add call to the contract here
+
+  const cards = cardsPerLevel[0].map((metadataId, index) => ({
+    id: 0 - (index + 1),
+    stats: fetchCardStats(metadataId),
+    metadata: { id: metadataId.toString() },
+  }));
+
+  dispatch(openNewLevelModal(1, cards));
 
   dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
 };
@@ -861,15 +863,12 @@ export const saveStateToContract = () => async (dispatch, getState) => {
     return;
   }
 
-  const packedMoves = packMoves(gameplay.playedTurns);
+  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber);
 
   console.log('Packed Moves: ', packedMoves);
 
   try {
     const ipfs = await ipfsService.uploadData(gameplay);
-    await ipfsService.replicate(ipfs[0].hash, '');
-
-    console.log(ipfs[0].hash);
 
     await ethService.updateMoves(packedMoves, ipfs[0].hash);
 

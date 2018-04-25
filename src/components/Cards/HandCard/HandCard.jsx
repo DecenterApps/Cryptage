@@ -35,7 +35,7 @@ const HandCard = ({
     misc: ['#3215E6', 'rgba(49, 20, 230, 0.33)'],
     power: ['#CE060D', 'rgba(206, 5, 13, 0.43)'],
     location: ['#3CC8CC', 'rgba(60, 200, 204, 0.33)'],
-    person: ['#9F00C7', 'rgba(95, 38, 79, 0.41)'],
+    development: ['#9F00C7', 'rgba(95, 38, 79, 0.41)'],
     project: ['#878787', 'rgba(135, 135, 135, 0.36)'],
     mining: ['#75341F', 'rgba(117, 52, 30, 0.57)'],
     container: ['#4A7420', 'rgba(74, 116, 32, 0.41)'],
