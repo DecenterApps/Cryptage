@@ -32,6 +32,8 @@ export const PROJECT_DROP_SLOTS = [
   PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT,
 ];
 
+export const bonusDevPerLocationCards = ['16', '23', '39'];
+
 // APP
 export const LOADING_ENDED = 'loading_ended';
 export const GET_ACCOUNT_SUCCESS = 'get_account_success';
@@ -101,3 +103,5 @@ export const TOGGLE_MODAL = 'toggle_modal';
 export const FETCH_LEADERBOARD_DATA = 'fetch_leaderboard_data';
 export const FETCH_LEADERBOARD_DATA_SUCCESS = 'fetch_leaderboard_data_success';
 export const FETCH_LEADERBOARD_DATA_ERROR = 'fetch_leaderboard_data_error';
+
+export const TOGGLE_TUTORIAL = 'toggle_tutorial';

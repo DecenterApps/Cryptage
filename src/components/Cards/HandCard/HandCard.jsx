@@ -65,11 +65,19 @@ const HandCard = ({
             >
               <stop
                 offset="0%"
-                style={{ stopColor: gradients[card.stats.type.toLowerCase()][0] }}
+                style={{
+                  stopColor: gradients[card.stats.type.toLowerCase()]
+                    ? gradients[card.stats.type.toLowerCase()][0]
+                    : gradients.misc[0],
+                }}
               />
               <stop
                 offset="100%"
-                style={{ stopColor: gradients[card.stats.type.toLowerCase()][1] }}
+                style={{
+                  stopColor: gradients[card.stats.type.toLowerCase()]
+                    ? gradients[card.stats.type.toLowerCase()][1]
+                    : gradients.misc[1],
+                }}
               />
             </linearGradient>
           </defs>

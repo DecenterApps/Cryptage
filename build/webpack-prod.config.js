@@ -80,6 +80,10 @@ module.exports = {
       {
         from: './src/constants/cardImages/',
         to: 'cardImages/',
+      },
+      {
+        from: './src/components/Tutorial/images',
+        to: 'tutorialImages/',
       }
     ])
   ]

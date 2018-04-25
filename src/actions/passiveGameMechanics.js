@@ -15,6 +15,8 @@ import {
   calcDiffFpbBonusForMiners,
   bonusFpbMiningAlgo,
   calcFundsForDroppedCpuAndGpu,
+  checkIfDayTradersDropped,
+  checkIfInformationDealerDropped,
 } from '../services/gameMechanicsService';
 import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
@@ -107,8 +109,8 @@ const addFundsForDroppedCoffeeMiners = _cards => (dispatch, getState) => {
   const coffeeCards = _cards.filter(_card => _card.metadata.id === '23');
 
   coffeeCards.forEach(({ stats }) => {
-    coffeeFunds += stats.bonus.funds;
-    globalStats.funds += stats.bonus.funds;
+    coffeeFunds += stats.bonus.multiplierFunds;
+    globalStats.funds += stats.bonus.multiplierFunds;
   });
 
   dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
@@ -129,7 +131,7 @@ const addFundsForDroppedDappProject = () => (dispatch, getState) => {
 
   dappProjects.forEach(({ lastDroppedItem }) => {
     const { timesFinished, cards } = lastDroppedItem;
-    const toAdd = (timesFinished * cards[0].stats.bonus.funds);
+    const toAdd = (timesFinished * cards[0].stats.bonus.multiplierFunds);
 
     dappProjectFunds += toAdd;
     globalStats.funds += toAdd;
@@ -249,6 +251,14 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
           _projects[i].lastDroppedItem.modifiedFundsBonus = fundsForDroppedCpuAndGpu;
           receivedFunds += fundsForDroppedCpuAndGpu;
           saveProjects = true;
+        }
+        if (card.metadata.id === '24') {
+          receivedFunds += checkIfDayTradersDropped(getPlayedAssetCards([...locations]));
+          _projects[i].lastDroppedItem.modifiedFundsBonus = receivedFunds;
+        }
+        if (card.metadata.id === '37') {
+          receivedFunds += checkIfInformationDealerDropped(getPlayedAssetCards([...locations]));
+          _projects[i].lastDroppedItem.modifiedFundsBonus = receivedFunds;
         }
 
         setTimeout(() => {
