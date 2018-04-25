@@ -62,6 +62,23 @@
         transition-delay: .1s;
         opacity: 1;
       }
+      img {
+        width: 100%;
+      }
+      .overlay-text {
+        position: absolute;
+        width: 550px;
+        color: white;
+        font-family: "Baloo", sans-serif;
+        font-size: 16px;
+        top: 120px;
+        left: 220px;
+        a {
+          color: inherit;
+          font-family: inherit;
+          font-size: inherit;
+        }
+      }
     }
   }
 }
