@@ -5,7 +5,7 @@ import './Feedback.scss';
 const Feedback = () => (
   <a
     className="feedback"
-    href="https://forms.google.com"
+    href="https://goo.gl/forms/spdem4dEbJfaZXeT2"
     target="_blank"
     rel="noopener noreferrer"
   >
