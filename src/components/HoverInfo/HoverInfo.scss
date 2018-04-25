@@ -122,9 +122,9 @@
     background: linear-gradient(to bottom, rgba($location, 0), rgba($location, .7));
     &:before { border-top: 1px solid $location; }
   } }
-  &.development{ .type, .description {
-    background: linear-gradient(to bottom, rgba($development, 0), rgba($development, .7));
-    &:before { border-top: 1px solid $development; }
+  &.person{ .type, .description {
+    background: linear-gradient(to bottom, rgba($person, 0), rgba($person, .7));
+    &:before { border-top: 1px solid $person; }
   } }
   &.project{ .type, .description {
     background: linear-gradient(to bottom, rgba($project, 0), rgba($project, .7));

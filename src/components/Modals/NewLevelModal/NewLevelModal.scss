@@ -13,10 +13,11 @@
 
   .main-text {
     text-align: center;
+    padding: 20px 0;
 
     .congratulation {
       font-family: $font-primary;
-      margin: 39px 0 10px 0;
+      margin-bottom: 10px;
       font-size: 20px;
       text-transform: uppercase;
     }
@@ -24,7 +25,7 @@
     .secondary {
       font-family: $font-primary;
       font-size: 16px;
-      text-transform: uppercase;
+      //text-transform: uppercase;
     }
 
     .level {

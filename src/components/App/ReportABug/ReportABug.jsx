@@ -6,7 +6,7 @@ import './ReportABug.scss';
 const ReportABug = () => (
   <a
     className="bug-report"
-    href="https://insights.hotjar.com/s?siteId=836110&surveyId=45077"
+    href="https://goo.gl/forms/90rEFatImpwGa0ak2"
     target="_blank"
     rel="noopener noreferrer"
   >

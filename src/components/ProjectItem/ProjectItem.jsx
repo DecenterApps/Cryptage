@@ -29,7 +29,7 @@ const ProjectItem = ({
   const metadataId = cards[0].metadata.id;
   let fpb = 0;
 
-  if (metadataId === '30' || metadataId === '27' || metadataId === '29') fpb = modifiedFundsBonus;
+  if (metadataId === '30' || metadataId === '27' || metadataId === '29' || metadataId === '37' || metadataId === '24') fpb = modifiedFundsBonus; // eslint-disable-line
   else fpb = cardFundsBonus;
 
   const xpb = cards[0].stats.bonus.xp;

@@ -5,6 +5,7 @@ import {
   UPDATE_BLOCK_NUMBER,
   TOGGLE_CARD_DRAG,
   CLEAR_STORE,
+  TOGGLE_TUTORIAL,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
@@ -99,3 +100,7 @@ export const resetGame = () => (dispatch) => {
   dispatch({ type: CLEAR_STORE });
 };
 
+
+export const toggleTutorial = () => async (dispatch) => {
+  dispatch({ type: TOGGLE_TUTORIAL });
+};

@@ -206,23 +206,45 @@ function _pack(arr, start) {
   return hexValues.map(h => `0x${h.padEnd(64, 0)}`);
 }
 
-export function packMoves(_moves) {
+export function packMoves(_moves, currBlockNumber) {
   const blockNumber = _moves[0].blockNumber; //eslint-disable-line
 
+  let counting = 0;
+  const moves = [];
+
+  _moves.forEach((m, i) => {
+    moves.push(m);
+
+    if (m.cardType === '24') {
+      counting += 1;
+    } else if (counting > 1) {
+      moves[i - (counting - 1)].numProjects = counting;
+      moves.splice((i - (counting - 1)) + 1, counting - 1);
+    }
+
+    if ((i === _moves.length - 1)) {
+      moves[i - (counting - 1)].numProjects = counting;
+      moves.splice((i - (counting - 1)) + 1, counting - 1);
+    }
+  });
+
+  console.log(moves);
+
   const blockNumHex = bin2Hex(dec2bin(blockNumber, 32), 8);
+  const currBlockNumberHex = bin2Hex(dec2bin(currBlockNumber, 32), 8);
 
   const blockNums = [];
 
-  for (let i = 1; i < _moves.length; i += 1) {
-    blockNums[i] = _moves[i].blockNumber - _moves[i - 1].blockNumber;
+  for (let i = 1; i < moves.length; i += 1) {
+    blockNums[i] = moves[i].blockNumber - moves[i - 1].blockNumber;
   }
 
   blockNums[0] = 0;
 
-  const binMoves = _moves.map((move, i) =>
+  const binMoves = moves.map((move, i) =>
     bin2Hex(dec2bin(move.add, 1) + dec2bin(move.specificCard, 1) + dec2bin(move.location, 3)
     + dec2bin(move.containerPosition, 8) + dec2bin(move.cardType, 11)
     + dec2bin(blockNums[i], 16)));
 
-  return _pack(binMoves, blockNumHex);
+  return _pack(binMoves, blockNumHex + currBlockNumberHex);
 }

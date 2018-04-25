@@ -1,0 +1,14 @@
+@import "../../../common/variables";
+
+.feedback {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  background-color: #f4364c;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  position: fixed;
+  right: 0;
+  top: calc(50% - 40px);
+  border-radius: 0 4px 4px 0;
+}

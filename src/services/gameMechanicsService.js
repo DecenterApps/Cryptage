@@ -518,7 +518,7 @@ export const calcLocationPerDevBonus = (item, locations, activeLocationIndex, _g
   let bonus = 0;
 
   const playedDevCards = locations[activeLocationIndex].lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Development'
+    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Person'
   )).map(dropSlot => dropSlot.lastDroppedItem.cards[0]);
 
   // coffee miners bonus equals the percent of played dev card
@@ -770,3 +770,39 @@ export const handleBonusDevMechanics = (_locations, activeLocationIndex, _global
 
   return { globalStats, locations };
 };
+
+/**
+ * Reduces running projects execution time when dropped
+ * @param item
+ */
+export const assetReduceTimeForProjects = item => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const { blockNumber } = gameplay;
+  let projects = [...gameplay.projects];
+
+  projects = decreaseExecutionTimeForAllProjects(projects, { cards: [item.card] }, blockNumber);
+
+  dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
+
+/**
+ * Claculates bonus funds for day trading project for every day trader
+ * @param {Array} assetCards
+ * @return {Number}
+ */
+export const checkIfDayTradersDropped = assetCards =>
+  assetCards.reduce((acc, card) => {
+    if (card.metadata.id === '41') acc += card.stats.bonus.multiplierFunds;
+    return acc;
+  }, 0);
+
+/**
+ * Claculates bonus funds for day trading project for every day trader
+ * @param {Array} assetCards
+ * @return {Number}
+ */
+export const checkIfInformationDealerDropped = assetCards =>
+  assetCards.reduce((acc, card) => {
+    if (card.metadata.id === '42') acc += card.stats.bonus.multiplierFunds;
+    return acc;
+  }, 0);

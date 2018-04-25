@@ -12,7 +12,12 @@ class Modal extends PureComponent {
 
   componentWillMount() {
     document.addEventListener('keydown', (event) => {
-      if (event.keyCode === 27) this.props.closeModal();
+      if (event.keyCode === 27) {
+        if (this.props.children &&
+            this.props.children.props &&
+            this.props.children.props.modalType === 'new_level_modal') return;
+        this.props.closeModal();
+      }
     });
   }
 
@@ -37,7 +42,12 @@ class Modal extends PureComponent {
         className={`modal-backdrop ${this.state.show ? 'open' : ''} ${this.props.className}`}
         role="button"
         tabIndex={0}
-        onClick={this.props.closeModal}
+        onClick={() => {
+          if (this.props.children &&
+            this.props.children.props &&
+            this.props.children.props.modalType === 'new_level_modal') return;
+          this.props.closeModal();
+        }}
       >
         <div className="modal-wrapper" style={{ width: this.props.width }}>
           <div
