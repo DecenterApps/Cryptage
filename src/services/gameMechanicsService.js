@@ -580,7 +580,7 @@ const addCardsForNewLevel = level => async (dispatch, getState) => {
 
   const newCards = cardsPerLevel[level - 1].map((metadataId, index) => ({
     id: minId - (index + 1),
-    stats: fetchCardStats(metadataId),
+    stats: fetchCardStats(metadataId, 1),
     metadata: { id: metadataId.toString() },
   }));
 
@@ -631,7 +631,7 @@ export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber
 
     if (project.lastDroppedItem && project.lastDroppedItem.isActive) {
       const { expiryTime, timeDecrease } = _project.lastDroppedItem;
-      const { multiplierTime } = item.cards[0].stats.bonus;
+      const { multiplierTime } = item.mainCard.stats.bonus;
       const timeLeft = expiryTime - timeDecrease - blockNumber;
 
       project.lastDroppedItem.timeDecrease += Math.ceil((timeLeft * ((multiplierTime) / 100)));
@@ -649,7 +649,7 @@ export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber
  * @return {Number}
  */
 export const increaseFundsByMultiplier = (funds, item) =>
-  Math.floor((funds * (item.cards[0].stats.bonus.multiplierFunds / 100)));
+  Math.floor((funds * (item.mainCard.stats.bonus.multiplierFunds / 100)));
 
 /**
  * Calculates how much a single Mining Algorithm Optimization adds bonus funds
@@ -695,7 +695,7 @@ const getMinersFpb = (assetCards, locations) => {
  * @return {number}
  */
 export const calcDiffFpbBonusForMiners = (locations, assetCards, item) => {
-  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { multiplierFunds } = item.mainCard.stats.bonus;
   const { timesFinished } = item;
   const miningFpb = getMinersFpb(assetCards, locations);
 
@@ -741,8 +741,8 @@ export const calcFundsForDroppedCpuAndGpu = (locations, assetCards, item) => {
     const cpuCards = minerCards.filter(({ metadata }) => metadata.id === '9');
     const gpuCards = minerCards.filter(({ metadata }) => metadata.id === '10');
 
-    acc += cpuCards.length * (item.cards[0].stats.bonus.multiplierFunds / 3);
-    acc += gpuCards.length * item.cards[0].stats.bonus.multiplierFunds;
+    acc += cpuCards.length * (item.mainCard.stats.bonus.multiplierFunds / 3);
+    acc += gpuCards.length * item.mainCard.stats.bonus.multiplierFunds;
 
     return acc;
   }, 0);
@@ -799,6 +799,7 @@ export const assetReduceTimeForProjects = item => (dispatch, getState) => {
 
 /**
  * Claculates bonus funds for day trading project for every day trader
+ *
  * @param {Array} assetCards
  * @return {Number}
  */

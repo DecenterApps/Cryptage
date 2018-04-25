@@ -45,11 +45,12 @@ import {
   updateContainerDropSlotItems,
   getCardAtContainer,
   updateLocationsDropSlots,
+  updateProjectsDropSlots,
 } from '../services/utils';
 
 import { packMoves, readState } from '../services/stateService';
 import { openNewLevelModal, openNoRestartProjectModal } from './modalActions';
-import { levelUpLocation } from './levelUpActions';
+import { levelUpLocation, levelUpProject } from './levelUpActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -222,66 +223,29 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
  * @return {Function}
  */
 export const handleProjectDrop = (index, item) => (dispatch, getState) => {
-  const { gameplay, app } = getState();
-  const { projects, globalStats, cards } = gameplay;
+  const { gameplay } = getState();
+
+  let projects = [...gameplay.projects];
+  let globalStats = { ...gameplay.globalStats };
+  const cards = [...gameplay.cards];
+  const { lastDroppedItem } = projects[index];
 
   if (!checkIfCanPlayCard(item.card.stats, globalStats)) return;
+  if (lastDroppedItem && lastDroppedItem.isActive) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
-  const alteredProjects = [...projects];
-  let cardsLeft = cards;
+  cards.splice(draggedCardIndex, 1);
 
-  if ((projects[index].lastDroppedItem && !projects[index].lastDroppedItem.isActive) ||
-    (!projects[index].lastDroppedItem)) {
-    cardsLeft = [
-      ...cards.slice(0, draggedCardIndex),
-      ...cards.slice(draggedCardIndex + 1),
-    ];
+  // location drop when slot is empty
+  if (!lastDroppedItem) projects = updateProjectsDropSlots(projects, index, item, gameplay.blockNumber);
+  // project drop when there is/are already a card/cards in the slot and the slot is not active
+  if (lastDroppedItem && !lastDroppedItem.isActive) {
+    projects = levelUpProject(projects, index, lastDroppedItem, item.card);
   }
 
-  if (!projects[index].lastDroppedItem) {
-    // location drop when slot is empty
-    alteredProjects[index] = {
-      // only allow the card type that has been dropped now to be dropped again
-      accepts: [],
-      lastDroppedItem: {
-        level: 1,
-        canLevelUp: false,
-        values: { ...item.card.stats.values },
-        cards: [{ ...item.card, index }],
-        isActive: true,
-        isFinished: false,
-        timeDecrease: 0,
-        expiryTime: gameplay.blockNumber + item.card.stats.cost.time,
-        timesFinished: 0,
-        modifiedFundsBonus: 0,
-      },
-      slotType: 'project',
-    };
-  } else if (!projects[index].lastDroppedItem.isActive) {
-    // location drop when there is/are already a card/cards in the slot
-    // handle level up here
-    const { lastDroppedItem } = alteredProjects[index];
-    const { level, cards } = lastDroppedItem;
+  ({ globalStats } = handleCardMathematics(item.card, [], globalStats, index));
 
-    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
-    if (nextLevelPercent === 100) {
-      alteredProjects[index].lastDroppedItem.canLevelUp = true;
-      // disable drop when level up is available
-      alteredProjects[index].accepts = [];
-    }
-
-    alteredProjects[index].lastDroppedItem.cards.push({ ...item.card });
-  }
-  const mathRes = handleCardMathematics(item.card, [], gameplay.globalStats, index);
-  const alterGlobalStats = mathRes.globalStats;
-
-  dispatch({
-    type: DROP_PROJECT,
-    projects: alteredProjects,
-    cards: cardsLeft,
-    globalStats: alterGlobalStats,
-  });
+  dispatch({ type: DROP_PROJECT, projects, cards, globalStats }); // eslint-disable-line
   saveGameplayState(getState);
 };
 
@@ -333,37 +297,6 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   saveGameplayState(getState);
 };
 
-// /**
-//  * Fires when the user clicks the level up button on the project card
-//  * which appears When the project has enough stacked cards to level up
-//  *
-//  * @param {Number} index
-//  * @return {Function}
-//  */
-// export const levelUpProject = index => (dispatch, getState) => {
-//   const gameplay = { ...getState().gameplay };
-//   if (gameplay.globalStats.funds === 0) return alert('Not enough funds');
-//
-//   const projects = [...gameplay.projects];
-//   const globalStats = { ...gameplay.globalStats };
-//
-//   const { level, cards } = projects[index].lastDroppedItem;
-//   const newCardStats = getLevelValuesForCard(cards[0].metadata.id, level + 1);
-//
-//   const play = checkIfCanPlayCard(newCardStats, globalStats);
-//   if (!play) return;
-//
-//   projects[index].lastDroppedItem.level += 1;
-//   projects[index].lastDroppedItem.canLevelUp = false;
-//
-//   globalStats.development -= projects[index].lastDroppedItem.level > 1 ? getLevelValuesForCard(
-//     parseInt(projects[index].lastDroppedItem.cards[0].metadata.id, 10),
-//     projects[index].lastDroppedItem.level,
-//   ) : projects[index].lastDroppedItem.cards[0].stats.cost.development;
-//
-//   dispatch({ type: LEVEL_UP_CARD, payload: { projects, globalStats } });
-// };
-
 /**
  * Checks if dropped card should update global fpb
  *
@@ -388,15 +321,15 @@ export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOr
   }
 
   // Special mechanics for card with id 26, Adds fpb when completed;
-  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '26') {
-    const { timesFinished, cards } = card;
-    const multiplier = cards[0].stats.bonus.multiplierFunds;
+  if (card.mainCard && card.mainCard.metadata.id === '26') {
+    const { timesFinished, mainCard } = card;
+    const multiplier = mainCard.stats.bonus.multiplierFunds;
 
     if (addOrReduce === true) fpb += multiplier;
     else fpb -= (timesFinished * multiplier);
   }
 
-  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '27') {
+  if (card.mainCard && card.mainCard.metadata.id === '27') {
     if (addOrReduce) fpb += numToAddOrReduce;
     else fpb -= numToAddOrReduce;
   }

@@ -32,3 +32,28 @@ export const levelUpLocation = (_locations, index, lastDroppedItem, card) => {
 
   return locations;
 };
+
+/**
+ * Updates project drop slot with new level new values
+ *
+ * @param {Array} _projects
+ * @param {Number} index
+ * @param {Object} lastDroppedItem
+ * @param {Object} card
+ * @return {Array}
+ */
+export const levelUpProject = (_projects, index, lastDroppedItem, card) => {
+  const projects = [..._projects];
+  const { mainCard } = lastDroppedItem;
+  const { id } = mainCard.metadata;
+  const level = parseInt(mainCard.stats.level, 10);
+
+  const newLevelCard = { ...mainCard, stats: fetchCardStats(id, level + 1) };
+
+  projects[index].lastDroppedItem.cards.push({ ...card });
+  projects[index].lastDroppedItem.mainCard = newLevelCard;
+
+  if (!cardsConfig.cards[id][(level + 2).toString()]) projects[index].lastDroppedItem.accepts = [];
+
+  return projects;
+};

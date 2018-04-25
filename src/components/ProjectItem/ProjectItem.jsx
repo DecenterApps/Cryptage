@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import {
-  setActiveLocation,
-  levelUpProject,
-  activateProject,
-} from '../../actions/gameplayActions';
-import { calcDataForNextLevel, classForRarity, formatBigNumber } from '../../services/utils';
+import { activateProject, } from '../../actions/gameplayActions';
+import { classForRarity, formatBigNumber } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 
@@ -20,19 +16,18 @@ import restart from './assets/restart.png';
 const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime) * 100);
 
 const ProjectItem = ({
-  isOver, cards, index, level, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
+  isOver, mainCard, index, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
   openConfirmRemoveModal, timeDecrease, modifiedFundsBonus,
 }) => {
-  const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
   const timeLeft = expiryTime - timeDecrease - blockNumber;
-  const cardFundsBonus = cards[0].stats.bonus.funds;
-  const metadataId = cards[0].metadata.id;
+  const cardFundsBonus = mainCard.stats.bonus.funds;
+  const metadataId = mainCard.metadata.id;
   let fpb = 0;
 
   if (metadataId === '30' || metadataId === '27' || metadataId === '29' || metadataId === '37' || metadataId === '24') fpb = modifiedFundsBonus; // eslint-disable-line
   else fpb = cardFundsBonus;
 
-  const xpb = cards[0].stats.bonus.xp;
+  const xpb = mainCard.stats.bonus.xp;
 
   return (
     <div
@@ -42,7 +37,7 @@ const ProjectItem = ({
       ${!isActive && isFinished && 'project-finished'}
     `}
     >
-      <HoverInfo card={cards[0]} center />
+      <HoverInfo card={mainCard} center />
       {
         showFpb &&
         <div className="bonus">
@@ -68,21 +63,21 @@ const ProjectItem = ({
           <img
             className="project-check"
             src={restart}
-            onClick={() => activateProject(cards[0], index)}
+            onClick={() => activateProject(mainCard, index)}
             alt="Checkmark icon"
           />
           <ChevronDownIcon onClick={() => {
-            openConfirmRemoveModal(undefined, undefined, undefined, undefined, cards[0], index);
+            openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
           }}
           />
         </div>
       }
       <img
         className="project-thumbnail main-thumbnail"
-        src={`cardImages/${cards[0].stats.image}`}
+        src={`cardImages/${mainCard.stats.image}`}
         alt=""
       />
-      <div className={`rarity-border ${classForRarity(cards[0].stats.rarityScore)}`} >
+      <div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} >
         <div className="helper" />
       </div>
       <div className="project-info">
@@ -93,7 +88,7 @@ const ProjectItem = ({
               strokeWidth="5"
               strokeColor="#FF9D14"
               trailColor="transparent"
-              percent={calculatePercent(expiryTime - blockNumber, cards[0].stats.cost.time)}
+              percent={calculatePercent(expiryTime - blockNumber, mainCard.stats.cost.time)}
             />
             <span className="project-time-left">
               <img className="project-thumbnail" src={activeBg} alt="" />
@@ -115,15 +110,14 @@ const ProjectItem = ({
 };
 
 ProjectItem.defaultProps = {
-  cards: [],
+  mainCard: null,
   isOver: false,
 };
 
 ProjectItem.propTypes = {
-  cards: PropTypes.array,
+  mainCard: PropTypes.object,
   isOver: PropTypes.bool,
   index: PropTypes.number.isRequired,
-  level: PropTypes.number.isRequired,
   isActive: PropTypes.bool.isRequired,
   isFinished: PropTypes.bool.isRequired,
   showFpb: PropTypes.bool,
@@ -140,13 +134,13 @@ ProjectItem.defaultProps = {
   showFpb: null,
 };
 
-const mapStateToProps = ({ gameplay, app }) => ({
+const mapStateToProps = ({ gameplay }) => ({
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, levelUpProject, activateProject, openConfirmRemoveModal,
+  activateProject, openConfirmRemoveModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(ProjectItem);

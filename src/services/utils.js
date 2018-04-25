@@ -416,6 +416,35 @@ export const updateLocationsDropSlots = (locations, index, item) =>
   });
 
 /**
+ * Updates projects object with new project object
+ *
+ * @param {Array} projects
+ * @param {Number} index
+ * @param {Object} item
+ * @return {Array}
+ */
+export const updateProjectsDropSlots = (projects, index, item, blockNumber) =>
+  update(projects, {
+    [index]: {
+      // only allow the card type that has been dropped now to be dropped again
+      accepts: { $set: [item.card.metadata.id] },
+      slotType: { $set: 'project' },
+      lastDroppedItem: {
+        $set: {
+          cards: [{ ...item.card }],
+          mainCard: { ...item.card },
+          isActive: true,
+          isFinished: false,
+          timeDecrease: 0,
+          expiryTime: blockNumber + item.card.stats.cost.time,
+          timesFinished: 0,
+          modifiedFundsBonus: 0,
+        },
+      },
+    },
+  });
+
+/**
  * Updates active location drop slot items
  *
  * @return {Array}
