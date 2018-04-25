@@ -25,6 +25,7 @@ import {
   GP_LOCATION,
   GP_NO_NICKNAME,
   CLEAR_TURNS,
+  PLAY_TURN,
   bonusDevPerLocationCards,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
@@ -37,6 +38,7 @@ import {
   handleCardMathematics,
   calcLocationPerDevBonus,
   handleBonusDevMechanics,
+  assetReduceTimeForProjects,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
@@ -44,7 +46,7 @@ import {
 } from '../services/utils';
 
 import { packMoves, readState } from '../services/stateService';
-import { openNoRestartProjectModal } from './modalActions';
+import { openNewLevelModal, openNoRestartProjectModal } from './modalActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -400,9 +402,14 @@ export const levelUpProject = index => (dispatch, getState) => {
 export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
   let fpb = _fpb;
 
-  if (card.stats && (card.stats.type === 'Mining' || (card.stats.special === true && card.stats.type !== 'Project'))) {
+  if (card.stats && (card.stats.type === 'Mining' || card.metadata.id === '18' || card.metadata.id === '22')) { // eslint-disable-line
     if (addOrReduce) fpb += card.stats.bonus.funds;
     else fpb -= card.stats.bonus.funds;
+  }
+
+  if (card.stats && card.metadata.id === '23') {
+    if (addOrReduce) fpb += card.stats.bonus.multiplierFunds;
+    else fpb -= card.stats.bonus.multiplierFunds;
   }
 
   // Special mechanics for card with id 26, Adds fpb when completed;
@@ -463,11 +470,13 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       globalStats.development += item.card.stats.bonus.development;
     }
 
+    if (metaDataId === '40') dispatch(assetReduceTimeForProjects(item));
+
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
     // On developer drop recalculates location per dev bonus
     // if cards that have that effect were dropped
-    if (item.card.stats.type === 'Development') {
+    if (item.card.stats.type === 'Person') {
       ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
     }
   } else {
@@ -513,15 +522,12 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   const payload = JSON.parse(localStorage.getItem(`player-location-${account}`));
 
   if (!payload) {
-    // const currState = await ethService.getState();
-    // console.log(readState(currState));
+    // TODO
+    // Check to see if the user has already saved the state
+    // const state = await ipfsService.getFileStream('ipfsHash');
 
-    // // TODO: better check for inital state
-    // if (readState(currState).funds === 150) {
-    //   return;
-    // }
-
-    // payload = createGameplayState(readState(currState));
+    // console.log(state.toString('utf8'));
+    // Get ipfs hash and pull the content
     return;
   }
 
@@ -830,8 +836,16 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
  *
  * @param {Object} data { nickname }
  */
-export const submitNickname = ({ nickname }) => (dispatch) => {
+export const submitNickname = ({ nickname }) => async (dispatch) => {
   // Add call to the contract here
+
+  const cards = cardsPerLevel[0].map((metadataId, index) => ({
+    id: 0 - (index + 1),
+    stats: fetchCardStats(metadataId),
+    metadata: { id: metadataId.toString() },
+  }));
+
+  dispatch(openNewLevelModal(1, cards));
 
   dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
 };
@@ -849,7 +863,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
     return;
   }
 
-  const packedMoves = packMoves(gameplay.playedTurns);
+  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber);
 
   console.log('Packed Moves: ', packedMoves);
 

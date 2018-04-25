@@ -19,6 +19,8 @@ import {
 } from '../../actions/appActions';
 
 import './App.scss';
+import Tutorial from '../Tutorial/Tutorial';
+import Feedback from './Feedback/Feedback';
 
 @DragDropContext(HTML5Backend)
 class App extends Component {
@@ -32,7 +34,7 @@ class App extends Component {
   }
 
   render() {
-    const { loadingApp, accountError } = this.props;
+    const { loadingApp, accountError, tutorialOpen } = this.props;
 
     if (loadingApp) return (<div />);
 
@@ -54,8 +56,13 @@ class App extends Component {
         </div>
 
         <ModalRoot />
+        <Feedback />
         <ReportABug />
         <CustomDragLayer />
+
+        {
+          tutorialOpen && <Tutorial />
+        }
       </div>
     );
   }
@@ -70,6 +77,7 @@ App.propTypes = {
   updateCurrentBlockNumber: PropTypes.func.isRequired,
   accountError: PropTypes.string.isRequired,
   updateFundsBlockDifference: PropTypes.func.isRequired,
+  tutorialOpen: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -84,6 +92,7 @@ const mapDispatchToProps = {
 const mapStateToProps = ({ app }) => ({
   loadingApp: app.loadingApp,
   accountError: app.accountError,
+  tutorialOpen: app.tutorialOpen,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
