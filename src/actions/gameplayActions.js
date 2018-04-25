@@ -476,7 +476,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
 
     // On developer drop recalculates location per dev bonus
     // if cards that have that effect were dropped
-    if (item.card.stats.type === 'Development') {
+    if (item.card.stats.type === 'Person') {
       ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
     }
   } else {
