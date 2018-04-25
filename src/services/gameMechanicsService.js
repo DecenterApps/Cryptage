@@ -18,10 +18,10 @@ import { fetchCardStats } from './cardService';
 /**
  * Returns initial values for stack of cards
  * @param {Number} id
- * @param {Number} _level
+ * @param {String} level
  * @return {Object}
  */
-export const getLevelValuesForCard = (id, _level = null) => cardsConfig.cards[id];
+export const getLevelValuesForCard = (id, level = '1') => cardsConfig.cards[id][level];
 
 /**
  * Takes in card, locations, global stats and deduces cost of playing card,
@@ -136,19 +136,20 @@ const checkSlotsAvailableForCardType = (
  * @return {Boolean}
  */
 export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null, ignoreSpace = false) => {
+  const cardLevel = cardStats.level;
   const {
     level, funds, development, power, space,
   } = cardStats.cost;
 
-  if (level > globalStats.level) return false;
+  if ((cardLevel === 1) && level > globalStats.level) return false;
 
   if (funds > globalStats.funds) return false;
 
-  if (development > globalStats.development) return false;
+  if ((cardLevel === 1) && development > globalStats.development) return false;
 
-  if (activeLocation && (power > activeLocation.values.power)) return false;
+  if (activeLocation && ((cardLevel === 1) && (power > activeLocation.values.power))) return false;
 
-  if (activeLocation && !ignoreSpace && (space > activeLocation.values.space)) return false;
+  if (activeLocation && !ignoreSpace && ((cardLevel === 1) && (space > activeLocation.values.space))) return false;
 
   // checks for duplicates in active location
   if (activeLocation && cardStats.unique) {
@@ -195,6 +196,7 @@ export const getContainerSlotsLength = (locations, locationItem, activeContainer
  * @return {Object}
  */
 const getMathErrors = (cardStats, globalStats, activeLocation = null, ignoreSpace = false) => {
+  const cardLevel = cardStats.level;
   const {
     level, funds, development, power, space,
   } = cardStats.cost;
@@ -207,15 +209,17 @@ const getMathErrors = (cardStats, globalStats, activeLocation = null, ignoreSpac
     special: [],
   };
 
-  if (level > globalStats.level) errors.level = true;
+  if ((cardLevel === 1) && level > globalStats.level) errors.level = true;
 
   if (funds > globalStats.funds) errors.funds = true;
 
-  if (development > globalStats.development) errors.development = true;
+  if ((cardLevel === 1) && development > globalStats.development) errors.development = true;
 
-  if (activeLocation && (power > activeLocation.values.power)) errors.power = true;
+  if (activeLocation && ((cardLevel === 1) && (power > activeLocation.values.power))) errors.power = true;
 
-  if (activeLocation && !ignoreSpace && (space > activeLocation.values.space)) errors.space = true;
+  if (activeLocation && !ignoreSpace && ((cardLevel === 1) && (space > activeLocation.values.space))) {
+    errors.space = true;
+  }
 
   // checks for duplicates in active location
   if (activeLocation && cardStats.unique) {
@@ -345,17 +349,25 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
  * Returns the maximum space a specific location
  * has for a specific level
  *
- * @param {Number} type
- * @param {Number} level
+ * @param {Object} card
  * @param {String} stat
  * @return {Number}
  */
-export const getMaxValueForLocation = (type, level, stat) => {
-  let base = getLevelValuesForCard(type, 1).values[stat];
+export const getMaxValueForLocation = (card, stat) => {
+  const metaDataId = card.metadata.id;
+  const { level } = card.stats;
 
-  if (level === 1) return base;
+  let base = 0;
 
-  for (let i = 2; i <= level; i += 1) base += getLevelValuesForCard(type, i).bonus[stat];
+  for (let i = 1; i <= level; i += 1) {
+    if (i === 1) base += getLevelValuesForCard(metaDataId, (i).toString()).values[stat];
+    else {
+      const pastLevelValue = getLevelValuesForCard(metaDataId, (i - 1).toString()).values[stat];
+      const currentLevelValue = getLevelValuesForCard(metaDataId, (i).toString()).values[stat];
+
+      base += currentLevelValue - pastLevelValue;
+    }
+  }
   return base;
 };
 

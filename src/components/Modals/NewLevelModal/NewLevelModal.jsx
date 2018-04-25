@@ -9,7 +9,9 @@ import { toggleTutorial } from '../../../actions/appActions';
 
 import './NewLevelModal.scss';
 
-const NewLevelModal = ({ closeModal, level, cards, toggleTutorial }) => (
+const NewLevelModal = ({
+  closeModal, level, cards, toggleTutorial,
+}) => (
   <div className="new-level-modal-wrapper">
     <ModalHeader
       closeModal={() => {
@@ -57,7 +59,7 @@ NewLevelModal.defaultProps = {
 
 NewLevelModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  toggleTutorial: PropTypes.func.isRequired,
   level: PropTypes.number.isRequired,
   cards: PropTypes.array.isRequired,
 };

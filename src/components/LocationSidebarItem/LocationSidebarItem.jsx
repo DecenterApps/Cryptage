@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
+import { setActiveLocation } from '../../actions/gameplayActions';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
-import { calcDataForNextLevel, classForRarity } from '../../services/utils';
+import { classForRarity } from '../../services/utils';
 import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 
@@ -35,11 +35,8 @@ class LocationSidebarItem extends Component {
 
   render() {
     const {
-      isOver, cards, slot, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp,
-      levelUpLocation, openConfirmRemoveModal,
+      isOver, mainCard, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
     } = this.props;
-
-    const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
 
     let fpb = 0;
 
@@ -77,7 +74,7 @@ class LocationSidebarItem extends Component {
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
       >
-        <HoverInfo card={cards[0]} center />
+        <HoverInfo card={mainCard} center />
 
         {
           (activeLocationIndex !== index) &&
@@ -99,29 +96,10 @@ class LocationSidebarItem extends Component {
             </div>
           </div>
         </div>
-        {
-          ((activeLocationIndex === index) && gameplayView === GP_LOCATION) && false &&
-          <svg className="location-progress-bar" viewBox="0 0 84 11">
-            <defs>
-              <clipPath id="location-sidebar-item-cut">
-                <polygon points="78.2,9 71.2,2 2,2 2,9 " />
-              </clipPath>
-            </defs>
-            <polygon className="progress-bar-outer" points="1,1 1,10 80,10 71,1" />
-            <rect
-              x="0"
-              y="0"
-              width={percent * 0.82}
-              height="11"
-              className="progress-bar"
-              clipPath="url(#location-sidebar-item-cut)"
-            />
-          </svg>
-        }
-        <div className={`rarity-border ${classForRarity(cards[0].stats.rarityScore)}`} />
+        <div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} />
         <div
           className="location-sidebar-item-inner-wrapper"
-          style={{ backgroundImage: `url('cardImages/${cards[0].stats.image}')` }}
+          style={{ backgroundImage: `url('cardImages/${mainCard.stats.image}')` }}
         >
           <div className="level-outer">
             <svg className="level-background">
@@ -133,45 +111,27 @@ class LocationSidebarItem extends Component {
               </defs>
               <polygon points="0,0 27,0 27,27" fill={`url(#sidebar-location-level-${index})`} />
             </svg>
-            <span className="level">{level}</span>
+            <span className="level">{mainCard.stats.level}</span>
           </div>
-          <div className="title">{cards[0].stats.title}</div>
+          <div className="title">{mainCard.stats.title}</div>
         </div>
-        {
-          !canLevelUp && false &&
-          <div className="level-up-tip">
-            Cards to drop for next level: {remainingCardsToDropForNextLevel}
-          </div>
-        }
-        {
-          canLevelUp && false &&
-          <button
-            className="level-up-button"
-            onClick={() => { levelUpLocation(index); }}
-          >
-            Upgrade to next level
-          </button>
-        }
       </div>
     );
   }
 }
 
 LocationSidebarItem.defaultProps = {
-  cards: [],
+  mainCard: null,
   isOver: false,
 };
 
 LocationSidebarItem.propTypes = {
-  cards: PropTypes.array,
+  mainCard: PropTypes.object,
   isOver: PropTypes.bool,
   setActiveLocation: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
   gameplayView: PropTypes.string.isRequired,
-  level: PropTypes.number.isRequired,
-  canLevelUp: PropTypes.bool.isRequired,
-  levelUpLocation: PropTypes.func.isRequired,
   openConfirmRemoveModal: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
   blockNumber: PropTypes.number.isRequired,
@@ -184,7 +144,7 @@ const mapStateToProps = ({ gameplay }) => ({
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, levelUpLocation, openConfirmRemoveModal,
+  setActiveLocation, openConfirmRemoveModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(LocationSidebarItem);

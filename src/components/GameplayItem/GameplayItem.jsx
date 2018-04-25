@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Line } from 'rc-progress';
 import { connect } from 'react-redux';
 import HandCard from '../Cards/HandCard/HandCard';
-import { calcDataForNextLevel } from '../../services/utils';
-import { levelUpAsset, switchInGameplayView } from '../../actions/gameplayActions';
+import { switchInGameplayView } from '../../actions/gameplayActions';
 import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
+import { checkIfCanPlayCard, getContainerSlotsLength, getSlotForContainer } from '../../services/gameMechanicsService';
 
 import './GameplayItem.scss';
-import {
-  checkIfCanPlayCard,
-  checkSlotsAvailableForCardType,
-  getContainerSlotsLength,
-  getSlotForContainer,
-} from '../../services/gameMechanicsService';
 
 class GameplayItem extends Component {
   constructor() {
@@ -58,11 +51,10 @@ class GameplayItem extends Component {
 
   render() {
     const {
-      cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, dropSlots, slot,
+      cards, isOver, index, activeLocationIndex, level, dropSlots, slot,
       dragItem, locations, globalStats,
     } = this.props;
 
-    const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
     const locationItem = locations[activeLocationIndex].lastDroppedItem;
 
     const isDragMiner = dragItem && dragItem.card && dragItem.card.stats.type === 'Mining';
@@ -166,17 +158,6 @@ class GameplayItem extends Component {
             />
           </div>
         }
-        <div className="level-up">
-          {!canLevelUp && <div>Cards to drop for next level: {remainingCardsToDropForNextLevel}</div>}
-          {
-            canLevelUp &&
-            <button
-              onClick={() => { levelUpAsset(activeLocationIndex, index); }}
-            >
-              Upgrade to next level
-            </button>
-          }
-        </div>
       </div>
     );
   }
@@ -193,10 +174,8 @@ GameplayItem.propTypes = {
   cards: PropTypes.array,
   isOver: PropTypes.bool,
   level: PropTypes.number.isRequired,
-  canLevelUp: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
-  levelUpAsset: PropTypes.func.isRequired,
   switchInGameplayView: PropTypes.func.isRequired,
   dropSlots: PropTypes.array,
   locations: PropTypes.array.isRequired,
@@ -214,7 +193,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProps = {
-  levelUpAsset, switchInGameplayView,
+  switchInGameplayView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameplayItem);

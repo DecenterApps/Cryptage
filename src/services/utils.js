@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
-import { getLevelValuesForCard, getSlotForContainer } from './gameMechanicsService';
-import { containerIds } from '../actions/actionTypes';
+import { getSlotForContainer } from './gameMechanicsService';
+import { containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
 
 /**
  * Generates unique id
@@ -392,11 +392,35 @@ export const filterByKeys = (object, allowedKeys) =>
     }, {});
 
 /**
+ * Updates locations object with new location object
+ *
+ * @param {Array} locations
+ * @param {Number} index
+ * @param {Object} item
+ * @return {Array}
+ */
+export const updateLocationsDropSlots = (locations, index, item) =>
+  update(locations, {
+    [index]: {
+      // only allow the card type that has been dropped now to be dropped again
+      accepts: { $set: [item.card.metadata.id] },
+      lastDroppedItem: {
+        $set: {
+          values: { ...item.card.stats.values },
+          dropSlots: LOCATION_ITEM_DROP_SLOTS,
+          cards: [{ ...item.card }],
+          mainCard: { ...item.card },
+        },
+      },
+    },
+  });
+
+/**
  * Updates active location drop slot items
  *
  * @return {Array}
  */
-export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations,) => {
+export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations) => { // eslint-disable-line
   const containerSlots = update(_containerSlots, {
     [cardIndex]: {
       accepts: { $set: [] },
@@ -486,8 +510,6 @@ export const getCardIdsFromLocation = (location, items) => {
     }
   });
 };
-
-
 
 export const classForRarity = (_rarity) => {
   const number = parseInt(_rarity, 10);
