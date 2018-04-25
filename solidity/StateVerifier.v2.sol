@@ -150,6 +150,22 @@ contract StateVerifier is StateCodec {
 			}
     	}
 
+		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.COMPUTER_CASE)) {
+			StateCodec.ComputerCase[] memory computerCases = _state.locations[_move.location].computerCases;
+			_state.locations[_move.location].computerCases = new StateCodec.ComputerCase[](computerCases.length + 1);
+			for(i=0; i<computerCases.length; i++) {
+				_state.locations[_move.location].computerCases[i] = computerCases[i];
+			}
+		
+			_state.locations[_move.location].computerCases[computerCases.length] = ComputerCase({
+				cpuCount: 0,
+				classicGpuCount: 0,
+				holographicGpuCount: 0,
+				corporateGpuCount: 0,
+				printerGpuCount: 0
+			});
+		}
+
     	// set new block number at the end
 		_state.blockNumber = _move.blockNumber;
     	
