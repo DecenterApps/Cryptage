@@ -461,7 +461,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
 
     // On developer drop checks if a coffee miner was dropped in that location
     // If it was recalculate coffee miner effect
-    if (item.card.stats.type === 'Development') {
+    if (item.card.stats.type === 'Person') {
       // TODO export this to func
       const coffeeMinerIndex = locationSlots.findIndex(({ lastDroppedItem }) =>
         lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23');

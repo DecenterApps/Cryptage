@@ -33,7 +33,7 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
       currentItem = item.dropSlots[i].lastDroppedItem;
 
       if (currentItem !== null && currentItem.dropSlots === null) {
-        if (currentItem.cards[0].stats.type === 'Development') {
+        if (currentItem.cards[0].stats.type === 'Person') {
           totalDev += currentItem.cards[0].stats.bonus.development;
         }
         if (currentItem.cards[0].metadata.id === '23') {
@@ -51,7 +51,7 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
     if (item.cards[0].metadata.id === '23') {
       totalDev += item.special;
     }
-    if (item.cards[0].stats.type === 'Development') {
+    if (item.cards[0].stats.type === 'Person') {
       totalDev += item.cards[0].stats.bonus.development;
     }
   }
@@ -81,7 +81,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       currentItem = item.dropSlots[i].lastDroppedItem;
 
       if (currentItem !== null && currentItem.dropSlots === null) {
-        if (currentItem.cards[0].stats.type === 'Development') {
+        if (currentItem.cards[0].stats.type === 'Person') {
           totalDev += currentItem.cards[0].stats.bonus.development;
         }
         if (currentItem.cards[0].metadata.id === '23') {
@@ -104,7 +104,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     if (item.cards[0].metadata.id === '23') {
       totalDev += item.special;
     }
-    if (item.cards[0].stats.type === 'Development') {
+    if (item.cards[0].stats.type === 'Person') {
       totalDev += item.cards[0].stats.bonus.development;
     }
   }
@@ -170,7 +170,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     gameplayView,
   });
 
-  if (item.cards[0].stats.type === 'Development') {
+  if (item.cards[0].stats.type === 'Person') {
     // TODO export this to separate function
     const gameplay = { ...getState().gameplay };
     let locations = [...gameplay.locations];
