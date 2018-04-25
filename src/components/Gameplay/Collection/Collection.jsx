@@ -10,6 +10,7 @@ import cardsConfig from '../../../constants/cards.json';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 
 import './Collection.scss';
+import { fetchCardStats } from '../../../services/cardService';
 
 const cardsLength = Object.keys(cardsConfig.cards).length;
 
@@ -33,6 +34,13 @@ const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
     <div className="collection-cards-wrapper">
       {
         range(0, cardsLength).map((cardIndex) => {
+          const c = {
+            id: cardIndex,
+            stats: fetchCardStats(cardIndex),
+            metadata: { id: cardIndex.toString() },
+          }
+          return (<LargeCard showNew={false} key={cardIndex} card={c} showCount duplicates={10} />);
+
           const foundCard = cards.find(card => (parseInt(card.metadata.id, 10) === cardIndex));
 
           if (foundCard) {

@@ -40,6 +40,18 @@
     }
   }
 
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 145px;
+    height: 252px;
+    border-radius: 12px;
+    background-image: url('../../HoverInfo/CardFront01.png');
+    background-size: cover;
+    z-index: 1;
+  }
+
   .rarity-overlay {
     position: absolute;
     top: -25px;
@@ -106,7 +118,7 @@
       }
     }
     .description {
-      padding: 5px 10px 5px;
+      padding: 10px 4px 5px;
       p {
         margin: 5px 0 0;
         font-family: $font-primary;

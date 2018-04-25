@@ -36,6 +36,7 @@ const LargeCard = ({
       removeNewCardOnHover(card.metadata.id);
     }}
   >
+    <div className="overlay" />
     <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
 
     { showNew && <div className="new-card">new</div> }

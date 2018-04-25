@@ -746,11 +746,11 @@
         "time": 10
       },
       "flavorText": "Hey, this isn't what I signed up for!",
-      "image": "outourced-project.jpg",
+      "image": "outsourced-project.jpg",
       "mechanicsText": "Time to complete: 10 blocks.",
       "rarityScore": "900",
       "special": true,
-      "title": "Outourced Project",
+      "title": "Outsourced Project",
       "type": "Project",
       "unique": false
     },
