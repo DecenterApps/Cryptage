@@ -206,10 +206,11 @@ function _pack(arr, start) {
   return hexValues.map(h => `0x${h.padEnd(64, 0)}`);
 }
 
-export function packMoves(_moves) {
+export function packMoves(_moves, currBlockNumber) {
   const blockNumber = _moves[0].blockNumber; //eslint-disable-line
 
   const blockNumHex = bin2Hex(dec2bin(blockNumber, 32), 8);
+  const currBlockNumberHex = bin2Hex(dec2bin(currBlockNumber, 32), 8);
 
   const blockNums = [];
 
@@ -224,5 +225,5 @@ export function packMoves(_moves) {
     + dec2bin(move.containerPosition, 8) + dec2bin(move.cardType, 11)
     + dec2bin(blockNums[i], 16)));
 
-  return _pack(binMoves, blockNumHex);
+  return _pack(binMoves, blockNumHex + currBlockNumberHex);
 }
