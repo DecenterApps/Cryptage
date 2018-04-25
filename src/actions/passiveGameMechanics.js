@@ -131,7 +131,7 @@ const addFundsForDroppedDappProject = () => (dispatch, getState) => {
 
   dappProjects.forEach(({ lastDroppedItem }) => {
     const { timesFinished, cards } = lastDroppedItem;
-    const toAdd = (timesFinished * cards[0].stats.bonus.funds);
+    const toAdd = (timesFinished * cards[0].stats.bonus.multiplierFunds);
 
     dappProjectFunds += toAdd;
     globalStats.funds += toAdd;
