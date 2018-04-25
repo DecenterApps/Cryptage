@@ -518,7 +518,7 @@ export const calcLocationPerDevBonus = (item, locations, activeLocationIndex, _g
   let bonus = 0;
 
   const playedDevCards = locations[activeLocationIndex].lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Person'
+    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Development'
   )).map(dropSlot => dropSlot.lastDroppedItem.cards[0]);
 
   // coffee miners bonus equals the percent of played dev card
