@@ -126,6 +126,30 @@ contract StateVerifier is StateCodec {
 			}
 		}
 
+		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.DEV)) {
+    		exists = false;
+    		for(i=0; i<_state.locations[_move.location].developers.length; i++) {
+    			if (_state.locations[_move.location].developers[i].card == _move.card) {
+    				_state.locations[_move.location].developers[i].count += 1;
+    				exists = true;
+    				break;
+    			}
+    		}
+
+    		if (!exists) {
+				StateCodec.Developer[] memory developers = _state.locations[_move.location].developers;
+				_state.locations[_move.location].developers = new StateCodec.Developer[](developers.length + 1);
+				for(i=0; i<developers.length; i++) {
+					_state.locations[_move.location].developers[i] = developers[i];
+				}
+
+				_state.locations[_move.location].developers[developers.length] = Developer({
+					card: _move.card,
+					count: 1
+				});
+			}
+    	}
+
     	// set new block number at the end
 		_state.blockNumber = _move.blockNumber;
     	
