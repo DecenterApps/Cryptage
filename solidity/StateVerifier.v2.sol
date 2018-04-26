@@ -317,6 +317,14 @@ contract StateVerifier is StateCodec {
 		_state.developmentLeft -= cardGains.dev;
 		_state.locations[_move.location].powerLeft -= cardGains.power;
 		_state.locations[_move.location].spaceLeft -= cardGains.space;
+
+		if (_move.level > 0) {
+			CryptageCards.CardGains memory cardGainsLevelDown = cryptageCards.getCardGains(_move.card, _move.level-1);
+			_state.fundsPerBlock += cardGainsLevelDown.funds;
+			_state.developmentLeft += cardGainsLevelDown.dev;
+			_state.locations[_move.location].powerLeft += cardGainsLevelDown.power;
+			_state.locations[_move.location].spaceLeft += cardGainsLevelDown.space;
+		}
 		// ------------------------------------------------------------------------------
 		// ------------------------------------------------------------------------------
     	
@@ -337,6 +345,9 @@ contract StateVerifier is StateCodec {
     		require(_state.locations[_move.location].powers[i].count[_move.level] > 0);
 
     		_state.locations[_move.location].powers[i].count[_move.level]--;
+    		if (_move.level > 0) {
+    			_state.locations[_move.location].powers[i].count[_move.level]++;
+    		}
 		}
 
 		if (uint(cryptageCards.getCardType(_move.card, _move.level)) == uint(CryptageCards.CardType.DEV)) {
@@ -352,6 +363,9 @@ contract StateVerifier is StateCodec {
     		require (_state.locations[_move.location].developers[i].count[_move.level] > 0);
     		
     		_state.locations[_move.location].developers[i].count[_move.level]--;
+    		if (_move.level > 0) {
+    			_state.locations[_move.location].developers[i].count[_move.level-1]++;
+    		}
     	}
 
 		
