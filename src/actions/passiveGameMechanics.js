@@ -228,7 +228,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         releasedDev += card.stats.cost.development;
         receivedFunds += card.stats.bonus.funds;
 
-        if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true);
+        if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, card, true);
         if (card.metadata.id === '31') _projects = decreaseExecutionTimeForAllProjects(_projects, item, blockNumber);
         if (card.metadata.id === '30') {
           const modifiedFundsBonus = increaseFundsByMultiplier(receivedFunds + funds, item);
@@ -264,7 +264,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     }
   }
 
-  if (acquiredXp > 0 || receivedFunds > 0 || saveProjects) {
+  if (acquiredXp > 0 || receivedFunds > 0 || releasedDev > 0 || saveProjects) {
     dispatch({ type: CHANGE_PROJECT_STATE, projects: _projects });
     dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
 
