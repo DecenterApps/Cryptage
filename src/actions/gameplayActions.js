@@ -36,12 +36,12 @@ import {
   calcLocationPerDevBonus,
   handleBonusDevMechanics,
   assetReduceTimeForProjects,
+  getLevelCardBonusStatDiff,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState,
   updateLocationDropSlotItems,
   removePlayedCards,
-  calcDataForNextLevel,
   updateContainerDropSlotItems,
   getCardAtContainer,
   updateLocationsDropSlots,
@@ -50,7 +50,7 @@ import {
 
 import { packMoves, readState } from '../services/stateService';
 import { openNewLevelModal, openNoRestartProjectModal } from './modalActions';
-import { levelUpLocation, levelUpProject, levelUpAsset } from './levelUpActions';
+import { levelUpLocation, levelUpProject, levelUpAsset, levelUpMiner } from './levelUpActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -73,7 +73,7 @@ const getNewLevelCards = (level, cards) => {
   let minId = -1;
 
   if (cards.length > 0) {
-    cards.reduce((min, card) => card.id < min ? card.id : min, cards[0].id);  // eslint-disable-line
+    cards.reduce((min, card) => card.id < min ? card.id : min, mainCard.id);  // eslint-disable-line
   }
 
   let newCards = [];
@@ -313,22 +313,21 @@ export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOr
   let fpb = _fpb;
 
   if (card.stats && (card.stats.type === 'Mining' || card.metadata.id === '18' || card.metadata.id === '22')) { // eslint-disable-line
-    if (addOrReduce) fpb += card.stats.bonus.funds;
+    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'funds');
     else fpb -= card.stats.bonus.funds;
   }
 
   if (card.stats && card.metadata.id === '23') {
-    if (addOrReduce) fpb += card.stats.bonus.multiplierFunds;
+    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
     else fpb -= card.stats.bonus.multiplierFunds;
   }
 
   // Special mechanics for card with id 26, Adds fpb when completed;
   if (card.mainCard && card.mainCard.metadata.id === '26') {
     const { timesFinished, mainCard } = card;
-    const multiplier = mainCard.stats.bonus.multiplierFunds;
 
-    if (addOrReduce === true) fpb += multiplier;
-    else fpb -= (timesFinished * multiplier);
+    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
+    else fpb -= (timesFinished * mainCard.stats.bonus.multiplierFunds);
   }
 
   if (card.mainCard && card.mainCard.metadata.id === '27') {
@@ -458,51 +457,6 @@ export const updateFundsBlockDifference = () => async (dispatch, getState) => {
 };
 
 // /**
-//  * Fires when the user clicks the level up button on a miner card
-//  * which appears when the miner has enough stacked cards to level up
-//  *
-//  * @param {Number} locationIndex
-//  * @param {Number} containerIndex
-//  * @param {Number} cardIndex
-//  */
-// export const levelUpContainedCard = (locationIndex, containerIndex, cardIndex) => (dispatch, getState) => {
-//   const gameplay = { ...getState().gameplay };
-//
-//   let locations = [...gameplay.locations];
-//   let globalStats = { ...gameplay.globalStats };
-//
-//   const { lastDroppedItem } = locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem
-//     .dropSlots[cardIndex];
-//   const { level } = lastDroppedItem;
-//   const card = lastDroppedItem.cards[0];
-//   const newCardStats = getLevelValuesForCard(card.metadata.id, level + 1);
-//
-//   const play = checkIfCanPlayCard(newCardStats, globalStats);
-//   if (!play) return;
-//
-//   locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-//     .lastDroppedItem.cards[0].stats = { ...card.stats, ...newCardStats };
-//   locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-//     .lastDroppedItem.level += 1;
-//   locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-//     .lastDroppedItem.canLevelUp = false;
-//   locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-//     .accepts = [card.metadata.id];
-//
-//   const mathRes = handleCardMathematics(
-//     locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex].lastDroppedItem.cards[0], // eslint-disable-line
-//     locations,
-//     gameplay.globalStats,
-//     locationIndex,
-//   );
-//   locations = mathRes.locations;
-//   globalStats = mathRes.globalStats;
-//
-//   dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
-//   saveGameplayState(getState);
-// };
-
-// /**
 //  * Adds new drop slots to container drop slots based on bonus
 //  *
 //  * @param _locations
@@ -513,7 +467,7 @@ export const updateFundsBlockDifference = () => async (dispatch, getState) => {
 // export const addDropSlotsToContainer = (_locations, activeLocationIndex, index) => {
 //   const locations = [..._locations];
 //   const containerDropSlots = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots;
-//   const card = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0];
+//   const card = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.mainCard;
 //   const newDropSlots = getSlotForContainer(card.metadata.id, card.stats.bonus.space);
 //
 //   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots =
@@ -542,8 +496,7 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
   const slotItem = containerSlots[cardIndex].lastDroppedItem;
   const locationItem = locations[locationIndex].lastDroppedItem;
 
-  const play = checkIfCanPlayCard(item.card.stats, gameplay.globalStats, locationItem, true);
-  if (!play) return;
+  if (!checkIfCanPlayCard(item.card.stats, gameplay.globalStats, locationItem, true)) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -551,29 +504,15 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
   if (!slotItem) {
     locations = updateContainerDropSlotItems(locationIndex, containerIndex, cardIndex, item, containerSlots, locations);
   } else {
-    const { lastDroppedItem } =
-      locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex];
-    const { level, cards } = lastDroppedItem;
-
-    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
-
-    if (nextLevelPercent === 100) {
-      locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-        .lastDroppedItem.canLevelUp = true;
-      // // disable drop when level up is available
-      locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem
-        .dropSlots[cardIndex].accepts = [];
-    }
-
-    locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-      .lastDroppedItem.cards.push({ ...item.card });
+    locations = levelUpMiner(locations, locationIndex, containerIndex, cardIndex, item.card);
   }
 
-  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, locationIndex);
+  const { mainCard } = locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex].lastDroppedItem; // eslint-disable-line
+  const mathRes = handleCardMathematics(mainCard, locations, gameplay.globalStats, locationIndex);
   const { globalStats } = mathRes;
   ({ locations } = mathRes);
 
-  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, item.card, true);
+  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
 
   dispatch({
     type: DROP_MINER, locations, cards, globalStats, fundsPerBlock,
@@ -605,7 +544,7 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
 
 // 0 za rig 1 za computer case
 export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
-  const card = item.card || item.cards[0];
+  const card = item.card || item.mainCard;
   const { app, gameplay } = getState();
 
   const {

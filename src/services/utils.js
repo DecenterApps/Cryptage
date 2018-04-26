@@ -309,7 +309,7 @@ export const getPlayedAssetCards = (_locations) => {
 export const getPlayedLocationCards = _locations => (
   Array.prototype.concat(_locations
     .filter(_location => _location.lastDroppedItem)
-    .map(_locationWithCards => _locationWithCards.lastDroppedItem.cards[0]))
+    .map(_locationWithCards => _locationWithCards.lastDroppedItem.mainCard))
 );
 
 /**
@@ -328,28 +328,6 @@ const calcCardsNeededToLevelUp = (level) => {
   }
 
   return numOfCards;
-};
-
-/**
- * Calculates when the next level is due and other
- * current level info
- *
- * @param {Number} cardsLength
- * @param {Number} level
- * @return {Object}
- */
-export const calcDataForNextLevel = (cardsLength, level) => {
-  const cardsTotalNeededToLevelUp = calcCardsNeededToLevelUp(level);
-  const cardsNeededForNextLevel = level + 1;
-  const remainingCardsToDropForNextLevel = cardsTotalNeededToLevelUp - cardsLength;
-  // console.log('Ukupan broj karata potreban za seledeci nivo:', cardsTotalNeededToLevelUp);
-  // console.log('Broj karata da se baci trenutni nivo da bi se dobio sledeci:', cardsNeededForNextLevel);
-  // console.log('Preostali Broj karata da se baci trenutni nivo da bi se dobio sledeci:', remainingCardsToDropForNextLevel);
-  // console.log('Ukupan Broj bacenih karata je: ', cardsLength);
-
-  const percent = 100 - (100 * ((cardsTotalNeededToLevelUp - cardsLength) / cardsNeededForNextLevel));
-
-  return { percent, remainingCardsToDropForNextLevel };
 };
 
 /**
@@ -460,12 +438,11 @@ export const updateProjectsDropSlots = (projects, index, item, blockNumber) =>
 export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations) => { // eslint-disable-line
   const containerSlots = update(_containerSlots, {
     [cardIndex]: {
-      accepts: { $set: [] },
+      accepts: { $set: [item.card.metadata.id] },
       lastDroppedItem: {
         $set: {
-          level: 1,
-          canLevelUp: false,
           cards: [{ ...item.card }],
+          mainCard: { ...item.card },
         },
       },
     },
@@ -524,7 +501,7 @@ export const getCardAtContainer = (locations, locationIndex, containerIndex) => 
   }
 };
 
-const getElemType = (loc, i) => loc && loc.lastDroppedItem.cards[0] ? loc.lastDroppedItem.cards[0].metadata.id : []; //eslint-disable-line
+const getElemType = (loc, i) => loc && loc.lastDroppedItem.mainCard ? loc.lastDroppedItem.mainCard.metadata.id : []; //eslint-disable-line
 const getSlots = loc => loc && loc.lastDroppedItem ? loc.lastDroppedItem.dropSlots : []; //eslint-disable-line
 
 /**

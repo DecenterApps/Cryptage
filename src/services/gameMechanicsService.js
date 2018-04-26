@@ -23,6 +23,27 @@ import { fetchCardStats } from './cardService';
  */
 export const getLevelValuesForCard = (id, level = '1') => cardsConfig.cards[id][level];
 
+
+/**
+ * Calculates diff between current level and past level bonus stats
+ *
+ * @param {Object} card
+ * @param {String} stat
+ * @return {Number}
+ */
+export const getLevelCardBonusStatDiff = (card, stat) => {
+  const metaDataId = card.metadata.id;
+  const { level } = card.stats;
+
+  let diff = 0;
+  const currentLevelValue = getLevelValuesForCard(metaDataId, (level).toString()).bonus[stat];
+
+  if (level === 1) diff += currentLevelValue;
+  else diff = currentLevelValue - getLevelValuesForCard(metaDataId, (level - 1).toString()).bonus[stat];
+
+  return diff;
+};
+
 /**
  * Takes in card, locations, global stats and deduces cost of playing card,
  * handles special card types math
@@ -66,7 +87,10 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
 
     // Special cards have unique mechanism for bonus
     if (Object.keys(globalBonus).length && !card.stats.special) {
-      Object.keys(globalBonus).forEach((statKey) => { globalStats[statKey] += globalBonus[statKey]; });
+      Object.keys(globalBonus).forEach((statKey) => {
+        if (statKey === 'development') globalStats[statKey] += getLevelCardBonusStatDiff(card, statKey);
+        else globalStats[statKey] += globalBonus[statKey];
+      });
     }
 
     if (Object.keys(localBonus).length) {
@@ -155,7 +179,7 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
   // checks for duplicates in active location
   if (activeLocation && cardStats.unique) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
-      lastDroppedItem && (lastDroppedItem.cards[0].stats.title === cardStats.title)
+      lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
     ));
 
     if (foundElem) return false;
@@ -225,7 +249,7 @@ const getMathErrors = (cardStats, globalStats, activeLocation = null, ignoreSpac
   // checks for duplicates in active location
   if (activeLocation && cardStats.unique) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
-      lastDroppedItem && (lastDroppedItem.cards[0].stats.title === cardStats.title)
+      lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
     ));
 
     if (foundElem) errors.special.push('You can play only one per location');
@@ -287,7 +311,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
       let canPlayInOneContainer = false;
 
       const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
-        if (lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Container') {
+        if (lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Container') {
           const lastDroppedItemCopy = { ...lastDroppedItem };
           lastDroppedItemCopy.containerIndex = slotIndex;
           return lastDroppedItemCopy;
@@ -297,7 +321,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
       }).filter(item => item);
 
       droppedContainers.forEach((droppedContainerItem) => {
-        const containerId = droppedContainerItem.cards[0].metadata.id;
+        const containerId = droppedContainerItem.mainCard.metadata.id;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
         const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
         const containerSlotLength = getContainerSlotsLength(
@@ -325,7 +349,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
     if (isAsset) {
       // check if active container can take in that card type
       const containerId = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
-        .lastDroppedItem.cards[0].metadata.id;
+        .lastDroppedItem.mainCard.metadata.id;
       const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
       const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
 
@@ -479,7 +503,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
       // check if active container can take in that card type
       const containerId = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
-        .lastDroppedItem.cards[0].metadata.id;
+        .lastDroppedItem.mainCard.metadata.id;
       const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
       const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
 
@@ -531,8 +555,8 @@ export const calcLocationPerDevBonus = (item, locations, activeLocationIndex, _g
   let bonus = 0;
 
   const playedDevCards = locations[activeLocationIndex].lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Person'
-  )).map(dropSlot => dropSlot.lastDroppedItem.cards[0]);
+    lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Person'
+  )).map(dropSlot => dropSlot.lastDroppedItem.mainCard);
 
   // coffee miners bonus equals the percent of played dev card
   playedDevCards.forEach(({ stats }) => {
@@ -677,7 +701,7 @@ const getMinersFpb = (assetCards, locations) => {
     const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
     const minerCards = containerSlots
       .filter(containerSlot => containerSlot.lastDroppedItem)
-      .map(container => container.lastDroppedItem.cards[0]);
+      .map(container => container.lastDroppedItem.mainCard);
 
     minerCards.forEach((minerCard) => {
       acc += minerCard.stats.bonus.funds;
@@ -715,7 +739,7 @@ export const calcDiffFpbBonusForMiners = (locations, assetCards, item) => {
  * @return {number}
  */
 export const calcFpbBonusForMiners = (locations, assetCards, item) => {
-  const { multiplierFunds } = item.cards[0].stats.bonus;
+  const { multiplierFunds } = item.mainCard.stats.bonus;
   const { timesFinished } = item;
   const miningFpb = getMinersFpb(assetCards, locations);
 
@@ -763,14 +787,14 @@ export const handleBonusDevMechanics = (_locations, activeLocationIndex, _global
   let globalStats = { ..._globalStats };
   let locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
 
-  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.mainCard.metadata.id)); // eslint-disable-line
 
   droppedBonusDevPerLocationCards.forEach(({ lastDroppedItem }) => {
     locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
-    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.cards[0].metadata.id === lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.mainCard.metadata.id === lastDroppedItem.mainCard.metadata.id)); // eslint-disable-line
 
     const coffeeMiner = locationSlots[cardLocationIndex].lastDroppedItem;
-    const coffeeMinerItem = { card: coffeeMiner.cards[0] };
+    const coffeeMinerItem = { card: coffeeMiner.mainCard };
     globalStats.development -= coffeeMiner.special;
 
     const cardEffect = calcLocationPerDevBonus(coffeeMinerItem, locations, activeLocationIndex, globalStats);

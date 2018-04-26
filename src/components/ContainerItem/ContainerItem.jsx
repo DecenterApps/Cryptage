@@ -29,9 +29,9 @@ class ContainerItem extends Component {
 
   render() {
     const {
-      index, cards, locationIndex, containerIndex, slot,
+      index, mainCard, locationIndex, containerIndex, slot,
     } = this.props;
-    const fpb = cards[0].stats.bonus.funds;
+    const fpb = mainCard.stats.bonus.funds;
 
     return (
       <div className="container-item-wrapper">
@@ -42,7 +42,7 @@ class ContainerItem extends Component {
         <HandCard
           showCount={false}
           played
-          card={cards[0]}
+          card={mainCard}
           slot={slot}
           locationIndex={locationIndex}
           containerIndex={containerIndex}
@@ -54,11 +54,11 @@ class ContainerItem extends Component {
 }
 
 ContainerItem.defaultProps = {
-  cards: [],
+  mainCard: null,
 };
 
 ContainerItem.propTypes = {
-  cards: PropTypes.array,
+  mainCard: PropTypes.object,
   locationIndex: PropTypes.number.isRequired,
   containerIndex: PropTypes.number.isRequired,
   slot: PropTypes.object.isRequired,

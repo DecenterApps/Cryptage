@@ -97,7 +97,7 @@ class GameplayItem extends Component {
       // handle container fpb
       fpb = slot.lastDroppedItem.dropSlots.reduce((acc, currVal) => {
         if (currVal.lastDroppedItem) {
-          acc += currVal.lastDroppedItem.cards[0].stats.bonus.funds;
+          acc += currVal.lastDroppedItem.mainCard.stats.bonus.funds;
         }
 
         return acc;

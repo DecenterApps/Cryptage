@@ -42,25 +42,25 @@ class LocationSidebarItem extends Component {
 
     slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
       // get hackers and coffee miners fpb
-      if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '18') {
-        fpb += lastDroppedItem.cards[0].stats.bonus.funds;
+      if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '18') {
+        fpb += lastDroppedItem.mainCard.stats.bonus.funds;
       }
 
-      if ((lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23')) {
-        fpb += lastDroppedItem.cards[0].stats.bonus.multiplierFunds;
+      if ((lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '23')) {
+        fpb += lastDroppedItem.mainCard.stats.bonus.multiplierFunds;
       }
 
       // get grid connector fpb
-      if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '22') {
+      if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '22') {
         const { power } = slot.lastDroppedItem.values;
-        fpb += (power * lastDroppedItem.cards[0].stats.bonus.funds);
+        fpb += (power * lastDroppedItem.mainCard.stats.bonus.funds);
       }
 
       // get containers fpb
       if (lastDroppedItem && lastDroppedItem.dropSlots) {
         lastDroppedItem.dropSlots.forEach((containerSlot) => {
           if (containerSlot.lastDroppedItem) {
-            fpb += containerSlot.lastDroppedItem.cards[0].stats.bonus.funds;
+            fpb += containerSlot.lastDroppedItem.mainCard.stats.bonus.funds;
           }
         });
       }

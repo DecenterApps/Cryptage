@@ -26,7 +26,7 @@ const GameplayHeader = ({
   const expPercantage = (globalStats.earnedXp * 100 / globalStats.requiredXp);
 
   const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
-    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.cards[0].stats.cost.development;
+    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.stats.cost.development;
     return acc;
   }, 0);
 

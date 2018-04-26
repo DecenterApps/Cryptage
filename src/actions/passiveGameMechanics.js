@@ -6,7 +6,6 @@ import {
 } from '../actions/actionTypes';
 import { getPlayedAssetCards, saveGameplayState } from '../services/utils';
 import {
-  getLevelValuesForCard,
   calculateLevelData,
   doNotShowProjectFpb,
   checkIfNewLevel,
@@ -37,7 +36,7 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
     const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
     const minerCards = containerSlots
       .filter(containerSlot => containerSlot.lastDroppedItem)
-      .map(container => container.lastDroppedItem.cards[0]);
+      .map(container => container.lastDroppedItem.mainCard);
 
     minerCards.forEach((minerCard) => {
       miningFunds += minerCard.stats.bonus.funds;
@@ -66,7 +65,7 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
   connectorCards.forEach(({ locationIndex, slotIndex }) => {
     const cardLocation = locations[locationIndex].lastDroppedItem;
     const { power } = cardLocation.values;
-    const { funds } = cardLocation.dropSlots[slotIndex].lastDroppedItem.cards[0].stats.bonus;
+    const { funds } = cardLocation.dropSlots[slotIndex].lastDroppedItem.mainCard.stats.bonus;
     const total = (power * funds);
 
     gridConnectorsFunds += total;
@@ -159,7 +158,7 @@ export const addBonusMiningFunds = (_cards, miningFpb) => (dispatch, getState) =
   }));
 
   const validMiningOptimizationProjectsFunds = validMiningOptimizationProjects.reduce((acc, { lastDroppedItem }) => {
-    const { multiplierFunds } = lastDroppedItem.cards[0].stats.bonus;
+    const { multiplierFunds } = lastDroppedItem.mainCard.stats.bonus;
     const { timesFinished } = lastDroppedItem;
     acc += bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
 

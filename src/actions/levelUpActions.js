@@ -60,10 +60,11 @@ export const levelUpProject = (_projects, index, lastDroppedItem, card) => {
 
 /**
  * Updates locations drop slot item with new level values
- * @param _locations
- * @param activeLocationIndex
- * @param index
- * @param card
+ *
+ * @param {Array} _locations
+ * @param {Number} activeLocationIndex
+ * @param {Number} index
+ * @param {Object} card
  * @return {Array}
  */
 export const levelUpAsset = (_locations, activeLocationIndex, index, card) => {
@@ -80,6 +81,40 @@ export const levelUpAsset = (_locations, activeLocationIndex, index, card) => {
 
   if (!cardsConfig.cards[id][(level + 2).toString()]) {
     locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.accepts = [];
+  }
+
+  return locations;
+};
+
+/**
+ * Updates container drop slot with new level values
+ *
+ * @param {Array} _locations
+ * @param {Number} locationIndex
+ * @param {Number} containerIndex
+ * @param {Number} cardIndex
+ * @param {Object} card
+ * @return {[null]}
+ */
+export const levelUpMiner = (_locations, locationIndex, containerIndex, cardIndex, card) => {
+  const locations = [..._locations];
+  const { lastDroppedItem } = locations[locationIndex].lastDroppedItem.dropSlots[containerIndex]
+    .lastDroppedItem.dropSlots[cardIndex];
+
+  const { mainCard } = lastDroppedItem;
+  const { id } = mainCard.metadata;
+  const level = parseInt(mainCard.stats.level, 10);
+
+  const newLevelCard = { ...mainCard, stats: fetchCardStats(id, level + 1) };
+
+  locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
+    .lastDroppedItem.cards.push({ ...card });
+  locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
+    .lastDroppedItem.mainCard = newLevelCard;
+
+  if (!cardsConfig.cards[id][(level + 2).toString()]) {
+    locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
+      .lastDroppedItem.accepts = [];
   }
 
   return locations;

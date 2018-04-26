@@ -16,7 +16,7 @@ const GameplayContainer = ({
   locations, activeLocationIndex, activeContainerIndex, handleMinerDropInContainer, switchInGameplayView,
 }) => {
   const activeLocation = locations[activeLocationIndex].lastDroppedItem;
-  const card = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.cards[0];
+  const card = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.mainCard;
   const containerSlots = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots;
   const remainingSlots = containerSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
 
