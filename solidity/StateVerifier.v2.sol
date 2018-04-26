@@ -12,7 +12,6 @@ contract StateVerifier is StateCodec {
 		uint location;
 		uint containerIndex;
 		uint card;
-		uint blockDifference;
 		uint blockNumber;
 	}
 
@@ -29,6 +28,8 @@ contract StateVerifier is StateCodec {
     	levels = _levels;
     }
 
+    event Funds(uint total);
+
     function verify(address _user, Move[] memory _moves) internal returns(bool) {
     	State memory _state = decode(states[_user]);
     	uint lastBlock = _moves[_moves.length - 1].blockNumber;
@@ -44,6 +45,8 @@ contract StateVerifier is StateCodec {
     		// set new block number at the end
 			_state.blockNumber = _moves[i].blockNumber;
     	}
+
+    	emit Funds(_state.funds);
     }
 
     function playCard(State memory _state, Move memory _move, uint _lastBlock) internal returns(State) {
