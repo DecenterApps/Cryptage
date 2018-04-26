@@ -430,11 +430,11 @@ contract StateCodec {
     uint[numberOfCards] memory cardsCount;
 
     state = State({
-      funds : 0,
+      funds : 150,
       fundsPerBlock : 0,
       experience : 0,
       developmentLeft : 0,
-      blockNumber : 0,
+      blockNumber : block.number - 50000,
       projectTimePercentageDecrese : 0,
       mingingPercentageBonus : 0,
       locations : locations,
