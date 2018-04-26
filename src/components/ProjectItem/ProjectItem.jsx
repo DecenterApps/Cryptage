@@ -7,6 +7,7 @@ import { activateProject, } from '../../actions/gameplayActions';
 import { classForRarity, formatBigNumber } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
+import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 
 import './ProjectItem.scss';
 
@@ -16,9 +17,12 @@ import restart from './assets/restart.png';
 const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime) * 100);
 
 const ProjectItem = ({
-  isOver, mainCard, index, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
-  openConfirmRemoveModal, timeDecrease, modifiedFundsBonus,
+  mainCard, index, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
+  openConfirmRemoveModal, timeDecrease, modifiedFundsBonus, dragItem, globalStats,
 }) => {
+  const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
+  const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
+
   const timeLeft = expiryTime - timeDecrease - blockNumber;
   const cardFundsBonus = mainCard.stats.bonus.funds;
   const metadataId = mainCard.metadata.id;
@@ -30,80 +34,83 @@ const ProjectItem = ({
   const xpb = mainCard.stats.bonus.xp;
 
   return (
-    <div
-      className={`
-      projects-item-wrapper
-      ${isOver && 'hovering-with-card'}
-      ${!isActive && isFinished && 'project-finished'}
-    `}
+    <div className={`
+        project-container
+        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
+        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
+      `}
     >
-      <HoverInfo card={mainCard} center />
-      {
-        showFpb &&
-        <div className="bonus">
-          {
-            (xpb > 0) && <div>+ { formatBigNumber(xpb) } <br /> XP</div>
-          }
-          {
-            (metadataId === '26' || metadataId === '27') &&
-            (fpb > 0) &&
-            <div>+ { formatBigNumber(fpb) } <br /> FPB</div>
-          }
-          {
-            (metadataId !== '26' && metadataId !== '27') &&
-            (fpb > 0) &&
-            <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
-          }
-        </div>
-      }
-
-      {
-        !isActive && isFinished &&
-        <div className="repeat-project">
-          <img
-            className="project-check"
-            src={restart}
-            onClick={() => activateProject(mainCard, index)}
-            alt="Checkmark icon"
-          />
-          <ChevronDownIcon onClick={() => {
-            openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
-          }}
-          />
-        </div>
-      }
-      <img
-        className="project-thumbnail main-thumbnail"
-        src={`cardImages/${mainCard.stats.image}`}
-        alt=""
-      />
-      <div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} >
-        <div className="helper" />
-      </div>
-      <div className="project-info">
+      <div
+        className={`projects-item-wrapper ${!isActive && isFinished && 'project-finished'}`}
+      >
+        <HoverInfo card={mainCard} center />
         {
-          isActive &&
-          <div className="project-progress">
-            <Circle
-              strokeWidth="5"
-              strokeColor="#FF9D14"
-              trailColor="transparent"
-              percent={calculatePercent(expiryTime - blockNumber, mainCard.stats.cost.time)}
-            />
-            <span className="project-time-left">
-              <img className="project-thumbnail" src={activeBg} alt="" />
-              {
-                blockNumber > 0 && [
-                  <div key="PIK1" className="blocks-left">{ timeLeft }</div>,
-                  <div key="PIK2">{ ((timeLeft) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
-                  <div key="PIK3">LEFT</div>,
-                ]
-              }
-
-              { blockNumber === 0 && <div className="loading-blocks">Loading...</div> }
-            </span>
+          showFpb &&
+          <div className="bonus">
+            {
+              (xpb > 0) && <div>+ { formatBigNumber(xpb) } <br /> XP</div>
+            }
+            {
+              (metadataId === '26' || metadataId === '27') &&
+              (fpb > 0) &&
+              <div>+ { formatBigNumber(fpb) } <br /> FPB</div>
+            }
+            {
+              (metadataId !== '26' && metadataId !== '27') &&
+              (fpb > 0) &&
+              <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+            }
           </div>
         }
+
+        {
+          !isActive && isFinished &&
+          <div className="repeat-project">
+            <img
+              className="project-check"
+              src={restart}
+              onClick={() => activateProject(mainCard, index)}
+              alt="Checkmark icon"
+            />
+            <ChevronDownIcon onClick={() => {
+              openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
+            }}
+            />
+          </div>
+        }
+        <img
+          className="project-thumbnail main-thumbnail"
+          src={`cardImages/${mainCard.stats.image}`}
+          alt=""
+        />
+        <div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} >
+          <div className="helper" />
+        </div>
+        <div className="project-info">
+          {
+            isActive &&
+            <div className="project-progress">
+              <Circle
+                strokeWidth="5"
+                strokeColor="#FF9D14"
+                trailColor="transparent"
+                percent={calculatePercent(expiryTime - blockNumber, mainCard.stats.cost.time)}
+              />
+              <span className="project-time-left">
+              <img className="project-thumbnail" src={activeBg} alt="" />
+                {
+                  blockNumber > 0 && [
+                    <div key="PIK1" className="blocks-left">{ timeLeft }</div>,
+                    <div key="PIK2">{ ((timeLeft) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
+                    <div key="PIK3">LEFT</div>,
+                  ]
+                }
+
+                { blockNumber === 0 && <div className="loading-blocks">Loading...</div> }
+            </span>
+            </div>
+          }
+        </div>
       </div>
     </div>
   );
@@ -111,12 +118,11 @@ const ProjectItem = ({
 
 ProjectItem.defaultProps = {
   mainCard: null,
-  isOver: false,
+  dragItem: null,
 };
 
 ProjectItem.propTypes = {
   mainCard: PropTypes.object,
-  isOver: PropTypes.bool,
   index: PropTypes.number.isRequired,
   isActive: PropTypes.bool.isRequired,
   isFinished: PropTypes.bool.isRequired,
@@ -127,6 +133,8 @@ ProjectItem.propTypes = {
   expiryTime: PropTypes.number,
   timeDecrease: PropTypes.number.isRequired,
   modifiedFundsBonus: PropTypes.number.isRequired,
+  dragItem: PropTypes.object,
+  globalStats: PropTypes.object.isRequired,
 };
 
 ProjectItem.defaultProps = {
@@ -137,6 +145,7 @@ ProjectItem.defaultProps = {
 const mapStateToProps = ({ gameplay }) => ({
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
+  globalStats: gameplay.globalStats,
 });
 
 const mapDispatchToProp = {
