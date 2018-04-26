@@ -29,7 +29,12 @@ const ActiveLocation = ({
   )).map(({ lastDroppedItem }) => lastDroppedItem.mainCard);
 
   // recalculate max power for location if power cards were played
-  if (powerCards.length > 0) powerCards.forEach(({ stats }) => { maxPower += stats.bonus.power; });
+  if (powerCards.length > 0) powerCards.forEach(({ stats }) => {
+    console.log(stats.bonus.power);
+    console.log('Max power before', maxPower);
+    maxPower += stats.bonus.power;
+    console.log('Max power after', maxPower);
+  });
 
   const spacePercent = Math.floor((space / maxSpace) * 100) || 0;
   const powerPercent = Math.floor((power / maxPower) * 100) || 0;

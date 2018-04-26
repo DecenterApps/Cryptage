@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HandCard from '../Cards/HandCard/HandCard';
 import { switchInGameplayView } from '../../actions/gameplayActions';
-import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
-import { checkIfCanPlayCard, getContainerSlotsLength, getSlotForContainer } from '../../services/gameMechanicsService';
+import { acceptedAssetLevelUpIds, containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
+import {
+  checkIfCanLevelUp, checkIfCanPlayCard, getContainerSlotsLength,
+  getSlotForContainer,
+} from '../../services/gameMechanicsService';
 
 import './GameplayItem.scss';
 
@@ -57,6 +60,10 @@ class GameplayItem extends Component {
 
     const locationItem = locations[activeLocationIndex].lastDroppedItem;
 
+    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
+    const assetLevelUpType = acceptedAssetLevelUpIds.includes(mainCard.metadata.id);
+    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
+
     const isDragMiner = dragItem && dragItem.card && dragItem.card.stats.type === 'Mining';
     const isContainer = containerIds.includes(mainCard.metadata.id);
     let remainingSlots = null;
@@ -108,7 +115,9 @@ class GameplayItem extends Component {
       <div
         className={`
         gameplay-item-wrapper
-        ${isOver && 'hovering'}
+        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
+        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
+        ${assetLevelUpType ? 'right-asset-type' : 'not-right-asset-type'}
         ${isContainer && 'container'}
       `}
       >

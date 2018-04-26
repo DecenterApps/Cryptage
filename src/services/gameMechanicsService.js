@@ -95,7 +95,7 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
 
     if (Object.keys(localBonus).length) {
       Object.keys(localBonus).forEach((statKey) => {
-        locations[activeLocationIndex].lastDroppedItem.values[statKey] += localBonus[statKey];
+        locations[activeLocationIndex].lastDroppedItem.values[statKey] += getLevelCardBonusStatDiff(card, statKey);
       });
     }
   }

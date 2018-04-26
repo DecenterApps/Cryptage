@@ -373,11 +373,6 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       special = cardEffect.bonus;
     }
 
-    // handle hacker unique special case
-    if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
-      globalStats.development += item.card.stats.bonus.development;
-    }
-
     if (metaDataId === '40') dispatch(assetReduceTimeForProjects(item));
 
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
@@ -396,6 +391,11 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const mathRes = handleCardMathematics(mainCard, locations, globalStats, activeLocationIndex);
 
   ({ locations, globalStats } = mathRes);
+
+  // special cards that need their development to be added to globalStats
+  if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
+    globalStats.development += getLevelCardBonusStatDiff(mainCard, 'development');
+  }
 
   const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
 
