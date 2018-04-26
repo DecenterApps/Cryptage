@@ -68,7 +68,9 @@ export const openRevealBoosterCardsModal = cards => (dispatch) => {
 
 /**
  * Opens the no restart project modal
+ *
+ * @param {Object} errors
  */
-export const openNoRestartProjectModal = () => (dispatch) => {
-  dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '271px' }, true));
+export const openNoRestartProjectModal = errors => (dispatch) => {
+  dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '271px', errors }, true));
 };

@@ -37,6 +37,7 @@ import {
   handleBonusDevMechanics,
   assetReduceTimeForProjects,
   getLevelCardBonusStatDiff,
+  getMathErrors,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState,
@@ -263,7 +264,9 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const { projects, globalStats } = getState().gameplay;
   const alteredProjects = [...projects];
 
-  if (!checkIfCanPlayCard(card.stats, globalStats)) return dispatch(openNoRestartProjectModal());
+  if (!checkIfCanPlayCard(card.stats, globalStats)) {
+    return dispatch(openNoRestartProjectModal(getMathErrors(card.stats, globalStats)));
+  }
 
   alteredProjects[index].lastDroppedItem.isFinished = false;
   alteredProjects[index].lastDroppedItem.isActive = true;

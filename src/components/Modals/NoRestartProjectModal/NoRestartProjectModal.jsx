@@ -5,14 +5,18 @@ import ModalBody from '../ModalBody';
 
 import '../ConfirmRemoveModal/ConfirmRemoveModal.scss';
 
-const NoRestartProjectModal = ({ closeModal }) => (
+const NoRestartProjectModal = ({ closeModal, errors }) => (
   <div className="confirm-modal-wrapper">
     <ModalHeader closeModal={closeModal} />
     <ModalBody>
       <h3 className="title">Restart project</h3>
 
       <div key="D" className="main-text">
-        This project can&#39;t be restarted right new because you don&#39;t have enough available development.
+        This project can&#39;t be restarted right now because you don&#39;t have enough available
+        {errors.development && !errors.funds && <span className="conditional">development</span> }
+        {!errors.development && errors.funds && <span className="conditional">funds</span> }
+        {errors.development && errors.funds && <span className="conditional">funds and development</span> }
+        .
       </div>
       <button key="E" className="orange-button" onClick={closeModal}>Close</button>
     </ModalBody>
@@ -24,6 +28,7 @@ NoRestartProjectModal.defaultProps = {
 
 NoRestartProjectModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 export default NoRestartProjectModal;

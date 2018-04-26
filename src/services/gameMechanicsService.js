@@ -231,7 +231,7 @@ export const getContainerSlotsLength = (locations, locationItem, activeContainer
  * @param ignoreSpace
  * @return {Object}
  */
-const getMathErrors = (cardStats, globalStats, activeLocation = null, ignoreSpace = false) => {
+export const getMathErrors = (cardStats, globalStats, activeLocation = null, ignoreSpace = false) => {
   const cardLevel = cardStats.level;
   const {
     level, funds, development, power, space,
