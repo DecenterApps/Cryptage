@@ -654,3 +654,24 @@ export const exitNotLocationsView = () => (dispatch, getState) => {
 
   dispatch(changeGameplayView(toGoView));
 };
+
+/**
+ * Checks if bonus for projects is still visible, disables it if it is.
+ */
+export const checkProjectsBonus = () => (dispatch, getState) => {
+  let changed = false;
+  let projects = [...getState().gameplay.projects];
+
+  projects = projects.map((_project) => {
+    const project = { ..._project };
+
+    if (project.lastDroppedItem && project.lastDroppedItem.showFpb) {
+      changed = true;
+      project.lastDroppedItem.showFpb = false;
+    }
+
+    return project;
+  });
+
+  if (changed) dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
