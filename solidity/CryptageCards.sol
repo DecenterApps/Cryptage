@@ -50,7 +50,7 @@ contract CryptageCards {
 	function addCard(
 	    uint _cardId,
 	    uint _type,
-      	uint _level,
+      uint _level,
 	    uint[] _costs,
 	    uint[] _gains,
 	    uint[] _specialAbilityValues
@@ -75,7 +75,7 @@ contract CryptageCards {
 				specialAbilityValues: _specialAbilityValues
 				}),
 			cardType: CardType(_type),
-            level: _level
+      level: _level - 1
 			});
 	}
 

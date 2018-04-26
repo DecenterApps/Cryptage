@@ -1,0 +1,205 @@
+{
+  "network": 42,
+  "cryptageCardsContract": {
+    "abi": [
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "_cardId",
+            "type": "uint256"
+          },
+          {
+            "name": "_type",
+            "type": "uint256"
+          },
+          {
+            "name": "_level",
+            "type": "uint256"
+          },
+          {
+            "name": "_costs",
+            "type": "uint256[]"
+          },
+          {
+            "name": "_gains",
+            "type": "uint256[]"
+          },
+          {
+            "name": "_specialAbilityValues",
+            "type": "uint256[]"
+          }
+        ],
+        "name": "addCard",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "_cardId",
+            "type": "uint256"
+          },
+          {
+            "name": "_level",
+            "type": "uint256"
+          }
+        ],
+        "name": "getCardCost",
+        "outputs": [
+          {
+            "components": [
+              {
+                "name": "dev",
+                "type": "uint256"
+              },
+              {
+                "name": "funds",
+                "type": "uint256"
+              },
+              {
+                "name": "level",
+                "type": "uint256"
+              },
+              {
+                "name": "power",
+                "type": "uint256"
+              },
+              {
+                "name": "space",
+                "type": "uint256"
+              },
+              {
+                "name": "time",
+                "type": "uint256"
+              }
+            ],
+            "name": "",
+            "type": "tuple"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          },
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "cards",
+        "outputs": [
+          {
+            "components": [
+              {
+                "name": "dev",
+                "type": "uint256"
+              },
+              {
+                "name": "funds",
+                "type": "uint256"
+              },
+              {
+                "name": "level",
+                "type": "uint256"
+              },
+              {
+                "name": "power",
+                "type": "uint256"
+              },
+              {
+                "name": "space",
+                "type": "uint256"
+              },
+              {
+                "name": "time",
+                "type": "uint256"
+              }
+            ],
+            "name": "cost",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "name": "dev",
+                "type": "uint256"
+              },
+              {
+                "name": "funds",
+                "type": "uint256"
+              },
+              {
+                "name": "power",
+                "type": "uint256"
+              },
+              {
+                "name": "space",
+                "type": "uint256"
+              },
+              {
+                "name": "xp",
+                "type": "uint256"
+              },
+              {
+                "name": "specialAbility",
+                "type": "uint8"
+              },
+              {
+                "name": "specialAbilityValues",
+                "type": "uint256[]"
+              }
+            ],
+            "name": "gains",
+            "type": "tuple"
+          },
+          {
+            "name": "cardType",
+            "type": "uint8"
+          },
+          {
+            "name": "level",
+            "type": "uint256"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "_cardId",
+            "type": "uint256"
+          },
+          {
+            "name": "_level",
+            "type": "uint256"
+          }
+        ],
+        "name": "getCardType",
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint8"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ],
+    "address": "0x8cc0ed0b89ca7996107aa1bc4bd9ec6420332547"
+  }
+}
