@@ -9,9 +9,11 @@ contract StateVerifier is StateCodec {
 	struct Move {
 		bool shift;
 		bool gpuOption;
+		uint level;
 		uint location;
 		uint containerIndex;
 		uint card;
+		uint blockDifference;
 		uint blockNumber;
 	}
 
@@ -28,8 +30,6 @@ contract StateVerifier is StateCodec {
     	levels = _levels;
     }
 
-    event Funds(uint total);
-
     function verify(address _user, Move[] memory _moves) internal returns(bool) {
     	State memory _state = decode(states[_user]);
     	uint lastBlock = _moves[_moves.length - 1].blockNumber;
@@ -45,8 +45,6 @@ contract StateVerifier is StateCodec {
     		// set new block number at the end
 			_state.blockNumber = _moves[i].blockNumber;
     	}
-
-    	emit Funds(_state.funds);
     }
 
     function playCard(State memory _state, Move memory _move, uint _lastBlock) internal returns(State) {
@@ -103,15 +101,16 @@ contract StateVerifier is StateCodec {
 
     		_state.projects[_move.location] = Project({
 				card: _move.card,
-				timeLeft: cardCost.time
+				timeLeft: cardCost.time,
+				level: _move.level
 			});
     	}
 
     	if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.POWER)) {
     		bool exists = false;
     		for(uint i=0; i<_state.locations[_move.location].powers.length; i++) {
-    			if (_state.locations[_move.location].powers[i].card == _move.card) {
-    				_state.locations[_move.location].powers[i].count += 1;
+    			if (_state.locations[_move.location].powers[i].card[_move.level] == _move.card) {
+    				_state.locations[_move.location].powers[i].count[_move.level] += 1;
     				exists = true;
     				break;
     			}
@@ -124,18 +123,21 @@ contract StateVerifier is StateCodec {
 					_state.locations[_move.location].powers[i] = powers[i];
 				}
 
+                uint[5] memory emptyLevels;
 				_state.locations[_move.location].powers[powers.length] = Power({
-					card: _move.card,
-					count: 1
+					card: emptyLevels,
+					count: emptyLevels
 				});
+				_state.locations[_move.location].powers[powers.length].card[_move.level] = _move.card;
+				_state.locations[_move.location].powers[powers.length].count[_move.level] = 1;
 			}
 		}
 
 		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.DEV)) {
     		exists = false;
     		for(i=0; i<_state.locations[_move.location].developers.length; i++) {
-    			if (_state.locations[_move.location].developers[i].card == _move.card) {
-    				_state.locations[_move.location].developers[i].count += 1;
+    			if (_state.locations[_move.location].developers[i].card[_move.level] == _move.card) {
+    				_state.locations[_move.location].developers[i].count[_move.level] += 1;
     				exists = true;
     				break;
     			}
@@ -149,9 +151,11 @@ contract StateVerifier is StateCodec {
 				}
 
 				_state.locations[_move.location].developers[developers.length] = Developer({
-					card: _move.card,
-					count: 1
+					card: emptyLevels,
+					count: emptyLevels
 				});
+				_state.locations[_move.location].developers[developers.length].card[_move.level] = _move.card;
+				_state.locations[_move.location].developers[developers.length].count[_move.level] = 1;
 			}
     	}
 
@@ -162,7 +166,7 @@ contract StateVerifier is StateCodec {
 				_state.locations[_move.location].computerCases[i] = computerCases[i];
 			}
 		
-		    uint[computerCaseMinersCount] memory counts;
+		    uint[computerCaseMinersCount * cpuLevelCount] memory counts;
 			_state.locations[_move.location].computerCases[computerCases.length] = ComputerCase({
                 counts: counts
 			});
@@ -176,15 +180,19 @@ contract StateVerifier is StateCodec {
 			}
 		
 			_state.locations[_move.location].mountCases[mountCases.length] = MountCase({
-				asicCount: 0
+				asicCount: emptyLevels
 			});
 		}
 
 		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.ASIC)) {
 			require(_state.locations[_move.location].mountCases.length > _move.containerIndex);
-			require(_state.locations[_move.location].mountCases[_move.containerIndex].asicCount < 6);
+			totalCount = 0;
+			for(i=0; i<asicLevelCount; i++) {
+			    totalCount += _state.locations[_move.location].mountCases[_move.containerIndex].asicCount[i];
+			}
+			require(totalCount < 6);
 
-			_state.locations[_move.location].mountCases[_move.containerIndex].asicCount++;
+			_state.locations[_move.location].mountCases[_move.containerIndex].asicCount[_move.level]++;
 		}
 
 		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.RIG_CASE)) {
@@ -194,7 +202,7 @@ contract StateVerifier is StateCodec {
 				_state.locations[_move.location].rigCases[i] = rigCases[i];
 			}
 		
-		   uint[rigCaseMinersCount] memory counts2;
+		   uint[rigCaseMinersCount * gpuLevelCount] memory counts2;
 			_state.locations[_move.location].rigCases[rigCases.length] = RigCase({
 				counts: counts2
 			});
@@ -262,31 +270,31 @@ contract StateVerifier is StateCodec {
     	if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.POWER)) {
     		bool exists = false;
     		for(uint i=0; i<_state.locations[_move.location].powers.length; i++) {
-    			if (_state.locations[_move.location].powers[i].card == _move.card) {
+    			if (_state.locations[_move.location].powers[i].card[_move.level] == _move.card) {
     				exists = true;
     				break;
     			}
     		}
     		
     		require(exists);
-    		require(_state.locations[_move.location].powers[i].count > 0);
+    		require(_state.locations[_move.location].powers[i].count[_move.level] > 0);
 
-    		_state.locations[_move.location].powers[i].count--;
+    		_state.locations[_move.location].powers[i].count[_move.level]--;
 		}
 
 		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.DEV)) {
     		exists = false;
     		for(i=0; i<_state.locations[_move.location].developers.length; i++) {
-    			if (_state.locations[_move.location].developers[i].card == _move.card) {
+    			if (_state.locations[_move.location].developers[i].card[_move.level] == _move.card) {
     				exists = true;
     				break;
     			}
     		}
 
     		require(exists);
-    		require (_state.locations[_move.location].developers[i].count > 0);
+    		require (_state.locations[_move.location].developers[i].count[_move.level] > 0);
     		
-    		_state.locations[_move.location].developers[i].count--;
+    		_state.locations[_move.location].developers[i].count[_move.level]--;
     	}
 
 		
