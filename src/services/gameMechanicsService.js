@@ -52,6 +52,7 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
 
     if (Object.keys(localCost).length) {
       Object.keys(localCost).forEach((statKey) => {
+        if (card.stats.level > 1) return;
         if (card.stats.type === 'Mining' && statKey === 'space') return;
 
         locations[activeLocationIndex].lastDroppedItem.values[statKey] -= localCost[statKey];
@@ -432,7 +433,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       let canPlayInOneContainer = false;
 
       const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
-        if (lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Container') {
+        if (lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Container') {
           const lastDroppedItemCopy = { ...lastDroppedItem };
           lastDroppedItemCopy.containerIndex = slotIndex;
           return lastDroppedItemCopy;
@@ -442,7 +443,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       }).filter(item => item);
 
       droppedContainers.forEach((droppedContainerItem) => {
-        const containerId = droppedContainerItem.cards[0].metadata.id;
+        const containerId = droppedContainerItem.mainCard.metadata.id;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
         const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
         const containerSlotLength = getContainerSlotsLength(
@@ -530,7 +531,7 @@ export const calcLocationPerDevBonus = (item, locations, activeLocationIndex, _g
   let bonus = 0;
 
   const playedDevCards = locations[activeLocationIndex].lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Development'
+    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Person'
   )).map(dropSlot => dropSlot.lastDroppedItem.cards[0]);
 
   // coffee miners bonus equals the percent of played dev card
@@ -736,7 +737,7 @@ export const calcFundsForDroppedCpuAndGpu = (locations, assetCards, item) => {
     const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
     const minerCards = containerSlots
       .filter(containerSlot => containerSlot.lastDroppedItem)
-      .map(container => container.lastDroppedItem.cards[0]);
+      .map(container => container.lastDroppedItem.mainCard);
 
     const cpuCards = minerCards.filter(({ metadata }) => metadata.id === '9');
     const gpuCards = minerCards.filter(({ metadata }) => metadata.id === '10');

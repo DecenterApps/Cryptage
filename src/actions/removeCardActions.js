@@ -33,7 +33,7 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
       currentItem = item.dropSlots[i].lastDroppedItem;
 
       if (currentItem !== null && currentItem.dropSlots === null) {
-        if (currentItem.cards[0].stats.type === 'Development') {
+        if (currentItem.cards[0].stats.type === 'Person') {
           totalDev += currentItem.cards[0].stats.bonus.development;
         }
         if (bonusDevPerLocationCards.includes(currentItem.cards[0].metadata.id)) {
@@ -50,7 +50,7 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
     if (bonusDevPerLocationCards.includes(item.cards[0].metadata.id)) {
       totalDev += item.special;
     }
-    if (item.cards[0].stats.type === 'Development') {
+    if (item.cards[0].stats.type === 'Person') {
       totalDev += item.cards[0].stats.bonus.development;
     }
   }
@@ -114,7 +114,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       currentItem = item.dropSlots[i].lastDroppedItem;
 
       if (currentItem !== null && currentItem.dropSlots === null) {
-        if (currentItem.cards[0].stats.type === 'Development') {
+        if (currentItem.cards[0].stats.type === 'Person') {
           totalDev += currentItem.cards[0].stats.bonus.development;
         }
         if (bonusDevPerLocationCards.includes(currentItem.cards[0].metadata.id)) {
@@ -137,7 +137,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     if (bonusDevPerLocationCards.includes(item.cards[0].metadata.id)) {
       totalDev += item.special;
     }
-    if (item.cards[0].stats.type === 'Development') {
+    if (item.cards[0].stats.type === 'Person') {
       totalDev += item.cards[0].stats.bonus.development;
     }
   }
@@ -207,7 +207,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     gameplayView,
   });
 
-  if (item.cards[0].stats.type === 'Development') dispatch(cardCancelRecalcBonusDevPerLocation(locationIndex));
+  if (item.cards[0].stats.type === 'Person') dispatch(cardCancelRecalcBonusDevPerLocation(locationIndex));
 };
 
 /**

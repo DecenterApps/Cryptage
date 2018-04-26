@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
 import { getSlotForContainer } from './gameMechanicsService';
-import { containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
+import { acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
 
 /**
  * Generates unique id
@@ -244,19 +244,27 @@ export const saveGameplayState = (getState) => {
  * @return {Array}
  */
 export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex, special) => {
-  const addSlot = containerIds.includes(item.card.metadata.id);
   const typeId = item.card.metadata.id;
   const isContainer = containerIds.includes(typeId);
+  let assetAccepts = [];
+  let dropSlots = null;
+
+  // only Container and Misc asset type cards can't level up
+  if (acceptedAssetLevelUpIds.includes(typeId)) assetAccepts = [item.card.metadata.id];
+  // there must be an accept for container for the drag miner over container feature
+  if (isContainer) {
+    dropSlots = getSlotForContainer(item.card.metadata.id, item.card.stats.values.space);
+    assetAccepts = [...dropSlots[0].accepts];
+  }
 
   const locationSlots = update(_locationSlots, {
     [index]: {
-      accepts: { $set: isContainer ? [...getSlotForContainer(typeId, 1)[0].accepts] : [] },
+      accepts: { $set: assetAccepts },
       lastDroppedItem: {
         $set: {
-          level: 1,
-          canLevelUp: false,
-          cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }],
-          dropSlots: addSlot ? getSlotForContainer(item.card.metadata.id, item.card.stats.values.space) : null,
+          cards: [{ ...item.card }],
+          mainCard: { ...item.card, slotIndex: index, locationIndex: activeLocationIndex },
+          dropSlots,
           special,
         },
       },
@@ -284,7 +292,7 @@ export const getPlayedAssetCards = (_locations) => {
   const playedCards = locations.map((_locationWithCards) => {
     const arr = _locationWithCards.lastDroppedItem.dropSlots
       .filter(_locationDropSlot => _locationDropSlot.lastDroppedItem)
-      .map(({ lastDroppedItem }) => lastDroppedItem.cards[0]);
+      .map(({ lastDroppedItem }) => lastDroppedItem.mainCard);
 
     return Array.prototype.concat(...arr);
   });

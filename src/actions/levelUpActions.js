@@ -3,7 +3,7 @@ import { fetchCardStats } from '../services/cardService';
 import { getMaxValueForLocation } from '../services/gameMechanicsService';
 
 /**
- * Updates locations drop slot with new level new values
+ * Updates locations drop slot with new level values
  *
  * @param {Array} _locations
  * @param {Number} index
@@ -34,7 +34,7 @@ export const levelUpLocation = (_locations, index, lastDroppedItem, card) => {
 };
 
 /**
- * Updates project drop slot with new level new values
+ * Updates project drop slot with new level values
  *
  * @param {Array} _projects
  * @param {Number} index
@@ -56,4 +56,31 @@ export const levelUpProject = (_projects, index, lastDroppedItem, card) => {
   if (!cardsConfig.cards[id][(level + 2).toString()]) projects[index].lastDroppedItem.accepts = [];
 
   return projects;
+};
+
+/**
+ * Updates locations drop slot item with new level values
+ * @param _locations
+ * @param activeLocationIndex
+ * @param index
+ * @param card
+ * @return {Array}
+ */
+export const levelUpAsset = (_locations, activeLocationIndex, index, card) => {
+  const locations = [..._locations];
+  const { lastDroppedItem } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index];
+  const { mainCard } = lastDroppedItem;
+  const { id } = mainCard.metadata;
+  const level = parseInt(mainCard.stats.level, 10);
+
+  const newLevelCard = { ...mainCard, stats: fetchCardStats(id, level + 1) };
+
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...card });
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.mainCard = newLevelCard;
+
+  if (!cardsConfig.cards[id][(level + 2).toString()]) {
+    locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.accepts = [];
+  }
+
+  return locations;
 };

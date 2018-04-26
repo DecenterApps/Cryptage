@@ -6,6 +6,14 @@ export const acceptedAssetDropIds =
     cardConfig.cards[key]['1'].type !== 'Mining' &&
     cardConfig.cards[key]['1'].type !== 'Project');
 
+export const acceptedAssetLevelUpIds =
+  Object.keys(cardConfig.cards).filter(key =>
+    cardConfig.cards[key]['1'].type !== 'Location' &&
+    cardConfig.cards[key]['1'].type !== 'Mining' &&
+    cardConfig.cards[key]['1'].type !== 'Misc' &&
+    cardConfig.cards[key]['1'].type !== 'Container' &&
+    cardConfig.cards[key]['1'].type !== 'Project');
+
 export const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Location'); // eslint-disable-line
 
 export const acceptedProjectDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Project');  // eslint-disable-line

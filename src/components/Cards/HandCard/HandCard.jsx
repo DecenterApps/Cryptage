@@ -26,10 +26,10 @@ const classForNumber = (_number) => {
 };
 
 const HandCard = ({
-                    card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
-                    locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-                    inHand, removeNewCardOnHover, newCardTypes,
-                  }) => {
+  card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
+  locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
+  inHand, removeNewCardOnHover, newCardTypes,
+}) => {
   const uniqueId = guid();
   const gradients = {
     misc: ['#3215E6', 'rgba(49, 20, 230, 0.33)'],
@@ -83,10 +83,7 @@ const HandCard = ({
           </defs>
           <polygon points="0,0 27,0 27,27" fill={`url(#card-level-gradient-${uniqueId})`} />
         </svg>
-        <div className="level">1</div>
-        {
-          // TODO Level is hardcoded to 1
-        }
+        <div className="level">{card.stats.level}</div>
       </div>
       <div className="overlay" />
       <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
