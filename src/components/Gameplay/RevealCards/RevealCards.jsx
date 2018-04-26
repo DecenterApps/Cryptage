@@ -22,7 +22,7 @@ const RevealCards = ({ cards, newCardTypes }) => (
               <div className="flipper">
                 <div className="front">
                   <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
-                  <img src={bgBack} alt="" />
+                  <img draggable={false} src={bgBack} alt="" />
                 </div>
                 <div className="back">
                   { showNew && <LargeCard showNew removeNew={false} card={card} /> }

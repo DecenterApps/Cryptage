@@ -7,13 +7,25 @@ import { playTurn } from '../../actions/gameplayActions';
 import { toggleCardDrag } from '../../actions/appActions';
 import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
 import './DropSlotWrapper.scss';
+import { fetchCardStats } from '../../services/cardService';
 
 const dropTarget = {
   drop(props, monitor, component) {
-    props.onDrop(monitor.getItem());
+    let dropItem = monitor.getItem();
+
+    // TODO REFACTOR THIS
+    if (props.lastDroppedItem) {
+      const { mainCard } = props.lastDroppedItem;
+      const { id } = mainCard.metadata;
+      const level = parseInt(mainCard.stats.level, 10);
+
+      dropItem = { card: { ...mainCard, stats: fetchCardStats(id, level + 1) } };
+    }
+
+    props.onDrop(dropItem);
     component.props.toggleCardDrag();
-    if (checkIfCanPlayCard(monitor.getItem().card.stats, props.globalStats)) {
-      component.props.playTurn(monitor.getItem(), props.slotType, props.index, true);
+    if (checkIfCanPlayCard(dropItem.card.stats, props.globalStats)) {
+      component.props.playTurn(dropItem, props.slotType, props.index, true);
     }
   },
 };

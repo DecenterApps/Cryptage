@@ -10,4 +10,18 @@
 
     @include elementInAndOut;
   }
+
+  &.dragging-success.level-up-success {
+    .card-image .card-image-inner {
+      stroke: $empty-slot-can-drop;
+      stroke-width: 3px;
+    }
+  }
+
+  &.dragging-success.level-up-fail {
+    .card-image .card-image-inner {
+      stroke: $red;
+      stroke-width: 3px;
+    }
+  }
 }

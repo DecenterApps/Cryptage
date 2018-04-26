@@ -89,7 +89,7 @@ class Tutorial extends Component {
                   ${this.state.shownPage === index ? 'shown' : ''}
                   ${this.state.pagesInView.indexOf(index) !== -1 ? 'in-view' : ''}`}
               >
-                <img src={`./tutorialImages/${page}`} alt="" />
+                <img draggable={false} src={`./tutorialImages/${page}`} alt="" />
                 {
                   page === 'Step 07.14.jpg' &&
                   <p className="overlay-text">

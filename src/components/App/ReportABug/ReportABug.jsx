@@ -10,7 +10,7 @@ const ReportABug = () => (
     target="_blank"
     rel="noopener noreferrer"
   >
-    <img src={bug} alt="Report a bug" />
+    <img src={bug} alt="Report a bug" draggable={false} />
     <p>Report a bug</p>
   </a>
 );

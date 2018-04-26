@@ -230,7 +230,6 @@
       }
       .level {
         position: relative;
-        display: none;
         font-weight: bold;
         font-size: 13px;
         line-height: 13px;
@@ -291,8 +290,21 @@
     }
   }
 
-  &.hovering-with-card {
-    background-color: #DEDEDE;
-    color: #000;
+  &.dragging-success.level-up-success {
+    .location-sidebar-item-inner-wrapper {
+      border: 2px solid $empty-slot-can-drop;
+    }
+    .location-sidebar-item-inner-wrapper:after {
+      border-top: 29px solid $empty-slot-can-drop;
+    }
+  }
+
+  &.dragging-success.level-up-fail {
+    .location-sidebar-item-inner-wrapper {
+      border: 2px solid $red;
+    }
+    .location-sidebar-item-inner-wrapper:after {
+      border-top: 29px solid $red;
+    }
   }
 }

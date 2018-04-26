@@ -8,7 +8,7 @@ const NoMetaMask = ({ accountError }) => (
   <div className="no-meta-mask-wrapper">
     <div className="welcome-text">Welcome to Cryptage</div>
 
-    <img src={metaMaskLogo} alt="MetaMask logo" />
+    <img src={metaMaskLogo} alt="MetaMask logo" draggable={false} />
     {
       accountError &&
       <div className="main-text">{ accountError }</div>

@@ -6,7 +6,6 @@ import {
 } from '../actions/actionTypes';
 import { getPlayedAssetCards, saveGameplayState } from '../services/utils';
 import {
-  getLevelValuesForCard,
   calculateLevelData,
   doNotShowProjectFpb,
   checkIfNewLevel,
@@ -37,7 +36,7 @@ const addFundsForDroppedMiningRigs = _cards => (dispatch, getState) => {
     const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
     const minerCards = containerSlots
       .filter(containerSlot => containerSlot.lastDroppedItem)
-      .map(container => container.lastDroppedItem.cards[0]);
+      .map(container => container.lastDroppedItem.mainCard);
 
     minerCards.forEach((minerCard) => {
       miningFunds += minerCard.stats.bonus.funds;
@@ -66,7 +65,7 @@ const addFundsForDroppedGridConnectors = _cards => (dispatch, getState) => {
   connectorCards.forEach(({ locationIndex, slotIndex }) => {
     const cardLocation = locations[locationIndex].lastDroppedItem;
     const { power } = cardLocation.values;
-    const { funds } = cardLocation.dropSlots[slotIndex].lastDroppedItem.cards[0].stats.bonus;
+    const { funds } = cardLocation.dropSlots[slotIndex].lastDroppedItem.mainCard.stats.bonus;
     const total = (power * funds);
 
     gridConnectorsFunds += total;
@@ -127,11 +126,11 @@ const addFundsForDroppedDappProject = () => (dispatch, getState) => {
   let dappProjectFunds = 0;
 
   const dappProjects = projects.filter((({ lastDroppedItem }) =>
-    lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '26'));
+    lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '26'));
 
   dappProjects.forEach(({ lastDroppedItem }) => {
-    const { timesFinished, cards } = lastDroppedItem;
-    const toAdd = (timesFinished * cards[0].stats.bonus.multiplierFunds);
+    const { timesFinished, mainCard } = lastDroppedItem;
+    const toAdd = (timesFinished * mainCard.stats.bonus.multiplierFunds);
 
     dappProjectFunds += toAdd;
     globalStats.funds += toAdd;
@@ -152,14 +151,14 @@ export const addBonusMiningFunds = (_cards, miningFpb) => (dispatch, getState) =
   const validMiningOptimizationProjects = projects.filter((({ lastDroppedItem }) => {
     if (!lastDroppedItem) return false;
 
-    const rightType = lastDroppedItem.cards[0].metadata.id === '27';
+    const rightType = lastDroppedItem.mainCard.metadata.id === '27';
     const finishedMoreThanOnce = lastDroppedItem.timesFinished > 0;
 
     return rightType && finishedMoreThanOnce;
   }));
 
   const validMiningOptimizationProjectsFunds = validMiningOptimizationProjects.reduce((acc, { lastDroppedItem }) => {
-    const { multiplierFunds } = lastDroppedItem.cards[0].stats.bonus;
+    const { multiplierFunds } = lastDroppedItem.mainCard.stats.bonus;
     const { timesFinished } = lastDroppedItem;
     acc += bonusFpbMiningAlgo(miningFpb, multiplierFunds, timesFinished);
 
@@ -217,7 +216,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     if (_projects[i].lastDroppedItem != null && _projects[i].lastDroppedItem.expiryTime != null) {
       if ((_projects[i].lastDroppedItem.expiryTime - _projects[i].lastDroppedItem.timeDecrease) - blockNumber <= 0) {
         const item = _projects[i].lastDroppedItem;
-        const card = item.cards[0];
+        const card = item.mainCard;
 
         _projects[i].lastDroppedItem.expiryTime = null;
         _projects[i].lastDroppedItem.isActive = false;
@@ -225,14 +224,11 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         _projects[i].lastDroppedItem.showFpb = true;
         _projects[i].lastDroppedItem.timesFinished += 1;
         _projects[i].lastDroppedItem.timeDecrease = 0;
-        acquiredXp += _projects[i].lastDroppedItem.cards[0].stats.bonus.xp;
-        releasedDev += _projects[i].lastDroppedItem.level > 1 ? getLevelValuesForCard(
-          parseInt(_projects[i].lastDroppedItem.cards[0].metadata.id, 10),
-          _projects[i].lastDroppedItem.level,
-        ) : _projects[i].lastDroppedItem.cards[0].stats.cost.development;
-        receivedFunds += _projects[i].lastDroppedItem.cards[0].stats.bonus.funds;
+        acquiredXp += card.stats.bonus.xp;
+        releasedDev += card.stats.cost.development;
+        receivedFunds += card.stats.bonus.funds;
 
-        if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, true);
+        if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, card, true);
         if (card.metadata.id === '31') _projects = decreaseExecutionTimeForAllProjects(_projects, item, blockNumber);
         if (card.metadata.id === '30') {
           const modifiedFundsBonus = increaseFundsByMultiplier(receivedFunds + funds, item);
@@ -268,7 +264,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
     }
   }
 
-  if (acquiredXp > 0 || receivedFunds > 0 || saveProjects) {
+  if (acquiredXp > 0 || receivedFunds > 0 || releasedDev > 0 || saveProjects) {
     dispatch({ type: CHANGE_PROJECT_STATE, projects: _projects });
     dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
 

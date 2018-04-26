@@ -34,7 +34,7 @@ export default ({
                 <div>Loading</div>
               </span>
             }
-            <img src={bgEmpty} alt="" />
+            <img draggable={false} src={bgEmpty} alt="" />
             {
               !isFetching &&
               <p className="booster-empty-text">You <br /> don&apos;t <br /> have any card packs.</p>
@@ -64,7 +64,7 @@ export default ({
                       +{boosters.length - 3}
                     </div>
                   }
-                  <img src={images[i]} alt="" />
+                  <img draggable={false} src={images[i]} alt="" />
                   <p className="booster-placeholder booster-text-gradient">Card pack</p>
 
                   {
@@ -100,6 +100,7 @@ export default ({
 
       <div className="shop-funds">
         <img
+          draggable={false}
           src={ethCircle}
           alt="Ethereum logo circle"
         /> ETH 0.001

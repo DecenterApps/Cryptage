@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { formatBigNumber } from '../../../services/utils';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
+import { fpbCardIds } from '../../../actions/actionTypes';
 
 import './LargeCard.scss';
 
@@ -36,6 +37,7 @@ const LargeCard = ({
       removeNewCardOnHover(card.metadata.id);
     }}
   >
+    <div className="overlay" />
     <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
 
     { showNew && <div className="new-card">new</div> }
@@ -120,11 +122,7 @@ const LargeCard = ({
           card.stats.bonus &&
           card.stats.bonus.funds > 0 &&
           <div
-            data-name={
-              (
-                card.stats.type === 'Mining' ||
-                (card.stats.special === true && card.stats.type !== 'Project')
-              ) ? 'FPB' : 'Funds'}
+            data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
             className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
           >
             {formatBigNumber(card.stats.bonus.funds)}

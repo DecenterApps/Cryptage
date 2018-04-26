@@ -1,6 +1,6 @@
 import update from 'immutability-helper';
-import { getLevelValuesForCard, getSlotForContainer } from './gameMechanicsService';
-import { containerIds } from '../actions/actionTypes';
+import { getSlotForContainer } from './gameMechanicsService';
+import { acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
 
 /**
  * Generates unique id
@@ -244,19 +244,27 @@ export const saveGameplayState = (getState) => {
  * @return {Array}
  */
 export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex, special) => {
-  const addSlot = containerIds.includes(item.card.metadata.id);
   const typeId = item.card.metadata.id;
   const isContainer = containerIds.includes(typeId);
+  let assetAccepts = [];
+  let dropSlots = null;
+
+  // only Container and Misc asset type cards can't level up
+  if (acceptedAssetLevelUpIds.includes(typeId)) assetAccepts = [item.card.metadata.id];
+  // there must be an accept for container for the drag miner over container feature
+  if (isContainer) {
+    dropSlots = getSlotForContainer(item.card.metadata.id, item.card.stats.values.space);
+    assetAccepts = [...dropSlots[0].accepts];
+  }
 
   const locationSlots = update(_locationSlots, {
     [index]: {
-      accepts: { $set: isContainer ? [...getSlotForContainer(typeId, 1)[0].accepts] : [] },
+      accepts: { $set: assetAccepts },
       lastDroppedItem: {
         $set: {
-          level: 1,
-          canLevelUp: false,
-          cards: [{ ...item.card, slotIndex: index, locationIndex: activeLocationIndex }],
-          dropSlots: addSlot ? getSlotForContainer(item.card.metadata.id, item.card.stats.values.space) : null,
+          cards: [{ ...item.card }],
+          mainCard: { ...item.card, slotIndex: index, locationIndex: activeLocationIndex },
+          dropSlots,
           special,
         },
       },
@@ -284,7 +292,7 @@ export const getPlayedAssetCards = (_locations) => {
   const playedCards = locations.map((_locationWithCards) => {
     const arr = _locationWithCards.lastDroppedItem.dropSlots
       .filter(_locationDropSlot => _locationDropSlot.lastDroppedItem)
-      .map(({ lastDroppedItem }) => lastDroppedItem.cards[0]);
+      .map(({ lastDroppedItem }) => lastDroppedItem.mainCard);
 
     return Array.prototype.concat(...arr);
   });
@@ -301,7 +309,7 @@ export const getPlayedAssetCards = (_locations) => {
 export const getPlayedLocationCards = _locations => (
   Array.prototype.concat(_locations
     .filter(_location => _location.lastDroppedItem)
-    .map(_locationWithCards => _locationWithCards.lastDroppedItem.cards[0]))
+    .map(_locationWithCards => _locationWithCards.lastDroppedItem.mainCard))
 );
 
 /**
@@ -320,28 +328,6 @@ const calcCardsNeededToLevelUp = (level) => {
   }
 
   return numOfCards;
-};
-
-/**
- * Calculates when the next level is due and other
- * current level info
- *
- * @param {Number} cardsLength
- * @param {Number} level
- * @return {Object}
- */
-export const calcDataForNextLevel = (cardsLength, level) => {
-  const cardsTotalNeededToLevelUp = calcCardsNeededToLevelUp(level);
-  const cardsNeededForNextLevel = level + 1;
-  const remainingCardsToDropForNextLevel = cardsTotalNeededToLevelUp - cardsLength;
-  // console.log('Ukupan broj karata potreban za seledeci nivo:', cardsTotalNeededToLevelUp);
-  // console.log('Broj karata da se baci trenutni nivo da bi se dobio sledeci:', cardsNeededForNextLevel);
-  // console.log('Preostali Broj karata da se baci trenutni nivo da bi se dobio sledeci:', remainingCardsToDropForNextLevel);
-  // console.log('Ukupan Broj bacenih karata je: ', cardsLength);
-
-  const percent = 100 - (100 * ((cardsTotalNeededToLevelUp - cardsLength) / cardsNeededForNextLevel));
-
-  return { percent, remainingCardsToDropForNextLevel };
 };
 
 /**
@@ -392,19 +378,71 @@ export const filterByKeys = (object, allowedKeys) =>
     }, {});
 
 /**
+ * Updates locations object with new location object
+ *
+ * @param {Array} locations
+ * @param {Number} index
+ * @param {Object} item
+ * @return {Array}
+ */
+export const updateLocationsDropSlots = (locations, index, item) =>
+  update(locations, {
+    [index]: {
+      // only allow the card type that has been dropped now to be dropped again
+      accepts: { $set: [item.card.metadata.id] },
+      lastDroppedItem: {
+        $set: {
+          values: { ...item.card.stats.values },
+          dropSlots: LOCATION_ITEM_DROP_SLOTS,
+          cards: [{ ...item.card }],
+          mainCard: { ...item.card },
+        },
+      },
+    },
+  });
+
+/**
+ * Updates projects object with new project object
+ *
+ * @param {Array} projects
+ * @param {Number} index
+ * @param {Object} item
+ * @return {Array}
+ */
+export const updateProjectsDropSlots = (projects, index, item, blockNumber) =>
+  update(projects, {
+    [index]: {
+      // only allow the card type that has been dropped now to be dropped again
+      accepts: { $set: [item.card.metadata.id] },
+      slotType: { $set: 'project' },
+      lastDroppedItem: {
+        $set: {
+          cards: [{ ...item.card }],
+          mainCard: { ...item.card },
+          isActive: true,
+          isFinished: false,
+          timeDecrease: 0,
+          expiryTime: blockNumber + item.card.stats.cost.time,
+          timesFinished: 0,
+          modifiedFundsBonus: 0,
+        },
+      },
+    },
+  });
+
+/**
  * Updates active location drop slot items
  *
  * @return {Array}
  */
-export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations,) => {
+export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations) => { // eslint-disable-line
   const containerSlots = update(_containerSlots, {
     [cardIndex]: {
-      accepts: { $set: [] },
+      accepts: { $set: [item.card.metadata.id] },
       lastDroppedItem: {
         $set: {
-          level: 1,
-          canLevelUp: false,
           cards: [{ ...item.card }],
+          mainCard: { ...item.card },
         },
       },
     },
@@ -463,7 +501,7 @@ export const getCardAtContainer = (locations, locationIndex, containerIndex) => 
   }
 };
 
-const getElemType = (loc, i) => loc && loc.lastDroppedItem.cards[0] ? loc.lastDroppedItem.cards[0].metadata.id : []; //eslint-disable-line
+const getElemType = (loc, i) => loc && loc.lastDroppedItem.mainCard ? loc.lastDroppedItem.mainCard.metadata.id : []; //eslint-disable-line
 const getSlots = loc => loc && loc.lastDroppedItem ? loc.lastDroppedItem.dropSlots : []; //eslint-disable-line
 
 /**
@@ -486,8 +524,6 @@ export const getCardIdsFromLocation = (location, items) => {
     }
   });
 };
-
-
 
 export const classForRarity = (_rarity) => {
   const number = parseInt(_rarity, 10);

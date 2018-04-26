@@ -25,7 +25,6 @@ import { calcFpbBonusForMiners, calcLocationPerDevBonus } from '../services/game
 export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
   const { gameplay } = getState();
   const item = { ...slot.lastDroppedItem };
-  const returnedCards = [];
   let currentItem;
   let totalDev = 0;
 
@@ -34,13 +33,12 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
       currentItem = item.dropSlots[i].lastDroppedItem;
 
       if (currentItem !== null && currentItem.dropSlots === null) {
-        if (currentItem.cards[0].stats.type === 'Person') {
-          totalDev += currentItem.cards[0].stats.bonus.development;
+        if (currentItem.mainCard.stats.type === 'Person') {
+          totalDev += currentItem.mainCard.stats.bonus.development;
         }
-        if (bonusDevPerLocationCards.includes(currentItem.cards[0].metadata.id)) {
+        if (bonusDevPerLocationCards.includes(currentItem.mainCard.metadata.id)) {
           totalDev += currentItem.special;
         }
-        returnedCards.push(currentItem.cards[0]);
       }
 
       if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
@@ -49,11 +47,11 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
       }
     }
   } else {
-    if (bonusDevPerLocationCards.includes(item.cards[0].metadata.id)) {
+    if (bonusDevPerLocationCards.includes(item.mainCard.metadata.id)) {
       totalDev += item.special;
     }
-    if (item.cards[0].stats.type === 'Person') {
-      totalDev += item.cards[0].stats.bonus.development;
+    if (item.mainCard.stats.type === 'Person') {
+      totalDev += item.mainCard.stats.bonus.development;
     }
   }
 
@@ -71,14 +69,14 @@ export const cardCancelRecalcBonusDevPerLocation = locationIndex => (dispatch, g
   let globalStats = { ...gameplay.globalStats };
   let locationSlots = [...locations[locationIndex].lastDroppedItem.dropSlots];
 
-  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.mainCard.metadata.id)); // eslint-disable-line
 
   droppedBonusDevPerLocationCards.forEach(({ lastDroppedItem }) => {
     locationSlots = [...locations[locationIndex].lastDroppedItem.dropSlots];
-    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.cards[0].metadata.id === lastDroppedItem.cards[0].metadata.id)); // eslint-disable-line
+    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.mainCard.metadata.id === lastDroppedItem.mainCard.metadata.id)); // eslint-disable-line
 
     const bonusDevCard = locationSlots[cardLocationIndex].lastDroppedItem;
-    const coffeeMinerItem = { card: bonusDevCard.cards[0] };
+    const coffeeMinerItem = { card: bonusDevCard.mainCard };
     globalStats.development -= bonusDevCard.special;
 
     const cardEffect = calcLocationPerDevBonus(coffeeMinerItem, locations, locationIndex, globalStats);
@@ -106,7 +104,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   const _locations = [...gameplay.locations];
   let { gameplayView } = gameplay;
   const item = { ...slot.lastDroppedItem };
-  const returnedCards = [];
+  let returnedCards = [];
   let currentItem;
   let totalDev = 0;
   let totalPower = 0;
@@ -116,31 +114,31 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       currentItem = item.dropSlots[i].lastDroppedItem;
 
       if (currentItem !== null && currentItem.dropSlots === null) {
-        if (currentItem.cards[0].stats.type === 'Person') {
-          totalDev += currentItem.cards[0].stats.bonus.development;
+        if (currentItem.mainCard.stats.type === 'Person') {
+          totalDev += currentItem.mainCard.stats.bonus.development;
         }
-        if (bonusDevPerLocationCards.includes(currentItem.cards[0].metadata.id)) {
+        if (bonusDevPerLocationCards.includes(currentItem.mainCard.metadata.id)) {
           totalDev += currentItem.special;
         }
-        returnedCards.push(currentItem.cards[0]);
+        returnedCards = [...returnedCards, ...currentItem.cards];
       }
       if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
         dispatch(handleCardCancel(item.dropSlots[i], locationIndex, i));
       }
 
       if (currentItem !== null && currentItem.dropSlots === undefined) {
-        if (currentItem.cards[0].stats.type === 'Mining') {
-          totalPower -= currentItem.cards[0].stats.cost.power;
+        if (currentItem.mainCard.stats.type === 'Mining') {
+          totalPower -= currentItem.mainCard.stats.cost.power;
         }
-        returnedCards.push(currentItem.cards[0]);
+        returnedCards = [...returnedCards, ...currentItem.cards];
       }
     }
   } else {
-    if (bonusDevPerLocationCards.includes(item.cards[0].metadata.id)) {
+    if (bonusDevPerLocationCards.includes(item.mainCard.metadata.id)) {
       totalDev += item.special;
     }
-    if (item.cards[0].stats.type === 'Person') {
-      totalDev += item.cards[0].stats.bonus.development;
+    if (item.mainCard.stats.type === 'Person') {
+      totalDev += item.mainCard.stats.bonus.development;
     }
   }
 
@@ -149,11 +147,11 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   }
 
   if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex !== undefined) {
-    const { power } = item.cards[0].stats.cost;
+    const { power } = item.mainCard.stats.cost;
     let accepts = [];
     const id = parseInt(_locations[locationIndex].lastDroppedItem
-      .dropSlots[containerIndex].lastDroppedItem.cards[0].metadata.id, 10);
-    returnedCards.push(item.cards[0]);
+      .dropSlots[containerIndex].lastDroppedItem.mainCard.metadata.id, 10);
+    returnedCards = [...returnedCards, ...item.cards];
     // Computer Case only accepts CPU and Graphics card
     if (id === 6) accepts = ['9', '10', '33', '34', '35'];
     // Mining Rig only accepts Graphics card
@@ -169,9 +167,12 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       .dropSlots[containerSlotIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex === undefined) {
     let power = totalPower;
-    const { space } = item.cards[0].stats.cost;
-    if (item.cards[0].stats.bonus) power = item.cards[0].stats.bonus.power || 0;
-    returnedCards.push(_locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards[0]);
+    const { space } = item.mainCard.stats.cost;
+    if (item.mainCard.stats.bonus) power = item.mainCard.stats.bonus.power || 0;
+
+    const minerCards = _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards;
+    returnedCards = [...returnedCards, ...minerCards];
+
     _locations[locationIndex].lastDroppedItem.values.space += space;
     // HANDLE ERROR HERE
     if (_locations[locationIndex].lastDroppedItem.values.power - power < 0) return;
@@ -179,7 +180,8 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].accepts = acceptedAssetDropIds;
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex === undefined) {
-    returnedCards.push(_locations[locationIndex].lastDroppedItem.cards[0]);
+    const assetCards = _locations[locationIndex].lastDroppedItem.cards;
+    returnedCards = [...returnedCards, ...assetCards];
     _locations[locationIndex].accepts = acceptedLocationDropIds;
     _locations[locationIndex].lastDroppedItem = null;
   }
@@ -187,7 +189,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     gameplayView = GP_NO_LOCATIONS;
   }
 
-  const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.cards[0], false);
+  const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.mainCard, false);
 
   const turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();
   dispatch(playTurn(item, slot.slotType, turnIndex, false));
@@ -205,7 +207,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     gameplayView,
   });
 
-  if (item.cards[0].stats.type === 'Person') dispatch(cardCancelRecalcBonusDevPerLocation(locationIndex));
+  if (item.mainCard.stats.type === 'Person') dispatch(cardCancelRecalcBonusDevPerLocation(locationIndex));
 };
 
 /**
@@ -241,9 +243,7 @@ export const removeProject = (card, index) => (dispatch, getState) => {
 /**
  * Clears new booster cards once the new booster cards modal is closed
  */
-export const clearRevealedCards = () => (dispatch) => {
-  dispatch({ type: CLEAR_REVEALED_CARDS });
-};
+export const clearRevealedCards = () => (dispatch) => { dispatch({ type: CLEAR_REVEALED_CARDS }); };
 
 /**
  * Fires when the user hovers over a card element with "new".
