@@ -93,7 +93,7 @@ contract StateCodec {
 
   struct Power {
     // uint16
-    uint[powerLevelCount] card;
+    uint card;
     // uint8
     uint[powerLevelCount] count;
   }
@@ -115,14 +115,14 @@ contract StateCodec {
 
   struct Developer {
     // uint16
-    uint[developerLevelCount] card;
+    uint card;
     // uint8
     uint[developerLevelCount] count;
   }
 
   struct SpecialCard {
     // uint16
-    uint[specialLevelCount] card;
+    uint card;
     // uint16
     uint[specialLevelCount] count;
   }
@@ -349,8 +349,8 @@ contract StateCodec {
 
         (position, data, size) = append(buffer, position, data, state.locations[i].powers.length, size, singleCountSize);
         for (uint j = 0; j < state.locations[i].powers.length; j++) {
+          (position, data, size) = append(buffer, position, data, state.locations[i].powers[j].card, size, cardSize);
           for (uint k = 0; k < powerLevelCount; k++) {
-            (position, data, size) = append(buffer, position, data, state.locations[i].powers[j].card[k], size, cardSize);
             (position, data, size) = append(buffer, position, data, state.locations[i].powers[j].count[k], size, singleCountSize);
           }
         }
@@ -382,16 +382,16 @@ contract StateCodec {
 
         (position, data, size) = append(buffer, position, data, state.locations[i].developers.length, size, singleCountSize);
         for (j = 0; j < state.locations[i].developers.length; j++) {
+          (position, data, size) = append(buffer, position, data, state.locations[i].developers[j].card, size, cardSize);
           for (k = 0; k < developerLevelCount; k++) {
-            (position, data, size) = append(buffer, position, data, state.locations[i].developers[j].card[k], size, cardSize);
             (position, data, size) = append(buffer, position, data, state.locations[i].developers[j].count[k], size, singleCountSize);
           }
         }
 
         (position, data, size) = append(buffer, position, data, state.locations[i].specialCards.length, size, singleCountSize);
         for (j = 0; j < state.locations[i].specialCards.length; j++) {
+          (position, data, size) = append(buffer, position, data, state.locations[i].specialCards[j].card, size, cardSize);
           for (k = 0; k < specialLevelCount; k++) {
-            (position, data, size) = append(buffer, position, data, state.locations[i].specialCards[j].card[k], size, cardSize);
             (position, data, size) = append(buffer, position, data, state.locations[i].specialCards[j].count[k], size, doubleCountSize);
           }
         }
@@ -428,7 +428,7 @@ contract StateCodec {
     return (position, data, size);
   }
 
-  function decode(bytes buffer) internal pure returns (State memory state) {
+  function decode(bytes buffer) internal view returns (State memory state) {
     uint position = 1;
     uint size = 0;
 
@@ -471,8 +471,8 @@ contract StateCodec {
         (position, count, size) = read(buffer, position, size, singleCountSize);
         state.locations[i].powers = new Power[](count);
         for (uint j = 0; j < count; j++) {
+          (position, state.locations[i].powers[j].card, size) = read(buffer, position, size, cardSize);
           for (uint k = 0; k < powerLevelCount; k++) {
-            (position, state.locations[i].powers[j].card[k], size) = read(buffer, position, size, cardSize);
             (position, state.locations[i].powers[j].count[k], size) = read(buffer, position, size, singleCountSize);
           }
         }
@@ -508,8 +508,8 @@ contract StateCodec {
         (position, count, size) = read(buffer, position, size, singleCountSize);
         state.locations[i].developers = new Developer[](count);
         for (j = 0; j < count; j++) {
+          (position, state.locations[i].developers[j].card, size) = read(buffer, position, size, cardSize);
           for (k = 0; k < developerLevelCount; k++) {
-            (position, state.locations[i].developers[j].card[k], size) = read(buffer, position, size, cardSize);
             (position, state.locations[i].developers[j].count[k], size) = read(buffer, position, size, singleCountSize);
           }
         }
@@ -517,8 +517,8 @@ contract StateCodec {
         (position, count, size) = read(buffer, position, size, singleCountSize);
         state.locations[i].specialCards = new SpecialCard[](count);
         for (j = 0; j < count; j++) {
+          (position, state.locations[i].specialCards[j].card, size) = read(buffer, position, size, cardSize);
           for (k = 0; k < specialLevelCount; k++) {
-            (position, state.locations[i].specialCards[j].card[k], size) = read(buffer, position, size, cardSize);
             (position, state.locations[i].specialCards[j].count[k], size) = read(buffer, position, size, doubleCountSize);
           }
         }
