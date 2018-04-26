@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HandCard from '../Cards/HandCard/HandCard';
+import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 
 import './ContainerItem.scss';
 
@@ -29,12 +30,20 @@ class ContainerItem extends Component {
 
   render() {
     const {
-      index, mainCard, locationIndex, containerIndex, slot,
+      index, mainCard, locationIndex, containerIndex, slot, dragItem, globalStats,
     } = this.props;
     const fpb = mainCard.stats.bonus.funds;
 
+    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
+    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
+
     return (
-      <div className="container-item-wrapper">
+      <div className={`
+        container-item-wrapper
+        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
+        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
+      `}
+      >
         {
           this.state.show && <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         }
@@ -55,6 +64,7 @@ class ContainerItem extends Component {
 
 ContainerItem.defaultProps = {
   mainCard: null,
+  dragItem: null,
 };
 
 ContainerItem.propTypes = {
@@ -64,12 +74,15 @@ ContainerItem.propTypes = {
   slot: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   blockNumber: PropTypes.number.isRequired,
+  globalStats: PropTypes.object.isRequired,
+  dragItem: PropTypes.object,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   projects: gameplay.projects,
   activeLocationIndex: gameplay.activeLocationIndex,
   blockNumber: gameplay.blockNumber,
+  globalStats: gameplay.globalStats,
 });
 
 export default connect(mapStateToProps)(ContainerItem);

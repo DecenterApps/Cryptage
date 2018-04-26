@@ -114,7 +114,7 @@ export const levelUpMiner = (_locations, locationIndex, containerIndex, cardInde
 
   if (!cardsConfig.cards[id][(level + 2).toString()]) {
     locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-      .lastDroppedItem.accepts = [];
+      .accepts = [];
   }
 
   return locations;
