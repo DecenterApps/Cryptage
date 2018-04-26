@@ -217,7 +217,7 @@
         "ID": "1",
         "cost": {
           "development": 0,
-          "funds": 540,
+          "funds": 500,
           "level": 2,
           "power": 0,
           "space": 0,
@@ -247,7 +247,7 @@
         "ID": "1",
         "cost": {
           "development": 0,
-          "funds": 600,
+          "funds": 500,
           "level": 2,
           "power": 0,
           "space": 0,
@@ -277,7 +277,7 @@
         "ID": "1",
         "cost": {
           "development": 0,
-          "funds": 680,
+          "funds": 500,
           "level": 2,
           "power": 0,
           "space": 0,
@@ -1109,7 +1109,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 2000,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1139,7 +1139,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 4000,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1169,7 +1169,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 7000,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1199,7 +1199,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 11000,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1565,7 +1565,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1595,7 +1595,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1625,7 +1625,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1655,7 +1655,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 1000,
           "level": 4,
           "power": 0,
           "space": 20,
@@ -1681,7 +1681,7 @@
           "multiplierDev": 0,
           "multiplierFunds": 0,
           "multiplierTime": 0,
-          "power": 24,
+          "power": 12,
           "space": 0,
           "xp": 0
         },
@@ -1711,7 +1711,7 @@
           "multiplierDev": 0,
           "multiplierFunds": 0,
           "multiplierTime": 0,
-          "power": 36,
+          "power": 16,
           "space": 0,
           "xp": 0
         },
@@ -1741,7 +1741,7 @@
           "multiplierDev": 0,
           "multiplierFunds": 0,
           "multiplierTime": 0,
-          "power": 48,
+          "power": 20,
           "space": 0,
           "xp": 0
         },
@@ -1771,7 +1771,7 @@
           "multiplierDev": 0,
           "multiplierFunds": 0,
           "multiplierTime": 0,
-          "power": 60,
+          "power": 24,
           "space": 0,
           "xp": 0
         },
@@ -1801,7 +1801,7 @@
           "multiplierDev": 0,
           "multiplierFunds": 0,
           "multiplierTime": 0,
-          "power": 72,
+          "power": 28,
           "space": 0,
           "xp": 0
         },
@@ -1859,7 +1859,7 @@
         "ID": "2",
         "cost": {
           "development": 0,
-          "funds": 2100,
+          "funds": 2000,
           "level": 2,
           "power": 0,
           "space": 0,
@@ -1889,7 +1889,7 @@
         "ID": "2",
         "cost": {
           "development": 0,
-          "funds": 2300,
+          "funds": 2000,
           "level": 2,
           "power": 0,
           "space": 0,
@@ -1919,7 +1919,7 @@
         "ID": "2",
         "cost": {
           "development": 0,
-          "funds": 2600,
+          "funds": 2000,
           "level": 2,
           "power": 0,
           "space": 0,
@@ -1949,7 +1949,7 @@
         "ID": "2",
         "cost": {
           "development": 0,
-          "funds": 3000,
+          "funds": 2000,
           "level": 2,
           "power": 0,
           "space": 0,
@@ -1985,13 +1985,13 @@
           "multiplierDev": 0,
           "multiplierFunds": 0,
           "multiplierTime": 0,
-          "power": 48,
+          "power": 56,
           "space": 0,
           "xp": 0
         },
         "cost": {
           "development": 0,
-          "funds": 3000,
+          "funds": 2000,
           "level": 1,
           "power": 0,
           "space": 20,
@@ -2021,7 +2021,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 3000,
+          "funds": 2000,
           "level": 1,
           "power": 0,
           "space": 20,
@@ -2051,7 +2051,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 3000,
+          "funds": 2000,
           "level": 1,
           "power": 0,
           "space": 20,
@@ -2081,7 +2081,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 3000,
+          "funds": 2000,
           "level": 1,
           "power": 0,
           "space": 20,
@@ -2111,7 +2111,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 3000,
+          "funds": 2000,
           "level": 1,
           "power": 0,
           "space": 20,
@@ -2540,7 +2540,7 @@
           "xp": 4
         },
         "cost": {
-          "development": 2,
+          "development": 1,
           "funds": 0,
           "level": 2,
           "power": 0,
@@ -2570,7 +2570,7 @@
           "xp": 4
         },
         "cost": {
-          "development": 3,
+          "development": 1,
           "funds": 0,
           "level": 2,
           "power": 0,
@@ -2600,7 +2600,7 @@
           "xp": 4
         },
         "cost": {
-          "development": 4,
+          "development": 1,
           "funds": 0,
           "level": 2,
           "power": 0,
@@ -2630,7 +2630,7 @@
           "xp": 4
         },
         "cost": {
-          "development": 5,
+          "development": 1,
           "funds": 0,
           "level": 2,
           "power": 0,
@@ -2692,7 +2692,7 @@
           "xp": 16
         },
         "cost": {
-          "development": 7,
+          "development": 5,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -2722,7 +2722,7 @@
           "xp": 16
         },
         "cost": {
-          "development": 9,
+          "development": 5,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -2752,7 +2752,7 @@
           "xp": 16
         },
         "cost": {
-          "development": 11,
+          "development": 5,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -2782,7 +2782,7 @@
           "xp": 16
         },
         "cost": {
-          "development": 13,
+          "development": 5,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -2844,7 +2844,7 @@
           "xp": 32
         },
         "cost": {
-          "development": 36,
+          "development": 32,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -2874,7 +2874,7 @@
           "xp": 32
         },
         "cost": {
-          "development": 40,
+          "development": 32,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -2904,7 +2904,7 @@
           "xp": 32
         },
         "cost": {
-          "development": 44,
+          "development": 32,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -2934,7 +2934,7 @@
           "xp": 32
         },
         "cost": {
-          "development": 48,
+          "development": 32,
           "funds": 0,
           "level": 4,
           "power": 0,
@@ -3291,7 +3291,7 @@
         "ID": "3",
         "cost": {
           "development": 0,
-          "funds": 12000,
+          "funds": 10000,
           "level": 4,
           "power": 0,
           "space": 0,
@@ -3321,7 +3321,7 @@
         "ID": "3",
         "cost": {
           "development": 0,
-          "funds": 16000,
+          "funds": 10000,
           "level": 4,
           "power": 0,
           "space": 0,
@@ -3351,7 +3351,7 @@
         "ID": "3",
         "cost": {
           "development": 0,
-          "funds": 22000,
+          "funds": 10000,
           "level": 4,
           "power": 0,
           "space": 0,
@@ -3381,7 +3381,7 @@
         "ID": "3",
         "cost": {
           "development": 0,
-          "funds": 30000,
+          "funds": 10000,
           "level": 4,
           "power": 0,
           "space": 0,
@@ -3736,7 +3736,7 @@
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 1,
-        "mechanicsText": "Time to complete: Two weeks™",
+        "mechanicsText": "Time to complete: Two weeks\u2122",
         "rarityScore": "485",
         "special": true,
         "title": "Consensus Improvement",
@@ -3756,7 +3756,7 @@
           "xp": 24000
         },
         "cost": {
-          "development": 272,
+          "development": 240,
           "funds": 100000,
           "level": 12,
           "power": 0,
@@ -3766,7 +3766,7 @@
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 2,
-        "mechanicsText": "Time to complete: Two weeks™",
+        "mechanicsText": "Time to complete: Two weeks\u2122",
         "rarityScore": "485",
         "special": true,
         "title": "Consensus Improvement",
@@ -3786,7 +3786,7 @@
           "xp": 32000
         },
         "cost": {
-          "development": 304,
+          "development": 240,
           "funds": 100000,
           "level": 12,
           "power": 0,
@@ -3796,7 +3796,7 @@
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 3,
-        "mechanicsText": "Time to complete: Two weeks™",
+        "mechanicsText": "Time to complete: Two weeks\u2122",
         "rarityScore": "485",
         "special": true,
         "title": "Consensus Improvement",
@@ -3816,7 +3816,7 @@
           "xp": 40000
         },
         "cost": {
-          "development": 336,
+          "development": 240,
           "funds": 100000,
           "level": 12,
           "power": 0,
@@ -3826,7 +3826,7 @@
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 4,
-        "mechanicsText": "Time to complete: Two weeks™",
+        "mechanicsText": "Time to complete: Two weeks\u2122",
         "rarityScore": "485",
         "special": true,
         "title": "Consensus Improvement",
@@ -3846,7 +3846,7 @@
           "xp": 48000
         },
         "cost": {
-          "development": 368,
+          "development": 240,
           "funds": 100000,
           "level": 12,
           "power": 0,
@@ -3856,7 +3856,7 @@
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 5,
-        "mechanicsText": "Time to complete: Two weeks™",
+        "mechanicsText": "Time to complete: Two weeks\u2122",
         "rarityScore": "485",
         "special": true,
         "title": "Consensus Improvement",
@@ -4659,7 +4659,7 @@
         "ID": "38",
         "cost": {
           "development": 0,
-          "funds": 1200000,
+          "funds": 800000,
           "level": 16,
           "power": 0,
           "space": 0,
@@ -4689,7 +4689,7 @@
         "ID": "38",
         "cost": {
           "development": 0,
-          "funds": 2000000,
+          "funds": 800000,
           "level": 16,
           "power": 0,
           "space": 0,
@@ -4719,7 +4719,7 @@
         "ID": "38",
         "cost": {
           "development": 0,
-          "funds": 3200000,
+          "funds": 800000,
           "level": 16,
           "power": 0,
           "space": 0,
@@ -4749,7 +4749,7 @@
         "ID": "38",
         "cost": {
           "development": 0,
-          "funds": 4800000,
+          "funds": 800000,
           "level": 16,
           "power": 0,
           "space": 0,
@@ -4821,7 +4821,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 30000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4851,7 +4851,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 30000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4881,7 +4881,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 30000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4911,7 +4911,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 0,
+          "funds": 30000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4963,7 +4963,7 @@
         "ID": "4",
         "cost": {
           "development": 0,
-          "funds": 202000,
+          "funds": 20000,
           "level": 8,
           "power": 0,
           "space": 0,
@@ -4993,7 +4993,7 @@
         "ID": "4",
         "cost": {
           "development": 0,
-          "funds": 206000,
+          "funds": 20000,
           "level": 8,
           "power": 0,
           "space": 0,
@@ -5023,7 +5023,7 @@
         "ID": "4",
         "cost": {
           "development": 0,
-          "funds": 212000,
+          "funds": 20000,
           "level": 8,
           "power": 0,
           "space": 0,
@@ -5053,7 +5053,7 @@
         "ID": "4",
         "cost": {
           "development": 0,
-          "funds": 220000,
+          "funds": 20000,
           "level": 8,
           "power": 0,
           "space": 0,
@@ -5405,7 +5405,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "I give rumors out for free. It's the facts I sell.",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 1,
         "mechanicsText": "Prediction Market Participation project gains 1 additional FUND per execution.",
@@ -5435,7 +5435,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "I give rumors out for free. It's the facts I sell.",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 2,
         "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
@@ -5465,7 +5465,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "I give rumors out for free. It's the facts I sell.",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 3,
         "mechanicsText": "Prediction Market Participation project gains 3 additional FUNDS per execution.",
@@ -5495,7 +5495,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "I give rumors out for free. It's the facts I sell.",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 4,
         "mechanicsText": "Prediction Market Participation project gains 4 additional FUNDS per execution.",
@@ -5525,7 +5525,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "I give rumors out for free. It's the facts I sell.",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 5,
         "mechanicsText": "Prediction Market Participation project gains 5 additional FUNDS per execution.",
@@ -5547,7 +5547,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be the a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -5571,13 +5571,13 @@
         "ID": "5",
         "cost": {
           "development": 0,
-          "funds": 800000,
+          "funds": 40000,
           "level": 12,
           "power": 0,
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be the a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -5601,13 +5601,13 @@
         "ID": "5",
         "cost": {
           "development": 0,
-          "funds": 1600000,
+          "funds": 40000,
           "level": 12,
           "power": 0,
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be the a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -5631,13 +5631,13 @@
         "ID": "5",
         "cost": {
           "development": 0,
-          "funds": 2800000,
+          "funds": 40000,
           "level": 12,
           "power": 0,
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be the a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -5661,13 +5661,13 @@
         "ID": "5",
         "cost": {
           "development": 0,
-          "funds": 4400000,
+          "funds": 40000,
           "level": 12,
           "power": 0,
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be the a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 5,
         "mechanicsText": "",
