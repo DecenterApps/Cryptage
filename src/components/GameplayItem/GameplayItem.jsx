@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Line } from 'rc-progress';
 import { connect } from 'react-redux';
 import HandCard from '../Cards/HandCard/HandCard';
-import { calcDataForNextLevel } from '../../services/utils';
-import { levelUpAsset, switchInGameplayView } from '../../actions/gameplayActions';
-import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
-
-import './GameplayItem.scss';
+import { switchInGameplayView } from '../../actions/gameplayActions';
+import { acceptedAssetLevelUpIds, containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 import {
-  checkIfCanPlayCard,
-  checkSlotsAvailableForCardType,
-  getContainerSlotsLength,
+  checkIfCanLevelUp, checkIfCanPlayCard, getContainerSlotsLength,
   getSlotForContainer,
 } from '../../services/gameMechanicsService';
+
+import './GameplayItem.scss';
 
 class GameplayItem extends Component {
   constructor() {
@@ -28,10 +24,10 @@ class GameplayItem extends Component {
     if (nextProps.blockNumber === this.props.blockNumber) return;
 
     if (
-      containerIds.includes(this.props.cards[0].metadata.id) ||
-      this.props.cards[0].metadata.id === '18' ||
-      this.props.cards[0].metadata.id === '22' ||
-      this.props.cards[0].metadata.id === '23'
+      containerIds.includes(this.props.mainCard.metadata.id) ||
+      this.props.mainCard.metadata.id === '18' ||
+      this.props.mainCard.metadata.id === '22' ||
+      this.props.mainCard.metadata.id === '23'
     ) {
       this.toggleFundsStat();
       setTimeout(this.toggleFundsStat, 2000);
@@ -58,33 +54,36 @@ class GameplayItem extends Component {
 
   render() {
     const {
-      cards, isOver, index, activeLocationIndex, level, canLevelUp, levelUpAsset, dropSlots, slot,
+      mainCard, isOver, index, activeLocationIndex, dropSlots, slot,
       dragItem, locations, globalStats,
     } = this.props;
 
-    const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
     const locationItem = locations[activeLocationIndex].lastDroppedItem;
 
+    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
+    const assetLevelUpType = acceptedAssetLevelUpIds.includes(mainCard.metadata.id);
+    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
+
     const isDragMiner = dragItem && dragItem.card && dragItem.card.stats.type === 'Mining';
-    const isContainer = containerIds.includes(cards[0].metadata.id);
+    const isContainer = containerIds.includes(mainCard.metadata.id);
     let remainingSlots = null;
     let canDropMiner = false;
     let goodMinerSlotType = false;
     let fpb = 0;
 
     // handle hacker and coffee miner fpb
-    if (cards[0].metadata.id === '18') fpb = cards[0].stats.bonus.funds;
-    if (cards[0].metadata.id === '23') fpb = cards[0].stats.bonus.multiplierFunds;
+    if (mainCard.metadata.id === '18') fpb = mainCard.stats.bonus.funds;
+    if (mainCard.metadata.id === '23') fpb = mainCard.stats.bonus.multiplierFunds;
 
     // handle grid connector fpb
-    if (cards[0].metadata.id === '22') fpb = locationItem.values.power * cards[0].stats.bonus.funds;
+    if (mainCard.metadata.id === '22') fpb = locationItem.values.power * mainCard.stats.bonus.funds;
 
     if (isContainer) {
       // export this to another function
       if (isDragMiner) {
         const containerSlotsLength = getContainerSlotsLength(locations, locationItem, index);
 
-        const containerId = locationItem.dropSlots[index].lastDroppedItem.cards[0].metadata.id;
+        const containerId = locationItem.dropSlots[index].lastDroppedItem.mainCard.metadata.id;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
         goodMinerSlotType = emptyContainerSlotArr[0].accepts.includes(dragItem.card.metadata.id);
         const { stats } = dragItem.card;
@@ -105,7 +104,7 @@ class GameplayItem extends Component {
       // handle container fpb
       fpb = slot.lastDroppedItem.dropSlots.reduce((acc, currVal) => {
         if (currVal.lastDroppedItem) {
-          acc += currVal.lastDroppedItem.cards[0].stats.bonus.funds;
+          acc += currVal.lastDroppedItem.mainCard.stats.bonus.funds;
         }
 
         return acc;
@@ -116,7 +115,9 @@ class GameplayItem extends Component {
       <div
         className={`
         gameplay-item-wrapper
-        ${isOver && 'hovering'}
+        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
+        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
+        ${assetLevelUpType ? 'right-asset-type' : 'not-right-asset-type'}
         ${isContainer && 'container'}
       `}
       >
@@ -131,7 +132,7 @@ class GameplayItem extends Component {
 
             <HandCard
               showCount={false}
-              card={cards[0]}
+              card={mainCard}
               slot={slot}
               locationIndex={activeLocationIndex}
               containerIndex={index}
@@ -157,7 +158,7 @@ class GameplayItem extends Component {
             <HandCard
               goToContainer={() => { this.goToContainer(isContainer); }}
               showCount={false}
-              card={cards[0]}
+              card={mainCard}
               remainingSlots={remainingSlots}
               locationIndex={activeLocationIndex}
               containerIndex={index}
@@ -166,37 +167,23 @@ class GameplayItem extends Component {
             />
           </div>
         }
-        <div className="level-up">
-          {!canLevelUp && <div>Cards to drop for next level: {remainingCardsToDropForNextLevel}</div>}
-          {
-            canLevelUp &&
-            <button
-              onClick={() => { levelUpAsset(activeLocationIndex, index); }}
-            >
-              Upgrade to next level
-            </button>
-          }
-        </div>
       </div>
     );
   }
 }
 
 GameplayItem.defaultProps = {
-  cards: [],
+  mainCard: null,
   isOver: false,
   dropSlots: null,
   dragItem: null,
 };
 
 GameplayItem.propTypes = {
-  cards: PropTypes.array,
+  mainCard: PropTypes.object,
   isOver: PropTypes.bool,
-  level: PropTypes.number.isRequired,
-  canLevelUp: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
-  levelUpAsset: PropTypes.func.isRequired,
   switchInGameplayView: PropTypes.func.isRequired,
   dropSlots: PropTypes.array,
   locations: PropTypes.array.isRequired,
@@ -214,7 +201,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProps = {
-  levelUpAsset, switchInGameplayView,
+  switchInGameplayView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameplayItem);

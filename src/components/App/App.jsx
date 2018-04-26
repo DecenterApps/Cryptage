@@ -10,7 +10,7 @@ import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
-import { loadGameplayState, updateFundsBlockDifference } from '../../actions/gameplayActions';
+import { loadGameplayState, updateFundsBlockDifference, checkProjectsBonus, } from '../../actions/gameplayActions';
 import {
   checkAccount,
   loadingEnded,
@@ -31,6 +31,7 @@ class App extends Component {
     this.props.listenForNewBlocks();
     this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
+    this.props.checkProjectsBonus();
   }
 
   render() {
@@ -78,6 +79,7 @@ App.propTypes = {
   accountError: PropTypes.string.isRequired,
   updateFundsBlockDifference: PropTypes.func.isRequired,
   tutorialOpen: PropTypes.bool.isRequired,
+  checkProjectsBonus: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -87,6 +89,7 @@ const mapDispatchToProps = {
   listenForNewBlocks,
   updateCurrentBlockNumber,
   updateFundsBlockDifference,
+  checkProjectsBonus,
 };
 
 const mapStateToProps = ({ app }) => ({

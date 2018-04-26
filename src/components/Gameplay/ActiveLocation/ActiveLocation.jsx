@@ -20,16 +20,18 @@ const ActiveLocation = ({
 }) => {
   const location = locations[activeLocationIndex];
   const { space, power } = location.lastDroppedItem.values;
-  const card = location.lastDroppedItem.cards[0];
-  let maxSpace = getMaxValueForLocation(card.metadata.id, location.lastDroppedItem.level, 'space');
-  let maxPower = getMaxValueForLocation(card.metadata.id, location.lastDroppedItem.level, 'power');
+  const card = location.lastDroppedItem.mainCard;
+  const maxSpace = getMaxValueForLocation(card, 'space');
+  let maxPower = getMaxValueForLocation(card, 'power');
 
   const powerCards = location.lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.cards[0].stats.type === 'Power'
-  )).map(({ lastDroppedItem }) => lastDroppedItem.cards[0]);
+    lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Power'
+  )).map(({ lastDroppedItem }) => lastDroppedItem.mainCard);
 
   // recalculate max power for location if power cards were played
-  if (powerCards.length > 0) powerCards.forEach(({ stats }) => { maxPower += stats.bonus.power; });
+  if (powerCards.length > 0) powerCards.forEach(({ stats }) => {
+    maxPower += stats.bonus.power;
+  });
 
   const spacePercent = Math.floor((space / maxSpace) * 100) || 0;
   const powerPercent = Math.floor((power / maxPower) * 100) || 0;
@@ -61,9 +63,8 @@ const ActiveLocation = ({
             className="background-drop"
             style={{
               backgroundImage: `url(cardImages/${
-                inGameplayView === GP_LOCATION_CONTAINER
-                  ? location.lastDroppedItem.dropSlots[activeContainerIndex]
-                    .lastDroppedItem.cards[0].stats.image
+                inGameplayView === GP_LOCATION_CONTAINER ?
+                  location.lastDroppedItem.dropSlots[activeContainerIndex].lastDroppedItem.mainCard.stats.image
                   : card.stats.image
                 })`,
             }}

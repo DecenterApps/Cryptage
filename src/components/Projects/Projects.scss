@@ -41,14 +41,6 @@
     width: $project-size;
     margin-bottom: 14px;
 
-    &.drop-slot-filled {
-      background: linear-gradient(180deg, #22183B 0%, #1F1638 53.59%, #150F24 100%);
-      border: 1px solid #36265F;
-      box-shadow: 0 0 14px #06040D;
-      box-sizing: border-box;
-      border-radius: 100%;
-    }
-
     &:nth-child(2n) {
       position: relative;
       top: 30px;

@@ -12,6 +12,7 @@ contract StateCodec {
   uint[5] computerCaseMiners = [uint(9), uint(10), uint(33), uint(34), uint(35)];
   uint constant rigCaseMinersCount = 4;
   uint[4] rigCaseMiners = [uint(10), uint(33), uint(34), uint(35)];
+  uint constant rigCaseMinersCount = 4;
 
   uint constant fundsSize = 6;
   uint constant fundsPerBlockSize = 2;

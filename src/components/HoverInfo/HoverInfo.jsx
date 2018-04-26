@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classForRarity } from '../../services/utils';
+import { formatBigNumber, classForRarity, printMechanicsText } from '../../services/utils';
+import { fpbCardIds } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
 
@@ -23,14 +24,18 @@ const HoverInfo = ({ card, center }) => {
     return hideTime && (spaceOverOne || levelOverOne || valOverZero);
   }).length > 0;
 
+  const mechanicsTextArr = printMechanicsText(card.stats.mechanicsText);
+
   return (
     <div className={`card-hover-info-wrapper ${center && 'center'} ${card.stats.type.toLowerCase()}`}>
       <div
         className="inner-wrapper"
         style={{ backgroundImage: `url('cardImages/${card.stats.image}')` }}
       >
+        <div className="overlay" />
         <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
         <div className="title">{card.stats.title}</div>
+        <div className="card-level">{card.stats.level}</div>
         {
           card.stats.cost &&
           showCost &&
@@ -119,11 +124,7 @@ const HoverInfo = ({ card, center }) => {
               card.stats.bonus &&
               card.stats.bonus.funds > 0 &&
               <div
-                data-name={
-                  (
-                    card.stats.type === 'Mining' ||
-                    (card.stats.special === true && card.stats.type !== 'Project')
-                  ) ? 'FPB' : 'FUNDS'}
+                data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
                 className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
               >
                 {formatBigNumber(card.stats.bonus.funds)}
@@ -165,12 +166,16 @@ const HoverInfo = ({ card, center }) => {
           <div className="description">
             {
               card.stats.flavorText &&
-              <p className="flavor">"{card.stats.flavorText}"</p>
+              <p className="flavor">&ldquo;{card.stats.flavorText}&ldquo;</p>
             }
             {
               card.stats.mechanicsText &&
               <p className="mechanics">
-                {card.stats.mechanicsText}
+                { mechanicsTextArr.length === 1 && mechanicsTextArr[0] }
+                {
+                  mechanicsTextArr.length === 2 &&
+                  <span>{mechanicsTextArr[0]} <br /> {mechanicsTextArr[1]}</span>
+                }
               </p>
             }
           </div>

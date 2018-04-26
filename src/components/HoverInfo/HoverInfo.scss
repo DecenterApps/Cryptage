@@ -41,6 +41,26 @@
       font-family: $font-secondary;
     }
 
+    .card-level {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 145px;
+      height: 252px;
+      border-radius: 12px;
+      background-image: url('./CardFront01.png');
+      background-size: cover;
+      z-index: 1;
+    }
+
     .rarity-overlay {
       position: absolute;
       top: -25px;
@@ -48,7 +68,7 @@
       width: 195px;
       height: 300px;
       background-size: cover;
-      z-index: 1;
+      z-index: 2;
       &.rarity-blue {
         background-image: url('./scarce.png');
       }

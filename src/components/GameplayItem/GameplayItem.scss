@@ -9,9 +9,18 @@
   background-size: cover;
   background-position: center;
 
-  &.hovering {
-    background-color: #DEDEDE;
-    color: #000;
+  &.dragging-success.level-up-success.right-asset-type {
+    .card-image .card-image-inner {
+      stroke: $empty-slot-can-drop;
+      stroke-width: 3px;
+    }
+  }
+
+  &.dragging-success.level-up-fail.right-asset-type {
+    .card-image .card-image-inner {
+      stroke: $red;
+      stroke-width: 3px;
+    }
   }
 
   &.container {
@@ -50,6 +59,7 @@
 
         .card-image .card-image-inner {
           stroke: $empty-slot-can-drop;
+          stroke-width: 3px;
         }
       }
     }
@@ -62,7 +72,7 @@
           top: 2px;
           left: 2px;
           height: 96%;
-          width: 95%;
+          width: 96%;
         }
 
         .card-image .card-image-inner {

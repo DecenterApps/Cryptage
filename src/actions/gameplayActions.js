@@ -3,14 +3,12 @@ import cardsPerLevel from '../constants/cardsPerLevel.json';
 import {
   DROP_LOCATION,
   SET_ACTIVE_LOCATION,
-  LOCATION_ITEM_DROP_SLOTS,
   USERS_CARDS_ERROR,
   DROP_ASSET,
   LOAD_STATE_FROM_STORAGE,
   USERS_CARDS_FETCH,
   USERS_CARDS_SUCCESS,
   CHANGE_GAMEPLAY_VIEW,
-  LEVEL_UP_CARD,
   DROP_MINER,
   DROP_PROJECT,
   CHANGE_PROJECT_STATE,
@@ -33,20 +31,27 @@ import ethService from '../services/ethereumService';
 import ipfsService from '../services/ipfsService';
 import {
   checkIfCanPlayCard,
-  getLevelValuesForCard,
   getSlotForContainer,
   handleCardMathematics,
   calcLocationPerDevBonus,
   handleBonusDevMechanics,
   assetReduceTimeForProjects,
+  getLevelCardBonusStatDiff,
+  getMathErrors,
 } from '../services/gameMechanicsService';
 import {
-  saveGameplayState, updateLocationDropSlotItems, removePlayedCards,
-  calcDataForNextLevel, updateContainerDropSlotItems, getCardAtContainer,
+  saveGameplayState,
+  updateLocationDropSlotItems,
+  removePlayedCards,
+  updateContainerDropSlotItems,
+  getCardAtContainer,
+  updateLocationsDropSlots,
+  updateProjectsDropSlots,
 } from '../services/utils';
 
 import { packMoves, readState } from '../services/stateService';
 import { openNewLevelModal, openNoRestartProjectModal } from './modalActions';
+import { levelUpLocation, levelUpProject, levelUpAsset, levelUpMiner } from './levelUpActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -79,7 +84,7 @@ const getNewLevelCards = (level, cards) => {
     if (cardTypes) {
       const newLevelCards = cardTypes.map((metadataId, index) => ({
         id: minId - (index + 1),
-        stats: fetchCardStats(metadataId),
+        stats: fetchCardStats(metadataId, 1),
         metadata: { id: metadataId.toString() },
       }));
 
@@ -189,47 +194,20 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   let locations = [...gameplay.locations];
   let globalStats = { ...gameplay.globalStats };
   const cards = [...gameplay.cards];
+  const { lastDroppedItem } = locations[index];
 
-  const play = checkIfCanPlayCard(item.card.stats, globalStats);
-  if (!play) return;
+  if (!checkIfCanPlayCard(item.card.stats, globalStats)) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
 
-  if (!locations[index].lastDroppedItem) {
-    // location drop when slot is empty
-    locations = update(locations, {
-      [index]: {
-        // only allow the card type that has been dropped now to be dropped again
-        accepts: { $set: [] },
-        lastDroppedItem: {
-          $set: {
-            level: 1,
-            canLevelUp: false,
-            values: { ...item.card.stats.values },
-            dropSlots: LOCATION_ITEM_DROP_SLOTS,
-            cards: [{ ...item.card, index }],
-          },
-        },
-      },
-    });
-  } else {
-    // location drop when there is/are already a card/cards in the slot
-    const { lastDroppedItem } = locations[index];
-    const { level, cards } = lastDroppedItem;
+  // location drop when slot is empty
+  if (!lastDroppedItem) locations = updateLocationsDropSlots(locations, index, item);
+  // location drop when there is/are already a card/cards in the slot (level-up)
+  else locations = levelUpLocation(locations, index, lastDroppedItem, item.card);
 
-    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
-    if (nextLevelPercent === 100) {
-      locations[index].lastDroppedItem.canLevelUp = true;
-      // disable drop when level up is available
-      locations[index].accepts = [];
-    }
-
-    locations[index].lastDroppedItem.cards.push({ ...item.card });
-  }
-
-  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, index);
-  ({ locations, globalStats } = mathRes);
+  const { mainCard } = locations[index].lastDroppedItem;
+  ({ locations, globalStats } = handleCardMathematics(mainCard, locations, gameplay.globalStats, index));
 
   dispatch({
     type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
@@ -247,66 +225,30 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
  * @return {Function}
  */
 export const handleProjectDrop = (index, item) => (dispatch, getState) => {
-  const { gameplay, app } = getState();
-  const { projects, globalStats, cards } = gameplay;
+  const { gameplay } = getState();
+
+  let projects = [...gameplay.projects];
+  let globalStats = { ...gameplay.globalStats };
+  const cards = [...gameplay.cards];
+  const { lastDroppedItem } = projects[index];
 
   if (!checkIfCanPlayCard(item.card.stats, globalStats)) return;
+  if (lastDroppedItem && lastDroppedItem.isActive) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
-  const alteredProjects = [...projects];
-  let cardsLeft = cards;
+  cards.splice(draggedCardIndex, 1);
 
-  if ((projects[index].lastDroppedItem && !projects[index].lastDroppedItem.isActive) ||
-    (!projects[index].lastDroppedItem)) {
-    cardsLeft = [
-      ...cards.slice(0, draggedCardIndex),
-      ...cards.slice(draggedCardIndex + 1),
-    ];
+  // location drop when slot is empty
+  if (!lastDroppedItem) projects = updateProjectsDropSlots(projects, index, item, gameplay.blockNumber);
+  // project drop when there is/are already a card/cards in the slot and the slot is not active
+  if (lastDroppedItem && !lastDroppedItem.isActive) {
+    projects = levelUpProject(projects, index, lastDroppedItem, item.card);
   }
 
-  if (!projects[index].lastDroppedItem) {
-    // location drop when slot is empty
-    alteredProjects[index] = {
-      // only allow the card type that has been dropped now to be dropped again
-      accepts: [],
-      lastDroppedItem: {
-        level: 1,
-        canLevelUp: false,
-        values: { ...item.card.stats.values },
-        cards: [{ ...item.card, index }],
-        isActive: true,
-        isFinished: false,
-        timeDecrease: 0,
-        expiryTime: gameplay.blockNumber + item.card.stats.cost.time,
-        timesFinished: 0,
-        modifiedFundsBonus: 0,
-      },
-      slotType: 'project',
-    };
-  } else if (!projects[index].lastDroppedItem.isActive) {
-    // location drop when there is/are already a card/cards in the slot
-    // handle level up here
-    const { lastDroppedItem } = alteredProjects[index];
-    const { level, cards } = lastDroppedItem;
+  const { mainCard } = projects[index].lastDroppedItem;
+  ({ globalStats } = handleCardMathematics(mainCard, [], globalStats, index));
 
-    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
-    if (nextLevelPercent === 100) {
-      alteredProjects[index].lastDroppedItem.canLevelUp = true;
-      // disable drop when level up is available
-      alteredProjects[index].accepts = [];
-    }
-
-    alteredProjects[index].lastDroppedItem.cards.push({ ...item.card });
-  }
-  const mathRes = handleCardMathematics(item.card, [], gameplay.globalStats, index);
-  const alterGlobalStats = mathRes.globalStats;
-
-  dispatch({
-    type: DROP_PROJECT,
-    projects: alteredProjects,
-    cards: cardsLeft,
-    globalStats: alterGlobalStats,
-  });
+  dispatch({ type: DROP_PROJECT, projects, cards, globalStats }); // eslint-disable-line
   saveGameplayState(getState);
 };
 
@@ -322,12 +264,14 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const { projects, globalStats } = getState().gameplay;
   const alteredProjects = [...projects];
 
-  if (!checkIfCanPlayCard(card.stats, globalStats)) return dispatch(openNoRestartProjectModal());
+  if (!checkIfCanPlayCard(card.stats, globalStats)) {
+    return dispatch(openNoRestartProjectModal(getMathErrors(card.stats, globalStats)));
+  }
 
   alteredProjects[index].lastDroppedItem.isFinished = false;
   alteredProjects[index].lastDroppedItem.isActive = true;
   alteredProjects[index].lastDroppedItem.expiryTime = blockNumber +
-    alteredProjects[index].lastDroppedItem.cards[0].stats.cost.time;
+    alteredProjects[index].lastDroppedItem.mainCard.stats.cost.time;
 
   const mathRes = handleCardMathematics(card, [], globalStats, index);
   const alterGlobalStats = mathRes.globalStats;
@@ -359,37 +303,6 @@ export const activateProject = (card, index) => (dispatch, getState) => {
 };
 
 /**
- * Fires when the user clicks the level up button on the project card
- * which appears When the project has enough stacked cards to level up
- *
- * @param {Number} index
- * @return {Function}
- */
-export const levelUpProject = index => (dispatch, getState) => {
-  const gameplay = { ...getState().gameplay };
-  if (gameplay.globalStats.funds === 0) return alert('Not enough funds');
-
-  const projects = [...gameplay.projects];
-  const globalStats = { ...gameplay.globalStats };
-
-  const { level, cards } = projects[index].lastDroppedItem;
-  const newCardStats = getLevelValuesForCard(cards[0].metadata.id, level + 1);
-
-  const play = checkIfCanPlayCard(newCardStats, globalStats);
-  if (!play) return;
-
-  projects[index].lastDroppedItem.level += 1;
-  projects[index].lastDroppedItem.canLevelUp = false;
-
-  globalStats.development -= projects[index].lastDroppedItem.level > 1 ? getLevelValuesForCard(
-    parseInt(projects[index].lastDroppedItem.cards[0].metadata.id, 10),
-    projects[index].lastDroppedItem.level,
-  ) : projects[index].lastDroppedItem.cards[0].stats.cost.development;
-
-  dispatch({ type: LEVEL_UP_CARD, payload: { projects, globalStats } });
-};
-
-/**
  * Checks if dropped card should update global fpb
  *
  * @param {Number} _fpb
@@ -403,25 +316,24 @@ export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOr
   let fpb = _fpb;
 
   if (card.stats && (card.stats.type === 'Mining' || card.metadata.id === '18' || card.metadata.id === '22')) { // eslint-disable-line
-    if (addOrReduce) fpb += card.stats.bonus.funds;
+    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'funds');
     else fpb -= card.stats.bonus.funds;
   }
 
   if (card.stats && card.metadata.id === '23') {
-    if (addOrReduce) fpb += card.stats.bonus.multiplierFunds;
+    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
     else fpb -= card.stats.bonus.multiplierFunds;
   }
 
   // Special mechanics for card with id 26, Adds fpb when completed;
-  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '26') {
-    const { timesFinished, cards } = card;
-    const multiplier = cards[0].stats.bonus.multiplierFunds;
+  if (card.mainCard && card.mainCard.metadata.id === '26') {
+    const { timesFinished, mainCard } = card;
 
-    if (addOrReduce === true) fpb += multiplier;
-    else fpb -= (timesFinished * multiplier);
+    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
+    else fpb -= (timesFinished * mainCard.stats.bonus.multiplierFunds);
   }
 
-  if ((card.cards && card.cards.length > 0) && card.cards[0].metadata.id === '27') {
+  if (card.mainCard && card.mainCard.metadata.id === '27') {
     if (addOrReduce) fpb += numToAddOrReduce;
     else fpb -= numToAddOrReduce;
   }
@@ -446,8 +358,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   let globalStats = { ...gameplay.globalStats };
   const metaDataId = item.card.metadata.id;
 
-  const play = checkIfCanPlayCard(item.card.stats, globalStats, locations[activeLocationIndex].lastDroppedItem);
-  if (!play) return;
+  if (!checkIfCanPlayCard(item.card.stats, globalStats, locations[activeLocationIndex].lastDroppedItem)) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -465,12 +376,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       special = cardEffect.bonus;
     }
 
-    // handle hacker unique special case
-    if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
-      globalStats.development += item.card.stats.bonus.development;
-    }
-
-    if (metaDataId === '40') dispatch(assetReduceTimeForProjects(item));
+    if (metaDataId === '40' || metaDataId === '17') dispatch(assetReduceTimeForProjects(item));
 
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
@@ -480,26 +386,21 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
     }
   } else {
-    // TODO put in separate function
     // handle asset level up here
-    const { lastDroppedItem } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index];
-    const { level, cards } = lastDroppedItem;
-
-    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
-
-    if (nextLevelPercent === 100) {
-      locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.canLevelUp = true;
-      // // disable drop when level up is available
-      locations[activeLocationIndex].lastDroppedItem.dropSlots[index].accepts = [];
-    }
-
-    locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...item.card });
+    locations = levelUpAsset(locations, activeLocationIndex, index, item.card);
   }
 
-  const mathRes = handleCardMathematics(item.card, locations, globalStats, activeLocationIndex);
+  const { mainCard } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem;
+  const mathRes = handleCardMathematics(mainCard, locations, globalStats, activeLocationIndex);
+
   ({ locations, globalStats } = mathRes);
 
-  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, item.card, true);
+  // special cards that need their development to be added to globalStats
+  if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
+    globalStats.development += getLevelCardBonusStatDiff(mainCard, 'development');
+  }
+
+  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
 
   dispatch({
     type: DROP_ASSET, locations, cards, globalStats, fundsPerBlock,
@@ -555,149 +456,25 @@ export const updateFundsBlockDifference = () => async (dispatch, getState) => {
   }
 };
 
-/**
- * Fires when the user clicks the level up button on the location card
- * which appears when the location has enough stacked cards to level up
- *
- * @param {Number} index
- * @return {Function}
- */
-export const levelUpLocation = index => (dispatch, getState) => {
-  const gameplay = { ...getState().gameplay };
-
-  let locations = [...gameplay.locations];
-  let globalStats = { ...gameplay.globalStats };
-
-  const { level, cards } = locations[index].lastDroppedItem;
-  const newCardStats = getLevelValuesForCard(cards[0].metadata.id, level + 1);
-
-  const play = checkIfCanPlayCard(newCardStats, globalStats);
-  if (!play) return;
-
-  locations[index].lastDroppedItem.cards[0].stats = { ...cards[0].stats, ...newCardStats };
-
-  locations[index].lastDroppedItem.level += 1;
-  locations[index].lastDroppedItem.canLevelUp = false;
-  locations[index].accepts = [cards[0].metadata.id];
-
-  const mathRes =
-    handleCardMathematics(locations[index].lastDroppedItem.cards[0], locations, gameplay.globalStats, index);
-  locations = mathRes.locations;
-  globalStats = mathRes.globalStats;
-
-  dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
-  saveGameplayState(getState);
-};
-
-/**
- * Fires when the user clicks the level up button on a miner card
- * which appears when the miner has enough stacked cards to level up
- *
- * @param {Number} locationIndex
- * @param {Number} containerIndex
- * @param {Number} cardIndex
- */
-export const levelUpContainedCard = (locationIndex, containerIndex, cardIndex) => (dispatch, getState) => {
-  const gameplay = { ...getState().gameplay };
-
-  let locations = [...gameplay.locations];
-  let globalStats = { ...gameplay.globalStats };
-
-  const { lastDroppedItem } = locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem
-    .dropSlots[cardIndex];
-  const { level } = lastDroppedItem;
-  const card = lastDroppedItem.cards[0];
-  const newCardStats = getLevelValuesForCard(card.metadata.id, level + 1);
-
-  const play = checkIfCanPlayCard(newCardStats, globalStats);
-  if (!play) return;
-
-  locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-    .lastDroppedItem.cards[0].stats = { ...card.stats, ...newCardStats };
-  locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-    .lastDroppedItem.level += 1;
-  locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-    .lastDroppedItem.canLevelUp = false;
-  locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-    .accepts = [card.metadata.id];
-
-  const mathRes = handleCardMathematics(
-    locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex].lastDroppedItem.cards[0], // eslint-disable-line
-    locations,
-    gameplay.globalStats,
-    locationIndex,
-  );
-  locations = mathRes.locations;
-  globalStats = mathRes.globalStats;
-
-  dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
-  saveGameplayState(getState);
-};
-
-/**
- * Adds new drop slots to container drop slots based on bonus
- *
- * @param _locations
- * @param activeLocationIndex
- * @param index
- * @return {Array}
- */
-export const addDropSlotsToContainer = (_locations, activeLocationIndex, index) => {
-  const locations = [..._locations];
-  const containerDropSlots = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots;
-  const card = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0];
-  const newDropSlots = getSlotForContainer(card.metadata.id, card.stats.bonus.space);
-
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots =
-    [...containerDropSlots, ...newDropSlots];
-
-  return locations;
-};
-
-/**
- * Fires when the user clicks the level up button on the asset card
- * which appears When the location has enough stacked cards to level up
- *
- * @param {Number} activeLocationIndex
- * @param {Number} index
- * @return {Function}
- */
-export const levelUpAsset = (activeLocationIndex, index) => (dispatch, getState) => {
-  const gameplay = { ...getState().gameplay };
-
-  let locations = [...gameplay.locations];
-  let globalStats = { ...gameplay.globalStats };
-
-  const card = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0];
-  const { level } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem;
-  const newCardStats = getLevelValuesForCard(card.metadata.id, level + 1);
-
-  const play = checkIfCanPlayCard(newCardStats, globalStats);
-  if (!play) return;
-
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0].stats =
-    { ...card.stats, ...newCardStats };
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.level += 1;
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.canLevelUp = false;
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].accepts = [card.metadata.id];
-
-  if (card.stats.type === 'Container') {
-    locations = addDropSlotsToContainer(locations, activeLocationIndex, index);
-  }
-
-  const mathRes = handleCardMathematics(
-    locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards[0],
-    locations,
-    gameplay.globalStats,
-    activeLocationIndex,
-  );
-
-  locations = mathRes.locations;
-  globalStats = mathRes.globalStats;
-
-  dispatch({ type: LEVEL_UP_CARD, payload: { locations, globalStats } });
-  saveGameplayState(getState);
-};
+// /**
+//  * Adds new drop slots to container drop slots based on bonus
+//  *
+//  * @param _locations
+//  * @param activeLocationIndex
+//  * @param index
+//  * @return {Array}
+//  */
+// export const addDropSlotsToContainer = (_locations, activeLocationIndex, index) => {
+//   const locations = [..._locations];
+//   const containerDropSlots = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots;
+//   const card = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.mainCard;
+//   const newDropSlots = getSlotForContainer(card.metadata.id, card.stats.bonus.space);
+//
+//   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.dropSlots =
+//     [...containerDropSlots, ...newDropSlots];
+//
+//   return locations;
+// };
 
 /**
  * AKA third level drop
@@ -719,8 +496,7 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
   const slotItem = containerSlots[cardIndex].lastDroppedItem;
   const locationItem = locations[locationIndex].lastDroppedItem;
 
-  const play = checkIfCanPlayCard(item.card.stats, gameplay.globalStats, locationItem, true);
-  if (!play) return;
+  if (!checkIfCanPlayCard(item.card.stats, gameplay.globalStats, locationItem, true)) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -728,29 +504,15 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
   if (!slotItem) {
     locations = updateContainerDropSlotItems(locationIndex, containerIndex, cardIndex, item, containerSlots, locations);
   } else {
-    const { lastDroppedItem } =
-      locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex];
-    const { level, cards } = lastDroppedItem;
-
-    const nextLevelPercent = calcDataForNextLevel(cards.length + 1, level).percent;
-
-    if (nextLevelPercent === 100) {
-      locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-        .lastDroppedItem.canLevelUp = true;
-      // // disable drop when level up is available
-      locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem
-        .dropSlots[cardIndex].accepts = [];
-    }
-
-    locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-      .lastDroppedItem.cards.push({ ...item.card });
+    locations = levelUpMiner(locations, locationIndex, containerIndex, cardIndex, item.card);
   }
 
-  const mathRes = handleCardMathematics(item.card, locations, gameplay.globalStats, locationIndex);
+  const { mainCard } = locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex].lastDroppedItem; // eslint-disable-line
+  const mathRes = handleCardMathematics(mainCard, locations, gameplay.globalStats, locationIndex);
   const { globalStats } = mathRes;
   ({ locations } = mathRes);
 
-  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, item.card, true);
+  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
 
   dispatch({
     type: DROP_MINER, locations, cards, globalStats, fundsPerBlock,
@@ -782,7 +544,7 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
 
 // 0 za rig 1 za computer case
 export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
-  const card = item.card || item.cards[0];
+  const card = item.card || item.mainCard;
   const { app, gameplay } = getState();
 
   const {
@@ -841,7 +603,7 @@ export const submitNickname = ({ nickname }) => async (dispatch) => {
 
   const cards = cardsPerLevel[0].map((metadataId, index) => ({
     id: 0 - (index + 1),
-    stats: fetchCardStats(metadataId),
+    stats: fetchCardStats(metadataId, 1),
     metadata: { id: metadataId.toString() },
   }));
 
@@ -891,4 +653,25 @@ export const exitNotLocationsView = () => (dispatch, getState) => {
   if (!gameplay.nickname) toGoView = GP_NO_NICKNAME;
 
   dispatch(changeGameplayView(toGoView));
+};
+
+/**
+ * Checks if bonus for projects is still visible, disables it if it is.
+ */
+export const checkProjectsBonus = () => (dispatch, getState) => {
+  let changed = false;
+  let projects = [...getState().gameplay.projects];
+
+  projects = projects.map((_project) => {
+    const project = { ..._project };
+
+    if (project.lastDroppedItem && project.lastDroppedItem.showFpb) {
+      changed = true;
+      project.lastDroppedItem.showFpb = false;
+    }
+
+    return project;
+  });
+
+  if (changed) dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };

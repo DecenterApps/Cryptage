@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import { setActiveLocation, levelUpLocation } from '../../actions/gameplayActions';
+import { setActiveLocation } from '../../actions/gameplayActions';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
-import { calcDataForNextLevel, classForRarity } from '../../services/utils';
+import { classForRarity } from '../../services/utils';
 import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
+import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 
 import './LocationSidebarItem.scss';
 
@@ -35,35 +36,36 @@ class LocationSidebarItem extends Component {
 
   render() {
     const {
-      isOver, cards, slot, setActiveLocation, index, activeLocationIndex, gameplayView, level, canLevelUp,
-      levelUpLocation, openConfirmRemoveModal,
+      mainCard, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
+      globalStats, dragItem,
     } = this.props;
 
-    const { percent, remainingCardsToDropForNextLevel } = calcDataForNextLevel(cards.length, level);
+    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
+    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
 
     let fpb = 0;
 
     slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
       // get hackers and coffee miners fpb
-      if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '18') {
-        fpb += lastDroppedItem.cards[0].stats.bonus.funds;
+      if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '18') {
+        fpb += lastDroppedItem.mainCard.stats.bonus.funds;
       }
 
-      if ((lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '23')) {
-        fpb += lastDroppedItem.cards[0].stats.bonus.multiplierFunds;
+      if ((lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '23')) {
+        fpb += lastDroppedItem.mainCard.stats.bonus.multiplierFunds;
       }
 
       // get grid connector fpb
-      if (lastDroppedItem && lastDroppedItem.cards[0].metadata.id === '22') {
+      if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '22') {
         const { power } = slot.lastDroppedItem.values;
-        fpb += (power * lastDroppedItem.cards[0].stats.bonus.funds);
+        fpb += (power * lastDroppedItem.mainCard.stats.bonus.funds);
       }
 
       // get containers fpb
       if (lastDroppedItem && lastDroppedItem.dropSlots) {
         lastDroppedItem.dropSlots.forEach((containerSlot) => {
           if (containerSlot.lastDroppedItem) {
-            fpb += containerSlot.lastDroppedItem.cards[0].stats.bonus.funds;
+            fpb += containerSlot.lastDroppedItem.mainCard.stats.bonus.funds;
           }
         });
       }
@@ -73,11 +75,12 @@ class LocationSidebarItem extends Component {
       <div
         className={`
         location-sidebar-item-wrapper
-        ${isOver && 'hovering-with-card'}
+        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
+        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
       >
-        <HoverInfo card={cards[0]} center />
+        <HoverInfo card={mainCard} center />
 
         {
           (activeLocationIndex !== index) &&
@@ -99,29 +102,10 @@ class LocationSidebarItem extends Component {
             </div>
           </div>
         </div>
-        {
-          ((activeLocationIndex === index) && gameplayView === GP_LOCATION) && false &&
-          <svg className="location-progress-bar" viewBox="0 0 84 11">
-            <defs>
-              <clipPath id="location-sidebar-item-cut">
-                <polygon points="78.2,9 71.2,2 2,2 2,9 " />
-              </clipPath>
-            </defs>
-            <polygon className="progress-bar-outer" points="1,1 1,10 80,10 71,1" />
-            <rect
-              x="0"
-              y="0"
-              width={percent * 0.82}
-              height="11"
-              className="progress-bar"
-              clipPath="url(#location-sidebar-item-cut)"
-            />
-          </svg>
-        }
-        <div className={`rarity-border ${classForRarity(cards[0].stats.rarityScore)}`} />
+        <div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} />
         <div
           className="location-sidebar-item-inner-wrapper"
-          style={{ backgroundImage: `url('cardImages/${cards[0].stats.image}')` }}
+          style={{ backgroundImage: `url('cardImages/${mainCard.stats.image}')` }}
         >
           <div className="level-outer">
             <svg className="level-background">
@@ -133,58 +117,42 @@ class LocationSidebarItem extends Component {
               </defs>
               <polygon points="0,0 27,0 27,27" fill={`url(#sidebar-location-level-${index})`} />
             </svg>
-            <span className="level">{level}</span>
+            <span className="level">{mainCard.stats.level}</span>
           </div>
-          <div className="title">{cards[0].stats.title}</div>
+          <div className="title">{mainCard.stats.title}</div>
         </div>
-        {
-          !canLevelUp && false &&
-          <div className="level-up-tip">
-            Cards to drop for next level: {remainingCardsToDropForNextLevel}
-          </div>
-        }
-        {
-          canLevelUp && false &&
-          <button
-            className="level-up-button"
-            onClick={() => { levelUpLocation(index); }}
-          >
-            Upgrade to next level
-          </button>
-        }
       </div>
     );
   }
 }
 
 LocationSidebarItem.defaultProps = {
-  cards: [],
-  isOver: false,
+  mainCard: null,
+  dragItem: null,
 };
 
 LocationSidebarItem.propTypes = {
-  cards: PropTypes.array,
-  isOver: PropTypes.bool,
+  mainCard: PropTypes.object,
   setActiveLocation: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
   gameplayView: PropTypes.string.isRequired,
-  level: PropTypes.number.isRequired,
-  canLevelUp: PropTypes.bool.isRequired,
-  levelUpLocation: PropTypes.func.isRequired,
   openConfirmRemoveModal: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
   blockNumber: PropTypes.number.isRequired,
+  globalStats: PropTypes.object.isRequired,
+  dragItem: PropTypes.object,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
+  globalStats: gameplay.globalStats,
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, levelUpLocation, openConfirmRemoveModal,
+  setActiveLocation, openConfirmRemoveModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(LocationSidebarItem);
