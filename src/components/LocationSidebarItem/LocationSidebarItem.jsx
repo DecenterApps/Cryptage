@@ -8,6 +8,7 @@ import { GP_LOCATION } from '../../actions/actionTypes';
 import { classForRarity } from '../../services/utils';
 import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
+import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 
 import './LocationSidebarItem.scss';
 
@@ -35,8 +36,12 @@ class LocationSidebarItem extends Component {
 
   render() {
     const {
-      isOver, mainCard, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
+      mainCard, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
+      globalStats, dragItem,
     } = this.props;
+
+    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
+    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
 
     let fpb = 0;
 
@@ -70,7 +75,8 @@ class LocationSidebarItem extends Component {
       <div
         className={`
         location-sidebar-item-wrapper
-        ${isOver && 'hovering-with-card'}
+        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
+        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
       >
@@ -122,12 +128,11 @@ class LocationSidebarItem extends Component {
 
 LocationSidebarItem.defaultProps = {
   mainCard: null,
-  isOver: false,
+  dragItem: null,
 };
 
 LocationSidebarItem.propTypes = {
   mainCard: PropTypes.object,
-  isOver: PropTypes.bool,
   setActiveLocation: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
@@ -135,12 +140,15 @@ LocationSidebarItem.propTypes = {
   openConfirmRemoveModal: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
   blockNumber: PropTypes.number.isRequired,
+  globalStats: PropTypes.object.isRequired,
+  dragItem: PropTypes.object,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
+  globalStats: gameplay.globalStats,
 });
 
 const mapDispatchToProp = {

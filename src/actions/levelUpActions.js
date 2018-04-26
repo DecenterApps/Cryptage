@@ -28,7 +28,7 @@ export const levelUpLocation = (_locations, index, lastDroppedItem, card) => {
 
   locations[index].lastDroppedItem.mainCard = newLevelCard;
 
-  if (!cardsConfig.cards[id][(level + 2).toString()]) locations[index].lastDroppedItem.accepts = [];
+  if (!cardsConfig.cards[id][(level + 2).toString()]) locations[index].accepts = [];
 
   return locations;
 };
@@ -53,7 +53,7 @@ export const levelUpProject = (_projects, index, lastDroppedItem, card) => {
   projects[index].lastDroppedItem.cards.push({ ...card });
   projects[index].lastDroppedItem.mainCard = newLevelCard;
 
-  if (!cardsConfig.cards[id][(level + 2).toString()]) projects[index].lastDroppedItem.accepts = [];
+  if (!cardsConfig.cards[id][(level + 2).toString()]) projects[index].accepts = [];
 
   return projects;
 };
@@ -80,7 +80,7 @@ export const levelUpAsset = (_locations, activeLocationIndex, index, card) => {
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.mainCard = newLevelCard;
 
   if (!cardsConfig.cards[id][(level + 2).toString()]) {
-    locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.accepts = [];
+    locations[activeLocationIndex].lastDroppedItem.dropSlots[index].accepts = [];
   }
 
   return locations;

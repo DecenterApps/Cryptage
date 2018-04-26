@@ -73,7 +73,7 @@ const getNewLevelCards = (level, cards) => {
   let minId = -1;
 
   if (cards.length > 0) {
-    cards.reduce((min, card) => card.id < min ? card.id : min, mainCard.id);  // eslint-disable-line
+    cards.reduce((min, card) => card.id < min ? card.id : min, cards[0].id);  // eslint-disable-line
   }
 
   let newCards = [];

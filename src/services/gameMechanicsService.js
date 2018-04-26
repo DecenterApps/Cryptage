@@ -844,3 +844,14 @@ export const checkIfInformationDealerDropped = assetCards =>
     if (card.metadata.id === '42') acc += card.stats.bonus.multiplierFunds;
     return acc;
   }, 0);
+
+/**
+ * Checks if user has enough funds to level lup card
+ *
+ * @param {Object} card
+ * @param {Object} globalStats
+ * @return {Number}
+ */
+export const checkIfCanLevelUp = (card, globalStats) =>
+  cardsConfig.cards[card.metadata.id][card.stats.level + 1] &&
+  (globalStats.funds >= cardsConfig.cards[card.metadata.id][card.stats.level + 1].cost.funds);
