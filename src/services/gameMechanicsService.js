@@ -152,6 +152,17 @@ const checkSlotsAvailableForCardType = (
 };
 
 /**
+ * Checks if user has enough funds to level lup card
+ *
+ * @param {Object} card
+ * @param {Object} globalStats
+ * @return {Number}
+ */
+export const checkIfCanLevelUp = (card, globalStats) =>
+  cardsConfig.cards[card.metadata.id][card.stats.level + 1] &&
+  (globalStats.funds >= cardsConfig.cards[card.metadata.id][card.stats.level + 1].cost.funds);
+
+/**
  * Checks if the cards the user wants to play can be played
  *
  * @param {Object} cardStats
@@ -355,7 +366,18 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
 
       if (!goodCardType) errors.special.push('You can\'t play this card here');
       if (goodCardType && !goodSlotType) errors.special.push('Can\'t play this miner in this container');
-      if (goodCardType && goodSlotType && !availableSlots) errors.special.push('No available slots in this container');
+      if (goodCardType && goodSlotType && !availableSlots) {
+        let numLevelUp = 0;
+
+        locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
+          .lastDroppedItem.dropSlots.forEach((containerDropSlot) => {
+            const { mainCard } = containerDropSlot.lastDroppedItem;
+            const draggingDuplicate = card.metadata.id === mainCard.metadata.id;
+            if (draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats)) numLevelUp += 1;
+          });
+
+        if (numLevelUp === 0) errors.special.push('No available slots in this container');
+      }
     } else {
       if (!goodCardType) errors.special.push('You can\'t play this card here');
       if (goodCardType && !availableSlots) errors.special.push('No available slots');
@@ -844,14 +866,3 @@ export const checkIfInformationDealerDropped = assetCards =>
     if (card.metadata.id === '42') acc += card.stats.bonus.multiplierFunds;
     return acc;
   }, 0);
-
-/**
- * Checks if user has enough funds to level lup card
- *
- * @param {Object} card
- * @param {Object} globalStats
- * @return {Number}
- */
-export const checkIfCanLevelUp = (card, globalStats) =>
-  cardsConfig.cards[card.metadata.id][card.stats.level + 1] &&
-  (globalStats.funds >= cardsConfig.cards[card.metadata.id][card.stats.level + 1].cost.funds);
