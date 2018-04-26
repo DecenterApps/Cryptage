@@ -24,37 +24,39 @@ contract CryptageCards {
 		SpecialAbility specialAbility;
 		uint[] specialAbilityValues;
 	}
-	
+
 
 	struct CardAttributes {
 		CardCost cost;
 		CardGains gains;
 		CardType cardType;
+    	uint level;
 	}
-	
-	mapping(uint => CardAttributes) public cards;
-	
-	function getCardCost(uint _cardId) public view returns(CardCost) {
-	    return cards[_cardId].cost;
+
+	mapping(uint => mapping(uint => CardAttributes)) public cards;
+
+	function getCardCost(uint _cardId, uint _level) public view returns(CardCost) {
+	    return cards[_cardId][_level].cost;
 	}
-	
-    function getCardGains(uint _cardId) public view returns(CardGains) {
-	    return cards[_cardId].gains;
+
+    function getCardGains(uint _cardId, uint _level) internal view returns(CardGains) {
+	    return cards[_cardId][_level].gains;
 	}
-	
-	function getCardType(uint _cardId) public view returns(CardType) {
-	    return cards[_cardId].cardType;
+
+	function getCardType(uint _cardId, uint _level) public view returns(CardType) {
+	    return cards[_cardId][_level].cardType;
 	}
 
 	function addCard(
 	    uint _cardId,
 	    uint _type,
+      	uint _level,
 	    uint[] _costs,
 	    uint[] _gains,
-		uint[] _specialAbilityValues
+	    uint[] _specialAbilityValues
 		) public {
-		
-		cards[_cardId] = CardAttributes({
+
+		cards[_cardId][_level] = CardAttributes({
 			cost: CardCost({
 				dev: _costs[0],
 				funds: _costs[1],
@@ -72,8 +74,9 @@ contract CryptageCards {
 				specialAbility: SpecialAbility.DEFAULT,
 				specialAbilityValues: _specialAbilityValues
 				}),
-			cardType: CardType(_type)
+			cardType: CardType(_type),
+            level: _level
 			});
 	}
-	
+
 }
