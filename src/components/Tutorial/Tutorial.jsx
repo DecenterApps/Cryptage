@@ -90,6 +90,28 @@ class Tutorial extends Component {
                   ${this.state.pagesInView.indexOf(index) !== -1 ? 'in-view' : ''}`}
               >
                 <img src={`./tutorialImages/${page}`} alt="" />
+                {
+                  page === 'Step 07.14.jpg' &&
+                  <p className="overlay-text">
+                    Congratulations, you have now learned all the basics of Cryptage Origins
+                    gameplay! But this certainly doesn’t mean there aren’t further surprises and
+                    hidden gems laying around waiting to be discovered. You can keep advancing
+                    through the levels naturally and see which new cards will be unlocked, but if
+                    you are impatient you can always buy card packs and speed up your progress. And
+                    since we are still on the Kovan test network, that’s not expensive at all :) You
+                    can use our <a
+                      href="https://faucet.selenean.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >faucet
+                    </a> to obtain some free kETH.
+                    <br /><br />
+                    Also, don’t forget to check the leaderboard to see how you rank compared to
+                    other players (available in the drop-down menu in the top right corner). But
+                    first you will need to save your progress on the blockchain by clicking on the
+                    SAVE button. Try it now!
+                  </p>
+                }
               </div>
             ))
           }

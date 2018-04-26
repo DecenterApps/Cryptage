@@ -15,6 +15,10 @@ contract StateCodec {
     uint developmentLeft;
     // uint32
     uint blockNumber;
+    // uint8
+    uint projectTimePercentageDecrese;
+    // uint8
+    uint miningPercentageBonus;
     Location[6] locations;
     Project[10] projects;
   }
@@ -47,12 +51,24 @@ contract StateCodec {
     // uint8
     uint cpuCount;
     // uint8
-    uint gpuCount;
+    uint classicGpuCount;
+    // uint8
+    uint holographicGpuCount;
+    // uint8
+    uint corporateGpuCount;
+    // uint8
+    uint printerGpuCount;
   }
 
   struct RigCase {
     // uint8
-    uint gpuCount;
+    uint classicGpuCount;
+    // uint8
+    uint holographicGpuCount;
+    // uint8
+    uint corporateGpuCount;
+    // uint8
+    uint printerGpuCount;
   }
 
   struct MountCase {
@@ -84,9 +100,32 @@ contract StateCodec {
   function test() public pure returns(bool) {
     Location[6] memory locations;
 
-    Power[] memory powers;
-    ComputerCase[] memory computerCases;
-    RigCase[] memory rigCases;
+    Power[] memory powers = new Power[](1);
+    powers[0] = Power({
+      card: 123,
+      count: 1
+      });
+    ComputerCase[] memory computerCases = new ComputerCase[](1);
+    computerCases[0] = ComputerCase({
+      cpuCount: 1,
+      classicGpuCount: 1,
+      holographicGpuCount: 1,
+      corporateGpuCount: 1,
+      printerGpuCount: 1
+      });
+    RigCase[] memory rigCases = new RigCase[](2);
+    rigCases[0] = RigCase({
+      classicGpuCount:2,
+      holographicGpuCount: 1,
+      corporateGpuCount: 1,
+      printerGpuCount: 1
+      });
+    rigCases[1] = RigCase({
+      classicGpuCount:3,
+      holographicGpuCount: 1,
+      corporateGpuCount: 1,
+      printerGpuCount: 1
+      });
     MountCase[] memory mountCases;
     Developer[] memory developers;
     SpecialCard[] memory specialCards;
@@ -114,6 +153,18 @@ contract StateCodec {
       developers: developers,
       specialCards: specialCards
       });
+    locations[3] = Location({
+      card: 123,
+      numberOfCards: 123,
+      spaceLeft: 123,
+      powerLeft: 123,
+      powers: powers,
+      computerCases: computerCases,
+      rigCases: rigCases,
+      mountCases: mountCases,
+      developers: developers,
+      specialCards: specialCards
+      });
     Project[10] memory projects;
     projects[0] = Project({
       card: 123,
@@ -127,12 +178,18 @@ contract StateCodec {
       card: 123,
       timeLeft: 123
       });
+    projects[9] = Project({
+      card: 123,
+      timeLeft: 123
+      });
     State memory state = State({
       funds: 123,
       fundsPerBlock: 123,
       experience: 123,
       developmentLeft: 123,
       blockNumber: 123,
+      projectTimePercentageDecrese: 0,
+      miningPercentageBonus: 0,
       locations: locations,
       projects: projects
       });
@@ -168,13 +225,13 @@ contract StateCodec {
 
       for (j = 0; j < state.locations[i].computerCases.length; j++) {
         if (state.locations[i].computerCases[j].cpuCount != newState.locations[i].computerCases[j].cpuCount ||
-        state.locations[i].computerCases[j].gpuCount != newState.locations[i].computerCases[j].gpuCount) {
+        state.locations[i].computerCases[j].classicGpuCount != newState.locations[i].computerCases[j].classicGpuCount) {
           return false;
         }
       }
 
       for (j = 0; j < state.locations[i].rigCases.length; j++) {
-        if (state.locations[i].rigCases[j].gpuCount != newState.locations[i].rigCases[j].gpuCount) {
+        if (state.locations[i].rigCases[j].classicGpuCount != newState.locations[i].rigCases[j].classicGpuCount) {
           return false;
         }
       }
@@ -203,7 +260,7 @@ contract StateCodec {
 
     for (i = 0; i < 10; i++) {
       if (state.projects[i].card != newState.projects[i].card ||
-        state.projects[i].timeLeft != newState.projects[i].timeLeft) {
+      state.projects[i].timeLeft != newState.projects[i].timeLeft) {
       }
     }
 
@@ -227,14 +284,14 @@ contract StateCodec {
       capacity += 1 + locationCount[i];
     }
 
-    bytes memory buffer = new bytes(capacity);
-
-    uint position = 1;
-
     uint data = state.funds * (2 << 207) + state.fundsPerBlock * (2 << 191) +
     state.experience * (2 << 159) + state.developmentLeft * (2 << 143) +
-    state.blockNumber * (2 << 111);
+    state.blockNumber * (2 << 111) + state.projectTimePercentageDecrese * (2 << 103);
+    data += state.miningPercentageBonus * (2 << 95);
+
+    uint position = 1;
     uint size = 18;
+    bytes memory buffer = new bytes(capacity);
 
     for (i = 0; i < 6; i++) {
       (position, data, size) = append(buffer, position, data, locationCount[i], size, 1);
@@ -253,12 +310,18 @@ contract StateCodec {
         (position, data, size) = append(buffer, position, data, state.locations[i].computerCases.length, size, 1);
         for (j = 0; j < state.locations[i].computerCases.length; j++) {
           (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].cpuCount, size, 1);
-          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].gpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].classicGpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].holographicGpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].corporateGpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].printerGpuCount, size, 1);
         }
 
         (position, data, size) = append(buffer, position, data, state.locations[i].rigCases.length, size, 1);
         for (j = 0; j < state.locations[i].rigCases.length; j++) {
-          (position, data, size) = append(buffer, position, data, state.locations[i].rigCases[j].gpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].classicGpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].holographicGpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].corporateGpuCount, size, 1);
+          (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].printerGpuCount, size, 1);
         }
 
         (position, data, size) = append(buffer, position, data, state.locations[i].mountCases.length, size, 1);
@@ -293,7 +356,11 @@ contract StateCodec {
       data += (nextData >> ((size + nextSize - 32) * 8));
       assembly { mstore(add(buffer, mul(position, 32)), data) }
       size = (size + nextSize - 32);
-      data = nextData & (uint(2) << (size * 8)) - 1;
+      if (size != 0) {
+        data = nextData & (uint(2) << (size * 8)) - 1;
+      } else {
+        data = 0;
+      }
       position += 1;
     } else {
       size = size + nextSize;
@@ -316,6 +383,8 @@ contract StateCodec {
       experience: 0,
       developmentLeft: 0,
       blockNumber: 0,
+      projectTimePercentageDecrese: 0,
+      miningPercentageBonus: 0,
       locations: locations,
       projects: projects
       });
@@ -325,6 +394,8 @@ contract StateCodec {
     (position, state.experience, size) = read(buffer, position, size, 4);
     (position, state.developmentLeft, size) = read(buffer, position, size, 2);
     (position, state.blockNumber, size) = read(buffer, position, size, 4);
+    (position, state.projectTimePercentageDecrese, size) = read(buffer, position, size, 1);
+    (position, state.miningPercentageBonus, size) = read(buffer, position, size, 1);
     for (uint i = 0; i < 6; i++) {
       uint locationCount;
       (position, locationCount, size) = read(buffer, position, size, 1);
@@ -346,13 +417,19 @@ contract StateCodec {
         state.locations[i].computerCases = new ComputerCase[](count);
         for (j = 0; j < count; j++) {
           (position, state.locations[i].computerCases[j].cpuCount, size) = read(buffer, position, size, 1);
-          (position, state.locations[i].computerCases[j].gpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].computerCases[j].classicGpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].computerCases[j].holographicGpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].computerCases[j].corporateGpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].computerCases[j].printerGpuCount, size) = read(buffer, position, size, 1);
         }
 
         (position, count, size) = read(buffer, position, size, 1);
         state.locations[i].rigCases = new RigCase[](count);
         for (j = 0; j < count; j++) {
-          (position, state.locations[i].rigCases[j].gpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].rigCases[j].classicGpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].computerCases[j].holographicGpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].computerCases[j].corporateGpuCount, size) = read(buffer, position, size, 1);
+          (position, state.locations[i].computerCases[j].printerGpuCount, size) = read(buffer, position, size, 1);
         }
 
         (position, count, size) = read(buffer, position, size, 1);
@@ -394,12 +471,12 @@ contract StateCodec {
     if (size + nextSize >= 32) {
       uint secondData;
       position += 1;
-      returnData = (data & (uint(2) << (((32 - size) * 8) - 1))) << ((size + nextSize - 32) * 8);
+      returnData = (data & ((uint(2) << ((32 - size) * 8 - 1)) - 1)) << ((size + nextSize - 32) * 8);
       if (size + nextSize != 32) {
         assembly {
           secondData := mload(add(buffer, mul(position, 32)))
         }
-        returnData += (secondData & (uint(2) << ((size + nextSize - 32) * 8 - 1) * ((uint(2) << (8 * nextSize)) - 1))) / (uint(2) << ((size + nextSize - 32) * 8 - 1));
+        returnData += (secondData & (uint(2) << ((size + nextSize - 32) * 8 - 1) * ((uint(2) << (8 * nextSize - 1)) - 1))) / (uint(2) << ((size + nextSize - 32) * 8 - 1));
       }
       size = size + nextSize - 32;
     } else {

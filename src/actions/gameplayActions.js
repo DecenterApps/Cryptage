@@ -420,15 +420,12 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   const payload = JSON.parse(localStorage.getItem(`player-location-${account}`));
 
   if (!payload) {
-    // const currState = await ethService.getState();
-    // console.log(readState(currState));
+    // TODO
+    // Check to see if the user has already saved the state
+    // const state = await ipfsService.getFileStream('ipfsHash');
 
-    // // TODO: better check for inital state
-    // if (readState(currState).funds === 150) {
-    //   return;
-    // }
-
-    // payload = createGameplayState(readState(currState));
+    // console.log(state.toString('utf8'));
+    // Get ipfs hash and pull the content
     return;
   }
 
@@ -625,7 +622,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
     return;
   }
 
-  const packedMoves = packMoves(gameplay.playedTurns);
+  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber);
 
   console.log('Packed Moves: ', packedMoves);
 

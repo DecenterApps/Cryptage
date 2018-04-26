@@ -10,6 +10,7 @@ import cardsConfig from '../../../constants/cards.json';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 
 import './Collection.scss';
+import { fetchCardStats } from '../../../services/cardService';
 
 const cardsLength = Object.keys(cardsConfig.cards).length;
 
