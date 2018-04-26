@@ -4,7 +4,7 @@ pragma experimental ABIEncoderV2;
 contract CryptageCards {
 
     enum SpecialAbility { DEFAULT }
-	enum CardType { DEV, PROJECT, POWER, LOCATION, SPECIAL, COMPUTER_CASE, RIG_CASE, MOUNT_CASE }
+	enum CardType { DEV, PROJECT, POWER, LOCATION, SPECIAL, COMPUTER_CASE, RIG_CASE, MOUNT_CASE, MINING, ASIC }
 
 	struct CardCost {
 		uint dev;

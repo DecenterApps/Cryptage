@@ -34,18 +34,20 @@ contract StateVerifier is StateCodec {
     	uint lastBlock = _moves[_moves.length - 1].blockNumber;
 
     	for(uint i=0; i<_moves.length; i++) {
+	    	// first update everything based on funds per block
+	    	_state.funds += (_moves[i].blockNumber - _state.blockNumber) * _state.fundsPerBlock;
+	    	// update all projects
+    		_state = updateProjects(_state, _moves[i]);
+
     		_state = _moves[i].shift ? playCard(_state, _moves[i], lastBlock) : removeCard(_state, _moves[i]);
+
+    		// set new block number at the end
+			_state.blockNumber = _moves[i].blockNumber;
     	}
     }
 
     function playCard(State memory _state, Move memory _move, uint _lastBlock) internal returns(State) {
     		
-    	// first update everything based on funds per block
-    	_state.funds += (_move.blockNumber - _state.blockNumber) * _state.fundsPerBlock;
-    	// update all projects
-    	_state = updateProjects(_state, _move);
-
-
 		//                  all of this is needed for each card
 		// ------------------------------------------------------------------------------
 		// ------------------------------------------------------------------------------
@@ -157,36 +159,135 @@ contract StateVerifier is StateCodec {
 				_state.locations[_move.location].computerCases[i] = computerCases[i];
 			}
 		
+		    uint[computerCaseMinersCount] memory counts;
 			_state.locations[_move.location].computerCases[computerCases.length] = ComputerCase({
-				cpuCount: 0,
-				classicGpuCount: 0,
-				holographicGpuCount: 0,
-				corporateGpuCount: 0,
-				printerGpuCount: 0
+                counts: counts
 			});
 		}
 
-    	// set new block number at the end
-		_state.blockNumber = _move.blockNumber;
+		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.MOUNT_CASE)) {
+			StateCodec.MountCase[] memory mountCases = _state.locations[_move.location].mountCases;
+			_state.locations[_move.location].mountCases = new StateCodec.MountCase[](mountCases.length + 1);
+			for(i=0; i<mountCases.length; i++) {
+				_state.locations[_move.location].mountCases[i] = mountCases[i];
+			}
+		
+			_state.locations[_move.location].mountCases[mountCases.length] = MountCase({
+				asicCount: 0
+			});
+		}
+
+		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.ASIC)) {
+			require(_state.locations[_move.location].mountCases.length > _move.containerIndex);
+			require(_state.locations[_move.location].mountCases[_move.containerIndex].asicCount < 6);
+
+			_state.locations[_move.location].mountCases[_move.containerIndex].asicCount++;
+		}
+
+		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.RIG_CASE)) {
+			StateCodec.RigCase[] memory rigCases = _state.locations[_move.location].rigCases;
+			_state.locations[_move.location].rigCases = new StateCodec.RigCase[](rigCases.length + 1);
+			for(i=0; i<rigCases.length; i++) {
+				_state.locations[_move.location].rigCases[i] = rigCases[i];
+			}
+		
+		   uint[rigCaseMinersCount] memory counts2;
+			_state.locations[_move.location].rigCases[rigCases.length] = RigCase({
+				counts: counts2
+			});
+		}
+
+		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.MINING)) {
+
+			if (_move.gpuOption == false) {
+				uint pos = computerCaseMiners.length;
+				uint totalCount = 0;
+				for (i=0; i<computerCaseMiners.length; i++) {
+					totalCount += _state.locations[_move.location].computerCases[_move.containerIndex].counts[i];
+					if (computerCaseMiners[i] == _move.card) {
+						pos = i;
+					}
+				}
+
+				require(pos < computerCaseMiners.length);
+				require(totalCount < 2);
+				
+				_state.locations[_move.location].computerCases[_move.containerIndex].counts[pos]++;
+			} else {
+
+				pos = rigCaseMiners.length;
+				totalCount = 0;
+				for (i=0; i<rigCaseMiners.length; i++) {
+					totalCount += _state.locations[_move.location].rigCases[_move.containerIndex].counts[i];
+					if (rigCaseMiners[i] == _move.card) {
+						exists = true;
+					}
+				}
+
+				require(pos < rigCaseMiners.length);
+				require(totalCount < 6);
+				
+				_state.locations[_move.location].rigCases[_move.containerIndex].counts[pos]++;
+			}
+		}
     	
     	return _state;
     }
 
     function removeCard(State memory _state, Move memory _move) internal returns(State) {
-    	if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.SpecialAbility.DEFAULT)) {
-
-			CryptageCards.CardGains memory cardGains = cryptageCards.getCardGains(_move.card);
-
-			require(_state.developmentLeft - cardGains.dev >= 0);
-			require(_state.locations[_move.location].powerLeft - cardGains.power >= 0);
-			require(_state.locations[_move.location].spaceLeft - cardGains.space >= 0);
-
-			_state.fundsPerBlock -= cardGains.funds;
-			_state.developmentLeft -= cardGains.dev;
-			_state.locations[_move.location].powerLeft -= cardGains.power;
-			_state.locations[_move.location].spaceLeft -= cardGains.space;
-    	}
     	
+    	//                  all of this is needed for each card
+		// ------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------
+		CryptageCards.CardGains memory cardGains = cryptageCards.getCardGains(_move.card);
+
+		require(_state.developmentLeft - cardGains.dev >= 0);
+		require(_state.locations[_move.location].powerLeft - cardGains.power >= 0);
+		require(_state.locations[_move.location].spaceLeft - cardGains.space >= 0);
+
+		_state.fundsPerBlock -= cardGains.funds;
+		_state.developmentLeft -= cardGains.dev;
+		_state.locations[_move.location].powerLeft -= cardGains.power;
+		_state.locations[_move.location].spaceLeft -= cardGains.space;
+		// ------------------------------------------------------------------------------
+		// ------------------------------------------------------------------------------
+    	
+    	if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.LOCATION)) {
+    		require(_state.locations[_move.location].numberOfCards == 0);
+    	}
+
+    	if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.POWER)) {
+    		bool exists = false;
+    		for(uint i=0; i<_state.locations[_move.location].powers.length; i++) {
+    			if (_state.locations[_move.location].powers[i].card == _move.card) {
+    				exists = true;
+    				break;
+    			}
+    		}
+    		
+    		require(exists);
+    		require(_state.locations[_move.location].powers[i].count > 0);
+
+    		_state.locations[_move.location].powers[i].count--;
+		}
+
+		if (uint(cryptageCards.getCardType(_move.card)) == uint(CryptageCards.CardType.DEV)) {
+    		exists = false;
+    		for(i=0; i<_state.locations[_move.location].developers.length; i++) {
+    			if (_state.locations[_move.location].developers[i].card == _move.card) {
+    				exists = true;
+    				break;
+    			}
+    		}
+
+    		require(exists);
+    		require (_state.locations[_move.location].developers[i].count > 0);
+    		
+    		_state.locations[_move.location].developers[i].count--;
+    	}
+
+		
+
     	return _state;
     }
 
