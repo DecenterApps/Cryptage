@@ -33,6 +33,7 @@ const HoverInfo = ({ card, center }) => {
         <div className="overlay" />
         <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
         <div className="title">{card.stats.title}</div>
+        <div className="level">{card.stats.level}</div>
         {
           card.stats.cost &&
           showCost &&

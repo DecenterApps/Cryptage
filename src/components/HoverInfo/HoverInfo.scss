@@ -41,6 +41,14 @@
       font-family: $font-secondary;
     }
 
+    .level {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      font-size: 14px;
+      z-index: 10;
+    }
+
     .overlay {
       position: absolute;
       top: 0;
