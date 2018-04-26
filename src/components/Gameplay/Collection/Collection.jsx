@@ -10,7 +10,6 @@ import cardsConfig from '../../../constants/cards.json';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 
 import './Collection.scss';
-import { fetchCardStats } from '../../../services/cardService';
 
 const cardsLength = Object.keys(cardsConfig.cards).length;
 
@@ -33,22 +32,32 @@ const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
 
     <div className="collection-cards-wrapper">
       {
-        range(0, cardsLength).map((cardIndex) => {
-          const foundCard = cards.find(card => (parseInt(card.metadata.id, 10) === cardIndex));
+        cardsConfig.cardTypes.map(cardType =>
+          Object.keys(cardsConfig.cards)
+            .filter(cardId => cardsConfig.cards[cardId]['1'].type === cardType)
+            .map(cardId => cardId)
+            .map((cardId) => {
+              const foundCard = cards.find(card => card.metadata.id === cardId);
 
-          if (foundCard) {
-            let occurences = 0;
-            cards.map((card) => {
-                if (parseInt(foundCard.metadata.id, 10) === parseInt(card.metadata.id, 10)) { occurences += 1; }
-            });
-            const newCard = cards.find(card =>
-              (parseInt(card.metadata.id, 10) === cardIndex) && newCardTypes.includes(card.metadata.id));
+              if (foundCard) {
+                const occurances = cards.reduce((acc, card) => {
+                  if (card.metadata.id === cardId) acc += 1;
+                  return acc;
+                }, 0);
 
-            return (<LargeCard showNew={Boolean(newCard)} key={cardIndex} card={foundCard} showCount duplicates={occurences} />);
-          }
+                const newCard = cards.find(card => (card.metadata.id === cardId) && newCardTypes.includes(card.metadata.id)); // eslint-disable-line
 
-          return (<div key={cardIndex} className="unknown" />);
-        })
+                return (<LargeCard
+                  showNew={Boolean(newCard)}
+                  key={cardId}
+                  card={foundCard}
+                  showCount
+                  duplicates={occurances}
+                />);
+              }
+
+              return (<div key={cardId} className="unknown" />);
+          }))
       }
     </div>
   </div>
