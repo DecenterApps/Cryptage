@@ -1,5 +1,4 @@
 pragma solidity ^0.4.22;
-pragma experimental ABIEncoderV2;
 
 contract CryptageCards {
 
@@ -24,24 +23,25 @@ contract CryptageCards {
 		SpecialAbility specialAbility;
 		uint[] specialAbilityValues;
 	}
-	
+
 
 	struct CardAttributes {
 		CardCost cost;
 		CardGains gains;
 		CardType cardType;
+    uint level;
 	}
-	
+
 	mapping(uint => CardAttributes) public cards;
-	
+
 	function getCardCost(uint _cardId) public view returns(CardCost) {
 	    return cards[_cardId].cost;
 	}
-	
-    function getCardGains(uint _cardId) public view returns(CardGains) {
+
+    function getCardGains(uint _cardId) internal view returns(CardGains) {
 	    return cards[_cardId].gains;
 	}
-	
+
 	function getCardType(uint _cardId) public view returns(CardType) {
 	    return cards[_cardId].cardType;
 	}
@@ -49,11 +49,12 @@ contract CryptageCards {
 	function addCard(
 	    uint _cardId,
 	    uint _type,
+      uint _level,
 	    uint[] _costs,
 	    uint[] _gains,
-		uint[] _specialAbilityValues
+		  uint[] _specialAbilityValues
 		) public {
-		
+
 		cards[_cardId] = CardAttributes({
 			cost: CardCost({
 				dev: _costs[0],
@@ -72,8 +73,9 @@ contract CryptageCards {
 				specialAbility: SpecialAbility.DEFAULT,
 				specialAbilityValues: _specialAbilityValues
 				}),
-			cardType: CardType(_type)
+			cardType: CardType(_type),
+            level: _level
 			});
 	}
-	
+
 }
