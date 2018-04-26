@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { formatBigNumber, classForRarity } from '../../services/utils';
+import { fpbCardIds } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
 
@@ -120,11 +121,7 @@ const HoverInfo = ({ card, center }) => {
               card.stats.bonus &&
               card.stats.bonus.funds > 0 &&
               <div
-                data-name={
-                  (
-                    card.stats.type === 'Mining' ||
-                    (card.stats.special === true && card.stats.type !== 'Project')
-                  ) ? 'FPB' : 'FUNDS'}
+                data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
                 className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
               >
                 {formatBigNumber(card.stats.bonus.funds)}
