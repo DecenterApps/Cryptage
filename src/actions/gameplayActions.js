@@ -376,7 +376,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       special = cardEffect.bonus;
     }
 
-    if (metaDataId === '40') dispatch(assetReduceTimeForProjects(item));
+    if (metaDataId === '40' || metaDataId === '17') dispatch(assetReduceTimeForProjects(item));
 
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
