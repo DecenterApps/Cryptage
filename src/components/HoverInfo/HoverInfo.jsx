@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classForRarity } from '../../services/utils';
+import { formatBigNumber, classForRarity, printMechanicsText } from '../../services/utils';
 import { fpbCardIds } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
@@ -23,6 +23,8 @@ const HoverInfo = ({ card, center }) => {
     const hideTime = key !== 'time';
     return hideTime && (spaceOverOne || levelOverOne || valOverZero);
   }).length > 0;
+
+  const mechanicsTextArr = printMechanicsText(card.stats.mechanicsText);
 
   return (
     <div className={`card-hover-info-wrapper ${center && 'center'} ${card.stats.type.toLowerCase()}`}>
@@ -164,12 +166,16 @@ const HoverInfo = ({ card, center }) => {
           <div className="description">
             {
               card.stats.flavorText &&
-              <p className="flavor">"{card.stats.flavorText}"</p>
+              <p className="flavor">&ldquo;{card.stats.flavorText}&ldquo;</p>
             }
             {
               card.stats.mechanicsText &&
               <p className="mechanics">
-                {card.stats.mechanicsText}
+                { mechanicsTextArr.length === 1 && mechanicsTextArr[0] }
+                {
+                  mechanicsTextArr.length === 2 &&
+                  <span>{mechanicsTextArr[0]} <br /> {mechanicsTextArr[1]}</span>
+                }
               </p>
             }
           </div>

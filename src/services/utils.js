@@ -1,3 +1,4 @@
+import React from 'react';
 import update from 'immutability-helper';
 import { getSlotForContainer } from './gameMechanicsService';
 import { acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
@@ -531,4 +532,21 @@ export const classForRarity = (_rarity) => {
   if (number >= 576) return 'blue';
   if (number >= 485) return 'gold';
   return 'red';
+};
+
+/**
+ * If mechanics text has 'Time to complete' puts it in another line
+ *
+ * @param {String} text
+ * @return {*}
+ */
+export const printMechanicsText = (text) => {
+  const timeToCompleteIndex = text.indexOf('Time to complete');
+
+  if (timeToCompleteIndex <= 0) return [text];
+
+  const firstPart = text.substr(0, timeToCompleteIndex);
+  const secondPart = text.substr(timeToCompleteIndex, text.length - 1);
+
+  return [firstPart, secondPart];
 };
