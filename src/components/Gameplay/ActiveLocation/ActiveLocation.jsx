@@ -30,10 +30,7 @@ const ActiveLocation = ({
 
   // recalculate max power for location if power cards were played
   if (powerCards.length > 0) powerCards.forEach(({ stats }) => {
-    console.log(stats.bonus.power);
-    console.log('Max power before', maxPower);
     maxPower += stats.bonus.power;
-    console.log('Max power after', maxPower);
   });
 
   const spacePercent = Math.floor((space / maxSpace) * 100) || 0;

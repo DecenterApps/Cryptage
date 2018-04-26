@@ -67,6 +67,7 @@ const ProjectItem = ({
           !isActive && isFinished &&
           <div className="repeat-project">
             <img
+              draggable={false}
               className="project-check"
               src={restart}
               onClick={() => activateProject(mainCard, index)}
@@ -79,6 +80,7 @@ const ProjectItem = ({
           </div>
         }
         <img
+          draggable={false}
           className="project-thumbnail main-thumbnail"
           src={`cardImages/${mainCard.stats.image}`}
           alt=""
@@ -97,7 +99,7 @@ const ProjectItem = ({
                 percent={calculatePercent(expiryTime - blockNumber, mainCard.stats.cost.time)}
               />
               <span className="project-time-left">
-              <img className="project-thumbnail" src={activeBg} alt="" />
+              <img className="project-thumbnail" src={activeBg} alt="" draggable={false} />
                 {
                   blockNumber > 0 && [
                     <div key="PIK1" className="blocks-left">{ timeLeft }</div>,

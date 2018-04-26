@@ -37,7 +37,7 @@ const GameplayHeader = ({
         {/* Left section */}
         <div className="section">
           <div className="stats-wrapper">
-            <img src={ethCircle} alt="Ethereum logo circle" />
+            <img draggable={false} src={ethCircle} alt="Ethereum logo circle" />
 
             <div className="meta-wrapper">
               <div className="count">{ blockNumber }</div>
@@ -51,13 +51,13 @@ const GameplayHeader = ({
         {/* Central section */}
         <div className="central">
           <div className="central-small">
-            <img src={shape1} alt="Header shape small" />
+            <img draggable={false} src={shape1} alt="Header shape small" />
 
             <div className="level">Level { globalStats.level }</div>
           </div>
 
           <div className="central-big">
-            <img src={shape1} alt="Header shape big" />
+            <img draggable={false} src={shape1} alt="Header shape big" />
 
             <div className="big-stats">
               <div className="name">
