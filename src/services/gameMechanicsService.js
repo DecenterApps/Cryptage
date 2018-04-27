@@ -841,7 +841,7 @@ export const assetReduceTimeForProjects = item => (dispatch, getState) => {
   const { blockNumber } = gameplay;
   let projects = [...gameplay.projects];
 
-  projects = decreaseExecutionTimeForAllProjects(projects, { cards: [item.card] }, blockNumber);
+  projects = decreaseExecutionTimeForAllProjects(projects, { mainCard: { ...item.card } }, blockNumber);
 
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
