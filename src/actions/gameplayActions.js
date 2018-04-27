@@ -276,6 +276,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
     alteredProjects[index].lastDroppedItem.mainCard.stats.cost.time;
 
   const mathRes = handleCardMathematics(card, [], globalStats, index);
+  mathRes.globalStats.development -= card.stats.cost.development;
   const alterGlobalStats = mathRes.globalStats;
 
   // if the project is activated again

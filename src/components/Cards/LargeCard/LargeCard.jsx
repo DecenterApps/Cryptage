@@ -171,15 +171,10 @@ const LargeCard = ({
           {
             card.stats.mechanicsText &&
             <p className="mechanics">
+              { mechanicsTextArr.length === 1 && mechanicsTextArr[0] }
               {
-                card.stats.mechanicsText &&
-                <p className="mechanics">
-                  { mechanicsTextArr.length === 1 && mechanicsTextArr[0] }
-                  {
-                    mechanicsTextArr.length === 2 &&
-                    <span>{mechanicsTextArr[0]} <br /> {mechanicsTextArr[1]}</span>
-                  }
-                </p>
+                mechanicsTextArr.length === 2 &&
+                <span>{mechanicsTextArr[0]} <br /> {mechanicsTextArr[1]}</span>
               }
             </p>
           }
