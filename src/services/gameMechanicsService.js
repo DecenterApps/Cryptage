@@ -68,7 +68,10 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
     const localCost = filterByKeys(cost, local);
 
     if (Object.keys(globalCost).length) {
-      Object.keys(globalCost).forEach((statKey) => { globalStats[statKey] -= globalCost[statKey]; });
+      Object.keys(globalCost).forEach((statKey) => {
+        if (card.stats.level > 1 && statKey === 'development') return;
+        globalStats[statKey] -= globalCost[statKey];
+      });
     }
 
     if (Object.keys(localCost).length) {
