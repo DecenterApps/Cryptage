@@ -8,6 +8,7 @@ contract MoveDecoder {
     uint containerIndex;
     uint card;
     uint blockNumber;
+    uint blockDifference;
   }
 
   function decode(uint[] _moves) internal pure returns (Move[] memory moves, uint sendBlockNumber) {
@@ -31,13 +32,15 @@ contract MoveDecoder {
           break;
         }
 
+        uint blockDifference = (_moves[i] & ((uint(2) << (215 - 40 * j))) * 65535) / (uint(2) << (215 - 40 * j));
         moves[i * 6 + j - 2] = Move({
           shift: (_moves[i] & (uint(2) << (255 - 40 * j))) > 0,
           gpuOption: (_moves[i] & (uint(2) << (254 - 40 * j))) > 0,
           location: (_moves[i] & ((uint(2) << (251 - 40 * j))) * 7) / (uint(2) << (251 - 40 * j)),
           containerIndex: (_moves[i] & ((uint(2) << (243 - 40 * j))) * 255) / (uint(2) << (243 - 40 * j)),
           card: (_moves[i] & ((uint(2) << (232 - 40 * j))) * 2047) / (uint(2) << (232 - 40 * j)),
-          blockNumber: blockNumber += (_moves[i] & ((uint(2) << (215 - 40 * j))) * 65535) / (uint(2) << (215 - 40 * j))
+          blockDifference: blockDifference,
+          blockNumber: blockNumber += blockDifference
           });
       }
     }
