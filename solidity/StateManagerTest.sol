@@ -1,8 +1,8 @@
 pragma solidity ^0.4.20;
 
-import "./StateCodec.sol";
+import "./StateManager.sol";
 
-contract StateCodecTest is StateCodec {
+contract StateManagerTest is StateManager {
   function buildPower(uint[] _array, uint i) internal pure returns (Power[] memory powers, uint) {
     powers = new Power[](_array[++i]);
     for (uint k = 0; k < powers.length; k++) {
@@ -111,15 +111,17 @@ contract StateCodecTest is StateCodec {
   }
 
   function buildState(uint[] _array, Location[6] _locations, Project[10] _projects) internal pure returns (State memory state) {
+    uint i = 0;
     uint[100] memory cardsCount;
     state = State({
-      funds : _array[0],
-      fundsPerBlock : _array[1],
-      experience : _array[2],
-      developmentLeft : _array[3],
-      blockNumber : _array[4],
-      projectTimePercentageDecrese : _array[5],
-      mingingPercentageBonus : _array[6],
+      exists: _array[i],
+      funds : _array[++i],
+      fundsPerBlock : _array[++i],
+      experience : _array[++i],
+      developmentLeft : _array[++i],
+      blockNumber : _array[++i],
+      projectTimePercentageDecrease : _array[++i],
+      miningPercentageBonus : _array[++i],
       locations : _locations,
       projects : _projects,
       currentCardsCount: cardsCount,
@@ -127,14 +129,8 @@ contract StateCodecTest is StateCodec {
       });
   }
 
-  event PrintB(bytes buffer);
-  event Print1(uint nextData);
-  event Print2(uint data, uint nextData);
-  event Print(uint data, uint nextData);
-  event PrintBo(bool boolean);
-  event Printa(uint[] arr);
   function test(uint[] array) public view returns (uint[] memory newArray) {
-    uint i = 6;
+    uint i = 7;
     Location[6] memory locations;
     for (uint j = 0; j < 6; j++) {
       if (array[++i] > 0) {
@@ -144,6 +140,7 @@ contract StateCodecTest is StateCodec {
 
     Project[10] memory projects;
     for (j = 0; j < 10; j++) {
+      projects[j].exists = array[++i];
       projects[j].card = array[++i];
       projects[j].level = array[++i];
       projects[j].timeLeft = array[++i];
@@ -152,16 +149,17 @@ contract StateCodecTest is StateCodec {
     State memory state = buildState(array, locations, projects);
     State memory newState = decode(encode(state));
 
+    i = 0;
     newArray = new uint[](array.length);
-    newArray[0] = newState.funds;
-    newArray[1] = newState.fundsPerBlock;
-    newArray[2] = newState.experience;
-    newArray[3] = newState.developmentLeft;
-    newArray[4] = newState.blockNumber;
-    newArray[5] = newState.projectTimePercentageDecrese;
-    newArray[6] = newState.mingingPercentageBonus;
+    newArray[i] = newState.exists;
+    newArray[++i] = newState.funds;
+    newArray[++i] = newState.fundsPerBlock;
+    newArray[++i] = newState.experience;
+    newArray[++i] = newState.developmentLeft;
+    newArray[++i] = newState.blockNumber;
+    newArray[++i] = newState.projectTimePercentageDecrease;
+    newArray[++i] = newState.miningPercentageBonus;
 
-    i = 6;
     for (j = 0; j < 6; j++) {
       newArray[++i] = newState.locations[j].exists;
       if (newState.locations[j].exists != 0) {
