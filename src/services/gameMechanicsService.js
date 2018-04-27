@@ -1,7 +1,7 @@
 import levels from '../constants/levels.json';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import cardsConfig from '../constants/cards.json';
-import { filterByKeys, updateLocationDropSlotItems } from './utils';
+import { filterByKeys, getPlayedAssetCards, updateLocationDropSlotItems } from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
 import {
   CHANGE_PROJECT_STATE,
@@ -608,7 +608,6 @@ export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
   if (!projects[projectIndex].lastDroppedItem) return;
 
   projects[projectIndex].lastDroppedItem.showFpb = false;
-  projects[projectIndex].lastDroppedItem.modifiedFundsBonus = 0;
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
 
@@ -866,3 +865,37 @@ export const checkIfInformationDealerDropped = assetCards =>
     if (card.metadata.id === '42') acc += card.stats.bonus.multiplierFunds;
     return acc;
   }, 0);
+
+/**
+ * Recalculates booster projects bonus
+ */
+export const updateProjectModifiedFunds = () => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const locations = [...gameplay.locations];
+
+  let projects = [...gameplay.projects];
+  let updated = false;
+
+  projects = projects.map((_project) => {
+    const project = { ..._project };
+    const { lastDroppedItem } = project;
+
+    if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '24') {
+      updated = true;
+      project.lastDroppedItem.modifiedFundsBonus = 0;
+      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.stats.bonus.funds;
+      project.lastDroppedItem.modifiedFundsBonus += checkIfDayTradersDropped(getPlayedAssetCards([...locations]));
+    }
+
+    if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '37') {
+      updated = true;
+      project.lastDroppedItem.modifiedFundsBonus = 0;
+      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.stats.bonus.funds;
+      project.lastDroppedItem.modifiedFundsBonus += checkIfInformationDealerDropped(getPlayedAssetCards([...locations])); // eslint-disable-line
+    }
+
+    return project;
+  });
+
+  if (updated) dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
