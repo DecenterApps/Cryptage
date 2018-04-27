@@ -4,6 +4,7 @@ contract StateManager {
 
   address[] public users;
   mapping(address => bytes) states;
+  mapping(address => bytes32) names;
 
   uint constant numberOfCards = 100;
 
@@ -141,12 +142,29 @@ contract StateManager {
     uint timeLeft;
   }
 
-  function updateState(State _state, address _address) internal returns (bytes) {
+  function updateState(State _state, address _address, bytes32 _name) internal returns (bytes) {
     if (_state.exists == 0) {
       users.push(_address);
     }
 
-    return encode(_state);
+    bytes memory buffer = encode(_state);
+    states[_address] = buffer;
+    names[_address] = _name;
+
+    return buffer;
+  }
+
+  function getLeaderBoard() public view returns (address[], bytes32[], uint[]) {
+    bytes32[] memory namesArray = new bytes32[](users.length);
+    uint[] memory experiencesArray = new uint[](users.length);
+
+    for (uint i = 0; i < users.length; i++) {
+      State memory state = decode(states[users[i]]);
+      experiencesArray[i] = state.experience;
+      namesArray[i] = names[users[i]];
+    }
+
+    return (users, namesArray, experiencesArray);
   }
 
   function encode(State _state) internal pure returns (bytes) {
