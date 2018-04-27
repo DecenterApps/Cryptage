@@ -286,6 +286,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
       turn: {
         add: 1,
         specificCard: 0,
+        level: card.stats.level,
         location: index,
         containerPosition: index,
         cardType: card.stats.ID,
@@ -592,6 +593,7 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
       add: addOrRemove ? 1 : 0,
       specificCard,
       location,
+      level: card.stats.level,
       containerPosition: index,
       cardType: card.stats.ID,
       blockNumber: app.blockNumber,
@@ -631,7 +633,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
     return;
   }
 
-  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber);
+  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber, gameplay.globalStats.experience);
 
   console.log('Packed Moves: ', packedMoves);
 
