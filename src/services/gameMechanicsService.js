@@ -188,7 +188,7 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
   if (activeLocation && !ignoreSpace && ((cardLevel === 1) && (space > activeLocation.values.space))) return false;
 
   // checks for duplicates in active location
-  if (activeLocation && cardStats.unique) {
+  if (activeLocation && ((cardLevel === 1) && cardStats.unique)) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
       lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
     ));
@@ -258,7 +258,7 @@ export const getMathErrors = (cardStats, globalStats, activeLocation = null, ign
   }
 
   // checks for duplicates in active location
-  if (activeLocation && cardStats.unique) {
+  if (activeLocation && ((cardLevel === 1) && cardStats.unique)) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
       lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
     ));
