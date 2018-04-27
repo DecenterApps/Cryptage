@@ -18,8 +18,9 @@ const dropTarget = {
       const { mainCard } = props.lastDroppedItem;
       const { id } = mainCard.metadata;
       const level = parseInt(mainCard.stats.level, 10);
+      const cardId = monitor.getItem().card.id;
 
-      dropItem = { card: { ...mainCard, stats: fetchCardStats(id, level + 1) } };
+      dropItem = { card: { ...mainCard, id: cardId, stats: fetchCardStats(id, level + 1) } };
     }
 
     props.onDrop(dropItem);
