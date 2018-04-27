@@ -33,6 +33,10 @@ const ProjectItem = ({
 
   const xpb = mainCard.stats.bonus.xp;
 
+  const alteredMainCard = JSON.parse(JSON.stringify(mainCard));
+
+  if (metadataId === '37' || metadataId === '24') alteredMainCard.stats.bonus.funds = modifiedFundsBonus;
+
   return (
     <div className={`
         project-container
@@ -43,7 +47,7 @@ const ProjectItem = ({
       <div
         className={`projects-item-wrapper ${!isActive && isFinished && 'project-finished'}`}
       >
-        <HoverInfo card={mainCard} center />
+        <HoverInfo card={alteredMainCard} center />
         {
           showFpb &&
           <div className="bonus">

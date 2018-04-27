@@ -224,6 +224,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         _projects[i].lastDroppedItem.showFpb = true;
         _projects[i].lastDroppedItem.timesFinished += 1;
         _projects[i].lastDroppedItem.timeDecrease = 0;
+        _projects[i].lastDroppedItem.modifiedFundsBonus = 0;
         acquiredXp += card.stats.bonus.xp;
         releasedDev += card.stats.cost.development;
         receivedFunds += card.stats.bonus.funds;

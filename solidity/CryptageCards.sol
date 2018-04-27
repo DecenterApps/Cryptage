@@ -56,7 +56,7 @@ contract CryptageCards {
 	    uint[] _specialAbilityValues
 		) public {
 
-		cards[_cardId][_level] = CardAttributes({
+		cards[_cardId][_level-1] = CardAttributes({
 			cost: CardCost({
 				dev: _costs[0],
 				funds: _costs[1],

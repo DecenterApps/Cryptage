@@ -1,7 +1,7 @@
 import levels from '../constants/levels.json';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import cardsConfig from '../constants/cards.json';
-import { filterByKeys, updateLocationDropSlotItems } from './utils';
+import { filterByKeys, getPlayedAssetCards, updateLocationDropSlotItems } from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
 import {
   CHANGE_PROJECT_STATE,
@@ -68,7 +68,10 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
     const localCost = filterByKeys(cost, local);
 
     if (Object.keys(globalCost).length) {
-      Object.keys(globalCost).forEach((statKey) => { globalStats[statKey] -= globalCost[statKey]; });
+      Object.keys(globalCost).forEach((statKey) => {
+        if (card.stats.level > 1 && statKey === 'development') return;
+        globalStats[statKey] -= globalCost[statKey];
+      });
     }
 
     if (Object.keys(localCost).length) {
@@ -188,7 +191,7 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
   if (activeLocation && !ignoreSpace && ((cardLevel === 1) && (space > activeLocation.values.space))) return false;
 
   // checks for duplicates in active location
-  if (activeLocation && cardStats.unique) {
+  if (activeLocation && ((cardLevel === 1) && cardStats.unique)) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
       lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
     ));
@@ -258,7 +261,7 @@ export const getMathErrors = (cardStats, globalStats, activeLocation = null, ign
   }
 
   // checks for duplicates in active location
-  if (activeLocation && cardStats.unique) {
+  if (activeLocation && ((cardLevel === 1) && cardStats.unique)) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
       lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
     ));
@@ -608,7 +611,6 @@ export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
   if (!projects[projectIndex].lastDroppedItem) return;
 
   projects[projectIndex].lastDroppedItem.showFpb = false;
-  projects[projectIndex].lastDroppedItem.modifiedFundsBonus = 0;
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
 
@@ -839,7 +841,7 @@ export const assetReduceTimeForProjects = item => (dispatch, getState) => {
   const { blockNumber } = gameplay;
   let projects = [...gameplay.projects];
 
-  projects = decreaseExecutionTimeForAllProjects(projects, { cards: [item.card] }, blockNumber);
+  projects = decreaseExecutionTimeForAllProjects(projects, { mainCard: { ...item.card } }, blockNumber);
 
   dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
@@ -866,3 +868,37 @@ export const checkIfInformationDealerDropped = assetCards =>
     if (card.metadata.id === '42') acc += card.stats.bonus.multiplierFunds;
     return acc;
   }, 0);
+
+/**
+ * Recalculates booster projects bonus
+ */
+export const updateProjectModifiedFunds = () => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const locations = [...gameplay.locations];
+
+  let projects = [...gameplay.projects];
+  let updated = false;
+
+  projects = projects.map((_project) => {
+    const project = { ..._project };
+    const { lastDroppedItem } = project;
+
+    if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '24') {
+      updated = true;
+      project.lastDroppedItem.modifiedFundsBonus = 0;
+      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.stats.bonus.funds;
+      project.lastDroppedItem.modifiedFundsBonus += checkIfDayTradersDropped(getPlayedAssetCards([...locations]));
+    }
+
+    if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '37') {
+      updated = true;
+      project.lastDroppedItem.modifiedFundsBonus = 0;
+      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.stats.bonus.funds;
+      project.lastDroppedItem.modifiedFundsBonus += checkIfInformationDealerDropped(getPlayedAssetCards([...locations])); // eslint-disable-line
+    }
+
+    return project;
+  });
+
+  if (updated) dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};

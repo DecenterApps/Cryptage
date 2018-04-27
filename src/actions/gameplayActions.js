@@ -38,6 +38,7 @@ import {
   assetReduceTimeForProjects,
   getLevelCardBonusStatDiff,
   getMathErrors,
+  updateProjectModifiedFunds,
 } from '../services/gameMechanicsService';
 import {
   saveGameplayState,
@@ -249,6 +250,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   ({ globalStats } = handleCardMathematics(mainCard, [], globalStats, index));
 
   dispatch({ type: DROP_PROJECT, projects, cards, globalStats }); // eslint-disable-line
+  if (mainCard.metadata.id === '24' || mainCard.metadata.id === '37') dispatch(updateProjectModifiedFunds());
   saveGameplayState(getState);
 };
 
@@ -274,6 +276,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
     alteredProjects[index].lastDroppedItem.mainCard.stats.cost.time;
 
   const mathRes = handleCardMathematics(card, [], globalStats, index);
+  mathRes.globalStats.development -= card.stats.cost.development;
   const alterGlobalStats = mathRes.globalStats;
 
   // if the project is activated again
@@ -406,6 +409,9 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     type: DROP_ASSET, locations, cards, globalStats, fundsPerBlock,
   });
   dispatch(addAssetSlots(activeLocationIndex));
+
+  if (metaDataId === '41' || metaDataId === '42') dispatch(updateProjectModifiedFunds());
+
   saveGameplayState(getState);
 };
 
