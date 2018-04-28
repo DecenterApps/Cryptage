@@ -23,6 +23,7 @@ contract StateManager is StateCodec, MoveDecoder, StateVerifier {
 
     verify(state, move, msg.sender);
 
+    state.exists = 1;
     bytes memory buffer = encode(state);
     states[msg.sender] = buffer;
     names[msg.sender] = _name;
