@@ -1302,6 +1302,56 @@
     ],
     "address": "0xca7578ffcc5386b25c2b75e28d830bf8d6af42a3"
   },
+  "stateContract": {
+    "abi": [
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "input",
+            "type": "uint256[]"
+          },
+          {
+            "name": "_name",
+            "type": "bytes32"
+          }
+        ],
+        "name": "update",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bytes"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "get",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address[]"
+          },
+          {
+            "name": "",
+            "type": "bytes32[]"
+          },
+          {
+            "name": "",
+            "type": "uint256[]"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ],
+    "address": "0x720b57e33e65fea8b013789428472db0f472e5a3"
+  },
   "network": 42,
   "wsProvider": "wss://testnet.decenter.com:4443"
 }

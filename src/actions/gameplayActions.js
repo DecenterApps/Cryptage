@@ -638,9 +638,9 @@ export const saveStateToContract = () => async (dispatch, getState) => {
   console.log('Packed Moves: ', packedMoves);
 
   try {
-    const ipfs = await ipfsService.uploadData(gameplay);
+    // const ipfs = await ipfsService.uploadData(gameplay);
 
-    await ethService.updateMoves(packedMoves, ipfs[0].hash);
+    await ethService.updateMoves(packedMoves, gameplay.nickname);
 
     dispatch({ type: CLEAR_TURNS });
     saveGameplayState(getState);

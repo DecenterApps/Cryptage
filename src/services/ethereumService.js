@@ -57,7 +57,7 @@ const getStateContract = async () => {
 };
 
 const getLeaderboardContract = acc =>
-  new web3.eth.Contract(config.leaderboardContract.abi, config.leaderboardContract.address, { from: acc });
+  new web3.eth.Contract(config.stateContract.abi, config.stateContract.address, { from: acc });
 
 /**
  * DEV HELPER
@@ -165,9 +165,9 @@ const revealBooster = async (id) => {
   return boosterContract.methods.revealBooster(parseInt(id, 10)).send();
 };
 
-const updateMoves = async (moves, ipfsHash) => {
+const updateMoves = async (moves, nickname) => {
   const stateContract = await getStateContract();
-  return stateContract.methods.update(moves, ipfsHash, false).send();
+  return stateContract.methods.update(moves, web3.utils.toHex(nickname)).send();
 };
 
 const getState = async () => {
