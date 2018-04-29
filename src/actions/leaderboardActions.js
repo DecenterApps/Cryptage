@@ -13,13 +13,13 @@ export const getLeaderboardData = () => async (dispatch, getState) => {
 
   try {
     const leaderboardContract = await ethereumService.getLeaderboardContract(account);
-    let data = await leaderboardContract.methods.getAll().call();
+    let data = await leaderboardContract.methods.get().call();
 
     data = data[0]
       .map((address, index) => {
-        const xp = parseInt(data[1][index], 10);
+        const xp = parseInt(data[2][index], 10);
         return {
-          nickname: data[2][index],
+          nickname: web3.utils.toUtf8(data[1][index]),
           address,
           xp,
           level: calculateLevelData(xp).level,

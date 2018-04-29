@@ -1,13 +1,9 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.22;
 
 contract StateCodec {
-
-  mapping(address => bytes) states;
-
-  uint constant numberOfCards = 100;
-
   uint constant numberOfLocations = 6;
   uint constant numberOfProjects = 10;
+  uint constant numberOfCards = 100;
   uint constant computerCaseMinersCount = 5;
   uint constant rigCaseMinersCount = 4;
 
@@ -52,6 +48,8 @@ contract StateCodec {
   uint[4] rigCaseMiners = [uint(10), uint(33), uint(34), uint(35)];
 
   struct State {
+    // uint8
+    uint exists;
     // uint48
     uint funds;
     // uint16
@@ -63,9 +61,9 @@ contract StateCodec {
     // uint32
     uint blockNumber;
     // uint8
-    uint projectTimePercentageDecrese;
+    uint projectTimePercentageDecrease;
     // uint8
-    uint mingingPercentageBonus;
+    uint miningPercentageBonus;
     Location[numberOfLocations] locations;
     Project[numberOfProjects] projects;
     uint[numberOfCards] currentCardsCount;
@@ -128,6 +126,8 @@ contract StateCodec {
   }
 
   struct Project {
+    // uint8
+    uint exists;
     // uint16
     uint card;
     // uint8
@@ -136,98 +136,101 @@ contract StateCodec {
     uint timeLeft;
   }
 
-  function encode(State state) internal pure returns (bytes) {
-    uint capacity = 20 + 50;
+  function encode(State _state) internal pure returns (bytes) {
+    uint capacity = 21 + 60;
     uint position = 1;
-    uint size = 20;
+    uint size = 21;
     uint[6] memory locationCount;
 
     for (uint i = 0; i < 6; i++) {
-      if (state.locations[i].exists != 0) {
-        locationCount[i] = 14 + 15 * state.locations[i].powers.length;
-        25 * state.locations[i].computerCases.length +
-        20 * state.locations[i].rigCases.length;
+      if (_state.locations[i].exists != 0) {
+        locationCount[i] = 14 + 7 * _state.locations[i].powers.length;
+        25 * _state.locations[i].computerCases.length +
+        20 * _state.locations[i].rigCases.length;
 
-        locationCount[i] += state.locations[i].mountCases.length +
-        15 * state.locations[i].developers.length +
-        15 * state.locations[i].specialCards.length;
+        locationCount[i] += _state.locations[i].mountCases.length +
+        7 * _state.locations[i].developers.length +
+        7 * _state.locations[i].specialCards.length;
       }
       capacity += 1 + locationCount[i];
     }
 
     bytes memory buffer = new bytes(capacity);
 
-    uint data = (2 << 207) * state.funds +
-    (2 << 191) * state.fundsPerBlock +
-    (2 << 159) * state.experience;
-    data += (2 << 143) * state.developmentLeft +
-    (2 << 111) * state.blockNumber +
-    (2 << 103) * state.projectTimePercentageDecrese +
-    (2 << 95) * state.mingingPercentageBonus;
+    uint data =
+    (2 << 247) * _state.exists +
+    (2 << 199) * _state.funds +
+    (2 << 183) * _state.fundsPerBlock +
+    (2 << 151) * _state.experience;
+    data += (2 << 135) * _state.developmentLeft +
+    (2 << 103) * _state.blockNumber +
+    (2 << 95) * _state.projectTimePercentageDecrease +
+    (2 << 87) * _state.miningPercentageBonus;
 
     for (i = 0; i < 6; i++) {
       (position, data, size) = append(buffer, position, data, locationCount[i], size, singleCountSize);
-      if (state.locations[i].exists != 0) {
-        (position, data, size) = append(buffer, position, data, state.locations[i].card, size, cardSize);
-        (position, data, size) = append(buffer, position, data, state.locations[i].numberOfCards, size, numberOfCardsSize);
-        (position, data, size) = append(buffer, position, data, state.locations[i].spaceLeft, size, spaceLeftSize);
-        (position, data, size) = append(buffer, position, data, state.locations[i].powerLeft, size, powerLeftSize);
+      if (_state.locations[i].exists != 0) {
+        (position, data, size) = append(buffer, position, data, _state.locations[i].card, size, cardSize);
+        (position, data, size) = append(buffer, position, data, _state.locations[i].numberOfCards, size, numberOfCardsSize);
+        (position, data, size) = append(buffer, position, data, _state.locations[i].spaceLeft, size, spaceLeftSize);
+        (position, data, size) = append(buffer, position, data, _state.locations[i].powerLeft, size, powerLeftSize);
 
-        (position, data, size) = append(buffer, position, data, state.locations[i].powers.length, size, singleCountSize);
-        for (uint j = 0; j < state.locations[i].powers.length; j++) {
-          (position, data, size) = append(buffer, position, data, state.locations[i].powers[j].card, size, cardSize);
+        (position, data, size) = append(buffer, position, data, _state.locations[i].powers.length, size, singleCountSize);
+        for (uint j = 0; j < _state.locations[i].powers.length; j++) {
+          (position, data, size) = append(buffer, position, data, _state.locations[i].powers[j].card, size, cardSize);
           for (uint k = 0; k < powerLevelCount; k++) {
-            (position, data, size) = append(buffer, position, data, state.locations[i].powers[j].count[k], size, singleCountSize);
+            (position, data, size) = append(buffer, position, data, _state.locations[i].powers[j].count[k], size, singleCountSize);
           }
         }
 
-        (position, data, size) = append(buffer, position, data, state.locations[i].computerCases.length, size, singleCountSize);
-        for (j = 0; j < state.locations[i].computerCases.length; j++) {
+        (position, data, size) = append(buffer, position, data, _state.locations[i].computerCases.length, size, singleCountSize);
+        for (j = 0; j < _state.locations[i].computerCases.length; j++) {
           for (k = 0; k < computerCaseMinersCount; k++) {
             for (uint t = 0; t < computerCaseMinersLevelCount; t++) {
-              (position, data, size) = append(buffer, position, data, state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], size, singleCountSize);
+              (position, data, size) = append(buffer, position, data, _state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], size, singleCountSize);
             }
           }
         }
 
-        (position, data, size) = append(buffer, position, data, state.locations[i].rigCases.length, size, singleCountSize);
-        for (j = 0; j < state.locations[i].rigCases.length; j++) {
+        (position, data, size) = append(buffer, position, data, _state.locations[i].rigCases.length, size, singleCountSize);
+        for (j = 0; j < _state.locations[i].rigCases.length; j++) {
           for (k = 0; k < rigCaseMinersCount; k++) {
             for (t = 0; t < rigCaseMinersLevelCount; t++) {
-              (position, data, size) = append(buffer, position, data, state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t], size, singleCountSize);
+              (position, data, size) = append(buffer, position, data, _state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t], size, singleCountSize);
             }
           }
         }
 
-        (position, data, size) = append(buffer, position, data, state.locations[i].mountCases.length, size, singleCountSize);
-        for (j = 0; j < state.locations[i].mountCases.length; j++) {
+        (position, data, size) = append(buffer, position, data, _state.locations[i].mountCases.length, size, singleCountSize);
+        for (j = 0; j < _state.locations[i].mountCases.length; j++) {
           for (k = 0; k < developerLevelCount; k++) {
-            (position, data, size) = append(buffer, position, data, state.locations[i].mountCases[j].asicCount[k], size, asicCountSize);
+            (position, data, size) = append(buffer, position, data, _state.locations[i].mountCases[j].asicCount[k], size, asicCountSize);
           }
         }
 
-        (position, data, size) = append(buffer, position, data, state.locations[i].developers.length, size, singleCountSize);
-        for (j = 0; j < state.locations[i].developers.length; j++) {
-          (position, data, size) = append(buffer, position, data, state.locations[i].developers[j].card, size, cardSize);
+        (position, data, size) = append(buffer, position, data, _state.locations[i].developers.length, size, singleCountSize);
+        for (j = 0; j < _state.locations[i].developers.length; j++) {
+          (position, data, size) = append(buffer, position, data, _state.locations[i].developers[j].card, size, cardSize);
           for (k = 0; k < developerLevelCount; k++) {
-            (position, data, size) = append(buffer, position, data, state.locations[i].developers[j].count[k], size, singleCountSize);
+            (position, data, size) = append(buffer, position, data, _state.locations[i].developers[j].count[k], size, singleCountSize);
           }
         }
 
-        (position, data, size) = append(buffer, position, data, state.locations[i].specialCards.length, size, singleCountSize);
-        for (j = 0; j < state.locations[i].specialCards.length; j++) {
-          (position, data, size) = append(buffer, position, data, state.locations[i].specialCards[j].card, size, cardSize);
+        (position, data, size) = append(buffer, position, data, _state.locations[i].specialCards.length, size, singleCountSize);
+        for (j = 0; j < _state.locations[i].specialCards.length; j++) {
+          (position, data, size) = append(buffer, position, data, _state.locations[i].specialCards[j].card, size, cardSize);
           for (k = 0; k < specialLevelCount; k++) {
-            (position, data, size) = append(buffer, position, data, state.locations[i].specialCards[j].count[k], size, doubleCountSize);
+            (position, data, size) = append(buffer, position, data, _state.locations[i].specialCards[j].count[k], size, doubleCountSize);
           }
         }
       }
     }
 
-    for (i = 0; i < state.projects.length; i++) {
-      (position, data, size) = append(buffer, position, data, state.projects[i].card, size, cardSize);
-      (position, data, size) = append(buffer, position, data, state.projects[i].level, size, levelSize);
-      (position, data, size) = append(buffer, position, data, state.projects[i].timeLeft, size, timeLeftSize);
+    for (i = 0; i < _state.projects.length; i++) {
+      (position, data, size) = append(buffer, position, data, _state.projects[i].exists, size, singleCountSize);
+      (position, data, size) = append(buffer, position, data, _state.projects[i].card, size, cardSize);
+      (position, data, size) = append(buffer, position, data, _state.projects[i].level, size, levelSize);
+      (position, data, size) = append(buffer, position, data, _state.projects[i].timeLeft, size, timeLeftSize);
     }
 
     assembly {mstore(add(buffer, mul(position, 32)), data)}
@@ -235,26 +238,26 @@ contract StateCodec {
     return buffer;
   }
 
-  function append(bytes buffer, uint position, uint data, uint nextData, uint size, uint nextSize) public pure returns (uint, uint, uint) {
-    if (size + nextSize >= 32) {
-      data += (nextData >> ((size + nextSize - 32) * 8));
-      assembly {mstore(add(buffer, mul(position, 32)), data)}
-      size = (size + nextSize - 32);
-      if (size != 0) {
-        data = (nextData & ((uint(2) << (size * 8 - 1)) - 1)) << ((32 - size) * 8);
+  function append(bytes _buffer, uint _position, uint _data, uint _nextData, uint _size, uint _nextSize) internal pure returns (uint, uint, uint) {
+    if (_size + _nextSize >= 32) {
+      _data += (_nextData >> ((_size + _nextSize - 32) * 8));
+      assembly {mstore(add(_buffer, mul(_position, 32)), _data)}
+      _size = (_size + _nextSize - 32);
+      if (_size != 0) {
+        _data = (_nextData & ((uint(2) << (_size * 8 - 1)) - 1)) << ((32 - _size) * 8);
       } else {
-        data = 0;
+        _data = 0;
       }
-      position += 1;
+      _position += 1;
     } else {
-      size = size + nextSize;
-      data += nextData * (uint(2) << ((32 - size) * 8 - 1));
+      _size = _size + _nextSize;
+      _data += _nextData * (uint(2) << ((32 - _size) * 8 - 1));
     }
 
-    return (position, data, size);
+    return (_position, _data, _size);
   }
 
-  function decode(bytes buffer) internal view returns (State memory state) {
+  function decode(bytes _buffer) internal view returns (State memory state) {
     uint position = 1;
     uint size = 0;
 
@@ -263,125 +266,126 @@ contract StateCodec {
     uint[numberOfCards] memory cardsCount;
 
     state = State({
+      exists: 0,
       funds : 150,
       fundsPerBlock : 0,
       experience : 0,
       developmentLeft : 0,
       blockNumber : block.number - 50000,
-      projectTimePercentageDecrese : 0,
-      mingingPercentageBonus : 0,
+      projectTimePercentageDecrease : 0,
+      miningPercentageBonus : 0,
       locations : locations,
       projects : projects,
       currentCardsCount : cardsCount,
       maximumCardsCount : cardsCount
       });
 
-    (position, state.funds, size) = read(buffer, position, size, fundsSize);
-    (position, state.fundsPerBlock, size) = read(buffer, position, size, fundsPerBlockSize);
-    (position, state.experience, size) = read(buffer, position, size, experienceSize);
-    (position, state.developmentLeft, size) = read(buffer, position, size, developmentLeftSize);
-    (position, state.blockNumber, size) = read(buffer, position, size, blockNumberSize);
-    (position, state.projectTimePercentageDecrese, size) = read(buffer, position, size, projectTimePercentageDecreaseSize);
-    (position, state.mingingPercentageBonus, size) = read(buffer, position, size, miningPercentageBonusSize);
+    (position, state.exists, size) = read(_buffer, position, size, singleCountSize);
+    (position, state.funds, size) = read(_buffer, position, size, fundsSize);
+    (position, state.fundsPerBlock, size) = read(_buffer, position, size, fundsPerBlockSize);
+    (position, state.experience, size) = read(_buffer, position, size, experienceSize);
+    (position, state.developmentLeft, size) = read(_buffer, position, size, developmentLeftSize);
+    (position, state.blockNumber, size) = read(_buffer, position, size, blockNumberSize);
+    (position, state.projectTimePercentageDecrease, size) = read(_buffer, position, size, projectTimePercentageDecreaseSize);
+    (position, state.miningPercentageBonus, size) = read(_buffer, position, size, miningPercentageBonusSize);
     for (uint i = 0; i < 6; i++) {
       uint locationCount;
-      (position, locationCount, size) = read(buffer, position, size, singleCountSize);
+      (position, locationCount, size) = read(_buffer, position, size, singleCountSize);
       if (locationCount != 0) {
         state.locations[i].exists = 1;
-        (position, state.locations[i].card, size) = read(buffer, position, size, cardSize);
-        (position, state.locations[i].numberOfCards, size) = read(buffer, position, size, numberOfCardsSize);
-        (position, state.locations[i].spaceLeft, size) = read(buffer, position, size, spaceLeftSize);
-        (position, state.locations[i].powerLeft, size) = read(buffer, position, size, powerLeftSize);
+        (position, state.locations[i].card, size) = read(_buffer, position, size, cardSize);
+        (position, state.locations[i].numberOfCards, size) = read(_buffer, position, size, numberOfCardsSize);
+        (position, state.locations[i].spaceLeft, size) = read(_buffer, position, size, spaceLeftSize);
+        (position, state.locations[i].powerLeft, size) = read(_buffer, position, size, powerLeftSize);
 
         uint count;
-        (position, count, size) = read(buffer, position, size, singleCountSize);
+        (position, count, size) = read(_buffer, position, size, singleCountSize);
         state.locations[i].powers = new Power[](count);
         for (uint j = 0; j < count; j++) {
-          (position, state.locations[i].powers[j].card, size) = read(buffer, position, size, cardSize);
+          (position, state.locations[i].powers[j].card, size) = read(_buffer, position, size, cardSize);
           for (uint k = 0; k < powerLevelCount; k++) {
-            (position, state.locations[i].powers[j].count[k], size) = read(buffer, position, size, singleCountSize);
+            (position, state.locations[i].powers[j].count[k], size) = read(_buffer, position, size, singleCountSize);
           }
         }
 
-        (position, count, size) = read(buffer, position, size, singleCountSize);
+        (position, count, size) = read(_buffer, position, size, singleCountSize);
         state.locations[i].computerCases = new ComputerCase[](count);
         for (j = 0; j < count; j++) {
           for (k = 0; k < computerCaseMinersCount; k++) {
             for (uint t = 0; t < computerCaseMinersLevelCount; t++) {
-              (position, state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], size) = read(buffer, position, size, singleCountSize);
+              (position, state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], size) = read(_buffer, position, size, singleCountSize);
             }
           }
         }
 
-        (position, count, size) = read(buffer, position, size, singleCountSize);
+        (position, count, size) = read(_buffer, position, size, singleCountSize);
         state.locations[i].rigCases = new RigCase[](count);
         for (j = 0; j < count; j++) {
           for (k = 0; k < rigCaseMinersCount; k++) {
             for (t = 0; t < rigCaseMinersLevelCount; t++) {
-              (position, state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t], size) = read(buffer, position, size, singleCountSize);
+              (position, state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t], size) = read(_buffer, position, size, singleCountSize);
             }
           }
         }
 
-        (position, count, size) = read(buffer, position, size, singleCountSize);
+        (position, count, size) = read(_buffer, position, size, singleCountSize);
         state.locations[i].mountCases = new MountCase[](count);
         for (j = 0; j < count; j++) {
           for (k = 0; k < asicLevelCount; k++) {
-            (position, state.locations[i].mountCases[j].asicCount[k], size) = read(buffer, position, size, asicCountSize);
+            (position, state.locations[i].mountCases[j].asicCount[k], size) = read(_buffer, position, size, asicCountSize);
           }
         }
 
-        (position, count, size) = read(buffer, position, size, singleCountSize);
+        (position, count, size) = read(_buffer, position, size, singleCountSize);
         state.locations[i].developers = new Developer[](count);
         for (j = 0; j < count; j++) {
-          (position, state.locations[i].developers[j].card, size) = read(buffer, position, size, cardSize);
+          (position, state.locations[i].developers[j].card, size) = read(_buffer, position, size, cardSize);
           for (k = 0; k < developerLevelCount; k++) {
-            (position, state.locations[i].developers[j].count[k], size) = read(buffer, position, size, singleCountSize);
+            (position, state.locations[i].developers[j].count[k], size) = read(_buffer, position, size, singleCountSize);
           }
         }
 
-        (position, count, size) = read(buffer, position, size, singleCountSize);
+        (position, count, size) = read(_buffer, position, size, singleCountSize);
         state.locations[i].specialCards = new SpecialCard[](count);
         for (j = 0; j < count; j++) {
-          (position, state.locations[i].specialCards[j].card, size) = read(buffer, position, size, cardSize);
+          (position, state.locations[i].specialCards[j].card, size) = read(_buffer, position, size, cardSize);
           for (k = 0; k < specialLevelCount; k++) {
-            (position, state.locations[i].specialCards[j].count[k], size) = read(buffer, position, size, doubleCountSize);
+            (position, state.locations[i].specialCards[j].count[k], size) = read(_buffer, position, size, doubleCountSize);
           }
         }
       }
     }
 
     for (i = 0; i < 10; i++) {
-      (position, state.projects[i].card, size) = read(buffer, position, size, cardSize);
-      (position, state.projects[i].level, size) = read(buffer, position, size, levelSize);
-      (position, state.projects[i].timeLeft, size) = read(buffer, position, size, timeLeftSize);
+      (position, state.projects[i].exists, size) = read(_buffer, position, size, singleCountSize);
+      (position, state.projects[i].card, size) = read(_buffer, position, size, cardSize);
+      (position, state.projects[i].level, size) = read(_buffer, position, size, levelSize);
+      (position, state.projects[i].timeLeft, size) = read(_buffer, position, size, timeLeftSize);
     }
   }
 
-  function read(bytes buffer, uint position, uint size, uint nextSize) public pure returns (uint, uint, uint) {
+  function read(bytes _buffer, uint _position, uint _size, uint _nextSize) internal pure returns (uint, uint, uint) {
     uint data;
     assembly {
-      data := mload(add(buffer, mul(position, 32)))
+      data := mload(add(_buffer, mul(_position, 32)))
     }
 
     uint returnData;
 
-    if (size + nextSize >= 32) {
-      uint secondData;
-      position += 1;
-      returnData = (data & ((uint(2) << ((32 - size) * 8 - 1)) - 1)) << ((size + nextSize - 32) * 8);
-      if (size + nextSize != 32) {
-        assembly {
-          secondData := mload(add(buffer, mul(position, 32)))
-        }
-        returnData += (secondData & ((uint(2) << ((64 - size - nextSize) * 8 - 1)) * ((uint(2) << ((size + nextSize - 32) * 8 - 1)) - 1))) / (uint(2) << ((64 - size - nextSize) * 8 - 1));
+    if (_size + _nextSize >= 32) {
+      _position += 1;
+      returnData = (data & ((uint(2) << ((32 - _size) * 8 - 1)) - 1)) << ((_size + _nextSize - 32) * 8);
+      if (_size + _nextSize != 32) {
+        uint secondData;
+        assembly { secondData := mload(add(_buffer, mul(_position, 32))) }
+        returnData += (secondData & ((uint(2) << ((64 - _size - _nextSize) * 8 - 1)) * ((uint(2) << ((_size + _nextSize - 32) * 8 - 1)) - 1))) / (uint(2) << ((64 - _size - _nextSize) * 8 - 1));
       }
-      size = size + nextSize - 32;
+      _size = _size + _nextSize - 32;
     } else {
-      returnData = (data & (uint(2) << ((32 - size - nextSize) * 8 - 1)) * ((uint(2) << (8 * nextSize - 1)) - 1)) / (uint(2) << ((32 - size - nextSize) * 8 - 1));
-      size = size + nextSize;
+      returnData = (data & (uint(2) << ((32 - _size - _nextSize) * 8 - 1)) * ((uint(2) << (8 * _nextSize - 1)) - 1)) / (uint(2) << ((32 - _size - _nextSize) * 8 - 1));
+      _size = _size + _nextSize;
     }
 
-    return (position, returnData, size);
+    return (_position, returnData, _size);
   }
 }

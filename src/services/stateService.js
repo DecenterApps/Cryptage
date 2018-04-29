@@ -14,7 +14,8 @@
 // 1/0 add/remove
 // 1 specific card (for GPU)
 // 3 location
-// 8 containerPosition
+// 3 level
+// 7 containerPosition
 // 11 cardType
 // 16 blockNumber
 
@@ -182,35 +183,49 @@ function printState(_state) {
 }
 
 // helper functions
-function _pack(arr, start) {
+function _pack(arr, blockNumber, currentBlockNumber) {
   const hexValues = [];
-  let str = start;
+  let str = blockNumber + currentBlockNumber;
 
   arr.forEach((b) => {
-    if ((str.length + b.length) < 64) {
+    if ((str.length + b.length) < 256) {
       str += b;
     } else {
-      hexValues.push(str);
-      str = '';
+      str += '0000';
+      hexValues.push(bin2Hex(str));
+      str = b;
     }
   });
 
   if (str.length !== 0) {
-    hexValues.push(str);
+    if (str.length + 42 < 256) {
+      str += '111111111111111111111111111111111111111111';
+      const len = 256 - str.length;
+      for (let i = 0; i < len; i += 1) {
+        str += '0';
+      }
+    }
+
+    hexValues.push(bin2Hex(str));
   }
 
-  if (hexValues[hexValues.length - 1].length < 64) {
-    hexValues[hexValues.length - 1] += 'FFFFFFFF';
-  }
-
-  return hexValues.map(h => `0x${h.padEnd(64, 0)}`);
+  return hexValues.map(h => `0x${h.padStart(64, 0)}`);
 }
 
-export function packMoves(_moves, currBlockNumber) {
+export function packMoves(_moves, currBlockNumber, klipaN) {
   const blockNumber = _moves[0].blockNumber; //eslint-disable-line
 
   let counting = 0;
   const moves = [];
+  const binKlipaN = dec2bin(klipaN, 32);
+  moves.push({
+    add: bin2dec(binKlipaN.substring(0, 1)),
+    specificCard: bin2dec(binKlipaN.substring(1, 2)),
+    location: bin2dec(binKlipaN.substring(2, 5)),
+    level: bin2dec(binKlipaN.substring(2, 5)),
+    containerIndex: bin2dec(binKlipaN.substring(2, 10)),
+    cardType: bin2dec(binKlipaN.substring(5, 16)),
+  });
 
   _moves.forEach((m, i) => {
     moves.push(m);
@@ -230,21 +245,21 @@ export function packMoves(_moves, currBlockNumber) {
 
   console.log(moves);
 
-  const blockNumHex = bin2Hex(dec2bin(blockNumber, 32), 8);
-  const currBlockNumberHex = bin2Hex(dec2bin(currBlockNumber, 32), 8);
+  const blockNum = dec2bin(blockNumber, 42);
+  const currentBlockNum = dec2bin(currBlockNumber, 42);
 
-  const blockNums = [];
+  const blockNumsDiff = [];
 
   for (let i = 1; i < moves.length; i += 1) {
-    blockNums[i] = moves[i].blockNumber - moves[i - 1].blockNumber;
+    blockNumsDiff[i] = moves[i].blockNumber - moves[i - 1].blockNumber;
   }
 
-  blockNums[0] = 0;
+  blockNumsDiff[0] = bin2dec(binKlipaN.substring(16, 32));
 
   const binMoves = moves.map((move, i) =>
-    bin2Hex(dec2bin(move.add, 1) + dec2bin(move.specificCard, 1) + dec2bin(move.location, 3)
-    + dec2bin(move.containerPosition, 8) + dec2bin(move.cardType, 11)
-    + dec2bin(blockNums[i], 16)));
+    dec2bin(move.add, 1) + dec2bin(move.specificCard, 1) + dec2bin(move.location, 3)
+    + dec2bin(move.level, 3) + dec2bin(move.containerPosition, 7) + dec2bin(move.cardType, 11)
+    + dec2bin(blockNumsDiff[i], 16));
 
-  return _pack(binMoves, blockNumHex + currBlockNumberHex);
+  return _pack(binMoves, blockNum, currentBlockNum);
 }

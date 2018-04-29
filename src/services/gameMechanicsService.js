@@ -321,9 +321,8 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
     if (!miningCardType && !availableSlots) errors.special.push('No available slots');
 
     if (miningCardType) {
-      // In active gameplay view checks if miner can be dropped in at least one location
-      let canPlayInOneContainer = false;
-
+      // In active gameplay view checks if miner can be dropped in at least one container
+      // shows red error only if containers are full
       const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
         if (lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Container') {
           const lastDroppedItemCopy = { ...lastDroppedItem };
@@ -334,22 +333,22 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
         return false;
       }).filter(item => item);
 
-      droppedContainers.forEach((droppedContainerItem) => {
+      const rightTypeContainers = droppedContainers.filter((droppedContainerItem) => {
         const containerId = droppedContainerItem.mainCard.metadata.id;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
-        const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
-        const containerSlotLength = getContainerSlotsLength(
+        return emptyContainerSlotArr[0].accepts.includes(metadata.id);
+      });
+
+      const fullRightTypeDroppedContainersLength = rightTypeContainers.filter(droppedContainerItem =>
+        !(getContainerSlotsLength(
           locations,
           locationItem,
           droppedContainerItem.containerIndex,
-        );
+        ))).length;
 
-        if (goodSlotType && containerSlotLength && checkIfCanPlayCard(stats, globalStats, activeLocation, true)) {
-          canPlayInOneContainer = true;
-        }
-      });
-
-      if (!canPlayInOneContainer) errors.special.push('No available containers');
+      if (fullRightTypeDroppedContainersLength === rightTypeContainers.length) {
+        errors.special.push('No available containers');
+      }
     }
   }
 
