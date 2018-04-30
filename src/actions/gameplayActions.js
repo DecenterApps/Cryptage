@@ -244,6 +244,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   // project drop when there is/are already a card/cards in the slot and the slot is not active
   if (lastDroppedItem && !lastDroppedItem.isActive) {
     projects = levelUpProject(projects, index, lastDroppedItem, item.card);
+    globalStats.development += item.card.stats.cost.development; // disables global development cost for project level up
   }
 
   const { mainCard } = projects[index].lastDroppedItem;
@@ -276,7 +277,6 @@ export const activateProject = (card, index) => (dispatch, getState) => {
     alteredProjects[index].lastDroppedItem.mainCard.stats.cost.time;
 
   const mathRes = handleCardMathematics(card, [], globalStats, index);
-  //mathRes.globalStats.development -= card.stats.cost.development;
   const alterGlobalStats = mathRes.globalStats;
 
   // if the project is activated again
