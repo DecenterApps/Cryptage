@@ -32,7 +32,7 @@ const Locations = ({
         <div className="bar-2" />
         <div className="bar-3" />
         <div className="bar-4" />
-        <div className="bar-text">Location</div>
+        <div className="bar-text">Locations</div>
       </div>
     </div>
 
