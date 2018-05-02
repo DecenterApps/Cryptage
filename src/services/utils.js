@@ -550,3 +550,11 @@ export const printMechanicsText = (text) => {
 
   return [firstPart, secondPart];
 };
+
+/**
+ * Sorts cards in group by price
+ *
+ * @param {Array} group
+ * @return {Array}
+ */
+export const sortTypeGroupByPrice = group => group.sort((a, b) => a.stats.cost.funds - b.stats.cost.funds);

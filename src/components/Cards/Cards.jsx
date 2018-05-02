@@ -7,6 +7,7 @@ import HandCard from './HandCard/HandCard';
 import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
 import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
+import { sortTypeGroupByPrice } from '../../services/utils';
 
 import './Cards.scss';
 
@@ -40,23 +41,19 @@ class Cards extends Component {
     return Object.values(noDupliactes);
   }
 
-  filterAvailableCards(cards) {
-    const noDupliactes = this.groupDuplicates(cards);
-    const filtered = noDupliactes.filter((card) => {
-      // TODO filter here
-      return true;
-    });
-    return filtered;
-  }
-
   groupCardsByType(cards) {
     const noDupliactes = this.groupDuplicates(cards);
-    const grouped = noDupliactes.reduce((accumulator, item) => {
+    let grouped = noDupliactes.reduce((_accumulator, item) => {
+      const accumulator = { ..._accumulator };
+
       if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
       else accumulator[item.stats.type] = [item];
       return accumulator;
     }, {});
-    return Object.values(grouped);
+    grouped = Object.values(grouped);
+    grouped = grouped.map(sortTypeGroupByPrice);
+
+    return grouped;
   }
 
   render() {
