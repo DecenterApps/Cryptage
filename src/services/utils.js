@@ -528,9 +528,9 @@ export const getCardIdsFromLocation = (location, items) => {
 
 export const classForRarity = (_rarity) => {
   const number = parseInt(_rarity, 10);
-  if (number >= 900) return 'normal';
-  if (number >= 576) return 'blue';
-  if (number >= 485) return 'gold';
+  if (number >= 850) return 'normal';
+  if (number >= 600) return 'blue';
+  if (number >= 325) return 'gold';
   return 'red';
 };
 
