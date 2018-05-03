@@ -39,10 +39,7 @@
     font-size: 12px;
     font-family: $font-primary;
     transition: 0.2s ease-in;
-
-    &:active, &:visited {
-      color: white;
-    }
+    color: white;
 
     &:hover {
       opacity: 0.8;

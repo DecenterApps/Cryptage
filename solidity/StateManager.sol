@@ -10,6 +10,8 @@ contract StateManager is StateCodec, MoveDecoder, StateVerifier {
   mapping(address => bytes) states;
   mapping(address => bytes32) names;
 
+  constructor(address _seleneanCards) StateVerifier(_seleneanCards) public {}
+
   function update(uint[] input, bytes32 _name) public returns (bytes) {
     State memory state = decode(states[msg.sender]);
 
@@ -21,7 +23,7 @@ contract StateManager is StateCodec, MoveDecoder, StateVerifier {
     uint sendBlockNumber;
     (move, sendBlockNumber) = decodeMoves(input);
 
-    verify(state, move, msg.sender);
+verify(state, move, msg.sender, sendBlockNumber);
 
     state.exists = 1;
     bytes memory buffer = encode(state);

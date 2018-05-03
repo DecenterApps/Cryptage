@@ -7,7 +7,7 @@
   //bottom: 0;
   left: 155px;
   pointer-events: none;
-  z-index: 2000;
+  z-index: 20000;
   box-shadow: 0 0 50px 15px rgba(35, 24, 61, 0.9);
   top: 0;
   width: 145px;
@@ -121,6 +121,9 @@
         p {
           margin: 5px 0 0;
           font-family: $font-primary;
+          span {
+            font-family: inherit;
+          }
         }
         .mechanics {
           font-weight: bold;
