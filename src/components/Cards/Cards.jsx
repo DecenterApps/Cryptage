@@ -39,7 +39,7 @@ class Cards extends Component {
       return accumulator;
     }, {});
 
-    return Object.values(noDupliactes).sort((a, b) => a.stats.cost.funds - b.stats.cost.funds);
+    return Object.values(noDupliactes);
   }
 
   groupCardsByType(cards) {
@@ -133,6 +133,7 @@ class Cards extends Component {
             this.state.tab !== 'available' &&
             this.state.tab !== 'mining' &&
             this.groupDuplicates(activeTabCards)
+              .sort((a, b) => a.stats.cost.funds - b.stats.cost.funds)
               .map(card => (
                 <div key={card.id} className="card-container">
                   <DragWrapper key={card.id} {...{ card }}>
