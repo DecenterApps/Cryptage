@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleProjectDrop } from '../../actions/gameplayActions';
+import { handleProjectDrop } from '../../actions/dropActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import ProjectItem from '../ProjectItem/ProjectItem';
 import EmptyProjectSlot from '../EmptyProjectSlot/EmptyProjectSlot';

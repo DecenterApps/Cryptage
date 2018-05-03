@@ -7,6 +7,7 @@ const Feedback = () => (
     className="feedback"
     href="https://goo.gl/forms/spdem4dEbJfaZXeT2"
     target="_blank"
+    draggable={false}
     rel="noopener noreferrer"
   >
     Feedback

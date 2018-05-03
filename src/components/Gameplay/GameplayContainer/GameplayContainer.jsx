@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleMinerDropInContainer, switchInGameplayView } from '../../../actions/gameplayActions';
+import { switchInGameplayView } from '../../../actions/gameplayActions';
+import { handleMinerDropInContainer } from '../../../actions/dropActions';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import ContainerItem from '../../ContainerItem/ContainerItem';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
