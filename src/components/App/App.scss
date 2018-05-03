@@ -40,10 +40,10 @@ body {
     color: white;
     font-size: 20px;
     margin: 1em;
-    animation: fade-in 6s;
+    animation: fade-in 3s;
     @keyframes fade-in {
       0% { opacity: 0; }
-      80% { opacity: 0; }
+      66% { opacity: 0; }
       100% { opacity: 1; }
     }
   }
