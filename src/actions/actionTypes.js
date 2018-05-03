@@ -90,6 +90,7 @@ export const ADD_ASSET_SLOTS = 'add_location_slots';
 export const ADD_EXPERIENCE = 'add_experience';
 export const SWITCH_IN_GAMEPLAY_VIEW = 'switch_in_gameplay_view';
 export const PLAY_TURN = 'play_turn';
+export const INCREMENT_TURN = 'increment_turn';
 export const REMOVE_CARD = 'remove_card';
 export const RETURN_CARD = 'return_card';
 export const UPDATE_FUNDS_PER_BLOCK = 'update_funds_per_block';

@@ -31,6 +31,7 @@ import {
   CLEAR_TURNS,
   REMOVE_NEW_FROM_CARD,
   UPDATE_BLOCK_NUMBER,
+  INCREMENT_TURN,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -168,6 +169,12 @@ export default (state = INITIAL_STATE, action) => {
           ...state.playedTurns,
           action.turn,
         ],
+      };
+
+    case INCREMENT_TURN:
+      return {
+        ...state,
+        playedTurns: action.playedTurns,
       };
 
     case CLEAR_TURNS:
