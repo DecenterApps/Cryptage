@@ -952,6 +952,56 @@
         "type": "function"
       }
     ],
+    "address": "0x1670ed5f2b463a7ae959edab27728e82bf6ec84c"
+  },
+  "stateContract": {
+    "abi": [
+      {
+        "constant": false,
+        "inputs": [
+          {
+            "name": "input",
+            "type": "uint256[]"
+          },
+          {
+            "name": "_name",
+            "type": "bytes32"
+          }
+        ],
+        "name": "update",
+        "outputs": [
+          {
+            "name": "",
+            "type": "bytes"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "get",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address[]"
+          },
+          {
+            "name": "",
+            "type": "bytes32[]"
+          },
+          {
+            "name": "",
+            "type": "uint256[]"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ],
     "address": "0x0ae83ce8be27015848248d5cba3a64f78b1b0ec6"
   },
   "network": 42,
