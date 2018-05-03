@@ -103,6 +103,14 @@ class Menu extends Component {
               >
                 Reset Game
               </a>
+              <a className="coming-soon">
+                <span>Coming soon</span>
+                Marketplace
+              </a>
+              <a className="coming-soon">
+                <span>Coming soon</span>
+                Achievements
+              </a>
             </div>
           </div>
         </div>
