@@ -98,6 +98,23 @@
           color: $yellow;
         }
       }
+      .coming-soon {
+        cursor: default;
+        opacity: 0.5;
+        position: relative;
+
+        &:hover {
+          color: #fff;
+        }
+
+        span {
+          position: absolute;
+          right: 0;
+          top: 5px;
+          font-size: 8px;
+          padding-right: 10px;
+        }
+      }
     }
     &.open {
       visibility: visible;
