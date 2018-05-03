@@ -12,11 +12,16 @@
     padding-top: 17px;
     margin-right: 30px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     .save-button-wrapper {
       position: relative;
       margin-right: 32px;
+
+      .spinner-wrapper {
+        position: relative;
+        top: -9px;
+      }
 
       .orange-button {
         position: relative;
@@ -91,6 +96,23 @@
         text-transform: uppercase;
         &:hover {
           color: $yellow;
+        }
+      }
+      .coming-soon {
+        cursor: default;
+        opacity: 0.5;
+        position: relative;
+
+        &:hover {
+          color: #fff;
+        }
+
+        span {
+          position: absolute;
+          right: 0;
+          top: 5px;
+          font-size: 8px;
+          padding-right: 10px;
         }
       }
     }

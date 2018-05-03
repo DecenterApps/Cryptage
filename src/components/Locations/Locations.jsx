@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleLocationDrop } from '../../actions/gameplayActions';
+import { handleLocationDrop } from '../../actions/dropActions';
 import { buyBoosterPack } from '../../actions/boosterActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
@@ -32,7 +32,7 @@ const Locations = ({
         <div className="bar-2" />
         <div className="bar-3" />
         <div className="bar-4" />
-        <div className="bar-text">Location</div>
+        <div className="bar-text">Locations</div>
       </div>
     </div>
 

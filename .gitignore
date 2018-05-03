@@ -5,3 +5,4 @@ yarn.lock
 src/constants/config.json
 dist/
 yarn-error.log
+.DS_Store

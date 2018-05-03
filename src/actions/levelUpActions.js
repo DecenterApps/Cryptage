@@ -19,7 +19,7 @@ export const levelUpLocation = (_locations, index, lastDroppedItem, card) => {
 
   const newLevelCard = { ...mainCard, stats: fetchCardStats(id, level + 1) };
 
-  locations[index].lastDroppedItem.cards.push({ ...card });
+  locations[index].lastDroppedItem.cards.push({ ...card, stats: fetchCardStats(id, 1) });
 
   locations[index].lastDroppedItem.values = {
     space: newLevelCard.stats.values.space - (getMaxValueForLocation(mainCard, 'space') - values.space),
@@ -50,7 +50,7 @@ export const levelUpProject = (_projects, index, lastDroppedItem, card) => {
 
   const newLevelCard = { ...mainCard, stats: fetchCardStats(id, level + 1) };
 
-  projects[index].lastDroppedItem.cards.push({ ...card });
+  projects[index].lastDroppedItem.cards.push({ ...card, stats: fetchCardStats(id, 1) });
   projects[index].lastDroppedItem.mainCard = newLevelCard;
 
   if (!cardsConfig.cards[id][(level + 2).toString()]) projects[index].accepts = [];
@@ -76,7 +76,7 @@ export const levelUpAsset = (_locations, activeLocationIndex, index, card) => {
 
   const newLevelCard = { ...mainCard, stats: fetchCardStats(id, level + 1) };
 
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...card });
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.cards.push({ ...card, stats: fetchCardStats(id, 1) }); // eslint-disable-line
   locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.mainCard = newLevelCard;
 
   if (!cardsConfig.cards[id][(level + 2).toString()]) {
@@ -108,7 +108,7 @@ export const levelUpMiner = (_locations, locationIndex, containerIndex, cardInde
   const newLevelCard = { ...mainCard, stats: fetchCardStats(id, level + 1) };
 
   locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
-    .lastDroppedItem.cards.push({ ...card });
+    .lastDroppedItem.cards.push({ ...card, stats: fetchCardStats(id, 1) });
   locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex]
     .lastDroppedItem.mainCard = newLevelCard;
 

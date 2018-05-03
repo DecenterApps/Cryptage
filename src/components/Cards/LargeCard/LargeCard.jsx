@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { formatBigNumber, printMechanicsText } from '../../../services/utils';
+import { formatBigNumber, printMechanicsText, classForRarity } from '../../../services/utils';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import { fpbCardIds } from '../../../actions/actionTypes';
 
@@ -15,14 +15,6 @@ const classForNumber = (_number) => {
   if (number >= 1000) return '';
   if (number >= 100) return 'smaller';
   return '';
-};
-
-const classForRarity = (_rarity) => {
-  const number = parseInt(_rarity, 10);
-  if (number >= 900) return 'normal';
-  if (number >= 576) return 'blue';
-  if (number >= 485) return 'gold';
-  return 'red';
 };
 
 const LargeCard = ({

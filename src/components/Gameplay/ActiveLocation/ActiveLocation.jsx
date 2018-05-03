@@ -6,7 +6,7 @@ import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import GameplayContainer from '../GameplayContainer/GameplayContainer';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
 import { getMaxValueForLocation } from '../../../services/gameMechanicsService';
-import { handleAssetDrop } from '../../../actions/gameplayActions';
+import { handleAssetDrop } from '../../../actions/dropActions';
 
 import './ActiveLocation.scss';
 import { GP_LOCATION_CONTAINER, GP_LOCATION_MAIN } from '../../../actions/actionTypes';

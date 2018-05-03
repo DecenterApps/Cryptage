@@ -204,6 +204,8 @@ function _pack(arr, blockNumber, currentBlockNumber) {
       for (let i = 0; i < len; i += 1) {
         str += '0';
       }
+    } else {
+      str += '0000';
     }
 
     hexValues.push(bin2Hex(str));
