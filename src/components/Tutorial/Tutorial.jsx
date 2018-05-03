@@ -88,7 +88,7 @@ class Tutorial extends Component {
               >
                 <img draggable={false} src={`./tutorialImages/${page}`} alt="" />
                 {
-                  page === 'Step 07.14.jpg' &&
+                  page === 'Step-07.14.jpg' &&
                   <p className="overlay-text">
                     Congratulations, you have now learned all the basics of Cryptage Origins
                     gameplay! But this certainly doesn’t mean there aren’t further surprises and

@@ -422,7 +422,6 @@ export const updateProjectsDropSlots = (projects, index, item, blockNumber) =>
           mainCard: { ...item.card },
           isActive: true,
           isFinished: false,
-          timeDecrease: 0,
           expiryTime: blockNumber + item.card.stats.cost.time,
           timesFinished: 0,
           modifiedFundsBonus: 0,

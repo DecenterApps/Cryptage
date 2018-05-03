@@ -662,33 +662,6 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
 };
 
 /**
- * Decreases time execution for all project
- *
- * @param {Array} _projects
- * @param {Object} item
- * @param {Number} blockNumber
- *
- * @return {Array}
- */
-export const decreaseExecutionTimeForAllProjects = (_projects, item, blockNumber) => {
-  const projects = [..._projects];
-
-  return projects.map((_project) => {
-    const project = { ..._project };
-
-    if (project.lastDroppedItem && project.lastDroppedItem.isActive) {
-      const { expiryTime, timeDecrease } = _project.lastDroppedItem;
-      const { multiplierTime } = item.mainCard.stats.bonus;
-      const timeLeft = expiryTime - timeDecrease - blockNumber;
-
-      project.lastDroppedItem.timeDecrease += Math.ceil((timeLeft * ((multiplierTime) / 100)));
-    }
-
-    return project;
-  });
-};
-
-/**
  * Calculates how much funds should be increased by the multiplier
  *
  * @param {Number} funds
@@ -828,20 +801,6 @@ export const handleBonusDevMechanics = (_locations, activeLocationIndex, _global
   });
 
   return { globalStats, locations };
-};
-
-/**
- * Reduces running projects execution time when dropped
- * @param item
- */
-export const assetReduceTimeForProjects = item => (dispatch, getState) => {
-  const { gameplay } = getState();
-  const { blockNumber } = gameplay;
-  let projects = [...gameplay.projects];
-
-  projects = decreaseExecutionTimeForAllProjects(projects, { mainCard: { ...item.card } }, blockNumber);
-
-  dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
 
 /**

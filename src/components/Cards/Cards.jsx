@@ -38,22 +38,21 @@ class Cards extends Component {
       };
       return accumulator;
     }, {});
-    return Object.values(noDupliactes);
+
+    return Object.values(noDupliactes).sort((a, b) => a.stats.cost.funds - b.stats.cost.funds);
   }
 
   groupCardsByType(cards) {
     const noDupliactes = this.groupDuplicates(cards);
-    let grouped = noDupliactes.reduce((_accumulator, item) => {
+    const grouped = noDupliactes.reduce((_accumulator, item) => {
       const accumulator = { ..._accumulator };
 
       if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
       else accumulator[item.stats.type] = [item];
       return accumulator;
     }, {});
-    grouped = Object.values(grouped);
-    grouped = grouped.map(sortTypeGroupByPrice);
 
-    return grouped;
+    return Object.values(grouped).map(sortTypeGroupByPrice);
   }
 
   render() {
@@ -64,6 +63,7 @@ class Cards extends Component {
 
     const availableCards = getAvailableCards(cards, gameplayView, inGameplayView, locations, projects);
     const containerAndMinerCards = cards.filter(({ stats }) => stats.type === 'Mining' || stats.type === 'Container');
+    const activeTabCards = cards.filter(card => card.stats.type.toLowerCase() === this.state.tab);
 
     return (
       <div className="cards-wrapper">
@@ -132,7 +132,7 @@ class Cards extends Component {
             this.state.tab !== 'all' &&
             this.state.tab !== 'available' &&
             this.state.tab !== 'mining' &&
-            this.groupDuplicates(cards.filter(card => card.stats.type.toLowerCase() === this.state.tab))
+            this.groupDuplicates(activeTabCards)
               .map(card => (
                 <div key={card.id} className="card-container">
                   <DragWrapper key={card.id} {...{ card }}>

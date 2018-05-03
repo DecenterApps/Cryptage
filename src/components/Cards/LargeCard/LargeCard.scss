@@ -73,6 +73,7 @@
 
   .new-card {
     position: absolute;
+    z-index: 1;
     text-align: center;
     text-transform: uppercase;
     bottom: 252px;
@@ -88,7 +89,7 @@
   .title {
     z-index: 2;
     position: relative;
-    padding: 5px 5px 0 5px;
+    padding: 5px 7px 0 7px;
     font-size: 9px;
     text-transform: uppercase;
   }

@@ -10,7 +10,7 @@ import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
-import { loadGameplayState, updateFundsBlockDifference, checkProjectsBonus, } from '../../actions/gameplayActions';
+import { loadGameplayState, updateFundsBlockDifference, checkProjectsBonus } from '../../actions/gameplayActions';
 import {
   checkAccount,
   loadingEnded,
@@ -21,6 +21,7 @@ import {
 import './App.scss';
 import Tutorial from '../Tutorial/Tutorial';
 import Feedback from './Feedback/Feedback';
+import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 
 @DragDropContext(HTML5Backend)
 class App extends Component {
@@ -37,7 +38,16 @@ class App extends Component {
   render() {
     const { loadingApp, accountError, tutorialOpen } = this.props;
 
-    if (loadingApp) return (<div />);
+    if (loadingApp) {
+      return (
+        <div className="loading-wrapper">
+          <CircleSpinner />
+          <p className="show-delayed">
+            If this is taking too long, check your MetaMask connection
+          </p>
+        </div>
+      );
+    }
 
     return (
       <div className={`app-wrapper ${accountError ? 'no-acc' : 'has-acc'}`}>

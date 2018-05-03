@@ -18,12 +18,12 @@ const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime
 
 const ProjectItem = ({
   mainCard, index, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
-  openConfirmRemoveModal, timeDecrease, modifiedFundsBonus, dragItem, globalStats,
+  openConfirmRemoveModal, modifiedFundsBonus, dragItem, globalStats, projectExecutionTimePercent,
 }) => {
   const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
   const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
 
-  const timeLeft = expiryTime - timeDecrease - blockNumber;
+  const timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
   const cardFundsBonus = mainCard.stats.bonus.funds;
   const metadataId = mainCard.metadata.id;
   let fpb = 0;
@@ -47,7 +47,7 @@ const ProjectItem = ({
       <div
         className={`projects-item-wrapper ${!isActive && isFinished && 'project-finished'}`}
       >
-        <HoverInfo card={alteredMainCard} center />
+        <HoverInfo card={alteredMainCard} />
         {
           showFpb &&
           <div className="bonus">
@@ -137,10 +137,10 @@ ProjectItem.propTypes = {
   openConfirmRemoveModal: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
-  timeDecrease: PropTypes.number.isRequired,
   modifiedFundsBonus: PropTypes.number.isRequired,
   dragItem: PropTypes.object,
   globalStats: PropTypes.object.isRequired,
+  projectExecutionTimePercent: PropTypes.number.isRequired,
 };
 
 ProjectItem.defaultProps = {
@@ -152,6 +152,7 @@ const mapStateToProps = ({ gameplay }) => ({
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
   globalStats: gameplay.globalStats,
+  projectExecutionTimePercent: gameplay.projectExecutionTimePercent,
 });
 
 const mapDispatchToProp = {

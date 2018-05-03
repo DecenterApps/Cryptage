@@ -80,7 +80,7 @@ class LocationSidebarItem extends Component {
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
       >
-        <HoverInfo card={mainCard} center />
+        <HoverInfo card={mainCard} />
 
         {
           (activeLocationIndex !== index) &&

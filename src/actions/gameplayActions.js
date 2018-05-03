@@ -23,6 +23,9 @@ import {
   SAVE_STATE_ERROR,
   SAVE_STATE_SUCCESS,
   SAVE_STATE_REQUEST,
+  INCREMENT_TURN,
+  CHANGE_LOCATIONS_STATE,
+  UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -52,6 +55,81 @@ import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './
 export const changeGameplayView = payload => (dispatch, getState) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
   saveGameplayState(getState);
+};
+
+/**
+ * Saves the users turn for later contract submission
+ *
+ * @param item
+ * @param slotType
+ * @param index
+ * @param addOrRemove
+ * @return {Function}
+ */
+
+// 0 za rig 1 za computer case
+export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
+  const card = item.card || item.mainCard;
+  const { app, gameplay } = getState();
+
+  const {
+    activeLocationIndex, activeContainerIndex, locations,
+    playedTurns,
+  } = gameplay;
+
+  let location = 0;
+  let cardSpecificNumber = 0;
+  let containerCard;
+  let specificCard = 0;
+
+  switch (slotType) {
+    case 'location':
+      location = index;
+      break;
+    case 'project':
+      cardSpecificNumber = index;
+      break;
+    case 'location_slot':
+      location = gameplay.activeLocationIndex;
+      break;
+    case 'container_slot':
+      location = gameplay.activeLocationIndex;
+      containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
+      break;
+    default:
+      break;
+  }
+
+  // cardtype == gpu set specificCard to 1
+  if (card.stats.ID === 10) {
+    specificCard = 1;
+  }
+
+  const projectIndex = playedTurns.findIndex(item => item.uid === card.id);
+
+  if (card.stats.type === 'Project' && projectIndex >= 0) {
+    const turns = [...playedTurns];
+    turns[projectIndex].counter += 1;
+    return dispatch({
+      type: INCREMENT_TURN,
+      playedTurns: turns,
+    });
+  }
+
+  dispatch({
+    type: PLAY_TURN,
+    turn: {
+      add: addOrRemove ? 1 : 0,
+      specificCard,
+      location,
+      level: card.stats.level,
+      containerPosition: index,
+      cardType: card.stats.ID,
+      blockNumber: app.blockNumber,
+      counter: 0,
+      uid: card.id,
+    },
+  });
 };
 
 /**
@@ -194,21 +272,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const mathRes = handleCardMathematics(card, [], globalStats, index);
   const alterGlobalStats = mathRes.globalStats;
 
-  // if the project is activated again
-  if (card !== 'project') {
-    dispatch({
-      type: PLAY_TURN,
-      turn: {
-        add: 1,
-        specificCard: 0,
-        level: card.stats.level,
-        location: index,
-        containerPosition: index,
-        cardType: card.stats.ID,
-        blockNumber,
-      },
-    });
-  }
+  dispatch(playTurn({ card }, 'project', index, true));
 
   dispatch({
     type: CHANGE_PROJECT_STATE,
@@ -320,68 +384,6 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
 };
 
 /**
- * Saves the users turn for later contract submission
- *
- * @param item
- * @param slotType
- * @param index
- * @param addOrRemove
- * @return {Function}
- */
-
-// 0 za rig 1 za computer case
-export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
-  const card = item.card || item.mainCard;
-  const { app, gameplay } = getState();
-
-  const {
-    activeLocationIndex, activeContainerIndex, locations,
-    playedTurns,
-  } = gameplay;
-
-  let location = 0;
-  let cardSpecificNumber = 0;
-  let containerCard;
-  let specificCard = 0;
-
-  switch (slotType) {
-    case 'location':
-      location = index;
-      break;
-    case 'project':
-      cardSpecificNumber = index;
-      break;
-    case 'location_slot':
-      location = gameplay.activeLocationIndex;
-      break;
-    case 'container_slot':
-      location = gameplay.activeLocationIndex;
-      containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
-      break;
-    default:
-      break;
-  }
-
-  // cardtype == gpu set specificCard to 1
-  if (card.stats.ID === 10) {
-    specificCard = 1;
-  }
-
-  dispatch({
-    type: PLAY_TURN,
-    turn: {
-      add: addOrRemove ? 1 : 0,
-      specificCard,
-      location,
-      level: card.stats.level,
-      containerPosition: index,
-      cardType: card.stats.ID,
-      blockNumber: app.blockNumber,
-    },
-  });
-};
-
-/**
  * Fires when the nickname form is submitted
  *
  * @param {Object} data { nickname }
@@ -407,7 +409,6 @@ export const saveStateToContract = () => async (dispatch, getState) => {
   // Add call to the contract here
   const { gameplay } = getState();
   dispatch({ type: SAVE_STATE_REQUEST, payload: { isSaving: true } });
-
 
   if (gameplay.playedTurns.length === 0) {
     dispatch(openErrorModal(
@@ -476,4 +477,60 @@ export const checkProjectsBonus = () => (dispatch, getState) => {
   });
 
   if (changed) dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
+
+/**
+ * Updates projectExecutionTimePercent based on how much a card alters it
+ *
+ * @param {Object} card
+ * @param {Number} lastDecrease
+ * @return {Number} percentDecreased
+ */
+export const updateProjectExecutionTimePercent = (card, lastDecrease) => (dispatch, getState) => {
+  let { projectExecutionTimePercent } = getState().gameplay;
+
+  // add how much was taken in order to decrease again
+  projectExecutionTimePercent += lastDecrease;
+
+  // calc how much percent is going to be decreased
+  const percentDecreased = Math.floor((card.stats.bonus.multiplierTime / 100) * projectExecutionTimePercent);
+  projectExecutionTimePercent -= percentDecreased;
+
+  if (projectExecutionTimePercent < 0) projectExecutionTimePercent = 0;
+
+  dispatch({ type: UPDATE_PROJECT_EXECUTION_TIME_PERCENT, payload: projectExecutionTimePercent });
+  return percentDecreased;
+};
+
+/**
+ * Reduces projects execution time when asset it dropped/leveled up
+ *
+ * @param {Array} _projects
+ * @param {Number} index
+ * @param {Object} card
+ */
+export const projectReduceTimeForProjects = (_projects, index, card) => (dispatch) => {
+  const projects = [..._projects];
+  const lastDecrease = card.stats.level === 1 ? 0 : projects[index].lastDroppedItem.special;
+
+  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
+  projects[index].lastDroppedItem.special = percentDecreased;
+  dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
+
+/**
+ * Reduces projects execution time when asset it dropped/leveled up
+ *
+ * @param {Array} _locations
+ * @param {Number} activeLocationIndex
+ * @param {Number} index
+ * @param {Object} card
+ */
+export const assetReduceTimeForProjects = (_locations, activeLocationIndex, index, card) => (dispatch) => {
+  const locations = [..._locations];
+  const lastDecrease = card.stats.level === 1 ? 0 : locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special; // eslint-disable-line
+
+  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special = percentDecreased;
+  dispatch({ type: CHANGE_LOCATIONS_STATE, payload: locations });
 };
