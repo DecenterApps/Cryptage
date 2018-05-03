@@ -3,7 +3,7 @@ import {
   CONFIRM_REMOVE_MODAL,
   NEW_LEVEL_MODAL,
   REVEAL_BOOSTER_CARDS_MODAL,
-  NO_RESTART_PROJECT_MODAL,
+  NO_RESTART_PROJECT_MODAL, ERROR_MODAL,
 } from '../components/Modals/modalTypes';
 
 /**
@@ -42,7 +42,13 @@ export const openConfirmRemoveModal = (
   projectIndex = undefined,
 ) => (dispatch) => {
   const props = {
-    slot, locationIndex, containerIndex, containerSlotIndex, projectCard, projectIndex, width: '271px',
+    slot,
+    locationIndex,
+    containerIndex,
+    containerSlotIndex,
+    projectCard,
+    projectIndex,
+    width: '271px',
   };
   dispatch(toggleModal(CONFIRM_REMOVE_MODAL, props, true));
 };
@@ -73,4 +79,17 @@ export const openRevealBoosterCardsModal = cards => (dispatch) => {
  */
 export const openNoRestartProjectModal = errors => (dispatch) => {
   dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '271px', errors }, true));
+};
+
+/**
+ * Opens a default error modal
+ *
+ * @param {String} title
+ * @param {String} body
+ */
+export const openErrorModal = (title, body) => (dispatch) => {
+  dispatch(toggleModal(ERROR_MODAL, {
+    width: '271px',
+    errors: { title, body },
+  }, true));
 };

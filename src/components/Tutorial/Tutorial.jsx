@@ -77,9 +77,6 @@ class Tutorial extends Component {
   render() {
     return (
       <div className={`tutorial-wrapper ${this.state.tutorialVisible ? 'shown' : ''}`}>
-        <div className="buttons-wrapper">
-          <button className="orange-button skip" onClick={() => this.finishTutorial()}>Skip</button>
-        </div>
         <div className="slider-wrapper">
           {
             this.state.pages.map((page, index) => (
@@ -115,20 +112,23 @@ class Tutorial extends Component {
               </div>
             ))
           }
-        </div>
-        <div className="buttons-wrapper">
-          {
-            this.state.shownPage + 1 < this.state.pages.length &&
-            <button className="orange-button" onClick={() => this.nextPage()}>Next</button>
-          }
-          {
-            this.state.shownPage + 1 === this.state.pages.length &&
-            <button className="orange-button" onClick={() => this.finishTutorial()}>Finish</button>
-          }
-          {
-            this.state.shownPage > 0 &&
-            <button className="orange-button" onClick={() => this.prevPage()}>Back</button>
-          }
+          <div className="buttons-wrapper">
+            <button className="orange-button skip" onClick={() => this.finishTutorial()}>Skip</button>
+            <div>
+              {
+                this.state.shownPage > 0 &&
+                <button className="orange-button" onClick={() => this.prevPage()}>Back</button>
+              }
+              {
+                this.state.shownPage + 1 < this.state.pages.length &&
+                <button className="orange-button" onClick={() => this.nextPage()}>Next</button>
+              }
+              {
+                this.state.shownPage + 1 === this.state.pages.length &&
+                <button className="orange-button" onClick={() => this.finishTutorial()}>Finish</button>
+              }
+            </div>
+          </div>
         </div>
       </div>
     );

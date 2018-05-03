@@ -6,6 +6,7 @@ import { changeGameplayView, saveStateToContract } from '../../actions/gameplayA
 import { resetGame } from '../../actions/appActions';
 import { GP_LOCATION_COLLECTION, GP_BUY_BOOSTER, GP_LEADERBOARD } from '../../actions/actionTypes';
 import BlocksLoadingBar from '../BlocksLoadingBar/BlocksLoadingBar';
+import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 
 import ethereumService from '../../services/ethereumService';
 
@@ -23,6 +24,8 @@ class Menu extends Component {
       saveStateToContract,
       currentBlock,
       resetGame,
+      isSaving,
+      saveError,
     } = this.props;
 
     let blocksLeftToSave = null;
@@ -36,9 +39,11 @@ class Menu extends Component {
           <div className="save-button-wrapper">
             <button
               className="orange-button"
+              disabled={isSaving}
               onClick={saveStateToContract}
             >
-              Save
+              { !isSaving && 'Publish'}
+              { isSaving && <CircleSpinner /> }
             </button>
 
             {
@@ -98,6 +103,14 @@ class Menu extends Component {
               >
                 Reset Game
               </a>
+              <a className="coming-soon">
+                <span>Coming soon</span>
+                Marketplace
+              </a>
+              <a className="coming-soon">
+                <span>Coming soon</span>
+                Achievements
+              </a>
             </div>
           </div>
         </div>
@@ -112,11 +125,15 @@ Menu.propTypes = {
   lastSavedStateBlock: PropTypes.number.isRequired,
   currentBlock: PropTypes.number.isRequired,
   resetGame: PropTypes.func.isRequired,
+  isSaving: PropTypes.bool.isRequired,
+  saveError: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ gameplay, app }) => ({
+const mapStateToProps = ({ gameplay, contractState }) => ({
   lastSavedStateBlock: gameplay.lastSavedStateBlock,
   currentBlock: gameplay.blockNumber,
+  isSaving: contractState.isSaving,
+  saveError: contractState.saveError,
 });
 
 const mapDispatchToProps = {

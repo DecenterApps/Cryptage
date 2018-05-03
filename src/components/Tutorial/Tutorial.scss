@@ -13,30 +13,11 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  background-color: rgba(#090E1C, .8);
+  background-color: rgba(#090E1C, .9);
   opacity: 0;
   transition: opacity .3s;
   &.shown {
     opacity: 1;
-  }
-
-  .buttons-wrapper {
-    height: 50px;
-    width: 1000px;
-    margin: 0 auto;
-    text-align: right;
-    display: flex;
-    justify-content: space-between;
-    flex-flow: row-reverse;
-    z-index: 1;
-    button {
-      margin: 20px 0 0;
-      &.skip {
-        background: transparent;
-        border: 0;
-        outline: none;
-      }
-    }
   }
 
   .slider-wrapper {
@@ -77,6 +58,31 @@
           color: inherit;
           font-family: inherit;
           font-size: inherit;
+        }
+      }
+    }
+
+
+    .buttons-wrapper {
+      position: absolute;
+      bottom: 0;
+      padding: 1px 0;
+      width: 1000px;
+      text-align: right;
+      display: flex;
+      justify-content: space-between;
+      z-index: 1;
+      button {
+        position: relative;
+        bottom: -2px;
+        outline: none;
+        margin: 0 0 2px -2px;
+
+        &.skip {
+          background: linear-gradient(to right, rgba(#0A0F1D, .7), rgba(#0A0F1D, 0));
+          border: 0;
+          margin: 0 0 2px 2px;
+          bottom: 0;
         }
       }
     }
