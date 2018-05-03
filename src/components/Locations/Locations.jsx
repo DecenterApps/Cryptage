@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleLocationDrop } from '../../actions/gameplayActions';
+import { handleLocationDrop } from '../../actions/dropActions';
 import { buyBoosterPack } from '../../actions/boosterActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
