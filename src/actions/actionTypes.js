@@ -70,6 +70,11 @@ export const REVEAL_REQUEST = 'reveal_request';
 export const REVEAL_SUCCESS = 'reveal_success';
 export const REVEAL_ERROR = 'reveal_error';
 
+// STATE
+export const SAVE_STATE_REQUEST = 'save_state_request';
+export const SAVE_STATE_SUCCESS = 'save_state_success';
+export const SAVE_STATE_ERROR = 'save_state_error';
+
 // GAMEPLAY
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
