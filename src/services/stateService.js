@@ -245,8 +245,6 @@ export function packMoves(_moves, currBlockNumber, klipaN) {
     }
   });
 
-  console.log(moves);
-
   const blockNum = dec2bin(blockNumber, 42);
   const currentBlockNum = dec2bin(currBlockNumber, 42);
 
