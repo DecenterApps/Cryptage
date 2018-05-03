@@ -9,6 +9,7 @@ const ReportABug = () => (
     href="https://goo.gl/forms/90rEFatImpwGa0ak2"
     target="_blank"
     rel="noopener noreferrer"
+    draggable={false}
   >
     <img src={bug} alt="Report a bug" draggable={false} />
     <p>Report a bug</p>
