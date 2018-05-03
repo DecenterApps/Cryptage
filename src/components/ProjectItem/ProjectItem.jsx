@@ -100,7 +100,7 @@ const ProjectItem = ({
                 strokeWidth="5"
                 strokeColor="#FF9D14"
                 trailColor="transparent"
-                percent={calculatePercent(expiryTime - blockNumber, mainCard.stats.cost.time)}
+                percent={calculatePercent(timeLeft, mainCard.stats.cost.time)}
               />
               <span className="project-time-left">
               <img className="project-thumbnail" src={activeBg} alt="" draggable={false} />

@@ -12,10 +12,12 @@
 
   .close-icon {
     position: absolute;
-    top: 115px;
-    right: -55px;
+    top: 105px;
+    right: -65px;
     cursor: pointer;
     transition: 0.2s ease-in;
+    padding: 10px;
+    z-index: 50;
 
     &:hover {
       opacity: 0.8;
