@@ -47,7 +47,7 @@ const ProjectItem = ({
       <div
         className={`projects-item-wrapper ${!isActive && isFinished && 'project-finished'}`}
       >
-        <HoverInfo card={alteredMainCard} center />
+        <HoverInfo card={alteredMainCard} />
         {
           showFpb &&
           <div className="bonus">
