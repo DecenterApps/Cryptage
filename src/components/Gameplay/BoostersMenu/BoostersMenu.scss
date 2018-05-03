@@ -32,10 +32,11 @@
   .close-icon {
     position: absolute;
     z-index: 10;
-    top: -25px;
-    right: 0;
+    top: -35px;
+    right: -10px;
     cursor: pointer;
     transition: 0.2s ease-in;
+    padding: 10px;
 
     &:hover {
       opacity: 0.8;
