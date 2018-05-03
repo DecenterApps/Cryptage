@@ -10,7 +10,9 @@ import {
   CLEAR_REVEALED_CARDS,
   REMOVE_NEW_FROM_CARD,
   UPDATE_FUNDS_PER_BLOCK,
+  UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
   bonusDevPerLocationCards,
+  timeReduceIds,
 } from './actionTypes';
 import { addOrReduceFromFundsPerBlock, playTurn } from './gameplayActions';
 import { getPlayedAssetCards, updateLocationDropSlotItems } from '../services/utils';
@@ -112,6 +114,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   let currentItem;
   let totalDev = 0;
   let totalPower = 0;
+  let totalProjectExecutionTimePercent = 0;
 
   if (item.dropSlots) {
     for (let i = 0; i < item.dropSlots.length; i += 1) {
@@ -125,6 +128,10 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
           totalDev += currentItem.special;
         }
         returnedCards = [...returnedCards, ...currentItem.cards];
+
+        if (timeReduceIds.includes(currentItem.mainCard.metadata.id)) {
+          totalProjectExecutionTimePercent += currentItem.special;
+        }
       }
       if (currentItem !== null && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
         dispatch(handleCardCancel(item.dropSlots[i], locationIndex, i));
@@ -143,6 +150,10 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     }
     if (item.mainCard.stats.type === 'Person') {
       totalDev += item.mainCard.stats.bonus.development;
+    }
+
+    if (timeReduceIds.includes(item.mainCard.metadata.id)) {
+      totalProjectExecutionTimePercent += item.special;
     }
   }
 
@@ -203,6 +214,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     type: REMOVE_CARD,
     locations: _locations,
     cards: [...getState().gameplay.cards, ...returnedCards],
+    projectExecutionTimePercent: getState().gameplay.projectExecutionTimePercent + totalProjectExecutionTimePercent, // eslint-disable-line
     globalStats: {
       ...getState().gameplay.globalStats,
       development: getState().gameplay.globalStats.development - totalDev,
@@ -226,6 +238,7 @@ export const removeProject = (card, index) => (dispatch, getState) => {
   const { projects } = getState().gameplay;
   const { locations } = getState().gameplay;
   let { fundsPerBlock } = getState().gameplay;
+  const { projectExecutionTimePercent } = getState().gameplay;
   const alteredProjects = [...projects];
   const item = alteredProjects[index].lastDroppedItem;
 
@@ -234,6 +247,10 @@ export const removeProject = (card, index) => (dispatch, getState) => {
     fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, false, toRemove);
   } else {
     fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item, false);
+  }
+
+  if (timeReduceIds.includes(card.metadata.id)) {
+    dispatch({ type: UPDATE_PROJECT_EXECUTION_TIME_PERCENT, payload: projectExecutionTimePercent + item.special });
   }
 
   alteredProjects[index].accepts = acceptedProjectDropIds;

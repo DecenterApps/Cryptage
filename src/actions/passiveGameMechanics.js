@@ -9,7 +9,6 @@ import {
   calculateLevelData,
   doNotShowProjectFpb,
   checkIfNewLevel,
-  decreaseExecutionTimeForAllProjects,
   increaseFundsByMultiplier,
   calcDiffFpbBonusForMiners,
   bonusFpbMiningAlgo,
@@ -202,6 +201,7 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
   const { blockNumber } = getState().app;
   const { projects } = getState().gameplay;
   const { locations } = getState().gameplay;
+  const { projectExecutionTimePercent } = getState().gameplay;
   let { fundsPerBlock } = getState().gameplay;
   const {
     experience, development, funds, level,
@@ -214,7 +214,10 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
 
   for (let i = 0; i < _projects.length; i += 1) {
     if (_projects[i].lastDroppedItem != null && _projects[i].lastDroppedItem.expiryTime != null) {
-      if ((_projects[i].lastDroppedItem.expiryTime - _projects[i].lastDroppedItem.timeDecrease) - blockNumber <= 0) {
+
+      const modifiedExpiryTime = Math.floor((projectExecutionTimePercent / 100) * (_projects[i].lastDroppedItem.expiryTime - blockNumber)); // eslint-disable-line
+
+      if (modifiedExpiryTime <= 0) {
         const item = _projects[i].lastDroppedItem;
         const card = item.mainCard;
 
@@ -223,14 +226,12 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         _projects[i].lastDroppedItem.isFinished = true;
         _projects[i].lastDroppedItem.showFpb = true;
         _projects[i].lastDroppedItem.timesFinished += 1;
-        _projects[i].lastDroppedItem.timeDecrease = 0;
         _projects[i].lastDroppedItem.modifiedFundsBonus = 0;
         acquiredXp += card.stats.bonus.xp;
         releasedDev += card.stats.cost.development;
         receivedFunds += card.stats.bonus.funds;
 
         if (card.metadata.id === '26') fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, card, true);
-        if (card.metadata.id === '31') _projects = decreaseExecutionTimeForAllProjects(_projects, item, blockNumber);
         if (card.metadata.id === '30') {
           const modifiedFundsBonus = increaseFundsByMultiplier(receivedFunds + funds, item);
           _projects[i].lastDroppedItem.modifiedFundsBonus = modifiedFundsBonus + receivedFunds;
