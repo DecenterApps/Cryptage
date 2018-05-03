@@ -42,7 +42,7 @@ class Menu extends Component {
               disabled={isSaving}
               onClick={saveStateToContract}
             >
-              { !isSaving && 'Publish'}
+              { !isSaving && 'Save'}
               { isSaving && <CircleSpinner /> }
             </button>
 
