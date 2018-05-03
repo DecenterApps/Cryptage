@@ -73,6 +73,7 @@
 
   .new-card {
     position: absolute;
+    z-index: 1;
     text-align: center;
     text-transform: uppercase;
     bottom: 252px;

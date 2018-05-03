@@ -4,7 +4,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 html {
@@ -27,6 +27,26 @@ body {
   flex-direction: column;
   justify-content: center;
   height: 100vh;
+}
+
+.loading-wrapper {
+  text-align: center;
+  overflow: hidden;
+  padding: 40px;
+  .spinner-wrapper {
+    transform: scale(2);
+  }
+  .show-delayed {
+    color: white;
+    font-size: 20px;
+    margin: 1em;
+    animation: fade-in 6s;
+    @keyframes fade-in {
+      0% { opacity: 0; }
+      80% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  }
 }
 
 .app-wrapper {
