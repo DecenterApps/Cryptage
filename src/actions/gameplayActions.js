@@ -264,6 +264,10 @@ export const activateProject = (card, index) => (dispatch, getState) => {
     return dispatch(openNoRestartProjectModal(getMathErrors(card.stats, globalStats)));
   }
 
+  if (card.stats.level > 1 && card.stats.cost.development > globalStats.development) {
+    return dispatch(openNoRestartProjectModal({ development: true, funds: false }));
+  }
+
   alteredProjects[index].lastDroppedItem.isFinished = false;
   alteredProjects[index].lastDroppedItem.isActive = true;
   alteredProjects[index].lastDroppedItem.expiryTime = blockNumber +
