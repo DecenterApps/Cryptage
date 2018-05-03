@@ -33,6 +33,7 @@ import {
   UPDATE_BLOCK_NUMBER,
   CHANGE_LOCATIONS_STATE,
   UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
+  INCREMENT_TURN,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -172,6 +173,12 @@ export default (state = INITIAL_STATE, action) => {
           ...state.playedTurns,
           action.turn,
         ],
+      };
+
+    case INCREMENT_TURN:
+      return {
+        ...state,
+        playedTurns: action.playedTurns,
       };
 
     case CLEAR_TURNS:
