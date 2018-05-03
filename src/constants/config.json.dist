@@ -3,21 +3,286 @@
     "abi": [
       {
         "constant": true,
-        "inputs": [
-          {
-            "name": "_boosterId",
-            "type": "uint256"
-          }
-        ],
-        "name": "getCardFromBooster",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256[]"
-          }
-        ],
+        "inputs": [],
+        "name": "CARD_ARTIST_PERCENTAGE",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
         "payable": false,
         "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "metadataContract",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          },{
+            "name": "", "type": "uint256"
+          }],
+        "name": "boosters",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "numberOfCardsInBooster",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "cardPackToken",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "name": "boughtWithToken",
+        "outputs": [{
+            "name": "", "type": "bool"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "", "type": "address"
+          }],
+        "name": "withdrawBalance",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "owner",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "seleneanCards",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "OWNER_PERCENTAGE",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          {
+            "name": "",
+            "type": "address"
+          },{
+            "name": "", "type": "uint256"
+          }],
+        "name": "unrevealedBoosters",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "name": "boosterOwners",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "numOfBoosters",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "name": "blockNumbers",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "REVEALER_PERCENTAGE",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "BOOSTER_PRICE",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "BUY_WITH_REVEAL",
+        "outputs": [{
+            "name": "", "type": "bool"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "newOwner", "type": "address"
+          }],
+        "name": "transferOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [{
+            "name": "_cardAddress", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": false, "name": "user", "type": "address"
+          }, {
+            "indexed": false, "name": "boosterId", "type": "uint256"
+          }],
+        "name": "BoosterBought",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": false, "name": "boosterId", "type": "uint256"
+          }],
+        "name": "BoosterRevealed",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": false, "name": "user", "type": "address"
+          }, {
+            "indexed": false, "name": "boosterId", "type": "uint256"
+          }],
+        "name": "BoosterInstantBought",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true, "name": "previousOwner", "type": "address"
+          }, {
+            "indexed": true, "name": "newOwner", "type": "address"
+          }],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "constant": false,
+        "inputs": [],
+        "name": "buyInstantBooster",
+        "outputs": [],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_to", "type": "address"
+          }],
+        "name": "buyInstantBoosterWithToken",
+        "outputs": [],
+        "payable": true,
+        "stateMutability": "payable",
         "type": "function"
       },
       {
@@ -31,161 +296,9 @@
       },
       {
         "constant": false,
-        "inputs": [],
-        "name": "buyInstantBooster",
-        "outputs": [],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "giftToken",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "CARD_ARTIST_PERCENTAGE",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "metadataContract",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "withdraw",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          },
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "boosters",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_giftTokenAddress",
-            "type": "address"
-          }
-        ],
-        "name": "addGiftToken",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "numberOfCardsInBooster",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "boughtWithToken",
-        "outputs": [
-          {
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "withdrawBalance",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_to",
-            "type": "address"
-          }
-        ],
+        "inputs": [{
+            "name": "_to", "type": "address"
+          }],
         "name": "buyBoosterWithToken",
         "outputs": [],
         "payable": false,
@@ -193,45 +306,14 @@
         "type": "function"
       },
       {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
+        "constant": false,
+        "inputs": [{
+            "name": "_boosterId", "type": "uint256"
+          }],
+        "name": "revealBooster",
+        "outputs": [],
         "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "seleneanCards",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "OWNER_PERCENTAGE",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -249,13 +331,26 @@
         "type": "function"
       },
       {
-        "constant": false,
-        "inputs": [
+        "constant": true,
+        "inputs": [{
+            "name": "_boosterId", "type": "uint256"
+          }],
+        "name": "getCardFromBooster",
+        "outputs": [
           {
-            "name": "_metadataContract",
-            "type": "address"
+            "name": "",
+            "type": "uint256[]"
           }
         ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_metadataContract", "type": "address"
+          }],
         "name": "addMetadataContract",
         "outputs": [],
         "payable": false,
@@ -263,286 +358,50 @@
         "type": "function"
       },
       {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "address"
-          },
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "unrevealedBoosters",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
         "constant": false,
-        "inputs": [
-          {
-            "name": "_to",
-            "type": "address"
-          }
-        ],
-        "name": "buyInstantBoosterWithToken",
+        "inputs": [{
+            "name": "_cardPackTokenAddress", "type": "address"
+          }],
+        "name": "addCardPackToken",
         "outputs": [],
-        "payable": true,
-        "stateMutability": "payable",
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
         "constant": false,
-        "inputs": [
-          {
-            "name": "_buyWithReveal",
-            "type": "bool"
-          }
-        ],
+        "inputs": [],
+        "name": "withdraw",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_buyWithReveal", "type": "bool"
+          }],
         "name": "setBytWithReveal",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "boosterOwners",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "numOfBoosters",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_boosterId",
-            "type": "uint256"
-          }
-        ],
-        "name": "revealBooster",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "blockNumbers",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "REVEALER_PERCENTAGE",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "BOOSTER_PRICE",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "BUY_WITH_REVEAL",
-        "outputs": [
-          {
-            "name": "",
-            "type": "bool"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "newOwner",
-            "type": "address"
-          }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "name": "_cardAddress",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "name": "user",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "name": "boosterId",
-            "type": "uint256"
-          }
-        ],
-        "name": "BoosterBought",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "name": "boosterId",
-            "type": "uint256"
-          }
-        ],
-        "name": "BoosterRevealed",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": false,
-            "name": "user",
-            "type": "address"
-          },
-          {
-            "indexed": false,
-            "name": "boosterId",
-            "type": "uint256"
-          }
-        ],
-        "name": "BoosterInstantBought",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "name": "previousOwner",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "newOwner",
-            "type": "address"
-          }
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event"
       }
     ],
-    "address": "0x71313a06b4b2f850176bdbe08903ae0d21e32a23"
+    "address": "0xc023012b400577acf287b5250b57b0079b0bddac"
   },
   "cardContract": {
     "abi": [
       {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_boosterContract",
-            "type": "address"
-          }
-        ],
-        "name": "addBoosterContract",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
         "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
         "name": "tokenPosInArr",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -551,47 +410,33 @@
         "constant": true,
         "inputs": [],
         "name": "name",
-        "outputs": [
-          {
-            "name": "",
-            "type": "string"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "string"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
       },
       {
         "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
         "name": "tokensForOwner",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
       },
       {
         "constant": false,
-        "inputs": [
-          {
-            "name": "_to",
-            "type": "address"
-          },
-          {
-            "name": "_cardId",
-            "type": "uint256"
-          }
-        ],
+        "inputs": [{
+            "name": "_to", "type": "address"
+          }, {
+            "name": "_cardId", "type": "uint256"
+          }],
         "name": "approve",
         "outputs": [],
         "payable": false,
@@ -600,19 +445,13 @@
       },
       {
         "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
         "name": "tokensForApproved",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -621,12 +460,9 @@
         "constant": true,
         "inputs": [],
         "name": "implementsERC721",
-        "outputs": [
-          {
-            "name": "",
-            "type": "bool"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "bool"
+          }],
         "payable": false,
         "stateMutability": "pure",
         "type": "function"
@@ -635,28 +471,11 @@
         "constant": true,
         "inputs": [],
         "name": "totalSupply",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
         "payable": false,
         "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_marketplaceContract",
-            "type": "address"
-          }
-        ],
-        "name": "addMarketplaceContract",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -665,16 +484,11 @@
           {
             "name": "_from",
             "type": "address"
-          },
-          {
-            "name": "_to",
-            "type": "address"
-          },
-          {
-            "name": "_cardId",
-            "type": "uint256"
-          }
-        ],
+          },{
+            "name": "_to", "type": "address"
+          }, {
+            "name": "_cardId", "type": "uint256"
+          }],
         "name": "transferFrom",
         "outputs": [],
         "payable": false,
@@ -682,18 +496,109 @@
         "type": "function"
       },
       {
-        "constant": false,
+        "constant": true,
+        "inputs": [{
+            "name": "_owner", "type": "address"
+          }, {
+            "name": "_index", "type": "uint256"
+          }],
+        "name": "tokenOfOwnerByIndex",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "_cardId", "type": "uint256"
+          }],
+        "name": "ownerOf",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "_owner", "type": "address"
+          }],
+        "name": "balanceOf",
+        "outputs": [{
+            "name": "balance", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
         "inputs": [
           {
-            "name": "_cardIdOnMarketplace",
-            "type": "uint256"
-          },
+            "name": "",
+            "type": "address"
+          },{
+            "name": "", "type": "uint256"
+          }],
+        "name": "tokensOwned",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "_owner", "type": "address"
+          }],
+        "name": "getUserCards",
+        "outputs": [
           {
-            "name": "_myCardId",
-            "type": "uint256"
+            "name": "",
+            "type": "uint256[]"
           }
         ],
-        "name": "_approveAndExchange",
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "owner",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [{
+            "name": "", "type": "string"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_to", "type": "address"
+          }, {
+            "name": "_cardId", "type": "uint256"
+          }],
+        "name": "transfer",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -701,48 +606,154 @@
       },
       {
         "constant": true,
-        "inputs": [
-          {
-            "name": "_user",
-            "type": "address"
-          },
-          {
-            "name": "_metadataId",
-            "type": "uint256"
-          }
-        ],
-        "name": "numberOfCardsWithType",
-        "outputs": [
-          {
-            "name": "_num",
-            "type": "uint256"
-          }
-        ],
+        "inputs": [],
+        "name": "numOfCards",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
       },
       {
         "constant": true,
-        "inputs": [
-          {
-            "name": "_owner",
-            "type": "address"
-          },
-          {
-            "name": "_index",
-            "type": "uint256"
-          }
-        ],
-        "name": "tokenOfOwnerByIndex",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "name": "metadata",
+        "outputs": [{
+            "name": "id", "type": "uint256"
+          }, {
+            "name": "rarity", "type": "uint256"
+          }, {
+            "name": "ipfsHash", "type": "bytes32"
+          }, {
+            "name": "ipfsHashFunction", "type": "uint8"
+          }, {
+            "name": "ipfsSize", "type": "uint8"
+          }, {
+            "name": "artist", "type": "address"
+          }],
         "payable": false,
         "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "newOwner", "type": "address"
+          }],
+        "name": "transferOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true, "name": "from", "type": "address"
+          }, {
+            "indexed": true, "name": "to", "type": "address"
+          }, {
+            "indexed": true, "name": "tokenId", "type": "uint256"
+          }],
+        "name": "Transfer",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true, "name": "owner", "type": "address"
+          }, {
+            "indexed": true, "name": "approved", "type": "address"
+          }, {
+            "indexed": true, "name": "tokenId", "type": "uint256"
+          }],
+        "name": "Approval",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true, "name": "_to", "type": "address"
+          }, {
+            "indexed": true, "name": "_tokenId", "type": "uint256"
+          }],
+        "name": "Mint",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true, "name": "previousOwner", "type": "address"
+          }, {
+            "indexed": true, "name": "newOwner", "type": "address"
+          }],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_owner", "type": "address"
+          }, {
+            "name": "_metadataId", "type": "uint256"
+          }],
+        "name": "createCard",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "_user", "type": "address"
+          }, {
+            "name": "_metadataId", "type": "uint256"
+          }],
+        "name": "numberOfCardsWithType",
+        "outputs": [{
+            "name": "_num", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_boosterContract", "type": "address"
+          }],
+        "name": "addBoosterContract",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_metadataContract", "type": "address"
+          }],
+        "name": "addMetadataContract",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_marketplaceContract", "type": "address"
+          }],
+        "name": "addMarketplaceContract",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
@@ -769,314 +780,19 @@
       },
       {
         "constant": false,
-        "inputs": [
-          {
-            "name": "_owner",
-            "type": "address"
-          },
-          {
-            "name": "_metadataId",
-            "type": "uint256"
-          }
-        ],
-        "name": "createCard",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "_cardId",
-            "type": "uint256"
-          }
-        ],
-        "name": "ownerOf",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "_owner",
-            "type": "address"
-          }
-        ],
-        "name": "balanceOf",
-        "outputs": [
-          {
-            "name": "balance",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "address"
-          },
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "tokensOwned",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "_owner",
-            "type": "address"
-          }
-        ],
-        "name": "getUserCards",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256[]"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "symbol",
-        "outputs": [
-          {
-            "name": "",
-            "type": "string"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_to",
-            "type": "address"
-          },
-          {
-            "name": "_cardId",
-            "type": "uint256"
-          }
-        ],
-        "name": "transfer",
+        "inputs": [{
+            "name": "_cardIdOnMarketplace", "type": "uint256"
+          }, {
+            "name": "_myCardId", "type": "uint256"
+          }],
+        "name": "_approveAndExchange",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
         "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "numOfCards",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "_metadataContract",
-            "type": "address"
-          }
-        ],
-        "name": "addMetadataContract",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "metadata",
-        "outputs": [
-          {
-            "name": "id",
-            "type": "uint256"
-          },
-          {
-            "name": "rarity",
-            "type": "uint256"
-          },
-          {
-            "name": "ipfsHash",
-            "type": "bytes32"
-          },
-          {
-            "name": "ipfsHashFunction",
-            "type": "uint8"
-          },
-          {
-            "name": "ipfsSize",
-            "type": "uint8"
-          },
-          {
-            "name": "artist",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "newOwner",
-            "type": "address"
-          }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "name": "from",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "to",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "tokenId",
-            "type": "uint256"
-          }
-        ],
-        "name": "Transfer",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "name": "owner",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "approved",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "tokenId",
-            "type": "uint256"
-          }
-        ],
-        "name": "Approval",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "name": "_to",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "_tokenId",
-            "type": "uint256"
-          }
-        ],
-        "name": "Mint",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "name": "previousOwner",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "newOwner",
-            "type": "address"
-          }
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event"
       }
     ],
-    "address": "0x5a385ce45f1a770ff30c6f32bd0eba3b2dc23050"
+    "address": "0x12c6604cae41d9eb5bd049ea11204341671143f5"
   },
   "globalStats": {
     "development": 0,
@@ -1088,57 +804,13 @@
     "abi": [
       {
         "constant": true,
-        "inputs": [
-          {
-            "name": "_rarity",
-            "type": "uint256"
-          }
-        ],
-        "name": "getCardByRarity",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
         "name": "rarities",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [
-          {
-            "name": "_metadataId",
-            "type": "uint256"
-          }
-        ],
-        "name": "getArtist",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
@@ -1147,68 +819,70 @@
         "constant": true,
         "inputs": [],
         "name": "owner",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "getMaxRandom",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "constant": true,
-        "inputs": [],
-        "name": "getNumberOfCards",
-        "outputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
       },
       {
         "constant": false,
-        "inputs": [
-          {
-            "name": "_rarity",
-            "type": "uint256"
-          },
-          {
-            "name": "_ipfsHash",
-            "type": "bytes32"
-          },
-          {
-            "name": "_ipfsHashFunction",
-            "type": "uint8"
-          },
-          {
-            "name": "_ipfsSize",
-            "type": "uint8"
-          },
-          {
-            "name": "_artist",
-            "type": "address"
-          }
-        ],
+        "inputs": [{
+            "name": "newOwner", "type": "address"
+          }],
+        "name": "transferOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "name": "properties",
+        "outputs": [{
+            "name": "id", "type": "uint256"
+          }, {
+            "name": "rarity", "type": "uint256"
+          }, {
+            "name": "ipfsHash", "type": "bytes32"
+          }, {
+            "name": "ipfsHashFunction", "type": "uint8"
+          }, {
+            "name": "ipfsSize", "type": "uint8"
+          }, {
+            "name": "artist", "type": "address"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "anonymous": false,
+        "inputs": [{
+            "indexed": true, "name": "previousOwner", "type": "address"
+          }, {
+            "indexed": true, "name": "newOwner", "type": "address"
+          }],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "constant": false,
+        "inputs": [{
+            "name": "_rarity", "type": "uint256"
+          }, {
+            "name": "_ipfsHash", "type": "bytes32"
+          }, {
+            "name": "_ipfsHashFunction", "type": "uint8"
+          }, {
+            "name": "_ipfsSize", "type": "uint8"
+          }, {
+            "name": "_artist", "type": "address"
+          }],
         "name": "addCardMetadata",
         "outputs": [],
         "payable": false,
@@ -1230,128 +904,57 @@
         "type": "function"
       },
       {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "newOwner",
-            "type": "address"
-          }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
         "constant": true,
-        "inputs": [
-          {
-            "name": "",
-            "type": "uint256"
-          }
-        ],
-        "name": "properties",
-        "outputs": [
-          {
-            "name": "id",
-            "type": "uint256"
-          },
-          {
-            "name": "rarity",
-            "type": "uint256"
-          },
-          {
-            "name": "ipfsHash",
-            "type": "bytes32"
-          },
-          {
-            "name": "ipfsHashFunction",
-            "type": "uint8"
-          },
-          {
-            "name": "ipfsSize",
-            "type": "uint8"
-          },
-          {
-            "name": "artist",
-            "type": "address"
-          }
-        ],
+        "inputs": [{
+            "name": "_metadataId", "type": "uint256"
+          }],
+        "name": "getArtist",
+        "outputs": [{
+            "name": "", "type": "address"
+          }],
         "payable": false,
         "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "anonymous": false,
-        "inputs": [
-          {
-            "indexed": true,
-            "name": "previousOwner",
-            "type": "address"
-          },
-          {
-            "indexed": true,
-            "name": "newOwner",
-            "type": "address"
-          }
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event"
-      }
-    ],
-    "address": "0xca7578ffcc5386b25c2b75e28d830bf8d6af42a3"
-  },
-  "stateContract": {
-    "abi": [
-      {
-        "constant": false,
-        "inputs": [
-          {
-            "name": "input",
-            "type": "uint256[]"
-          },
-          {
-            "name": "_name",
-            "type": "bytes32"
-          }
-        ],
-        "name": "update",
-        "outputs": [
-          {
-            "name": "",
-            "type": "bytes"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function"
       },
       {
         "constant": true,
         "inputs": [],
-        "name": "get",
-        "outputs": [
-          {
-            "name": "",
-            "type": "address[]"
-          },
-          {
-            "name": "",
-            "type": "bytes32[]"
-          },
-          {
-            "name": "",
-            "type": "uint256[]"
-          }
-        ],
+        "name": "getNumberOfCards",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "getMaxRandom",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [{
+            "name": "_rarity", "type": "uint256"
+          }],
+        "name": "getCardByRarity",
+        "outputs": [{
+            "name": "", "type": "uint256"
+          }],
         "payable": false,
         "stateMutability": "view",
         "type": "function"
       }
     ],
-    "address": "0xbb49f4badbac88ad0b3110b010ce07815e2d7058"
+    "address": "0xdc394f3a201894a1d82c82fa97eea4a6af034de6"
   },
   "network": 42,
+  "webSocketServer": "wss://cards.decenter.com/ws?",
   "wsProvider": "wss://kovan.decenter.com:4443"
 }
