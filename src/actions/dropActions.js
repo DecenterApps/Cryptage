@@ -4,6 +4,7 @@ import {
   DROP_MINER,
   DROP_PROJECT,
   bonusDevPerLocationCards,
+  timeReduceIds,
 } from './actionTypes';
 import {
   saveGameplayState,
@@ -16,13 +17,17 @@ import {
   checkIfCanPlayCard,
   calcLocationPerDevBonus,
   handleBonusDevMechanics,
-  assetReduceTimeForProjects,
   handleCardMathematics,
   getLevelCardBonusStatDiff,
   updateProjectModifiedFunds,
 } from '../services/gameMechanicsService';
 import { levelUpLocation, levelUpAsset, levelUpMiner, levelUpProject } from './levelUpActions';
-import { addOrReduceFromFundsPerBlock, addAssetSlots } from './gameplayActions';
+import {
+  addOrReduceFromFundsPerBlock,
+  addAssetSlots,
+  assetReduceTimeForProjects,
+  projectReduceTimeForProjects,
+} from './gameplayActions';
 
 /**
  * Fires when the player drags a location card from his hand
@@ -95,8 +100,6 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
       special = cardEffect.bonus;
     }
 
-    if (metaDataId === '40' || metaDataId === '17') dispatch(assetReduceTimeForProjects(item));
-
     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
 
     // On developer drop recalculates location per dev bonus
@@ -127,6 +130,10 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   dispatch(addAssetSlots(activeLocationIndex));
 
   if (metaDataId === '41' || metaDataId === '42') dispatch(updateProjectModifiedFunds());
+
+  if (timeReduceIds.includes(metaDataId)) {
+    dispatch(assetReduceTimeForProjects(locations, activeLocationIndex, index, item.card));
+  }
 
   saveGameplayState(getState);
 };
@@ -209,6 +216,12 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   ({ globalStats } = handleCardMathematics(mainCard, [], globalStats, index));
 
   dispatch({ type: DROP_PROJECT, projects, cards, globalStats }); // eslint-disable-line
+
   if (mainCard.metadata.id === '24' || mainCard.metadata.id === '37') dispatch(updateProjectModifiedFunds());
+
+  if (timeReduceIds.includes(mainCard.metadata.id)) {
+    dispatch(projectReduceTimeForProjects(projects, index, item.card));
+  }
+
   saveGameplayState(getState);
 };

@@ -20,6 +20,8 @@ import {
   GP_NO_NICKNAME,
   CLEAR_TURNS,
   PLAY_TURN,
+  CHANGE_LOCATIONS_STATE,
+  UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -459,4 +461,60 @@ export const checkProjectsBonus = () => (dispatch, getState) => {
   });
 
   if (changed) dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
+
+/**
+ * Updates projectExecutionTimePercent based on how much a card alters it
+ *
+ * @param {Object} card
+ * @param {Number} lastDecrease
+ * @return {Number} percentDecreased
+ */
+export const updateProjectExecutionTimePercent = (card, lastDecrease) => (dispatch, getState) => {
+  let { projectExecutionTimePercent } = getState().gameplay;
+
+  // add how much was taken in order to decrease again
+  projectExecutionTimePercent += lastDecrease;
+
+  // calc how much percent is going to be decreased
+  const percentDecreased = Math.floor((card.stats.bonus.multiplierTime / 100) * projectExecutionTimePercent);
+  projectExecutionTimePercent -= percentDecreased;
+
+  if (projectExecutionTimePercent < 0) projectExecutionTimePercent = 0;
+
+  dispatch({ type: UPDATE_PROJECT_EXECUTION_TIME_PERCENT, payload: projectExecutionTimePercent });
+  return percentDecreased;
+};
+
+/**
+ * Reduces projects execution time when asset it dropped/leveled up
+ *
+ * @param {Array} _projects
+ * @param {Number} index
+ * @param {Object} card
+ */
+export const projectReduceTimeForProjects = (_projects, index, card) => (dispatch) => {
+  const projects = [..._projects];
+  const lastDecrease = card.stats.level === 1 ? 0 : projects[index].lastDroppedItem.special;
+
+  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
+  projects[index].lastDroppedItem.special = percentDecreased;
+  dispatch({ type: CHANGE_PROJECT_STATE, projects });
+};
+
+/**
+ * Reduces projects execution time when asset it dropped/leveled up
+ *
+ * @param {Array} _locations
+ * @param {Number} activeLocationIndex
+ * @param {Number} index
+ * @param {Object} card
+ */
+export const assetReduceTimeForProjects = (_locations, activeLocationIndex, index, card) => (dispatch) => {
+  const locations = [..._locations];
+  const lastDecrease = card.stats.level === 1 ? 0 : locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special; // eslint-disable-line
+
+  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
+  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special = percentDecreased;
+  dispatch({ type: CHANGE_LOCATIONS_STATE, payload: locations });
 };

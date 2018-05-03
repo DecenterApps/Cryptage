@@ -31,6 +31,8 @@ import {
   CLEAR_TURNS,
   REMOVE_NEW_FROM_CARD,
   UPDATE_BLOCK_NUMBER,
+  CHANGE_LOCATIONS_STATE,
+  UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -48,6 +50,7 @@ const INITIAL_STATE = {
   newCardTypes: [],
   locations: LOCATION_DROP_SLOTS,
   projects: PROJECT_DROP_SLOTS,
+  projectExecutionTimePercent: 100,
   activeLocationIndex: 0,
   activeContainerIndex: 0,
   playedTurns: [],
@@ -152,6 +155,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case ADD_LOCATION_SLOTS:
     case ADD_ASSET_SLOTS:
+    case CHANGE_LOCATIONS_STATE:
       return { ...state, locations: payload };
 
     case SWITCH_IN_GAMEPLAY_VIEW:
@@ -184,6 +188,7 @@ export default (state = INITIAL_STATE, action) => {
         globalStats: action.globalStats,
         gameplayView: action.gameplayView,
         fundsPerBlock: action.fundsPerBlock,
+        projectExecutionTimePercent: action.projectExecutionTimePercent,
       };
 
     case RETURN_CARD:
@@ -214,6 +219,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case UPDATE_BLOCK_NUMBER:
       return { ...state, blockNumber: payload };
+
+    case UPDATE_PROJECT_EXECUTION_TIME_PERCENT:
+      return { ...state, projectExecutionTimePercent: payload };
 
     default:
       return state;
