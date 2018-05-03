@@ -389,7 +389,7 @@
         "type": "function"
       }
     ],
-    "address": "0xc023012b400577acf287b5250b57b0079b0bddac"
+    "address": "0x2bd3cd032bca5891ef361414a4c716c36ae37474"
   },
   "cardContract": {
     "abi": [
@@ -792,7 +792,7 @@
         "type": "function"
       }
     ],
-    "address": "0x12c6604cae41d9eb5bd049ea11204341671143f5"
+    "address": "0x51777507fd1c642e1522f3d9bb0ec8cc061e3843"
   },
   "globalStats": {
     "development": 0,
@@ -952,7 +952,7 @@
         "type": "function"
       }
     ],
-    "address": "0xdc394f3a201894a1d82c82fa97eea4a6af034de6"
+    "address": "0x1670ed5f2b463a7ae959edab27728e82bf6ec84c"
   },
   "network": 42,
   "webSocketServer": "wss://cards.decenter.com/ws?",
