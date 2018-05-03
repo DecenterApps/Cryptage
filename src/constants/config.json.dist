@@ -952,9 +952,8 @@
         "type": "function"
       }
     ],
-    "address": "0x1670ed5f2b463a7ae959edab27728e82bf6ec84c"
+    "address": "0x0ae83ce8be27015848248d5cba3a64f78b1b0ec6"
   },
   "network": 42,
-  "webSocketServer": "wss://cards.decenter.com/ws?",
   "wsProvider": "wss://kovan.decenter.com:4443"
 }
