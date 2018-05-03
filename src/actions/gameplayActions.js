@@ -336,7 +336,7 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
     playedTurns,
   } = gameplay;
 
-  let location;
+  let location = 0;
   let cardSpecificNumber = 0;
   let containerCard;
   let specificCard = 0;
