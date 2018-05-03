@@ -20,6 +20,9 @@ import {
   GP_NO_NICKNAME,
   CLEAR_TURNS,
   PLAY_TURN,
+  SAVE_STATE_ERROR,
+  SAVE_STATE_SUCCESS,
+  SAVE_STATE_REQUEST,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -38,7 +41,7 @@ import {
 } from '../services/utils';
 
 import { packMoves, readState } from '../services/stateService';
-import { openNewLevelModal, openNoRestartProjectModal } from './modalActions';
+import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -403,10 +406,18 @@ export const submitNickname = ({ nickname }) => async (dispatch) => {
 export const saveStateToContract = () => async (dispatch, getState) => {
   // Add call to the contract here
   const { gameplay } = getState();
+  dispatch({ type: SAVE_STATE_REQUEST, payload: { isSaving: true } });
+
 
   if (gameplay.playedTurns.length === 0) {
-    const currState = await ethService.getState();
-    console.log(currState, readState(currState));
+    dispatch(openErrorModal(
+      'Play something first',
+      'In order to save your state you need to play some cards.',
+    ));
+    dispatch({
+      type: SAVE_STATE_ERROR,
+      payload: { isSaving: false, saveError: 'No turns played.' },
+    });
     return;
   }
 
@@ -416,13 +427,21 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   try {
     // const ipfs = await ipfsService.uploadData(gameplay);
-
     await ethService.updateMoves(packedMoves, gameplay.nickname);
 
     dispatch({ type: CLEAR_TURNS });
+    dispatch({ type: SAVE_STATE_SUCCESS, payload: { isSaving: false } });
     saveGameplayState(getState);
   } catch (err) {
     console.log(err);
+    dispatch(openErrorModal(
+      'State error',
+      'There has been an error while saving the state or you have rejected the transaction.',
+    ));
+    dispatch({
+      type: SAVE_STATE_ERROR,
+      payload: { isSaving: false, saveError: 'No turns played.' },
+    });
   }
 };
 

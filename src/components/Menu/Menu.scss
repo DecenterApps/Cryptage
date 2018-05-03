@@ -18,6 +18,11 @@
       position: relative;
       margin-right: 32px;
 
+      .spinner-wrapper {
+        position: relative;
+        top: -9px;
+      }
+
       .orange-button {
         position: relative;
         left: 14px;

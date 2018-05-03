@@ -7,6 +7,7 @@ import shopReducer from './shopReducer';
 import gameplayReducer from './gameplayReducer';
 import modalReducer from './modalReducer';
 import leaderboardReducer from './leaderboardReducer';
+import contractStateReducer from './contractStateReducer';
 
 const mainReducer = combineReducers({
   routing: routerReducer,
@@ -16,6 +17,7 @@ const mainReducer = combineReducers({
   form: formReducer,
   modal: modalReducer,
   leaderboard: leaderboardReducer,
+  contractState: contractStateReducer,
 });
 
 /*   Clears the store state    */
