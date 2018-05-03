@@ -16,6 +16,7 @@ export const acceptedAssetLevelUpIds =
 
 const minerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Mining');
 export const fpbCardIds = [...minerIds, '18', '22', '23', '26'];
+export const timeReduceIds = ['17', '40', '31'];
 
 export const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Location'); // eslint-disable-line
 
@@ -99,6 +100,8 @@ export const ADD_NEW_LEVEL_CARDS = 'add_new_cards';
 export const CLEAR_REVEALED_CARDS = 'clear_revealed_cards';
 export const CLEAR_TURNS = 'clear_turns';
 export const REMOVE_NEW_FROM_CARD = 'remove_new_from_card';
+export const CHANGE_LOCATIONS_STATE = 'change_locations_state';
+export const UPDATE_PROJECT_EXECUTION_TIME_PERCENT = 'update_project_execution_time_percent';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';

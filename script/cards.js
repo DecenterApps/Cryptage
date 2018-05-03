@@ -5,8 +5,8 @@ const fs = require('fs');
 
 const config = require('./config');
 
-const ourAddress = '0xf3FE977d431FA3d723bcB6e4b77f6B1884F7D94C';
-const ourPrivateKey = '57a44e0b3791fd55f9084920c515304450007295390918813fbdb4333d991230';
+const ourAddress = process.env.ADDRESS;
+const ourPrivateKey = process.env.PRIV_KEY;
 
 const web3 = new Web3(new Web3.providers.HttpProvider('https://kovan.decenter.com'));
 web3.eth.defaultAccount = ourAddress;
