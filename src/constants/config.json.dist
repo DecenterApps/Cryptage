@@ -1350,7 +1350,7 @@
         "type": "function"
       }
     ],
-    "address": "0xad75403ef18cbd9c0d1739c7877642912e29cea7"
+    "address": "0xbb49f4badbac88ad0b3110b010ce07815e2d7058"
   },
   "network": 42,
   "wsProvider": "wss://testnet.decenter.com:4443"
