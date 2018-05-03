@@ -335,7 +335,7 @@ export const loadGameplayState = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  const payload = JSON.parse(localStorage.getItem(`player-location-${account}`));
+  const payload = JSON.parse(localStorage.getItem(`cryptage-${account}`));
 
   if (!payload) {
     // TODO
@@ -355,7 +355,7 @@ export const updateFundsBlockDifference = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  const previousState = JSON.parse(localStorage.getItem(`player-location-${account}`));
+  const previousState = JSON.parse(localStorage.getItem(`cryptage-${account}`));
 
   if (previousState) {
     const currentBlock = await ethService.getBlockNumber();
