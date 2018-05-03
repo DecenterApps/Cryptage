@@ -3111,7 +3111,7 @@
           "development": 0,
           "funds": 0,
           "multiplierDev": 0,
-          "multiplierFunds": 150,
+          "multiplierFunds": 450,
           "multiplierTime": 0,
           "power": 0,
           "space": 0,
@@ -3128,7 +3128,7 @@
         "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 1,
-        "mechanicsText": "Gains 50 FUNDS per CPU and 150 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "special": true,
         "title": "Rent Computing Power",
@@ -3141,7 +3141,7 @@
           "development": 0,
           "funds": 0,
           "multiplierDev": 0,
-          "multiplierFunds": 210,
+          "multiplierFunds": 510,
           "multiplierTime": 0,
           "power": 0,
           "space": 0,
@@ -3158,7 +3158,7 @@
         "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 2,
-        "mechanicsText": "Gains 70 FUNDS per CPU and 210 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 170 FUNDS per CPU and 510 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "special": true,
         "title": "Rent Computing Power",
@@ -3171,7 +3171,7 @@
           "development": 0,
           "funds": 0,
           "multiplierDev": 0,
-          "multiplierFunds": 270,
+          "multiplierFunds": 570,
           "multiplierTime": 0,
           "power": 0,
           "space": 0,
@@ -3188,7 +3188,7 @@
         "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 3,
-        "mechanicsText": "Gains 90 FUNDS per CPU and 270 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 190 FUNDS per CPU and 570 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "special": true,
         "title": "Rent Computing Power",
@@ -3201,7 +3201,7 @@
           "development": 0,
           "funds": 0,
           "multiplierDev": 0,
-          "multiplierFunds": 330,
+          "multiplierFunds": 630,
           "multiplierTime": 0,
           "power": 0,
           "space": 0,
@@ -3218,7 +3218,7 @@
         "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 4,
-        "mechanicsText": "Gains 110 FUNDS per CPU and 330 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 210 FUNDS per CPU and 630 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "special": true,
         "title": "Rent Computing Power",
@@ -3231,7 +3231,7 @@
           "development": 0,
           "funds": 0,
           "multiplierDev": 0,
-          "multiplierFunds": 390,
+          "multiplierFunds": 690,
           "multiplierTime": 0,
           "power": 0,
           "space": 0,
@@ -3248,7 +3248,7 @@
         "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 5,
-        "mechanicsText": "Gains 130 FUNDS per CPU and 390 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 230 FUNDS per CPU and 690 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "special": true,
         "title": "Rent Computing Power",
@@ -3579,12 +3579,12 @@
           "level": 10,
           "power": 0,
           "space": 0,
-          "time": 4000
+          "time": 3000
         },
         "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 1,
-        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 4000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "special": true,
         "title": "Decentralized Protocol Development",
@@ -3598,7 +3598,7 @@
           "funds": 0,
           "multiplierDev": 0,
           "multiplierFunds": 0,
-          "multiplierTime": 3,
+          "multiplierTime": 4,
           "power": 0,
           "space": 0,
           "xp": 12000
@@ -3609,12 +3609,12 @@
           "level": 10,
           "power": 0,
           "space": 0,
-          "time": 4000
+          "time": 3000
         },
         "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 2,
-        "mechanicsText": "Decreases time needed to complete other projects by 3%. Time to complete: 4000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 4%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "special": true,
         "title": "Decentralized Protocol Development",
@@ -3628,7 +3628,7 @@
           "funds": 0,
           "multiplierDev": 0,
           "multiplierFunds": 0,
-          "multiplierTime": 4,
+          "multiplierTime": 6,
           "power": 0,
           "space": 0,
           "xp": 16000
@@ -3639,12 +3639,12 @@
           "level": 10,
           "power": 0,
           "space": 0,
-          "time": 4000
+          "time": 3000
         },
         "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 3,
-        "mechanicsText": "Decreases time needed to complete other projects by 4%. Time to complete: 4000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 6%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "special": true,
         "title": "Decentralized Protocol Development",
@@ -3658,7 +3658,7 @@
           "funds": 0,
           "multiplierDev": 0,
           "multiplierFunds": 0,
-          "multiplierTime": 5,
+          "multiplierTime": 8,
           "power": 0,
           "space": 0,
           "xp": 20000
@@ -3669,12 +3669,12 @@
           "level": 10,
           "power": 0,
           "space": 0,
-          "time": 4000
+          "time": 3000
         },
         "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 4,
-        "mechanicsText": "Decreases time needed to complete other projects by 5%. Time to complete: 4000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 8%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "special": true,
         "title": "Decentralized Protocol Development",
@@ -3688,7 +3688,7 @@
           "funds": 0,
           "multiplierDev": 0,
           "multiplierFunds": 0,
-          "multiplierTime": 6,
+          "multiplierTime": 10,
           "power": 0,
           "space": 0,
           "xp": 24000
@@ -3699,12 +3699,12 @@
           "level": 10,
           "power": 0,
           "space": 0,
-          "time": 4000
+          "time": 3000
         },
         "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 5,
-        "mechanicsText": "Decreases time needed to complete other projects by 6%. Time to complete: 4000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 10%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "special": true,
         "title": "Decentralized Protocol Development",
@@ -4780,7 +4780,7 @@
       "1": {
         "ID": "39",
         "bonus": {
-          "development": 22,
+          "development": 0,
           "funds": 0,
           "multiplierDev": 20,
           "multiplierFunds": 0,
@@ -4791,7 +4791,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 30000,
+          "funds": 15000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4810,7 +4810,7 @@
       "2": {
         "ID": "39",
         "bonus": {
-          "development": 30,
+          "development": 0,
           "funds": 0,
           "multiplierDev": 25,
           "multiplierFunds": 0,
@@ -4821,7 +4821,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 30000,
+          "funds": 15000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4840,7 +4840,7 @@
       "3": {
         "ID": "39",
         "bonus": {
-          "development": 38,
+          "development": 0,
           "funds": 0,
           "multiplierDev": 30,
           "multiplierFunds": 0,
@@ -4851,7 +4851,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 30000,
+          "funds": 15000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4870,7 +4870,7 @@
       "4": {
         "ID": "39",
         "bonus": {
-          "development": 46,
+          "development": 0,
           "funds": 0,
           "multiplierDev": 35,
           "multiplierFunds": 0,
@@ -4881,7 +4881,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 30000,
+          "funds": 15000,
           "level": 6,
           "power": 0,
           "space": 20,
@@ -4900,7 +4900,7 @@
       "5": {
         "ID": "39",
         "bonus": {
-          "development": 54,
+          "development": 0,
           "funds": 0,
           "multiplierDev": 40,
           "multiplierFunds": 0,
@@ -4911,7 +4911,7 @@
         },
         "cost": {
           "development": 0,
-          "funds": 30000,
+          "funds": 15000,
           "level": 6,
           "power": 0,
           "space": 20,
