@@ -121,6 +121,9 @@
         p {
           margin: 5px 0 0;
           font-family: $font-primary;
+          span {
+            font-family: inherit;
+          }
         }
         .mechanics {
           font-weight: bold;
