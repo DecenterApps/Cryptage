@@ -1350,7 +1350,7 @@
         "type": "function"
       }
     ],
-    "address": "0xbb49f4badbac88ad0b3110b010ce07815e2d7058"
+    "address": "0x0ae83ce8be27015848248d5cba3a64f78b1b0ec6"
   },
   "network": 42,
   "wsProvider": "wss://kovan.decenter.com:4443"
