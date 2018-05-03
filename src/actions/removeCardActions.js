@@ -5,7 +5,7 @@ import {
   acceptedLocationDropIds,
   acceptedAssetDropIds,
   acceptedProjectDropIds,
-  RETURN_CARD,
+  RETURN_CARDS,
   UPDATE_LOCATIONS,
   CLEAR_REVEALED_CARDS,
   REMOVE_NEW_FROM_CARD,
@@ -259,7 +259,7 @@ export const removeProject = (card, index) => (dispatch, getState) => {
   dispatch(playTurn(item, 'project', index, false));
   dispatch({ type: CHANGE_PROJECT_STATE, projects: alteredProjects });
   dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
-  dispatch({ type: RETURN_CARD, card });
+  dispatch({ type: RETURN_CARDS, cards: item.cards });
 };
 
 /**

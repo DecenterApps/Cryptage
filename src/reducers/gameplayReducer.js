@@ -24,7 +24,7 @@ import {
   REMOVE_CARD,
   SUBMIT_NICKNAME_SUCCESS,
   GP_NO_LOCATIONS,
-  RETURN_CARD,
+  RETURN_CARDS,
   UPDATE_FUNDS_PER_BLOCK,
   UPDATE_LOCATIONS,
   ADD_NEW_LEVEL_CARDS,
@@ -198,14 +198,8 @@ export default (state = INITIAL_STATE, action) => {
         projectExecutionTimePercent: action.projectExecutionTimePercent,
       };
 
-    case RETURN_CARD:
-      return {
-        ...state,
-        cards: [
-          ...state.cards,
-          action.card,
-        ],
-      };
+    case RETURN_CARDS:
+      return { ...state, cards: [...state.cards, ...action.cards] };
 
     case ADD_NEW_LEVEL_CARDS:
       return {
