@@ -230,7 +230,7 @@ export const saveGameplayState = (getState) => {
     return;
   }
 
-  localStorage.setItem(`player-location-${account}`, JSON.stringify(state.gameplay));
+  localStorage.setItem(`cryptage-${account}`, JSON.stringify(state.gameplay));
 };
 
 /**
