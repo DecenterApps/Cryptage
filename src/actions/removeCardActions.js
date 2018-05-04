@@ -30,6 +30,7 @@ import {
  */
 export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
   const { gameplay } = getState();
+  const locations = [...gameplay.locations];
   const item = { ...slot.lastDroppedItem };
   let currentItem;
   let totalDev = 0;
@@ -59,6 +60,8 @@ export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
     if (item.mainCard.stats.type === 'Person') {
       totalDev += item.mainCard.stats.bonus.development;
     }
+    // when trying to remove a power card which has its power occupied
+    if (locations[locationIndex].lastDroppedItem.values.power - item.mainCard.stats.bonus.power < 0) return false;
   }
 
   return gameplay.globalStats.development >= totalDev;
@@ -113,7 +116,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   let returnedCards = [];
   let currentItem;
   let totalDev = 0;
-  let totalPower = 0;
+  let totalPowerInContainer = 0;
   let totalProjectExecutionTimePercent = 0;
 
   if (item.dropSlots) {
@@ -139,7 +142,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
 
       if (currentItem !== null && currentItem.dropSlots === undefined) {
         if (currentItem.mainCard.stats.type === 'Mining') {
-          totalPower -= currentItem.mainCard.stats.cost.power;
+          totalPowerInContainer -= currentItem.mainCard.stats.cost.power;
         }
         returnedCards = [...returnedCards, ...currentItem.cards];
       }
@@ -182,7 +185,10 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       .dropSlots[containerSlotIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex === undefined) {
     const { space } = item.mainCard.stats.cost;
-    const cardPower = item.mainCard.stats.bonus ? item.mainCard.stats.bonus.power : 0;
+
+    // if it was a container gets sum of power of all miners in it. if not it is zero
+    let cardPower = totalPowerInContainer;
+    if (item.mainCard.stats.bonus) cardPower = item.mainCard.stats.bonus.power;
 
     const minerCards = _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards;
     returnedCards = [...returnedCards, ...minerCards];
