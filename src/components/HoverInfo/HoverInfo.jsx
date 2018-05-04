@@ -123,11 +123,23 @@ const HoverInfo = ({ card, center }) => {
             {
               card.stats.bonus &&
               card.stats.bonus.funds > 0 &&
+              card.metadata.id !== '43' &&
               <div
                 data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
                 className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
               >
                 {formatBigNumber(card.stats.bonus.funds)}
+              </div>
+            }
+            {
+              card.stats.bonus &&
+              card.stats.bonus.funds > 0 &&
+              card.metadata.id === '43' &&
+              <div
+                data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
+                className={`orb funds ${classForNumber(card.stats.bonus.multiplierFunds)}`}
+              >
+                {formatBigNumber(card.stats.bonus.multiplierFunds)}
               </div>
             }
             {

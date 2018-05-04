@@ -78,6 +78,9 @@ class GameplayItem extends Component {
     // handle grid connector fpb
     if (mainCard.metadata.id === '22') fpb = locationItem.values.power * mainCard.stats.bonus.funds;
 
+    // handle blockchain smartlock fpb
+    if (mainCard.metadata.id === '43') fpb = locationItem.values.space * mainCard.stats.bonus.multiplierFunds;
+
     if (isContainer) {
       // export this to another function
       if (isDragMiner) {

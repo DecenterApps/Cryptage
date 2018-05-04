@@ -15,7 +15,7 @@ export const acceptedAssetLevelUpIds =
     cardConfig.cards[key]['1'].type !== 'Project');
 
 const minerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Mining');
-export const fpbCardIds = [...minerIds, '18', '22', '23', '26'];
+export const fpbCardIds = [...minerIds, '18', '22', '23', '26', '43'];
 export const timeReduceIds = ['17', '40', '31'];
 
 export const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Location'); // eslint-disable-line

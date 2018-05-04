@@ -122,7 +122,11 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
     globalStats.development += getLevelCardBonusStatDiff(mainCard, 'development');
   }
 
-  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
+  let fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
+
+  if (metaDataId === '43') {
+    fundsPerBlock += locations[activeLocationIndex].lastDroppedItem.values.space * mainCard.stats.bonus.multiplierFunds;
+  }
 
   dispatch({
     type: DROP_ASSET, locations, cards, globalStats, fundsPerBlock,
