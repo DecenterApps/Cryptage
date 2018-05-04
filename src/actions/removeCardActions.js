@@ -182,16 +182,16 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
       .dropSlots[containerSlotIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex === undefined) {
     const { space } = item.mainCard.stats.cost;
-    const { power } = item.mainCard.stats.bonus;
+    const cardPower = item.mainCard.stats.bonus ? item.mainCard.stats.bonus.power : 0;
 
     const minerCards = _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards;
     returnedCards = [...returnedCards, ...minerCards];
 
     // HANDLE ERROR HERE
-    if (_locations[locationIndex].lastDroppedItem.values.power - power < 0) return;
+    if (_locations[locationIndex].lastDroppedItem.values.power - cardPower < 0) return;
 
     _locations[locationIndex].lastDroppedItem.values.space += space;
-    _locations[locationIndex].lastDroppedItem.values.power -= power;
+    _locations[locationIndex].lastDroppedItem.values.power -= cardPower;
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].accepts = acceptedAssetDropIds;
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem = null;
   } else if (locationIndex !== undefined && containerIndex === undefined) {
