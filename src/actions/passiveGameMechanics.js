@@ -15,6 +15,7 @@ import {
   calcFundsForDroppedCpuAndGpu,
   checkIfDayTradersDropped,
   checkIfInformationDealerDropped,
+  calcTinkererPerLocationBonus,
 } from '../services/gameMechanicsService';
 import { addOrReduceFromFundsPerBlock } from './gameplayActions';
 
@@ -199,6 +200,26 @@ export const addBonusMiningFunds = (_cards, miningFpb) => (dispatch, getState) =
 };
 
 /**
+ * Adds bonus funds based on miners dropped on the same location as the dropped Hardware Tinkerer
+ */
+export const addBonusMiningFundsPerLocation = _cards => (dispatch, getState) => {
+  const { gameplay } = getState();
+  const locations = [...gameplay.locations];
+  const globalStats = { ...gameplay.globalStats };
+  let tinkererFunds = 0;
+
+  const tinkererCards = _cards.filter(_card => _card.metadata.id === '44');
+
+  tinkererCards.forEach(({ locationIndex, stats }) => {
+    tinkererFunds += calcTinkererPerLocationBonus(locations, locationIndex, stats);
+  });
+
+  globalStats.funds += tinkererFunds;
+  dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
+  return tinkererFunds;
+};
+
+/**
  * Updates gameplay stats for each played asset card that has
  * that defined
  *
@@ -209,6 +230,7 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
 
   const miningFunds = dispatch(addFundsForDroppedMiningRigs(cards));
   const bonusMiningFunds = dispatch(addBonusMiningFunds(cards, miningFunds));
+  const bonusMiningFundsPerLocation = dispatch(addBonusMiningFundsPerLocation(cards));
   const gridConnectorsFunds = dispatch(addFundsForDroppedGridConnectors(cards));
   const hackersFunds = dispatch(addFundsForDroppedHacker(cards));
   const coffeeMinerFunds = dispatch(addFundsForDroppedCoffeeMiners(cards));
@@ -216,7 +238,7 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
   const blockchainSmartlockFunds = dispatch(addFundsForDroppedBlockchainSmartlocks(cards));
 
   const total = miningFunds + bonusMiningFunds + gridConnectorsFunds + hackersFunds + coffeeMinerFunds
-    + profitableDappFunds + blockchainSmartlockFunds;
+    + profitableDappFunds + blockchainSmartlockFunds + bonusMiningFundsPerLocation;
 
   if (total !== getState().gameplay.fundsPerBlock) dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: total });
 

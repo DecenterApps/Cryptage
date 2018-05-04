@@ -859,3 +859,30 @@ export const updateProjectModifiedFunds = () => (dispatch, getState) => {
 
   if (updated) dispatch({ type: CHANGE_PROJECT_STATE, projects });
 };
+
+/**
+ * Calculates how much more funds miners give for dropped tinkerer
+ *
+ * @param {Array} locations
+ * @param {Number} locationIndex
+ * @param {Object} stats
+ * @return {Number}
+ */
+export const calcTinkererPerLocationBonus = (locations, locationIndex, stats) => {
+  const locationSlots = locations[locationIndex].lastDroppedItem.dropSlots;
+  let minerFundsPerLocations = 0;
+
+  locationSlots
+    .filter(locationSlot => locationSlot.lastDroppedItem && locationSlot.lastDroppedItem.mainCard.stats.type === 'Container') // eslint-disable-line
+    .map(locationSlot => locationSlot.lastDroppedItem.mainCard)
+    // get all container cards per location
+    .forEach((containerCard) => {
+      locations[locationIndex].lastDroppedItem.dropSlots[containerCard.slotIndex].lastDroppedItem.dropSlots // eslint-disable-line
+        .filter(containerSlot => containerSlot.lastDroppedItem)
+        .map(container => container.lastDroppedItem.mainCard)
+        // get all miners per container per location
+        .forEach((minerCard) => { minerFundsPerLocations += minerCard.stats.bonus.funds; });
+    });
+
+  return bonusFpbMiningAlgo(minerFundsPerLocations, stats.bonus.multiplierFunds, 1);
+};

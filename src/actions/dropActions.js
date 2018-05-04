@@ -20,6 +20,7 @@ import {
   handleCardMathematics,
   getLevelCardBonusStatDiff,
   updateProjectModifiedFunds,
+  calcTinkererPerLocationBonus,
 } from '../services/gameMechanicsService';
 import { levelUpLocation, levelUpAsset, levelUpMiner, levelUpProject } from './levelUpActions';
 import {
@@ -118,7 +119,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   ({ locations, globalStats } = mathRes);
 
   // special cards that need their development to be added to globalStats
-  if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39') {
+  if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39' || metaDataId === '44') {
     globalStats.development += getLevelCardBonusStatDiff(mainCard, 'development');
   }
 
@@ -126,6 +127,10 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
 
   if (metaDataId === '43') {
     fundsPerBlock += locations[activeLocationIndex].lastDroppedItem.values.space * mainCard.stats.bonus.multiplierFunds;
+  }
+
+  if (metaDataId === '44') {
+    fundsPerBlock += calcTinkererPerLocationBonus(locations, activeLocationIndex, mainCard.stats);
   }
 
   dispatch({

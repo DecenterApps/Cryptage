@@ -20,6 +20,7 @@ import {
   calcFpbBonusForMiners,
   calcLocationPerDevBonus,
   updateProjectModifiedFunds,
+  calcTinkererPerLocationBonus,
 } from '../services/gameMechanicsService';
 
 /**
@@ -199,6 +200,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
 
     if (item.mainCard.metadata.id === '43') {
       fundsPerBlock -= _locations[locationIndex].lastDroppedItem.values.space * item.mainCard.stats.bonus.multiplierFunds; // eslint-disable-line
+    }
+    if (item.mainCard.metadata.id === '44') {
+      fundsPerBlock -= calcTinkererPerLocationBonus(_locations, locationIndex, item.mainCard.stats);
     }
 
     _locations[locationIndex].lastDroppedItem.values.space += space;
