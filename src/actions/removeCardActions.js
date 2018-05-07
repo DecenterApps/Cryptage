@@ -20,6 +20,7 @@ import {
   calcFpbBonusForMiners,
   calcLocationPerDevBonus,
   updateProjectModifiedFunds,
+  calcTinkererPerLocationBonus,
 } from '../services/gameMechanicsService';
 
 /**
@@ -111,6 +112,7 @@ export const cardCancelRecalcBonusDevPerLocation = locationIndex => (dispatch, g
 export const handleCardCancel = (slot, locationIndex, containerIndex, containerSlotIndex) => (dispatch, getState) => {
   const { gameplay } = getState();
   const _locations = [...gameplay.locations];
+  let { fundsPerBlock } = gameplay;
   let { gameplayView } = gameplay;
   const item = { ...slot.lastDroppedItem };
   let returnedCards = [];
@@ -196,6 +198,13 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     // HANDLE ERROR HERE
     if (_locations[locationIndex].lastDroppedItem.values.power - cardPower < 0) return;
 
+    if (item.mainCard.metadata.id === '43') {
+      fundsPerBlock -= _locations[locationIndex].lastDroppedItem.values.space * item.mainCard.stats.bonus.multiplierFunds; // eslint-disable-line
+    }
+    if (item.mainCard.metadata.id === '44') {
+      fundsPerBlock -= calcTinkererPerLocationBonus(_locations, locationIndex, item.mainCard.stats);
+    }
+
     _locations[locationIndex].lastDroppedItem.values.space += space;
     _locations[locationIndex].lastDroppedItem.values.power -= cardPower;
     _locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].accepts = acceptedAssetDropIds;
@@ -210,7 +219,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     gameplayView = GP_NO_LOCATIONS;
   }
 
-  const fundsPerBlock = addOrReduceFromFundsPerBlock(getState().gameplay.fundsPerBlock, item.mainCard, false);
+  fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item.mainCard, false);
 
   const turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();
   dispatch(playTurn(item, slot.slotType, turnIndex, false));

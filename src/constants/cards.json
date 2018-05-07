@@ -5536,6 +5536,190 @@
         "unique": false
       }
     },
+    "43": {
+      "1": {
+        "ID": "43",
+        "bonus": {
+          "development": 0,
+          "funds": 36,
+          "multiplierDev": 0,
+          "multiplierFunds": 1,
+          "multiplierTime": 0,
+          "power": 0,
+          "space": 0,
+          "xp": 0
+        },
+        "cost": {
+          "development": 0,
+          "funds": 5000,
+          "level": 8,
+          "power": 0,
+          "space": 40,
+          "time": 0
+        },
+        "flavorText": "Gee, whatever happened to the company that came up with this idea?",
+        "image": "blockchain-smartlock.jpg",
+        "level": 1,
+        "mechanicsText": "Unique. Gain 1 FUND per block for each unit of unspent SPACE at location.",
+        "rarityScore": "485",
+        "special": true,
+        "title": "Blockchain Smartlock",
+        "type": "Misc",
+        "unique": true
+      }
+    },
+    "44": {
+      "1": {
+        "ID": "44",
+        "bonus": {
+          "development": 4,
+          "funds": 0,
+          "multiplierDev": 0,
+          "multiplierFunds": 5,
+          "multiplierTime": 0,
+          "power": 0,
+          "space": 0,
+          "xp": 0
+        },
+        "cost": {
+          "development": 0,
+          "funds": 4000,
+          "level": 1,
+          "power": 0,
+          "space": 20,
+          "time": 0
+        },
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
+        "image": "hardware-tinkerer.jpg",
+        "level": 1,
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
+        "rarityScore": "576",
+        "special": true,
+        "title": "Hardware Tinkerer",
+        "type": "Person",
+        "unique": false
+      },
+      "2": {
+        "ID": "44",
+        "bonus": {
+          "development": 6,
+          "funds": 0,
+          "multiplierDev": 0,
+          "multiplierFunds": 6,
+          "multiplierTime": 0,
+          "power": 0,
+          "space": 0,
+          "xp": 0
+        },
+        "cost": {
+          "development": 0,
+          "funds": 4000,
+          "level": 1,
+          "power": 0,
+          "space": 20,
+          "time": 0
+        },
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
+        "image": "hardware-tinkerer.jpg",
+        "level": 2,
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 6%.",
+        "rarityScore": "576",
+        "special": true,
+        "title": "Hardware Tinkerer",
+        "type": "Person",
+        "unique": false
+      },
+      "3": {
+        "ID": "44",
+        "bonus": {
+          "development": 8,
+          "funds": 0,
+          "multiplierDev": 0,
+          "multiplierFunds": 7,
+          "multiplierTime": 0,
+          "power": 0,
+          "space": 0,
+          "xp": 0
+        },
+        "cost": {
+          "development": 0,
+          "funds": 4000,
+          "level": 1,
+          "power": 0,
+          "space": 20,
+          "time": 0
+        },
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
+        "image": "hardware-tinkerer.jpg",
+        "level": 3,
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 7%.",
+        "rarityScore": "576",
+        "special": true,
+        "title": "Hardware Tinkerer",
+        "type": "Person",
+        "unique": false
+      },
+      "4": {
+        "ID": "44",
+        "bonus": {
+          "development": 10,
+          "funds": 0,
+          "multiplierDev": 0,
+          "multiplierFunds": 8,
+          "multiplierTime": 0,
+          "power": 0,
+          "space": 0,
+          "xp": 0
+        },
+        "cost": {
+          "development": 0,
+          "funds": 4000,
+          "level": 1,
+          "power": 0,
+          "space": 20,
+          "time": 0
+        },
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
+        "image": "hardware-tinkerer.jpg",
+        "level": 4,
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 8%.",
+        "rarityScore": "576",
+        "special": true,
+        "title": "Hardware Tinkerer",
+        "type": "Person",
+        "unique": false
+      },
+      "5": {
+        "ID": "44",
+        "bonus": {
+          "development": 12,
+          "funds": 0,
+          "multiplierDev": 0,
+          "multiplierFunds": 9,
+          "multiplierTime": 0,
+          "power": 0,
+          "space": 0,
+          "xp": 0
+        },
+        "cost": {
+          "development": 0,
+          "funds": 4000,
+          "level": 1,
+          "power": 0,
+          "space": 20,
+          "time": 0
+        },
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
+        "image": "hardware-tinkerer.jpg",
+        "level": 5,
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 9%.",
+        "rarityScore": "576",
+        "special": true,
+        "title": "Hardware Tinkerer",
+        "type": "Person",
+        "unique": false
+      }
+    },
     "5": {
       "1": {
         "ID": "5",
