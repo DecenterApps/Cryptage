@@ -958,6 +958,26 @@
     "abi": [
       {
         "constant": false,
+        "inputs": [],
+        "name": "migrate",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "name": "_seleneanCards",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "constant": false,
         "inputs": [
           {
             "name": "input",
@@ -1000,9 +1020,23 @@
         "payable": false,
         "stateMutability": "view",
         "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [],
+        "name": "seleneanCards",
+        "outputs": [
+          {
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
       }
-    ],
-    "address": "0x0ae83ce8be27015848248d5cba3a64f78b1b0ec6"
+     ],
+    "address": "0x082f4475987068815eb1abe4b746e57cdbc7004a"
   },
   "network": 42,
   "wsProvider": "wss://kovan.decenter.com:4443"
