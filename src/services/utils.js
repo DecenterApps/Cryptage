@@ -1,6 +1,6 @@
 import React from 'react';
 import update from 'immutability-helper';
-import { getSlotForContainer } from './gameMechanicsService';
+import { getSlotForContainer, checkIfCanLevelUp } from './gameMechanicsService';
 import { acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
 
 /**
@@ -557,3 +557,22 @@ export const printMechanicsText = (text) => {
  * @return {Array}
  */
 export const sortTypeGroupByPrice = group => group.sort((a, b) => a.stats.cost.funds - b.stats.cost.funds);
+
+/**
+ * Gets number of cards that can be leveled up inside a lastDroppedItem
+ *
+ * @param slots
+ * @param card
+ * @param globalStats
+ */
+export const getDropSlotsAvailableLevelUp = (slots, card, globalStats) => slots.reduce((_acc, slot) => {
+  let acc = JSON.parse(JSON.stringify(_acc));
+
+  if (!slot.lastDroppedItem) return acc;
+
+  const { mainCard } = slot.lastDroppedItem;
+  const draggingDuplicate = card.metadata.id === mainCard.metadata.id;
+  if (draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats)) acc += 1;
+
+  return acc;
+}, 0);

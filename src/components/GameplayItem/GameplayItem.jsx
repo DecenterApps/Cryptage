@@ -10,6 +10,7 @@ import {
 } from '../../services/gameMechanicsService';
 
 import './GameplayItem.scss';
+import { getDropSlotsAvailableLevelUp } from '../../services/utils';
 
 class GameplayItem extends Component {
   constructor() {
@@ -27,7 +28,8 @@ class GameplayItem extends Component {
       containerIds.includes(this.props.mainCard.metadata.id) ||
       this.props.mainCard.metadata.id === '18' ||
       this.props.mainCard.metadata.id === '22' ||
-      this.props.mainCard.metadata.id === '23'
+      this.props.mainCard.metadata.id === '23' ||
+      this.props.mainCard.metadata.id === '43'
     ) {
       this.toggleFundsStat();
       setTimeout(this.toggleFundsStat, 2000);
@@ -91,8 +93,12 @@ class GameplayItem extends Component {
         goodMinerSlotType = emptyContainerSlotArr[0].accepts.includes(dragItem.card.metadata.id);
         const { stats } = dragItem.card;
 
-        canDropMiner =
-          goodMinerSlotType && containerSlotsLength && checkIfCanPlayCard(stats, globalStats, locationItem, true);
+        if (goodMinerSlotType && containerSlotsLength) {
+          canDropMiner = checkIfCanPlayCard(stats, globalStats, locationItem, true);
+        } else if (goodMinerSlotType && !containerSlotsLength) {
+          const numLevelUp = getDropSlotsAvailableLevelUp(slot.lastDroppedItem.dropSlots, dragItem.card, globalStats);
+          canDropMiner = numLevelUp !== 0;
+        }
       }
 
       // go to third level view if dragging a mining card

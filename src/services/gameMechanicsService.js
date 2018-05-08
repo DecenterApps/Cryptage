@@ -1,7 +1,7 @@
 import levels from '../constants/levels.json';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import cardsConfig from '../constants/cards.json';
-import { filterByKeys, getPlayedAssetCards, updateLocationDropSlotItems } from './utils';
+import { filterByKeys, getDropSlotsAvailableLevelUp, getPlayedAssetCards, updateLocationDropSlotItems } from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
 import {
   CHANGE_PROJECT_STATE,
@@ -302,12 +302,9 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
   const containerSlotsLength = getContainerSlotsLength(locations, locationItem, activeContainerIndex);
 
   // ////////////////////////////////////////////////////////////////////////
-  if (gameplayView === GP_NO_LOCATIONS || gameplayView === GP_BUY_BOOSTER) {
+  if (gameplayView === GP_NO_LOCATIONS) {
     const goodCardType = stats.type === 'Location' || stats.type === 'Project';
-    const availableSlots = checkSlotsAvailableForCardType(stats.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength); // eslint-disable-line
-
     if (!goodCardType) errors.special.push('You can\'t play this card here');
-    if (goodCardType && !availableSlots) errors.special.push('No available slots');
   }
 
   // ////////////////////////////////////////////////////////////////////////
@@ -317,7 +314,15 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
     activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
     const availableSlots = checkSlotsAvailableForCardType(stats.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength);  // eslint-disable-line
 
-    if (!miningCardType && !availableSlots) errors.special.push('No available slots');
+    if (!miningCardType && !availableSlots) {
+      if (stats.type === 'Location') {
+        if (getDropSlotsAvailableLevelUp(locations, card, globalStats) === 0) errors.special.push('No available slots');
+      } else if (stats.type === 'Project') {
+        if (getDropSlotsAvailableLevelUp(projects, card, globalStats) === 0) errors.special.push('No available slots');
+      } else {
+        errors.special.push('No available slots');
+      }
+    }
 
     if (miningCardType) {
       // In active gameplay view checks if miner can be dropped in at least one container
@@ -346,7 +351,13 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
         ))).length;
 
       if (fullRightTypeDroppedContainersLength === rightTypeContainers.length) {
-        errors.special.push('No available containers');
+        const numLevelUp = rightTypeContainers.reduce((_acc, container) => {
+          let acc = JSON.parse(JSON.stringify(_acc));
+          acc += getDropSlotsAvailableLevelUp(container.dropSlots, card, globalStats);
+          return acc;
+        }, 0);
+
+        if (numLevelUp === 0) errors.special.push('No available containers');
       }
     }
   }
@@ -381,7 +392,12 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
       }
     } else {
       if (!goodCardType) errors.special.push('You can\'t play this card here');
-      if (goodCardType && !availableSlots) errors.special.push('No available slots');
+
+      if (stats.type === 'Location') {
+        if (getDropSlotsAvailableLevelUp(locations, card, globalStats) === 0) errors.special.push('No available slots');
+      } else if (stats.type === 'Project') {
+        if (getDropSlotsAvailableLevelUp(projects, card, globalStats) === 0) errors.special.push('No available slots');
+      }
     }
   }
 
