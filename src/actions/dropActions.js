@@ -15,7 +15,6 @@ import {
 } from '../services/utils';
 import {
   checkIfCanPlayCard,
-  calcLocationPerDevBonus,
   handleBonusDevMechanics,
   handleCardMathematics,
   getLevelCardBonusStatDiff,
@@ -92,25 +91,16 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const slotItem = locationSlots[index].lastDroppedItem;
 
   if (!slotItem) {
-    let special;
-
-    // handle special cards drop
-    if (bonusDevPerLocationCards.includes(metaDataId)) {
-      const cardEffect = calcLocationPerDevBonus(item, locations, activeLocationIndex, globalStats);
-      ({ globalStats } = cardEffect);
-      special = cardEffect.bonus;
-    }
-
-    locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, special);
-
-    // On developer drop recalculates location per dev bonus
-    // if cards that have that effect were dropped
-    if (item.card.stats.type === 'Person') {
-      ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
-    }
+    locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, 0);
   } else {
     // handle asset level up here
     locations = levelUpAsset(locations, activeLocationIndex, index, item.card);
+  }
+
+  // On developer drop recalculates location per dev bonus
+  // if cards that have that effect were dropped
+  if (bonusDevPerLocationCards.includes(metaDataId) || item.card.stats.type === 'Person') {
+    ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
   }
 
   const { mainCard } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem;
