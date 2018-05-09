@@ -26,6 +26,7 @@ import {
   INCREMENT_TURN,
   CHANGE_LOCATIONS_STATE,
   UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
+  REMOVE_ASSET_SLOTS,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -220,7 +221,7 @@ export const addLocationSlots = () => (dispatch, getState) => {
 };
 
 /**
- * Checks if the active has only one empty slot, if it does do,
+ * Checks if the active location has only one empty slot, if it does do,
  * adds 1 new empty slot. Unless the space of the active location equals 0.
  *
  * @param {Number} locationIndex
@@ -246,6 +247,30 @@ export const addAssetSlots = locationIndex => (dispatch, getState) => {
   });
 
   dispatch({ type: ADD_ASSET_SLOTS, payload: locations });
+};
+
+/**
+ * On card remove checks if the active location has more than one empty slot, if it does do,
+ * removes empty slots until it does
+ *
+ * @param {Number} locationIndex
+ * @return {Function}
+ */
+export const removeAssetSlots = locationIndex => (dispatch, getState) => {
+  const locations = [...getState().gameplay.locations];
+  const location = locations[locationIndex].lastDroppedItem;
+  const currentSlots = location.dropSlots;
+
+  const emptyLocations = currentSlots
+    .map((dropSlot, index) => ({ ...dropSlot, index }))
+    .filter(({ lastDroppedItem }) => lastDroppedItem === null);
+
+  if (emptyLocations.length > 2 && currentSlots.length > 6) {
+    const lastEmptySlotIndex = emptyLocations[emptyLocations.length - 1].index;
+    locations[locationIndex].lastDroppedItem.dropSlots.splice(lastEmptySlotIndex, 1);
+
+    dispatch({ type: REMOVE_ASSET_SLOTS, payload: locations });
+  }
 };
 
 /**

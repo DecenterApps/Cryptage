@@ -14,7 +14,7 @@ import {
   bonusDevPerLocationCards,
   timeReduceIds,
 } from './actionTypes';
-import { addOrReduceFromFundsPerBlock, playTurn } from './gameplayActions';
+import { addOrReduceFromFundsPerBlock, playTurn, removeAssetSlots } from './gameplayActions';
 import { getPlayedAssetCards, updateLocationDropSlotItems } from '../services/utils';
 import {
   calcFpbBonusForMiners,
@@ -238,6 +238,9 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
     gameplayView,
   });
 
+  if (locationIndex !== undefined && containerIndex !== undefined && containerSlotIndex === undefined) {
+    dispatch(removeAssetSlots(locationIndex));
+  }
   if (item.mainCard.stats.type === 'Person') dispatch(cardCancelRecalcBonusDevPerLocation(locationIndex));
   if (item.mainCard.metadata.id === '41' || item.mainCard.metadata.id === '42') dispatch(updateProjectModifiedFunds());
 };

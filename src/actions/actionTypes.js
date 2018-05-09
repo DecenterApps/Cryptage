@@ -88,6 +88,7 @@ export const UPDATE_GLOBAL_VALUES = 'update_global_values';
 export const LEVEL_UP_CARD = 'level_up_card';
 export const ADD_LOCATION_SLOTS = 'add_location_slots';
 export const ADD_ASSET_SLOTS = 'add_location_slots';
+export const REMOVE_ASSET_SLOTS = 'remove_location_slots';
 export const ADD_EXPERIENCE = 'add_experience';
 export const SWITCH_IN_GAMEPLAY_VIEW = 'switch_in_gameplay_view';
 export const PLAY_TURN = 'play_turn';

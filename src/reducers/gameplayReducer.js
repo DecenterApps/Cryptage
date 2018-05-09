@@ -34,6 +34,7 @@ import {
   CHANGE_LOCATIONS_STATE,
   UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
   INCREMENT_TURN,
+  REMOVE_ASSET_SLOTS,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -156,6 +157,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case ADD_LOCATION_SLOTS:
     case ADD_ASSET_SLOTS:
+    case REMOVE_ASSET_SLOTS:
     case CHANGE_LOCATIONS_STATE:
       return { ...state, locations: payload };
 
