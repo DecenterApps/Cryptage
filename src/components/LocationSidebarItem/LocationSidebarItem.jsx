@@ -9,15 +9,20 @@ import { classForRarity } from '../../services/utils';
 import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
+import PortalWrapper from '../PortalWrapper/PortalWrapper';
 
 import './LocationSidebarItem.scss';
 
 class LocationSidebarItem extends Component {
   constructor() {
     super();
-    this.state = { show: false };
+    this.state = {
+      show: false,
+      showPortal: false,
+    };
 
     this.toggleFundsStat = this.toggleFundsStat.bind(this);
+    this.togglePortal = this.togglePortal.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,10 +39,14 @@ class LocationSidebarItem extends Component {
     this.setState({ show: !this.state.show });
   }
 
+  togglePortal(showOrHide) { this.setState({ showPortal: showOrHide }); }
+
   render() {
+    const { togglePortal } = this;
+    const { showPortal } = this.state;
     const {
       mainCard, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
-      globalStats, dragItem,
+      globalStats, dragItem, draggingCard,
     } = this.props;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
@@ -79,8 +88,17 @@ class LocationSidebarItem extends Component {
         ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
         ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
       `}
+        onMouseEnter={() => { togglePortal(true); }}
+        onMouseLeave={() => { togglePortal(false); }}
+        ref={(ref) => { this.myRef = ref; }}
       >
-        <HoverInfo card={mainCard} />
+        {
+          !draggingCard &&
+          showPortal &&
+          <PortalWrapper>
+            <HoverInfo card={mainCard} parent={this.myRef} type="location" />
+          </PortalWrapper>
+        }
 
         {
           (activeLocationIndex !== index) &&
@@ -129,6 +147,7 @@ class LocationSidebarItem extends Component {
 LocationSidebarItem.defaultProps = {
   mainCard: null,
   dragItem: null,
+  draggingCard: false,
 };
 
 LocationSidebarItem.propTypes = {
@@ -142,13 +161,15 @@ LocationSidebarItem.propTypes = {
   blockNumber: PropTypes.number.isRequired,
   globalStats: PropTypes.object.isRequired,
   dragItem: PropTypes.object,
+  draggingCard: PropTypes.bool,
 };
 
-const mapStateToProps = ({ gameplay }) => ({
+const mapStateToProps = ({ gameplay, app }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
   globalStats: gameplay.globalStats,
+  draggingCard: app.draggingCard,
 });
 
 const mapDispatchToProp = {

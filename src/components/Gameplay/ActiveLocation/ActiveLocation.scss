@@ -15,6 +15,11 @@
 
     .active-location-field {
       margin: 0 30px;
+
+      .drop-slots-wrapper {
+        height: 215px;
+        overflow: auto;
+      }
     }
 
     .title-and-bars-wrapper {
@@ -145,6 +150,7 @@
     .active-container-wrapper {
 
       .drop-slots-wrapper {
+        height: 110px;
         margin-top: 40px;
       }
     }

@@ -15,7 +15,21 @@ const classForNumber = (_number) => {
   return '';
 };
 
-const HoverInfo = ({ card, center }) => {
+const HoverInfo = ({
+  card, center, parent, type,
+}) => {
+  const position = { top: 0, left: 0 };
+
+  if (parent) {
+    const parentPos = parent.getBoundingClientRect();
+    position.top = parentPos.top - 50;
+    position.left = parentPos.left;
+  }
+
+  if (type === 'asset') position.left += 190;
+  if (type === 'project') position.left -= 250;
+  if (type === 'location') position.left += 215;
+
   const showCost = Object.keys(card.stats.cost).filter((key) => {
     const valOverZero = key !== 'space' && key !== 'level' && card.stats.cost[key] > 0;
     const spaceOverOne = key === 'space' && card.stats.cost[key] > 1;
@@ -27,7 +41,10 @@ const HoverInfo = ({ card, center }) => {
   const mechanicsTextArr = printMechanicsText(card.stats.mechanicsText);
 
   return (
-    <div className={`card-hover-info-wrapper ${center && 'center'} ${card.stats.type.toLowerCase()}`}>
+    <div
+      className={`card-hover-info-wrapper ${center && 'center'} ${card.stats.type.toLowerCase()}`}
+      style={{ top: position.top, left: position.left }}
+    >
       <div
         className="inner-wrapper"
         style={{ backgroundImage: `url('cardImages/${card.stats.image}')` }}
@@ -76,15 +93,7 @@ const HoverInfo = ({ card, center }) => {
                 {formatBigNumber(card.stats.cost.level)}
               </div>
             }
-            {/*{*/}
-            {/*card.stats.cost.time &&*/}
-            {/*<div*/}
-            {/*data-name="Time"*/}
-            {/*className={`orb time ${classForNumber(card.stats.cost.time)}`}*/}
-            {/*>*/}
-            {/*{formatBigNumber(card.stats.cost.time)}*/}
-            {/*</div>*/}
-            {/*}*/}
+
             {
               card.stats.cost.development > 0 &&
               <div
@@ -200,10 +209,14 @@ const HoverInfo = ({ card, center }) => {
 
 HoverInfo.defaultProps = {
   center: false,
+  parent: null,
+  type: '',
 };
 
 HoverInfo.propTypes = {
   center: PropTypes.bool,
+  parent: PropTypes.object,
+  type: PropTypes.string,
   card: PropTypes.shape({}).isRequired,
 };
 

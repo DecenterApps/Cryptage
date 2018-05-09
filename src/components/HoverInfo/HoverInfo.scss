@@ -2,7 +2,7 @@
 @import '../../common/colors';
 
 .card-hover-info-wrapper {
-  display: none;
+  display: flex;
   position: absolute;
   //bottom: 0;
   left: 155px;
@@ -13,6 +13,7 @@
   width: 145px;
   height: 252px;
   border-radius: 12px;
+
   &.center {
     position: fixed;
     left: 0;
@@ -26,6 +27,11 @@
     background-size: 600px 550px;
     background-repeat: no-repeat;
   }
+
+  &.card-type-project {
+    background: red;
+  }
+
   .inner-wrapper {
     box-shadow: 0px 0px 74px #1A122E;
     margin: auto;

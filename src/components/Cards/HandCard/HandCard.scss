@@ -256,10 +256,6 @@
     text-transform: capitalize;
   }
 
-  &:hover:not(:active) .card-hover-info-wrapper {
-    display: flex;
-  }
-
   .remove-card-wrapper {
     display: none;
     position: absolute;
