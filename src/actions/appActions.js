@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
-import { loadGameplayState } from '../actions/gameplayActions';
+import { loadGameplayState, updateFundsBlockDifference } from '../actions/gameplayActions';
 import { handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
 import config from '../constants/config.json';
 
@@ -39,6 +39,7 @@ export const checkAccount = () => async (dispatch, getState) => {
         const balance = await ethService.getBalance(account);
         dispatch({ type: GET_ACCOUNT_SUCCESS, account, balance });
         dispatch(loadGameplayState());
+        dispatch(updateFundsBlockDifference());
       } else {
         console.log('reload');
         window.location.reload();
