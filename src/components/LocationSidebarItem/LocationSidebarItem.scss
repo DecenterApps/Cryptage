@@ -4,12 +4,12 @@
 .location-sidebar-item-wrapper {
   height: 100%;
   //width: 100%;
-  width: 111px;
+  width: 101px;
   left: 0;
   position: relative;
 
   @include for-big-desktop {
-    width: 154px;
+    width: 144px;
   }
 
   * {
@@ -27,7 +27,7 @@
     @include for-big-desktop {
       font-size: 17px;
       width: 200px;
-      left: 150px;
+      left: 154px;
     }
   }
 
@@ -37,19 +37,19 @@
     padding: 2px 0;
     z-index: 1;
     overflow: hidden;
-    height: 44px;
+    height: 100%;
+    width: 100%;
 
     @include for-big-desktop {
-      height: 56px;
     }
 
     .magnifying-glass-wrapper {
       background: linear-gradient(0.22deg, rgba(54, 38, 95, 0.7) 31.59%, rgba(54, 38, 95, 0.3) 99.94%);
-      width: 73px;
       height: 100%;
       display: flex;
       justify-content: center;
       cursor: pointer;
+      flex-grow: 1;
       svg {
         margin: 10px;
       }
@@ -64,48 +64,78 @@
     }
     .drop-wrapper {
       cursor: pointer;
+      width: 29px;
       overflow: hidden;
 
       @include for-big-desktop {
-        transform: scale(1.35);
-        top: 7px;
-        left: 4px;
-        position: relative;
+        width: 36px;
       }
 
       .drop-background {
         position: absolute;
-        height: 40px;
+        height: calc(100% - 4px);
         overflow: hidden;
+        width: 100%;
+        background-color: #1F1638;
       }
       .drop-icon {
         position: relative;
-        line-height: 68px;
-        text-align: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 35px;
+        svg {
+          margin: 20px 0 0 5px;
+          @include for-big-desktop {
+            margin: 22px 0 0 7px;
+            width: 18px;
+          }
+        }
       }
     }
   }
   &.active {
-    width: 128px;
-
+    width: 118px;
     @include for-big-desktop {
       width: 168px;
     }
 
-    .hover-addons {
+    .fpb {
+      left: 127px;
+      @include for-big-desktop {
+        left: 180px;
+      }
+    }
+
+    .location-sidebar-item-inner-wrapper {
+      box-shadow: 0 0 28px #461D87;
+      width: 120px;
       height: 50px;
+      @include for-big-desktop {
+        width: 170px;
+        height: 70px;
+      }
+    }
+
+    .hover-addons {
+      @include for-big-desktop {
+        height: 70px;
+      }
       .magnifying-glass-wrapper {
-        width: 90px;
         svg {
           margin: 13px;
+          @include for-big-desktop {
+            margin: 18px;
+            height: 30px;
+            width: 30px;
+          }
         }
       }
-      .drop-background {
-        height: 100%;
-      }
-      .drop-icon {
-        line-height: 78px;
+      .drop-icon svg {
+        @include for-big-desktop {
+          width: 22px;
+        }
       }
     }
   }
@@ -118,10 +148,10 @@
     position: absolute;
     overflow: hidden;
     &.red {
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
+      width: calc(100% + 6px);
+      height: calc(100% + 4px);
+      top: -2px;
+      left: -2px;
       &::after {
         display: block;
         content: '';
@@ -143,13 +173,19 @@
         top: -46px;
         left: -8px;
         @keyframes spin { 100% { transform:rotate(360deg); } }
+        @include for-big-desktop {
+          height: 200px;
+          width: 200px;
+          top: -63px;
+          left: -13px;
+        }
       }
     }
     &.gold, &.blue {
-      width: calc(100% - 2px);
-      height: calc(100% - 2px);
-      top: 1px;
-      left: 1px;
+      width: calc(100% + 4px);
+      height: calc(100% + 2px);
+      top: -1px;
+      left: -1px;
       &::after {
         display: block;
         content: '';
@@ -168,6 +204,12 @@
         position: absolute;
         top: -46px;
         left: -8px;
+        @include for-big-desktop {
+          height: 200px;
+          width: 200px;
+          top: -63px;
+          left: -13px;
+        }
       }
       &.blue::before {
         background-color: $blue-rarity;
@@ -186,15 +228,14 @@
     background-size: cover;
     background-position: center;
     height: 44px;
-    width: 103px;
+    width: calc(100% + 2px);
     cursor: pointer;
     position: relative;
     border: 2px solid #461D87;
     box-shadow: 0 0 10px rgba(#461D87, .5);
 
     @include for-big-desktop {
-      width: 140px;
-      height: 56px;
+      height: 62px;
     }
 
     &:before {
@@ -215,6 +256,10 @@
       content: '';
       border-top: 29px solid #461D87;
       border-left: 29px solid transparent;
+      @include for-big-desktop {
+        border-top: 39px solid #461D87;
+        border-left: 39px solid transparent;
+      }
       z-index: 1;
     }
     .level-outer {
@@ -247,9 +292,8 @@
         height: 27px;
 
         @include for-big-desktop {
-          transform: scale(1.25);
-          top: 3px;
-          right: 3px;
+          transform-origin: top right;
+          transform: scale(1.35);
         }
       }
       .level {
@@ -284,14 +328,6 @@
     }
   }
 
-  &.active {
-
-    .location-sidebar-item-inner-wrapper {
-      box-shadow: 0 0 28px #461D87;
-      width: 120px;
-      height: 50px;
-    }
-  }
 
   &.dragging-success.level-up-success {
     .location-sidebar-item-inner-wrapper {

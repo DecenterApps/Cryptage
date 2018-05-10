@@ -112,9 +112,7 @@ class LocationSidebarItem extends Component {
             <MagnifyingGlassIcon />
           </div>
           <div className="drop-wrapper">
-            <svg className="drop-background">
-              <polygon points="0,0 29,29 29,46 0,46" fill="#1F1638" />
-            </svg>
+            <div className="drop-background" />
             <div className="drop-icon" onClick={() => { openConfirmRemoveModal(slot, index); }}>
               <ChevronDownIcon width={17} />
             </div>
