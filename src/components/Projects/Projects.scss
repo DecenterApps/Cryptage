@@ -8,13 +8,11 @@
 
   .projects-header {
     text-align: center;
-    font-size: $font-size-extra-large;
     margin-bottom: 25px;
-  }
 
-  .no-projects {
-    margin: 20px;
-    line-height: 22px;
+    .bar-wrapper .bar-text {
+      left: 95px;
+    }
   }
 
   .active-projects-wrapper {

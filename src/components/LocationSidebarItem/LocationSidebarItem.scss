@@ -6,9 +6,11 @@
   //width: 100%;
   width: 111px;
   left: 0;
-  margin: 2px 0;
   position: relative;
-  padding: 4px;
+
+  @include for-big-desktop {
+    width: 154px;
+  }
 
   * {
     font-family: $font-secondary;
@@ -21,6 +23,12 @@
     left: 109px;
 
     @include elementInAndOut;
+
+    @include for-big-desktop {
+      font-size: 17px;
+      width: 200px;
+      left: 150px;
+    }
   }
 
   .hover-addons {
@@ -30,6 +38,11 @@
     z-index: 1;
     overflow: hidden;
     height: 44px;
+
+    @include for-big-desktop {
+      height: 56px;
+    }
+
     .magnifying-glass-wrapper {
       background: linear-gradient(0.22deg, rgba(54, 38, 95, 0.7) 31.59%, rgba(54, 38, 95, 0.3) 99.94%);
       width: 73px;
@@ -40,10 +53,26 @@
       svg {
         margin: 10px;
       }
+
+      @include for-big-desktop {
+        width: 103px;
+
+        svg {
+          margin: 16px;
+        }
+      }
     }
     .drop-wrapper {
       cursor: pointer;
       overflow: hidden;
+
+      @include for-big-desktop {
+        transform: scale(1.35);
+        top: 7px;
+        left: 4px;
+        position: relative;
+      }
+
       .drop-background {
         position: absolute;
         height: 40px;
@@ -53,12 +82,16 @@
         position: relative;
         line-height: 68px;
         text-align: center;
-        width: 28px;
+        width: 35px;
       }
     }
   }
   &.active {
     width: 128px;
+
+    @include for-big-desktop {
+      width: 168px;
+    }
 
     .hover-addons {
       height: 50px;
@@ -149,19 +182,6 @@
     }
   }
 
-  .location-progress-bar {
-    width: 90px;
-    display: none;
-    .progress-bar-outer {
-      fill: none;
-      stroke: #36265f;
-      stroke-miterlimit: 10;
-      stroke-width:2;
-    }
-    .progress-bar{
-      fill: orange;
-    }
-  }
   .location-sidebar-item-inner-wrapper {
     background-size: cover;
     background-position: center;
@@ -171,6 +191,12 @@
     position: relative;
     border: 2px solid #461D87;
     box-shadow: 0 0 10px rgba(#461D87, .5);
+
+    @include for-big-desktop {
+      width: 140px;
+      height: 56px;
+    }
+
     &:before {
       content: '';
       display: block;
@@ -195,6 +221,7 @@
       position: absolute;
       top: -2px;
       right: -2px;
+
       &:before {
         display: block;
         position: absolute;
@@ -204,6 +231,11 @@
         border-left: 30px solid transparent;
         content: '';
         z-index: 2;
+
+        @include for-big-desktop {
+          border-top: 40px solid #26184D;
+          border-left: 40px solid transparent;
+        }
       }
       .level-background {
         display: block;
@@ -213,6 +245,12 @@
         z-index: 3;
         width: 27px;
         height: 27px;
+
+        @include for-big-desktop {
+          transform: scale(1.25);
+          top: 3px;
+          right: 3px;
+        }
       }
       .level {
         position: relative;
@@ -222,6 +260,12 @@
         margin: 3px 4px;
         color: white;
         z-index: 4;
+
+        @include for-big-desktop {
+          right: -1px;
+          top: 2px;
+          font-size: 20px;
+        }
       }
     }
     .title {
@@ -239,40 +283,13 @@
       text-overflow: ellipsis;
     }
   }
-  .level-up-button {
-    height: 25px;
-    line-height: 21px;
-    font-size: 8px;
-    text-transform: uppercase;
-    color: $green;
-    border: 2px solid $green;
-    background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
-    margin-top: 5px;
-    z-index: 1;
-  }
-  .level-up-tip {
-    display: none;
-    position: absolute;
-    background: rgba(white, .9);
-    font-size: 12px;
-    padding: 5px;
-    border-radius: 3px;
-    z-index: 5;
-  }
+
   &.active {
-    margin: 4px 0 6px;
+
     .location-sidebar-item-inner-wrapper {
       box-shadow: 0 0 28px #461D87;
       width: 120px;
       height: 50px;
-    }
-    .location-progress-bar {
-      display: initial;
-    }
-  }
-  &:hover{
-    .level-up-tip {
-      //display: block;
     }
   }
 

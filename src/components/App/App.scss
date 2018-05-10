@@ -1,6 +1,7 @@
 @import "../../common/text";
 @import "../../common/components";
 @import "../../common/colors";
+@import "../../common/variables";
 
 * {
   box-sizing: border-box;
@@ -59,6 +60,12 @@ body {
   background: url("./game-background.png") center center no-repeat;
   background-size: cover;
 
+  @include for-big-desktop {
+    width: 1415px;
+    max-width: 1415px;
+    height: 896px;
+  }
+
   &.no-acc {
     background: none;
     box-shadow: none;
@@ -96,6 +103,10 @@ body {
       background: url("./logo.png") center center no-repeat;
       background-size: cover;
 
+      @include for-big-desktop {
+        display: none;
+      }
+
       @media (max-height: 800px) {
         display: none;
       }
@@ -115,4 +126,8 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #d8840e;
+}
+
+@media (min-width:1920px) {
+
 }
