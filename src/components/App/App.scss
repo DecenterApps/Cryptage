@@ -34,14 +34,30 @@ body {
   text-align: center;
   overflow: hidden;
   padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
   .spinner-wrapper {
     transform: scale(2);
+    margin-bottom: 25px;
+
+    @include for-big-desktop {
+      transform: scale(2.5);
+      margin-bottom: 40px;
+    }
   }
   .show-delayed {
     color: white;
     font-size: 20px;
     margin: 1em;
     animation: fade-in 3s;
+
+    @include for-big-desktop {
+      font-size: 32px;
+    }
+
     @keyframes fade-in {
       0% { opacity: 0; }
       66% { opacity: 0; }

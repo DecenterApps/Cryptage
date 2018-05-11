@@ -7,6 +7,10 @@
   min-height: 100px;
   justify-content: center;
 
+  @include for-big-desktop {
+    min-height: 108px;
+  }
+
   .gameplay-header-content {
     display: inline-flex;
 
@@ -16,6 +20,10 @@
       top: 9px;
       display: flex;
       flex-direction: column;
+
+      @include for-big-desktop {
+        width: 367px;
+      }
 
       .stats-container {
         display: flex;
@@ -30,6 +38,10 @@
         &.dev-stats {
           margin-right: 19px;
           margin-left: 60px;
+
+          @include for-big-desktop {
+            margin-left: 85px;
+          }
         }
 
         &.funds-stats {
@@ -52,10 +64,19 @@
             top: 33px;
             color: $yellow;
 
+            @include for-big-desktop {
+              top: 39px;
+              font-size: 17px;
+            }
+
             span {
               font-family: $font-secondary;
               font-size: 8px;
               margin-left: 4px;
+
+              @include for-big-desktop {
+                font-size: 11px;
+              }
             }
           }
         }
@@ -66,7 +87,13 @@
           width: 26px;
           height: 26px;
           border-radius: 50px;
+
+          @include for-big-desktop {
+            width: 37px;
+            height: 37px;
+          }
         }
+
         .dev-circle {
           background: linear-gradient(180deg, #9B01C1 24.31%, rgba(155, 1, 193, 0.67) 100%);
         }
@@ -78,6 +105,11 @@
           margin-right: 7px;
           width: 26px;
           height: 26px;
+
+          @include for-big-desktop {
+            width: 37px;
+            height: 37px;
+          }
         }
 
         .meta-wrapper {
@@ -90,18 +122,37 @@
             align-items: baseline;
             line-height: 18px;
 
+            @include for-big-desktop {
+              font-size: 23px;
+            }
+
+            &.smallest {
+              font-size: 8px;
+              position: relative;
+              top: -1px;
+              @include for-big-desktop {  font-size: 12px;  }
+            }
             &.small {
               font-size: 11px;
+              @include for-big-desktop {  font-size: 18px;  }
             }
             &.mid {
               font-size: 14px;
+              @include for-big-desktop {  font-size: 21px;  }
             }
             &.large {
               font-size: 16px;
+              @include for-big-desktop {  font-size: 23px;  }
             }
           }
+
           .label {
             font-size: 8px;
+
+            @include for-big-desktop {
+              font-size: 11px;
+            }
+
             &.fun {
               white-space: nowrap;
             }
@@ -128,7 +179,13 @@
           position: absolute;
           z-index: 4;
           top: -38px;
-          left: -12px
+          left: -12px;
+
+          @include for-big-desktop {
+            width: 243px;
+            left: -37px;
+            top: -50px
+          }
         }
 
         .level {
@@ -142,6 +199,12 @@
           left: 42px;
           top: 6px;
           text-align: center;
+
+          @include for-big-desktop {
+            font-size: 18px;
+            width: 95px;
+            left: 38px;
+          }
         }
       }
 
@@ -171,6 +234,10 @@
             .no-name {
               text-transform: uppercase;
             }
+
+            @include for-big-desktop {
+              font-size: 32px;
+            }
           }
 
           .xp-wrapper {
@@ -180,6 +247,11 @@
             position: relative;
             top: -4px;
             z-index: 12;
+
+            @include for-big-desktop {
+              font-size: 17px;
+              top: -10px;
+            }
           }
 
           .xp-loader-wrapper {
@@ -188,6 +260,12 @@
             left: 0;
             height: 14px;
             width: 156px;
+
+            @include for-big-desktop {
+              transform: scale(1.29);
+              bottom: 18px;
+              left: -1px;
+            }
           }
         }
 
@@ -197,6 +275,12 @@
           top: -42px;
           left: -90px;
           z-index: 2;
+
+          @include for-big-desktop {
+            width: 449px;
+            left: -140px;
+            top: -60px;
+          }
         }
       }
     }

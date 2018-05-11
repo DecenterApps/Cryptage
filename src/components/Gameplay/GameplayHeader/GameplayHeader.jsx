@@ -13,11 +13,12 @@ function getlength(number) {
   return number.toString().length;
 }
 
-const getClassForFont = (maxDev,available) => {
-  let sum = getlength(maxDev) + getlength(available) + 1;
+const getClassForFont = (maxDev, available) => {
+  const sum = getlength(maxDev) + getlength(available) + 1;
+  if (sum > 9) return 'smallest';
   if (sum > 7) return 'small';
   else if (sum > 5) return 'mid';
-  else return 'large';
+  return 'large';
 }
 
 const GameplayHeader = ({
@@ -102,7 +103,9 @@ const GameplayHeader = ({
               <div className="dev-circle" />
 
               <div className="meta-wrapper">
-                <div className={`count ${getClassForFont(maxDev,globalStats.development)}`}>{ globalStats.development } / {maxDev} </div>
+                <div className={`count ${getClassForFont(maxDev,globalStats.development)}`}>
+                  { globalStats.development } / {maxDev}
+                </div>
                 <div className="label fun">dev available</div>
               </div>
             </div>
@@ -111,7 +114,7 @@ const GameplayHeader = ({
               <div className="funds-circle" />
 
               <div className="meta-wrapper">
-                <div className={`count ${getClassForFont(maxDev,globalStats.development)}`}>
+                <div className="count">
                   <div>{ globalStats.funds }</div>
                   <div className="label">Funds</div>
                 </div>

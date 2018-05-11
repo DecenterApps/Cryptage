@@ -6,6 +6,10 @@
   width: 133px;
   height: 5px;
 
+  @include for-big-desktop {
+    width: 190px;
+  }
+
   .projects-header {
     text-align: center;
     margin-bottom: 25px;
