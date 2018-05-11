@@ -14,6 +14,10 @@
     text-align: center;
     margin-bottom: 25px;
 
+    @include for-big-desktop {
+      margin-bottom: 41px;
+    }
+
     .bar-wrapper .bar-text {
       left: 95px;
     }
@@ -31,6 +35,10 @@
     flex-wrap: wrap;
     width: 100px;
 
+    @include for-big-desktop {
+      width: 142px;
+    }
+
     .drop-slot-component {
       &.drop-slot-active, &.drop-slot-item-hover {
         background: inherit;
@@ -42,6 +50,11 @@
     height: $project-size;
     width: $project-size;
     margin-bottom: 14px;
+
+    @include for-big-desktop {
+      height: $project-size-desktop;
+      width: $project-size-desktop;
+    }
 
     &:nth-child(2n) {
       position: relative;
