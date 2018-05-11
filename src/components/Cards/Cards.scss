@@ -17,6 +17,10 @@
     overflow-y: hidden;
     overscroll-behavior: contain contain;
 
+    @include for-big-desktop {
+      height: 190px;
+    }
+
     .card-container {
       margin-right: 10px;
       cursor: move;
@@ -39,6 +43,10 @@
       width: 13px;
       border-bottom: 1px solid #312853;
       box-sizing: border-box;
+
+      @include for-big-desktop {
+        top: 5px;
+      }
     }
     &:before {
       left: -13px;
@@ -60,6 +68,13 @@
       cursor: pointer;
       position: relative;
       box-sizing: border-box;
+
+      @include for-big-desktop {
+        font-size: 11px;
+        height: 18px;
+        margin: 0 17px;
+      }
+
       &:before, &:after {
         position: absolute;
         top: -1px;
@@ -69,20 +84,36 @@
         width: 13px;
         border-bottom: 1px solid #312853;
         box-sizing: border-box;
+
+        @include for-big-desktop {
+          top: 0;
+          height: 17px;
+          width: 17px;
+        }
       }
       &:before {
         left: -7px;
         border-left: 1px solid #312853;
         transform: skewX(-45deg);
+
+        @include for-big-desktop {  left: -9px;  }
       }
       &:after {
         right: -7px;
         border-right: 1px solid #312853;
         transform: skewX(45deg);
+
+        @include for-big-desktop {  right: -9px;  }
       }
       &.active {
         line-height: 20px;
         font-size: 10px;
+
+        @include for-big-desktop {
+          font-size: 14px;
+          line-height: 27px;
+        }
+
         &, &:before, &:after {
           border-bottom: 0;
         }
@@ -100,6 +131,12 @@
     span {
       font-family: $font-secondary;
       margin-right: 15px;
+    }
+
+    @include for-big-desktop {
+      font-size: 24px;
+
+      .loader {  transform: scale(1.35);  }
     }
   }
 
@@ -120,6 +157,11 @@
       margin-right: 20px;
       height: 90px;
       position: relative;
+
+      @include for-big-desktop {
+        height: 130px;
+      }
+
       .card-type-title {
         font-family: $font-secondary;
         position: absolute;
@@ -131,6 +173,10 @@
         font-size: 10px;
         letter-spacing: .04em;
         text-transform: uppercase;
+
+        @include for-big-desktop {
+          font-size: 14px;
+        }
       }
     }
   }

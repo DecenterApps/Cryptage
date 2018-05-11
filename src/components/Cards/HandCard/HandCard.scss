@@ -8,6 +8,11 @@
   display: flex;
   position: relative;
 
+  @include for-big-desktop {
+    width: 100px;
+    height: 130px;
+  }
+
   &:hover {
     .go-to-container-wrapper, .remove-card-wrapper {
       display: flex;
@@ -87,11 +92,22 @@
     position: absolute;
     left: 0;
     bottom: 88px;
+
+    @include for-big-desktop {
+      bottom: 126px;
+      font-size: 15px;
+    }
   }
 
   .card-image {
     flex-grow: 1;
-    .card-image-inner {}
+
+    @include for-big-desktop {
+      transform: scale(1.39);
+      left: 20px;
+      top: 27px;
+      position: relative;
+    }
   }
   .level-wrapper {
     position: absolute;
@@ -101,17 +117,35 @@
     height: 27px;
     color: white;
     z-index: 1;
+
+    @include for-big-desktop {
+      font-size: 23px;
+      width: 42px;
+      height: 42px;
+    }
+
     .level-background {
       position: absolute;
       width: 27px;
       height: 27px;
       top: 0;
       left: 0;
+
+      @include for-big-desktop {
+        transform: scale(1.35);
+        top: 7px;
+        left: 7px;
+      }
     }
     .level {
       position: absolute;
       right: 4px;
       font-family: $font-secondary;
+
+      @include for-big-desktop {
+        right: 6px;
+        top: -3px;
+      }
     }
   }
   .count-wrapper {
@@ -121,12 +155,24 @@
     width: 27px;
     height: 27px;
     color: white;
+
+    @include for-big-desktop {
+      width: 42px;
+      height: 42px;
+      bottom: 4px;
+    }
+
     &:before {
       position: absolute;
       bottom: 0;
       content: '';
       border-bottom: 30px solid rgba(#36265F, .85);
       border-right: 30px solid transparent;
+
+      @include for-big-desktop {
+        border-bottom: 42px solid rgba(#36265F, .85);
+        border-right: 43px solid transparent;
+      }
     }
     .count {
       position: absolute;
@@ -135,25 +181,34 @@
       font-size: 10px;
       line-height: 10px;
       font-family: $font-secondary;
+
+      @include for-big-desktop {
+        font-size: 15px;
+        bottom: 5px;
+      }
     }
   }
   .cost, .values {
     position: absolute;
     z-index: 1;
     width: 20px;
+
     &.cost {
       top: 2px;
       left: -11px;
+
+      @include for-big-desktop { left: -13px }
     }
     &.values {
       right: -7px;
       top: 32px;
+
+      @include for-big-desktop { right: -2px }
     }
     .circle {
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      display: block;
       margin: 4px 0;
       line-height: 22px;
       color: white;
@@ -163,6 +218,15 @@
       font-family: $font-secondary;
       text-align: center;
       background: radial-gradient(9.50px at 50% 50%, #555 0%, #000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include for-big-desktop {
+        width: 30px;
+        height: 30px;
+        font-size: 17px;
+      }
 
       &.small {
         padding-top: 3px;
@@ -170,9 +234,21 @@
         font-size: 9px;
         white-space: pre;
         line-height: 8px;
+
+        @include for-big-desktop {
+          font-size: 14px;
+          width: 30px;
+          height: 30px;
+        }
       }
       &.smaller {
         font-size: 9px;
+
+        @include for-big-desktop {
+          width: 30px;
+          height: 30px;
+          font-size: 14px;
+        }
       }
 
       &.error {

@@ -88,6 +88,11 @@
     z-index: 100000;
     overflow: hidden;
     visibility: hidden;
+
+    @include for-big-desktop {
+      height: 896px;
+    }
+
     .menu {
       height: 100%;
       width: 280px;
