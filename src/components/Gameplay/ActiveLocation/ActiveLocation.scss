@@ -13,12 +13,22 @@
     width: 100%;
     margin-top: 5px;
 
+    @include for-big-desktop {
+      margin-top: 15px;
+      max-width: 725px;
+    }
+
     .active-location-field {
       margin: 0 30px;
 
       .drop-slots-wrapper {
-        height: 220px;
+        height: 250px;
         overflow: auto;
+
+        @include for-big-desktop {
+          margin-top: 95px;
+          height: 326px;
+        }
       }
     }
 
@@ -39,6 +49,14 @@
         position: relative;
         font-family: $font-secondary;
         line-height: 5px;
+
+        @include for-big-desktop {
+          background: none;
+          font-size: 20px;
+          border-bottom: 4px solid $purple;
+          height: 25px;
+        }
+
         &:before {
           content: '';
           background-image: url('./title-attachment.png');
@@ -48,8 +66,12 @@
           position: absolute;
           left: -25px;
           top: 0;
-          z-index: 2;
           transform: scaleX(-1);
+
+          @include for-big-desktop {
+            transform: scaleX(-1.40) scaleY(1.40);
+            top: 4px;
+          }
         }
         &:after {
           content: '';
@@ -61,12 +83,22 @@
           right: -25px;
           top: 0;
           z-index: 2;
+
+          @include for-big-desktop {
+            transform: scale(1.40);
+            top: 4px;
+          }
         }
       }
       .bar-wrapper {
         flex-grow: 1;
         padding: 6px 0;
         position: relative;
+
+        @include for-big-desktop {
+          z-index: 2;
+        }
+
         &:before {
           content: '';
           background-image: url('./title-extension.png');
@@ -83,9 +115,15 @@
           position: absolute;
           color: white;
           font-size: 10px;
-          z-index: 1;
           width: 100%;
           padding: 0 10px;
+
+          @include for-big-desktop {
+            margin-top: 1px;
+            z-index: 1;
+            font-size: 13px;
+          }
+
           span {
             text-transform: uppercase;
             font-weight: bold;
@@ -101,6 +139,12 @@
           height: 12px;
           transform: skewX(-45deg);
           margin: 0 10px 0 -10px;
+
+          @include for-big-desktop {
+            height: 20px;
+            max-width: 320px;
+          }
+
           &.left {
             transform: skewX(45deg);
             background-color: $blue;
@@ -132,6 +176,11 @@
         background-position: center;
         background-size: cover;
         mask-image: linear-gradient(rgba(0, 0, 0, .3), transparent);
+
+        @include for-big-desktop {
+          top: 25px;
+          width: 685px;
+        }
       }
     }
 

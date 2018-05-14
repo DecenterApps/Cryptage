@@ -28,6 +28,12 @@
     line-height: 15px;
     text-align: center;
     right: -14px;
+
+    @include for-big-desktop {
+      top: 126px;
+      font-size: 15px;
+      right: 3px;
+    }
   }
 
   .rarity-overlay,
@@ -37,6 +43,11 @@
     left: 2px;
     height: 96%;
     width: 95%;
+
+    @include for-big-desktop {
+      height: 120px;
+      width: 91px;
+    }
   }
   .overlay {
     background-image: url('./handcard-overlay.png');
@@ -103,10 +114,9 @@
     flex-grow: 1;
 
     @include for-big-desktop {
-      transform: scale(1.39);
-      left: 20px;
-      top: 27px;
-      position: relative;
+      .card-image-bg, .card-image-inner {
+        transform: scaleX(1.36) scaleY(1.38);
+      }
     }
   }
   .level-wrapper {
@@ -133,8 +143,8 @@
 
       @include for-big-desktop {
         transform: scale(1.35);
-        top: 7px;
-        left: 7px;
+        top: 5px;
+        left: 6px;
       }
     }
     .level {
@@ -143,7 +153,7 @@
       font-family: $font-secondary;
 
       @include for-big-desktop {
-        right: 6px;
+        right: 8px;
         top: -3px;
       }
     }
@@ -159,7 +169,7 @@
     @include for-big-desktop {
       width: 42px;
       height: 42px;
-      bottom: 4px;
+      bottom: 6px;
     }
 
     &:before {
@@ -296,13 +306,22 @@
     border: 2px solid #36265F;
     background: linear-gradient(to bottom, #101427, #36265F);
     position: absolute;
-    bottom: -8px;
+    bottom: -10px;
     right: 0;
+
+    @include for-big-desktop {
+      height: 10px;
+      width: 52px;
+      bottom: -4px;
+      right: 5px;
+    }
+
     span {
       display: inline-block;
       height: 6px;
       flex-grow: 1;
       background-color: #3CC8CC;
+
       &.empty {
         background-color: transparent;
       }
@@ -343,6 +362,12 @@
     justify-content: center;
     z-index: 0;
 
+    @include for-big-desktop {
+      bottom: 8px;
+      left: 2px;
+      width: 91px;
+    }
+
     svg {
       transition: 0.2s ease-in;
     }
@@ -363,13 +388,26 @@
     opacity: 0.7;
     position: absolute;
 
+    @include for-big-desktop {
+      width: 93px;
+      height: 93px;
+    }
+
     svg {
       transition: 0.2s ease-in;
+
+      @include for-big-desktop {
+        transform: scale(1.35);
+      }
     }
 
     svg:hover {
       transform: scale(1.15);
       cursor: pointer;
+
+      @include for-big-desktop {
+        transform: scale(1.50);
+      }
     }
   }
 }

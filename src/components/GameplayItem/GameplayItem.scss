@@ -10,16 +10,14 @@
   background-position: center;
 
   &.dragging-success.level-up-success.right-asset-type {
-    .card-image .card-image-inner {
-      stroke: $empty-slot-can-drop;
-      stroke-width: 3px;
+    .card-image .card-image-bg {
+      fill: $empty-slot-can-drop;
     }
   }
 
   &.dragging-success.level-up-fail.right-asset-type {
-    .card-image .card-image-inner {
-      stroke: $red;
-      stroke-width: 3px;
+    .card-image .card-image-bg {
+      fill: $red;
     }
   }
 
@@ -37,6 +35,10 @@
     z-index: 20;
 
     @include elementInAndOut;
+    @include  for-big-desktop {
+      font-size: 17px;
+      bottom: 128px;
+    }
   }
 
   .asset-card-wrapper {
@@ -46,39 +48,12 @@
   .container-card-wrapper {
     position: relative;
 
-    &.can-drop-miner {
-
-      .card-details {
-
-        .overlay {
-          top: 2px;
-          left: 2px;
-          height: 96%;
-          width: 94%;
-        }
-
-        .card-image .card-image-inner {
-          stroke: $empty-slot-can-drop;
-          stroke-width: 3px;
-        }
-      }
+    &.can-drop-miner .card-details .card-image .card-image-bg {
+      fill: $empty-slot-can-drop;
     }
 
-    &.no-drop-miner {
-
-      .card-details {
-
-        .overlay {
-          top: 2px;
-          left: 2px;
-          height: 96%;
-          width: 96%;
-        }
-
-        .card-image .card-image-inner {
-          stroke: $red;
-        }
-      }
+    &.no-drop-miner .card-details .card-image .card-image-bg {
+      fill: $red;
     }
   }
 }
