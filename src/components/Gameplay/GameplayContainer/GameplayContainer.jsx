@@ -34,7 +34,7 @@ const GameplayContainer = ({
       </div>
 
       <div className="container-bottom-wrapper">
-        <HeaderBar title={card.stats.title} color="#FFF" fontSize="12px" />
+        <HeaderBar title={card.stats.title} color="#FFF" />
 
         <div className="container-slots">
           <DropSlotsWrapper

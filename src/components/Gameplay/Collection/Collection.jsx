@@ -15,7 +15,7 @@ const cardsLength = Object.keys(cardsConfig.cards).length;
 
 const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
   <div className="collection-wrapper">
-    <HeaderBar title="My collection" color="#FF9D14" fontSize="13px" />
+    <HeaderBar title="My collection" color="#FF9D14" />
 
     <div onClick={exitNotLocationsView}>
       <CloseIcon />

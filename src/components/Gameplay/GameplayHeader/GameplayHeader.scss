@@ -130,7 +130,7 @@
               font-size: 8px;
               position: relative;
               top: -1px;
-              @include for-big-desktop {  font-size: 12px;  }
+              @include for-big-desktop {  font-size: 11px;  }
             }
             &.small {
               font-size: 11px;

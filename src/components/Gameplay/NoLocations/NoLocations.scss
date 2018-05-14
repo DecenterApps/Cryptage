@@ -1,9 +1,9 @@
 @import "../../../common/colors";
+@import "../../../common/variables";
 
 .no-locations-wrapper {
   flex-grow: 1;
   display: flex;
-  display: none; // temporary
   color: #fff;
   position: relative;
 
@@ -21,6 +21,15 @@
     line-height: 25px;
     left: 45px;
 
+    @include for-big-desktop {
+      top: 110px;
+      width: 247px;
+      height: 140px;
+      font-size: 20px;
+      line-height: 30px;
+      left: 105px;
+    }
+
     &:before {
       content: '';
       height: 2px;
@@ -30,6 +39,11 @@
       left: -45px;
       top: 42px;
       background: $purple;
+
+      @include for-big-desktop {
+        width: 60px;
+        left: -60px;
+      }
     }
   }
 }

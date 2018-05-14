@@ -19,7 +19,7 @@ const NewLevelModal = ({
         toggleTutorial();
       }}
     />
-    <HeaderBar title="          " color="#FFF" fontSize="12px" />
+    <HeaderBar title="          " color="#FFF" />
     <ModalBody>
       {
         level === 1 &&

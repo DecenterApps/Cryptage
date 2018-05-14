@@ -27,7 +27,7 @@ class BoostersMenu extends React.Component {
 
     return (
       <div className="booster-store-wrapper">
-        <HeaderBar title={isReveal ? 'Open' : 'BUY'} color="#FF9D14" fontSize="13px" />
+        <HeaderBar title={isReveal ? 'Open' : 'BUY'} color="#FF9D14" />
 
         <div onClick={exitNotLocationsView}>
           <CloseIcon />

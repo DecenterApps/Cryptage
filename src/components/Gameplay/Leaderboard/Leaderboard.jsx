@@ -22,7 +22,7 @@ class Leaderboard extends Component {
 
     return (
       <div className="leaderboard-wrapper">
-        <HeaderBar title="Leaderboard" color="#FF9D14" fontSize="13px" />
+        <HeaderBar title="Leaderboard" color="#FF9D14" />
 
         <div onClick={exitNotLocationsView}>
           <CloseIcon />

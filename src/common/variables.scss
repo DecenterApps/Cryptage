@@ -11,6 +11,9 @@ $project-size-desktop: 70px;
 
 $border-radius-modal: 19px;
 
+$lg-card-desktop-width: 205px;
+$lg-card-desktop-height: 355px;
+
 @mixin for-big-desktop {
   @media (min-width: 1920px) { @content; }
 }
