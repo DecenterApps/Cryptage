@@ -9,6 +9,18 @@
   margin: 25px auto 0 auto;
   background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 39.58%);
 
+  @include for-big-desktop {
+    margin-top: 45px;
+    width: 660px;
+    height: 700px;
+  }
+
+  .header-bar-wrapper .bar-name {
+    @include for-big-desktop {
+      font-size: 18px;
+    }
+  }
+
   .close-icon {
     position: absolute;
     z-index: 10;
@@ -17,6 +29,11 @@
     cursor: pointer;
     transition: 0.2s ease-in;
     padding: 10px;
+
+    @include for-big-desktop {
+      transform: scale(1.35);
+      right: -8px;
+    }
 
     &:hover {
       opacity: 0.8;
@@ -38,6 +55,11 @@
     font-family: $font-secondary;
     text-align: center;
     margin-top: 40px;
+
+    @include for-big-desktop {
+      font-size: 20px;
+      margin-top: 50px;
+    }
   }
 
   .data-wrapper {
@@ -45,6 +67,11 @@
     color: white;
     height: 430px;
     overflow: auto;
+
+    @include for-big-desktop {
+      height: 650px;
+      margin-top: 50px;
+    }
 
     .data-header {
       display: flex;
@@ -58,10 +85,18 @@
         font-family: $font-secondary;
         flex-grow: 1;
         text-align: center;
+
+        @include for-big-desktop {
+          font-size: 16px;
+        }
       }
 
       .nickname, .xp {
         max-width: 210px;
+
+        @include for-big-desktop {
+          max-width: 330px;
+        }
       }
 
       .level {
@@ -77,11 +112,20 @@
         font-size: 12px;
         white-space: pre;
 
+        @include for-big-desktop {
+          height: 28px;
+          font-size: 17px;
+        }
+
         $curr-player-bg: linear-gradient(180deg, rgba(54, 38, 95, 0) 0%, rgba(54, 38, 95, 0.7) 51.38%, rgba(54, 38, 95, 0) 100%);
 
         &.curr-player {
           height: 33px;
           background: $curr-player-bg;
+
+          @include for-big-desktop {
+            height: 46px;
+          }
         }
 
         & > div {
@@ -101,26 +145,64 @@
           height: 33px;
           background: linear-gradient(180deg, rgba(54, 38, 95, 0.4) 0%, rgba(54, 38, 95, 0) 100%);
 
+          @include for-big-desktop {
+            height: 46px;
+          }
+
           &.curr-player {
             background: $curr-player-bg;
           }
         }
 
-        &:first-child .nickname .text { font-size: 18px; }
-        &:nth-child(2) .nickname .text { font-size: 15px; }
-        &:nth-child(3) .nickname .text { font-size: 13px; }
+        &:first-child .nickname {
+          .text, .rank {
+            font-size: 18px;
+            @include for-big-desktop {
+              font-size: 25px;
+            }
+          }
+        }
+        &:nth-child(2) .nickname {
+          .text, .rank {
+            font-size: 15px;
+            @include for-big-desktop {
+              font-size: 21px;
+            }
+          }
+        }
+        &:nth-child(3) .nickname {
+          .text, .rank {
+            font-size: 13px;
+            @include for-big-desktop {
+              font-size: 18px;
+            }
+          }
+        }
 
         .nickname {
           margin-left: 64px;
           width: 145px;
 
+          @include for-big-desktop {
+            margin-left: 125px;
+            width: 203px;
+          }
+
           .rank {
             margin-right: 6px;
+
+            @include for-big-desktop {
+              margin-right: 10px;
+            }
           }
 
           .text {
             width: 120px;
             @include ellipsis;
+
+            @include for-big-desktop {
+              width: 200px;
+            }
           }
         }
 
@@ -132,6 +214,10 @@
         .xp {
           width: 115px;
           justify-content: flex-end;
+
+          @include for-big-desktop {
+            width: 156px;
+          }
         }
       }
     }
