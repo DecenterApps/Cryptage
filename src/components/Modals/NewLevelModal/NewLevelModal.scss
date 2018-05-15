@@ -7,6 +7,10 @@
   width: auto;
   min-width: 635px;
 
+  @include for-big-desktop {
+    height: 602px;
+  }
+
   .bar-name {
     width: 100px;
   }
@@ -20,12 +24,20 @@
       margin-bottom: 10px;
       font-size: 20px;
       text-transform: uppercase;
+
+      @include for-big-desktop {
+        font-size: 24px;
+      }
     }
 
     .secondary {
       font-family: $font-primary;
       font-size: 16px;
-      //text-transform: uppercase;
+
+      @include for-big-desktop {
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
     }
 
     .level {
@@ -34,6 +46,10 @@
       text-shadow: 0 0 44px #0D0A17;
       font-size: 87px;
       line-height: 80px;
+
+      @include for-big-desktop {
+        font-size: 103px;
+      }
     }
   }
 
@@ -41,5 +57,11 @@
 
   .button-wrapper {
     text-align: center;
+
+    @include for-big-desktop {
+      .orange-button {
+        margin-left: 0;
+      }
+    }
   }
 }

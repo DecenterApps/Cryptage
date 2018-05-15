@@ -1,3 +1,5 @@
+@import "variables";
+
 /* entire container, keeps perspective */
 .flip-container {
   perspective: 1000px;
@@ -19,6 +21,11 @@
   height: 227px;
   width: 154px;
   transform: translateX(0%) rotateY(0deg);
+
+  @include for-big-desktop {
+    height: 320px;
+    width: 217px;
+  }
 }
 
 /* hide back of pane during swap */
