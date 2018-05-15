@@ -9,10 +9,12 @@ import (
 )
 
 type Input struct {
+  Address string `json "address`
+  Name string `json name`
   Moves string `json:"moves"`
 }
 
-func update(w http.ResponseWriter, r *http.Request) {
+func save(w http.ResponseWriter, r *http.Request) {
   body, err := ioutil.ReadAll(r.Body)
 
   if err != nil {
@@ -32,14 +34,17 @@ func update(w http.ResponseWriter, r *http.Request) {
     panic(err)
   }
 
-  sendBlock, moves := decodeMoves(hexBytes)
+  sendBlockNumber, moves := decodeMoves(hexBytes)
 
-  print(sendBlock)
-  print(moves)
+  cryptage, err := getCryptage(input.Address)
+  cryptage.state.update(sendBlockNumber, moves)
+  cryptage.name = input.Name
+
+  updateCryptage(*cryptage)
 }
 
 func main() {
   log.Println("Server started on: http://localhost:8080")
-  http.HandleFunc("/update", update)
+  http.HandleFunc("/save", save)
   http.ListenAndServe(":8080", nil)
 }

@@ -36,7 +36,6 @@ const timeLeftSize = 2
 const levelSize = 1
 
 type State struct {
-  exists uint
   funds uint
   fundsPerBlock uint
   experience uint
@@ -97,132 +96,101 @@ type Project struct {
   level uint
   timeLeft uint
 }
+func (state *State) update(sendBlockNumber uint, moves []Move) error {
+
+  return nil
+}
 
 func encode(state State) []byte {
-  var capacity uint = 21 + 60
-  var position uint = 1
-  var size uint = 21
-  var data uint = 0
-  var locationCount [6]uint
+  var buffer []byte
+
+  appendBuffer(&buffer, state.funds, fundsSize)
+  appendBuffer(&buffer, state.fundsPerBlock, fundsPerBlockSize)
+  appendBuffer(&buffer, state.experience, experienceSize)
+  appendBuffer(&buffer, state.developmentLeft, developmentLeftSize)
+  appendBuffer(&buffer, state.blockNumber, blockNumberSize)
+  appendBuffer(&buffer, state.projectTimePercentageDecrease, projectTimePercentageDecreaseSize)
+  appendBuffer(&buffer, state.miningPercentageBonus, miningPercentageBonusSize)
 
   for i := 0; i < 6; i++ {
+    appendBuffer(&buffer, state.locations[i].exists, singleCountSize)
     if state.locations[i].exists != 0 {
-    locationCount[i] = uint(14 + 7 * len(state.locations[i].powers) +
-                                25 * len(state.locations[i].computerCases) +
-                                20 * len(state.locations[i].rigCases) +
-                                     len(state.locations[i].mountCases) +
-                                 7 * len(state.locations[i].people) +
-                                 7 * len(state.locations[i].specialCards))
-    }
+      appendBuffer(&buffer, state.locations[i].card, cardSize)
+      appendBuffer(&buffer, state.locations[i].numberOfCards, numberOfCardsSize)
+      appendBuffer(&buffer, state.locations[i].spaceLeft, spaceLeftSize)
+      appendBuffer(&buffer, state.locations[i].powerLeft, powerLeftSize)
 
-    capacity += 1 + locationCount[i]
-  }
-
-  buffer := make([]byte, capacity)
-
-  position, data, size = appendBuffer(buffer, position, data, state.exists, size, singleCountSize)
-  position, data, size = appendBuffer(buffer, position, data, state.funds, size, fundsSize)
-  position, data, size = appendBuffer(buffer, position, data, state.fundsPerBlock, size, fundsPerBlockSize)
-  position, data, size = appendBuffer(buffer, position, data, state.experience, size, experienceSize)
-  position, data, size = appendBuffer(buffer, position, data, state.developmentLeft, size, developmentLeftSize)
-  position, data, size = appendBuffer(buffer, position, data, state.blockNumber, size, blockNumberSize)
-  position, data, size = appendBuffer(buffer, position, data, state.projectTimePercentageDecrease, size, projectTimePercentageDecreaseSize)
-  position, data, size = appendBuffer(buffer, position, data, state.miningPercentageBonus, size, miningPercentageBonusSize)
-
-  for i := 0; i < 6; i++ {
-    position, data, size = appendBuffer(buffer, position, data, locationCount[i], size, singleCountSize)
-    if state.locations[i].exists != 0 {
-      position, data, size = appendBuffer(buffer, position, data, state.locations[i].card, size, cardSize)
-      position, data, size = appendBuffer(buffer, position, data, state.locations[i].numberOfCards, size, numberOfCardsSize)
-      position, data, size = appendBuffer(buffer, position, data, state.locations[i].spaceLeft, size, spaceLeftSize)
-      position, data, size = appendBuffer(buffer, position, data, state.locations[i].powerLeft, size, powerLeftSize)
-
-      position, data, size = appendBuffer(buffer, position, data, uint(len(state.locations[i].powers)), size, singleCountSize)
+      appendBuffer(&buffer, uint(len(state.locations[i].powers)), singleCountSize)
       for j := 0; j < len(state.locations[i].powers); j++ {
-        position, data, size = appendBuffer(buffer, position, data, state.locations[i].powers[j].card, size, cardSize)
+        appendBuffer(&buffer, state.locations[i].powers[j].card, cardSize)
         for k := 0; k < powerLevelCount; k++ {
-          position, data, size = appendBuffer(buffer, position, data, state.locations[i].powers[j].count[k], size, singleCountSize)
+          appendBuffer(&buffer, state.locations[i].powers[j].count[k], singleCountSize)
         }
       }
 
-      position, data, size = appendBuffer(buffer, position, data, uint(len(state.locations[i].computerCases)), size, singleCountSize)
+      appendBuffer(&buffer, uint(len(state.locations[i].computerCases)), singleCountSize)
       for j := 0; j < len(state.locations[i].computerCases); j++ {
         for k := 0; k < computerCaseMinersCount; k++ {
           for t := 0; t < computerCaseMinersLevelCount; t++ {
-            position, data, size = appendBuffer(buffer, position, data, state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], size, singleCountSize)
+            appendBuffer(&buffer, state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], singleCountSize)
           }
         }
       }
 
-      position, data, size = appendBuffer(buffer, position, data, uint(len(state.locations[i].rigCases)), size, singleCountSize)
+      appendBuffer(&buffer, uint(len(state.locations[i].rigCases)), singleCountSize)
       for j := 0; j < len(state.locations[i].rigCases); j++ {
         for k := 0; k < rigCaseMinersCount; k++ {
           for t := 0; t < rigCaseMinersLevelCount; t++ {
-            position, data, size = appendBuffer(buffer, position, data, state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t], size,   singleCountSize)
+            appendBuffer(&buffer, state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t],   singleCountSize)
            }
         }
       }
 
-      position, data, size = appendBuffer(buffer, position, data, uint(len(state.locations[i].mountCases)), size, singleCountSize)
+      appendBuffer(&buffer, uint(len(state.locations[i].mountCases)), singleCountSize)
       for j := 0; j < len(state.locations[i].mountCases); j++ {
         for k := 0; k < developerLevelCount; k++ {
-          position, data, size = appendBuffer(buffer, position, data, state.locations[i].mountCases[j].count[k], size, asicCountSize)
+          appendBuffer(&buffer, state.locations[i].mountCases[j].count[k], asicCountSize)
         }
       }
 
-      position, data, size = appendBuffer(buffer, position, data, uint(len(state.locations[i].people)), size, singleCountSize)
+      appendBuffer(&buffer, uint(len(state.locations[i].people)), singleCountSize)
       for j := 0; j < len(state.locations[i].people); j++ {
-        position, data, size = appendBuffer(buffer, position, data, state.locations[i].people[j].card, size, cardSize)
+        appendBuffer(&buffer, state.locations[i].people[j].card, cardSize)
         for k := 0; k < developerLevelCount; k++ {
-          position, data, size = appendBuffer(buffer, position, data, state.locations[i].people[j].count[k], size, singleCountSize)
+          appendBuffer(&buffer, state.locations[i].people[j].count[k], singleCountSize)
         }
       }
 
-      position, data, size = appendBuffer(buffer, position, data, uint(len(state.locations[i].specialCards)), size, singleCountSize)
+      appendBuffer(&buffer, uint(len(state.locations[i].specialCards)), singleCountSize)
       for j := 0; j < len(state.locations[i].specialCards); j++ {
-        position, data, size = appendBuffer(buffer, position, data, state.locations[i].specialCards[j].card, size, cardSize)
+        appendBuffer(&buffer, state.locations[i].specialCards[j].card, cardSize)
         for k := 0; k < specialLevelCount; k++ {
-          position, data, size = appendBuffer(buffer, position, data, state.locations[i].specialCards[j].count[k], size, doubleCountSize)
+          appendBuffer(&buffer, state.locations[i].specialCards[j].count[k], doubleCountSize)
         }
       }
     }
   }
 
   for i := 0; i < len(state.projects); i++ {
-    position, data, size = appendBuffer(buffer, position, data, state.projects[i].exists, size, singleCountSize)
-    position, data, size = appendBuffer(buffer, position, data, state.projects[i].card, size, cardSize)
-    position, data, size = appendBuffer(buffer, position, data, state.projects[i].level, size, levelSize)
-    position, data, size = appendBuffer(buffer, position, data, state.projects[i].timeLeft, size, timeLeftSize)
+    appendBuffer(&buffer, state.projects[i].exists, singleCountSize)
+    appendBuffer(&buffer, state.projects[i].card, cardSize)
+    appendBuffer(&buffer, state.projects[i].level, levelSize)
+    appendBuffer(&buffer, state.projects[i].timeLeft, timeLeftSize)
   }
 
   return buffer
 }
 
-func appendBuffer(buffer []byte, position uint, data uint, appendData uint, size uint, appendSize uint) (uint, uint, uint) {
-  if size + appendSize >= 32 {
-    data += appendData >> ((size + appendSize - 32) * 8)
-    buffer = append(buffer, byte(data))
-    size = size + appendSize - 32
-    if size != 0 {
-      data = (appendData & ((uint(2) << (size * 8 - 1)) - 1)) << ((32 - size) * 8)
-    } else {
-      data = 0
-    }
-    position += 1
-  } else {
-    size = size + appendSize
-    data += appendData * (uint(2) << ((32 - size) * 8 - 1))
+func appendBuffer(buffer *[]byte, appendData uint, appendSize uint) {
+  for i := uint(0); i < appendSize; i++ {
+    *buffer = append(*buffer, byte((appendData >> (appendSize - i - 1)) % 256))
   }
-
-  return position, data, size
 }
 
 func decode(buffer []byte) State {
-  var position uint = 1
-  var size uint = 0
+  var position uint = 0
 
   state := State{
-    exists: 0,
     funds: 150,
     fundsPerBlock: 0,
     developmentLeft: 0,
@@ -235,107 +203,95 @@ func decode(buffer []byte) State {
     maximumCardsCount: [numberOfCards]uint{},
   }
 
-  position, state.exists, size = readBuffer(buffer, position, size, singleCountSize)
-  position, state.funds, size = readBuffer(buffer, position, size, fundsSize)
-  position, state.fundsPerBlock, size = readBuffer(buffer, position, size, fundsPerBlockSize)
-  position, state.experience, size = readBuffer(buffer, position, size, experienceSize)
-  position, state.developmentLeft, size = readBuffer(buffer, position, size, developmentLeftSize)
-  position, state.blockNumber, size = readBuffer(buffer, position, size, blockNumberSize)
-  position, state.projectTimePercentageDecrease, size = readBuffer(buffer, position, size, projectTimePercentageDecreaseSize)
-  position, state.miningPercentageBonus, size = readBuffer(buffer, position, size, miningPercentageBonusSize)
-  for i := 0; i < 6; i++ {
-    position, locationCount, size := readBuffer(buffer, position, size, singleCountSize)
-    if locationCount != 0 {
-      state.locations[i].exists = 1
-      position, state.locations[i].card, size = readBuffer(buffer, position, size, cardSize)
-      position, state.locations[i].numberOfCards, size = readBuffer(buffer, position, size, numberOfCardsSize)
-      position, state.locations[i].spaceLeft, size = readBuffer(buffer, position, size, spaceLeftSize)
-      position, state.locations[i].powerLeft, size = readBuffer(buffer, position, size, powerLeftSize)
+  if len(buffer) > 0 {
+    position, state.funds = readBuffer(buffer, position, fundsSize)
+    position, state.fundsPerBlock = readBuffer(buffer, position, fundsPerBlockSize)
+    position, state.experience = readBuffer(buffer, position, experienceSize)
+    position, state.developmentLeft = readBuffer(buffer, position, developmentLeftSize)
+    position, state.blockNumber = readBuffer(buffer, position, blockNumberSize)
+    position, state.projectTimePercentageDecrease = readBuffer(buffer, position, projectTimePercentageDecreaseSize)
+    position, state.miningPercentageBonus = readBuffer(buffer, position, miningPercentageBonusSize)
+    for i := 0; i < 6; i++ {
+      position, state.locations[i].exists = readBuffer(buffer, position, singleCountSize)
+      if state.locations[i].exists != 0 {
+        position, state.locations[i].card = readBuffer(buffer, position, cardSize)
+        position, state.locations[i].numberOfCards = readBuffer(buffer, position, numberOfCardsSize)
+        position, state.locations[i].spaceLeft = readBuffer(buffer, position, spaceLeftSize)
+        position, state.locations[i].powerLeft = readBuffer(buffer, position, powerLeftSize)
 
-      position, count, size := readBuffer(buffer, position, size, singleCountSize)
-      state.locations[i].powers = make([]Power, count)
-      for j := uint(0); j < count; j++ {
-        position, state.locations[i].powers[j].card, size = readBuffer(buffer, position, size, cardSize)
-        for k := 0; k < powerLevelCount; k++ {
-          position, state.locations[i].powers[j].count[k], size = readBuffer(buffer, position, size, singleCountSize)
-        }
-      }
-
-      position, count, size = readBuffer(buffer, position, size, singleCountSize)
-      state.locations[i].computerCases = make([]ComputerCase, count)
-      for j := uint(0); j < count; j++ {
-        for k := 0; k < computerCaseMinersCount; k++ {
-          for t := 0; t < computerCaseMinersLevelCount; t++ {
-            position, state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], size = readBuffer(buffer, position, size, singleCountSize)
+        position, count := readBuffer(buffer, position, singleCountSize)
+        state.locations[i].powers = make([]Power, count)
+        for j := uint(0); j < count; j++ {
+          position, state.locations[i].powers[j].card = readBuffer(buffer, position, cardSize)
+          for k := 0; k < powerLevelCount; k++ {
+            position, state.locations[i].powers[j].count[k] = readBuffer(buffer, position, singleCountSize)
           }
         }
-     }
 
-      position, count, size = readBuffer(buffer, position, size, singleCountSize)
-      state.locations[i].rigCases = make([]RigCase, count)
-      for j := uint(0); j < count; j++ {
-        for k := 0; k < rigCaseMinersCount; k++ {
-          for t := 0; t < rigCaseMinersLevelCount; t++ {
-            position, state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t], size = readBuffer(buffer, position, size, singleCountSize)
+        position, count = readBuffer(buffer, position, singleCountSize)
+        state.locations[i].computerCases = make([]ComputerCase, count)
+        for j := uint(0); j < count; j++ {
+          for k := 0; k < computerCaseMinersCount; k++ {
+            for t := 0; t < computerCaseMinersLevelCount; t++ {
+              position, state.locations[i].computerCases[j].count[k*computerCaseMinersLevelCount+t] = readBuffer(buffer, position, singleCountSize)
+            }
           }
         }
-      }
 
-      position, count, size = readBuffer(buffer, position, size, singleCountSize)
-      state.locations[i].mountCases = make([]MountCase, count)
-      for j := uint(0); j < count; j++ {
-        for k := 0; k < asicLevelCount; k++ {
-          position, state.locations[i].mountCases[j].count[k], size = readBuffer(buffer, position, size, asicCountSize)
+        position, count = readBuffer(buffer, position, singleCountSize)
+        state.locations[i].rigCases = make([]RigCase, count)
+        for j := uint(0); j < count; j++ {
+          for k := 0; k < rigCaseMinersCount; k++ {
+            for t := 0; t < rigCaseMinersLevelCount; t++ {
+              position, state.locations[i].rigCases[j].count[k*rigCaseMinersLevelCount+t] = readBuffer(buffer, position, singleCountSize)
+            }
+          }
         }
-      }
 
-      position, count, size = readBuffer(buffer, position, size, singleCountSize)
-      state.locations[i].people = make([]Person, count)
-      for j := uint(0); j < count; j++ {
-        position, state.locations[i].people[j].card, size = readBuffer(buffer, position, size, cardSize)
-        for k := 0; k < developerLevelCount; k++ {
-          position, state.locations[i].people[j].count[k], size = readBuffer(buffer, position, size, singleCountSize)
+        position, count = readBuffer(buffer, position, singleCountSize)
+        state.locations[i].mountCases = make([]MountCase, count)
+        for j := uint(0); j < count; j++ {
+          for k := 0; k < asicLevelCount; k++ {
+            position, state.locations[i].mountCases[j].count[k] = readBuffer(buffer, position, asicCountSize)
+          }
         }
-      }
 
-      position, count, size = readBuffer(buffer, position, size, singleCountSize)
-      state.locations[i].specialCards = make([]SpecialCard, count)
-      for j := uint(0); j < count; j++ {
-        position, state.locations[i].specialCards[j].card, size = readBuffer(buffer, position, size, cardSize)
-        for k := 0; k < specialLevelCount; k++ {
-          position, state.locations[i].specialCards[j].count[k], size = readBuffer(buffer, position, size, doubleCountSize)
+        position, count = readBuffer(buffer, position, singleCountSize)
+        state.locations[i].people = make([]Person, count)
+        for j := uint(0); j < count; j++ {
+          position, state.locations[i].people[j].card = readBuffer(buffer, position, cardSize)
+          for k := 0; k < developerLevelCount; k++ {
+            position, state.locations[i].people[j].count[k] = readBuffer(buffer, position, singleCountSize)
+          }
+        }
+
+        position, count = readBuffer(buffer, position, singleCountSize)
+        state.locations[i].specialCards = make([]SpecialCard, count)
+        for j := uint(0); j < count; j++ {
+          position, state.locations[i].specialCards[j].card = readBuffer(buffer, position, cardSize)
+          for k := 0; k < specialLevelCount; k++ {
+            position, state.locations[i].specialCards[j].count[k] = readBuffer(buffer, position, doubleCountSize)
+          }
         }
       }
     }
-  }
 
-  for i := 0; i < 10; i++ {
-    position, state.projects[i].exists, size = readBuffer(buffer, position, size, singleCountSize)
-    position, state.projects[i].card, size = readBuffer(buffer, position, size, cardSize)
-    position, state.projects[i].level, size = readBuffer(buffer, position, size, levelSize)
-    position, state.projects[i].timeLeft, size = readBuffer(buffer, position, size, timeLeftSize)
+    for i := 0; i < 10; i++ {
+      position, state.projects[i].exists = readBuffer(buffer, position, singleCountSize)
+      position, state.projects[i].card = readBuffer(buffer, position, cardSize)
+      position, state.projects[i].level = readBuffer(buffer, position, levelSize)
+      position, state.projects[i].timeLeft = readBuffer(buffer, position, timeLeftSize)
+    }
   }
 
   return state
 }
 
-func readBuffer(buffer []byte , position uint, size uint, appendSize uint) (uint, uint, uint) {
-  var data = uint(buffer[position])
-
-  var returnData uint
-
-  if size + appendSize >= 32 {
-    position += 1
-    returnData = (data & ((uint(2) << ((32 - size) * 8 - 1)) - 1)) << ((size + appendSize - 32) * 8)
-    if size + appendSize != 32 {
-      var secondData = uint(buffer[position + 1])
-      returnData += (secondData & ((uint(2) << ((64 - size - appendSize) * 8 - 1)) * ((uint(2) << ((size + appendSize - 32) * 8 - 1)) - 1))) / (uint(2) << ((64 - size - appendSize) * 8 - 1))
-    }
-    size = size + appendSize - 32
-  } else {
-    returnData = (data & (uint(2) << ((32 - size - appendSize) * 8 - 1)) * ((uint(2) << (8 * appendSize - 1)) - 1)) / (uint(2) << ((32 - size - appendSize) * 8 - 1))
-    size = size + appendSize
+func readBuffer(buffer []byte , position uint, appendSize uint) (uint, uint) {
+  var data uint
+  for i := uint(0); i < appendSize; i++ {
+    data = data * 256 + uint(buffer[position + i])
   }
 
-  return position, returnData, size
+  return position + appendSize, data
 }
