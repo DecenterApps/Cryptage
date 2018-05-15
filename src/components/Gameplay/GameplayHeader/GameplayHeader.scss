@@ -14,6 +14,12 @@
   .gameplay-header-content {
     display: inline-flex;
 
+    @include for-big-desktop {
+      display: flex;
+      flex-grow: 1;
+      justify-content: center;
+    }
+
     .section {
       width: 262px;
       position: relative;
@@ -22,7 +28,7 @@
       flex-direction: column;
 
       @include for-big-desktop {
-        width: 367px;
+        width: 411px;
       }
 
       .stats-container {
