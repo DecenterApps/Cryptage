@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { formatBigNumber, classForRarity, printMechanicsText } from '../../services/utils';
-import { fpbCardIds } from '../../actions/actionTypes';
+import { fpbCardIds, DESKTOP_WIDTH } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
 
@@ -19,16 +19,25 @@ const HoverInfo = ({
   card, center, parent, type,
 }) => {
   const position = { top: 0, left: 0 };
+  const isDesktop = window.innerWidth >= DESKTOP_WIDTH;
 
   if (parent) {
     const parentPos = parent.getBoundingClientRect();
     position.top = parentPos.top - 50;
+
+    if (isDesktop) position.top -= 60;
+
     position.left = parentPos.left;
   }
 
   if (type === 'asset') position.left += 190;
+  if (type === 'asset' && isDesktop) position.left += 100;
+
   if (type === 'project') position.left -= 250;
+  if (type === 'project' && isDesktop) position.left -= 120;
+
   if (type === 'location') position.left += 215;
+  if (type === 'location' && isDesktop) position.left += 120;
 
   const showCost = Object.keys(card.stats.cost).filter((key) => {
     const valOverZero = key !== 'space' && key !== 'level' && card.stats.cost[key] > 0;

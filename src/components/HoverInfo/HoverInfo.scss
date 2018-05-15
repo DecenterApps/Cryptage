@@ -14,6 +14,11 @@
   height: 252px;
   border-radius: 12px;
 
+  @include for-big-desktop {
+    height: $lg-card-desktop-height;
+    width: $lg-card-desktop-width;
+  }
+
   &.center {
     position: fixed;
     left: 0;
@@ -43,6 +48,13 @@
     color: white;
     position: relative;
     border-radius: 12px;
+
+    @include for-big-desktop {
+      height: $lg-card-desktop-height;
+      width: $lg-card-desktop-width;
+      border-radius: 20px;
+    }
+
     * {
       font-family: $font-secondary;
     }
@@ -56,6 +68,10 @@
       border-top-right-radius: 12px;
       padding: 0 10px 0 20px;
       background: linear-gradient(270deg, #382563 0%, #382563 39.78%, rgba(56, 37, 99, 0) 100%);
+
+      @include for-big-desktop {
+        font-size: 18px;
+      }
     }
 
     .overlay {
@@ -68,6 +84,11 @@
       background-image: url('./CardFront01.png');
       background-size: cover;
       z-index: 1;
+
+      @include for-big-desktop {
+        height: $lg-card-desktop-height;
+        width: $lg-card-desktop-width;
+      }
     }
 
     .rarity-overlay {
@@ -87,6 +108,13 @@
       &.rarity-red {
         background-image: url('./rare.png');
       }
+
+      @include for-big-desktop {
+        width: 275px;
+        height: 400px;
+        top: -36px;
+        left: -35px;
+      }
     }
 
     .title {
@@ -95,6 +123,11 @@
       padding: 5px 7px 0 7px;
       font-size: 9px;
       text-transform: uppercase;
+
+      @include for-big-desktop {
+        font-size: 13px;
+        padding: 5px 15px 0 15px;
+      }
     }
 
     .meta {
@@ -115,6 +148,11 @@
         padding: 12px 0 2px;
         margin-top: -10px;
         text-transform: uppercase;
+
+        @include for-big-desktop {
+          font-size: 11px;
+        }
+
         &:before {
           content: '';
           display: block;
@@ -127,16 +165,31 @@
         p {
           margin: 5px 0 0;
           font-family: $font-primary;
+
+          @include for-big-desktop {
+            max-width: 160px;
+            text-align: center;
+            margin: auto;
+          }
+
           span {
             font-family: inherit;
           }
         }
         .mechanics {
           font-weight: bold;
+
+          @include for-big-desktop {
+            font-size: 11px;
+          }
         }
         .flavor {
           font-style: italic;
           font-weight: 300;
+
+          @include for-big-desktop {
+            font-size: 11px;
+          }
         }
       }
     }
@@ -210,6 +263,13 @@
     position: absolute;
     top: 20px !important;
     z-index: 3;
+
+    $orb-radius: 12px;
+
+    @include for-big-desktop {
+      $orb-radius: 17px;
+    }
+
     &:before,
     &.cost .orb:before,
     &.gains .orb:after {
@@ -233,6 +293,11 @@
       font-size: 14px;
       padding-left: 20px;
       box-sizing: border-box;
+
+      @include for-big-desktop {
+        left: -5px;
+        font-size: 18px;
+      }
     }
     &.gains:before {
       background: linear-gradient(140deg, #36265F -1.55%, rgba(54, 38, 95, 0) 56.82%);
@@ -245,32 +310,67 @@
       font-size: 14px;
       padding-left: 20px;
       box-sizing: border-box;
+
+      @include for-big-desktop {
+        font-size: 18px;
+      }
     }
     &.cost .orb:before {
       background: linear-gradient(270deg, #36265F 0%, rgba(54, 38, 95, 0) 100%);
       padding: 0 15px 0 40px;
       right: 28px;
       z-index: -1;
+
+      @include for-big-desktop {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: 42px;
+        height: 34px;
+        padding: 0 28px 0 45px;
+      }
     }
     &.gains .orb:after {
       background: linear-gradient(90deg, #36265F 0%, rgba(54, 38, 95, 0) 100%);
       padding: 0 40px 0 15px;
       left: 28px;
       z-index: -1;
+
+      @include for-big-desktop {
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 42px;
+        height: 34px;
+        padding: 0 45px 0 28px;
+
+      }
     }
     &.cost {
       left: -60px !important;
+
+      @include for-big-desktop {
+        left: -93px !important;
+      }
+
       .orb {
-        border-bottom-right-radius: 12px;
-        border-top-right-radius: 12px;
+        border-bottom-right-radius: $orb-radius;
+        border-top-right-radius: $orb-radius;
       }
     }
     &.gains {
       left: auto;
       right: -60px !important;
+
+      @include for-big-desktop {
+        right: -67px !important;
+      }
+
       .orb {
-        border-bottom-left-radius: 12px;
-        border-top-left-radius: 12px;
+        border-bottom-left-radius: $orb-radius;
+        border-top-left-radius: $orb-radius;
       }
     }
     width: 40px;
@@ -288,14 +388,14 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      &.small {
-        //padding-top: 13px;
-        //font-size: 9px;
-        //white-space: pre;
-        //line-height: 8px;
-      }
-      &.smaller {
-        //font-size: 9px;
+
+      @include for-big-desktop {
+        font-size: 17px;
+        height: 34px;
+        width: 66px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
     &.gains {

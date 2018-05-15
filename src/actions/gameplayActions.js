@@ -522,7 +522,7 @@ export const updateProjectExecutionTimePercent = (card, lastDecrease) => (dispat
   projectExecutionTimePercent += lastDecrease;
 
   // calc how much percent is going to be decreased
-  const percentDecreased = Math.floor((card.stats.bonus.multiplierTime / 100) * projectExecutionTimePercent);
+  const percentDecreased = Math.ceil((card.stats.bonus.multiplierTime / 100) * projectExecutionTimePercent);
   projectExecutionTimePercent -= percentDecreased;
 
   if (projectExecutionTimePercent < 0) projectExecutionTimePercent = 0;

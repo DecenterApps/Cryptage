@@ -1,5 +1,7 @@
 import cardConfig from '../constants/cards.json';
 
+export const DESKTOP_WIDTH = 1920;
+
 export const acceptedAssetDropIds =
   Object.keys(cardConfig.cards).filter(key =>
     cardConfig.cards[key]['1'].type !== 'Location' &&
