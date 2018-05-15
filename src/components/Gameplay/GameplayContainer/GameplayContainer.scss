@@ -19,6 +19,12 @@
     padding: 10px;
     z-index: 50;
 
+    @include for-big-desktop {
+      top: 145px;
+      right: -78px;
+      transform: scale(1.35);
+    }
+
     &:hover {
       opacity: 0.8;
     }
@@ -38,6 +44,15 @@
     margin-top: 35px;
     height: 200px;
     background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
+
+    @include for-big-desktop {
+      width: 807px;
+      height: 280px;
+
+      .header-bar-wrapper .bar-name {
+        font-size: 17px;
+      }
+    }
 
     .container-slots {
 

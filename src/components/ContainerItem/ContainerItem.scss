@@ -9,6 +9,10 @@
     bottom: 90px;
 
     @include elementInAndOut;
+    @include  for-big-desktop {
+      font-size: 17px;
+      bottom: 120px;
+    }
   }
 
   &.dragging-success.level-up-success {

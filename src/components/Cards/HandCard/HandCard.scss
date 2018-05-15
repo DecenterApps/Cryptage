@@ -277,6 +277,16 @@
           z-index: -1;
           font-size: 12px;
           line-height: 22px;
+
+          @include for-big-desktop {
+            height: 30px;
+            font-size: 17px;
+            width: 100px;
+            left: -87px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
         }
       }
 

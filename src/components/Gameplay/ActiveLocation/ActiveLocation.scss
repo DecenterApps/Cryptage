@@ -201,6 +201,11 @@
       .drop-slots-wrapper {
         height: 110px;
         margin-top: 40px;
+
+        @include for-big-desktop {
+          height: 165px;
+          max-width: 750px;
+        }
       }
     }
   }
