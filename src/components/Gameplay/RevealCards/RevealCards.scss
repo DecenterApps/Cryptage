@@ -5,7 +5,7 @@
   display: flex;
   padding: 0 20px;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  align-items: center;
 
   .revealed-card {
     display: inline-block;
@@ -17,6 +17,7 @@
     @include for-big-desktop {
       width: $lg-card-desktop-width;
       height: $lg-card-desktop-height;
+      margin-right: 45px;
     }
 
     &:last-of-type {

@@ -308,8 +308,12 @@
         align-items: center;
 
         @include for-big-desktop {
-          justify-content: space-evenly;
+          justify-content: center;
           transform: scale(1.3);
+
+          img {
+            margin-bottom: 10px;
+          }
         }
       }
 
