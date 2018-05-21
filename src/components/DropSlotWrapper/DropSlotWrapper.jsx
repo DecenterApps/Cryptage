@@ -26,7 +26,7 @@ const dropTarget = {
     props.onDrop(dropItem);
     component.props.toggleCardDrag();
     if (checkIfCanPlayCard(dropItem.card.stats, props.globalStats)) {
-      component.props.playTurn(dropItem, props.slotType, props.index, true);
+      // component.props.playTurn(dropItem, props.slotType, props.index, true);
     }
   },
 };
