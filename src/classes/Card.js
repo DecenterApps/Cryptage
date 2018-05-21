@@ -38,12 +38,7 @@ export default class Card {
       this.mechanics = [];
     }
 
-    this.mechanics = this.mechanics.map((mechanic) => {
-      let name = mechanic;
-      let params = [];
-      if (Array.isArray(mechanic)) {
-        [name, ...params] = mechanic;
-      }
+    this.mechanics = this.mechanics.map(({ name, params }) => {
       return Mechanic.getInstance(name, this, params);
     });
   }
