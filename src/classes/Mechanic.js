@@ -27,8 +27,7 @@ export default class Mechanic {
   }
 
   canPlay(state, destination) {
-    // TODO: check cost here, maybe add getPlayCost() which will do full error checks
-    return true;
+    return { allowed: true };
   }
 
   onPlay(state, destination) {
@@ -36,7 +35,7 @@ export default class Mechanic {
   }
 
   canWithdraw(state) {
-    return true;
+    return { allowed: true };
   }
 
   onWithdraw(state) {
@@ -44,7 +43,7 @@ export default class Mechanic {
   }
 
   canPlayChild(state, child) {
-    return true;
+    return { allowed: true };
   }
 
   onPlayChild(state, child) {
@@ -52,7 +51,7 @@ export default class Mechanic {
   }
 
   canWithdrawChild(state, child) {
-    return true;
+    return { allowed: true };
   }
 
   onWithdrawChild(state, child) {

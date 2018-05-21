@@ -43,6 +43,24 @@ export default class Card {
     });
   }
 
+  _can(method, ...params) {
+    const result = { allowed: true };
+    for (const mechanic of this.mechanics) {
+      const res = mechanic[method](...params);
+      if (res.special) {
+        result.special = (result.special || []).concat(res.special);
+        delete res.special;
+      }
+      Object.assign(result, res);
+    }
+    result.allowed = (res.special && res.special.length) || !Object.keys(result).some((key) => result[key] === false);
+    return result;
+  }
+
+  canPlay(state, destSlot) {
+    return this._can('canPlay', state, destSlot);
+  }
+
   block(state, blockCount) {
     for (const mechanic of this.mechanics) {
       state = mechanic.block(state, blockCount);
