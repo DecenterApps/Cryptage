@@ -486,7 +486,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       if (!miningCardType) {
         if (availableSlots) return checkIfCanPlayCard(stats, globalStats, activeLocation);
         if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
-        if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
+        if (!availableSlots && stats.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
       }
 
       // In active gameplay view checks if miner can be dropped in at least one location
@@ -544,7 +544,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
         if (availableSlots) return checkIfCanPlayCard(stats, globalStats, null);
         if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
-        if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
+        if (!availableSlots && stats.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
       }
 
       // check if active container can take in that card type
