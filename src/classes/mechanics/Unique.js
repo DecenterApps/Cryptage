@@ -1,4 +1,4 @@
-import Mechanic from '.../Mechanic';
+import Mechanic from '../Mechanic';
 
 export default class Unique extends Mechanic {
 
