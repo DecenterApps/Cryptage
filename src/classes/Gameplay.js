@@ -3,10 +3,11 @@ import levels from '../constants/levels.json';
 
 export default class Gameplay {
 
-  constructor() {
+  constructor(blockNumber) {
     this.allCards = [];
     this.playedCards = [];
     this.handCards = [];
+    this.blockNumber = blockNumber;
     this.stats = {
       level: config.globalStats.level,
       experience: config.globalStats.experience,
