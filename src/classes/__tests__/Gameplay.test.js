@@ -1,4 +1,5 @@
 import Gameplay from '../Gameplay';
+import LocationCard from '../cardTypes/Location';
 
 describe('Gameplay', () => {
 
@@ -10,13 +11,9 @@ describe('Gameplay', () => {
   });
 
   it('Dispatches block action to all played cards', () => {
-
     const gameplay = new Gameplay();
-    gameplay.playedCards = [{
-        block: jest.fn((state) => state),
-      }, {
-        block: jest.fn((state) => state),
-    }];
+    const block = jest.fn(state => state);
+    gameplay.playedCards = [{ block }, { block }];
 
     const dummyState = {};
 
@@ -25,5 +22,16 @@ describe('Gameplay', () => {
     for (const card of gameplay.playedCards) {
       expect(card.block).toHaveBeenCalledWith(dummyState, 123);
     }
+  });
+
+  it('Returns all cards of right type', () => {
+    const gameplay = new Gameplay();
+    gameplay.playedCards = [new LocationCard(), new LocationCard()];
+
+    gameplay
+      .getCardsOfType(LocationCard)
+      .every((card) => {
+        expect(card).toBeInstanceOf(LocationCard);
+      });
   });
 });
