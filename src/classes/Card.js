@@ -17,12 +17,13 @@ export default class Card {
     cardTypes.set(name, constructor);
   }
 
-  static async getInstance(id) {
+  static async getInstance(id, level = 1) {
     const metadata = await ethService.getCardMetadata(id);
-    const stats = fetchCardStats(metadata.id, 1);
+    const stats = fetchCardStats(metadata.id, level);
     return new (this.getTypeConstructor(stats.type))({
       id,
       metadataId: metadata.id,
+      level,
       ...stats,
     });
   }
@@ -31,7 +32,7 @@ export default class Card {
     Object.assign(this, data);
 
     this.dropSlots = [];
-    this.stackedCards = [];
+    this.stackedCardIds = [data.id];
     this.active = false;
 
     if (!Array.isArray(this.mechanics)) {
@@ -59,6 +60,25 @@ export default class Card {
 
   canPlay(state, destSlot) {
     return this._can('canPlay', state, destSlot);
+  }
+
+  canLevelUp(state, dropSlot) {
+    const result = { allowed: this.level < 5 };
+
+    result.allowed = state.stats.funds >= Card.getInstance(this.id, this.level + 1).cost.funds;
+
+    return Object.assign(result, this._can('canLevel', state, dropSlot));
+  }
+
+  levelUp(state, dropSlot, draggedCard) {
+    const leveldUp = Card.getInstance(this.id, this.level);
+    leveldUp.dropSlots = this.dropSlots;
+    leveldUp.stackedCards = this.stackedCards.concat(draggedCard.id);
+
+    // do withdraw
+    // do play again
+
+    dropSlot.card = leveldUp;
   }
 
   block(state, blockCount) {
