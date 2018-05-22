@@ -1,10 +1,13 @@
 import Mechanic from './Mechanic';
-import { getCardMetadata } from '../services/ethereumService';
-import { fetchCardStats } from '../services/cardService';
+import { fetchCardMeta } from '../services/cardService';
 
 const cardTypes = new Map();
 
 export default class Card {
+
+  static registerTypeConstructor(name, constructor) {
+    cardTypes.set(name, constructor);
+  }
 
   static getTypeConstructor(type) {
     if (cardTypes.has(type)) {
@@ -13,18 +16,13 @@ export default class Card {
     return Card;
   }
 
-  static registerTypeConstructor(name, constructor) {
-    cardTypes.set(name, constructor);
-  }
-
   static async getInstance(id, level = 1) {
-    const metadata = await ethService.getCardMetadata(id);
-    const stats = fetchCardStats(metadata.id, level);
-    return new (this.getTypeConstructor(stats.type))({
+    const cardMeta = await fetchCardMeta(id, level);
+    return new (this.getTypeConstructor(cardMeta.stats.type))({
       id,
-      metadataId: metadata.id,
+      metadataId: cardMeta.metadata.id,
       level,
-      ...stats,
+      ...cardMeta.stats,
     });
   }
 
