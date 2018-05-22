@@ -26,7 +26,7 @@ export default class Card {
     });
   }
 
-  constructor(data = {}) {
+  constructor(data) {
     Object.assign(this, data);
 
     this.dropSlots = [];

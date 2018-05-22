@@ -26,7 +26,7 @@ describe('Gameplay', () => {
 
   it('Returns all cards of right type', () => {
     const gameplay = new Gameplay();
-    gameplay.playedCards = [new LocationCard(), new LocationCard()];
+    gameplay.playedCards = [new LocationCard({ id: '10' }), new LocationCard({ id: '10' })];
 
     gameplay
       .getCardsOfType(LocationCard)
