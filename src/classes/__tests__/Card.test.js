@@ -27,4 +27,28 @@ describe('Card', () => {
     expect(card.active).toBeFalsy();
     expect(card.mechanics[0]).toBeInstanceOf(Unique);
   });
+
+  it('Can level up with level bellow 5', async () => {
+    const card = new Card({ level: 1, id: '0' }, null);
+    const state = { stats: { funds: 1000000 } };
+    const res = await card.canLevelUp(state, null);
+
+    expect(res).toEqual(expect.objectContaining({ allowed: true }));
+  });
+
+  it('Can not level up with level 5', async () => {
+    const card = new Card({ level: 5, id: '0' }, null);
+    const state = { stats: { funds: 1000000 } };
+    const res = await card.canLevelUp(state, null);
+
+    expect(res).toEqual(expect.objectContaining({ allowed: false }));
+  });
+
+  it('Can not level up with not enough funds', async () => {
+    const card = new Card({ level: 1, id: '0' }, null);
+    const state = { stats: { funds: 0 } };
+    const res = await card.canLevelUp(state, null);
+
+    expect(res).toEqual(expect.objectContaining({ allowed: false }));
+  });
 });

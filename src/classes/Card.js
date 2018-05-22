@@ -52,7 +52,7 @@ export default class Card {
       }
       Object.assign(result, res);
     }
-    result.allowed = (res.special && res.special.length) || !Object.keys(result).some((key) => result[key] === false);
+    result.allowed = (result.special && result.special.length) || !Object.keys(result).some((key) => result[key] === false);
     return result;
   }
 
@@ -60,10 +60,15 @@ export default class Card {
     return this._can('canPlay', state, destSlot);
   }
 
-  canLevelUp(state, dropSlot) {
+  async canLevelUp(state, dropSlot) {
     const result = { allowed: this.level < 5 };
 
-    result.allowed = state.stats.funds >= Card.getInstance(this.id, this.level + 1).cost.funds;
+    if (!result.allowed) return result;
+
+    const instance = await Card.getInstance(this.id, this.level + 1);
+    result.allowed = state.stats.funds >= instance.cost.funds;
+
+    if (!result.allowed) return result;
 
     return Object.assign(result, this._can('canLevel', state, dropSlot));
   }
