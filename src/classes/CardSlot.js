@@ -4,14 +4,24 @@ import ProjectCard from './cardTypes/Project';
 
 export default class CardSlot {
 
-  constructor(card) {
+  constructor(parent, card) {
+    this.parent = parent;
     if (card) {
       this.dropCard(card);
     }
   }
 
   dropCard(card) {
+    this.removeCard();
     this.card = card;
+    this.card.parent = this.parent;
+  }
+
+  removeCard() {
+    if (this.card) {
+      this.card.parent = null;
+      this.card = null;
+    }
   }
 
   canDrop(card) {

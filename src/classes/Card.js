@@ -1,5 +1,6 @@
 import Mechanic from './Mechanic';
 import { fetchCardMeta } from '../services/cardService';
+import CardSlot from './CardSlot';
 
 const cardTypes = new Map();
 
@@ -32,6 +33,7 @@ export default class Card {
     this.dropSlots = [];
     this.stackedCardIds = [data.id];
     this.active = false;
+    this.parent = null;
 
     if (!Array.isArray(this.mechanics)) {
       this.mechanics = [];
@@ -40,6 +42,10 @@ export default class Card {
     this.mechanics = this.mechanics.map(({ name, params }) => {
       return Mechanic.getInstance(name, this, params);
     });
+  }
+
+  addNewDropSlot(SlotType = CardSlot) {
+    this.dropSlots.push(new SlotType(this));
   }
 
   _can(method, ...params) {
@@ -73,15 +79,19 @@ export default class Card {
     return Object.assign(result, this._can('canLevel', state, dropSlot));
   }
 
-  levelUp(state, dropSlot, draggedCard) {
-    const leveldUp = Card.getInstance(this.id, this.level);
-    leveldUp.dropSlots = this.dropSlots;
-    leveldUp.stackedCards = this.stackedCards.concat(draggedCard.id);
+  async levelUp(state, dropSlot, draggedCard) {
+    const leveledUp = await Card.getInstance(this.id, this.level + 1);
+    leveledUp.dropSlots = this.dropSlots;
+    leveledUp.stackedCards = this.stackedCards.concat(draggedCard.id);
 
-    // do withdraw
-    // do play again
+    for (const cardSlot of this.dropSlots) {
+      cardSlot.parent = leveledUp;
+      if (!cardSlot.isEmpty()) {
+        cardSlot.card.parent = leveledUp;
+      }
+    }
 
-    dropSlot.card = leveldUp;
+    dropSlot.dropCard(leveledUp);
   }
 
   block(state, blockCount) {
