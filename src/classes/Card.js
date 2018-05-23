@@ -168,7 +168,7 @@ export default class Card {
 
     if (!result.allowed) return result;
 
-    return Object.assign(result, this._can('canLevel', state, dropSlot));
+    return Object.assign(result, this._can('canLevelUp', state, dropSlot));
   }
 
   async levelUp(state, dropSlot, draggedCard) {
