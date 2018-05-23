@@ -189,8 +189,11 @@ export default class Card {
   }
 
   block(state, blockCount) {
-    for (const mechanic of this.mechanics) {
-      state = mechanic.block(state, blockCount);
+    state = this._on('block', state, blockCount);
+    for (const slot of this.dropSlots) {
+      if (!slot.isEmpty()) {
+        state = slot.card.block(state, blockCount);
+      }
     }
     return state;
   }
