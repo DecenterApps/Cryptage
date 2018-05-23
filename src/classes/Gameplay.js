@@ -8,6 +8,7 @@ export default class Gameplay {
     this.playedCards = [];
     this.handCards = [];
     this.blockNumber = blockNumber;
+    this.previousBockNumber = blockNumber;
     this.stats = {
       level: config.globalStats.level,
       experience: config.globalStats.experience,
@@ -23,11 +24,24 @@ export default class Gameplay {
     return this.playedCards.filter((card) => card instanceof type);
   }
 
-  block(state, blockCount) {
+  updateBlockNumber(state, blockNumber) {
+
+    const blockCount = blockNumber - state.previousBockNumber;
+
+    if (blockCount < 1) {
+      return state;
+    }
+
     for (const card of this.playedCards) {
       state = card.block(state, blockCount);
     }
-    return state;
+
+    return {
+      ...state,
+      funds: state.funds + state.fundsPerBlock * blockCount,
+      blockNumber,
+      previousBockNumber: blockNumber,
+    };
   }
 
   levelUp(card, slot) {
