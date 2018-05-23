@@ -57,6 +57,13 @@ export default class Card {
     return card;
   }
 
+  _on(action, state, ...params) {
+    for (const mechanic of this.mechanics) {
+      state = mechanic[action](state, ...params);
+    }
+    return state;
+  }
+
   _can(method, ...params) {
     const result = { allowed: true };
     for (const mechanic of this.mechanics) {
@@ -71,8 +78,32 @@ export default class Card {
     return result;
   }
 
-  canPlay(state, destSlot) {
-    return this._can('canPlay', state, destSlot);
+  onPlay(state, dropSlot) {
+    return this._on('onPlay', state, dropSlot);
+  }
+
+  canWithdraw(state) {
+    return this._can('canWithdraw', state);
+  }
+
+  onWithdraw(state) {
+    return this._on('onWithdraw', state);
+  }
+
+  canPlayChild(state, child) {
+    return this._can('canPlayChild', state, child);
+  }
+
+  onPlayChild(state, child) {
+    return this._on('onPlayChild', state, child);
+  }
+
+  canWithdrawChild(state, child) {
+    return this._can('canWithdrawChild', state, child);
+  }
+
+  onWithdrawChild(state, child) {
+    return this._on('onWithdrawChild', state, child);
   }
 
   async canLevelUp(state, dropSlot) {
@@ -101,6 +132,8 @@ export default class Card {
     }
 
     dropSlot.dropCard(leveledUp);
+
+    return leveledUp.play(this.withdraw(state), dropSlot);
   }
 
   block(state, blockCount) {
