@@ -1,6 +1,7 @@
 import Mechanic from './Mechanic';
 import { fetchCardMeta } from '../services/cardService';
 import CardSlot from './CardSlot';
+import LocationCard from './cardTypes/Location';
 
 const cardTypes = new Map();
 
@@ -46,6 +47,14 @@ export default class Card {
 
   addNewDropSlot(SlotType = CardSlot) {
     this.dropSlots.push(new SlotType(this));
+  }
+
+  findParent(CardType = LocationCard) {
+    let card = this;
+    while (card && !(card instanceof CardType)) {
+      card = card.parent;
+    }
+    return card;
   }
 
   _can(method, ...params) {

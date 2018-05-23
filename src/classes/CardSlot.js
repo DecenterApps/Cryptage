@@ -11,6 +11,13 @@ export default class CardSlot {
     }
   }
 
+  findParent(CardType = LocationCard) {
+    if (!this.parent) {
+      return null;
+    }
+    return this.parent.findParent(CardType);
+  }
+
   dropCard(card) {
     this.removeCard();
     this.card = card;
