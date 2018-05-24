@@ -1,5 +1,7 @@
 import config from '../constants/config.json';
+import cardConfig from '../constants/cards.json';
 import levels from '../constants/levels.json';
+import { LocationCardSlot, ProjectCardSlot } from './CardSlot';
 
 export default class Gameplay {
 
@@ -17,7 +19,16 @@ export default class Gameplay {
       funds: config.globalStats.funds,
       development: config.globalStats.development,
     };
-    this.locationSlots = [];
+    this.locationSlots = new Array(cardConfig.locationSlots);
+    this.projectSlots = new Array(cardConfig.projectSlots);
+
+    for (let i = 0; i < this.locationSlots.length; i += 1) {
+      this.locationSlots[i] = new LocationCardSlot();
+    }
+
+    for (let i = 0; i < this.locationSlots.length; i += 1) {
+      this.locationSlots[i] = new ProjectCardSlot();
+    }
   }
 
   getCardsOfType(type) {

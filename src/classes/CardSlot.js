@@ -5,10 +5,8 @@ import ProjectCard from './cardTypes/Project';
 export default class CardSlot {
 
   constructor(owner, card) {
-    this.owner = owner;
-    if (card) {
-      this.dropCard(card);
-    }
+    if (owner) this.owner = owner;
+    if (card) this.dropCard(card);
   }
 
   findParent(CardType = LocationCard) {
@@ -21,8 +19,8 @@ export default class CardSlot {
   async dropCard(state, card) {
     let toAdd = card;
 
-    if (this.card && this.card.canLevelUp(state, this)) {
-      toAdd = this.card.levelUp(state, this, card);
+    if (this.card && await this.card.canLevelUp(state, this)) {
+      toAdd = await this.card.levelUp(state, this, card);
     }
 
     this.card = toAdd;
@@ -31,9 +29,12 @@ export default class CardSlot {
 
   removeCard(state) {
     if (this.card) {
-      state = this.owner.onWithdrawChild(state, this.card);
+      if (this.owner) {
+        state = this.owner.onWithdrawChild(state, this.card);
+        this.owner.removeDropSlot(this);
+      }
+
       state = this.card.onWithdraw(state);
-      this.owner.removeDropSlot(this);
 
       this.card.parent = null;
       this.card = null;
