@@ -9,7 +9,7 @@ const rigCaseMinersCount = 4
 const powerLevelCount = 5
 const computerCaseMinersLevelCount = 5
 const rigCaseMinersLevelCount = 5
-const asicLevelCount = 5
+const asicCaseLevelCount = 5
 const developerLevelCount = 5
 const specialLevelCount = 5
 
@@ -19,7 +19,6 @@ const experienceSize = 4
 const developmentLeftSize = 2
 const blockNumberSize = 4
 const projectTimePercentageDecreaseSize = 1
-const miningPercentageBonusSize = 1
 
 const cardSize = 2
 const numberOfCardsSize = 2
@@ -35,68 +34,131 @@ const timeLeftSize = 2
 
 const levelSize = 1
 
+const locationOffset = 1
+const levelOffset = 1
+const containerIndexOffset = 1
+const computerCaseMinersOffset = 9
+const rigCaseMinersOffset = 10
+
 type State struct {
-  funds uint
-  fundsPerBlock uint
-  experience uint
-  developmentLeft uint
-  blockNumber uint
-  projectTimePercentageDecrease uint
-  miningPercentageBonus uint
-  locations [numberOfLocations]Location
-  projects [numberOfProjects]Project
-  currentCardsCount [numberOfCards]uint
-  maximumCardsCount [numberOfCards]uint
+  funds                              uint
+  fundsPerBlock                      uint
+  experience                         uint
+  level                              uint
+  developmentLeft                    uint
+  blockNumber                        uint
+  dayTradingBonus                    uint
+  cpuCount                           uint
+  gpuCount                           uint
+  projectTimePercentageDecrease      uint
+  predictionMarketParticipationBonus uint
+  locations                          [numberOfLocations]Location
+  projects                           [numberOfProjects]Project
+  currentCardsCount                  [numberOfCards]uint
+  maximumCardsCount                  [numberOfCards]uint
 }
 
 type Location struct {
-  exists uint
-  card uint
-  numberOfCards uint
-  spaceLeft uint
-  powerLeft uint
-  powers []Power
-  computerCases []ComputerCase
-  rigCases []RigCase
-  mountCases []MountCase
-  people []Person
-  specialCards []SpecialCard
+  exists                     uint
+  card                       uint
+  numberOfCards              uint
+  spaceLeft                  uint
+  powerLeft                  uint
+  development                uint
+  developmentBonus           uint
+  developmentPercentageBonus uint
+  mining                     uint
+  miningBonus                uint
+  miningPercentageBonus      uint
+  spaceRenting               uint
+  spaceRentingBonus          uint
+  powerRenting               uint
+  powerRentingBonus          uint
+  coffeeMiner                uint
+  computerCases              []ComputerCase
+  rigCases                   []RigCase
+  asicCases                  []MountCase
+  people                     []Person
+  powers                     []Power
+  specialCards               []SpecialCard
+}
+
+func (location *Location) getContainer(miningType string, gpuOption bool, containerIndex uint) interface{} {
+  switch miningType {
+  case "CPU Miner":
+    {
+      return location.computerCases[containerIndex]
+    }
+  case "GPU Miner":
+    {
+      if gpuOption {
+        return location.rigCases[containerIndex]
+      }
+
+      return location.computerCases[containerIndex]
+    }
+  default:
+    {
+      return location.asicCases[containerIndex]
+    }
+  }
 }
 
 type Power struct {
-  card uint
+  card  uint
   count [powerLevelCount]uint
 }
 
 type ComputerCase struct {
-  count [computerCaseMinersCount * computerCaseMinersLevelCount]uint
+  count [computerCaseMinersCount][computerCaseMinersLevelCount]uint
 }
 
 type RigCase struct {
-  count [rigCaseMinersCount * rigCaseMinersLevelCount]uint
+  count [rigCaseMinersCount][rigCaseMinersLevelCount]uint
 }
 
 type MountCase struct {
-  count [asicLevelCount]uint
+  count [asicCaseLevelCount]uint
 }
 
 type Person struct {
-  card uint
+  card  uint
   count [developerLevelCount]uint
 }
 
 type SpecialCard struct {
-  card uint
+  card  uint
   count [specialLevelCount]uint
 }
 
 type Project struct {
-  exists uint
-  card uint
-  level uint
+  exists   uint
+  card     uint
+  level    uint
   timeLeft uint
 }
+
 func (state *State) update(sendBlockNumber uint, moves []Move) error {
+  for i := 0; i < len(moves); i++ {
+    // first update everything based on funds per block
+    state.funds += (moves[i].blockNumber - state.blockNumber) * state.fundsPerBlock
+    // update all projects
+    updateProjects(state, moves[i])
+
+    var err error
+    if moves[i].shift {
+      err = playCard(state, moves[i])
+    } else {
+      err = removeCard(state, moves[i])
+    }
+
+    if err != nil {
+      return err
+    }
+
+    // set new block number at the end
+    state.blockNumber = moves[i].blockNumber
+  }
 
   return nil
 }
@@ -110,7 +172,6 @@ func encode(state State) []byte {
   appendBuffer(&buffer, state.developmentLeft, developmentLeftSize)
   appendBuffer(&buffer, state.blockNumber, blockNumberSize)
   appendBuffer(&buffer, state.projectTimePercentageDecrease, projectTimePercentageDecreaseSize)
-  appendBuffer(&buffer, state.miningPercentageBonus, miningPercentageBonusSize)
 
   for i := 0; i < 6; i++ {
     appendBuffer(&buffer, state.locations[i].exists, singleCountSize)
@@ -132,7 +193,7 @@ func encode(state State) []byte {
       for j := 0; j < len(state.locations[i].computerCases); j++ {
         for k := 0; k < computerCaseMinersCount; k++ {
           for t := 0; t < computerCaseMinersLevelCount; t++ {
-            appendBuffer(&buffer, state.locations[i].computerCases[j].count[k * computerCaseMinersLevelCount + t], singleCountSize)
+            appendBuffer(&buffer, state.locations[i].computerCases[j].count[k][t], singleCountSize)
           }
         }
       }
@@ -141,15 +202,15 @@ func encode(state State) []byte {
       for j := 0; j < len(state.locations[i].rigCases); j++ {
         for k := 0; k < rigCaseMinersCount; k++ {
           for t := 0; t < rigCaseMinersLevelCount; t++ {
-            appendBuffer(&buffer, state.locations[i].rigCases[j].count[k * rigCaseMinersLevelCount + t],   singleCountSize)
-           }
+            appendBuffer(&buffer, state.locations[i].rigCases[j].count[k][t], singleCountSize)
+          }
         }
       }
 
-      appendBuffer(&buffer, uint(len(state.locations[i].mountCases)), singleCountSize)
-      for j := 0; j < len(state.locations[i].mountCases); j++ {
+      appendBuffer(&buffer, uint(len(state.locations[i].asicCases)), singleCountSize)
+      for j := 0; j < len(state.locations[i].asicCases); j++ {
         for k := 0; k < developerLevelCount; k++ {
-          appendBuffer(&buffer, state.locations[i].mountCases[j].count[k], asicCountSize)
+          appendBuffer(&buffer, state.locations[i].asicCases[j].count[k], asicCountSize)
         }
       }
 
@@ -183,7 +244,7 @@ func encode(state State) []byte {
 
 func appendBuffer(buffer *[]byte, appendData uint, appendSize uint) {
   for i := uint(0); i < appendSize; i++ {
-    *buffer = append(*buffer, byte((appendData >> (appendSize - i - 1)) % 256))
+    *buffer = append(*buffer, byte((appendData>>(appendSize-i-1))%256))
   }
 }
 
@@ -191,16 +252,15 @@ func decode(buffer []byte) State {
   var position uint = 0
 
   state := State{
-    funds: 150,
-    fundsPerBlock: 0,
-    developmentLeft: 0,
-    blockNumber: 0,
+    funds:                         150,
+    fundsPerBlock:                 0,
+    developmentLeft:               0,
+    blockNumber:                   0,
     projectTimePercentageDecrease: 0,
-    miningPercentageBonus: 0,
-    locations: [6]Location{},
-    projects: [10]Project{},
-    currentCardsCount: [numberOfCards]uint{},
-    maximumCardsCount: [numberOfCards]uint{},
+    locations:                     [6]Location{},
+    projects:                      [10]Project{},
+    currentCardsCount:             [numberOfCards]uint{},
+    maximumCardsCount:             [numberOfCards]uint{},
   }
 
   if len(buffer) > 0 {
@@ -210,7 +270,6 @@ func decode(buffer []byte) State {
     position, state.developmentLeft = readBuffer(buffer, position, developmentLeftSize)
     position, state.blockNumber = readBuffer(buffer, position, blockNumberSize)
     position, state.projectTimePercentageDecrease = readBuffer(buffer, position, projectTimePercentageDecreaseSize)
-    position, state.miningPercentageBonus = readBuffer(buffer, position, miningPercentageBonusSize)
     for i := 0; i < 6; i++ {
       position, state.locations[i].exists = readBuffer(buffer, position, singleCountSize)
       if state.locations[i].exists != 0 {
@@ -233,7 +292,7 @@ func decode(buffer []byte) State {
         for j := uint(0); j < count; j++ {
           for k := 0; k < computerCaseMinersCount; k++ {
             for t := 0; t < computerCaseMinersLevelCount; t++ {
-              position, state.locations[i].computerCases[j].count[k*computerCaseMinersLevelCount+t] = readBuffer(buffer, position, singleCountSize)
+              position, state.locations[i].computerCases[j].count[k][t] = readBuffer(buffer, position, singleCountSize)
             }
           }
         }
@@ -243,16 +302,16 @@ func decode(buffer []byte) State {
         for j := uint(0); j < count; j++ {
           for k := 0; k < rigCaseMinersCount; k++ {
             for t := 0; t < rigCaseMinersLevelCount; t++ {
-              position, state.locations[i].rigCases[j].count[k*rigCaseMinersLevelCount+t] = readBuffer(buffer, position, singleCountSize)
+              position, state.locations[i].rigCases[j].count[k][t] = readBuffer(buffer, position, singleCountSize)
             }
           }
         }
 
         position, count = readBuffer(buffer, position, singleCountSize)
-        state.locations[i].mountCases = make([]MountCase, count)
+        state.locations[i].asicCases = make([]MountCase, count)
         for j := uint(0); j < count; j++ {
-          for k := 0; k < asicLevelCount; k++ {
-            position, state.locations[i].mountCases[j].count[k] = readBuffer(buffer, position, asicCountSize)
+          for k := 0; k < asicCaseLevelCount; k++ {
+            position, state.locations[i].asicCases[j].count[k] = readBuffer(buffer, position, asicCountSize)
           }
         }
 
@@ -287,10 +346,10 @@ func decode(buffer []byte) State {
   return state
 }
 
-func readBuffer(buffer []byte , position uint, appendSize uint) (uint, uint) {
+func readBuffer(buffer []byte, position uint, appendSize uint) (uint, uint) {
   var data uint
   for i := uint(0); i < appendSize; i++ {
-    data = data * 256 + uint(buffer[position + i])
+    data = data*256 + uint(buffer[position+i])
   }
 
   return position + appendSize, data

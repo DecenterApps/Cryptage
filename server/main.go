@@ -9,8 +9,8 @@ import (
 )
 
 type Input struct {
-  Address string `json "address`
-  Name string `json name`
+  Address string `json:"address"`
+  Name string `json:"name"`
   Moves string `json:"moves"`
 }
 
@@ -28,19 +28,35 @@ func save(w http.ResponseWriter, r *http.Request) {
     panic(err)
   }
 
-  hexBytes, err := hex.DecodeString(input.Moves)
+  hexMoves, err := hex.DecodeString(input.Moves)
 
   if err != nil {
     panic(err)
   }
 
-  sendBlockNumber, moves := decodeMoves(hexBytes)
+  sendBlockNumber, moves := decodeMoves(hexMoves)
 
   cryptage, err := getCryptage(input.Address)
-  cryptage.state.update(sendBlockNumber, moves)
+  err = cryptage.state.update(sendBlockNumber, moves)
+  if err != nil {
+    panic(err)
+  }
+
+  err = verifyCardsOwnership(input.Address, cryptage.state.maximumCardsCount, cryptage.state.level)
+  if err != nil {
+    panic(err)
+  }
+
   cryptage.name = input.Name
 
+  sig, err := sign(*cryptage, hexMoves, input.Address)
+  if err != nil {
+    panic(err)
+  }
+
   updateCryptage(*cryptage)
+
+  w.Write(sig)
 }
 
 func main() {
@@ -48,3 +64,4 @@ func main() {
   http.HandleFunc("/save", save)
   http.ListenAndServe(":8080", nil)
 }
+
