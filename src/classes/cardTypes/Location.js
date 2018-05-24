@@ -1,6 +1,6 @@
 import cardsConfig from '../../constants/cards.json';
-import Card from '../Card';
 import CardSlot from '../CardSlot';
+import Card from '../Card';
 import LocationMechanic from '../mechanics/LocationMechanic';
 
 export default class LocationCard extends Card {

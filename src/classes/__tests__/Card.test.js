@@ -1,7 +1,6 @@
 import Card from '../Card';
-import LocationCard from '../cardTypes/Location';
 import Unique from '../mechanics/Unique';
-import Mechanic from '../Mechanic';
+import LocationCard from '../cardTypes/Location';
 
 describe('Card', () => {
   it('Returns right constructor for registered card type', async () => {

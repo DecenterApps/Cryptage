@@ -10,23 +10,11 @@ describe('Gameplay', () => {
     expect(gameplay.playedCards).toBeInstanceOf(Array);
   });
 
-  it('Dispatches block action to all played cards', () => {
-    const gameplay = new Gameplay();
-    const block = jest.fn(state => state);
-    gameplay.playedCards = [{ block }, { block }];
-
-    const dummyState = {};
-
-    gameplay.block(dummyState, 123);
-
-    for (const card of gameplay.playedCards) {
-      expect(card.block).toHaveBeenCalledWith(dummyState, 123);
-    }
-  });
-
   it('Returns all cards of right type', () => {
     const gameplay = new Gameplay();
-    gameplay.playedCards = [new LocationCard({ id: '10' }), new LocationCard({ id: '10' })];
+    const stats = { values: { power: 10, space: 10 } };
+
+    gameplay.playedCards = [new LocationCard({ id: '10', stats }), new LocationCard({ id: '11', stats })];
 
     gameplay
       .getCardsOfType(LocationCard)
