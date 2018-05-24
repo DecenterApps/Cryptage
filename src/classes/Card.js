@@ -190,15 +190,14 @@ export default class Card {
     leveledUp.stackedCards = this.stackedCards.concat(draggedCard.id);
 
     for (const cardSlot of this.dropSlots) {
-      cardSlot.parent = leveledUp;
+      cardSlot.owner = leveledUp;
       if (!cardSlot.isEmpty()) {
         cardSlot.card.parent = leveledUp;
       }
     }
 
-    dropSlot.dropCard(leveledUp);
-
-    return leveledUp.onPlay(this.onWithdraw(state), dropSlot);
+    leveledUp.onPlay(this.onWithdraw(state), dropSlot);
+    return leveledUp;
   }
 
   block(state, blockCount) {

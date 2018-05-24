@@ -6122,6 +6122,8 @@
     }
   },
   "cardTypes": ["Location", "Container", "Mining", "Person", "Power", "Misc", "Project"],
+  "locationMinSlots": 6,
+  "visibleEmptySlots": 2,
   "boosters": {
     "1": {
       "id": "1",

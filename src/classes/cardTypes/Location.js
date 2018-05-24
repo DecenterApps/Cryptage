@@ -1,3 +1,4 @@
+import cardsConfig from '../../constants/cards.json';
 import Card from '../Card';
 import CardSlot from '../CardSlot';
 import LocationMechanic from '../mechanics/LocationMechanic';
@@ -5,8 +6,8 @@ import LocationMechanic from '../mechanics/LocationMechanic';
 export default class LocationCard extends Card {
   constructor(data) {
     super(data);
-    // export this to config
-    this.dropSlots = new Array(6);
+
+    this.dropSlots = new Array(cardsConfig.locationMinSlots);
     this.power = data.stats.values.power;
     this.space = data.stats.values.space;
 

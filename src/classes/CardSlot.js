@@ -18,9 +18,14 @@ export default class CardSlot {
     return this.owner.findParent(CardType);
   }
 
-  dropCard(card) {
-    this.removeCard();
-    this.card = card;
+  async dropCard(state, card) {
+    let toAdd = card;
+
+    if (this.card && this.card.canLevelUp(state, this)) {
+      toAdd = this.card.levelUp(state, this, card);
+    }
+
+    this.card = toAdd;
     this.card.parent = this.owner;
   }
 
