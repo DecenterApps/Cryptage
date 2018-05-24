@@ -9,6 +9,12 @@
 
   @include for-big-desktop {
     height: 602px;
+
+    .modal-body {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 
   .bar-name {
@@ -53,7 +59,11 @@
     }
   }
 
-  .reveal-cards-wrapper {}
+  .reveal-cards-wrapper {
+    @include for-big-desktop {
+      display: inline-flex;
+    }
+  }
 
   .button-wrapper {
     text-align: center;
