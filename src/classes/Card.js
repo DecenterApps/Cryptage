@@ -2,6 +2,7 @@ import Mechanic from './Mechanic';
 import { fetchCardMeta } from '../services/cardService';
 import CardSlot from './CardSlot';
 import LocationCard from './cardTypes/Location';
+import CoreMechanic from './mechanics/CoreMechanic';
 
 const cardTypes = new Map();
 
@@ -35,18 +36,29 @@ export default class Card {
     this.stackedCardIds = [data.id];
     this.active = false;
     this.parent = null;
+    this.minDropSlots = 6;
+    this.minEmptyDropSlots = 2;
 
     if (!Array.isArray(this.mechanics)) {
       this.mechanics = [];
     }
 
-    this.mechanics = this.mechanics.map(({ name, params }) => {
+    this.mechanics = [
+      new CoreMechanic(this, 'funds'),
+      new CoreMechanic(this, 'development'),
+    ].concat(this.mechanics.map(({ name, params }) => {
       return Mechanic.getInstance(name, this, params);
-    });
+    }));
   }
 
   addNewDropSlot(SlotType = CardSlot) {
     this.dropSlots.push(new SlotType(this));
+  }
+
+  removeDropSlot(dropSlot) {
+    if (this.dropSlots.length > this.minDropSlotLength) {
+      this.dropSlots.splice(this.dropSlots.indexOf(dropSlot), 1);
+    }
   }
 
   findParent(CardType = LocationCard) {
@@ -124,7 +136,8 @@ export default class Card {
     Object.assign(result, this._can('canPlay', state, dropSlot));
 
     if (result.allowed) {
-      result.allowed = !Object.keys(result).some((key) => key !== 'special' && result[key] === true);
+      result.allowed = !Object.keys(result).some((key) =>
+        key !== 'special' && key !== 'allowed' && result[key] === true);
     }
 
     return result;
@@ -185,7 +198,7 @@ export default class Card {
 
     dropSlot.dropCard(leveledUp);
 
-    return leveledUp.play(this.withdraw(state), dropSlot);
+    return leveledUp.onPlay(this.onWithdraw(state), dropSlot);
   }
 
   block(state, blockCount) {

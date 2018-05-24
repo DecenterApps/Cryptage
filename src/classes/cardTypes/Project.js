@@ -9,3 +9,5 @@ export default class ProjectCard extends Card {
     this.timesFinished = 0;
   }
 }
+
+Card.registerTypeConstructor('Project', ProjectCard);

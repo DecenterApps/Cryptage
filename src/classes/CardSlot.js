@@ -4,35 +4,46 @@ import ProjectCard from './cardTypes/Project';
 
 export default class CardSlot {
 
-  constructor(parent, card) {
-    this.parent = parent;
+  constructor(owner, card) {
+    this.owner = owner;
     if (card) {
       this.dropCard(card);
     }
   }
 
   findParent(CardType = LocationCard) {
-    if (!this.parent) {
+    if (!this.owner) {
       return null;
     }
-    return this.parent.findParent(CardType);
+    return this.owner.findParent(CardType);
   }
 
   dropCard(card) {
     this.removeCard();
     this.card = card;
-    this.card.parent = this.parent;
+    this.card.parent = this.owner;
   }
 
-  removeCard() {
+  removeCard(state) {
     if (this.card) {
+      state = this.owner.onWithdrawChild(state, this.card);
+      state = this.card.onWithdraw(state);
+      this.owner.removeDropSlot(this);
+
       this.card.parent = null;
       this.card = null;
     }
+
+    return state;
   }
 
-  canDrop(card) {
-    return this.isEmpty();
+  async canDrop(state, card) {
+    if (this.isEmpty()) {
+      if (!this.owner) return true;
+      return this.owner.acceptedTags.some(acceptedTag => card.tags.includes(acceptedTag));
+    }
+
+    return card.metadataId === this.card.metadataId && await this.card.canLevelUp(state, this);
   }
 
   isEmpty() {
@@ -41,13 +52,13 @@ export default class CardSlot {
 }
 
 export class LocationCardSlot extends CardSlot {
-  canDrop(card) {
-    return card instanceof LocationCard;
+  async canDrop(state, card) {
+    return await super.canDrop(state, card) && (card instanceof LocationCard);
   }
 }
 
 export class ProjectCardSlot extends CardSlot {
-  canDrop(card) {
-    return card instanceof ProjectCard;
+  async canDrop(state, card) {
+    return await super.canDrop(state, card) && (card instanceof ProjectCard);
   }
 }

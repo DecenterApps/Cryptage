@@ -43,16 +43,4 @@ export default class Gameplay {
       previousBockNumber: blockNumber,
     };
   }
-
-  levelUp(card, slot) {
-    // Replace old card with new onw ith a higher level
-  }
-
-  canDrop(card, slot) {
-    return card.canDrop(slot);
-  }
-
-  dropCard(state, card, slot) {
-
-  }
 }
