@@ -249,15 +249,14 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
  * Checks to see if any projects have been finished
  */
 export const checkProjectsExpiry = () => (dispatch, getState) => {
-  const { blockNumber } = getState().app;
-  const { projects } = getState().gameplay;
-  const { locations } = getState().gameplay;
-  const { projectExecutionTimePercent } = getState().gameplay;
+  const {
+    locations, projects, blockNumber, projectExecutionTimePercent,
+  } = getState().gameplay;
   let { fundsPerBlock } = getState().gameplay;
   const {
     experience, development, funds, level,
   } = getState().gameplay.globalStats;
-  let _projects = [...projects];
+  const _projects = [...projects];
   let acquiredXp = 0;
   let releasedDev = 0;
   let receivedFunds = 0;

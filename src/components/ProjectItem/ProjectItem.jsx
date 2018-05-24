@@ -39,7 +39,10 @@ class ProjectItem extends Component {
     const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
     const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
 
-    const timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
+    let timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
+    // remove when refactor is over
+    if (timeLeft < 0) timeLeft = 1;
+
     const cardFundsBonus = mainCard.stats.bonus.funds;
     const metadataId = mainCard.metadata.id;
     let fpb = 0;
