@@ -9,7 +9,7 @@
     "prod": "webpack --config ./build/webpack-prod.config.js",
     "staging": "webpack --config ./build/webpack-staging.config.js",
     "prod-serve": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-prod.config.js",
-    "test": "jest",
+    "test": "jest --colors",
     "test:watch": "jest --onlyChanged --watch"
   },
   "jest": {
@@ -30,6 +30,11 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/classes/**/*.{js}",
+      "!**/node_modules/**"
+    ],
     "testEnvironment": "node",
     "testPathIgnorePatterns": [
       "/node_modules/",
