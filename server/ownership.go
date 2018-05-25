@@ -1,29 +1,15 @@
 package main
 
 import (
-  "fmt"
-  "github.com/ethereum/go-ethereum/accounts/abi/bind"
-  "github.com/ethereum/go-ethereum/ethclient"
-  "github.com/ethereum/go-ethereum/common"
-  "math/big"
   "errors"
+  "math/big"
   "io/ioutil"
   "encoding/json"
 )
 
-var UnableToConnectToNode = errors.New("unable to connect to node")
 var CardOwnershipVerificationFailed = errors.New("card ownership verification failed")
-var contract Contract
-
-type Contract struct {
-  HttpProvider string `json:"httpProvider"`
-  Address string `json:"address"`
-}
 
 func verifyCardsOwnership(address string, maximumCardsCount [numberOfCards]uint, level uint) error {
-  contractJson, _ := ioutil.ReadFile("./constants/contract.json")
-  json.Unmarshal(contractJson, &contract)
-
   var cardsPerLevel [][]uint
   cardsPerLevelJson, _ := ioutil.ReadFile("./constants/cardsPerLevel.json")
   json.Unmarshal(cardsPerLevelJson, &cardsPerLevel)
@@ -38,23 +24,13 @@ func verifyCardsOwnership(address string, maximumCardsCount [numberOfCards]uint,
     }
   }
 
-  client, err := getClient()
-
-  if err != nil {
-    fmt.Println(err)
-    return UnableToConnectToNode
-  }
-
-  cardsContract, err := NewSeleneanCards(common.HexToAddress(contract.Address), client)
-
   for i, count := range maximumCardsCount {
     if count == 0 {
       continue
     }
 
     // optimize
-    ownershipCount, err := cardsContract.NumberOfCardsWithType(&bind.CallOpts{Pending: true}, common.HexToAddress(address), big.NewInt(int64(i)))
-
+    ownershipCount, err := GetNumberOfCardWithType(address, i)
     if err != nil {
       return err
     }
@@ -65,8 +41,4 @@ func verifyCardsOwnership(address string, maximumCardsCount [numberOfCards]uint,
   }
 
   return nil
-}
-
-func getClient() (client *ethclient.Client, err error) {
-  return ethclient.Dial(contract.HttpProvider)
 }

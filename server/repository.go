@@ -1,32 +1,58 @@
 package main
 
+import "encoding/json"
+
 type Cryptage struct {
-  exists bool
-  address string
-  name string
-  state State
+  Exists bool
+  Address string
+  Name string
+  State *State
 }
 
 func updateCryptage(cryptage Cryptage) error {
+  stateJson, err := json.Marshal(cryptage.State)
+  if err != nil {
+    return err
+  }
+
   return update(CryptageDocument{
-    Exists: cryptage.exists,
-    Address: cryptage.address,
-    Name: cryptage.name,
-    StateBuffer: encode(cryptage.state),
+    Exists: cryptage.Exists,
+    Address: cryptage.Address,
+    Name: cryptage.Name,
+    StateBuffer: stateJson,
   })
 }
 
-func getCryptage(address string) (*Cryptage, error) {
+func GetCryptage(address string) (*Cryptage, error) {
   cryptageDocument, err := get(address)
+  if err != nil {
+    return nil, err
+  }
 
+  if cryptageDocument.Exists == false {
+    state, err := NewState()
+    if err != nil {
+      return nil, err
+    }
+
+    return &Cryptage{
+      Exists: cryptageDocument.Exists,
+      Address: address,
+      Name: cryptageDocument.Name,
+      State: state,
+    }, nil
+  }
+
+  var state State
+  err = json.Unmarshal(cryptageDocument.StateBuffer, &state)
   if err != nil {
     return nil, err
   }
 
   return &Cryptage{
-    exists: cryptageDocument.Exists,
-    address: address,
-    name: cryptageDocument.Name,
-    state: decode(cryptageDocument.StateBuffer),
+    Exists: cryptageDocument.Exists,
+    Address: address,
+    Name: cryptageDocument.Name,
+    State: &state,
   }, nil
 }

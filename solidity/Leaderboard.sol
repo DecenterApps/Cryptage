@@ -36,50 +36,51 @@ contract ECTools {
       return ecrecover(hash, v, r, s);
     }
   }
-
-  function toEthereumSignedMessage(bytes32 _msg) public pure returns (bytes32) {
-    bytes memory prefix = "\x19Ethereum Signed Message:\n32";
-    return keccak256(abi.encodePacked(prefix, _msg));
-  }
-
-  function prefixedRecover(bytes32 _msg, bytes sig) public pure returns (address) {
-    bytes32 ethSignedMsg = toEthereumSignedMessage(_msg);
-    return recover(ethSignedMsg, sig);
-  }
 }
 
 contract Leaderboard is ECTools {
+  mapping(address => uint) public scores;
+  mapping(address => bytes32) public names;
+  address[] public leaderboard;
 
-	mapping(address => uint) public scores;
-	address[] public leaderboard;
+  /// @notice address of our verifier (server)
+  /// @dev needs to be changed when we generate address on server side
+  address VERIFIER = 0x7b2aD6028C0bD9A787b173C80860b5116258a585;
 
-	/// @notice address of our verifier (server)
-	/// @dev needs to be changed when we generate address on server side
-	address VERIFIER = 0x97B97e838c22d7E2e0fc932b6026b15258c10a4a;
+  event NewScore(address user, uint score);
 
-	event NewScore(address user, uint score);
+  function saveScore(bytes _moves, uint _score, bytes _sig, bytes32 _name) public {
+    require(_recoverSig(_moves, _score, _sig) == VERIFIER);
 
-	function saveScore(bytes32 _hash, bytes _sig, uint _score) public {
-		require(_recoverSig(_hash, _sig, _score) == VERIFIER);
-		
-		if (scores[msg.sender] == 0) {
-			leaderboard.push(msg.sender);
-		}
+    if (scores[msg.sender] == 0) {
+      leaderboard.push(msg.sender);
+    }
 
-		scores[msg.sender] = _score;
+    scores[msg.sender] = _score;
+    names[msg.sender] = _name;
 
-		emit NewScore(msg.sender, _score);
-	}	
+    emit NewScore(msg.sender, _score);
+  }
 
-	/// @return returns leaderboard as array of addresses
-	function getLeaderboard() public view returns(address[] _addresses, uint[] _scores) {
-		_addresses = new address[](leaderboard.length);
-		_scores = new uint[](leaderboard.length);
-	}
+  /// @return returns leaderboard as array of addresses
+  function getLeaderboard() public view returns(address[] _addresses, uint[] _scores, bytes32[] _names) {
+    _addresses = new address[](leaderboard.length);
+    _scores = new uint[](leaderboard.length);
+    _names = new bytes32[](leaderboard.length);
 
-    function _recoverSig(bytes32 _hash, bytes _sig, uint _state) private pure returns (address) {
-		assert(keccak256(abi.encodePacked(_state)) == _hash);
+    for (uint i = 0; i < leaderboard.length; i++) {
+      _addresses[i] = leaderboard[i];
+      _scores[i] = scores[leaderboard[i]];
+      _names[i] = names[leaderboard[i]];
+    }
+  }
 
-		return prefixedRecover(_hash, _sig);
-	}
+  function _recoverSig(bytes _moves, uint _score, bytes _sig) private view returns (address) {
+    bytes32 score = bytes32(_score);
+    bytes32 sender = bytes32(msg.sender);
+
+    bytes32 hash = keccak256(abi.encodePacked(_moves, score, sender));
+
+    return recover(hash, _sig);
+  }
 }

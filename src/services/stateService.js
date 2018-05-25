@@ -184,34 +184,13 @@ function printState(_state) {
 
 // helper functions
 function _pack(arr, blockNumber, currentBlockNumber) {
-  const hexValues = [];
-  let str = blockNumber + currentBlockNumber;
+  let str = bin2Hex(blockNumber, 10) + bin2Hex(currentBlockNumber, 10);
 
   arr.forEach((b) => {
-    if ((str.length + b.length) < 256) {
-      str += b;
-    } else {
-      str += '0000';
-      hexValues.push(bin2Hex(str));
-      str = b;
-    }
+    str += bin2Hex(b, 10);
   });
 
-  if (str.length !== 0) {
-    if (str.length + 42 < 256) {
-      str += '111111111111111111111111111111111111111111';
-      const len = 256 - str.length;
-      for (let i = 0; i < len; i += 1) {
-        str += '0';
-      }
-    } else {
-      str += '0000';
-    }
-
-    hexValues.push(bin2Hex(str));
-  }
-
-  return hexValues.map(h => `0x${h.padStart(64, 0)}`);
+  return str;
 }
 
 export function packMoves(_moves, currBlockNumber, klipaN) {
@@ -245,8 +224,8 @@ export function packMoves(_moves, currBlockNumber, klipaN) {
     }
   });
 
-  const blockNum = dec2bin(blockNumber, 42);
-  const currentBlockNum = dec2bin(currBlockNumber, 42);
+  const blockNum = dec2bin(blockNumber, 40);
+  const currentBlockNum = dec2bin(currBlockNumber, 40);
 
   const blockNumsDiff = [];
 
@@ -258,7 +237,7 @@ export function packMoves(_moves, currBlockNumber, klipaN) {
 
   const binMoves = moves.map((move, i) =>
     dec2bin(move.add, 1) + dec2bin(move.specificCard, 1) + dec2bin(move.location, 3)
-    + dec2bin(move.level, 3) + dec2bin(move.containerPosition, 7) + dec2bin(move.cardType, 11)
+    + dec2bin(move.level, 3) + dec2bin(move.containerPosition, 8) + dec2bin(move.cardType, 8)
     + dec2bin(blockNumsDiff[i], 16));
 
   return _pack(binMoves, blockNum, currentBlockNum);

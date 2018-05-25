@@ -253,27 +253,27 @@ func getLevel(experience uint) uint {
   return levels[len(levels)-1].Level
 }
 func updateProjects(state *State, move Move) {
-  for i := 0; i < len(state.projects); i++ {
-    if state.projects[i].exists > 0 {
-      if state.projects[i].timeLeft == 0 {
+  for i := 0; i < len(state.Projects); i++ {
+    if state.Projects[i].Exists > 0 {
+      if state.Projects[i].TimeLeft == 0 {
         continue
       }
-      if state.projects[i].timeLeft > move.blockDifference {
-        state.projects[i].timeLeft -= move.blockDifference
+      if state.Projects[i].TimeLeft > move.BlockDifference {
+        state.Projects[i].TimeLeft -= move.BlockDifference
       } else {
-        card := getCard(state.projects[i].card, state.projects[i].level)
+        card := getCard(state.Projects[i].Card, state.Projects[i].Level)
         SubtypeProjectFuncFinishPlayMapping[card.Subtype](state, card, move)
-        state.projects[i].timeLeft = 0
-        state.funds += card.Gains.Funds
-        state.experience += card.Gains.Xp
-        state.currentCardsCount[card.Id]--
+        state.Projects[i].TimeLeft = 0
+        state.Funds += card.Gains.Funds
+        state.Experience += card.Gains.Xp
+        state.CurrentCardsCount[card.Id]--
       }
     }
   }
 }
 func playCard(state *State, move Move) error {
-  state.level = getLevel(state.experience)
-  card := getCard(move.card, move.level)
+  state.Level = getLevel(state.Experience)
+  card := getCard(move.Card, move.Level)
 
   err := typeFuncPrePlayMapping[card.Type](state, card, move)
   if err != nil {
@@ -292,33 +292,33 @@ func playCard(state *State, move Move) error {
 
   typeFuncPostPlayMapping[card.Type](state, card, move)
 
-  state.currentCardsCount[card.Id]++
-  if state.currentCardsCount[card.Id] > state.maximumCardsCount[card.Id] {
-    state.maximumCardsCount[card.Id] = state.currentCardsCount[card.Id]
+  state.CurrentCardsCount[card.Id]++
+  if state.CurrentCardsCount[card.Id] > state.MaximumCardsCount[card.Id] {
+    state.MaximumCardsCount[card.Id] = state.CurrentCardsCount[card.Id]
   }
 
   return nil
 }
 
 func removeCard(state *State, move Move) error {
-  state.level = getLevel(state.experience)
-  card := getCard(move.card, move.level)
+  state.Level = getLevel(state.Experience)
+  card := getCard(move.Card, move.Level)
 
   err := typeFuncPreRemoveMapping[card.Type](state, card, move)
   if err != nil {
     return err
   }
 
-  removeGains(state, card, move);
+  removeGains(state, card, move)
   typeFuncRemoveMapping[card.Type](state, card, move)
 
-  state.currentCardsCount[card.Id]--
+  state.CurrentCardsCount[card.Id]--
 
   return nil
 }
 
 func prePlayLocation(state *State, card Card, move Move) error {
-  if state.locations[move.location].exists > 0 {
+  if state.Locations[move.Location].Exists > 0 {
     return LocationExists
   }
   return nil
@@ -330,36 +330,36 @@ func prePlayMining(state *State, card Card, move Move) error {
 }
 func prePlayCPUMining(state *State, card Card, move Move) error {
   if card.Level > 0 {
-    if state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
+    if state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
       return UnableToLevelCardError
     }
-    state.locations[move.location].numberOfCards--
+    state.Locations[move.Location].NumberOfCards--
   }
 
   return nil
 }
 func prePlayGPUMining(state *State, card Card, move Move) error {
   if card.Level > 0 {
-    if move.gpuOption {
-      if state.locations[move.location].rigCases[move.containerIndex].count[card.Id-rigCaseMinersOffset][card.Level] == 0 {
+    if move.GpuOption {
+      if state.Locations[move.Location].RigCases[move.ContainerIndex].Count[card.Id-rigCaseMinersOffset][card.Level] == 0 {
         return UnableToLevelCardError
       }
     } else {
-      if state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
+      if state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
         return UnableToLevelCardError
       }
     }
-    state.locations[move.location].numberOfCards--
+    state.Locations[move.Location].NumberOfCards--
   }
 
   return nil
 }
 func prePlayASICMining(state *State, card Card, move Move) error {
   if card.Level > 0 {
-    if state.locations[move.location].asicCases[move.containerIndex].count[card.Level] == 0 {
+    if state.Locations[move.Location].AsicCases[move.ContainerIndex].Count[card.Level] == 0 {
       return UnableToLevelCardError
     }
-    state.locations[move.location].numberOfCards--
+    state.Locations[move.Location].NumberOfCards--
   }
 
   return nil
@@ -369,9 +369,9 @@ func prePlayPerson(state *State, card Card, move Move) error {
     return nil
   }
   if card.Level > 0 {
-    for _, person := range state.locations[move.location].people {
-      if person.card == card.Id && person.count[card.Level] > 0 {
-        state.locations[move.location].numberOfCards--
+    for _, person := range state.Locations[move.Location].People {
+      if person.Card == card.Id && person.Count[card.Level] > 0 {
+        state.Locations[move.Location].NumberOfCards--
         return nil
       }
     }
@@ -383,9 +383,9 @@ func prePlayPower(state *State, card Card, move Move) error {
     return nil
   }
   if card.Level > 0 {
-    for _, power := range state.locations[move.location].powers {
-      if power.card == card.Id && power.count[card.Level] > 0 {
-        state.locations[move.location].numberOfCards--
+    for _, power := range state.Locations[move.Location].Powers {
+      if power.Card == card.Id && power.Count[card.Level] > 0 {
+        state.Locations[move.Location].NumberOfCards--
         return nil
       }
     }
@@ -399,9 +399,9 @@ func prePlayProject(state *State, card Card, move Move) error {
     return nil
   }
   if card.Level > 0 {
-    for _, project := range state.projects {
-      if project.card == card.Id && project.level == card.Level && project.timeLeft == 0 {
-        state.locations[move.location].numberOfCards--
+    for _, project := range state.Projects {
+      if project.Card == card.Id && project.Level == card.Level && project.TimeLeft == 0 {
+        state.Locations[move.Location].NumberOfCards--
         return nil
       }
     }
@@ -411,28 +411,28 @@ func prePlayProject(state *State, card Card, move Move) error {
 }
 
 func postPlayLocation(state *State, card Card, move Move) {
-  state.locations[move.location].card = card.Id
-  state.locations[move.location].exists = 1
+  state.Locations[move.Location].Card = card.Id
+  state.Locations[move.Location].Exists = 1
 }
 
 func postPlayMiningContainer(state *State, card Card, move Move) {
   SubtypeMiningContainerFuncPostPlayMapping[card.Subtype](state, card, move)
 }
 func postPlayComputerCaseMiningContainer(state *State, card Card, move Move) {
-  state.locations[move.location].computerCases = append(state.locations[move.location].computerCases, ComputerCase{})
-  state.locations[move.location].numberOfCards++
+  state.Locations[move.Location].ComputerCases = append(state.Locations[move.Location].ComputerCases, ComputerCase{})
+  state.Locations[move.Location].NumberOfCards++
 }
 func postPlayRigMiningContainer(state *State, card Card, move Move) {
-  state.locations[move.location].rigCases = append(state.locations[move.location].rigCases, RigCase{})
-  state.locations[move.location].numberOfCards++
+  state.Locations[move.Location].RigCases = append(state.Locations[move.Location].RigCases, RigCase{})
+  state.Locations[move.Location].NumberOfCards++
 }
 func postPlayASICMiningContainer(state *State, card Card, move Move) {
   if card.Level > 0 {
-    state.locations[move.location].asicCases[move.containerIndex].count[card.Level]--
+    state.Locations[move.Location].AsicCases[move.ContainerIndex].Count[card.Level]--
   }
 
-  state.locations[move.location].asicCases = append(state.locations[move.location].asicCases, MountCase{})
-  state.locations[move.location].numberOfCards++
+  state.Locations[move.Location].AsicCases = append(state.Locations[move.Location].AsicCases, MountCase{})
+  state.Locations[move.Location].NumberOfCards++
 }
 func postPlayMining(state *State, card Card, move Move) {
   SubtypeMiningFuncPostPlayMapping[card.Subtype](state, card, move)
@@ -440,168 +440,168 @@ func postPlayMining(state *State, card Card, move Move) {
 
 func postPlayCPUMining(state *State, card Card, move Move) {
   if card.Level > 0 {
-    state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level]--
+    state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level]--
   }
 
-  state.cpuCount++
-  state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level]++
-  state.locations[move.location].numberOfCards++
+  state.CpuCount++
+  state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level]++
+  state.Locations[move.Location].NumberOfCards++
 }
 func postPlayGPUMining(state *State, card Card, move Move) {
   if card.Level > 0 {
-    if move.gpuOption {
-      state.locations[move.location].rigCases[move.containerIndex].count[card.Id-rigCaseMinersOffset][card.Level]--
+    if move.GpuOption {
+      state.Locations[move.Location].RigCases[move.ContainerIndex].Count[card.Id-rigCaseMinersOffset][card.Level]--
     } else {
-      state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level]--
+      state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level]--
     }
   }
 
-  if move.gpuOption {
-    state.locations[move.location].computerCases[move.containerIndex].count[card.Id-rigCaseMinersOffset][card.Level]++
+  if move.GpuOption {
+    state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-rigCaseMinersOffset][card.Level]++
   } else {
-    state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level]++
+    state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level]++
   }
-  state.gpuCount++
-  state.locations[move.location].numberOfCards++
+  state.GpuCount++
+  state.Locations[move.Location].NumberOfCards++
 }
 func postPlayASICMining(state *State, card Card, move Move) {
-  state.locations[move.location].asicCases[move.containerIndex].count[card.Level]++
-  state.locations[move.location].numberOfCards++
+  state.Locations[move.Location].AsicCases[move.ContainerIndex].Count[card.Level]++
+  state.Locations[move.Location].NumberOfCards++
 }
 func postPlayPerson(state *State, card Card, move Move) {
   if card.Level > 0 {
-    for i, person := range state.locations[move.location].people {
-      if person.card == card.Id && person.count[card.Level] > 0 {
-        state.locations[move.location].people = append(
-          state.locations[move.location].people[:i],
-          state.locations[move.location].people[i+1:]...
+    for i, person := range state.Locations[move.Location].People {
+      if person.Card == card.Id && person.Count[card.Level] > 0 {
+        state.Locations[move.Location].People = append(
+          state.Locations[move.Location].People[:i],
+          state.Locations[move.Location].People[i+1:]...
         )
         break
       }
     }
   }
 
-  for i := 0; i < len(state.locations[move.location].people); i++ {
-    if state.locations[move.location].people[i].card == card.Id {
-      state.locations[move.location].people[i].count[card.Level]++
+  for i := 0; i < len(state.Locations[move.Location].People); i++ {
+    if state.Locations[move.Location].People[i].Card == card.Id {
+      state.Locations[move.Location].People[i].Count[card.Level]++
       return
     }
   }
 
   person := Person{}
-  person.card = card.Id
-  person.count[card.Level] += 1
-  state.locations[move.location].people = append(state.locations[move.location].people, person)
-  state.locations[move.location].numberOfCards++
+  person.Card = card.Id
+  person.Count[card.Level] += 1
+  state.Locations[move.Location].People = append(state.Locations[move.Location].People, person)
+  state.Locations[move.Location].NumberOfCards++
 
   if card.Subtype != "-" {
     SubtypePersonFuncPlayMapping[card.Subtype](state, card, move)
   }
 }
 func postPlayDeveloperBonus(state *State, card Card, move Move) {
-  state.locations[move.location].developmentPercentageBonus = uint(math.Floor(
-    float64((100+state.locations[move.location].developmentPercentageBonus)*(100+card.Gains.MultiplierDev)) / float64(10000)))
-  diff := (100+state.locations[move.location].developmentPercentageBonus)*state.locations[move.location].development -
-    state.locations[move.location].developmentBonus
-  state.developmentLeft += diff
-  state.locations[move.location].developmentBonus += diff
+  state.Locations[move.Location].DevelopmentPercentageBonus = uint(math.Floor(
+    float64((100+state.Locations[move.Location].DevelopmentPercentageBonus)*(100+card.Gains.MultiplierDev)) / float64(10000)))
+  diff := (100+state.Locations[move.Location].DevelopmentPercentageBonus)*state.Locations[move.Location].Development -
+    state.Locations[move.Location].DevelopmentBonus
+  state.DevelopmentLeft += diff
+  state.Locations[move.Location].DevelopmentBonus += diff
 }
 func postPlayProjectTimeDecrease(state *State, card Card, move Move) {
-  state.projectTimePercentageDecrease = uint(math.Ceil(
-    float64((100-state.projectTimePercentageDecrease)*(100-card.Gains.MultiplierTime)) / float64(10000)))
+  state.ProjectTimePercentageDecrease = uint(math.Ceil(
+    float64((100-state.ProjectTimePercentageDecrease)*(100-card.Gains.MultiplierTime)) / float64(10000)))
 }
 func postPlayFundsEachBlockBonus(state *State, card Card, move Move) {
-  state.fundsPerBlock += card.Gains.MultiplierFunds
+  state.FundsPerBlock += card.Gains.MultiplierFunds
 }
 func postPlayPredictionMarketParticipationBonus(state *State, card Card, move Move) {
-  state.predictionMarketParticipationBonus += 2
+  state.PredictionMarketParticipationBonus += 2
 }
 func postPlayBoostMiningEfficiencyOnLocation(state *State, card Card, move Move) {
-  state.locations[move.location].miningPercentageBonus = uint(math.Floor(
-    float64((100+state.locations[move.location].miningPercentageBonus)*(100+card.Gains.MultiplierFunds)) / float64(10000)))
-  diff := (100+state.locations[move.location].miningPercentageBonus)*state.locations[move.location].mining -
-    state.locations[move.location].miningBonus
-  state.fundsPerBlock += diff
-  state.locations[move.location].miningBonus += diff
+  state.Locations[move.Location].MiningPercentageBonus = uint(math.Floor(
+    float64((100+state.Locations[move.Location].MiningPercentageBonus)*(100+card.Gains.MultiplierFunds)) / float64(10000)))
+  diff := (100+state.Locations[move.Location].MiningPercentageBonus)*state.Locations[move.Location].Mining -
+    state.Locations[move.Location].MiningBonus
+  state.FundsPerBlock += diff
+  state.Locations[move.Location].MiningBonus += diff
 }
 
 func postPlayPower(state *State, card Card, move Move) {
   if card.Level > 0 {
-    for i, power := range state.locations[move.location].powers {
-      if power.card == card.Id && power.count[card.Level] > 0 {
-        state.locations[move.location].powers = append(
-          state.locations[move.location].powers[:i],
-          state.locations[move.location].powers[i+1:]...
+    for i, power := range state.Locations[move.Location].Powers {
+      if power.Card == card.Id && power.Count[card.Level] > 0 {
+        state.Locations[move.Location].Powers = append(
+          state.Locations[move.Location].Powers[:i],
+          state.Locations[move.Location].Powers[i+1:]...
         )
         break
       }
     }
   }
 
-  for i := 0; i < len(state.locations[move.location].powers); i++ {
-    if state.locations[move.location].powers[i].card == card.Id {
-      state.locations[move.location].powers[i].count[card.Level]++
+  for i := 0; i < len(state.Locations[move.Location].Powers); i++ {
+    if state.Locations[move.Location].Powers[i].Card == card.Id {
+      state.Locations[move.Location].Powers[i].Count[card.Level]++
       return
     }
   }
 
   power := Power{}
-  power.card = card.Id
-  power.count[card.Level] = 1
-  state.locations[move.location].powers = append(state.locations[move.location].powers, power)
-  state.locations[move.location].numberOfCards++
+  power.Card = card.Id
+  power.Count[card.Level] = 1
+  state.Locations[move.Location].Powers = append(state.Locations[move.Location].Powers, power)
+  state.Locations[move.Location].NumberOfCards++
 }
 
 func postPlayMisc(state *State, card Card, move Move) {
   SubtypeMiscFuncPostPlayMapping[card.Subtype](state, card, move)
 }
 func postPlayPowerRent(state *State, card Card, move Move) {
-  state.locations[move.location].spaceRenting = 1
-  state.fundsPerBlock += state.locations[move.location].spaceLeft * card.Gains.MultiplierFunds
+  state.Locations[move.Location].SpaceRenting = 1
+  state.FundsPerBlock += state.Locations[move.Location].SpaceLeft * card.Gains.MultiplierFunds
 }
 func postPlayDeveloperBooster(state *State, card Card, move Move) {
-  state.fundsPerBlock += card.Gains.MultiplierFunds
-  state.locations[move.location].coffeeMiner = 1
+  state.FundsPerBlock += card.Gains.MultiplierFunds
+  state.Locations[move.Location].CoffeeMiner = 1
   postPlayDeveloperBonus(state, card, move)
 }
 func postPlaySpaceRent(state *State, card Card, move Move) {
-  state.locations[move.location].powerRenting = 1
-  state.fundsPerBlock += state.locations[move.location].powerLeft * card.Gains.MultiplierFunds
+  state.Locations[move.Location].PowerRenting = 1
+  state.FundsPerBlock += state.Locations[move.Location].PowerLeft * card.Gains.MultiplierFunds
 }
 func postPlayProject(state *State, card Card, move Move) {
-  for i := 0; i < len(state.projects); i++ {
-    if state.projects[i].exists == 0 {
-      state.projects[i].exists = 1
-      state.projects[i].card = card.Id
-      state.projects[i].level = card.Level
-      state.projects[i].timeLeft = card.Costs.Time
+  for i := 0; i < len(state.Projects); i++ {
+    if state.Projects[i].Exists == 0 {
+      state.Projects[i].Exists = 1
+      state.Projects[i].Card = card.Id
+      state.Projects[i].Level = card.Level
+      state.Projects[i].TimeLeft = card.Costs.Time
 
       return
     }
   }
 }
 func postPlayDayTrading(state *State, card Card, move Move) {
-  state.funds += state.dayTradingBonus
+  state.Funds += state.DayTradingBonus
 }
 func postPlayBoostMiningEfficiency(state *State, card Card, move Move) {
-  for i := 0; i < len(state.locations); i++ {
-    if state.locations[i].exists > 0 {
+  for i := 0; i < len(state.Locations); i++ {
+    if state.Locations[i].Exists > 0 {
       postPlayBoostMiningEfficiencyOnLocation(state, card, move)
     }
   }
 }
 func postPlayPredicationMarketParticipation(state *State, card Card, move Move) {
-  state.funds += state.predictionMarketParticipationBonus
+  state.Funds += state.PredictionMarketParticipationBonus
 }
 func postPlayRentPower(state *State, card Card, move Move) {
-  state.funds += card.Gains.MultiplierFunds/3*state.cpuCount + card.Gains.MultiplierFunds*state.gpuCount
+  state.Funds += card.Gains.MultiplierFunds/3*state.CpuCount + card.Gains.MultiplierFunds*state.GpuCount
 }
 func postPlayFundsBonus(state *State, card Card, move Move) {
-  state.funds += uint(math.Ceil(float64(card.Gains.MultiplierFunds*state.funds) / float64(100)))
+  state.Funds += uint(math.Ceil(float64(card.Gains.MultiplierFunds*state.Funds) / float64(100)))
 }
 
 func preRemoveLocation(state *State, card Card, move Move) error {
-  if state.locations[move.location].card == card.Id && state.locations[move.location].numberOfCards > 0 {
+  if state.Locations[move.Location].Card == card.Id && state.Locations[move.Location].NumberOfCards > 0 {
     return LocationNotEmpty
   }
   return nil
@@ -612,7 +612,7 @@ func preRemoveMiningContainer(state *State, card Card, move Move) error {
 func preRemoveComputerCaseMiningContainer(state *State, card Card, move Move) error {
   for i := 0; i < computerCaseMinersCount; i++ {
     for j := 0; j < computerCaseMinersLevelCount; j++ {
-      if state.locations[move.location].computerCases[move.containerIndex].count[i][j] > 0 {
+      if state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[i][j] > 0 {
         return ComputerCaseNotEmpty
       }
     }
@@ -622,7 +622,7 @@ func preRemoveComputerCaseMiningContainer(state *State, card Card, move Move) er
 func preRemoveRigMiningContainer(state *State, card Card, move Move) error {
   for i := 0; i < rigCaseMinersCount; i++ {
     for j := 0; j < rigCaseMinersLevelCount; j++ {
-      if state.locations[move.location].rigCases[move.containerIndex].count[i][j] > 0 {
+      if state.Locations[move.Location].RigCases[move.ContainerIndex].Count[i][j] > 0 {
         return RigCaseNotEmpty
       }
     }
@@ -631,7 +631,7 @@ func preRemoveRigMiningContainer(state *State, card Card, move Move) error {
 }
 func preRemoveASICMiningContainer(state *State, card Card, move Move) error {
   for i := 0; i < asicCaseLevelCount; i++ {
-    if state.locations[move.location].asicCases[move.containerIndex].count[i] > 0 {
+    if state.Locations[move.Location].AsicCases[move.ContainerIndex].Count[i] > 0 {
       return MountCaseNotEmpty
     }
   }
@@ -641,35 +641,35 @@ func preRemoveMining(state *State, card Card, move Move) error {
   return SubtypeMiningFuncPreRemoveMapping[card.Subtype](state, card, move)
 }
 func preRemoveCPUMining(state *State, card Card, move Move) error {
-  if state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
+  if state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
     return CPUMinerNotFound
   }
   return nil
 }
 func preRemoveGPUMining(state *State, card Card, move Move) error {
-  if move.gpuOption {
-    if state.locations[move.location].rigCases[move.containerIndex].count[card.Id-rigCaseMinersOffset][card.Level] == 0 {
+  if move.GpuOption {
+    if state.Locations[move.Location].RigCases[move.ContainerIndex].Count[card.Id-rigCaseMinersOffset][card.Level] == 0 {
       return GPUMinerNotFound
     }
   } else {
-    if state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
+    if state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level] == 0 {
       return GPUMinerNotFound
     }
   }
   return nil
 }
 func preRemoveASICMining(state *State, card Card, move Move) error {
-  if state.locations[move.location].asicCases[move.containerIndex].count[card.Level] == 0 {
+  if state.Locations[move.Location].AsicCases[move.ContainerIndex].Count[card.Level] == 0 {
     return ASICMinerNotFound
   }
   return nil
 }
 func preRemovePerson(state *State, card Card, move Move) error {
-  for _, person := range state.locations[move.location].people {
-    if person.card == card.Id && person.count[card.Level] > 0 {
-      if (state.locations[move.location].developmentPercentageBonus != 0 &&
-        state.developmentLeft < uint(math.Ceil(float64(card.Gains.Development)*float64(state.locations[move.location].developmentPercentageBonus)))) ||
-        ((state.locations[move.location].developmentPercentageBonus == 0) && state.developmentLeft < card.Gains.Development) {
+  for _, person := range state.Locations[move.Location].People {
+    if person.Card == card.Id && person.Count[card.Level] > 0 {
+      if (state.Locations[move.Location].DevelopmentPercentageBonus != 0 &&
+        state.DevelopmentLeft < uint(math.Ceil(float64(card.Gains.Development)*float64(state.Locations[move.Location].DevelopmentPercentageBonus)))) ||
+        ((state.Locations[move.Location].DevelopmentPercentageBonus == 0) && state.DevelopmentLeft < card.Gains.Development) {
         return DevelopersInUseError
       }
 
@@ -682,8 +682,8 @@ func preRemovePerson(state *State, card Card, move Move) error {
   return PersonNotFound
 }
 func preRemoveDeveloperBonus(state *State, card Card, move Move) error {
-  if state.developmentLeft < uint(math.Ceil(float64((100+state.locations[move.location].developmentPercentageBonus)*100) /
-    float64(100+card.Gains.MultiplierDev))) * (state.locations[move.location].development - card.Gains.Development) {
+  if state.DevelopmentLeft < uint(math.Ceil(float64((100+state.Locations[move.Location].DevelopmentPercentageBonus)*100) /
+    float64(100+card.Gains.MultiplierDev))) * (state.Locations[move.Location].Development - card.Gains.Development) {
     return DevelopersInUseError
   }
 
@@ -694,8 +694,8 @@ func preRemoveFundsEachBlockBonus(state *State, card Card, move Move) error     
 func preRemovePredictionMarketParticipationBonus(state *State, card Card, move Move) error { return nil }
 func preRemoveBoostMiningEfficiencyOnLocation(state *State, card Card, move Move) error    { return nil }
 func preRemovePower(state *State, card Card, move Move) error {
-  for _, power := range state.locations[move.location].powers {
-    if power.card == card.Id && power.count[card.Level] > 0 {
+  for _, power := range state.Locations[move.Location].Powers {
+    if power.Card == card.Id && power.Count[card.Level] > 0 {
       return nil
     }
   }
@@ -707,21 +707,21 @@ func preRemoveMisc(state *State, card Card, move Move) error {
 }
 
 func preRemovePowerRent(state *State, card Card, move Move) error {
-  if state.locations[move.location].powerRenting == 0 {
+  if state.Locations[move.Location].PowerRenting == 0 {
     return PowerRentNotFound
   }
 
   return nil
 }
 func preRemoveDeveloperBooster(state *State, card Card, move Move) error {
-  if state.locations[move.location].coffeeMiner == 0 {
+  if state.Locations[move.Location].CoffeeMiner == 0 {
     return DeveloperBoosterNotFound
   }
 
   return nil
 }
 func preRemoveSpaceRent(state *State, card Card, move Move) error {
-  if state.locations[move.location].spaceRenting == 0 {
+  if state.Locations[move.Location].SpaceRenting == 0 {
     return SpaceRentNotFound
   }
 
@@ -729,8 +729,8 @@ func preRemoveSpaceRent(state *State, card Card, move Move) error {
 }
 
 func preRemoveProject(state *State, card Card, move Move) error {
-  for i := 0; i < len(state.projects); i++ {
-    if state.projects[i].card == card.Id && state.projects[i].level == card.Level && state.projects[i].timeLeft == 0 {
+  for i := 0; i < len(state.Projects); i++ {
+    if state.Projects[i].Card == card.Id && state.Projects[i].Level == card.Level && state.Projects[i].TimeLeft == 0 {
       return nil
     }
   }
@@ -739,54 +739,54 @@ func preRemoveProject(state *State, card Card, move Move) error {
 }
 
 func postRemoveLocation(state *State, card Card, move Move) {
-  state.locations[move.location].card = 0
-  state.locations[move.location].exists = 0
+  state.Locations[move.Location].Card = 0
+  state.Locations[move.Location].Exists = 0
 }
 func postRemoveMiningContainer(state *State, card Card, move Move) {
   SubtypeMiningContainerFuncPostRemoveMapping[card.Subtype](state, card, move)
 }
 func postRemoveComputerCaseMiningContainer(state *State, card Card, move Move) {
-  state.locations[move.location].computerCases = append(
-    state.locations[move.location].computerCases[:move.containerIndex],
-    state.locations[move.location].computerCases[move.containerIndex+1:]...
+  state.Locations[move.Location].ComputerCases = append(
+    state.Locations[move.Location].ComputerCases[:move.ContainerIndex],
+    state.Locations[move.Location].ComputerCases[move.ContainerIndex+1:]...
   )
 }
 func postRemoveRigMiningContainer(state *State, card Card, move Move) {
-  state.locations[move.location].rigCases = append(
-    state.locations[move.location].rigCases[:move.containerIndex],
-    state.locations[move.location].rigCases[move.containerIndex+1:]...
+  state.Locations[move.Location].RigCases = append(
+    state.Locations[move.Location].RigCases[:move.ContainerIndex],
+    state.Locations[move.Location].RigCases[move.ContainerIndex+1:]...
   )
 }
 func postRemoveASICMiningContainer(state *State, card Card, move Move) {
-  state.locations[move.location].asicCases = append(
-    state.locations[move.location].asicCases[:move.containerIndex],
-    state.locations[move.location].asicCases[move.containerIndex+1:]...
+  state.Locations[move.Location].AsicCases = append(
+    state.Locations[move.Location].AsicCases[:move.ContainerIndex],
+    state.Locations[move.Location].AsicCases[move.ContainerIndex+1:]...
   )
 }
 func postRemoveMining(state *State, card Card, move Move) {
   SubtypeMiningFuncPostRemoveMapping[card.Subtype](state, card, move)
 }
 func postRemoveCPUMining(state *State, card Card, move Move) {
-  state.cpuCount--
-  state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level]--
+  state.CpuCount--
+  state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level]--
 }
 func postRemoveGPUMining(state *State, card Card, move Move) {
-  if move.gpuOption {
-    state.locations[move.location].rigCases[move.containerIndex].count[card.Id-rigCaseMinersOffset][card.Level]--
+  if move.GpuOption {
+    state.Locations[move.Location].RigCases[move.ContainerIndex].Count[card.Id-rigCaseMinersOffset][card.Level]--
   } else {
-    state.locations[move.location].computerCases[move.containerIndex].count[card.Id-computerCaseMinersOffset][card.Level]--
+    state.Locations[move.Location].ComputerCases[move.ContainerIndex].Count[card.Id-computerCaseMinersOffset][card.Level]--
   }
-  state.gpuCount--
+  state.GpuCount--
 }
 func postRemoveASICMining(state *State, card Card, move Move) {
-  state.locations[move.location].asicCases[move.containerIndex].count[card.Level]--
+  state.Locations[move.Location].AsicCases[move.ContainerIndex].Count[card.Level]--
 }
 func postRemovePerson(state *State, card Card, move Move) {
-  for i, person := range state.locations[move.location].people {
-    if person.card == card.Id && person.count[card.Level] > 0 {
-      state.locations[move.location].people = append(
-        state.locations[move.location].people[:i],
-        state.locations[move.location].people[i+1:]...
+  for i, person := range state.Locations[move.Location].People {
+    if person.Card == card.Id && person.Count[card.Level] > 0 {
+      state.Locations[move.Location].People = append(
+        state.Locations[move.Location].People[:i],
+        state.Locations[move.Location].People[i+1:]...
       )
 
       if card.Subtype != "-" {
@@ -797,30 +797,30 @@ func postRemovePerson(state *State, card Card, move Move) {
   }
 }
 func postRemoveDeveloperBonus(state *State, card Card, move Move) {
-  developmentDiff := state.locations[move.location].development - card.Gains.Development
-  developmentPercentageDiff := 100 + state.locations[move.location].developmentPercentageBonus - uint(math.Ceil(
-    float64((100+state.locations[move.location].developmentPercentageBonus)*100)/float64(100+card.Gains.MultiplierDev)))
+  developmentDiff := state.Locations[move.Location].Development - card.Gains.Development
+  developmentPercentageDiff := 100 + state.Locations[move.Location].DevelopmentPercentageBonus - uint(math.Ceil(
+    float64((100+state.Locations[move.Location].DevelopmentPercentageBonus)*100)/float64(100+card.Gains.MultiplierDev)))
 
-  state.locations[move.location].developmentPercentageBonus -= developmentPercentageDiff
-  state.locations[move.location].development -= developmentDiff
-  state.developmentLeft -= developmentPercentageDiff * developmentDiff
+  state.Locations[move.Location].DevelopmentPercentageBonus -= developmentPercentageDiff
+  state.Locations[move.Location].Development -= developmentDiff
+  state.DevelopmentLeft -= developmentPercentageDiff * developmentDiff
 }
 func postRemovePlayProjectTimeDecrease(state *State, card Card, move Move) {
-  state.projectTimePercentageDecrease -= card.Gains.MultiplierFunds
+  state.ProjectTimePercentageDecrease -= card.Gains.MultiplierFunds
 }
 func postRemoveFundsEachBlockBonus(state *State, card Card, move Move) {
-  state.fundsPerBlock -= card.Gains.Funds
+  state.FundsPerBlock -= card.Gains.Funds
 }
 func postRemovePredictionMarketParticipationBonus(state *State, card Card, move Move) {
-  state.predictionMarketParticipationBonus -= card.Gains.MultiplierFunds
+  state.PredictionMarketParticipationBonus -= card.Gains.MultiplierFunds
 }
 func postRemoveBoostMiningEfficiencyOnLocation(state *State, card Card, move Move) {}
 func postRemovePower(state *State, card Card, move Move) {
-  for i, power := range state.locations[move.location].powers {
-    if power.card == card.Id && power.count[card.Level] > 0 {
-      state.locations[move.location].powers = append(
-        state.locations[move.location].powers[:i],
-        state.locations[move.location].powers[i+1:]...
+  for i, power := range state.Locations[move.Location].Powers {
+    if power.Card == card.Id && power.Count[card.Level] > 0 {
+      state.Locations[move.Location].Powers = append(
+        state.Locations[move.Location].Powers[:i],
+        state.Locations[move.Location].Powers[i+1:]...
       )
       return
     }
@@ -830,44 +830,44 @@ func postRemoveMisc(state *State, card Card, move Move) {
   SubtypeMiscFuncPostRemoveMapping[card.Subtype](state, card, move)
 }
 func postRemovePowerRent(state *State, card Card, move Move) {
-  state.fundsPerBlock -= card.Gains.MultiplierFunds * state.locations[move.location].powerLeft
-  state.locations[move.location].powerRenting = 0
+  state.FundsPerBlock -= card.Gains.MultiplierFunds * state.Locations[move.Location].PowerLeft
+  state.Locations[move.Location].PowerRenting = 0
 }
 func postRemoveDeveloperBooster(state *State, card Card, move Move) {
-  state.fundsPerBlock -= card.Gains.MultiplierFunds
+  state.FundsPerBlock -= card.Gains.MultiplierFunds
   postRemoveDeveloperBonus(state, card, move)
 }
 func postRemoveSpaceRent(state *State, card Card, move Move) {
-  state.fundsPerBlock -= card.Gains.MultiplierFunds * state.locations[move.location].spaceLeft
-  state.locations[move.location].spaceRenting = 0
+  state.FundsPerBlock -= card.Gains.MultiplierFunds * state.Locations[move.Location].SpaceLeft
+  state.Locations[move.Location].SpaceRenting = 0
 }
 
 func postRemoveProject(state *State, card Card, move Move) {
-  for i := 0; i < len(state.projects); i++ {
-    if state.projects[i].card == card.Id && state.projects[i].level == card.Level && state.projects[i].timeLeft == 0 {
-      state.projects[i].exists = 0
+  for i := 0; i < len(state.Projects); i++ {
+    if state.Projects[i].Card == card.Id && state.Projects[i].Level == card.Level && state.Projects[i].TimeLeft == 0 {
+      state.Projects[i].Exists = 0
     }
   }
 }
 
 func requirePlayCosts(state *State, card Card, move Move) error {
-  if card.Costs.Level > state.level {
+  if card.Costs.Level > state.Level {
     return NotEnoughExperienceError
   }
 
-  if card.Costs.Funds > state.funds {
+  if card.Costs.Funds > state.Funds {
     return NotEnoughFundsError
   }
 
-  if card.Costs.Development > state.developmentLeft {
+  if card.Costs.Development > state.DevelopmentLeft {
     return NotEnoughDevelopmentError
   }
 
-  if !card.isLocation() && !card.isProject() && card.Costs.Space > state.locations[move.location].spaceLeft {
+  if !card.isLocation() && !card.isProject() && card.Costs.Space > state.Locations[move.Location].SpaceLeft {
     return NotEnoughSpaceError
   }
 
-  if !card.isLocation() && !card.isProject() && card.Costs.Power > state.locations[move.location].powerLeft {
+  if !card.isLocation() && !card.isProject() && card.Costs.Power > state.Locations[move.Location].PowerLeft {
     return NotEnoughPowerError
   }
 
@@ -875,24 +875,24 @@ func requirePlayCosts(state *State, card Card, move Move) error {
 }
 
 func costs(state *State, card Card, move Move) {
-  state.funds -= card.Costs.Funds
-  state.developmentLeft -= card.Costs.Development
+  state.Funds -= card.Costs.Funds
+  state.DevelopmentLeft -= card.Costs.Development
   if !card.isLocation() && !card.isProject() {
-    state.locations[move.location].spaceLeft -= card.Costs.Space
-    state.locations[move.location].powerLeft -= card.Costs.Power
+    state.Locations[move.Location].SpaceLeft -= card.Costs.Space
+    state.Locations[move.Location].PowerLeft -= card.Costs.Power
   }
 }
 
 func gains(state *State, card Card, move Move) {
-  state.funds += card.Gains.Funds
-  state.experience += card.Gains.Xp
-  state.developmentLeft += card.Gains.Development
-  state.locations[move.location].spaceLeft += card.Gains.Space
-  state.locations[move.location].powerLeft += card.Gains.Power
+  state.Funds += card.Gains.Funds
+  state.Experience += card.Gains.Xp
+  state.DevelopmentLeft += card.Gains.Development
+  state.Locations[move.Location].SpaceLeft += card.Gains.Space
+  state.Locations[move.Location].PowerLeft += card.Gains.Power
 }
 
 func removeGains(state *State, card Card, move Move) {
-  state.developmentLeft -= card.Gains.Development
-  state.locations[move.location].spaceLeft -= card.Gains.Space
-  state.locations[move.location].powerLeft -= card.Gains.Power
+  state.DevelopmentLeft -= card.Gains.Development
+  state.Locations[move.Location].SpaceLeft -= card.Gains.Space
+  state.Locations[move.Location].PowerLeft -= card.Gains.Power
 }

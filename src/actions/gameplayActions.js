@@ -46,6 +46,8 @@ import {
 
 import { packMoves, readState } from '../services/stateService';
 import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
+import { sign } from '../services/signingService';
+import signingService from "../services/signingService";
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -301,7 +303,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const mathRes = handleCardMathematics(card, [], globalStats, index);
   const alterGlobalStats = mathRes.globalStats;
 
-  // dispatch(playTurn({ card }, 'project', index, true));
+  dispatch(playTurn({ card }, 'project', index, true));
 
   dispatch({
     type: CHANGE_PROJECT_STATE,
@@ -436,7 +438,7 @@ export const submitNickname = ({ nickname }) => async (dispatch) => {
  */
 export const saveStateToContract = () => async (dispatch, getState) => {
   // Add call to the contract here
-  const { gameplay } = getState();
+  const { gameplay, app } = getState();
   dispatch({ type: SAVE_STATE_REQUEST, payload: { isSaving: true } });
 
   if (gameplay.playedTurns.length === 0) {
@@ -455,7 +457,10 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
   try {
     // const ipfs = await ipfsService.uploadData(gameplay);
-    await ethService.updateMoves(packedMoves, gameplay.nickname);
+    const response = await signingService.sign(packedMoves, gameplay.nickname, app.account);
+    if (response.ok === true) {
+      await ethService.updateMoves(packedMoves, response.experience, response.signature, gameplay.nickname);
+    }
 
     dispatch({ type: CLEAR_TURNS });
     dispatch({ type: SAVE_STATE_SUCCESS, payload: { isSaving: false } });

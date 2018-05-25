@@ -165,9 +165,14 @@ const revealBooster = async (id) => {
   return boosterContract.methods.revealBooster(parseInt(id, 10)).send();
 };
 
-const updateMoves = async (moves, nickname) => {
+const updateMoves = async (moves, score, signature, nickname) => {
   const stateContract = await getStateContract();
-  return stateContract.methods.update(moves, web3.utils.toHex(nickname)).send();
+  return stateContract.methods.saveScore(
+    web3.utils.toHex(moves),
+    score,
+    web3.utils.bytesToHex(signature.string),
+    web3.utils.toHex(nickname),
+  ).send();
 };
 
 const getState = async () => {
