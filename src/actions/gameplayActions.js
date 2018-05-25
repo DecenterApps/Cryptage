@@ -301,7 +301,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const mathRes = handleCardMathematics(card, [], globalStats, index);
   const alterGlobalStats = mathRes.globalStats;
 
-  // dispatch(playTurn({ card }, 'project', index, true));
+  dispatch(playTurn({ card }, 'project', index, true));
 
   dispatch({
     type: CHANGE_PROJECT_STATE,

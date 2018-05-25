@@ -222,7 +222,7 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   fundsPerBlock = addOrReduceFromFundsPerBlock(fundsPerBlock, item.mainCard, false);
 
   const turnIndex = [locationIndex, containerIndex, containerSlotIndex].filter(item => item !== undefined).pop();
-  // dispatch(playTurn(item, slot.slotType, turnIndex, false));
+  dispatch(playTurn(item, slot.slotType, turnIndex, false));
 
   /* DO NOT REMOVE getState() */
   dispatch({
@@ -274,7 +274,7 @@ export const removeProject = (card, index) => (dispatch, getState) => {
   alteredProjects[index].accepts = acceptedProjectDropIds;
   alteredProjects[index].lastDroppedItem = null;
 
-  // dispatch(playTurn(item, 'project', index, false));
+  dispatch(playTurn(item, 'project', index, false));
   dispatch({ type: CHANGE_PROJECT_STATE, projects: alteredProjects });
   dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: fundsPerBlock });
   dispatch({ type: RETURN_CARDS, cards: item.cards });
