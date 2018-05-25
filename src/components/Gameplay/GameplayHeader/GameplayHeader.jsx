@@ -2,11 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ethCircle from './eth-circle.png';
-import devCircle from './dev-circle.png';
-import fundsCircle from './funds-circle.png';
-import shape1 from './header-shape-1.png';
-
 import './GameplayHeader.scss';
 
 function getlength(number) {
@@ -24,7 +19,7 @@ const getClassForFont = (maxDev, available) => {
 const GameplayHeader = ({
   blockNumber, globalStats, nickname, fundsPerBlock, projects,
 }) => {
-  const expPercantage = (globalStats.earnedXp * 100 / globalStats.requiredXp);
+  const expPercantage = (globalStats.earnedXp / globalStats.requiredXp);
 
   const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
     if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.stats.cost.development;
@@ -37,97 +32,44 @@ const GameplayHeader = ({
 
         {/* Left section */}
         <div className="section">
-          <div className="stats-wrapper">
-            <img draggable={false} src={ethCircle} alt="Ethereum logo circle" />
-
-            <div className="meta-wrapper">
-              <div className="count">{ blockNumber }</div>
-              <div className="label">Eth Blocks</div>
+          <div className="stats-wrapper people">
+            <div className={`count ${getClassForFont(maxDev, globalStats.development)}`}>
+              { globalStats.development }
+              <span className="smaller">&nbsp;&nbsp;/&nbsp;&nbsp;{maxDev}</span>
             </div>
           </div>
-
-          <div className="bar" />
         </div>
 
         {/* Central section */}
         <div className="central">
-          <div className="central-small">
-            <img draggable={false} src={shape1} alt="Header shape small" />
-
-            <div className="level">Level { globalStats.level }</div>
-          </div>
-
-          <div className="central-big">
-            <img draggable={false} src={shape1} alt="Header shape big" />
-
-            <div className="big-stats">
-              <div className="name">
-                { nickname || 'NICKNAME' }
-              </div>
-              <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
-              {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
-              <svg className="xp-loader-wrapper">
-                  <defs>
-                    <clipPath id="xp-progress-clip">
-                      <polygon points="0,0 155,0 147,14 8,14" />
-                    </clipPath>
-                    <linearGradient id="xp-progress-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" style={{stopColor:'rgb(51, 255, 0)', stopOpacity:0.8}} />
-                      <stop offset="100%" style={{stopColor:'rgb(51, 255, 0)', stopOpacity:0.4}} />
-                    </linearGradient>
-                    <linearGradient id="xp-progress-bg" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" style={{stopColor:'rgb(54, 38, 95)', stopOpacity:0.8}} />
-                      <stop offset="100%" style={{stopColor:'rgb(54, 38, 95)', stopOpacity:0.4}} />/>
-                    </linearGradient>
-                  </defs>
-                  <polygon
-                    fill="url(#xp-progress-bg)"
-                    points="0,0 155,0 147,14 8,14"
-                  />
-                  <polygon
-                    className="card-image-inner"
-                    fill="url(#xp-progress-grad)"
-                    points={`0,0 ${1.55*expPercantage},0 ${1.55*expPercantage - 8},14 0,14`}
-                    clipPath="url(#xp-progress-clip)"
-                  />
-              </svg>
-
-            </div>
-          </div>
+          <div className="level">Level { globalStats.level }</div>
+          <div className="name">{ nickname || 'NICKNAME' }</div>
+          <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
+          {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
+          <svg className="xp-loader-wrapper">
+            <defs>
+              <linearGradient id="exp-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset={0.5 - (expPercantage * 0.5) - 0.05} stopColor="#1E9500" stopOpacity="0"/>
+                <stop offset={0.5 - (expPercantage * 0.5)} stopColor="#21A500"/>
+                <stop offset="0.5" stopColor="#28C800"/>
+                <stop offset={0.5 + (expPercantage * 0.5)} stopColor="#21A600"/>
+                <stop offset={0.5 + (expPercantage * 0.5) + 0.05} stopColor="#1E9500" stopOpacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M53 0H0L5.5 8H47L58 18H172L182 8H227.5L232.5 0H177L172 4H58L53 0Z" fill="url(#exp-bar)"/>
+          </svg>
         </div>
 
         {/* Right section */}
         <div className="section">
-          <div className="stats-container">
-            <div className="stats-wrapper dev-stats">
-              <div className="dev-circle" />
-
-              <div className="meta-wrapper">
-                <div className={`count ${getClassForFont(maxDev,globalStats.development)}`}>
-                  { globalStats.development } / {maxDev}
-                </div>
-                <div className="label fun">dev available</div>
-              </div>
-            </div>
-
-            <div className="stats-wrapper funds-stats">
-              <div className="funds-circle" />
-
-              <div className="meta-wrapper">
-                <div className="count">
-                  <div>{ globalStats.funds }</div>
-                  <div className="label">Funds</div>
-                </div>
-
-                <div className="fpb">
-                  { fundsPerBlock }
-                  <span>FPB</span>
-                </div>
-              </div>
+          <div className="stats-wrapper funds">
+            <div>{ globalStats.funds }</div>
+            <div className="smaller">
+              { fundsPerBlock > 0 && '+' }
+              { fundsPerBlock }
+              <span className="smaller">&nbsp;&nbsp;FPB</span>
             </div>
           </div>
-
-          <div className="bar" />
         </div>
       </div>
     </div>
