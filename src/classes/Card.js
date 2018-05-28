@@ -1,7 +1,6 @@
 import Mechanic from './Mechanic';
 import { fetchCardMeta } from '../services/cardService';
 import CardSlot from './CardSlot';
-import LocationCard from './cardTypes/Location';
 import CoreMechanic from './mechanics/CoreMechanic';
 
 const cardTypes = new Map();
@@ -43,12 +42,12 @@ export default class Card {
       this.mechanics = [];
     }
 
-    this.mechanics = [
+    this.mechanics = this.mechanics.map(({ name, params }) => {
+      return Mechanic.getInstance(name, this, params);
+    }).concat([
       new CoreMechanic(this, 'funds'),
       new CoreMechanic(this, 'development'),
-    ].concat(this.mechanics.map(({ name, params }) => {
-      return Mechanic.getInstance(name, this, params);
-    }));
+    ]);
   }
 
   addNewDropSlot(SlotType = CardSlot) {
@@ -61,7 +60,7 @@ export default class Card {
     }
   }
 
-  findParent(CardType = LocationCard) {
+  findParent(CardType = cardTypes.Location) {
     let card = this;
     while (card && !(card instanceof CardType)) {
       card = card.parent;
@@ -77,20 +76,21 @@ export default class Card {
   }
 
   _can(method, ...params) {
-
     const result = { allowed: true };
 
     for (const mechanic of this.mechanics) {
-      const res = mechanic[method](...params);
-      if (res.special) {
-        result.special = (result.special || []).concat(res.special);
-        delete res.special;
+      if (mechanic[method]) {
+        const res = mechanic[method](...params);
+        if (res.special) {
+          result.special = (result.special || []).concat(res.special);
+          delete res.special;
+        }
+        Object.assign(result, res);
       }
-      Object.assign(result, res);
     }
 
     if (result.special && result.special.length > 0 || Object.keys(result).some(
-      (key) => key !== 'allowed' && result[key] === true
+      (key) => key !== 'allowed' && result[key] !== true
     ) === true) {
       result.allowed = false;
     }
@@ -101,29 +101,27 @@ export default class Card {
   async canPlay(state, dropSlot) {
 
     if (!dropSlot) {
-      return {allowed: false};
+      return { allowed: false };
     }
 
     if (!dropSlot.isEmpty()) {
       if (dropSlot.card.id === this.id) {
         return this.canLevelUp(state, dropSlot);
       } else {
-        return {allowed: false};
+        return { allowed: false };
       }
     }
 
     const result = {};
 
+    // extract this to a level mechanic
     if (this.level > state.stats.level) {
       result.level = true;
     }
 
-    if (this.cost.funds > state.stats.funds) {
-      result.funds = true;
-    }
+    const location = dropSlot.findParent(cardTypes.Location);
 
-    const location = dropSlot.findParent(LocationCard);
-
+    // extract this to a location mechanic
     if (location) {
       if (this.cost.power > location.values.power) {
         result.power = true;
@@ -135,9 +133,10 @@ export default class Card {
 
     Object.assign(result, this._can('canPlay', state, dropSlot));
 
+    // check if this should be here because it is in _can
     if (result.allowed) {
       result.allowed = !Object.keys(result).some((key) =>
-        key !== 'special' && key !== 'allowed' && result[key] === true);
+        key !== 'special' && key !== 'allowed' && result[key] !== true);
     }
 
     return result;

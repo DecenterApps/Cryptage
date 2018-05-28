@@ -14,7 +14,7 @@ describe('Gameplay', () => {
     const gameplay = new Gameplay();
     const stats = { values: { power: 10, space: 10 } };
 
-    gameplay.playedCards = [new LocationCard({ id: '10', stats }), new LocationCard({ id: '11', stats })];
+    gameplay.playedCards = [new LocationCard({ id: '10', ...stats }), new LocationCard({ id: '11', ...stats })];
 
     gameplay
       .getCardsOfType(LocationCard)

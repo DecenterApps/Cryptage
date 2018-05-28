@@ -28,7 +28,7 @@ export default class Gameplay {
     }
 
     for (let i = 0; i < this.locationSlots.length; i += 1) {
-      this.locationSlots[i] = new ProjectCardSlot();
+      this.projectSlots[i] = new ProjectCardSlot();
     }
   }
 

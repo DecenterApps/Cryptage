@@ -21,16 +21,16 @@ export default class CoreMechanic extends Mechanic {
   }
 
   onPlay(state) {
-    return this.updateValue(state, -this.card.stats.cost[this.stat]);
+    return this.updateValue(state, -this.card.cost[this.stat]);
   }
 
   onWithdraw(state) {
-    return this.updateValue(state, this.card.stats.cost[this.stat]);
+    return this.updateValue(state, this.card.cost[this.stat]);
   }
 
   canPlay(state, dropSlot) {
     return {
-      [this.stat]: this.getValue(state) >= this.card.stats.cost[this.stat],
+      [this.stat]: this.getValue(state) >= this.card.cost[this.stat],
     };
   }
 }

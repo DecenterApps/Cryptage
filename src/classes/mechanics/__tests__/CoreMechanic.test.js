@@ -10,15 +10,64 @@ describe('CoreMechanic', () => {
     gameplay.stats.development = 100;
 
     const locationCard = new LocationCard({
-      stats: {
-        values: { space: 10, power: 10 },
-        cost: { funds: 100, development: 100 },
-      },
+      values: { space: 10, power: 10 },
+      cost: { funds: 100, development: 100 },
     });
 
     const newState = await gameplay.locationSlots[0].dropCard(gameplay, locationCard);
 
     expect(newState.stats.funds).toBe(0);
     expect(newState.stats.development).toBe(0);
+  });
+
+  it('Returns development when card is returned to the hand', async () => {
+    const gameplay = new Gameplay(0);
+
+    gameplay.stats.funds = 100;
+    gameplay.stats.development = 100;
+
+    const locationCard = new LocationCard({
+      values: { space: 10, power: 10 },
+      cost: { funds: 100, development: 100 },
+    });
+
+    let newState = await gameplay.locationSlots[0].dropCard(gameplay, locationCard);
+    newState = gameplay.locationSlots[0].removeCard(newState);
+
+    expect(newState.stats.development).toBe(100);
+  });
+
+  it('Does not allow a card to be played when the user does not have enough of some stat to play it', async () => {
+    const gameplay = new Gameplay(0);
+
+    gameplay.stats.funds = 0;
+    gameplay.stats.development = 0;
+
+    const locationCard = new LocationCard({
+      metadataId: '0',
+      tags: ['location'],
+      values: { space: 10, power: 10 },
+      cost: { funds: 100, development: 100 },
+    });
+
+    const canDrop = await gameplay.locationSlots[0].canDrop(gameplay, locationCard);
+    expect(canDrop).toBeFalsy();
+  });
+
+  it('Allows a card to be played when the user has enough of some stat to play it', async () => {
+    const gameplay = new Gameplay(0);
+
+    gameplay.stats.funds = 100;
+    gameplay.stats.development = 100;
+
+    const locationCard = new LocationCard({
+      metadataId: '0',
+      tags: ['location'],
+      values: { space: 10, power: 10 },
+      cost: { funds: 100, development: 100 },
+    });
+
+    const canDrop = await gameplay.locationSlots[0].canDrop(gameplay, locationCard);
+    expect(canDrop).toBeTruthy();
   });
 });
