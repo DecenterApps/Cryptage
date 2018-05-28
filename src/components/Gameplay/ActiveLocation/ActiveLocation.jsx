@@ -42,7 +42,7 @@ const ActiveLocation = ({
 
         <div className="active-location-header">
           <div className="title-and-bars-wrapper">
-            <div className="bar-wrapper">
+            <div className="bar-wrapper left">
               <div className="bar-label left">
                 <span>Space</span>{`${space} / ${maxSpace}`}
               </div>
