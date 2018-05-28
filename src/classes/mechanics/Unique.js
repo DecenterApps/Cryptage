@@ -1,19 +1,15 @@
 import Mechanic from '../Mechanic';
 
 export default class Unique extends Mechanic {
-
   canPlay(state, destination) {
-
-    if (!super.canPlay(state, destination)) {
-      return false;
-    }
-
-    if (!destination || !destination.dropSlots) {
-      return true;
-    }
-
     const { title } = this.card;
-    return destination.dropSlots.every((card) => card.title !== title);
+
+    const unique = destination.owner.dropSlots.reduce((acc, dropSlot) => {
+      if (dropSlot.card && dropSlot.card.title === title) acc = false;
+      return acc;
+    }, true);
+
+    return { unique };
   }
 }
 

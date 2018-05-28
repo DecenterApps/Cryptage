@@ -60,7 +60,7 @@ export default class Card {
     }
   }
 
-  findParent(CardType = cardTypes.Location) {
+  findParent(CardType = cardTypes.get('Location')) {
     let card = this;
     while (card && !(card instanceof CardType)) {
       card = card.parent;
