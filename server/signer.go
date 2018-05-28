@@ -30,7 +30,7 @@ func sign(cryptage Cryptage, hexMoves []byte, address string) (*Signature, error
   byteExperience := make([]byte, 32)
   binary.LittleEndian.PutUint64(byteExperience, uint64(cryptage.State.Experience))
 
-  sha := crypto.Keccak256(hexMoves, make([]byte, 32-len(hexMoves)%32), byteExperience, make([]byte, 12), byteAddress)
+  sha := crypto.Keccak256(hexMoves, byteExperience, make([]byte, 12), byteAddress)
   sig, err := crypto.Sign(sha, privateKey)
   if err != nil {
     return nil, err

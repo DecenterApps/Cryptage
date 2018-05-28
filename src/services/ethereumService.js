@@ -121,10 +121,12 @@ const getBoughtBoosters = async () => {
 
     const boosterPromises = boosters.map(async (id) => {
       const blockNumber = await boosterContract.methods.blockNumbers(id).call();
-      if (currentBlockNumber - blockNumber > 255) return {
-        id,
-        expired: true,
-      };
+      if (currentBlockNumber - blockNumber > 255) {
+        return {
+          id,
+          expired: true,
+        };
+      }
 
       return cardsInfo.boosters[id] || {
         id,
@@ -168,9 +170,9 @@ const revealBooster = async (id) => {
 const updateMoves = async (moves, score, signature, nickname) => {
   const stateContract = await getStateContract();
   return stateContract.methods.saveScore(
-    web3.utils.toHex(moves),
+    `0x${moves}`,
     score,
-    web3.utils.bytesToHex(signature.string),
+    `0x${signature.string}`,
     web3.utils.toHex(nickname),
   ).send();
 };
