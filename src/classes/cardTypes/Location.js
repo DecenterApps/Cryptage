@@ -17,8 +17,8 @@ export default class LocationCard extends Card {
   }
 
   onPlayChild(state, child) {
-    child.mechanics.push(new LocationMechanic('space'));
-    child.mechanics.push(new LocationMechanic('power'));
+    child.mechanics.push(new LocationMechanic(child, 'space'));
+    child.mechanics.push(new LocationMechanic(child, 'power'));
     return super.onPlayChild(state, child);
   }
 }

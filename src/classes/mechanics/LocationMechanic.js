@@ -7,8 +7,8 @@ export default class LocationMechanic extends CoreMechanic {
   }
 
   updateValue(state, delta) {
-    const location = this.card.findParent(LocationCard);
-    location[this.state] += delta;
+    const location = this.card.findParent();
+    location.values[this.stat] += delta;
     return state;
   }
 }

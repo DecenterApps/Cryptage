@@ -13,16 +13,16 @@ export default class CardSlot {
   }
 
   async dropCard(state, card) {
-    let toAdd = card;
-
     if (this.card) {
-      toAdd = await this.card.levelUp(state, this, card);
+      this.card = await this.card.levelUp(state, this, card);
+      this.card.parent = this.owner;
     } else {
-      state = card.onPlay(state, this);
-    }
+      this.card = card;
+      this.card.parent = this.owner;
 
-    this.card = toAdd;
-    this.card.parent = this.owner;
+      if (this.owner) state = this.owner.onPlayChild(state, this.card);
+      state = this.card.onPlay(state, this);
+    }
 
     return state;
   }
@@ -52,7 +52,11 @@ export default class CardSlot {
       return message.allowed;
     }
 
-    return card.metadataId === this.card.metadataId && await this.card.canLevelUp(state, this);
+    if (card.metadataId !== this.card.metadataId) return false;
+
+    const message = await this.card.canLevelUp(state, this);
+
+    return message.allowed;
   }
 
   isEmpty() {

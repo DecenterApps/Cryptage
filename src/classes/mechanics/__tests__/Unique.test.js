@@ -45,7 +45,7 @@ describe('Unique', () => {
       title: 'SomeCard',
       cost: { power: 0, space: 0, funds: 1, development: 1 },
       tags: ['asset'],
-    })
+    });
 
     const uniqueCard = new Card({
       title: 'SomeCard',
