@@ -11,15 +11,12 @@ export default class LocationCard extends Card {
     this.power = data.values.power;
     this.space = data.values.space;
 
+    this.mechanics.push(new LocationMechanic(this, 'space'));
+    this.mechanics.push(new LocationMechanic(this, 'power'));
+
     for (let i = 0; i < this.dropSlots.length; i += 1) {
       this.dropSlots[i] = new CardSlot(this);
     }
-  }
-
-  onPlayChild(state, child) {
-    child.mechanics.push(new LocationMechanic(child, 'space'));
-    child.mechanics.push(new LocationMechanic(child, 'power'));
-    return super.onPlayChild(state, child);
   }
 }
 

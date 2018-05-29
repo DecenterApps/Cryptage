@@ -119,13 +119,8 @@ export default class Card {
       result.level = false;
     }
 
-    const location = dropSlot.findParent(cardTypes.Location);
-
-    // extract this to a location mechanic
-    if (location) {
-      if (this.cost.power > location.values.power) result.power = false;
-      if (this.cost.space > location.values.space) result.space = false;
-    }
+    const location = dropSlot.findParent(cardTypes.get('Location'));
+    if (location) Object.assign(result, location._can('canPlayChild', state, this));
 
     Object.assign(result, this._can('canPlay', state, dropSlot));
 

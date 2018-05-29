@@ -23,7 +23,7 @@ describe('LocationMechanic', () => {
     let newState = await gameplay.locationSlots[0].dropCard(gameplay, locationCard);
     newState = await newState.locationSlots[0].card.dropSlots[1].dropCard(newState, cardToDrop);
 
-    expect(newState.locationSlots[0].card.values.space).toBe(9);
-    expect(newState.locationSlots[0].card.values.power).toBe(9);
+    expect(newState.locationSlots[0].card.space).toBe(9);
+    expect(newState.locationSlots[0].card.power).toBe(9);
   });
 });
