@@ -3,6 +3,7 @@ import cardConfig from '../constants/cards.json';
 import levels from '../constants/levels.json';
 import LocationCardSlot from './SlotTypes/LocationCardSlot';
 import ProjectCardSlot from './SlotTypes/ProjectCardSlot';
+import './mechanics';
 
 export default class Gameplay {
 
@@ -11,7 +12,6 @@ export default class Gameplay {
     this.playedCards = [];
     this.handCards = [];
     this.blockNumber = blockNumber;
-    this.previousBockNumber = blockNumber;
     this.stats = {
       level: config.globalStats.level,
       experience: config.globalStats.experience,
@@ -37,12 +37,9 @@ export default class Gameplay {
   }
 
   updateBlockNumber(state, blockNumber) {
+    const blockCount = blockNumber - state.blockNumber;
 
-    const blockCount = blockNumber - state.previousBockNumber;
-
-    if (blockCount < 1) {
-      return state;
-    }
+    if (blockCount < 1) return state;
 
     for (const card of this.playedCards) {
       state = card.block(state, blockCount);
@@ -52,7 +49,6 @@ export default class Gameplay {
       ...state,
       funds: state.funds + state.fundsPerBlock * blockCount,
       blockNumber,
-      previousBockNumber: blockNumber,
     };
   }
 }

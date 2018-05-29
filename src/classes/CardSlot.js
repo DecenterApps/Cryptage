@@ -14,33 +14,30 @@ export default class CardSlot {
 
   async dropCard(state, card) {
     if (this.card) {
-      this.card = await this.card.levelUp(state, this, card);
-      this.card.parent = this.owner;
-    } else {
-      this.card = card;
-      this.card.parent = this.owner;
-
-      if (this.owner) state = this.owner.onPlayChild(state, this.card);
-      state = this.card.onPlay(state, this);
+      const leveldUp = await this.card.levelUp(state, this);
+      const newState = this.removeCard(state);
+      return this.dropCard(newState, leveldUp);
     }
 
-    return state;
+    this.card = card;
+    this.card.parent = this.owner;
+
+    if (this.owner) state = this.owner.onPlayChild(state, this.card);
+    return this.card.onPlay(state, this);
   }
 
   removeCard(state) {
-    if (this.card) {
-      if (this.owner) {
-        state = this.owner.onWithdrawChild(state, this.card);
-        this.owner.removeDropSlot(this);
-      }
+    if (!this.card) return state;
 
-      state = this.card.onWithdraw(state);
-
-      this.card.parent = null;
-      this.card = null;
+    if (this.owner) {
+      state = this.owner.onWithdrawChild(state, this.card);
+      this.owner.removeDropSlot(this);
     }
 
-    return state;
+    state = this.card.onWithdraw(state);
+
+    this.card.parent = null;
+    this.card = null;
   }
 
   async canDrop(state, card) {

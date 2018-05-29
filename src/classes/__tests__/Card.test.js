@@ -1,4 +1,5 @@
 import Card from '../Card';
+import Gameplay from '../Gameplay';
 import Unique from '../mechanics/Unique';
 import LocationCard from '../cardTypes/Location';
 

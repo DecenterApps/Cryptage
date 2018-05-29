@@ -1,5 +1,5 @@
 import CoreMechanic from './CoreMechanic';
-import LocationCard from '../cardTypes/Location';
+import Mechanic from '../Mechanic';
 
 export default class LocationMechanic extends CoreMechanic {
   onPlay(state) { return state; }
@@ -34,3 +34,5 @@ export default class LocationMechanic extends CoreMechanic {
     return this.updateValue(state, child.cost[this.stat]);
   }
 }
+
+Mechanic.registerMechanic('location', LocationMechanic);

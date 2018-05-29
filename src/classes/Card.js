@@ -1,7 +1,6 @@
 import Mechanic from './Mechanic';
 import { fetchCardMeta } from '../services/cardService';
 import CardSlot from './CardSlot';
-import CoreMechanic from './mechanics/CoreMechanic';
 
 const cardTypes = new Map();
 
@@ -45,8 +44,10 @@ export default class Card {
     this.mechanics = this.mechanics.map(({ name, params }) => {
       return Mechanic.getInstance(name, this, params);
     }).concat([
-      new CoreMechanic(this, 'funds'),
-      new CoreMechanic(this, 'development'),
+      Mechanic.getInstance('cost', this, 'level'),
+      Mechanic.getInstance('core', this, 'funds'),
+      Mechanic.getInstance('core', this, 'development'),
+      Mechanic.getInstance('levelUp', this),
     ]);
   }
 
@@ -99,36 +100,16 @@ export default class Card {
   }
 
   async canPlay(state, dropSlot) {
-
-    if (!dropSlot) {
-      return { allowed: false };
-    }
-
-    if (!dropSlot.isEmpty()) {
-      if (dropSlot.card.id === this.id) {
-        return this.canLevelUp(state, dropSlot);
-      } else {
-        return { allowed: false };
-      }
-    }
+    if (!dropSlot) return { allowed: false };
+    if (!dropSlot.isEmpty()) return await this.canLevelUp(state, dropSlot);
 
     const result = {};
 
-    // extract this to a level mechanic
-    if (this.level > state.stats.level) {
-      result.level = false;
+    if (dropSlot.owner) {
+      Object.assign(result, dropSlot.owner._can('canPlayChild', state, this));
     }
-
-    const location = dropSlot.findParent(cardTypes.get('Location'));
-    if (location) Object.assign(result, location._can('canPlayChild', state, this));
 
     Object.assign(result, this._can('canPlay', state, dropSlot));
-
-    // check if this should be here because it is in _can
-    if (result.allowed) {
-      result.allowed = !Object.keys(result).some((key) =>
-        key !== 'special' && key !== 'allowed' && result[key] !== true);
-    }
 
     return result;
   }
@@ -162,31 +143,40 @@ export default class Card {
   }
 
   async canLevelUp(state, dropSlot) {
-    const result = { allowed: this.level < 5 };
+    // this === dragged card
+    const droppedCard = dropSlot.card;
+
+    const result = {
+      allowed: droppedCard.id === this.id && droppedCard.level < 5,
+    };
 
     if (!result.allowed) return result;
 
-    const instance = await Card.getInstance(this.id, this.level + 1);
+    const instance = await Card.getInstance(droppedCard.id, droppedCard.level + 1);
     result.allowed = state.stats.funds >= instance.cost.funds;
 
     if (!result.allowed) return result;
 
-    return Object.assign(result, this._can('canLevelUp', state, dropSlot));
+    return Object.assign(result, droppedCard._can('canLevelUp', state, dropSlot));
   }
 
-  async levelUp(state, dropSlot, draggedCard) {
-    const leveledUp = await Card.getInstance(this.id, this.level + 1);
-    leveledUp.dropSlots = this.dropSlots;
-    leveledUp.stackedCards = this.stackedCards.concat(draggedCard.id);
+  async levelUp(state, dropSlot) {
+    // this === dragged card
+    const droppedCard = dropSlot.card;
 
-    for (const cardSlot of this.dropSlots) {
+    const leveledUp = await Card.getInstance(droppedCard.id, droppedCard.level + 1);
+    leveledUp.dropSlots = droppedCard.dropSlots;
+    leveledUp.stackedCards = droppedCard.stackedCards.concat(this.id);
+
+    for (const cardSlot of droppedCard.dropSlots) {
       cardSlot.owner = leveledUp;
       if (!cardSlot.isEmpty()) {
         cardSlot.card.parent = leveledUp;
       }
     }
 
-    leveledUp.onPlay(this.onWithdraw(state), dropSlot);
+    // optional add on level up || add on child level up
+
     return leveledUp;
   }
 

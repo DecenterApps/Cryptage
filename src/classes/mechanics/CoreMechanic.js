@@ -1,16 +1,7 @@
 import Mechanic from '../Mechanic';
+import CostMechanic from './CostMechanic';
 
-export default class CoreMechanic extends Mechanic {
-
-  constructor(card, stat) {
-    super(card);
-    this.stat = stat;
-  }
-
-  getValue(state) {
-    return state.stats[this.stat];
-  }
-
+export default class CoreMechanic extends CostMechanic {
   updateValue(state, delta) {
     return {
       ...state,
@@ -27,11 +18,6 @@ export default class CoreMechanic extends Mechanic {
   onWithdraw(state) {
     return this.updateValue(state, this.card.cost[this.stat]);
   }
-
-  canPlay(state, dropSlot) {
-    return {
-      [this.stat]: this.getValue(state) >= this.card.cost[this.stat],
-    };
-  }
 }
 
+Mechanic.registerMechanic('core', CoreMechanic);
