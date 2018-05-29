@@ -1,9 +1,10 @@
 package main
 
 import (
-  "github.com/ethereum/go-ethereum/crypto"
-  "encoding/binary"
   "encoding/hex"
+  "encoding/binary"
+
+  "github.com/ethereum/go-ethereum/crypto"
 )
 
 type Signature struct {
@@ -26,9 +27,23 @@ func sign(cryptage Cryptage, hexMoves []byte, address string) (*Signature, error
   if err != nil {
     return nil, err
   }
-
+  //TODO find better way
   byteExperience := make([]byte, 32)
+  padding := 0
+  experience := cryptage.State.Experience
+  for experience > 0 {
+    padding++
+    experience /= 256
+  }
+
   binary.LittleEndian.PutUint64(byteExperience, uint64(cryptage.State.Experience))
+  for i := 31; i > 31-padding; i-- {
+    byteExperience[i] = byteExperience[i+padding-32]
+  }
+
+  for i := 31-padding; i >=0; i-- {
+    byteExperience[i] = 0
+  }
 
   sha := crypto.Keccak256(hexMoves, byteExperience, make([]byte, 12), byteAddress)
   sig, err := crypto.Sign(sha, privateKey)

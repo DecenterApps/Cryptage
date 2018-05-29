@@ -2,6 +2,7 @@ package main
 
 import (
   "errors"
+  "context"
   "math/big"
   "io/ioutil"
   "encoding/json"
@@ -9,7 +10,6 @@ import (
   "github.com/ethereum/go-ethereum/common"
   "github.com/ethereum/go-ethereum/ethclient"
   "github.com/ethereum/go-ethereum/accounts/abi/bind"
-  "context"
 )
 
 var UnableToConnectToNode = errors.New("unable to connect to node")

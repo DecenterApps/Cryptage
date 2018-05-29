@@ -1,10 +1,10 @@
 package main
 
 import (
+  "math"
+  "errors"
   "io/ioutil"
   "encoding/json"
-  "errors"
-  "math"
 )
 
 var typeFuncPrePlayMapping = map[string]func(*State, Card, Move) error{
@@ -91,9 +91,9 @@ var SubtypeMiningFuncPostRemoveMapping = map[string]func(*State, Card, Move){
 
 var SubtypePersonFuncPlayMapping = map[string]func(*State, Card, Move){
   "Developer Bonus":                       postPlayDeveloperBonus,
-  "Project Time Decrease":                 postPlayProjectTimeDecrease,
-  "Funds Each Block Bonus":                postPlayFundsEachBlockBonus,
-  "Prediction Market Participation Bonus": postPlayPredictionMarketParticipationBonus,
+  "Project Time Decrease":                 postPlayProjectTimeDecreaseWithMove,
+  "Funds Each Block Bonus":                postPlayFundsEachBlockBonusWithMove,
+  "Prediction Market Participation Bonus": postPlayPredictionMarketParticipationBonusWithMove,
   "Boost Mining Efficiency On Location":   postPlayBoostMiningEfficiencyOnLocation,
 }
 
@@ -131,7 +131,7 @@ var SubtypeMiscFuncPostRemoveMapping = map[string]func(*State, Card, Move){
   "Space Rent":        postRemoveSpaceRent,
 }
 
-var SubtypeProjectFuncFinishPlayMapping = map[string]func(*State, Card, Move){
+var SubtypeProjectFuncFinishPlayMapping = map[string]func(*State, Card){
   "Day Trading":                     postPlayDayTrading,
   "Funds Each Block Bonus":          postPlayFundsEachBlockBonus,
   "Boost Mining Efficiency":         postPlayBoostMiningEfficiency,
@@ -252,17 +252,17 @@ func getLevel(experience uint) uint {
 
   return levels[len(levels)-1].Level
 }
-func updateProjects(state *State, move Move) {
+func updateProjects(state *State, blockDifference uint) {
   for i := 0; i < len(state.Projects); i++ {
     if state.Projects[i].Exists > 0 {
       if state.Projects[i].TimeLeft == 0 {
         continue
       }
-      if state.Projects[i].TimeLeft > move.BlockDifference {
-        state.Projects[i].TimeLeft -= move.BlockDifference
+      if state.Projects[i].TimeLeft > blockDifference {
+        state.Projects[i].TimeLeft -= blockDifference
       } else {
         card := getCard(state.Projects[i].Card, state.Projects[i].Level)
-        SubtypeProjectFuncFinishPlayMapping[card.Subtype](state, card, move)
+        SubtypeProjectFuncFinishPlayMapping[card.Subtype](state, card)
         state.Projects[i].TimeLeft = 0
         state.Funds += card.Gains.Funds
         state.Experience += card.Gains.Xp
@@ -506,23 +506,36 @@ func postPlayDeveloperBonus(state *State, card Card, move Move) {
   state.DevelopmentLeft += diff
   state.Locations[move.Location].DevelopmentBonus += diff
 }
-func postPlayProjectTimeDecrease(state *State, card Card, move Move) {
+func postPlayProjectTimeDecreaseWithMove(state *State, card Card, move Move) {
+  postPlayProjectTimeDecrease(state, card)
+}
+func postPlayFundsEachBlockBonusWithMove(state *State, card Card, move Move) {
+  postPlayFundsEachBlockBonus(state, card)
+}
+func postPlayPredictionMarketParticipationBonusWithMove(state *State, card Card, move Move) {
+  postPlayPredictionMarketParticipationBonus(state, card)
+}
+func postPlayProjectTimeDecrease(state *State, card Card) {
   state.ProjectTimePercentageDecrease = uint(math.Ceil(
     float64((100-state.ProjectTimePercentageDecrease)*(100-card.Gains.MultiplierTime)) / float64(10000)))
 }
-func postPlayFundsEachBlockBonus(state *State, card Card, move Move) {
+func postPlayFundsEachBlockBonus(state *State, card Card) {
   state.FundsPerBlock += card.Gains.MultiplierFunds
 }
-func postPlayPredictionMarketParticipationBonus(state *State, card Card, move Move) {
+func postPlayPredictionMarketParticipationBonus(state *State, card Card) {
   state.PredictionMarketParticipationBonus += 2
 }
 func postPlayBoostMiningEfficiencyOnLocation(state *State, card Card, move Move) {
-  state.Locations[move.Location].MiningPercentageBonus = uint(math.Floor(
-    float64((100+state.Locations[move.Location].MiningPercentageBonus)*(100+card.Gains.MultiplierFunds)) / float64(10000)))
-  diff := (100+state.Locations[move.Location].MiningPercentageBonus)*state.Locations[move.Location].Mining -
-    state.Locations[move.Location].MiningBonus
+  postPlayBoostMiningEfficiencyOnLocationWithId(state, card, move.Location)
+}
+
+func postPlayBoostMiningEfficiencyOnLocationWithId(state *State, card Card, location uint) {
+  state.Locations[location].MiningPercentageBonus = uint(math.Floor(
+    float64((100+state.Locations[location].MiningPercentageBonus)*(100+card.Gains.MultiplierFunds)) / float64(10000)))
+  diff := (100+state.Locations[location].MiningPercentageBonus)*state.Locations[location].Mining -
+    state.Locations[location].MiningBonus
   state.FundsPerBlock += diff
-  state.Locations[move.Location].MiningBonus += diff
+  state.Locations[location].MiningBonus += diff
 }
 
 func postPlayPower(state *State, card Card, move Move) {
@@ -580,23 +593,23 @@ func postPlayProject(state *State, card Card, move Move) {
     }
   }
 }
-func postPlayDayTrading(state *State, card Card, move Move) {
+func postPlayDayTrading(state *State, card Card) {
   state.Funds += state.DayTradingBonus
 }
-func postPlayBoostMiningEfficiency(state *State, card Card, move Move) {
+func postPlayBoostMiningEfficiency(state *State, card Card) {
   for i := 0; i < len(state.Locations); i++ {
     if state.Locations[i].Exists > 0 {
-      postPlayBoostMiningEfficiencyOnLocation(state, card, move)
+      postPlayBoostMiningEfficiencyOnLocationWithId(state, card, uint(i))
     }
   }
 }
-func postPlayPredicationMarketParticipation(state *State, card Card, move Move) {
+func postPlayPredicationMarketParticipation(state *State, card Card) {
   state.Funds += state.PredictionMarketParticipationBonus
 }
-func postPlayRentPower(state *State, card Card, move Move) {
+func postPlayRentPower(state *State, card Card) {
   state.Funds += card.Gains.MultiplierFunds/3*state.CpuCount + card.Gains.MultiplierFunds*state.GpuCount
 }
-func postPlayFundsBonus(state *State, card Card, move Move) {
+func postPlayFundsBonus(state *State, card Card) {
   state.Funds += uint(math.Ceil(float64(card.Gains.MultiplierFunds*state.Funds) / float64(100)))
 }
 
