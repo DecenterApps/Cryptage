@@ -1,15 +1,7 @@
 export default class CardSlot {
-
   constructor(owner, card) {
     if (owner) this.owner = owner;
     if (card) this.dropCard(card);
-  }
-
-  findParent(CardType) {
-    if (!this.owner) {
-      return null;
-    }
-    return this.owner.findParent(CardType);
   }
 
   async dropCard(state, card) {
@@ -38,6 +30,8 @@ export default class CardSlot {
 
     this.card.parent = null;
     this.card = null;
+
+    return state;
   }
 
   async canDrop(state, card) {

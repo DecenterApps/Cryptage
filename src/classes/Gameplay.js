@@ -1,9 +1,11 @@
 import config from '../constants/config.json';
 import cardConfig from '../constants/cards.json';
 import levels from '../constants/levels.json';
-import LocationCardSlot from './SlotTypes/LocationCardSlot';
-import ProjectCardSlot from './SlotTypes/ProjectCardSlot';
+import LocationCardSlot from './slotTypes/LocationCardSlot';
+import ProjectCardSlot from './slotTypes/ProjectCardSlot';
 import './mechanics';
+import './cardTypes';
+import './slotTypes';
 
 export default class Gameplay {
 
