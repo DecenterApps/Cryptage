@@ -12,13 +12,8 @@ export default class LocationMechanic extends CoreMechanic {
 
   canPlayChild(state, child) {
     return {
-      power: this.card.power >= child.cost.power,
-      space: this.card.space >= child.cost.space,
+      [this.stat]: this.card[this.stat] >= child.cost[this.stat],
     };
-  }
-
-  getValue(state) {
-    return this.card[this.stat];
   }
 
   updateValue(state, delta) {
