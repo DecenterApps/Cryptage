@@ -28,7 +28,7 @@ describe('Unique', () => {
     const destinationSlot = newState.locationSlots[0].card.dropSlots[0];
 
     const canDrop = await destinationSlot.canDrop(newState, uniqueCard);
-    expect(canDrop).toBeTruthy();
+    expect(canDrop.allowed).toBeTruthy();
   });
 
   it ('Can not drop card when there is already a card with the same title played', async () => {
@@ -64,6 +64,6 @@ describe('Unique', () => {
     const destinationSlot = newState.locationSlots[0].card.dropSlots[0];
 
     const canDrop = await destinationSlot.canDrop(newState, uniqueCard);
-    expect(canDrop).toBeFalsy();
+    expect(canDrop.allowed).toBeFalsy();
   });
 });

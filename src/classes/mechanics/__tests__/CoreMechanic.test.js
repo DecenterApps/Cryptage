@@ -54,7 +54,7 @@ describe('CoreMechanic', () => {
     });
 
     const canDrop = await gameplay.locationSlots[0].canDrop(gameplay, locationCard);
-    expect(canDrop).toBeFalsy();
+    expect(canDrop.allowed).toBeFalsy();
   });
 
   it('Allows a card to be played when the user has enough of some stat to play it', async () => {
@@ -72,6 +72,6 @@ describe('CoreMechanic', () => {
     });
 
     const canDrop = await gameplay.locationSlots[0].canDrop(gameplay, locationCard);
-    expect(canDrop).toBeTruthy();
+    expect(canDrop.allowed).toBeTruthy();
   });
 });

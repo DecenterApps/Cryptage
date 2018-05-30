@@ -38,6 +38,6 @@ describe('ContainerCardSlot', () => {
     const destinationSlot = gameplay.locationSlots[0].card.dropSlots[0].card.dropSlots[0];
 
     const canDrop = await destinationSlot.canDrop(gameplay, minerCard);
-    expect(canDrop).toBeTruthy();
+    expect(canDrop.allowed).toBeTruthy();
   });
 });

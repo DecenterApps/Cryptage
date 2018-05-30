@@ -8,6 +8,10 @@ export default class LocationCardSlot extends CardSlot {
   }
 
   async canDrop(state, card) {
-    return await super.canDrop(state, card) && (card instanceof LocationCard);
+    const res = await super.canDrop(state, card);
+    return {
+      ...res,
+      allowed: res.allowed && (card instanceof LocationCard),
+    };
   }
 }

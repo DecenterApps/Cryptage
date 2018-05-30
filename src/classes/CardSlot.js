@@ -37,17 +37,19 @@ export default class CardSlot {
   async canDrop(state, card) {
     if (this.isEmpty()) {
       const { acceptedTags } = this.owner || this;
-      if (!acceptedTags.some(acceptedTag => card.tags.includes(acceptedTag))) return false;
 
-      const message = await card.canPlay(state, this);
-      return message.allowed;
+      if (!acceptedTags.some(acceptedTag => card.tags.includes(acceptedTag))) {
+        return { allowed: false };
+      }
+
+      return await card.canPlay(state, this);
     }
 
     if (card.metadataId !== this.card.metadataId) return false;
 
     const message = await this.card.canLevelUp(state, this);
 
-    return message.allowed;
+    return message;
   }
 
   isEmpty() {

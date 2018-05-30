@@ -19,6 +19,6 @@ describe('ProjectCardSlot', () => {
     const destinationSlot = gameplay.projectSlots[0];
 
     const canDrop = await destinationSlot.canDrop(gameplay, projectCard);
-    expect(canDrop).toBeTruthy();
+    expect(canDrop.allowed).toBeTruthy();
   });
 });

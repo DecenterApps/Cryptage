@@ -8,6 +8,10 @@ export default class ProjectCardSlot extends CardSlot {
   }
 
   async canDrop(state, card) {
-    return await super.canDrop(state, card) && (card instanceof ProjectCard);
+    const res = await super.canDrop(state, card);
+    return {
+      ...res,
+      allowed: res.allowed && (card instanceof ProjectCard),
+    };
   }
 }
