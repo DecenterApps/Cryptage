@@ -1,7 +1,6 @@
 import Mechanic from '../Mechanic';
 
 export default class FundsPerBlock extends Mechanic {
-
   constructor(card, params) {
     super(card);
     this.fpb = params;
