@@ -1,15 +1,17 @@
 import Card from '../Card';
-import CardSlot from '../CardSlot';
+import ContainerCardSlot from '../slotTypes/ContainerCardSlot';
 
 export default class ContainerCard extends Card {
-  // Add canPlayChild and onPlayChild which call Location canPlayChild and onPlayChild
-
   constructor(data) {
     super(data);
-    this.dropSlots = new Array(data.stats.values.space);
+
+    this.dropSlots = new Array(data.values.space);
+    this.space = data.values.space;
+
+    // this.mechanics.push(Mechanic.getInstance('container', this));
 
     for (let i = 0; i < this.dropSlots.length; i += 1) {
-      this.dropSlots[i] = new CardSlot(this);
+      this.dropSlots[i] = new ContainerCardSlot(this, null);
     }
   }
 }

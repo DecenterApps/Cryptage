@@ -1,7 +1,7 @@
 import ProjectCard from '../Project';
 import Gameplay from '../../Gameplay';
 
-describe('Card', () => {
+describe('Project', () => {
   it('Has all defined constructor values', async () => {
     const gameplay = new Gameplay(0);
     const blockNumber = 100;
