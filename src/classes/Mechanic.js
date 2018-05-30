@@ -15,7 +15,7 @@ export default class Mechanic {
     registry.set(name, mechanic);
   }
 
-  static getInstance(name, card, params = []) {
+  static getInstance(name, card, ...params) {
     if (!registry.has(name)) {
       throw ReferenceError(`unknown mechanic '${name}'`);
     }

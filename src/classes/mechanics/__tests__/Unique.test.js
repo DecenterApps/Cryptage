@@ -7,6 +7,7 @@ describe('Unique', () => {
   it ('Can drop card when there is not a card with the same title played', async () => {
     const gameplay = new Gameplay(0);
 
+    gameplay.level = 1;
     gameplay.stats.funds = 100;
     gameplay.stats.development = 100;
 
@@ -17,8 +18,9 @@ describe('Unique', () => {
     });
 
     const uniqueCard = new Card({
+      id: 0,
       mechanics: [{ name: 'unique' }],
-      cost: { power: 0, space: 0, funds: 1, development: 1 },
+      cost: { power: 0, space: 0, level: 1, funds: 1, development: 1 },
       tags: ['asset'],
     });
 
@@ -42,12 +44,14 @@ describe('Unique', () => {
     });
 
     const cardSameAsUnique = new Card({
+      id: 0,
       title: 'SomeCard',
       cost: { power: 0, space: 0, funds: 1, development: 1 },
       tags: ['asset'],
     });
 
     const uniqueCard = new Card({
+      id: 1,
       title: 'SomeCard',
       mechanics: [{ name: 'unique' }],
       cost: { power: 0, space: 0, funds: 1, development: 1 },

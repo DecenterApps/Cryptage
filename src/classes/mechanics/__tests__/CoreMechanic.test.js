@@ -6,12 +6,13 @@ describe('CoreMechanic', () => {
   it ('Reduces funds and development from gameplay stats on card play', async () => {
     const gameplay = new Gameplay(0);
 
+    gameplay.stats.level = 1;
     gameplay.stats.funds = 100;
     gameplay.stats.development = 100;
 
     const locationCard = new LocationCard({
       values: { space: 10, power: 10 },
-      cost: { funds: 100, development: 100 },
+      cost: { funds: 100, development: 100, level: 1 },
     });
 
     const newState = await gameplay.locationSlots[0].dropCard(gameplay, locationCard);
@@ -23,12 +24,13 @@ describe('CoreMechanic', () => {
   it('Returns development when card is returned to the hand', async () => {
     const gameplay = new Gameplay(0);
 
+    gameplay.stats.level = 1;
     gameplay.stats.funds = 100;
     gameplay.stats.development = 100;
 
     const locationCard = new LocationCard({
       values: { space: 10, power: 10 },
-      cost: { funds: 100, development: 100 },
+      cost: { funds: 100, development: 100, level: 1 },
     });
 
     let newState = await gameplay.locationSlots[0].dropCard(gameplay, locationCard);
@@ -40,6 +42,7 @@ describe('CoreMechanic', () => {
   it('Does not allow a card to be played when the user does not have enough of some stat to play it', async () => {
     const gameplay = new Gameplay(0);
 
+    gameplay.stats.level = 1;
     gameplay.stats.funds = 0;
     gameplay.stats.development = 0;
 
@@ -47,7 +50,7 @@ describe('CoreMechanic', () => {
       metadataId: '0',
       tags: ['location'],
       values: { space: 10, power: 10 },
-      cost: { funds: 100, development: 100 },
+      cost: { funds: 100, development: 100, level: 1 },
     });
 
     const canDrop = await gameplay.locationSlots[0].canDrop(gameplay, locationCard);
@@ -57,6 +60,7 @@ describe('CoreMechanic', () => {
   it('Allows a card to be played when the user has enough of some stat to play it', async () => {
     const gameplay = new Gameplay(0);
 
+    gameplay.stats.level = 1;
     gameplay.stats.funds = 100;
     gameplay.stats.development = 100;
 
@@ -64,7 +68,7 @@ describe('CoreMechanic', () => {
       metadataId: '0',
       tags: ['location'],
       values: { space: 10, power: 10 },
-      cost: { funds: 100, development: 100 },
+      cost: { funds: 100, development: 100, level: 1 },
     });
 
     const canDrop = await gameplay.locationSlots[0].canDrop(gameplay, locationCard);

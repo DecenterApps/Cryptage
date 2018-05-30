@@ -11,6 +11,7 @@ describe('LocationMechanic', () => {
     gameplay.stats.development = 101;
 
     const cardToDrop = new Card({
+      id: 0,
       cost: { power: 1, space: 1, funds: 1, development: 1 },
       tags: ['asset'],
     });

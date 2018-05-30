@@ -47,7 +47,6 @@ export default class Card {
       Mechanic.getInstance('cost', this, 'level'),
       Mechanic.getInstance('core', this, 'funds'),
       Mechanic.getInstance('core', this, 'development'),
-      Mechanic.getInstance('levelUp', this),
     ]);
   }
 
