@@ -59,4 +59,38 @@ describe('Card', () => {
 
     expect(res).toEqual(expect.objectContaining({ allowed: false }));
   });
+
+  it('On level up replaces the cards dropSlots owner and filled dropSlots parent', async () => {
+    const cardData = {
+      id: 0,
+      level: 1,
+      values: { space: 10, power: 10 },
+      cost: { funds: 100, development: 100, level: 1 },
+      acceptedTags: ['asset'],
+    };
+    let state = new Gameplay(0);
+
+    state.stats.funds = 101;
+    state.stats.development = 101;
+
+    const locationCard = new LocationCard(cardData);
+    const locationCardCopy = new LocationCard({ ...cardData, id: 1 });
+
+    const assetCard = new Card({
+      id: 0,
+      level: 1,
+      cost: { power: 1, space: 1, funds: 1, development: 1, level: 1 },
+      tags: ['asset'],
+    });
+
+    state = await state.locationSlots[0].dropCard(state, locationCard);
+    state = await state.locationSlots[0].card.dropSlots[0].dropCard(state, assetCard);
+    state = await state.locationSlots[0].dropCard(state, locationCardCopy);
+
+    const level2Card = state.locationSlots[0].card;
+    const slotToTest = state.locationSlots[0].card.dropSlots[0];
+
+    expect(slotToTest.owner).toBe(level2Card);
+    expect(slotToTest.card.parent).toBe(level2Card);
+  });
 });

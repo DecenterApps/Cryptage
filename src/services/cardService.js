@@ -26,6 +26,7 @@ export const fetchCardStats = (id, level) => {
 export const fetchCardMeta = async (id, level = 1) => {
   const metadata = await ethService.getCardMetadata(id);
   const stats = fetchCardStats(metadata.id, level);
+  console.log('STATES stats', stats, metadata.id);
   return {
     id,
     metadata,
