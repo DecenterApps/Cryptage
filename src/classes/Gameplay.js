@@ -35,7 +35,7 @@ export default class Gameplay {
   }
 
   getCardsOfType(type) {
-    return this.playedCards.filter((card) => card instanceof type);
+    return this.playedCards.filter(card => card instanceof type);
   }
 
   updateBlockNumber(state, blockNumber) {
@@ -49,7 +49,7 @@ export default class Gameplay {
 
     return {
       ...state,
-      funds: state.funds + state.fundsPerBlock * blockCount,
+      funds: state.funds + (state.fundsPerBlock * blockCount),
       blockNumber,
     };
   }

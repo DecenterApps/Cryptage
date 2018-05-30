@@ -141,6 +141,10 @@ export default class Card {
     return this._on('onWithdrawChild', state, child);
   }
 
+  block(state, blockCount) {
+    return this._on('block', state, blockCount);
+  }
+
   async canLevelUp(state, dropSlot) {
     // this === dragged card
     const droppedCard = dropSlot.card;
@@ -177,15 +181,5 @@ export default class Card {
     // optional add on level up || add on child level up
 
     return leveledUp;
-  }
-
-  block(state, blockCount) {
-    state = this._on('block', state, blockCount);
-    for (const slot of this.dropSlots) {
-      if (!slot.isEmpty()) {
-        state = slot.card.block(state, blockCount);
-      }
-    }
-    return state;
   }
 }
