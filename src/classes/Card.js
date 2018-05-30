@@ -150,7 +150,7 @@ export default class Card {
     const droppedCard = dropSlot.card;
 
     const result = {
-      allowed: droppedCard.id === this.id && droppedCard.level < 5,
+      allowed: droppedCard.metadataId === this.metadataId && droppedCard.level < 5,
     };
 
     if (!result.allowed) return result;
@@ -169,7 +169,7 @@ export default class Card {
 
     const leveledUp = await Card.getInstance(droppedCard.id, droppedCard.level + 1);
     leveledUp.dropSlots = droppedCard.dropSlots;
-    leveledUp.stackedCards = droppedCard.stackedCards.concat(this.id);
+    leveledUp.stackedCardIds = droppedCard.stackedCardIds.concat(leveledUp.id);
 
     for (const cardSlot of droppedCard.dropSlots) {
       cardSlot.owner = leveledUp;

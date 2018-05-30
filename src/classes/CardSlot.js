@@ -1,7 +1,6 @@
 export default class CardSlot {
-  constructor(owner, card) {
+  constructor(owner) {
     if (owner) this.owner = owner;
-    if (card) this.dropCard(card);
   }
 
   async dropCard(state, card) {
@@ -45,11 +44,7 @@ export default class CardSlot {
       return await card.canPlay(state, this);
     }
 
-    if (card.metadataId !== this.card.metadataId) return false;
-
-    const message = await this.card.canLevelUp(state, this);
-
-    return message;
+    return await this.card.canLevelUp(state, this);
   }
 
   isEmpty() {
