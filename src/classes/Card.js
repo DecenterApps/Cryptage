@@ -50,6 +50,10 @@ export default class Card {
     this.parent = null;
     this.minDropSlots = 6;
     this.minEmptyDropSlots = 2;
+    // this.activeBonuses = {
+    //   fpb: { absolute: 0, relative: 0 },
+    // };
+
     if (!Array.isArray(this.mechanics)) {
       this.mechanics = [];
     }
