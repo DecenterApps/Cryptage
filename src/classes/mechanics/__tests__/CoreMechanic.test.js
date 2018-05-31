@@ -29,9 +29,12 @@ describe('CoreMechanic', () => {
     gameplay.stats.development = 100;
 
     const locationCard = new LocationCard({
+      id: 1,
       values: { space: 10, power: 10 },
       cost: { funds: 100, development: 100, level: 1 },
     });
+
+    gameplay.handCards = [locationCard];
 
     let newState = await gameplay.locationSlots[0].dropCard(gameplay, locationCard);
     newState = gameplay.locationSlots[0].removeCard(newState);

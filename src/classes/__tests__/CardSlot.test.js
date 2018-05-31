@@ -81,6 +81,8 @@ describe('CardSlot', () => {
     const locationCard = new LocationCard(cardData);
     const locationCardCopy = new LocationCard({ ...cardData, id: 1 });
 
+    state.handCards = [locationCard, locationCardCopy];
+
     state = await dropSlot.dropCard(state, locationCard);
     await dropSlot.dropCard(state, locationCardCopy);
 

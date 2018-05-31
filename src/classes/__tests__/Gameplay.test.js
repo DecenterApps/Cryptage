@@ -1,6 +1,7 @@
 import Gameplay from '../Gameplay';
 import LocationCard from '../cardTypes/Location';
 import Card from '../Card';
+import CardSlot from '../CardSlot';
 
 describe('Gameplay', () => {
 
@@ -37,7 +38,7 @@ describe('Gameplay', () => {
       values: { space: 10, power: 10 },
       cost: { funds: 50, development: 50 },
       acceptedTags: ['asset'],
-    }
+    };
 
     const state = new Gameplay(10);
     const newBlockNumber = 11;
@@ -49,5 +50,52 @@ describe('Gameplay', () => {
 
     expect(newState.blockNumber).toBe(newBlockNumber);
     expect(newState.funds).toBe(state.fundsPerBlock * (newBlockNumber - state.blockNumber));
+  });
+
+  it('Adds card to played cards on drop', async () => {
+    const cardData = {
+      id: 0,
+      level: 1,
+      metadataId: 1,
+      values: { space: 10, power: 10 },
+      cost: { funds: 50, development: 50 },
+      acceptedTags: ['asset'],
+    };
+
+    let state = new Gameplay(0);
+    const dropSlot = new CardSlot();
+
+    state.handCards = [new LocationCard(cardData)];
+
+    state = await dropSlot.dropCard(state, state.handCards[0]);
+
+    expect(state.handCards.findIndex(handCard => handCard.id === cardData.id)).toBe(-1);
+    expect(state.playedCards.findIndex(playedCard => playedCard.id === cardData.id)).toBe(0);
+  });
+
+  it('Removes all cards from slot', async () => {
+    const cardData = {
+      id: 0,
+      level: 1,
+      metadataId: 1,
+      values: { space: 10, power: 10 },
+      cost: { funds: 50, development: 50 },
+      acceptedTags: ['asset'],
+    };
+
+    let state = new Gameplay(0);
+    const dropSlot = new CardSlot();
+
+    const locationCard = new LocationCard(cardData);
+    const locationCardCopy = new LocationCard({ ...cardData, id: 1 });
+
+    state.handCards = [locationCard, locationCardCopy];
+
+    state = await dropSlot.dropCard(state, locationCard);
+    state = await dropSlot.dropCard(state, locationCardCopy);
+    state = dropSlot.removeCard(state);
+
+    expect(state.playedCards.length).toBe(0);
+    expect(state.handCards.length).toBe(2);
   });
 });

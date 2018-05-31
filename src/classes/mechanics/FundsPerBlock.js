@@ -8,11 +8,13 @@ export default class FundsPerBlock extends Mechanic {
   }
 
   onPlay(state) {
-    return { ...state, fundsPerBlock: state.fundsPerBlock + this.fpb };
+    state.fundsPerBlock = state.fundsPerBlock + this.fpb;
+    return state;
   }
 
   onWithdraw(state) {
-    return { ...state, fundsPerBlock: state.fundsPerBlock - this.fpb };
+    state.fundsPerBlock = state.fundsPerBlock - this.fpb;
+    return state;
   }
 }
 

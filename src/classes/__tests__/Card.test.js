@@ -29,7 +29,9 @@ describe('Card', () => {
 
   it('Can level up with level bellow 5', async () => {
     const card = new Card({ level: 1, id: 0, cost: { funds: 0, development: 0 } }, null);
-    let state = { stats: { funds: 1000000, development: 10000 } };
+    let state = new Gameplay(0);
+    state.stats = { funds: 1000000, development: 10000 };
+
     const dropSlot = new CardSlot();
     state = await dropSlot.dropCard(state, card);
 
@@ -39,8 +41,10 @@ describe('Card', () => {
   });
 
   it('Can not level up with level 5', async () => {
+    let state = new Gameplay(0);
+    state.stats = { funds: 1000000, development: 10000 };
+
     const card = new Card({ level: 5, id: 0, cost: { funds: 0, development: 0 } }, null);
-    let state = { stats: { funds: 1000000, development: 10000 } };
     const dropSlot = new CardSlot();
     state = await dropSlot.dropCard(state, card);
 
@@ -50,8 +54,10 @@ describe('Card', () => {
   });
 
   it('Can not level up with not enough funds', async () => {
+    let state = new Gameplay(0);
+    state.stats = { funds: 0, development: 10000 };
+
     const card = new Card({ level: 1, id: 0, cost: { funds: 0, development: 0 } }, null);
-    let state = { stats: { funds: 0, development: 10000 } };
     const dropSlot = new CardSlot();
     state = await dropSlot.dropCard(state, card);
 
@@ -69,19 +75,19 @@ describe('Card', () => {
       acceptedTags: ['asset'],
     };
     let state = new Gameplay(0);
-
-    state.stats.funds = 101;
-    state.stats.development = 101;
+    state.stats = { funds: 101, development: 101 };
 
     const locationCard = new LocationCard(cardData);
     const locationCardCopy = new LocationCard({ ...cardData, id: 1 });
 
     const assetCard = new Card({
-      id: 0,
+      id: 2,
       level: 1,
       cost: { power: 1, space: 1, funds: 1, development: 1, level: 1 },
       tags: ['asset'],
     });
+
+    state.handCards = [locationCard, locationCardCopy, assetCard];
 
     state = await state.locationSlots[0].dropCard(state, locationCard);
     state = await state.locationSlots[0].card.dropSlots[0].dropCard(state, assetCard);

@@ -4,6 +4,8 @@ export default class CardSlot {
   }
 
   async dropCard(state, card) {
+    state = state.addPlayedCard(state, card);
+
     if (this.card) {
       const leveldUp = await this.card.levelUp(state, this);
       const newState = this.removeCard(state);
@@ -19,6 +21,8 @@ export default class CardSlot {
 
   removeCard(state) {
     if (!this.card) return state;
+
+    state = state.removePlayedCard(state, this.card);
 
     if (this.owner) {
       state = this.owner.onWithdrawChild(state, this.card);

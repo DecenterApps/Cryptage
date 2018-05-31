@@ -41,9 +41,12 @@ describe('LocationMechanic', () => {
     });
 
     const locationCard = new LocationCard({
+      id: 1,
       values: { space: 10, power: 10 },
       cost: { funds: 100, development: 100 },
     });
+
+    gameplay.handCards = [cardToDrop, locationCard];
 
     let newState = await gameplay.locationSlots[0].dropCard(gameplay, locationCard);
     newState = await newState.locationSlots[0].card.dropSlots[1].dropCard(newState, cardToDrop);

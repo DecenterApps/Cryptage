@@ -3,12 +3,10 @@ import CostMechanic from './CostMechanic';
 
 export default class CoreMechanic extends CostMechanic {
   updateValue(state, delta) {
-    return {
-      ...state,
-      stats: {
-        ...state.stats, [this.stat]: this.getValue(state) + delta,
-      },
+    state.stats = {
+      ...state.stats, [this.stat]: this.getValue(state) + delta,
     };
+    return state;
   }
 
   onPlay(state) {
