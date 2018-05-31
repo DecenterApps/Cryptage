@@ -576,3 +576,28 @@ export const getDropSlotsAvailableLevelUp = (slots, card, globalStats) => slots.
 
   return acc;
 }, 0);
+
+
+export const mergeErrorMessages = (...messages) => {
+  const result = {};
+  let allowed = true;
+  for (const message of messages) {
+    for (const prop of Object.keys(message)) {
+      if (Array.isArray(message[prop])) {
+        if (!result[prop]) {
+          result[prop] = message[prop].slice(0);
+        } else {
+          result[prop] = result[prop].concat(message[prop]);
+        }
+        if (allowed && result[prop].length > 0) {
+          allowed = false;
+        }
+      } else if (typeof result[prop] === 'undefined' || result[prop]) {
+        result[prop] = message[prop];
+        allowed = allowed && result[prop];
+      }
+    }
+  }
+  result.allowed = allowed;
+  return result;
+};
