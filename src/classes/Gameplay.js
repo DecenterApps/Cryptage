@@ -11,9 +11,7 @@ import { calculateLevelData } from '../services/gameMechanicsService';
 export default class Gameplay {
 
   constructor(blockNumber) {
-    this.allCards = [];
-    this.playedCards = [];
-    this.handCards = [];
+    this.cards = [];
     this.blockNumber = blockNumber;
     this.stats = {
       level: config.globalStats.level,
@@ -34,27 +32,6 @@ export default class Gameplay {
     }
   }
 
-  addPlayedCard(state, card) {
-    const cardIndex = state.handCards.findIndex(handCard => handCard.id === card.id);
-    state.playedCards.push(state.handCards.splice(cardIndex, 1)[0]);
-
-    return state;
-  }
-
-  removePlayedCard(state, card) {
-    const cardsToAddToHand = card.stackedCardIds
-      .reduce((acc, stackedCardId) => {
-        const cardIndex = state.playedCards.findIndex(playedCard => playedCard.id === stackedCardId);
-        acc.push(state.playedCards.splice(cardIndex, 1)[0]);
-
-        return acc;
-      }, []);
-
-    state.handCards = state.handCards.concat(cardsToAddToHand);
-
-    return state;
-  }
-
   getCardsOfType(type) {
     return this.playedCards.filter(card => card instanceof type);
   }
@@ -68,7 +45,7 @@ export default class Gameplay {
       state = card.block(state, blockCount);
     }
 
-    return Object.assign(this, {
+    return {
       ...state,
       stats: {
         ...state.stats,
@@ -76,6 +53,6 @@ export default class Gameplay {
       },
       funds: state.funds + (state.fundsPerBlock * blockCount),
       blockNumber,
-    });
+    };
   }
 }

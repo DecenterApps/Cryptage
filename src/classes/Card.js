@@ -45,12 +45,11 @@ export default class Card {
     Object.assign(this, data);
 
     this.dropSlots = [];
-    this.stackedCardIds = [data.id];
+    this.stackedCards = [this];
     this.active = false;
     this.parent = null;
     this.minDropSlots = 6;
     this.minEmptyDropSlots = 2;
-
     if (!Array.isArray(this.mechanics)) {
       this.mechanics = [];
     }
@@ -109,6 +108,7 @@ export default class Card {
   }
 
   onPlay(state, dropSlot) {
+    this.active = true;
     return this._on('onPlay', state, dropSlot);
   }
 
@@ -125,6 +125,10 @@ export default class Card {
 
     for (const slot of this.dropSlots) {
       newState = slot.removeCard(newState);
+    }
+
+    while (this.stackedCards.length) {
+      this.stackedCards.pop().active = false;
     }
 
     return newState;
@@ -174,7 +178,7 @@ export default class Card {
 
     const leveledUp = Card.getLeveledInstance(this.id, droppedCard);
     leveledUp.dropSlots = droppedCard.dropSlots;
-    leveledUp.stackedCardIds = droppedCard.stackedCardIds.concat(leveledUp.id);
+    leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
 
     for (const cardSlot of droppedCard.dropSlots) {
       cardSlot.owner = leveledUp;
