@@ -3,13 +3,13 @@ export default class CardSlot {
     if (owner) this.owner = owner;
   }
 
-  async dropCard(state, card) {
+  dropCard(state, card) {
     state = state.addPlayedCard(state, card);
 
     if (this.card) {
-      const leveldUp = await this.card.levelUp(state, this);
+      const leveledUp = this.card.levelUp(state, this);
       const newState = this.removeCard(state);
-      return this.dropCard(newState, leveldUp);
+      return this.dropCard(newState, leveledUp);
     }
 
     this.card = card;
@@ -37,7 +37,7 @@ export default class CardSlot {
     return state;
   }
 
-  async canDrop(state, card) {
+  canDrop(state, card) {
     if (this.isEmpty()) {
       const { acceptedTags } = this.owner || this;
 
@@ -45,10 +45,10 @@ export default class CardSlot {
         return { allowed: false };
       }
 
-      return await card.canPlay(state, this);
+      return card.canPlay(state, this);
     }
 
-    return await this.card.canLevelUp(state, this);
+    return this.card.canLevelUp(state, this);
   }
 
   isEmpty() {

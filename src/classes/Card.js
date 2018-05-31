@@ -1,6 +1,7 @@
 import Mechanic from './Mechanic';
 import { fetchCardMeta, fetchCardStats } from '../services/cardService';
 import CardSlot from './CardSlot';
+import { mergeErrorMessages } from '../services/utils';
 
 const cardTypes = new Map();
 
@@ -27,13 +28,13 @@ export default class Card {
     });
   }
 
-  static getLeveledInstance(card, level = undefined) {
+  static getLeveledInstance(id, card, level = undefined) {
     if (!level) {
       level = card.level + 1;
     }
     const stats = fetchCardStats(card.metadataId, level);
     return new (this.getTypeConstructor(stats.type))({
-      id: card.id,
+      id,
       metadataId: card.metadataId,
       level,
       ...stats,
@@ -88,40 +89,21 @@ export default class Card {
     return state;
   }
 
-  async _can(method, ...params) {
-    const result = { allowed: true };
-
-    for (const mechanic of this.mechanics) {
-      if (mechanic[method]) {
-        const res = await mechanic[method](...params);
-        if (res.special) {
-          result.special = (result.special || []).concat(res.special);
-          delete res.special;
-        }
-        Object.assign(result, res);
-      }
-    }
-
-    if (result.special && result.special.length > 0 || Object.keys(result).some(
-      (key) => key !== 'allowed' && result[key] !== true
-    ) === true) {
-      result.allowed = false;
-    }
-
-    return result;
+  _can(method, ...params) {
+    return mergeErrorMessages(...this.mechanics.map(mechanic => mechanic[method](...params)));
   }
 
-  async canPlay(state, dropSlot) {
+  canPlay(state, dropSlot) {
     if (!dropSlot) return { allowed: false };
-    if (!dropSlot.isEmpty()) return await this.canLevelUp(state, dropSlot);
+    if (!dropSlot.isEmpty()) return this.canLevelUp(state, dropSlot);
 
     const result = {};
 
     if (dropSlot.owner) {
-      Object.assign(result, await dropSlot.owner.canPlayChild(state, this));
+      Object.assign(result, dropSlot.owner.canPlayChild(state, this));
     }
 
-    Object.assign(result, await this._can('canPlay', state, dropSlot));
+    Object.assign(result, this._can('canPlay', state, dropSlot));
 
     return result;
   }
@@ -131,11 +113,21 @@ export default class Card {
   }
 
   canWithdraw(state) {
-    return this._can('canWithdraw', state);
+    return mergeErrorMessages(
+      this._can('canWithdraw', state),
+      this.parent ? this.parent.canWithdrawChild(state, this) : {},
+      ...this.dropSlots.filter(slot => !slot.isEmpty()).map(({ card }) => card.canWithdraw(state))
+    );
   }
 
   onWithdraw(state) {
-    return this._on('onWithdraw', state);
+    let newState = this._on('onWithdraw', state);
+
+    for (const slot of this.dropSlots) {
+      newState = slot.removeCard(newState);
+    }
+
+    return newState;
   }
 
   canPlayChild(state, child) {
@@ -158,7 +150,7 @@ export default class Card {
     return this._on('block', state, blockCount);
   }
 
-  async canLevelUp(state, dropSlot) {
+  canLevelUp(state, dropSlot) {
     // this === dragged card
     const droppedCard = dropSlot.card;
 
@@ -168,19 +160,19 @@ export default class Card {
 
     if (!result.allowed) return result;
 
-    const instance = await Card.getInstance(droppedCard.id, droppedCard.level + 1);
+    const instance = Card.getLeveledInstance(this.id, droppedCard);
     result.allowed = state.stats.funds >= instance.cost.funds;
 
     if (!result.allowed) return result;
 
-    return Object.assign(result, await droppedCard._can('canLevelUp', state, dropSlot));
+    return Object.assign(result, droppedCard._can('canLevelUp', state, dropSlot));
   }
 
-  async levelUp(state, dropSlot) {
+  levelUp(state, dropSlot) {
     // this === dragged card
     const droppedCard = dropSlot.card;
 
-    const leveledUp = await Card.getInstance(droppedCard.id, droppedCard.level + 1);
+    const leveledUp = Card.getLeveledInstance(this.id, droppedCard);
     leveledUp.dropSlots = droppedCard.dropSlots;
     leveledUp.stackedCardIds = droppedCard.stackedCardIds.concat(leveledUp.id);
 
