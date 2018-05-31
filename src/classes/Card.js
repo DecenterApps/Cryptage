@@ -1,5 +1,5 @@
 import Mechanic from './Mechanic';
-import { fetchCardMeta } from '../services/cardService';
+import { fetchCardMeta, fetchCardStats } from '../services/cardService';
 import CardSlot from './CardSlot';
 
 const cardTypes = new Map();
@@ -24,6 +24,19 @@ export default class Card {
       metadataId: cardMeta.metadata.id,
       level,
       ...cardMeta.stats,
+    });
+  }
+
+  static getLeveledInstance(card, level = undefined) {
+    if (!level) {
+      level = card.level + 1;
+    }
+    const stats = fetchCardStats(card.metadataId, level);
+    return new (this.getTypeConstructor(stats.type))({
+      id: card.id,
+      metadataId: card.metadataId,
+      level,
+      ...stats,
     });
   }
 
