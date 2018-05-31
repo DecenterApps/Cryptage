@@ -572,22 +572,15 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
  * @return {Array}
  */
 export const calculateLevelData = (experience) => {
-  let earnedXp = experience;
-  let currentLevel;
-  let nextLevel;
-  for (let i = 0; i < levels.length; i += 1) {
-    if (earnedXp < levels[i].change) {
-      currentLevel = levels[i - 1];
-      nextLevel = levels[i];
-      break;
-    }
-    earnedXp -= levels[i].change;
+
+  let level = 0;
+  while (levels[level].exp < experience) {
+    level++;
   }
 
   return {
-    requiredXp: nextLevel.change,
-    level: currentLevel.level,
-    earnedXp,
+    level,
+    requiredXp: levels[level + 1].change - (experience - levels[level].exp),
   };
 };
 
