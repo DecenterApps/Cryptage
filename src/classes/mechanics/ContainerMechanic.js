@@ -2,19 +2,17 @@ import Mechanic from '../Mechanic';
 import CoreMechanic from './CoreMechanic';
 
 export default class ContainerMechanic extends CoreMechanic {
-  async canPlayChild(state, child) {
-    const matchesTag = this.card.acceptedTags.some(acceptedTag => child.tags.includes(acceptedTag));
+  canPlayChild(state, child) {
+
     const locationHasEnoughPower = this.card.parent.power >= child.cost.power;
-    if (!matchesTag || !locationHasEnoughPower) return { canDropInContainer: false };
+    if (!locationHasEnoughPower) return { canDropInContainer: false };
 
     const atLeastOneEmptySlot = this.card.dropSlots.some(slot => slot.isEmpty());
     if (atLeastOneEmptySlot) return { canDropInContainer: true };
 
-    const promiseMap = this.card.dropSlots.map(slot => slot.card.canLevelUp(state, slot));
-
-    return await Promise.all(promiseMap).then(res => (
-      { canDropInContainer: res.incldes(true) }
-    ));
+    return {
+      canDropInContainer: this.card.dropSlots.some(slot => slot.card.canLevelUp(state, slot)),
+    };
   }
 
   onPlayChild(state, child) {
