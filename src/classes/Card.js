@@ -75,12 +75,12 @@ export default class Card {
     return state;
   }
 
-  _can(method, ...params) {
+  async _can(method, ...params) {
     const result = { allowed: true };
 
     for (const mechanic of this.mechanics) {
       if (mechanic[method]) {
-        const res = mechanic[method](...params);
+        const res = await mechanic[method](...params);
         if (res.special) {
           result.special = (result.special || []).concat(res.special);
           delete res.special;
@@ -105,10 +105,10 @@ export default class Card {
     const result = {};
 
     if (dropSlot.owner) {
-      Object.assign(result, dropSlot.owner._can('canPlayChild', state, this));
+      Object.assign(result, await dropSlot.owner.canPlayChild(state, this));
     }
 
-    Object.assign(result, this._can('canPlay', state, dropSlot));
+    Object.assign(result, await this._can('canPlay', state, dropSlot));
 
     return result;
   }
@@ -160,7 +160,7 @@ export default class Card {
 
     if (!result.allowed) return result;
 
-    return Object.assign(result, droppedCard._can('canLevelUp', state, dropSlot));
+    return Object.assign(result, await droppedCard._can('canLevelUp', state, dropSlot));
   }
 
   async levelUp(state, dropSlot) {

@@ -1,6 +1,5 @@
 import ContainerCard from '../Container';
 import Gameplay from '../../Gameplay';
-import ContainerCardSlot from '../../slotTypes/ContainerCardSlot';
 
 describe('Container', () => {
   it('Has all defined constructor values', async () => {
@@ -18,7 +17,6 @@ describe('Container', () => {
       cost: { funds: 50, development: 50, level: 1, values: { space } },
     }, gameplay);
 
-    expect(containerCard.dropSlots[0]).toBeInstanceOf(ContainerCardSlot);
     expect(containerCard.space).toBe(space);
   });
 });
