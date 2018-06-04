@@ -1,28 +1,24 @@
 import Mechanic from '../Mechanic';
-import CoreMechanic from './CoreMechanic';
 
-export default class ContainerMechanic extends CoreMechanic {
+export default class ContainerMechanic extends Mechanic {
   canPlayChild(state, child) {
-
     const locationHasEnoughPower = this.card.parent.power >= child.cost.power;
+
     if (!locationHasEnoughPower) return { canDropInContainer: false };
 
-    const atLeastOneEmptySlot = this.card.dropSlots.some(slot => slot.isEmpty());
-    if (atLeastOneEmptySlot) return { canDropInContainer: true };
-
     return {
-      canDropInContainer: this.card.dropSlots.some(slot => slot.card.canLevelUp(state, slot)),
+      canDropInContainer: this.card.dropSlots.some(slot => slot.isEmpty()),
     };
   }
 
   onPlayChild(state, child) {
-    this.card.parent.power -= child.cost[this.stat];
+    this.card.parent.power -= child.cost.power;
     this.card.space -= 1;
     return state;
   }
 
   onWithdrawChild(state, child) {
-    this.card.parent.power += child.cost[this.stat];
+    this.card.parent.power += child.cost.power;
     this.card.space += 1;
     return state;
   }
