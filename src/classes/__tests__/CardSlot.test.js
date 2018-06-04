@@ -62,7 +62,7 @@ describe('CardSlot', () => {
     state = await dropSlot.dropCard(state, locationCard);
     const canDrop = dropSlot.canDrop(state, locationCardCopy);
 
-    expect(canDrop.allowed).toBeFalsy();
+    expect(canDrop.allowed).toBeTruthy();
   });
 
   it('Levels up a card when there is another card in the slot', async () => {
@@ -86,7 +86,7 @@ describe('CardSlot', () => {
     state = await dropSlot.dropCard(state, locationCard);
     await dropSlot.dropCard(state, locationCardCopy);
 
-    expect(dropSlot.card.stackedCardIds).toContain(0, 1);
+    expect(dropSlot.card.stackedCards).toContain(locationCard, locationCardCopy);
     expect(dropSlot.card.level).toBe(2);
   });
 

@@ -4,11 +4,9 @@ export default class CardSlot {
   }
 
   dropCard(state, card) {
-    state = state.addPlayedCard(state, card);
-
     if (this.card) {
       const leveledUp = this.card.levelUp(state, this);
-      const newState = this.removeCard(state);
+      const newState = this.removeCard(state, true);
       return this.dropCard(newState, leveledUp);
     }
 
@@ -19,17 +17,15 @@ export default class CardSlot {
     return this.card.onPlay(state, this);
   }
 
-  removeCard(state) {
+  removeCard(state, onLevelUp = false) {
     if (!this.card) return state;
-
-    state = state.removePlayedCard(state, this.card);
 
     if (this.owner) {
       state = this.owner.onWithdrawChild(state, this.card);
       this.owner.removeDropSlot(this);
     }
 
-    state = this.card.onWithdraw(state);
+    state = this.card.onWithdraw(state, onLevelUp);
 
     this.card.parent = null;
     this.card = null;

@@ -22,13 +22,13 @@ describe('Card', () => {
     const card = new Card({ id: cardId, mechanics: [{ name: 'unique' }] });
 
     expect(card.dropSlots).toBeInstanceOf(Array);
-    expect(card.stackedCardIds).toContain(cardId);
     expect(card.active).toBeFalsy();
     expect(card.mechanics[0]).toBeInstanceOf(Unique);
   });
 
   it('Can level up with level bellow 5', async () => {
-    const card = new Card({ level: 1, id: 0, cost: { funds: 0, development: 0 } }, null);
+    const card = new Card({ level: 1, metadataId: 0, id: 0, cost: { funds: 0, development: 0 } }, null);
+
     let state = new Gameplay(0);
     state.stats = { funds: 1000000, development: 10000 };
 
@@ -57,7 +57,7 @@ describe('Card', () => {
     let state = new Gameplay(0);
     state.stats = { funds: 0, development: 10000 };
 
-    const card = new Card({ level: 1, id: 0, cost: { funds: 0, development: 0 } }, null);
+    const card = new Card({ level: 1, metadataId: 0, id: 0, cost: { funds: 0, development: 0 } }, null);
     const dropSlot = new CardSlot();
     state = await dropSlot.dropCard(state, card);
 
@@ -68,6 +68,7 @@ describe('Card', () => {
 
   it('On level up replaces the cards dropSlots owner and filled dropSlots parent', async () => {
     const cardData = {
+      metadataId: 0,
       id: 0,
       level: 1,
       values: { space: 10, power: 10 },

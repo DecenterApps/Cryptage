@@ -93,7 +93,11 @@ export default class Card {
   }
 
   _can(method, ...params) {
-    return mergeErrorMessages(...this.mechanics.map(mechanic => mechanic[method](...params)));
+    const errorMessages = this.mechanics
+      .map(mechanic => mechanic[method] ? mechanic[method](...params) : null)
+      .filter(errorMessage => errorMessage !== null);
+
+    return mergeErrorMessages(...errorMessages);
   }
 
   canPlay(state, dropSlot) {
@@ -124,15 +128,17 @@ export default class Card {
     );
   }
 
-  onWithdraw(state) {
+  onWithdraw(state, ignoreSlots = false) {
     let newState = this._on('onWithdraw', state);
 
-    for (const slot of this.dropSlots) {
-      newState = slot.removeCard(newState);
-    }
+    if (!ignoreSlots) {
+      for (const slot of this.dropSlots) {
+        newState = slot.removeCard(newState);
+      }
 
-    while (this.stackedCards.length) {
-      this.stackedCards.pop().active = false;
+      while (this.stackedCards.length) {
+        this.stackedCards.pop().active = false;
+      }
     }
 
     return newState;
@@ -184,7 +190,7 @@ export default class Card {
     leveledUp.dropSlots = droppedCard.dropSlots;
     leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
 
-    for (const cardSlot of droppedCard.dropSlots) {
+    for (const cardSlot of leveledUp.dropSlots) {
       cardSlot.owner = leveledUp;
       if (!cardSlot.isEmpty()) {
         cardSlot.card.parent = leveledUp;
