@@ -11,13 +11,15 @@ export default class ProjectCard extends Card {
     this.timesFinished = 0;
 
     this.mechanics.push(Mechanic.getInstance('projectExpiry', this));
+    // do not add bonuses onPlay or set that those bonuses are params
+    // for the projectExpiry mechanic
   }
 
   canRestart(state) {
     return mergeErrorMessages({
-      development: this.cost.development > state.stats.development,
-      funds: this.cost.funds > state.stats.funds,
-      projectActive: !this.card.running,
+      development: state.stats.development >= this.cost.development,
+      funds: state.stats.funds >= this.cost.funds,
+      projectActive: !this.running,
     });
   }
 
