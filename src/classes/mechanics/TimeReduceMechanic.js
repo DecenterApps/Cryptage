@@ -1,8 +1,13 @@
 import Mechanic from '../Mechanic';
 
 export default class TimeReduceMechanic extends Mechanic {
-  onPlay(state, percentToReduce) {
-    const percentToDeduct = Math.ceil((percentToReduce / 100) * state.projectExecutionTimePercent);
+  constructor(card, percentToReduce) {
+    super(card);
+    this.percentToReduce = percentToReduce;
+  }
+
+  onPlay(state) {
+    const percentToDeduct = Math.ceil((this.percentToReduce / 100) * state.projectExecutionTimePercent);
     this.percentReduced = percentToDeduct;
     state.projectExecutionTimePercent -= percentToDeduct;
 
