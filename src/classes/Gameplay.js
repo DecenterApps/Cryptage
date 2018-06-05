@@ -13,6 +13,7 @@ export default class Gameplay {
   constructor(blockNumber) {
     this.cards = [];
     this.blockNumber = blockNumber;
+    this.projectExecutionTimePercent = 100;
     this.stats = {
       level: config.globalStats.level,
       experience: config.globalStats.experience,
@@ -42,7 +43,7 @@ export default class Gameplay {
     if (blockCount < 1) return state;
 
     for (const card of this.playedCards) {
-      state = card.block(state, blockCount);
+      state = card.block(state, blockNumber, blockCount);
     }
 
     return {

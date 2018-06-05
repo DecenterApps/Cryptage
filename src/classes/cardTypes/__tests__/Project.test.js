@@ -18,7 +18,7 @@ describe('Project', () => {
       cost: { funds: 50, development: 50, level: 1, time: timeCost },
     }, gameplay);
 
-    expect(projectCard.isActive).toBeFalsy();
+    expect(projectCard.running).toBeTruthy();
     expect(projectCard.expiryTime).toBe(blockNumber + timeCost);
     expect(projectCard.timesFinished).toBe(0);
   });

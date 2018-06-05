@@ -906,3 +906,6 @@ export const calcTinkererPerLocationBonus = (locations, locationIndex, stats) =>
 
   return bonusFpbMiningAlgo(minerFundsPerLocations, stats.bonus.multiplierFunds, 1);
 };
+
+export const calcExpiryBlocksLeft = (card, blockNumber, projectExecutionTimePercent) =>
+  Math.floor((projectExecutionTimePercent / 100) * (card.expiryTime - blockNumber));
