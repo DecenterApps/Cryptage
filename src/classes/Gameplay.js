@@ -42,7 +42,7 @@ export default class Gameplay {
 
     if (blockCount < 1) return state;
 
-    for (const card of this.playedCards) {
+    for (const card of this.cards) {
       state = card.block(state, blockNumber, blockCount);
     }
 

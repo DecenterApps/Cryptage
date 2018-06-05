@@ -1,5 +1,6 @@
 import Card from '../Card';
 import Mechanic from '../Mechanic';
+import { mergeErrorMessages } from '../../services/utils';
 
 export default class ProjectCard extends Card {
   constructor(data, state) {
@@ -13,10 +14,11 @@ export default class ProjectCard extends Card {
   }
 
   canRestart(state) {
-    return {
+    return mergeErrorMessages({
       development: this.cost.development > state.stats.development,
       funds: this.cost.funds > state.stats.funds,
-    };
+      projectActive: !this.card.running,
+    });
   }
 
   restartProject(state) {
