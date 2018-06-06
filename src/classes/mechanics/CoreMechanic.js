@@ -2,6 +2,8 @@ import Mechanic from '../Mechanic';
 import CostMechanic from './CostMechanic';
 
 export default class CoreMechanic extends CostMechanic {
+  canPlay() { return {}; }
+
   updateValue(state, delta) {
     state.stats = {
       ...state.stats, [this.stat]: this.getValue(state) + delta,

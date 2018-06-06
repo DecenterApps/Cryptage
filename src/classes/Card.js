@@ -50,8 +50,10 @@ export default class Card {
     this.parent = null;
     this.minDropSlots = 6;
     this.minEmptyDropSlots = 2;
+
     // this.activeBonuses = {
-    //   fpb: { absolute: 0, relative: 0 },
+    //   fpb: { absolute: { funds: 1 }, relative: { development: 1 } },
+    //   fpbForUnspentLocationVal: { relative: { fundsPerBlock: 3 } }
     // };
 
     if (!Array.isArray(this.mechanics)) {
@@ -64,6 +66,9 @@ export default class Card {
       Mechanic.getInstance('cost', this, ['level']),
       Mechanic.getInstance('core', this, ['funds']),
       Mechanic.getInstance('core', this, ['development']),
+      Mechanic.getInstance('bonus', this, ['funds']),
+      Mechanic.getInstance('bonus', this, ['development']),
+      Mechanic.getInstance('bonus', this, ['experience']),
     ]);
   }
 
