@@ -13,7 +13,7 @@ describe('TimeReduceMechanic', () => {
     const projectCard = new ProjectCard({
       cost: { development: 1, funds: 1, time: 10, level: 1 },
       bonus: { funds: 10, experience: 10 },
-      mechanics: [{ name: 'timeReduce', params: 10 }],
+      mechanics: [{ name: 'timeReduce', params: [10] }],
     }, gameplay);
 
     gameplay.cards = [projectCard];
@@ -32,7 +32,7 @@ describe('TimeReduceMechanic', () => {
     const projectCard = new ProjectCard({
       cost: { development: 1, funds: 1, time: 10, level: 1 },
       bonus: { funds: 10, experience: 10 },
-      mechanics: [{ name: 'timeReduce', params: 110 }],
+      mechanics: [{ name: 'timeReduce', params: [110] }],
     }, gameplay);
 
     gameplay.cards = [projectCard];
@@ -51,7 +51,7 @@ describe('TimeReduceMechanic', () => {
     const projectCard = new ProjectCard({
       cost: { development: 1, funds: 1, time: 10, level: 1 },
       bonus: { funds: 10, experience: 10 },
-      mechanics: [{ name: 'timeReduce', params: 10 }],
+      mechanics: [{ name: 'timeReduce', params: [10] }],
     }, gameplay);
 
     gameplay.cards = [projectCard];
@@ -71,7 +71,7 @@ describe('TimeReduceMechanic', () => {
     const projectCard = new ProjectCard({
       cost: { development: 1, funds: 1, time: 10, level: 1 },
       bonus: { funds: 10, experience: 10 },
-      mechanics: [{ name: 'timeReduce', params: 110 }],
+      mechanics: [{ name: 'timeReduce', params: [110] }],
     }, gameplay);
 
     gameplay.cards = [projectCard];

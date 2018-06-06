@@ -15,6 +15,10 @@ export default class ProjectCard extends Card {
     // for the projectExpiry mechanic
   }
 
+  onProjectEnd(state) {
+    return this._on('onProjectEnd', state);
+  }
+
   canRestart(state) {
     return mergeErrorMessages({
       development: state.stats.development >= this.cost.development,

@@ -61,9 +61,9 @@ export default class Card {
     this.mechanics = this.mechanics.map(({ name, params }) => {
       return Mechanic.getInstance(name, this, params);
     }).concat([
-      Mechanic.getInstance('cost', this, 'level'),
-      Mechanic.getInstance('core', this, 'funds'),
-      Mechanic.getInstance('core', this, 'development'),
+      Mechanic.getInstance('cost', this, ['level']),
+      Mechanic.getInstance('core', this, ['funds']),
+      Mechanic.getInstance('core', this, ['development']),
     ]);
   }
 
@@ -87,7 +87,7 @@ export default class Card {
 
   _on(action, state, ...params) {
     for (const mechanic of this.mechanics) {
-      state = mechanic[action](state, ...params);
+      state = mechanic[action] ? mechanic[action](state, ...params) : state;
     }
     return state;
   }

@@ -19,7 +19,7 @@ export default class ProjectExpiryMechanic extends Mechanic {
     state.stats.development += this.card.cost.development;
     state.stats.funds += this.card.bonus.funds;
 
-    return state;
+    return this.card.onProjectEnd(state);
   }
 }
 
