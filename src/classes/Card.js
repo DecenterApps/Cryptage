@@ -51,10 +51,13 @@ export default class Card {
     this.minDropSlots = 6;
     this.minEmptyDropSlots = 2;
 
-    // this.activeBonuses = {
-    //   fpb: { absolute: { funds: 1 }, relative: { development: 1 } },
-    //   fpbForUnspentLocationVal: { relative: { fundsPerBlock: 3 } }
-    // };
+    this.additionalBonuses = {
+      funds: { absolute: 0, relative: 0 },
+      development: { absolute: 0, relative: 0 },
+      experience: { absolute: 0, relative: 0 },
+      fundsPerBlock: { absolute: 0, relative: 0 },
+      power: { absolute: 0, relative: 0 },
+    };
 
     if (!Array.isArray(this.mechanics)) {
       this.mechanics = [];
@@ -69,7 +72,26 @@ export default class Card {
       Mechanic.getInstance('bonus', this, ['funds']),
       Mechanic.getInstance('bonus', this, ['development']),
       Mechanic.getInstance('bonus', this, ['experience']),
+      Mechanic.getInstance('bonus', this, ['fundsPerBlock']),
     ]);
+  }
+
+  changeBonuses(state, bonusesObject) {
+    state = this._on('onBeforeChangeBonuses', state);
+
+    for (const stat of Object.keys(bonusesObject)) {
+      this.additionalBonuses[stat].absolute += bonusesObject[stat].absolute;
+      this.additionalBonuses[stat].relative += bonusesObject[stat].relative;
+    }
+
+    return this._on('onAfterChangeBonuses', state);
+  }
+
+  getBonusStatValue(stat) {
+    const baseBonus = this.bonus[stat];
+    const absBonus = this.additionalBonuses[stat].absolute;
+    const relativeBonus = this.additionalBonuses[stat].relative;
+    return (baseBonus + absBonus) * relativeBonus;
   }
 
   addNewDropSlot(SlotType = CardSlot) {

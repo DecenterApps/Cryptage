@@ -20,6 +20,7 @@ export default class Gameplay {
       requiredXp: levels[1].change,
       funds: config.globalStats.funds,
       development: config.globalStats.development,
+      fundsPerBlock: 0,
     };
     this.locationSlots = new Array(cardConfig.locationSlots);
     this.projectSlots = new Array(cardConfig.projectSlots);
@@ -51,8 +52,8 @@ export default class Gameplay {
       stats: {
         ...state.stats,
         ...calculateLevelData(state.stats.experience),
+        funds: state.stats.funds + (state.stats.fundsPerBlock * blockCount),
       },
-      funds: state.funds + (state.fundsPerBlock * blockCount),
       blockNumber,
     };
   }
