@@ -226,6 +226,10 @@
           left: 8px;
           top: 26px;
           width: 155px;
+          @include for-big-desktop {
+            width: 170px;
+            left: -1px;
+          }
 
           .name {
             font-family: $font-secondary;
@@ -253,6 +257,9 @@
             position: relative;
             top: -4px;
             z-index: 12;
+            overflow: hidden;
+            white-space: pre;
+            text-overflow: ellipsis;
 
             @include for-big-desktop {
               font-size: 17px;
@@ -270,7 +277,7 @@
             @include for-big-desktop {
               transform: scale(1.29);
               bottom: 18px;
-              left: -1px;
+              left: 9px;
             }
           }
         }
