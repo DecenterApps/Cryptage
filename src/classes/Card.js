@@ -128,9 +128,6 @@ export default class Card {
   }
 
   canPlay(state, dropSlot) {
-    if (!dropSlot) return { allowed: false };
-    if (!dropSlot.isEmpty()) return this.canLevelUp(state, dropSlot);
-
     const result = {};
 
     if (dropSlot.owner) {
