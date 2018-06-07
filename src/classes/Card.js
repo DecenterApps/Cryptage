@@ -1,3 +1,4 @@
+import cardsConfig from '../constants/cards.json';
 import Mechanic from './Mechanic';
 import { fetchCardMeta, fetchCardStats } from '../services/cardService';
 import CardSlot from './CardSlot';
@@ -55,7 +56,7 @@ export default class Card {
     this.stackedCards = [this];
     this.active = false;
     this.parent = null;
-    this.minDropSlots = 6;
+    this.minDropSlots = cardsConfig.locationMinSlots;
     this.minEmptyDropSlots = 2;
 
     this.additionalBonuses = EMPTY_ADITIONAL_BONUSES;
@@ -89,7 +90,7 @@ export default class Card {
   }
 
   getBonusStatValue(stat) {
-    const baseBonus = this.bonus[stat];
+    const baseBonus = this.bonus && this.bonus[stat] ? this.bonus[stat] : 0;
     const absBonus = this.additionalBonuses[stat].absolute;
     const relativeBonus = this.additionalBonuses[stat].relative;
     return (baseBonus + absBonus) * relativeBonus;

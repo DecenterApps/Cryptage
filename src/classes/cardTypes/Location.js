@@ -1,4 +1,3 @@
-import cardsConfig from '../../constants/cards.json';
 import Card from '../Card';
 import CardSlot from '../CardSlot';
 import Mechanic from '../Mechanic';
@@ -7,7 +6,7 @@ export default class LocationCard extends Card {
   constructor(data) {
     super(data);
 
-    this.dropSlots = new Array(cardsConfig.locationMinSlots);
+    this.dropSlots = new Array(this.minDropSlots);
     this.power = data.values.power;
     this.space = data.values.space;
 
