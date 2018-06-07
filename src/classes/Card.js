@@ -4,6 +4,13 @@ import CardSlot from './CardSlot';
 import { mergeErrorMessages } from '../services/utils';
 
 const cardTypes = new Map();
+const EMPTY_ADITIONAL_BONUSES = {
+  funds: { absolute: 0, relative: 0 },
+  development: { absolute: 0, relative: 0 },
+  experience: { absolute: 0, relative: 0 },
+  fundsPerBlock: { absolute: 0, relative: 0 },
+  power: { absolute: 0, relative: 0 },
+};
 
 export default class Card {
 
@@ -51,13 +58,7 @@ export default class Card {
     this.minDropSlots = 6;
     this.minEmptyDropSlots = 2;
 
-    this.additionalBonuses = {
-      funds: { absolute: 0, relative: 0 },
-      development: { absolute: 0, relative: 0 },
-      experience: { absolute: 0, relative: 0 },
-      fundsPerBlock: { absolute: 0, relative: 0 },
-      power: { absolute: 0, relative: 0 },
-    };
+    this.additionalBonuses = EMPTY_ADITIONAL_BONUSES;
 
     if (!Array.isArray(this.mechanics)) {
       this.mechanics = [];
@@ -156,6 +157,8 @@ export default class Card {
     let newState = this._on('onWithdraw', state);
 
     if (!ignoreSlots) {
+      this.additionalBonuses = EMPTY_ADITIONAL_BONUSES;
+
       for (const slot of this.dropSlots) {
         newState = slot.removeCard(newState);
       }
@@ -212,6 +215,7 @@ export default class Card {
 
     const leveledUp = Card.getLeveledInstance(this.id, droppedCard);
     leveledUp.dropSlots = droppedCard.dropSlots;
+    leveledUp.additionalBonuses = droppedCard.additionalBonuses;
     leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
 
     for (const cardSlot of leveledUp.dropSlots) {

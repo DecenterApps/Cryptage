@@ -15,9 +15,9 @@ export default class ProjectExpiryMechanic extends Mechanic {
     this.card.running = false;
     this.card.timesFinished += 1;
 
-    state.stats.experience += this.card.bonus.experience;
+    state.stats.experience += this.card.getBonusStatValue('experience');
+    state.stats.funds += this.card.getBonusStatValue('funds');
     state.stats.development += this.card.cost.development;
-    state.stats.funds += this.card.bonus.funds;
 
     return this.card.onProjectEnd(state);
   }
