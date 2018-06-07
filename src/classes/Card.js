@@ -155,25 +155,23 @@ export default class Card {
     );
   }
 
-  onWithdraw(state, ignoreSlots = false) {
+  onWithdraw(state) {
     let newState = this._on('onWithdraw', state);
 
-    if (!ignoreSlots) {
-      this.additionalBonuses = {
-        funds: { absolute: 0, relative: 0 },
-        development: { absolute: 0, relative: 0 },
-        experience: { absolute: 0, relative: 0 },
-        fundsPerBlock: { absolute: 0, relative: 0 },
-        power: { absolute: 0, relative: 0 },
-      };
+    this.additionalBonuses = {
+      funds: { absolute: 0, relative: 0 },
+      development: { absolute: 0, relative: 0 },
+      experience: { absolute: 0, relative: 0 },
+      fundsPerBlock: { absolute: 0, relative: 0 },
+      power: { absolute: 0, relative: 0 },
+    };
 
-      for (const slot of this.dropSlots) {
-        newState = slot.removeCard(newState);
-      }
+    for (const slot of this.dropSlots) {
+      newState = slot.removeCard(newState);
+    }
 
-      while (this.stackedCards.length) {
-        this.stackedCards.pop().active = false;
-      }
+    while (this.stackedCards.length) {
+      this.stackedCards.pop().active = false;
     }
 
     return newState;

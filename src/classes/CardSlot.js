@@ -36,7 +36,7 @@ export default class CardSlot {
     return this.card.onPlay(state, this);
   }
 
-  removeCard(state, onLevelUp = false) {
+  removeCard(state) {
     if (!this.card) return state;
 
     if (this.owner) {
@@ -44,7 +44,7 @@ export default class CardSlot {
       this.owner.removeDropSlot(this);
     }
 
-    state = this.card.onWithdraw(state, onLevelUp);
+    state = this.card.onWithdraw(state);
 
     this.card.parent = null;
     this.card = null;
