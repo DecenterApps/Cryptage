@@ -26,16 +26,16 @@ describe('Card', () => {
     expect(card.mechanics[0]).toBeInstanceOf(Unique);
   });
 
-  it('Can level up with level bellow 5', async () => {
+  it('Can level up with level bellow 5', () => {
     const card = new Card({ level: 1, metadataId: 0, id: 0, cost: { funds: 0, development: 0 } }, null);
 
     let state = new Gameplay(0);
     state.stats = { funds: 1000000, development: 10000 };
 
     const dropSlot = new CardSlot();
-    state = await dropSlot.dropCard(state, card);
+    state = dropSlot.dropCard(state, card);
 
-    const res = await card.canLevelUp(state, dropSlot);
+    const res = card.canLevelUp(state, dropSlot);
 
     expect(res).toEqual(expect.objectContaining({ allowed: true }));
   });

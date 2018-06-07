@@ -8,7 +8,7 @@ export default class BonusMechanic extends CoreMechanic {
 
   updateValue(state, delta) {
     state.stats = {
-      ...state.stats, [this.stat]: delta,
+      ...state.stats, [this.stat]: state.stats[this.stat] + delta,
     };
     return state;
   }

@@ -93,8 +93,7 @@ export default class Card {
     const absBonus = this.additionalBonuses[stat].absolute;
     const relativeBonus = this.additionalBonuses[stat].relative;
 
-    if (relativeBonus === 0) return baseBonus + absBonus;
-    return (baseBonus + absBonus) * relativeBonus;
+    return (baseBonus + absBonus) * (1 + relativeBonus);
   }
 
   addNewDropSlot(SlotType = CardSlot) {
