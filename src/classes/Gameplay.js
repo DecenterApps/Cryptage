@@ -44,7 +44,9 @@ export default class Gameplay {
     if (blockCount < 1) return state;
 
     for (const card of this.cards) {
-      state = card.block(state, blockNumber, blockCount);
+      if (card.active) {
+        state = card.block(state, blockNumber, blockCount);
+      }
     }
 
     return {
