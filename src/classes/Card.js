@@ -70,7 +70,7 @@ export default class Card {
       Mechanic.getInstance('cost', this, ['level']),
       Mechanic.getInstance('core', this, ['funds']),
       Mechanic.getInstance('core', this, ['development']),
-      Mechanic.getInstance('bonus', this, ['funds']),
+      Mechanic.getInstance('bonus', this, ['funds', true]),
       Mechanic.getInstance('bonus', this, ['development']),
       Mechanic.getInstance('bonus', this, ['experience']),
       Mechanic.getInstance('bonus', this, ['fundsPerBlock']),
