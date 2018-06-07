@@ -40,14 +40,14 @@ describe('Gameplay', () => {
 
     const state = new Gameplay(10);
     const newBlockNumber = 11;
-    state.funds = 0;
-    state.fundsPerBlock = 10;
+    state.stats.funds = 0;
+    state.stats.fundsPerBlock = 10;
     state.playedCards = [new Card(cardData), new Card(cardData)];
 
     const newState = state.updateBlockNumber(state, newBlockNumber);
 
     expect(newState.blockNumber).toBe(newBlockNumber);
-    expect(newState.funds).toBe(state.fundsPerBlock * (newBlockNumber - state.blockNumber));
+    expect(newState.stats.funds).toBe(state.stats.fundsPerBlock * (newBlockNumber - state.blockNumber));
   });
 
   it('On drop changes card state to active', async () => {

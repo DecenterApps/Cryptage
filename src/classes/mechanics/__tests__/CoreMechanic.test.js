@@ -42,7 +42,7 @@ describe('CoreMechanic', () => {
     expect(newState.stats.development).toBe(100);
   });
 
-  it('Does not allow a card to be played when the user does not have enough of some stat to play it', async () => {
+  it('Does not allow a card to be played when the user does not have enough of some stat to play it', () => {
     const gameplay = new Gameplay(0);
 
     gameplay.stats.level = 1;
@@ -56,7 +56,7 @@ describe('CoreMechanic', () => {
       cost: { funds: 100, development: 100, level: 1 },
     });
 
-    const canDrop = await gameplay.locationSlots[0].canDrop(gameplay, locationCard);
+    const canDrop = gameplay.locationSlots[0].canDrop(gameplay, locationCard);
     expect(canDrop.allowed).toBeFalsy();
   });
 

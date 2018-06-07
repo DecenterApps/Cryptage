@@ -7,8 +7,8 @@ export default class LocationCardSlot extends CardSlot {
     this.acceptedTags = ['location'];
   }
 
-  async canDrop(state, card) {
-    const res = await super.canDrop(state, card);
+  canDrop(state, card) {
+    const res = super.canDrop(state, card);
     return {
       ...res,
       allowed: res.allowed && (card instanceof LocationCard),

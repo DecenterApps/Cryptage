@@ -2,6 +2,8 @@ import CoreMechanic from './CoreMechanic';
 import Mechanic from '../Mechanic';
 
 export default class BonusMechanic extends CoreMechanic {
+  canPlay() { return {}; }
+
   getValue() {
     return this.card.getBonusStatValue(this.stat);
   }

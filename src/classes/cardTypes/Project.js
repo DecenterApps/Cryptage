@@ -5,14 +5,30 @@ import { mergeErrorMessages } from '../../services/utils';
 export default class ProjectCard extends Card {
   constructor(data, state) {
     super(data);
+    this.gains = this.bonus;
+    this.bonus = {
+      funds: 0,
+      development: 0,
+      experience: 0,
+      fundsPerBlock: 0,
+      power: 0,
+    };
 
     this.running = true;
     this.expiryTime = state.blockNumber + this.cost.time;
     this.timesFinished = 0;
 
     this.mechanics.push(Mechanic.getInstance('projectExpiry', this));
-    // do not add bonuses onPlay or set that those bonuses are params
-    // for the projectExpiry mechanic
+  }
+
+  getBonusStatValue() { return 0; }
+
+  getGainsStatValue(stat) {
+    const baseBonus = this.gains && this.gains[stat] ? this.gains[stat] : 0;
+    const absBonus = this.additionalBonuses[stat].absolute;
+    const relativeBonus = this.additionalBonuses[stat].relative;
+
+    return (baseBonus + absBonus) * (1 + relativeBonus);
   }
 
   onProjectEnd(state) {

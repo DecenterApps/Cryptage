@@ -69,7 +69,7 @@ describe('Project', () => {
 
   it('Restart projects changes state stats and project stats', () => {
     let gameplay = new Gameplay(0);
-    gameplay.stats = { development: 100, experience: 0, funds: 100 };
+    gameplay.stats = { development: 100, experience: 0, funds: 100, fundsPerBlock: 0 };
 
     const projectCard = new ProjectCard({
       cost: { development: 1, funds: 50, time: 10, level: 1 },
