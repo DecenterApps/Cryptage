@@ -4,6 +4,7 @@ import Gameplay from '../../Gameplay';
 const toggleStatsForRestart = (stats, statToCheck, blockTime = 11, truthy = true, deductDev = false) => {
   let gameplay = new Gameplay(0);
   gameplay.stats = stats;
+  gameplay.stats.fundsPerBlock = 0;
 
   const projectCard = new ProjectCard({
     cost: { development: 1, funds: 50, time: 10, level: 1 },
@@ -50,19 +51,19 @@ describe('Project', () => {
     expect(projectCard.timesFinished).toBe(0);
   });
 
-  it('Can restart a project with enough dev, funds and when the project is no running', async () => {
+  it('Can restart a project with enough dev, funds when the project is not running', () => {
     toggleStatsForRestart({ development: 100, experience: 0, funds: 100 }, 'allowed');
   });
 
-  it('Can not restart a project when the project is not running', async () => {
+  it('Can not restart a project when the project is running', () => {
     toggleStatsForRestart({ development: 100, experience: 0, funds: 100 }, 'projectActive', 10, false);
   });
 
-  it('Can not restart a project when there are not enough funds', async () => {
+  it('Can not restart a project when there are not enough funds', () => {
     toggleStatsForRestart({ development: 100, experience: 0, funds: 50 }, 'funds', 11, false);
   });
 
-  it('Can not restart a project when there is not enough development', async () => {
+  it('Can not restart a project when there is not enough development', () => {
     toggleStatsForRestart({ development: 1, experience: 0, funds: 100 }, 'development', 11, false, true);
   });
 

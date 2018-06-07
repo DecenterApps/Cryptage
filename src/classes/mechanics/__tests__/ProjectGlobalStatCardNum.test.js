@@ -46,6 +46,6 @@ describe('ProjectGlobalStatCardNum', () => {
       gameplay = Object.assign(gameplay, gameplay.updateBlockNumber(gameplay, i));
     }
 
-    expect(gameplay.stats.funds).toBe(119);
+    expect(gameplay.stats.funds).toBe(793);
   });
 });
