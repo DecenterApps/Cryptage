@@ -5,13 +5,6 @@ import CardSlot from './CardSlot';
 import { mergeErrorMessages } from '../services/utils';
 
 const cardTypes = new Map();
-const EMPTY_ADITIONAL_BONUSES = {
-  funds: { absolute: 0, relative: 0 },
-  development: { absolute: 0, relative: 0 },
-  experience: { absolute: 0, relative: 0 },
-  fundsPerBlock: { absolute: 0, relative: 0 },
-  power: { absolute: 0, relative: 0 },
-};
 
 export default class Card {
 
@@ -59,7 +52,13 @@ export default class Card {
     this.minDropSlots = cardsConfig.locationMinSlots;
     this.minEmptyDropSlots = 2;
 
-    this.additionalBonuses = EMPTY_ADITIONAL_BONUSES;
+    this.additionalBonuses = {
+      funds: { absolute: 0, relative: 0 },
+      development: { absolute: 0, relative: 0 },
+      experience: { absolute: 0, relative: 0 },
+      fundsPerBlock: { absolute: 0, relative: 0 },
+      power: { absolute: 0, relative: 0 },
+    };
 
     if (!Array.isArray(this.mechanics)) {
       this.mechanics = [];
@@ -93,6 +92,8 @@ export default class Card {
     const baseBonus = this.bonus && this.bonus[stat] ? this.bonus[stat] : 0;
     const absBonus = this.additionalBonuses[stat].absolute;
     const relativeBonus = this.additionalBonuses[stat].relative;
+
+    if (relativeBonus === 0) return baseBonus + absBonus;
     return (baseBonus + absBonus) * relativeBonus;
   }
 
@@ -158,7 +159,13 @@ export default class Card {
     let newState = this._on('onWithdraw', state);
 
     if (!ignoreSlots) {
-      this.additionalBonuses = EMPTY_ADITIONAL_BONUSES;
+      this.additionalBonuses = {
+        funds: { absolute: 0, relative: 0 },
+        development: { absolute: 0, relative: 0 },
+        experience: { absolute: 0, relative: 0 },
+        fundsPerBlock: { absolute: 0, relative: 0 },
+        power: { absolute: 0, relative: 0 },
+      };
 
       for (const slot of this.dropSlots) {
         newState = slot.removeCard(newState);

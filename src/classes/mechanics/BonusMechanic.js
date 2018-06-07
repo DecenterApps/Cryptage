@@ -6,11 +6,18 @@ export default class BonusMechanic extends CoreMechanic {
     return this.card.getBonusStatValue(this.stat);
   }
 
-  onBeforeChangeBonus(state) {
+  updateValue(state, delta) {
+    state.stats = {
+      ...state.stats, [this.stat]: delta,
+    };
+    return state;
+  }
+
+  onBeforeChangeBonuses(state) {
     return this.onWithdraw(state);
   }
 
-  onAfterChangeBonus(state) {
+  onAfterChangeBonuses(state) {
     return this.onPlay(state);
   }
 
