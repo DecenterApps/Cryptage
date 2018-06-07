@@ -94,4 +94,67 @@ describe('CardSlot', () => {
     let state = new Gameplay(0);
     expect(state.locationSlots[0].removeCard(state)).toBe(state);
   });
+
+  it('Re-slots all descendant cards on level up', () => {
+
+    const dummyData = {
+      level: 1,
+      cost: { funds: 0 },
+      bonus: { funds: 0 },
+    };
+
+    const calls = [];
+    let state = new Gameplay(0);
+
+    const dropSlot = new CardSlot();
+
+    const card = new Card({ metadataId: 1, ...dummyData });
+    const duplicate = new Card({ metadataId: 1, ...dummyData });
+    const leveledUp = new Card({ metadataId: 1, ...dummyData, level: 2 });
+
+    const container = new Card(dummyData);
+    const miner = new Card(dummyData);
+
+    dropSlot.dropCard(state, card);
+
+    card.addNewDropSlot();
+    card.dropSlots[0].dropCard(state, container);
+
+    container.addNewDropSlot();
+    container.dropSlots[0].dropCard(state, miner);
+
+    const getLeveledInstance = jest.spyOn(Card, 'getLeveledInstance').mockReturnValue(leveledUp);
+
+    const tap = (obj, method, cb) => {
+      const original = obj[method];
+      return jest.spyOn(obj, method).mockImplementation((...params) => {
+        cb(...params);
+        return original.apply(obj, params);
+      });
+    };
+
+    tap(card, 'onWithdraw', () => calls.push('card.onWithdraw'));
+    tap(card, 'onPlay', () => calls.push('card.onPlay'));
+    tap(duplicate, 'onWithdraw', () => calls.push('duplicate.onWithdraw'));
+    tap(duplicate, 'onPlay', () => calls.push('duplicate.onPlay'));
+    tap(leveledUp, 'onWithdraw', () => calls.push('leveledUp.onWithdraw'));
+    tap(leveledUp, 'onPlay', () => calls.push('leveledUp.onPlay'));
+    tap(container, 'onWithdraw', () => calls.push('container.onWithdraw'));
+    tap(container, 'onPlay', () => calls.push('container.onPlay'));
+    tap(miner, 'onWithdraw', () => calls.push('miner.onWithdraw'));
+    tap(miner, 'onPlay', () => calls.push('miner.onPlay'));
+
+    dropSlot.dropCard(state, duplicate);
+
+    expect(calls).toEqual([
+      'card.onWithdraw',
+      'container.onWithdraw',
+      'miner.onWithdraw',
+      'leveledUp.onPlay',
+      'container.onPlay',
+      'miner.onPlay',
+    ]);
+
+    getLeveledInstance.mockRestore();
+  });
 });
