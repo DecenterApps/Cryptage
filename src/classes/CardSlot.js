@@ -1,3 +1,12 @@
+function getAllSlottedCards(card, slotted) {
+  for (const slot of card.dropSlots) {
+    if (!slot.isEmpty()) {
+      slotted.push([slot, slot.card]);
+      getAllSlottedCards(slot.card, slotted);
+    }
+  }
+}
+
 export default class CardSlot {
   constructor(owner) {
     if (owner) this.owner = owner;
@@ -6,8 +15,18 @@ export default class CardSlot {
   dropCard(state, card) {
     if (this.card) {
       const leveledUp = this.card.levelUp(state, this);
-      const newState = this.removeCard(state, true);
-      return this.dropCard(newState, leveledUp);
+
+      const slottedCards = [];
+      getAllSlottedCards(this.card, slottedCards);
+
+      let newState = this.removeCard(state);
+      newState = this.dropCard(newState, leveledUp);
+
+      for (const [slot, card] of slottedCards) {
+        newState = slot.dropCard(newState, card);
+      }
+
+      return newState;
     }
 
     this.card = card;
