@@ -109,7 +109,7 @@ export default class Card extends Subscriber {
     for (const mechanic of this.mechanics) {
       state = mechanic[action] ? mechanic[action](state, ...params) : state;
     }
-    return state;
+    return state.publish(state, action, this);
   }
 
   _can(method, ...params) {

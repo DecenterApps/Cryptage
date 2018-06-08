@@ -56,17 +56,17 @@ export default class Gameplay {
     return () => this[subscriptions].get(event).delete(subscription);
   }
 
-  publish(event, target) {
+  publish(state, event, target) {
     if (!this[subscriptions].has(event)) {
-      return this;
+      return state;
     }
-    let state = this;
+    let newState = state;
     for (const { matcher, callback } of this[subscriptions].get(event)) {
       if (matcher(target)) {
-        state = callback(state, target);
+        newState = callback(newState, target);
       }
     }
-    return state;
+    return newState;
   }
 
   getCardsOfType(cardType) {
