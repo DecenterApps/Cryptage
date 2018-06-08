@@ -43,7 +43,7 @@ describe('CardSlot', () => {
     expect(canDrop.allowed).toBeFalsy();
   });
 
-  it('Can level up when another card in the slot', async () => {
+  it('Can level up when another card in the slot', () => {
     const cardData = {
       id: 0,
       level: 1,
@@ -56,10 +56,12 @@ describe('CardSlot', () => {
     let state = new Gameplay(0);
     const dropSlot = new CardSlot();
 
+    state.stats = { funds: 10000 };
+
     const locationCard = new LocationCard(cardData);
     const locationCardCopy = new LocationCard({ ...cardData, id: 1 });
 
-    state = await dropSlot.dropCard(state, locationCard);
+    state = dropSlot.dropCard(state, locationCard);
     const canDrop = dropSlot.canDrop(state, locationCardCopy);
 
     expect(canDrop.allowed).toBeTruthy();
