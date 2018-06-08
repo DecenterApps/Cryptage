@@ -8,12 +8,12 @@ import LocationCard from '../cardTypes/Location';
 import ProjectCard from '../cardTypes/Project';
 
 describe('isActiveCard', () => {
-  it('Matches the card with active prop set to true', async () => {
+  it('Matches the card with active prop set to true', () => {
     const card = new Card();
     card.active = true;
     expect(isActiveCard(card)).toBe(true);
   });
-  it('Does not matches the card with active prop set to false', async () => {
+  it('Does not matches the card with active prop set to false', () => {
     const card = new Card();
     card.active = false;
     expect(isActiveCard(card)).toBe(false);
@@ -21,12 +21,12 @@ describe('isActiveCard', () => {
 });
 
 describe('isAvailableCard', () => {
-  it('Matches the card with active prop set to false', async () => {
+  it('Matches the card with active prop set to false', () => {
     const card = new Card();
     card.active = false;
     expect(isAvailableCard(card)).toBe(true);
   });
-  it('Does not matches the card with active prop set to false', async () => {
+  it('Does not matches the card with active prop set to false', () => {
     const card = new Card();
     card.active = true;
     expect(isAvailableCard(card)).toBe(false);
@@ -34,17 +34,17 @@ describe('isAvailableCard', () => {
 });
 
 describe('isRootCard', () => {
-  it('Matches the card without a parent', async () => {
+  it('Matches the card without a parent', () => {
     const card = new Card();
     card.active = true;
     expect(isRootCard(card)).toBe(true);
   });
-  it('Does not matches the card without a parent which has active prop set to false', async () => {
+  it('Does not matches the card without a parent which has active prop set to false', () => {
     const card = new Card();
     card.active = false;
     expect(isRootCard(card)).toBe(false);
   });
-  it('Does not matches the card with a parent', async () => {
+  it('Does not matches the card with a parent', () => {
     const card = new Card();
     card.active = true;
     card.parent = new Card();
@@ -53,17 +53,17 @@ describe('isRootCard', () => {
 });
 
 describe('isLocationCard', () => {
-  it('Matches the card that is an instance of LocationCard', async () => {
+  it('Matches the card that is an instance of LocationCard', () => {
     const card = new LocationCard({ values: { power: 0, space: 0 } });
     card.active = true;
     expect(isLocationCard(card)).toBe(true);
   });
-  it('Does not matches the instance of LocationCard which has active prop set to false', async () => {
+  it('Does not matches the instance of LocationCard which has active prop set to false', () => {
     const card = new LocationCard({ values: { power: 0, space: 0 } });
     card.active = false;
     expect(isLocationCard(card)).toBe(false);
   });
-  it('Does not matches the card which is not an instance of LocationCard', async () => {
+  it('Does not matches the card which is not an instance of LocationCard', () => {
     const card = new Card();
     card.active = true;
     expect(isLocationCard(card)).toBe(false);
@@ -71,17 +71,17 @@ describe('isLocationCard', () => {
 });
 
 describe('isProjectCard', () => {
-  it('Matches the card that is an instance of ProjectCard', async () => {
+  it('Matches the card that is an instance of ProjectCard', () => {
     const card = new ProjectCard({ cost: {} }, {});
     card.active = true;
     expect(isProjectCard(card)).toBe(true);
   });
-  it('Does not matches the instance of ProjectCard which has active prop set to false', async () => {
+  it('Does not matches the instance of ProjectCard which has active prop set to false', () => {
     const card = new ProjectCard({ cost: {} }, {});
     card.active = false;
     expect(isProjectCard(card)).toBe(false);
   });
-  it('Does not matches the card which is not an instance of ProjectCard', async () => {
+  it('Does not matches the card which is not an instance of ProjectCard', () => {
     const card = new Card();
     card.active = true;
     expect(isProjectCard(card)).toBe(false);
