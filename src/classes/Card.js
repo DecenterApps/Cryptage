@@ -3,25 +3,14 @@ import Mechanic from './Mechanic';
 import { fetchCardMeta, fetchCardStats } from '../services/cardService';
 import CardSlot from './CardSlot';
 import { mergeErrorMessages } from '../services/utils';
-
-const cardTypes = new Map();
+import { isLocationCard } from './matchers';
+import { registerCardTypeConstructor, getCardTypeConstructor, setDefaultCardType } from './Registry';
 
 export default class Card {
 
-  static registerTypeConstructor(name, constructor) {
-    cardTypes.set(name, constructor);
-  }
-
-  static getTypeConstructor(type) {
-    if (cardTypes.has(type)) {
-      return cardTypes.get(type);
-    }
-    return Card;
-  }
-
   static async getInstance(id, level = 1) {
     const cardMeta = await fetchCardMeta(id, level);
-    return new (this.getTypeConstructor(cardMeta.stats.type))({
+    return new (Card.getTypeConstructor(cardMeta.stats.type))({
       id,
       metadataId: cardMeta.metadata.id,
       level,
@@ -34,7 +23,7 @@ export default class Card {
       level = card.level + 1;
     }
     const stats = fetchCardStats(card.metadataId, level);
-    return new (this.getTypeConstructor(stats.type))({
+    return new (Card.getTypeConstructor(stats.type))({
       id,
       metadataId: card.metadataId,
       level,
@@ -106,9 +95,9 @@ export default class Card {
     }
   }
 
-  findParent(CardType = cardTypes.get('Location')) {
+  findParent(selector = isLocationCard) {
     let card = this;
-    while (card && !(card instanceof CardType)) {
+    while (card && !selector(card)) {
       card = card.parent;
     }
     return card;
@@ -235,3 +224,8 @@ export default class Card {
     return leveledUp;
   }
 }
+
+Card.registerTypeConstructor = registerCardTypeConstructor;
+Card.getTypeConstructor = getCardTypeConstructor;
+
+setDefaultCardType(Card);

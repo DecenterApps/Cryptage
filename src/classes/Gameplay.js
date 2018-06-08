@@ -3,6 +3,7 @@ import cardConfig from '../constants/cards.json';
 import levels from '../constants/levels.json';
 import LocationCardSlot from './slotTypes/LocationCardSlot';
 import ProjectCardSlot from './slotTypes/ProjectCardSlot';
+import { createMatcher, isActiveCard } from './matchers';
 import './mechanics';
 import './cardTypes';
 import './slotTypes';
@@ -34,8 +35,12 @@ export default class Gameplay {
     }
   }
 
-  getCardsOfType(type) {
-    return this.playedCards.filter(card => card instanceof type);
+  getCardsOfType(cardType) {
+    return this.getCards(createMatcher({ cardType }));
+  }
+
+  getCards(selector = isActiveCard) {
+    return this.cards.filter(createMatcher(selector));
   }
 
   updateBlockNumber(state, blockNumber) {
