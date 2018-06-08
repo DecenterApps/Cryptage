@@ -5,8 +5,9 @@ import CardSlot from './CardSlot';
 import { mergeErrorMessages } from '../services/utils';
 import { isLocationCard } from './matchers';
 import { registerCardTypeConstructor, getCardTypeConstructor, setDefaultCardType } from './Registry';
+import Subscriber from './Subscriber';
 
-export default class Card {
+export default class Card extends Subscriber {
 
   static async getInstance(id, level = 1) {
     const cardMeta = await fetchCardMeta(id, level);
@@ -32,6 +33,7 @@ export default class Card {
   }
 
   constructor(data) {
+    super();
     Object.assign(this, data);
 
     this.dropSlots = [];
@@ -161,6 +163,8 @@ export default class Card {
     while (this.stackedCards.length) {
       this.stackedCards.pop().active = false;
     }
+
+    this.unsubscribeAll();
 
     return newState;
   }

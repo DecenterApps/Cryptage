@@ -25,7 +25,7 @@ export default class TimeReduceMechanic extends Mechanic {
       state.projectExecutionTimePercent = 100;
     }
 
-    return state;
+    return super.onWithdraw(state);
   }
 }
 

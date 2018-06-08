@@ -1,3 +1,5 @@
+import Subscriber from './Subscriber';
+
 /**
  * Card effect triggers:
  *  - play (when putting card in play)
@@ -9,7 +11,7 @@
 
 const registry = new Map();
 
-export default class Mechanic {
+export default class Mechanic extends Subscriber {
 
   static registerMechanic(name, mechanic) {
     registry.set(name, mechanic);
@@ -24,6 +26,7 @@ export default class Mechanic {
   }
 
   constructor(card) {
+    super();
     this.card = card;
   }
 
@@ -40,6 +43,7 @@ export default class Mechanic {
   }
 
   onWithdraw(state) {
+    this.unsubscribeAll();
     return state;
   }
 

@@ -9,6 +9,8 @@ import './cardTypes';
 import './slotTypes';
 import { calculateLevelData } from '../services/gameMechanicsService';
 
+const subscriptions = Symbol('subscriptions');
+
 export default class Gameplay {
 
   constructor(blockNumber) {
@@ -26,6 +28,8 @@ export default class Gameplay {
     this.locationSlots = new Array(cardConfig.locationSlots);
     this.projectSlots = new Array(cardConfig.projectSlots);
 
+    this[subscriptions] = new Map();
+
     for (let i = 0; i < this.locationSlots.length; i += 1) {
       this.locationSlots[i] = new LocationCardSlot();
     }
@@ -33,6 +37,36 @@ export default class Gameplay {
     for (let i = 0; i < this.locationSlots.length; i += 1) {
       this.projectSlots[i] = new ProjectCardSlot();
     }
+  }
+
+  subscribe(event, matcher, callback) {
+    if (typeof callback === 'undefined') {
+      callback = matcher;
+      matcher = isActiveCard;
+    }
+
+    if (!this[subscriptions].has(event)) {
+      this[subscriptions].set(event, new Set());
+    }
+
+    const subscription = { matcher, callback };
+
+    this[subscriptions].get(event).add(subscription);
+
+    return () => this[subscriptions].get(event).delete(subscription);
+  }
+
+  publish(event, target) {
+    if (!this[subscriptions].has(event)) {
+      return this;
+    }
+    let state = this;
+    for (const { matcher, callback } of this[subscriptions].get(event)) {
+      if (matcher(target)) {
+        state = callback(state, target);
+      }
+    }
+    return state;
   }
 
   getCardsOfType(cardType) {

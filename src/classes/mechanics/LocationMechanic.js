@@ -3,7 +3,10 @@ import Mechanic from '../Mechanic';
 
 export default class LocationMechanic extends CoreMechanic {
   onPlay(state) { return state; }
-  onWithdraw(state) { return state; }
+  onWithdraw(state) {
+    this.unsubscribeAll();
+    return state;
+  }
   canPlay() {
     return {
       [this.stat]: true,

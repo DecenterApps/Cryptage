@@ -14,6 +14,7 @@ export default class CoreMechanic extends CostMechanic {
   }
 
   onWithdraw(state) {
+    this.unsubscribeAll();
     return this.updateValue(state, this.card.cost[this.stat]);
   }
 }
