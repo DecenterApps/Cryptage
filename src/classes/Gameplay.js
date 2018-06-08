@@ -39,8 +39,8 @@ export default class Gameplay {
     return this.getCards(createMatcher({ cardType }));
   }
 
-  getCards(selector = isActiveCard) {
-    return this.cards.filter(createMatcher(selector));
+  getCards(matcher = isActiveCard) {
+    return this.cards.filter(createMatcher(matcher));
   }
 
   updateBlockNumber(state, blockNumber) {

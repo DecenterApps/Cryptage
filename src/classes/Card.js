@@ -95,9 +95,9 @@ export default class Card {
     }
   }
 
-  findParent(selector = isLocationCard) {
+  findParent(matcher = isLocationCard) {
     let card = this;
-    while (card && !selector(card)) {
+    while (card && !matcher(card)) {
       card = card.parent;
     }
     return card;
