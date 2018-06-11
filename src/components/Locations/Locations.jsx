@@ -7,6 +7,7 @@ import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
 import EmptyLocationSlot from '../EmptyLocationSlot/EmptyLocationSlot';
 import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
+import HeaderLine from '../Decorative/HeaderLine';
 
 import './Locations.scss';
 
@@ -28,11 +29,9 @@ const Locations = ({
 
     <div className="locations-header">
       <div className="bar-wrapper">
-        <div className="bar-1" />
-        <div className="bar-2" />
-        <div className="bar-3" />
-        <div className="bar-4" />
-        <div className="bar-text">Locations</div>
+        <HeaderLine />
+        <div className="section-header-main-text">Locations</div>
+        <div className="section-header-sub-text">Summary</div>
       </div>
     </div>
 
