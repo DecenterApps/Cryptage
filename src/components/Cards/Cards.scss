@@ -4,15 +4,25 @@
 
 .cards-wrapper {
   overscroll-behavior: contain contain;
+  position: relative;
+  &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 14px;
+    background: linear-gradient(to right, rgba(#9797FB, 0), rgba(#9797FB, 1), rgba(#9797FB, 0));
+  }
 
   .cards-inner-wrapper {
-    overflow-y: auto;
+    position: relative;
     width: 100%;
-    padding: 20px 5px 0;
-    display: flex;
-    height: 133px;
-    margin-bottom: 10px;
-    display: flex;
+    padding: 0px 5px;
+    height: 150px;
+    white-space: nowrap;
     align-items: center;
     overflow-y: hidden;
     overscroll-behavior: contain contain;
@@ -33,101 +43,10 @@
       &:hover {
         height: 120px;
         margin-top: -20px;
-        margin-right: 50px;
-        z-index: 1;
+        //margin-right: 50px;
+        //z-index: 1;
       }
       .card-details {
-      }
-    }
-  }
-
-  .card-tabs-wrapper {
-    display: flex;
-    height: 15px;
-    margin: 0 13px;
-    position: relative;
-    &:before, &:after {
-      position: absolute;
-      content: '';
-      display: block;
-      height: 13px;
-      width: 13px;
-      border-bottom: 1px solid #312853;
-      box-sizing: border-box;
-
-      @include for-big-desktop {
-        top: 5px;
-      }
-    }
-    &:before {
-      left: -13px;
-    }
-    &:after {
-      right: -13px;
-    }
-    .tab {
-      flex: 1 1 200px;
-      border-top: 1px solid #312853;
-      border-bottom: 1px solid #312853;
-      margin: 0 13px;
-      height: 13px;
-      font-size: 8px;
-      color: white;
-      text-align: center;
-      font-family: $font-secondary;
-      text-transform: uppercase;
-      cursor: pointer;
-      position: relative;
-      box-sizing: border-box;
-
-      @include for-big-desktop {
-        font-size: 11px;
-        height: 18px;
-        margin: 0 17px;
-      }
-
-      &:before, &:after {
-        position: absolute;
-        top: -1px;
-        content: '';
-        display: block;
-        height: 13px;
-        width: 13px;
-        border-bottom: 1px solid #312853;
-        box-sizing: border-box;
-
-        @include for-big-desktop {
-          top: 0;
-          height: 17px;
-          width: 17px;
-        }
-      }
-      &:before {
-        left: -7px;
-        border-left: 1px solid #312853;
-        transform: skewX(-45deg);
-
-        @include for-big-desktop {  left: -9px;  }
-      }
-      &:after {
-        right: -7px;
-        border-right: 1px solid #312853;
-        transform: skewX(45deg);
-
-        @include for-big-desktop {  right: -9px;  }
-      }
-      &.active {
-        line-height: 20px;
-        font-size: 10px;
-
-        @include for-big-desktop {
-          font-size: 14px;
-          line-height: 27px;
-        }
-
-        &, &:before, &:after {
-          border-bottom: 0;
-        }
       }
     }
   }
@@ -161,7 +80,7 @@
   }
 
   .card-type-wrapper {
-    display: flex;
+    display: inline-flex;
     .card-type-title-wrapper {
       width: 20px;
       margin-right: 10px;
@@ -175,19 +94,38 @@
       .card-type-title {
         font-family: $font-secondary;
         position: absolute;
-        bottom: -7px;
+        bottom: -32px;
         height: 0;
         transform: rotate(-90deg);
         transform-origin: top left;
         color: white;
-        font-size: 10px;
+        font-size: 12px;
         letter-spacing: .04em;
         text-transform: uppercase;
+        z-index: 1;
 
         @include for-big-desktop {
           font-size: 14px;
         }
+
+        &:before {
+          content: '';
+          border: 1px solid #9797FB;
+          background-color: red; // TODO
+          border-radius: 50%;
+          height: 13px;
+          width: 13px;
+          display: block;
+          position: absolute;
+          bottom: -17px;
+          left: -28px;
+        }
       }
+    }
+    .card-type-inner-wrapper {
+      display: flex;
+      overflow: hidden;
+      padding-top: 22px;
     }
   }
 }
