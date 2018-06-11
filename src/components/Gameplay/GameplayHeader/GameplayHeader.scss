@@ -4,18 +4,18 @@
 .gameplay-header-wrapper {
   color: #fff;
   display: flex;
-  min-height: 100px;
+  min-height: 90px;
   justify-content: center;
 
   @include for-big-desktop {
-    min-height: 108px;
+    //min-height: 108px;
   }
 
   .gameplay-header-content {
     display: flex;
     width: 653px;
     max-width: 653px;
-    height: 100px;
+    height: 90px;
     background-image: url("./header-bg.png");
     background-size: 653px;
     background-position: center;
@@ -34,7 +34,7 @@
     .section {
       flex: 1 1 0;
       position: relative;
-      padding-top: 39px;
+      padding-top: 34px;
       box-sizing: border-box;
 
       .stats-wrapper {
@@ -59,7 +59,7 @@
       position: relative;
       width: 284px;
       text-align: center;
-      padding: 35px 10px 0;
+      padding: 29px 10px 0;
 
       .level {
         font-size: 15px;
@@ -98,7 +98,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 24px;
+        height: 18px;
         z-index: 1;
         opacity: 0.7;
         transition: opacity .3s;
@@ -114,7 +114,7 @@
 
       .xp-loader-wrapper { // svg
         position: absolute;
-        bottom: 8px;
+        bottom: 3px;
         left: 0;
         right: 0;
         margin: auto;

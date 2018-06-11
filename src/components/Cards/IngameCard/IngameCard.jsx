@@ -10,9 +10,16 @@ import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 
-import './HandCard.scss';
+import './IngameCard.scss';
 
-class HandCard extends Component {
+const classForNumber = (_number) => {
+  const number = formatBigNumberWithBreak(_number);
+  if (number.length > 3) return 'small';
+  if (number.length === 3) return 'smaller';
+  return '';
+};
+
+class IngameCard extends Component {
   constructor() {
     super();
     this.state = { showPortal: false };
@@ -43,16 +50,15 @@ class HandCard extends Component {
     const rarities = {
       normal: '#9797FB',
       blue: '#0086D1',
-      purple: '#9B01C1',
-      gold: '#FF9D14',
+      gold: '#9B01C1',
+      red: '#FF9D14',
     };
 
     return (
       <div
-        className={`card-details type-${card.stats.type.toLowerCase()}`}
+        className={`ingame-card-details type-${card.stats.type.toLowerCase()}`}
         onMouseEnter={() => {
           removeNewCardOnHover(card.metadata.id);
-          togglePortal(true);
         }}
         onMouseLeave={() => { togglePortal(false); }}
         ref={(ref) => { this.myRef = ref; }}
@@ -70,6 +76,9 @@ class HandCard extends Component {
           </PortalWrapper>
         }
 
+        <div className="level-wrapper">
+          <div className="level">{card.stats.level}</div>
+        </div>
         <div className="overlay" />
         <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
         <svg className="card-image">
@@ -124,22 +133,22 @@ class HandCard extends Component {
           </defs>
           <polygon
             className="card-image-bg"
-            points="8,0 84,0 84,112 76,120 0,120 0,8"
+            points="8,0 100,0 100,134 92,142 0,142 0,8"
             fill={`url(#card-rarity-gradient-${uniqueId})`}
           />
           <polygon
             className="card-image-bg-inner"
-            points="9,1 83,1 83,111 75,119 1,119 1,9"
+            points="9,1 99,1 99,133 91,141 1,141 1,9"
             fill="black"
           />
           <polygon
             className="card-image-inner"
-            points="10,2 82,2 82,110 74,118 2,118 2,10"
+            points="10,2 98,2 98,132 90,140 2,140 2,10"
             fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
           />
           <polygon
             className="card-meta-bg"
-            points="2,50 82,50 82,110 74,118 2,118 "
+            points="2,70 98,70 98,132 90,140 2,140 "
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
         </svg>
@@ -157,19 +166,62 @@ class HandCard extends Component {
 
         {
           inHand && newCardTypes.includes(card.metadata.id) &&
-          <div className="new-card"><span>new</span></div>
+          <div className="new-card">new</div>
+        }
+
+        {
+          card.stats.type === 'Container' && played &&
+          <div className="container-slots-outer-wrapper">
+            <div className="container-slots-wrapper">
+              <div
+                className="slots-bar"
+                style={{
+                  height: `${100 - 100 * remainingSlots / card.stats.values.space}%`,
+                }}
+              />
+            </div>
+          </div>
         }
 
         {
           costErrors && costErrors.special &&
           <div className="special-errors">{costErrors.special}</div>
         }
+        <div className="actions">
+          <div
+            className="hover-info-wrapper"
+            onMouseEnter={() => {
+              togglePortal(true);
+            }}
+          >
+            <InfoCardIcon />
+          </div>
+          {
+            played &&
+            canRemove &&
+            <div
+              className="remove-card-wrapper"
+              onClick={() => {
+                openConfirmRemoveModal(slot, locationIndex, containerIndex, containerSlotIndex);
+              }}
+            >
+              <DropCardIcon />
+            </div>
+          }
+
+          {
+            card.stats.type === 'Container' && played && goToContainer &&
+            <div className="go-to-container-wrapper" onClick={goToContainer}>
+              <MagnifyingGlassCardIcon />
+            </div>
+          }
+        </div>
       </div>
     );
   }
 }
 
-HandCard.defaultProps = {
+IngameCard.defaultProps = {
   card: {
     stats: {
       title: '',
@@ -191,7 +243,7 @@ HandCard.defaultProps = {
   inHand: false,
 };
 
-HandCard.propTypes = {
+IngameCard.propTypes = {
   card: PropTypes.shape({
     stats: PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -225,4 +277,4 @@ const mapDispatchToProps = {
   openConfirmRemoveModal, removeNewCardOnHover,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HandCard);
+export default connect(mapStateToProps, mapDispatchToProps)(IngameCard);

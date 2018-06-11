@@ -33,6 +33,7 @@
     position: absolute;
     bottom: 90px;
     z-index: 20;
+    pointer-events: none;
 
     @include elementInAndOut;
     @include  for-big-desktop {

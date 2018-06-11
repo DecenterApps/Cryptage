@@ -1,9 +1,9 @@
 @import '../../../common/colors';
 @import '../../../common/variables';
 
-.card-details {
-  width: 84px;
-  height: 120px;
+.ingame-card-details {
+  width: 100px;
+  height: 142px;
   box-sizing: border-box;
   display: flex;
   position: relative;
@@ -43,7 +43,6 @@
     left: 1px;
     height: 98%;
     width: 99%;
-    pointer-events: none;
 
     @include for-big-desktop {
       //height: 120px;
@@ -59,57 +58,51 @@
     //&.blue { background: linear-gradient(142.75deg, rgba(5, 0, 255, 0.6) 0%, rgba(63, 60, 205, 0) 65.28%); }
     //&.gold { background: linear-gradient(142.75deg, rgba(255, 157, 20, 0.6) 0%, rgba(255, 157, 20, 0) 65.28%); }
     //&.red { background: linear-gradient(142.75deg, rgba(224, 0, 0, 0.6) 0%, rgba(224, 0, 0, 0) 65.28%); }
-    &.blue {
-      position: absolute;
-      top: -22px;
-      left: -21px;
-      height: 161px;
-      width: 124px;
-      background: url("./blue-rarity-border.png");
-      background-size: 126px 163px;
-    }
     &.gold {
-      position: absolute;
-      top: -22px;
-      left: -21px;
-      height: 161px;
-      width: 124px;
-      background: url("./gold-rarity-border.png");
-      background-size: 128px 164px;
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -6px;
+        left: -2px;
+        height: 2px;
+        width: 40px;
+        background: linear-gradient(to right, $gold-rarity 0%, rgba($gold-rarity, 0) 100%);
+      }
     }
-    &.purple {
-      position: absolute;
-      top: -22px;
-      left: -22px;
-      height: 161px;
-      width: 124px;
-      background: url("./purple-rarity-border.png");
-      background-size: 128px 163px;
+    &.red {
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -6px;
+        left: -6px;
+        height: 90px;
+        width: 2px;
+        background: linear-gradient(to bottom, $red-rarity 0%, rgba($red-rarity, 0) 100%);
+      }
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -6px;
+        left: -4px;
+        height: 2px;
+        width: 40px;
+        background: linear-gradient(to right, $red-rarity 0%, rgba($red-rarity, 0) 100%);
+      }
     }
   }
 
   .new-card {
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: $yellow;
+    text-shadow: 0 0 13px rgba(255, 157, 20, 0.7);
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 32px;
-    height: 32px;
-    overflow: hidden;
-    span {
-      position: relative;
-      top: 3px;
-      right: -3px;
-      display: block;
-      background-color: rgba($yellow, .8);
-      width: 40px;
-      height: 11px;
-      transform: rotate(45deg);
-      color: white;
-      font-family: $font-secondary;
-      text-transform: uppercase;
-      font-size: 8px;
-      text-align: center;
-    }
+    left: 0;
+    bottom: 88px;
 
     @include for-big-desktop {
       //bottom: 126px;

@@ -9,9 +9,10 @@
   justify-content: center;
 
   .active-location-content {
-    max-width: 500px;
+    max-width: 540px;
     width: 100%;
     margin-top: 5px;
+    flex-grow: 1;
 
     @include for-big-desktop {
       margin-top: 15px;
@@ -19,15 +20,14 @@
     }
 
     .active-location-field {
-      margin: 0 30px;
+      margin: 0 10px;
 
       .drop-slots-wrapper {
-        height: 250px;
+        height: 324px;
         overflow: auto;
 
         @include for-big-desktop {
-          margin-top: 95px;
-          height: 326px;
+          height: 500px;
         }
       }
     }
@@ -178,7 +178,7 @@
       .background-drop {
         position: absolute;
         top: 23px;
-        width: 484px;
+        width: 524px;
         height: 132px;
         background: linear-gradient(180deg, rgb(28, 26, 53) 0%, rgba(54, 38, 95, 0) 100%);
         background-position: center;
