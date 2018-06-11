@@ -11,7 +11,7 @@ import CloseIcon from '../../CloseIcon/CloseIcon';
 import IngameCard from '../../Cards/IngameCard/IngameCard';
 
 import './GameplayContainer.scss';
-import { GP_LOCATION_MAIN } from '../../../actions/actionTypes';
+import { GP_LOCATION_CONTAINER, GP_LOCATION_MAIN } from '../../../actions/actionTypes';
 
 const GameplayContainer = ({
   locations, activeLocationIndex, activeContainerIndex, handleMinerDropInContainer, switchInGameplayView,
@@ -19,38 +19,42 @@ const GameplayContainer = ({
   const activeLocation = locations[activeLocationIndex].lastDroppedItem;
   const card = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.mainCard;
   const containerSlots = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots;
-  const remainingSlots = containerSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null).length;
+  const totalSlots = containerSlots.length;
+  const fullSlots = containerSlots.filter(({ lastDroppedItem }) => lastDroppedItem !== null).length;
 
   return (
     <div className="active-container-wrapper">
       <div
+        className="background-drop"
+        style={{
+          backgroundImage: `url(cardImages/${card.stats.image})`,
+        }}
+      />
+
+      <h2 className="container-title">
+        {card.stats.title}
+        <br />
+        {fullSlots}/{totalSlots}
+      </h2>
+
+      <DropSlotsWrapper
+        dropSlots={containerSlots}
+        onItemDrop={(minerIndex, item) => {
+          handleMinerDropInContainer(activeLocationIndex, activeContainerIndex, minerIndex, item);
+        }}
+        element={<ContainerItem
+          locationIndex={activeLocationIndex}
+          containerIndex={activeContainerIndex}
+        />}
+        emptyStateElem={<EmptyCardSlot acceptedType="mining" />}
+        mainClass="active-location-slot-wrapper"
+      />
+      <a
         onClick={() => { switchInGameplayView(activeContainerIndex, GP_LOCATION_MAIN); }}
+        className="close-container"
       >
-        <CloseIcon />
-      </div>
-
-      <div className="active-container-card-wrapper">
-        <IngameCard canRemove={false} showCount={false} remainingSlots={remainingSlots} played card={card} />
-      </div>
-
-      <div className="container-bottom-wrapper">
-        <HeaderBar title={card.stats.title} color="#FFF" />
-
-        <div className="container-slots">
-          <DropSlotsWrapper
-            dropSlots={containerSlots}
-            onItemDrop={(minerIndex, item) => {
-              handleMinerDropInContainer(activeLocationIndex, activeContainerIndex, minerIndex, item);
-            }}
-            element={<ContainerItem
-              locationIndex={activeLocationIndex}
-              containerIndex={activeContainerIndex}
-            />}
-            emptyStateElem={<EmptyCardSlot acceptedType="mining" />}
-            mainClass="active-location-slot-wrapper"
-          />
-        </div>
-      </div>
+        Back
+      </a>
     </div>
   );
 };

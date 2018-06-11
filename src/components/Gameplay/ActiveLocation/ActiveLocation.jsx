@@ -71,23 +71,26 @@ const ActiveLocation = ({
           />
         </div>
 
-        {
-          inGameplayView === GP_LOCATION_MAIN &&
-          <div className="active-location-field">
-            <DropSlotsWrapper
-              dropSlots={location.lastDroppedItem.dropSlots}
-              onItemDrop={handleAssetDrop}
-              element={<GameplayItem />}
-              emptyStateElem={<EmptyCardSlot acceptedType="asset" />}
-              mainClass="active-location-slot-wrapper"
-            />
-          </div>
-        }
+        <div
+          className={`active-location-field location ${inGameplayView === GP_LOCATION_MAIN ? 'shown' : 'hidden'}`}
+        >
+          <DropSlotsWrapper
+            dropSlots={location.lastDroppedItem.dropSlots}
+            onItemDrop={handleAssetDrop}
+            element={<GameplayItem />}
+            emptyStateElem={<EmptyCardSlot acceptedType="asset" />}
+            mainClass="active-location-slot-wrapper"
+          />
+        </div>
 
-        {
-          inGameplayView === GP_LOCATION_CONTAINER &&
-          <div className="active-location-field"><GameplayContainer /></div>
-        }
+        <div
+          className={`active-location-field container ${inGameplayView === GP_LOCATION_CONTAINER ? 'shown' : 'hidden'}`}
+        >
+          {
+            inGameplayView === GP_LOCATION_CONTAINER &&
+            <GameplayContainer />
+          }
+        </div>
       </div>
     </div>
   );
