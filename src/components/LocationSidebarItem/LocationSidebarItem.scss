@@ -2,147 +2,139 @@
 @import '../../common/variables';
 
 .location-sidebar-item-wrapper {
-  height: 100%;
-  //width: 100%;
-  width: 101px;
-  left: 0;
-  position: relative;
 
-  @include for-big-desktop {
-    width: 144px;
+  .location-sidebar-small {
+    margin-left: 8px;
   }
 
-  * {
-    font-family: $font-secondary;
-  }
+  //.fpb {
+  //  width: 130px;
+  //  position: absolute;
+  //  top: 2px;
+  //  left: 109px;
+  //
+  //  @include elementInAndOut;
+  //
+  //  @include for-big-desktop {
+  //    font-size: 17px;
+  //    width: 200px;
+  //    left: 154px;
+  //  }
+  //}
+  //
+  //.hover-addons {
+  //  display: none;
+  //  position: absolute;
+  //  padding: 2px 0;
+  //  z-index: 1;
+  //  overflow: hidden;
+  //  height: 100%;
+  //  width: 100%;
+  //
+  //  @include for-big-desktop {
+  //  }
+  //
+  //  .magnifying-glass-wrapper {
+  //    background: linear-gradient(0.22deg, rgba(54, 38, 95, 0.7) 31.59%, rgba(54, 38, 95, 0.3) 99.94%);
+  //    height: 100%;
+  //    display: flex;
+  //    justify-content: center;
+  //    cursor: pointer;
+  //    flex-grow: 1;
+  //    svg {
+  //      margin: 10px;
+  //    }
+  //
+  //    @include for-big-desktop {
+  //      width: 103px;
+  //
+  //      svg {
+  //        margin: 16px;
+  //      }
+  //    }
+  //  }
+  //  .drop-wrapper {
+  //    cursor: pointer;
+  //    width: 29px;
+  //    overflow: hidden;
+  //
+  //    @include for-big-desktop {
+  //      width: 36px;
+  //    }
+  //
+  //    .drop-background {
+  //      position: absolute;
+  //      height: calc(100% - 4px);
+  //      overflow: hidden;
+  //      width: 100%;
+  //      background-color: #1F1638;
+  //    }
+  //    .drop-icon {
+  //      position: relative;
+  //      height: 100%;
+  //      display: flex;
+  //      flex-direction: column;
+  //      justify-content: center;
+  //      width: 35px;
+  //      svg {
+  //        margin: 20px 0 0 5px;
+  //        @include for-big-desktop {
+  //          margin: 22px 0 0 7px;
+  //          width: 18px;
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 
-  .fpb {
-    width: 130px;
-    position: absolute;
-    top: 2px;
-    left: 109px;
-
-    @include elementInAndOut;
-
-    @include for-big-desktop {
-      font-size: 17px;
-      width: 200px;
-      left: 154px;
-    }
-  }
-
-  .hover-addons {
-    display: none;
-    position: absolute;
-    padding: 2px 0;
-    z-index: 1;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-
-    @include for-big-desktop {
-    }
-
-    .magnifying-glass-wrapper {
-      background: linear-gradient(0.22deg, rgba(54, 38, 95, 0.7) 31.59%, rgba(54, 38, 95, 0.3) 99.94%);
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      cursor: pointer;
-      flex-grow: 1;
-      svg {
-        margin: 10px;
-      }
-
-      @include for-big-desktop {
-        width: 103px;
-
-        svg {
-          margin: 16px;
-        }
-      }
-    }
-    .drop-wrapper {
-      cursor: pointer;
-      width: 29px;
-      overflow: hidden;
-
-      @include for-big-desktop {
-        width: 36px;
-      }
-
-      .drop-background {
-        position: absolute;
-        height: calc(100% - 4px);
-        overflow: hidden;
-        width: 100%;
-        background-color: #1F1638;
-      }
-      .drop-icon {
-        position: relative;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 35px;
-        svg {
-          margin: 20px 0 0 5px;
-          @include for-big-desktop {
-            margin: 22px 0 0 7px;
-            width: 18px;
-          }
-        }
-      }
-    }
-  }
-  &.active {
-    width: 118px;
-    @include for-big-desktop {
-      width: 168px;
-    }
-
-    .fpb {
-      left: 127px;
-      @include for-big-desktop {
-        left: 180px;
-      }
-    }
-
-    .location-sidebar-item-inner-wrapper {
-      box-shadow: 0 0 28px #461D87;
-      width: 120px;
-      height: 50px;
-      @include for-big-desktop {
-        width: 170px;
-        height: 70px;
-      }
-    }
-
-    .hover-addons {
-      @include for-big-desktop {
-        height: 70px;
-      }
-      .magnifying-glass-wrapper {
-        svg {
-          margin: 13px;
-          @include for-big-desktop {
-            margin: 18px;
-            height: 30px;
-            width: 30px;
-          }
-        }
-      }
-      .drop-icon svg {
-        @include for-big-desktop {
-          width: 22px;
-        }
-      }
-    }
-  }
-
-  &:hover .hover-addons {
-    display: flex;
-  }
+  //&.active {
+  //  width: 118px;
+  //  @include for-big-desktop {
+  //    width: 168px;
+  //  }
+  //
+  //  .fpb {
+  //    left: 127px;
+  //    @include for-big-desktop {
+  //      left: 180px;
+  //    }
+  //  }
+  //
+  //  .location-sidebar-item-inner-wrapper {
+  //    box-shadow: 0 0 28px #461D87;
+  //    width: 120px;
+  //    height: 50px;
+  //    @include for-big-desktop {
+  //      width: 170px;
+  //      height: 70px;
+  //    }
+  //  }
+  //
+  //  .hover-addons {
+  //    @include for-big-desktop {
+  //      height: 70px;
+  //    }
+  //    .magnifying-glass-wrapper {
+  //      svg {
+  //        margin: 13px;
+  //        @include for-big-desktop {
+  //          margin: 18px;
+  //          height: 30px;
+  //          width: 30px;
+  //        }
+  //      }
+  //    }
+  //    .drop-icon svg {
+  //      @include for-big-desktop {
+  //        width: 22px;
+  //      }
+  //    }
+  //  }
+  //}
+  //
+  //&:hover .hover-addons {
+  //  display: flex;
+  //}
 
   .rarity-border {
     position: absolute;

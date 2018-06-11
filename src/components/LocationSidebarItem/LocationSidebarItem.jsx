@@ -10,6 +10,7 @@ import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
+import SidebarItemNotActive from './SidebarItemNotActive';
 
 import './LocationSidebarItem.scss';
 
@@ -80,63 +81,79 @@ class LocationSidebarItem extends Component {
       }
     });
 
+    const active = (activeLocationIndex === index) && gameplayView === GP_LOCATION;
+
     return (
       <div
         className={`
         location-sidebar-item-wrapper
         ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
         ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
-        ${((activeLocationIndex === index) && gameplayView === GP_LOCATION) && 'active'}
+        ${active && 'active'}
       `}
         onMouseEnter={() => { togglePortal(true); }}
         onMouseLeave={() => { togglePortal(false); }}
+        onClick={() => { setActiveLocation(index); }}
         ref={(ref) => { this.myRef = ref; }}
       >
+        {/*{*/}
+          {/*!draggingCard &&*/}
+          {/*showPortal &&*/}
+          {/*<PortalWrapper>*/}
+            {/*<HoverInfo card={mainCard} parent={this.myRef} type="location" />*/}
+          {/*</PortalWrapper>*/}
+        {/*}*/}
+
+        {/*{*/}
+          {/*(activeLocationIndex !== index) &&*/}
+          {/*(fpb > 0) &&*/}
+          {/*this.state.show &&*/}
+          {/*<div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
+        {/*}*/}
         {
-          !draggingCard &&
-          showPortal &&
-          <PortalWrapper>
-            <HoverInfo card={mainCard} parent={this.myRef} type="location" />
-          </PortalWrapper>
+          !active &&
+          <div className="location-sidebar-small">
+            <SidebarItemNotActive image={`cardImages/${mainCard.stats.image}`} />
+          </div>
         }
 
         {
-          (activeLocationIndex !== index) &&
-          (fpb > 0) &&
-          this.state.show &&
-          <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+          active &&
+          <div className="location-sidebar-big">
+            ACTIVE
+          </div>
         }
 
-        <div className="hover-addons">
-          <div className="magnifying-glass-wrapper" onClick={() => { setActiveLocation(index); }}>
-            <MagnifyingGlassIcon />
-          </div>
-          <div className="drop-wrapper">
-            <div className="drop-background" />
-            <div className="drop-icon" onClick={() => { openConfirmRemoveModal(slot, index); }}>
-              <ChevronDownIcon width={17} />
-            </div>
-          </div>
-        </div>
-        <div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} />
-        <div
-          className="location-sidebar-item-inner-wrapper"
-          style={{ backgroundImage: `url('cardImages/${mainCard.stats.image}')` }}
-        >
-          <div className="level-outer">
-            <svg className="level-background">
-              <defs>
-                <linearGradient id={`sidebar-location-level-${index}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" style={{ stopColor: '#3CC8CC' }} />
-                  <stop offset="100%" style={{ stopColor: 'rgba(60, 200, 204, 0.33)' }} />
-                </linearGradient>
-              </defs>
-              <polygon points="0,0 27,0 27,27" fill={`url(#sidebar-location-level-${index})`} />
-            </svg>
-            <span className="level">{mainCard.stats.level}</span>
-          </div>
-          <div className="title">{mainCard.stats.title}</div>
-        </div>
+        {/*<div className="hover-addons">*/}
+          {/*<div className="magnifying-glass-wrapper" >*/}
+            {/*<MagnifyingGlassIcon />*/}
+          {/*</div>*/}
+          {/*<div className="drop-wrapper">*/}
+            {/*<div className="drop-background" />*/}
+            {/*<div className="drop-icon" onClick={() => { openConfirmRemoveModal(slot, index); }}>*/}
+              {/*<ChevronDownIcon width={17} />*/}
+            {/*</div>*/}
+          {/*</div>*/}
+        {/*</div>*/}
+        {/*<div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} />*/}
+        {/*<div*/}
+          {/*className="location-sidebar-item-inner-wrapper"*/}
+          {/*style={{ backgroundImage: `url('cardImages/${mainCard.stats.image}')` }}*/}
+        {/*>*/}
+          {/*<div className="level-outer">*/}
+            {/*<svg className="level-background">*/}
+              {/*<defs>*/}
+                {/*<linearGradient id={`sidebar-location-level-${index}`} x1="0%" y1="0%" x2="0%" y2="100%">*/}
+                  {/*<stop offset="0%" style={{ stopColor: '#3CC8CC' }} />*/}
+                  {/*<stop offset="100%" style={{ stopColor: 'rgba(60, 200, 204, 0.33)' }} />*/}
+                {/*</linearGradient>*/}
+              {/*</defs>*/}
+              {/*<polygon points="0,0 27,0 27,27" fill={`url(#sidebar-location-level-${index})`} />*/}
+            {/*</svg>*/}
+            {/*<span className="level">{mainCard.stats.level}</span>*/}
+          {/*</div>*/}
+          {/*<div className="title">{mainCard.stats.title}</div>*/}
+        {/*</div>*/}
       </div>
     );
   }
