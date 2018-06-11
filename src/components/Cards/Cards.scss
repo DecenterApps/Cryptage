@@ -8,7 +8,7 @@
   .cards-inner-wrapper {
     overflow-y: auto;
     width: 100%;
-    padding: 10px 5px;
+    padding: 20px 5px 0;
     display: flex;
     height: 133px;
     margin-bottom: 10px;
@@ -22,10 +22,21 @@
     }
 
     .card-container {
-      margin-right: 10px;
       cursor: move;
+      height: 100px;
+      transition: all .2s;
+      width: 40px;
+      &:last-child {
+        width: auto;
+        margin-right: 10px !important;
+      }
+      &:hover {
+        height: 120px;
+        margin-top: -20px;
+        margin-right: 50px;
+        z-index: 1;
+      }
       .card-details {
-        margin: 0 10px;
       }
     }
   }
@@ -153,8 +164,7 @@
     display: flex;
     .card-type-title-wrapper {
       width: 20px;
-      border-right: 1px solid #36265F;
-      margin-right: 20px;
+      margin-right: 10px;
       height: 90px;
       position: relative;
 

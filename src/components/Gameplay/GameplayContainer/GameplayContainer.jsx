@@ -8,7 +8,7 @@ import ContainerItem from '../../ContainerItem/ContainerItem';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
 import HeaderBar from '../../HeaderBar/HeaderBar';
 import CloseIcon from '../../CloseIcon/CloseIcon';
-import HandCard from '../../Cards/HandCard/HandCard';
+import IngameCard from '../../Cards/IngameCard/IngameCard';
 
 import './GameplayContainer.scss';
 import { GP_LOCATION_MAIN } from '../../../actions/actionTypes';
@@ -30,7 +30,7 @@ const GameplayContainer = ({
       </div>
 
       <div className="active-container-card-wrapper">
-        <HandCard canRemove={false} showCount={false} remainingSlots={remainingSlots} played card={card} />
+        <IngameCard canRemove={false} showCount={false} remainingSlots={remainingSlots} played card={card} />
       </div>
 
       <div className="container-bottom-wrapper">

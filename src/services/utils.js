@@ -529,8 +529,8 @@ export const classForRarity = (_rarity) => {
   const number = parseInt(_rarity, 10);
   if (number >= 850) return 'normal';
   if (number >= 600) return 'blue';
-  if (number >= 325) return 'gold';
-  return 'red';
+  if (number >= 325) return 'purple';
+  return 'gold';
 };
 
 /**
