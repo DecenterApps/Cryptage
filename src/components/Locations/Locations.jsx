@@ -36,6 +36,8 @@ const Locations = ({
     </div>
 
     <div className="active-locations-wrapper">
+      <div className="vertical-line" />
+
       <DropSlotsWrapper
         dropSlots={locations}
         onItemDrop={handleLocationDrop}

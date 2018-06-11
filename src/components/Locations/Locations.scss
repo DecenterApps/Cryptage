@@ -66,8 +66,13 @@
   .active-locations-wrapper {
     display: flex;
     height: 100%;
-    padding-left: 15px;
-    overflow: visible;
+
+    .vertical-line {
+      margin-left: 14px;
+      width: 2px;
+      height: 306px;
+      background: url("./verticalLine.png") center center no-repeat;
+    }
   }
 
   .locations-small-wrapper {
@@ -99,7 +104,7 @@
     }
 
     .drop-slot-component:not(:last-child) {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
 
       @include for-big-desktop {
         margin-bottom: 10px;
