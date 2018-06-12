@@ -5,14 +5,19 @@
 .active-location-wrapper {
   flex-grow: 1;
   display: flex;
-  align-items: end;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  padding-top: 10px;
 
   .active-location-content {
     max-width: 540px;
     width: 100%;
     margin-top: 5px;
     flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    padding: 0 5px;
 
     @include for-big-desktop {
       margin-top: 15px;
@@ -21,6 +26,33 @@
 
     .active-location-field {
       margin: 0 10px;
+      top: 30px;
+      transition: all .3s;
+      position: absolute;
+      overflow: auto;
+      height: 330px;
+
+      &.location {
+        &.hidden {
+          opacity: 0;
+          pointer-events: none;
+          //transform: translateY(300px);
+        }
+        &.active {
+
+        }
+      }
+
+      &.container {
+        &.hidden {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(300px);
+        }
+        &.active {
+
+        }
+      }
 
       .drop-slots-wrapper {
         height: 324px;
@@ -39,7 +71,8 @@
       z-index: 1;
       .location-name {
         text-transform: uppercase;
-        font-size: 14px;
+        font-size: 22px;
+        line-height: 16px;
         color: white;
         text-align: center;
         margin: 0 9px;
@@ -178,7 +211,7 @@
       .background-drop {
         position: absolute;
         top: 23px;
-        width: 524px;
+        width: 516px;
         height: 132px;
         background: linear-gradient(180deg, rgb(28, 26, 53) 0%, rgba(54, 38, 95, 0) 100%);
         background-position: center;
@@ -200,19 +233,6 @@
       .drop-slot-component {
         &.drop-slot-active, &.drop-slot-item-hover {
           background: none;
-        }
-      }
-    }
-
-    .active-container-wrapper {
-
-      .drop-slots-wrapper {
-        height: 110px;
-        margin-top: 40px;
-
-        @include for-big-desktop {
-          height: 165px;
-          max-width: 750px;
         }
       }
     }

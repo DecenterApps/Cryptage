@@ -61,6 +61,9 @@ class IngameCard extends Component {
           removeNewCardOnHover(card.metadata.id);
         }}
         onMouseLeave={() => { togglePortal(false); }}
+        onClick={(e) => {
+          if (card.stats.type === 'Container' && played && goToContainer) goToContainer(e);
+        }}
         ref={(ref) => { this.myRef = ref; }}
       >
         {
@@ -187,7 +190,10 @@ class IngameCard extends Component {
           costErrors && costErrors.special &&
           <div className="special-errors">{costErrors.special}</div>
         }
-        <div className="actions">
+        <div
+          className="actions"
+          onClick={e => e.stopPropagation()}
+        >
           <div
             className="hover-info-wrapper"
             onMouseEnter={() => {
