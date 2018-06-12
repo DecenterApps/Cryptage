@@ -13,6 +13,8 @@ import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import SidebarItemNotActive from './SidebarItemNotActive';
 
 import './LocationSidebarItem.scss';
+import InfoCardIcon from '../Decorative/InfoCardIcon';
+import DropCardIcon from '../Decorative/DropCardIcon';
 
 class LocationSidebarItem extends Component {
   constructor() {
@@ -91,18 +93,16 @@ class LocationSidebarItem extends Component {
         ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
         ${active && 'active'}
       `}
-        onMouseEnter={() => { togglePortal(true); }}
-        onMouseLeave={() => { togglePortal(false); }}
         onClick={() => { setActiveLocation(index); }}
         ref={(ref) => { this.myRef = ref; }}
       >
-        {/*{*/}
-          {/*!draggingCard &&*/}
-          {/*showPortal &&*/}
-          {/*<PortalWrapper>*/}
-            {/*<HoverInfo card={mainCard} parent={this.myRef} type="location" />*/}
-          {/*</PortalWrapper>*/}
-        {/*}*/}
+        {
+          !draggingCard &&
+          showPortal &&
+          <PortalWrapper>
+            <HoverInfo card={mainCard} parent={this.myRef} type="location" />
+          </PortalWrapper>
+        }
 
         {/*{*/}
           {/*(activeLocationIndex !== index) &&*/}
@@ -112,8 +112,26 @@ class LocationSidebarItem extends Component {
         {/*}*/}
         {
           !active &&
-          <div className="location-sidebar-small">
+          <div
+            className={`
+            location-sidebar-small
+            rarity-border
+            ${classForRarity(mainCard.stats.rarityScore)}`}
+          >
             <SidebarItemNotActive image={`cardImages/${mainCard.stats.image}`} />
+
+            <div className="actions" onClick={e => e.stopPropagation()}>
+              <div
+                className="hover-info-wrapper"
+                onMouseEnter={() => { togglePortal(true); }}
+                onMouseLeave={() => { togglePortal(false); }}
+              >
+                <InfoCardIcon />
+              </div>
+              <div className="remove-card-wrapper" onClick={() => { openConfirmRemoveModal(slot, index); }}>
+                <DropCardIcon />
+              </div>
+            </div>
           </div>
         }
 

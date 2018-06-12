@@ -4,6 +4,7 @@ const EmptyHexagon = (props) => {
   return (
     <svg width={44} height={44} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
+        className="outer-ring"
         d="M8.35292 0L0 8.50243V33.64L10.141 42.1425H33.1465L42.0199 33.2704V8.31759L34.502 0H8.35292Z"
         transform="translate(1.24512 0.846436)"
         stroke="url(#paint0_linear)"

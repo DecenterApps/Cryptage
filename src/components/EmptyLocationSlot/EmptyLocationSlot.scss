@@ -2,11 +2,11 @@
 @import "../../common/variables";
 
 .empty-loc-slot-wrapper {
-  &.can-drop .empty-loc-slot svg path {
+  &.can-drop .empty-loc-slot svg .outer-ring {
     stroke: $empty-slot-can-drop;
   }
 
-  &.no-drop .empty-loc-slot svg path {
+  &.no-drop .empty-loc-slot svg .outer-ring {
     stroke: $red;
   }
 
