@@ -5,9 +5,10 @@
 
   .location-sidebar-small {
     position: relative;
+    cursor: pointer;
     display: flex;
     width: 61px;
-    height: 52px;
+    height: 49px;
     align-items: center;
     justify-content: center;
 
@@ -15,295 +16,117 @@
       display: flex;
     }
 
+    .sidebar-item-not-active {
+      position: relative;
+      top: 4px;
+    }
+
     .actions {
-      display: none;
-      position: absolute;
-      flex-direction: row-reverse;
-      justify-content: space-between;
       left: 64px;
       top: 12px;
       width: 32px;
       height: 15px;
 
       > div {
-        transition: all 0.2s;
-        cursor: pointer;
-        svg {
-          width: 9px;
-
-          path { fill: $light-purple; }
-        }
-        .close-icon svg line {
-          stroke: $light-purple;
-        }
-        &:hover {
-          opacity: 0.7;
-          transform: scale(1.2);
-        }
+        svg path { fill: $light-purple; }
+        .close-icon svg line { stroke: $light-purple; }
       }
     }
   }
 
-  //.fpb {
-  //  width: 130px;
-  //  position: absolute;
-  //  top: 2px;
-  //  left: 109px;
-  //
-  //  @include elementInAndOut;
-  //
-  //  @include for-big-desktop {
-  //    font-size: 17px;
-  //    width: 200px;
-  //    left: 154px;
-  //  }
-  //}
-  //
-  //.hover-addons {
-  //  display: none;
-  //  position: absolute;
-  //  padding: 2px 0;
-  //  z-index: 1;
-  //  overflow: hidden;
-  //  height: 100%;
-  //  width: 100%;
-  //
-  //  @include for-big-desktop {
-  //  }
-  //
-  //  .magnifying-glass-wrapper {
-  //    background: linear-gradient(0.22deg, rgba(54, 38, 95, 0.7) 31.59%, rgba(54, 38, 95, 0.3) 99.94%);
-  //    height: 100%;
-  //    display: flex;
-  //    justify-content: center;
-  //    cursor: pointer;
-  //    flex-grow: 1;
-  //    svg {
-  //      margin: 10px;
-  //    }
-  //
-  //    @include for-big-desktop {
-  //      width: 103px;
-  //
-  //      svg {
-  //        margin: 16px;
-  //      }
-  //    }
-  //  }
-  //  .drop-wrapper {
-  //    cursor: pointer;
-  //    width: 29px;
-  //    overflow: hidden;
-  //
-  //    @include for-big-desktop {
-  //      width: 36px;
-  //    }
-  //
-  //    .drop-background {
-  //      position: absolute;
-  //      height: calc(100% - 4px);
-  //      overflow: hidden;
-  //      width: 100%;
-  //      background-color: #1F1638;
-  //    }
-  //    .drop-icon {
-  //      position: relative;
-  //      height: 100%;
-  //      display: flex;
-  //      flex-direction: column;
-  //      justify-content: center;
-  //      width: 35px;
-  //      svg {
-  //        margin: 20px 0 0 5px;
-  //        @include for-big-desktop {
-  //          margin: 22px 0 0 7px;
-  //          width: 18px;
-  //        }
-  //      }
-  //    }
-  //  }
-  //}
+  .location-sidebar-big {
+    position: relative;
+    cursor: pointer;
+    width: 115px;
+    height: 58px;
 
-  //&.active {
-  //  width: 118px;
-  //  @include for-big-desktop {
-  //    width: 168px;
-  //  }
-  //
-  //  .fpb {
-  //    left: 127px;
-  //    @include for-big-desktop {
-  //      left: 180px;
-  //    }
-  //  }
-  //
-  //  .location-sidebar-item-inner-wrapper {
-  //    box-shadow: 0 0 28px #461D87;
-  //    width: 120px;
-  //    height: 50px;
-  //    @include for-big-desktop {
-  //      width: 170px;
-  //      height: 70px;
-  //    }
-  //  }
-  //
-  //  .hover-addons {
-  //    @include for-big-desktop {
-  //      height: 70px;
-  //    }
-  //    .magnifying-glass-wrapper {
-  //      svg {
-  //        margin: 13px;
-  //        @include for-big-desktop {
-  //          margin: 18px;
-  //          height: 30px;
-  //          width: 30px;
-  //        }
-  //      }
-  //    }
-  //    .drop-icon svg {
-  //      @include for-big-desktop {
-  //        width: 22px;
-  //      }
-  //    }
-  //  }
-  //}
-  //
-  //&:hover .hover-addons {
-  //  display: flex;
-  //}
-
-  .rarity-border {
-    &.red svg .outer-ring {
-      stroke: $red-rarity;
+    .sidebar-item-active {
+      position: absolute;
+      bottom: -17px;
+      right: -19px;
     }
 
-    &.blue svg .outer-ring {
-      stroke: $blue-rarity
+    &:hover {
+      .actions { display: flex; }
+      .location-data { display: none; }
     }
-    &.gold svg .outer-ring {
-      stroke: $gold-rarity;
+
+    .location-data {
+      position: absolute;
+      left: 43px;
+      top: 12px;
+      color: white;
+      white-space: nowrap;
+      text-transform: uppercase;
+
+      .loc-name {
+        width: 70px;
+        font-size: 13px;
+        @include ellipsis;
+      }
+
+      .loc-lvl {
+        font-size: 11px;
+        opacity: 0.5;
+      }
+    }
+
+    .actions {
+      left: 66px;
+      top: 20px;
+      width: 32px;
+      height: 30px;
     }
   }
 
-  //.location-sidebar-item-inner-wrapper {
-  //  background-size: cover;
-  //  background-position: center;
-  //  height: 44px;
-  //  width: calc(100% + 2px);
-  //  cursor: pointer;
-  //  position: relative;
-  //  border: 2px solid #461D87;
-  //  box-shadow: 0 0 10px rgba(#461D87, .5);
-  //
-  //  @include for-big-desktop {
-  //    height: 62px;
-  //  }
-  //
-  //  &:before {
-  //    content: '';
-  //    display: block;
-  //    position: absolute;
-  //    top: 0;
-  //    left: 0;
-  //    height: 100%;
-  //    width: 30px;
-  //    background: linear-gradient(to right, rgba(black, .7), rgba(black, 0));
-  //  }
-  //  &:after {
-  //    display: block;
-  //    position: absolute;
-  //    top: 0;
-  //    right: 0;
-  //    content: '';
-  //    border-top: 29px solid #461D87;
-  //    border-left: 29px solid transparent;
-  //    @include for-big-desktop {
-  //      border-top: 39px solid #461D87;
-  //      border-left: 39px solid transparent;
-  //    }
-  //    z-index: 1;
-  //  }
-  //  .level-outer {
-  //    position: absolute;
-  //    top: -2px;
-  //    right: -2px;
-  //
-  //    &:before {
-  //      display: block;
-  //      position: absolute;
-  //      top: 0;
-  //      right: 0;
-  //      border-top: 30px solid #26184D;
-  //      border-left: 30px solid transparent;
-  //      content: '';
-  //      z-index: 2;
-  //
-  //      @include for-big-desktop {
-  //        border-top: 40px solid #26184D;
-  //        border-left: 40px solid transparent;
-  //      }
-  //    }
-  //    .level-background {
-  //      display: block;
-  //      position: absolute;
-  //      top: 0;
-  //      right: 0;
-  //      z-index: 3;
-  //      width: 27px;
-  //      height: 27px;
-  //
-  //      @include for-big-desktop {
-  //        transform-origin: top right;
-  //        transform: scale(1.35);
-  //      }
-  //    }
-  //    .level {
-  //      position: relative;
-  //      font-weight: bold;
-  //      font-size: 13px;
-  //      line-height: 13px;
-  //      margin: 3px 4px;
-  //      color: white;
-  //      z-index: 4;
-  //
-  //      @include for-big-desktop {
-  //        right: -1px;
-  //        top: 2px;
-  //        font-size: 20px;
-  //      }
-  //    }
-  //  }
-  //  .title {
-  //    position: absolute;
-  //    bottom: 0;
-  //    padding: 10px 7px 6px;
-  //    width: 100%;
-  //    background: linear-gradient(rgba(black, 0), black);
-  //    color: white;
-  //    line-height: 12px;
-  //    font-size: 14px;
-  //    text-transform: uppercase;
-  //    white-space: pre;
-  //    overflow: hidden;
-  //    text-overflow: ellipsis;
-  //  }
-  //}
+  .actions {
+    display: none;
+    position: absolute;
+    flex-direction: row-reverse;
+    justify-content: space-between;
 
+    > div {
+      transition: all 0.2s;
+      cursor: pointer;
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+      &:hover {
+        opacity: 0.7;
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .rarity-border {
+    &.red svg {
+      .outer-ring { stroke: $red-rarity; }
+      .horizontal-lines, .bars, .right-line { stop { stop-color: $red-rarity; } }
+    }
+
+    &.blue svg {
+      .outer-ring { stroke: $blue-rarity }
+      .horizontal-lines, .bars, .right-line { stop { stop-color: $blue-rarity; } }
+    }
+
+    &.gold svg .outer-ring {
+      .outer-ring { stroke: $gold-rarity; }
+      .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
+    }
+  }
 
   &.dragging-success.level-up-success {
     .location-sidebar-small, .location-sidebar-big {
-      .outer-ring {
-        stroke: $empty-slot-can-drop;
-      }
+      .outer-ring { stroke: $empty-slot-can-drop; }
+      .horizontal-lines, .bars, .right-line { stop { stop-color: $empty-slot-can-drop; } }
     }
   }
 
   &.dragging-success.level-up-fail {
     .location-sidebar-small, .location-sidebar-big {
-      .outer-ring {
-        stroke: $red;
-      }
+      .outer-ring { stroke: $red; }
+      .horizontal-lines, .bars, .right-line { stop { stop-color: $red; } }
     }
   }
 }
