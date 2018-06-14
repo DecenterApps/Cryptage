@@ -100,7 +100,7 @@ class IngameCard extends Component {
                 preserveAspectRatio="xMidYMid slice"
                 href={`cardImages/${card.stats.image}`}
               />
-            </pattern>
+            </pattern>c
             <linearGradient
               id={`card-rarity-gradient-${uniqueId}`}
               x1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 20 : 0}%`}
