@@ -6,6 +6,7 @@ import AvailableDropIcon from '../Decorative/AvailableDropIcon';
 import UnavailableDropIcon from '../Decorative/UnavailableDropIcon';
 
 import './EmptyProjectSlot.scss';
+import EmptyProjectItemVector from './EmptyProjectItemVector';
 
 const EmptyProjectSlot = ({ card, globalStats }) => {
   let canDrop = false;
@@ -25,10 +26,7 @@ const EmptyProjectSlot = ({ card, globalStats }) => {
       `}
     >
       <div className="empty-project-slot">
-        {
-          card && goodCardType &&
-          <div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div>
-        }
+        <EmptyProjectItemVector />
       </div>
     </div>
   );
