@@ -9,13 +9,17 @@ import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
+import ProjectItemVector from './ProjectItemVector';
+import ProjectPill from './ProjectPill';
 
 import './ProjectItem.scss';
 
 import activeBg from './assets/active-item-bg.png';
 import restart from './assets/restart.png';
+import InfoCardIcon from '../Decorative/InfoCardIcon';
+import DropCardIcon from '../Decorative/DropCardIcon';
 
-const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime) * 100);
+const calculatePercent = (expiryTime, costTime) => ((expiryTime / costTime) * 100);
 
 class ProjectItem extends Component {
   constructor() {
@@ -62,9 +66,9 @@ class ProjectItem extends Component {
           project-container
           ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
           ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
+          rarity-border
+          blue
         `}
-        onMouseEnter={() => { togglePortal(true); }}
-        onMouseLeave={() => { togglePortal(false); }}
         ref={(ref) => { this.myRef = ref; }}
       >
         <div
@@ -78,72 +82,51 @@ class ProjectItem extends Component {
             </PortalWrapper>
           }
 
+          <ProjectItemVector active={isActive} id={mainCard.id} image={`cardImages/${mainCard.stats.image}`} />
+
           {
-            showFpb &&
-            <div className="bonus">
-              {
-                (xpb > 0) && <div>+ { formatBigNumber(xpb) } <br /> XP</div>
-              }
-              {
-                (metadataId === '26' || metadataId === '27') &&
-                (fpb > 0) &&
-                <div>+ { formatBigNumber(fpb) } <br /> FPB</div>
-              }
-              {
-                (metadataId !== '26' && metadataId !== '27') &&
-                (fpb > 0) &&
-                <div>+ { formatBigNumber(fpb) } <br /> { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
-              }
+            isActive &&
+            <div className="project-progress">
+              <Circle
+                strokeWidth="7"
+                strokeColor="#FF9D14"
+                trailColor="transparent"
+                percent={calculatePercent(timeLeft, mainCard.stats.cost.time)}
+              />
             </div>
           }
 
           {
             !isActive && isFinished &&
-            <div className="repeat-project">
+            <div className="repeat-project" onClick={() => activateProject(mainCard, index)}>
               <img
                 draggable={false}
                 className="project-check"
                 src={restart}
-                onClick={() => activateProject(mainCard, index)}
-                alt="Checkmark icon"
-              />
-              <ChevronDownIcon onClick={() => {
-                openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
-              }}
+                alt="Repeat icon"
               />
             </div>
           }
-          <img
-            draggable={false}
-            className="project-thumbnail main-thumbnail"
-            src={`cardImages/${mainCard.stats.image}`}
-            alt=""
-          />
-          <div className={`rarity-border ${classForRarity(mainCard.stats.rarityScore)}`} >
-            <div className="helper" />
-          </div>
-          <div className="project-info">
-            {
-              isActive &&
-              <div className="project-progress">
-                <Circle
-                  strokeWidth="5"
-                  strokeColor="#FF9D14"
-                  trailColor="transparent"
-                  percent={calculatePercent(timeLeft, mainCard.stats.cost.time)}
-                />
-                <span className="project-time-left">
-              <img className="project-thumbnail" src={activeBg} alt="" draggable={false} />
-                  {
-                    blockNumber > 0 && [
-                      <div key="PIK1" className="blocks-left">{ timeLeft }</div>,
-                      <div key="PIK2">{ ((timeLeft) === 1) ? 'BLOCK' : 'BLOCKS' }</div>,
-                      <div key="PIK3">LEFT</div>,
-                    ]
-                  }
 
-                  { blockNumber === 0 && <div className="loading-blocks">Loading...</div> }
-            </span>
+          <div className="actions">
+            <div
+              className="project-pill-info"
+              onMouseEnter={() => { togglePortal(true); }}
+              onMouseLeave={() => { togglePortal(false); }}
+            >
+              <InfoCardIcon />
+              <ProjectPill id={mainCard.id} />
+            </div>
+
+            {
+              !isActive &&
+              <div className="project-pill-close">
+                <DropCardIcon
+                  onClick={() => {
+                    openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
+                  }}
+                />
+                <ProjectPill id={mainCard.id} />
               </div>
             }
           </div>

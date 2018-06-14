@@ -2,34 +2,42 @@
 @import "../../common/variables";
 
 .project-container {
-  background: linear-gradient(180deg, #22183B 0%, #1F1638 53.59%, #150F24 100%);
-  border: 1px solid #36265F;
-  box-shadow: 0 0 14px #06040D;
-  box-sizing: border-box;
-  border-radius: 100%;
-  width: $project-size - 2;
-  height: $project-size - 2;
-  position: relative;
-  > * {
-    z-index: 2;
+
+  &.rarity-border {
+
+    &.normal .rarity-ring { display: none; }
+    &.blue .rarity-ring { stroke: $blue-rarity; }
+    &.gold .rarity-ring { stroke: $gold-rarity; }
+    &.red .rarity-ring { stroke: $red-rarity; }
   }
 
-  @include for-big-desktop {
-    width: $project-size-desktop - 2;
-    height: $project-size-desktop - 2;
-    border: 2px solid #36265F;
+  &:hover .projects-item-wrapper .actions {
+    display: block;
   }
 
+  // DO THIS
   &.dragging-success.level-up-success {
-    border: 1px solid $empty-slot-can-drop;
+    &.normal .border-ring {
+      stroke: $empty-slot-can-drop;
+      stroke-width: 2px;
+    }
+    &.blue, &.gold, &.red {
+      .rarity-ring {
+        stroke: $empty-slot-can-drop;
+        stroke-width: 2px;
+      }
+    }
   }
 
   &.dragging-success.level-up-fail {
-    border: 1px solid $red;
-
-    .rarity-border {
-      &.blue, &.red, &.gold {
-        background: red;
+    &.normal .border-ring {
+      stroke: $red;
+      stroke-width: 2px;
+    }
+    &.blue, &.gold, &.red {
+      .rarity-ring {
+        stroke: $red;
+        stroke-width: 2px;
       }
     }
   }
@@ -39,303 +47,77 @@
     height: 100%;
     z-index: 21;
     position: relative;
+    display: flex;
     border-radius: 100%;
 
-    &:hover {
-      .main-thumbnail {
-        opacity: 0;
-      }
+    .actions {
+      display: none;
 
-      .project-time-left {
-        opacity: 1;
-      }
-
-      .bonus {
-        display: none;
-      }
-    }
-
-    .project-progress {
-      padding: 2px;
-    }
-
-    .bonus {
-      position: absolute;
-      top: 0;
-      left: 0;
-      white-space: nowrap;
-      background: rgba(54, 38, 95, 0.86);
-      width: 45px;
-      height: 45px;
-      border-radius: 100%;
-      text-transform: uppercase;
-      font-size: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      opacity: 1;
-      z-index: 10;
-      animation: fadeOut 1s ease-out 2s forwards;
-      pointer-events: none;
-
-      @keyframes fadeOut {
-        0% {opacity: 1;}
-        100% {opacity: 0;}
-      }
-
-      @include for-big-desktop {
-        width: 67px;
-        height: 67px;
-        left: -2px;
-        top: -1px;
-        font-size: 12px;
-      }
-
-      div {
-        font-family: $font-secondary;
-        text-shadow: 0 0 13px rgba(255, 157, 20, 0.7);
-        text-align: center;
-        line-height: 10px;
-
-        @include for-big-desktop {
-          line-height: 13px;
-        }
-
-        &:first-child {
-          color: #33FF00;
-        }
-
-        &:nth-child(2) {
-          color: $yellow;
-        }
-      }
-    }
-
-    button.activate-button {
-      border-radius: 100%;
-      font-size: 10px;
-      width: 20px;
-      height: 20px;
-      padding: 0;
-      margin-top: 17px;
-    }
-
-    .project-time-left {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      text-align: center;
-      font-family: Roboto, sans-serif;
-      font-size: 7px;
-      color: #fff;
-      text-shadow: rgba(33, 35, 234, 0.7);
-      padding-top: 8px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-
-      .blocks-left {
-        font-size: 14px;
-
-        @include for-big-desktop {
-          margin-top: 7px;
-          font-size: 16px;
-        }
-      }
-
-      .loading-blocks {
-        font-size: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        top: -6px;
-        position: relative;
-      }
-    }
-
-    @keyframes spin { 100% { transform:rotate(360deg); } }
-
-    .rarity-border {
-      &.blue, &.gold, &.red {
-        @include for-big-desktop {
-          & +.project-info .project-thumbnail {
-            height: calc(100% + 7px);
-          }
-        }
-      }
-    }
-
-    .rarity-border.blue {
-      position: absolute;
-      height: calc(100% + 2px);
-      width: calc(100% + 2px);
-      top: -1px;
-      left: -1px;
-      border-radius: 50%;
-      background: $blue-rarity;
-      background: linear-gradient(to left, $blue-rarity 0%, rgba($blue-rarity, 0) 80%);
-      animation: spin 5s infinite linear;
-      z-index: 0;
-      box-shadow: 0 0 6px rgba($blue-rarity, .5);
-      &::after {
-        content: '';
-        background-color: #090E1B;
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        display: block;
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        border-radius: 50%;
-      }
-    }
-
-    .rarity-border.gold {
-      position: absolute;
-      height: calc(100% + 6px);
-      width: calc(100% + 6px);
-      top: -3px;
-      left: -3px;
-      border-radius: 50%;
-      background: linear-gradient(to left, $gold-rarity 0%, rgba($gold-rarity, 0) 80%);
-      animation: spin 5s infinite linear;
-      z-index: 0;
-      box-shadow: 0 0 6px rgba($gold-rarity, .5);
-      &::after {
-        content: '';
-        background-color: #090E1B;
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        display: block;
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        border-radius: 50%;
-      }
-    }
-
-    .rarity-border.red {
-      position: absolute;
-      height: calc(100% + 10px);
-      width: calc(100% + 10px);
-      top: -5px;
-      left: -5px;
-      border-radius: 50%;
-      background: linear-gradient(to left, $red-rarity 0%, rgba($red-rarity, 0) 80%);
-      animation: spin 5s infinite linear;
-      z-index: 0;
-      box-shadow: 0 0 6px rgba($red-rarity, .5);
-      &::after {
-        content: '';
-        background-color: #090E1B;
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        display: block;
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        border-radius: 50%;
-      }
-      .helper {
-        position: absolute;
-        height: calc(100% - 4px);
-        width: calc(100% - 4px);
-        top: 2px;
-        left: 2px;
-        border-radius: 50%;
-        background: linear-gradient(to left, $red-rarity 0%, rgba($red-rarity, 0) 80%);
-        animation: spin 2.5s infinite linear reverse;
-        z-index: 1;
-        &::after {
-          content: '';
-          background-color: #090E1B;
-          width: calc(100% - 2px);
-          height: calc(100% - 2px);
-          display: block;
+      .project-pill-info {
+        .info-card-icon {
           position: absolute;
-          top: 1px;
-          left: 1px;
-          border-radius: 50%;
+          z-index: 6;
+          left: -2px;
+          bottom: 62px;
+          width: 10px;
+          height: 10px;
+          cursor: pointer;
+
+          path { fill: $yellow; }
+        }
+
+        .project-pill {
+          position: absolute;
+          right: 20px;
+          bottom: 33px;
+        }
+      }
+
+      .project-pill-close {
+
+        .close-icon {
+          position: absolute;
+          z-index: 6;
+          left: 44px;
+          bottom: 56px;
+          cursor: pointer;
+
+          svg line { stroke: $yellow; }
+        }
+
+        .project-pill {
+          position: absolute;
+          transform: rotate(90deg);
+          left: 17px;
+          bottom: 36px
         }
       }
     }
 
-    .project-thumbnail {
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 100%;
-      opacity: 0.5;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-
-      @include for-big-desktop {
-        top: -1px;
-        left: -2px;
-        width: calc(100% + 4px);
-        height: calc(100% + 4px);
-      }
+    .project-item-vector {
+      position: relative;
+      right: 6px;
+      bottom: 5px;
+      z-index: 2;
     }
 
-    .project-info {
-      position: relative;
+    .project-progress svg {
+      position: absolute;
+      left: 8px;
       z-index: 2;
-      text-align: center;
+      top: 8px;
+      width: 35px;
+      transform: rotateY(180deg);
     }
 
     .project-check {
       position: relative;
       z-index: 2;
-      width: 14px;
-      height: 16px;
-    }
-
-    &.project-finished {
-      display: flex;
-      justify-content: center;
-      background: linear-gradient(180deg, transparent 50%, rgba(54, 38, 95, 0.8) 50%);
-
-      .repeat-project {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-
-        @include for-big-desktop {
-          justify-content: center;
-          transform: scale(1.3);
-          z-index: 3;
-
-          img {
-            margin-bottom: 10px;
-          }
-        }
-      }
-
-      .project-thumbnail {
-        opacity: 0.25;
-      }
-
-      svg {
-        width: 20px;
-        height: 10px;
-        cursor: pointer;
-        z-index: 3;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      .project-check {
-        cursor: pointer;
-      }
+      width: 22px;
+      height: 24px;
+      cursor: pointer;
+      right: 48px;
+      top: 13px;
     }
   }
 }
