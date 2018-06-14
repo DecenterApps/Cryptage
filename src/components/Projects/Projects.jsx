@@ -6,21 +6,22 @@ import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import ProjectItem from '../ProjectItem/ProjectItem';
 import EmptyProjectSlot from '../EmptyProjectSlot/EmptyProjectSlot';
 import Menu from '../Menu/Menu';
+import HeaderLine from '../Decorative/HeaderLine';
 
 import './Projects.scss';
 
 const Projects = ({ projects, handleProjectDrop }) => (
   <div className="projects-wrapper">
     <Menu />
+
     <div className="projects-header">
-      <div className="bar-wrapper reverse-bar">
-        <div className="bar-1" />
-        <div className="bar-2" />
-        <div className="bar-3" />
-        <div className="bar-4" />
-        <div className="bar-text">Projects</div>
+      <div className="bar-wrapper">
+        <HeaderLine />
+        <div className="section-header-main-text">Projects</div>
+        <div className="section-header-sub-text">Summary</div>
       </div>
     </div>
+
     <div className="active-projects-wrapper">
       <DropSlotsWrapper
         dropSlots={projects}
