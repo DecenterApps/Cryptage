@@ -67,7 +67,7 @@ class ProjectItem extends Component {
           ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
           ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
           rarity-border
-          blue
+          ${classForRarity(mainCard.stats.rarityScore)}
         `}
         ref={(ref) => { this.myRef = ref; }}
       >
