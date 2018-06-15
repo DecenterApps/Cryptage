@@ -55,42 +55,32 @@
     background-position: center;
   }
   .rarity-overlay {
-    //&.blue { background: linear-gradient(142.75deg, rgba(5, 0, 255, 0.6) 0%, rgba(63, 60, 205, 0) 65.28%); }
-    //&.gold { background: linear-gradient(142.75deg, rgba(255, 157, 20, 0.6) 0%, rgba(255, 157, 20, 0) 65.28%); }
-    //&.red { background: linear-gradient(142.75deg, rgba(224, 0, 0, 0.6) 0%, rgba(224, 0, 0, 0) 65.28%); }
-    &.gold {
-      &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: -6px;
-        left: -2px;
-        height: 2px;
-        width: 40px;
-        background: linear-gradient(to right, $gold-rarity 0%, rgba($gold-rarity, 0) 100%);
-      }
+    &.blue {
+      position: absolute;
+      top: -23px;
+      left: -24px;
+      height: 169px;
+      width: 133px;
+      background: url("./blue-rarity-border.png");
+      background-size: 148px 188px;
     }
-    &.red {
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: -6px;
-        left: -6px;
-        height: 90px;
-        width: 2px;
-        background: linear-gradient(to bottom, $red-rarity 0%, rgba($red-rarity, 0) 100%);
-      }
-      &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: -6px;
-        left: -4px;
-        height: 2px;
-        width: 40px;
-        background: linear-gradient(to right, $red-rarity 0%, rgba($red-rarity, 0) 100%);
-      }
+    &.gold {
+      position: absolute;
+      top: -23px;
+      left: -23px;
+      height: 169px;
+      width: 133px;
+      background: url("./gold-rarity-border.png");
+      background-size: 147px 187px;
+    }
+    &.purple {
+      position: absolute;
+      top: -23px;
+      left: -23px;
+      height: 169px;
+      width: 133px;
+      background: url("./purple-rarity-border.png");
+      background-size: 147px 187px;
     }
   }
 
@@ -103,11 +93,6 @@
     position: absolute;
     left: 0;
     bottom: 88px;
-
-    @include for-big-desktop {
-      //bottom: 126px;
-      //font-size: 15px;
-    }
   }
 
   .card-image {

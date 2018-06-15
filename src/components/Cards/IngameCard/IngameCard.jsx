@@ -39,6 +39,7 @@ class IngameCard extends Component {
     } = this.props;
 
     const uniqueId = guid();
+    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
 
     return (
       <div
@@ -96,11 +97,11 @@ class IngameCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: rarities[classForRarity(card.stats.rarityScore)] }}
+                style={{ stopColor: rarityColor }}
               />
               <stop
                 offset="50%"
-                style={{ stopColor: `${rarities[classForRarity(card.stats.rarityScore)]}00` }}
+                style={{ stopColor: `${rarityColor}00` }}
               />
             </linearGradient>
             <linearGradient

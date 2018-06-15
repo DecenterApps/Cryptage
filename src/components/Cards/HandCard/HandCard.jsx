@@ -30,6 +30,8 @@ class HandCard extends Component {
 
     const uniqueId = guid();
 
+    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
+
     return (
       <div
         className={`card-details type-${card.stats.type.toLowerCase()}`}
@@ -80,11 +82,11 @@ class HandCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: rarities[classForRarity(card.stats.rarityScore)] }}
+                style={{ stopColor: rarityColor }}
               />
               <stop
                 offset="50%"
-                style={{ stopColor: `${rarities[classForRarity(card.stats.rarityScore)]}00` }}
+                style={{ stopColor: `${rarityColor}00` }}
               />
             </linearGradient>
             <linearGradient
@@ -114,7 +116,7 @@ class HandCard extends Component {
             points="9,1 83,1 83,111 75,119 1,119 1,9"
             fill="black"
           />
-          <polygonc
+          <polygon
             className="card-image-inner"
             points="10,2 82,2 82,110 74,118 2,118 2,10"
             fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
