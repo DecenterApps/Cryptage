@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classForRarity, printMechanicsText, guid } from '../../services/utils';
-import { fpbCardIds, DESKTOP_WIDTH } from '../../actions/actionTypes';
+import { formatBigNumber, classForRarity, guid } from '../../services/utils';
+import { fpbCardIds, DESKTOP_WIDTH, rarities, typeGradients } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
 import LargeCardMain from './LargeCardMain';
@@ -32,22 +32,10 @@ const HoverInfo = ({
     position.left = parentPos.left;
   }
 
-  const typeGradients = {
-    misc:       ['#3215E6', 'rgba(49, 20, 230, 0)'],
-    power:      ['#CE060D', 'rgba(206, 5, 13, 0)'],
-    location:   ['#3CC8CC', 'rgba(60, 200, 204, 0)'],
-    person:     ['#9F00C7', 'rgba(95, 38, 79, 0)'],
-    project:    ['#878787', 'rgba(135, 135, 135, 0)'],
-    mining:     ['#75341F', 'rgba(117, 52, 30, 0)'],
-    container:  ['#4A7420', 'rgba(74, 116, 32, 0)'],
+  if (center) {
+    position.top = '50%';
+    position.left = '50%';
   }
-
-  const rarities = {
-    normal: '#9797FB',
-    blue: '#0086D1',
-    gold: '#9B01C1',
-    red: '#FF9D14',
-  };
 
   if (type === 'asset') position.left += 190;
   if (type === 'asset' && isDesktop) position.left += 100;
@@ -66,8 +54,6 @@ const HoverInfo = ({
     return hideTime && (spaceOverOne || levelOverOne || valOverZero);
   }).length > 0;
 
-  // const mechanicsTextArr = printMechanicsText(card.stats.mechanicsText);
-
   return (
     <div
       className={`card-hover-info-wrapper ${center && 'center'} ${card.stats.type.toLowerCase()}`}
@@ -77,12 +63,15 @@ const HoverInfo = ({
         className="inner-wrapper"
       >
 
-        <LargeCardMain id={card.id} image={`cardImages/${card.stats.image}`} />
+        <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
 
+        <LargeCardMain
+          typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
+          rarityColor={rarities[classForRarity(card.stats.rarityScore)]}
+          id={card.id}
+          image={`cardImages/${card.stats.image}`}
+        />
 
-        {/*<div className="overlay" />*/}
-        {/*<div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />*/}
-        {/*<div className="title">{card.stats.title}</div>*/}
         <div className="card-level-wrapper">
           <span className="card-level-text">Level</span>
           <span className="card-level-val">{card.stats.level}</span>
@@ -224,7 +213,7 @@ const HoverInfo = ({
             <div className="description">
               {
                 card.stats.mechanicsText &&
-                <p className="mechanics">card.stats.mechanicsText</p>
+                <p className="mechanics">{card.stats.mechanicsText}{/**/}</p>
               }
               {
                 card.stats.flavorText &&
