@@ -8,15 +8,22 @@ import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
 import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
 import { sortTypeGroupByPrice } from '../../services/utils';
+import cardsConfig from '../../constants/cards.json';
 
 import './Cards.scss';
 
 class Cards extends Component {
   constructor() {
     super();
-    this.state = {
-      tab: 'all',
-    };
+
+    const tabsToggleMap = {};
+
+    for (const key of cardsConfig.cardTypes) {
+      tabsToggleMap[key.toLowerCase()] = false;
+    }
+    tabsToggleMap.available = true;
+
+    this.state = { tabsToggleMap };
   }
 
   componentDidMount() {
@@ -27,6 +34,12 @@ class Cards extends Component {
       that.scrollLeft -= (delta * 25);
       event.preventDefault();
     });
+  }
+
+  toggleTabOpen(tabName) {
+    const newState = { ...this.state };
+    newState.tabsToggleMap[tabName] = !newState.tabsToggleMap[tabName];
+    this.setState(newState);
   }
 
   groupDuplicates(cards) {
@@ -88,7 +101,13 @@ class Cards extends Component {
           {
             !cardsFetching && cards.length > 0 &&
             Object.keys(playerCards).map(type =>
-              <CardsTabGroup key={`${type}-${playerCards[type].length}`} title={type} cards={playerCards[type]} />)
+              <CardsTabGroup
+                toggleTab={() => { this.toggleTabOpen(type.toLowerCase()); }}
+                open={this.state.tabsToggleMap[type.toLowerCase()]}
+                key={`${type}-${playerCards[type].length}`}
+                title={type}
+                cards={playerCards[type]}
+              />)
           }
         </div>
       </div>

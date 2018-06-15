@@ -58,6 +58,8 @@
     width: 100%;
     font-size: 16px;
     color: white;
+    height: 100%;
+
     span {
       font-family: $font-secondary;
       margin-right: 15px;
@@ -104,14 +106,12 @@
         text-transform: uppercase;
         z-index: 1;
 
-        @include for-big-desktop {
-          font-size: 14px;
+        span {
+          cursor: pointer;
         }
 
-        &:before {
-          content: '';
+        .orb {
           border: 1px solid #9797FB;
-          background-color: red; // TODO
           border-radius: 50%;
           height: 13px;
           width: 13px;
@@ -125,7 +125,17 @@
     .card-type-inner-wrapper {
       display: flex;
       overflow: hidden;
-      padding-top: 22px;
+      padding-top: 23px;
+      transition: width 0.3s ease-in;
+      align-items: center;
+      justify-content: center;
+
+      &.closed {
+        width: 0;
+      }
+      &.open {
+        width: 100%;
+      }
     }
   }
 }
