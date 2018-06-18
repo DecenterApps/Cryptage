@@ -6,7 +6,7 @@ import { buyBoosterPack } from '../../actions/boosterActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
 import EmptyLocationSlot from '../EmptyLocationSlot/EmptyLocationSlot';
-import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
+import FutureButton from '../FutureButton/FutureButton';
 import HeaderLine from '../Decorative/HeaderLine';
 
 import './Locations.scss';
@@ -15,16 +15,8 @@ const Locations = ({
   locations, handleLocationDrop, isBuying, buyBoosterPack,
 }) => (
   <div className="locations-wrapper">
-    <div className="buy-boosters-wrapper">
-      <button
-        className="orange-button buy-booster-button"
-        disabled={isBuying}
-        onClick={buyBoosterPack}
-      >
-        BUY CARD PACK
-      </button>
-
-      { isBuying && <div className="buying-card-pack"><CircleSpinner /></div> }
+    <div className="buy-booster-button-wrapper" onClick={buyBoosterPack}>
+      <FutureButton text="Buy card pack" loading={isBuying} disabled={isBuying} />
     </div>
 
     <div className="locations-header">

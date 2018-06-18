@@ -13,43 +13,8 @@
     max-width: 190px;
   }
 
-  .buy-boosters-wrapper {
-    margin-top: 17px;
-    margin-bottom: 79px;
-    position: relative;
-
-    @include for-big-desktop {
-      margin-bottom: 94px;
-      margin-top: 40px;
-    }
-
-    .buy-booster-button {
-      width: auto;
-
-      @include for-big-desktop {
-        margin-left: 31px;
-      }
-
-      &:disabled {
-        pointer-events: none;
-        opacity: 0.5;
-      }
-    }
-
-    .buying-card-pack {
-      color: white;
-
-      .spinner-wrapper {
-        position: absolute;
-        right: -9px;
-        top: -4px;
-
-        @include for-big-desktop {
-          right: 0px;
-          top: 2px;
-        }
-      }
-    }
+  .future-button {
+    margin: 22px 0 0 3px;
   }
 
   .locations-header {
@@ -57,6 +22,7 @@
     text-transform: uppercase;
     color: #fff;
     margin-bottom: 10px;
+    padding-top: 5px;
 
     @include for-big-desktop {
       margin-bottom: 30px;
