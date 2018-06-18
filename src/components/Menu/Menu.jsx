@@ -11,6 +11,7 @@ import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 import ethereumService from '../../services/ethereumService';
 
 import './Menu.scss';
+import FutureButton from '../FutureButton/FutureButton';
 
 class Menu extends Component {
   constructor() {
@@ -35,25 +36,14 @@ class Menu extends Component {
 
     return (
       <div className="menu-wrapper">
-        <div className="actions-wrapper">
-          <div className="save-button-wrapper">
-            <button
-              className="orange-button"
-              disabled={isSaving}
-              onClick={saveStateToContract}
-            >
-              { !isSaving && 'Save'}
-              { isSaving && <CircleSpinner /> }
-            </button>
 
-            {
-              (lastSavedStateBlock !== 0) &&
-              <BlocksLoadingBar currentBlock={currentBlock} width={65} blockNumber={blocksLeftToSave} />
-            }
+        <div className="menu-buttons">
+          <div className="save-button" onClick={saveStateToContract}>
+            <FutureButton reverse text="Save" loading={isSaving} disabled={isSaving} />
           </div>
 
-          <div className="hamburger" onClick={() => this.setState({ open: true })}>
-            <span>|||</span>
+          <div className="menu-button" onClick={() => this.setState({ open: true })}>
+            <FutureButton reverse text="Menu" loading={false} disabled={false} />
           </div>
         </div>
 

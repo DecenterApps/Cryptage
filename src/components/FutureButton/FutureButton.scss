@@ -39,6 +39,7 @@
     }
 
     .text {
+      text-transform: uppercase;
       display: inline-flex;
     }
 
@@ -48,6 +49,22 @@
       #spinner {
         stroke: #9797FC;
       }
+    }
+  }
+
+  &.reverse {
+
+    &:before {
+      transform: rotate(180deg);
+      right: -12px;
+      top: 15px;
+      left: auto;
+    }
+
+    &:after {
+      transform: rotateY(180deg);
+      left: -14px;
+      top: 6px;
     }
   }
 

@@ -4,9 +4,9 @@ import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 
 import './FutureButton.scss';
 
-export default function FutureButton({ text, loading, disabled }) {
+export default function FutureButton({ text, loading, disabled, reverse }) {
   return (
-    <div className="future-button">
+    <div className={`future-button ${reverse ? 'reverse' : 'not-reversed'}`}>
 
       <div className={`
         button-text-wrapper

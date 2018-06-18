@@ -3,8 +3,7 @@
 @import "../../common/text";
 
 .menu-wrapper {
-  height: 40px;
-  margin-bottom: 94px;
+  margin-bottom: 5px;
   text-align: right;
   position: relative;
 
@@ -12,72 +11,116 @@
     margin-bottom: 143px;
   }
 
-  .actions-wrapper {
-    padding-top: 17px;
-    margin-right: 30px;
+  .menu-buttons {
     display: flex;
-    align-items: flex-start;
 
-    @include for-big-desktop {
-      padding-top: 40px;
-    }
+    .save-button {
+      margin-top: 22px;
+      margin-left: 5px;
 
-    .save-button-wrapper {
-      position: relative;
-      margin-right: 32px;
+      .future-button.reverse {
+        width: 75px;
 
-      .spinner-wrapper {
-        position: relative;
-        top: -9px;
-      }
+        .button-text-wrapper {
+          left: -4px;
+        }
 
-      .orange-button {
-        position: relative;
-        left: 14px;
-        width: 65px;
-        margin-left: 0;
-
-        @include for-big-desktop {
-          width: 90px;
-          left: 0;
-          margin-left: 0;
+        &:before {
+          background: url('../FutureButton/SideRightReverse.svg');
+          transform: rotate(0deg);
+          top: 6px;
+          right: -1px;
         }
       }
-
-      .blocks-loading-bar {
-        position: absolute;
-        top: 25px;
-        width: 65px;
-        left: 14px;
-      }
     }
 
-    .hamburger {
-      display: inline-block;
-      position: relative;
-      top: 1px;
-      width: 40px;
+    .menu-button {
+      margin-top: 22px;
+      margin-left: 10px;
 
-      @include for-big-desktop {
-        top: 5px;
-        left: -8px;
-      }
+      .future-button {
+        width: 38px;
 
-      span {
-        color: $yellow;
-        transform: rotate(90deg);
-        display: inline-block;
-        font-size: 20px;
-        letter-spacing: 2px;
-        cursor: pointer;
-        user-select: none;
+        &:after {
+          left: -11px;
+        }
 
-        @include for-big-desktop {
-          font-size: 25px;
+        &:before {
+          transform: rotateY(180deg);
+          right: -19px;
+          top: 6px;
+          left: auto;
         }
       }
     }
   }
+
+  //.actions-wrapper {
+  //  padding-top: 17px;
+  //  margin-right: 30px;
+  //  display: flex;
+  //  align-items: flex-start;
+  //
+  //  @include for-big-desktop {
+  //    padding-top: 40px;
+  //  }
+  //
+  //  .save-button-wrapper {
+  //    position: relative;
+  //    margin-right: 32px;
+  //
+  //    .spinner-wrapper {
+  //      position: relative;
+  //      top: -9px;
+  //    }
+  //
+  //    .orange-button {
+  //      position: relative;
+  //      left: 14px;
+  //      width: 65px;
+  //      margin-left: 0;
+  //
+  //      @include for-big-desktop {
+  //        width: 90px;
+  //        left: 0;
+  //        margin-left: 0;
+  //      }
+  //    }
+  //
+  //    .blocks-loading-bar {
+  //      position: absolute;
+  //      top: 25px;
+  //      width: 65px;
+  //      left: 14px;
+  //    }
+  //  }
+  //
+  //  .hamburger {
+  //    display: inline-block;
+  //    position: relative;
+  //    top: 1px;
+  //    width: 40px;
+  //
+  //    @include for-big-desktop {
+  //      top: 5px;
+  //      left: -8px;
+  //    }
+  //
+  //    span {
+  //      color: $yellow;
+  //      transform: rotate(90deg);
+  //      display: inline-block;
+  //      font-size: 20px;
+  //      letter-spacing: 2px;
+  //      cursor: pointer;
+  //      user-select: none;
+  //
+  //      @include for-big-desktop {
+  //        font-size: 25px;
+  //      }
+  //    }
+  //  }
+  //}
 
   .menu-inner-wrapper {
     position: absolute;

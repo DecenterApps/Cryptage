@@ -1,0 +1,35 @@
+<svg width="39" height="46" viewBox="0 0 39 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d)">
+<path d="M0 21L5.95967 26H18.5V0H11.5L0 21Z" transform="translate(28.5 36) rotate(180)" fill="url(#paint0_linear)"/>
+<path d="M0 21L5.95967 26H18.5V0H11.5L0 21Z" transform="translate(28.5 36) rotate(180)" stroke="url(#paint1_linear)" stroke-width="2"/>
+</g>
+<path d="M13.5 20H4.53357L0 16.5L3.99987 9L9.1271 0H13.5" transform="translate(23.5 34) rotate(180)" stroke="url(#paint2_linear)" stroke-opacity="0.22"/>
+<path d="M16.5 23H5L0 19L8.5 3.5L10.5 0H16.5" transform="translate(26.5 34.5) rotate(180)" stroke="url(#paint3_linear)" stroke-opacity="0.93"/>
+<defs>
+<filter id="filter0_d" x="0" y="0" width="38.771" height="46" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="4.5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.132786 0 0 0 0 0 0 0 0 0 0.473049 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-25.0192 25) scale(124.038 25) rotate(-90)">
+<stop stop-color="#452499"/>
+<stop offset="1" stop-color="#080314"/>
+</linearGradient>
+<linearGradient id="paint1_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(77.5 362.039) scale(132 698.077) rotate(180)">
+<stop offset="0.790055" stop-color="#9797FB"/>
+<stop offset="1" stop-color="#9797FB"/>
+</linearGradient>
+<linearGradient id="paint2_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(68.5) scale(123 20) rotate(90)">
+<stop offset="0.828729" stop-color="#C8C8FC" stop-opacity="0"/>
+<stop offset="1" stop-color="#C8C8FC"/>
+</linearGradient>
+<linearGradient id="paint3_linear" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(73.5 0.5) scale(127 24) rotate(90)">
+<stop stop-opacity="0"/>
+<stop offset="1"/>
+</linearGradient>
+</defs>
+</svg>
