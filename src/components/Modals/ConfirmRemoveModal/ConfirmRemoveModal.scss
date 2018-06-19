@@ -2,9 +2,6 @@
 @import '../../../common/variables';
 
 .confirm-modal-wrapper {
-  background: $modal-bg;
-  border-bottom-left-radius: $border-radius-modal;
-  border-bottom-right-radius: $border-radius-modal;
   padding: 25px 37px;
 
   .modal-body {
@@ -12,18 +9,21 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: 25px 0;
+    background: linear-gradient(270deg, rgba(19, 13, 35, 0) 0%, #140D24 8.69%, #150D26 91.6%, rgba(21, 13, 38, 0) 100%);
 
     .title {
       margin: 0 0 10px 0;
-      font-size: 20px;
+      font-size: 16px;
       font-family: $font-secondary;
     }
 
     .main-text {
       font-family: $font-primary;
-      font-size: 12px;
+      font-size: 10px;
       text-align: center;
-      margin-bottom: 15px;
+      width: 195px;
+      color: #615E76;
 
       .conditional {
         margin-left: 5px;
@@ -37,12 +37,18 @@
       padding: 0;
     }
 
-    .buttons-wrapper {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      max-width: 145px;
+    .modal-buttons-bar {
+
+    }
+  }
+
+  .buttons-wrapper {
+    position: relative;
+    margin-top: 8px;
+    width: 100%;
+
+    .modal-buttons-bar {
+      bottom: 25px;
     }
   }
 }

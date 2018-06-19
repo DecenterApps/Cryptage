@@ -102,9 +102,6 @@ class GameplayItem extends Component {
       }
 
       // go to third level view if dragging a mining card
-      console.log('isOver', isOver);
-      console.log('mining card drag', dragItem);
-      console.log('canDropMiner', canDropMiner);
       if (isOver && dragItem.card.stats.type === 'Mining' && canDropMiner) {
         setTimeout(() => {
           this.goToContainer(isContainer);

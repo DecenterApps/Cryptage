@@ -1,0 +1,20 @@
+.small-button {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+
+  .small-button-text {
+    color: white;
+    position: absolute;
+    width: 100%;
+    top: 9px;
+    font-size: 12px;
+  }
+
+  &:hover {
+
+    .small-button-text {
+      color: darken(white, 15);
+    }
+  }
+}

@@ -6,6 +6,7 @@ import ModalBody from '../ModalBody';
 import { canCancelCard, handleCardCancel, removeProject } from '../../../actions/removeCardActions';
 
 import './ConfirmRemoveModal.scss';
+import SmallButton from '../../SmallButton/SmallButton';
 
 const ConfirmRemoveModal = ({
   slot, locationIndex, containerIndex, containerSlotIndex, handleCardCancel, closeModal, canCancelCard,
@@ -20,43 +21,49 @@ const ConfirmRemoveModal = ({
 
   return (
     <div className="confirm-modal-wrapper">
-      <ModalHeader closeModal={closeModal} />
+
+      <div className="modal-bar" />
       <ModalBody>
         <h3 className="title">Withdraw card?</h3>
 
         {
-          !canCancel && [
-            <div key="D" className="main-text">You can&#39;t currently withdraw this card from the game.</div>,
-            <button key="E" className="orange-button" onClick={closeModal}>Close</button>,
-          ]
+          !canCancel &&
+          <div className="main-text">You can&#39;t currently withdraw this card from the game.</div>
         }
 
         {
-          canCancel && [
-            <div key="F" className="main-text">
-              Withdrawing a card will not return spent funds. Are you sure you want to do this?
-            </div>,
-
-            <div key="G" className="buttons-wrapper">
-              <button
-                className="orange-button"
-                onClick={closeModal}
-              >
-                No
-              </button>
-              <button
-                className="orange-button"
-                onClick={() => {
-                  onClose();
-                  closeModal();
-                }}
-              >
-                Yes
-              </button>
-            </div>,
-          ]
+          canCancel &&
+          <div className="main-text">
+            Withdrawing a card will not return spent funds. Are you sure you want to do this?
+          </div>
         }
       </ModalBody>
+      <div className="modal-bar" />
+
+      {
+        !canCancel &&
+        <div className="buttons-wrapper">
+          <div className="modal-buttons-bar" />
+
+          <span onClick={closeModal}><SmallButton text="Close" /></span>
+        </div>
+      }
+
+      {
+        canCancel &&
+        <div className="buttons-wrapper">
+          <div className="modal-buttons-bar" />
+
+          <span onClick={() => { onClose(); closeModal(); }}>
+            <SmallButton text="Yes" />
+          </span>
+
+          <span onClick={closeModal}>
+            <SmallButton text="No" />
+          </span>
+        </div>
+      }
+
     </div>
   );
 };

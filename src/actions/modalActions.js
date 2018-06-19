@@ -48,7 +48,7 @@ export const openConfirmRemoveModal = (
     containerSlotIndex,
     projectCard,
     projectIndex,
-    width: '271px',
+    width: '440px',
   };
   dispatch(toggleModal(CONFIRM_REMOVE_MODAL, props, true));
 };

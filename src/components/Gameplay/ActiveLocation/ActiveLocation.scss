@@ -24,11 +24,11 @@
     }
 
     .active-location-field {
+      display: flex;
       width: 100%;
       top: 30px;
       transition: all .3s;
       position: absolute;
-      overflow: auto;
       height: 330px;
 
       &.location {

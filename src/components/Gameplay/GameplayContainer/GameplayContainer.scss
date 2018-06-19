@@ -2,13 +2,10 @@
 
 .active-container-wrapper {
   width: 100%;
+  height: 100%;
   color: #fff;
   text-align: center;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   padding-bottom: 20px;
 
   .active-container-card-wrapper {
@@ -24,19 +21,18 @@
     text-transform: uppercase;
     line-height: 1.4em;
     font-family: $font-secondary;
+
+    span {
+      margin-left: 5px;
+    }
   }
 
-  .close-container {
-    background: linear-gradient(to bottom, #452499, #080314);
-    border: 2px solid #9797FB;
-    color: white;
-    display: inline-block;
-    padding: 0 10px;
-    font-family: $font-secondary;
-    border-radius: 4px;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    left: 25px;
+  .small-button {
+    margin-top: 12px;
+  }
+
+  .drop-slots-wrapper {
+    max-height: 245px;
+    overflow: auto;
   }
 }
