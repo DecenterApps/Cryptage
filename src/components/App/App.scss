@@ -68,13 +68,10 @@ body {
 
 .app-wrapper {
   position: relative;
-  box-shadow: 0 0 24px #36265F;
   width: 1000px;
   max-width: 1000px;
   height: 620px;
   margin: auto;
-  background: url("./game-background.png") center center no-repeat;
-  background-size: cover;
 
   @include for-big-desktop {
     width: 1415px;

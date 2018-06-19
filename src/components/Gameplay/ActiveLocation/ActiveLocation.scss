@@ -17,7 +17,6 @@
     flex-grow: 1;
     position: relative;
     overflow: hidden;
-    padding: 0 5px;
 
     @include for-big-desktop {
       margin-top: 15px;
@@ -26,7 +25,6 @@
 
     .active-location-field {
       width: 100%;
-      margin: 0 10px;
       top: 30px;
       transition: all .3s;
       position: absolute;
@@ -56,12 +54,12 @@
       }
 
       .drop-slots-wrapper {
-        height: 324px;
-        overflow: auto;
-
-        @include for-big-desktop {
-          height: 500px;
-        }
+        //height: 324px;
+        //overflow: auto;
+        //
+        //@include for-big-desktop {
+        //  height: 500px;
+        //}
       }
     }
 

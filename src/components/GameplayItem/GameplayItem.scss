@@ -49,11 +49,11 @@
   .container-card-wrapper {
     position: relative;
 
-    &.can-drop-miner .card-details .card-image .card-image-bg {
+    &.can-drop-miner .ingame-card-details .card-image .card-image-bg {
       fill: $empty-slot-can-drop;
     }
 
-    &.no-drop-miner .card-details .card-image .card-image-bg {
+    &.no-drop-miner .ingame-card-details .card-image .card-image-bg {
       fill: $red;
     }
   }
