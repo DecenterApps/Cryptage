@@ -151,10 +151,8 @@
   }
   .count-wrapper {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 27px;
-    height: 27px;
+    top: 5px;
+    left: 8px;
     color: white;
 
     @include for-big-desktop {
@@ -163,30 +161,15 @@
       //bottom: 6px;
     }
 
-    &:before {
-      position: absolute;
-      bottom: 0;
-      content: '';
-      border-bottom: 30px solid rgba(#36265F, .85);
-      border-right: 30px solid transparent;
-
-      @include for-big-desktop {
-        border-bottom: 42px solid rgba(#36265F, .85);
-        border-right: 43px solid transparent;
-      }
-    }
     .count {
-      position: absolute;
-      bottom: 2px;
-      left: 4px;
       font-size: 10px;
       line-height: 10px;
       font-family: $font-secondary;
 
-      @include for-big-desktop {
-        font-size: 15px;
-        bottom: 5px;
-      }
+      //@include for-big-desktop {
+      //  font-size: 15px;
+      //  bottom: 5px;
+      //}
     }
   }
   .container-slots-outer-wrapper {
@@ -258,6 +241,7 @@
 
     .title {
       text-transform: uppercase;
+      white-space: pre-wrap;
     }
     .border {
       display: block;
