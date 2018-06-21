@@ -6,16 +6,24 @@
   height: 497px;
   width: auto;
 
+  .modal-body {
+    background: $modal-bg-dark;
+  }
+
   h4 {
-    margin-top: 15px;
+    padding-top: 15px;
+    margin: 0;
     font-size: 18px;
-    margin-bottom: 0;
     color: white;
     text-align: center;
 
     //@include for-big-desktop {
     //  font-size: 21px;
     //}
+  }
+
+  .reveal-cards-wrapper {
+    flex-wrap: nowrap;
   }
 
   h3 {

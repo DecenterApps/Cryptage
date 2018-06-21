@@ -70,7 +70,7 @@ export const openNewLevelModal = (level, cards) => (dispatch) => {
  * @param {Object} cards
  */
 export const openRevealBoosterCardsModal = cards => (dispatch) => {
-  dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { cards, className: 'reveal-modal' }, true));
+  dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { width: '1000px', cards, className: 'reveal-modal' }, true));
 };
 
 /**
