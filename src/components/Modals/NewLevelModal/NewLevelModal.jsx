@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ModalHeader from '../ModalHeader';
 import ModalBody from '../ModalBody';
-import HeaderBar from '../../HeaderBar/HeaderBar';
 import RevealCards from '../../Gameplay/RevealCards/RevealCards';
 import { toggleTutorial } from '../../../actions/appActions';
+import SmallButton from '../../SmallButton/SmallButton';
 
 import './NewLevelModal.scss';
-import SmallButton from '../../SmallButton/SmallButton';
 
 const NewLevelModal = ({
   closeModal, level, cards, toggleTutorial,

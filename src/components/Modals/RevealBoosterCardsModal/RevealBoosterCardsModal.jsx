@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ModalHeader from '../ModalHeader';
+import SmallButton from '../../SmallButton/SmallButton';
 import ModalBody from '../ModalBody';
 import RevealCards from '../../Gameplay/RevealCards/RevealCards';
-import HeaderBar from '../../HeaderBar/HeaderBar';
 import { clearRevealedCards } from '../../../actions/removeCardActions';
 
 import './RevealBoosterCardsModal.scss';
-import SmallButton from '../../SmallButton/SmallButton';
 
 const RevealBoosterCardsModal = ({ closeModal, cards, clearRevealedCards }) => {
   const close = () => {

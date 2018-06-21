@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ModalHeader from '../ModalHeader';
+import SmallButton from '../../SmallButton/SmallButton';
 import ModalBody from '../ModalBody';
 
 import '../ConfirmRemoveModal/ConfirmRemoveModal.scss';
 
 const NoRestartProjectModal = ({ closeModal, errors }) => (
   <div className="confirm-modal-wrapper">
-    <ModalHeader closeModal={closeModal} />
+
+    <div className="modal-bar" />
     <ModalBody>
       <h3 className="title">Restart project</h3>
 
@@ -18,8 +19,14 @@ const NoRestartProjectModal = ({ closeModal, errors }) => (
         {errors.development && errors.funds && <span className="conditional">funds and development</span> }
         .
       </div>
-      <button key="E" className="orange-button" onClick={closeModal}>Close</button>
     </ModalBody>
+    <div className="modal-bar" />
+
+    <div className="buttons-wrapper">
+      <div className="modal-buttons-bar" />
+
+      <span onClick={closeModal}><SmallButton text="Close" /></span>
+    </div>
   </div>
 );
 
