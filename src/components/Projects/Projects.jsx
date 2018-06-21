@@ -7,41 +7,49 @@ import ProjectItem from '../ProjectItem/ProjectItem';
 import EmptyProjectSlot from '../EmptyProjectSlot/EmptyProjectSlot';
 import Menu from '../Menu/Menu';
 import HeaderLine from '../Decorative/HeaderLine';
+import { GP_LEADERBOARD, GP_LOCATION_COLLECTION } from '../../actions/actionTypes';
 
 import './Projects.scss';
 
-const Projects = ({ projects, handleProjectDrop }) => (
+const Projects = ({ projects, handleProjectDrop, gameplayView }) => (
   <div className="projects-wrapper">
     <Menu />
 
-    <div className="projects-header">
-      <div className="bar-wrapper">
-        <HeaderLine />
-        <div className="section-header-main-text">Projects</div>
-        <div className="section-header-sub-text">Summary</div>
-      </div>
-    </div>
+    {
+      (gameplayView !== GP_LEADERBOARD &&
+        gameplayView !== GP_LOCATION_COLLECTION) && [
+        <div className="projects-header">
+          <div className="bar-wrapper">
+            <HeaderLine />
+            <div className="section-header-main-text">Projects</div>
+            <div className="section-header-sub-text">Summary</div>
+          </div>
+        </div>,
 
-    <div className="active-projects-wrapper">
-      <DropSlotsWrapper
-        dropSlots={projects}
-        onItemDrop={handleProjectDrop}
-        element={<ProjectItem />}
-        emptyStateElem={<EmptyProjectSlot />}
-        mainClass="projects-slots-wrapper"
-      />
-    </div>
+        <div key="active-projects-wrapper" className="active-projects-wrapper">
+          <DropSlotsWrapper
+            dropSlots={projects}
+            onItemDrop={handleProjectDrop}
+            element={<ProjectItem />}
+            emptyStateElem={<EmptyProjectSlot />}
+            mainClass="projects-slots-wrapper"
+          />
+        </div>,
+      ]
+    }
   </div>
 );
 
 Projects.propTypes = {
   projects: PropTypes.array.isRequired,
   handleProjectDrop: PropTypes.func.isRequired,
+  gameplayView: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   projects: gameplay.projects,
   activeLocationIndex: gameplay.activeLocationIndex,
+  gameplayView: gameplay.gameplayView,
 });
 
 const mapDispatchToProp = {
