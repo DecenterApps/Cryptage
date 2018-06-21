@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React from 'react';
 
 const LargeCardMain = ({ id, image, typeColor, rarityColor = '#9C01C2' }) => (
-  <svg width={226} height={313} viewBox="0 0 226 313" fill="none">
+  <svg width={226} height={313} viewBox="0 0 226 313" fill="none" className="large-card-main">
     <g filter={`url(#${id}lcfilter0_d)`}>
       <path d="M172.642 0H19.5779L0 19.5478V259.452V279H19.5779H172.642L192.22 259.452V19.5478V0H172.642Z" transform="translate(16.7803 17)" fill={`url(#${id}lcpattern0)`} />
     </g>

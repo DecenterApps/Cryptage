@@ -8,7 +8,7 @@
 }
 /* flip the pane when hovered */
 .flipper, .flip-container.hover .flipper {
-  transform: translateX(-160%) rotateY(180deg);
+  transform: translateX(-146%) translateY(-5%) rotateY(180deg);
   transform-origin: 127% center;
 }
 
@@ -18,14 +18,14 @@
   transform-style: preserve-3d;
 
   position: relative;
-  height: 227px;
-  width: 154px;
+  height: 300px;
+  width: 194px;
   transform: translateX(0%) rotateY(0deg);
 
-  @include for-big-desktop {
-    height: 320px;
-    width: 217px;
-  }
+  //@include for-big-desktop {
+  //  height: 320px;
+  //  width: 217px;
+  //}
 }
 
 /* hide back of pane during swap */

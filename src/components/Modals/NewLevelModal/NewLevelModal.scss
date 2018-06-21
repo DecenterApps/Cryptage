@@ -17,6 +17,10 @@
     }
   }
 
+  .modal-body {
+    background: $modal-bg-dark;
+  }
+
   .bar-name {
     width: 100px;
   }
@@ -66,6 +70,8 @@
   }
 
   .button-wrapper {
+    position: relative;
+    margin-top: 8px;
     text-align: center;
 
     @include for-big-desktop {

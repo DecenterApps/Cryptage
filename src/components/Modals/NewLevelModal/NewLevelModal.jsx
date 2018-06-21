@@ -8,18 +8,14 @@ import RevealCards from '../../Gameplay/RevealCards/RevealCards';
 import { toggleTutorial } from '../../../actions/appActions';
 
 import './NewLevelModal.scss';
+import SmallButton from '../../SmallButton/SmallButton';
 
 const NewLevelModal = ({
   closeModal, level, cards, toggleTutorial,
 }) => (
   <div className="new-level-modal-wrapper">
-    <ModalHeader
-      closeModal={() => {
-        closeModal();
-        toggleTutorial();
-      }}
-    />
-    <HeaderBar title="          " color="#FFF" />
+
+    <div className="modal-bar" />
     <ModalBody>
       {
         level === 1 &&
@@ -38,19 +34,16 @@ const NewLevelModal = ({
       }
 
       <RevealCards cards={cards} />
-
-      <div className="button-wrapper">
-        <button
-          className="orange-button"
-          onClick={() => {
-            closeModal();
-            toggleTutorial();
-          }}
-        >
-          Done
-        </button>
-      </div>
     </ModalBody>
+    <div className="modal-bar" />
+
+    <div className="button-wrapper">
+      <div className="modal-buttons-bar" />
+
+      <span onClick={() => { closeModal(); toggleTutorial(); }}>
+        <SmallButton text="Done" />
+      </span>
+    </div>
   </div>
 );
 

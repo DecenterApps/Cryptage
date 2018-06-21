@@ -6,19 +6,20 @@
   padding: 0 20px;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 
   .revealed-card {
     display: inline-block;
     margin-right: 25px;
-    width: 145px;
-    height: 252px;
+    width: 194px;
+    height: 285px;
     margin-bottom: 30px;
 
-    @include for-big-desktop {
-      width: $lg-card-desktop-width;
-      height: $lg-card-desktop-height;
-      margin-right: 45px;
-    }
+    //@include for-big-desktop {
+    //  width: $lg-card-desktop-width;
+    //  height: $lg-card-desktop-height;
+    //  margin-right: 45px;
+    //}
 
     &:last-of-type {
       margin-right: 0;
@@ -28,26 +29,37 @@
       position: absolute;
       top: -25px;
       left: -25px;
-      width: 195px;
-      height: 300px;
+      width: 244px;
+      height: 332px;
+      transform: rotateY(180deg);
       background-size: cover;
       z-index: 1;
+
       &.rarity-blue {
-        background-image: url('../../HoverInfo/scarce.png');
+        background: url('../../Cards/HandCard/blue-rarity-border.png') no-repeat;
+        background-size: 283px 371px;
+        top: -46px;
+        left: -6px;
       }
       &.rarity-gold {
-        background-image: url('../../HoverInfo/elite.png');
+        background: url('../../Cards/HandCard/gold-rarity-border.png') no-repeat;
+        background-size: 285px 371px;
+        top: -46px;
+        left: -5px;
       }
       &.rarity-red {
-        background-image: url('../../HoverInfo/rare.png');
+        background: url('../../Cards/HandCard/purple-rarity-border.png') no-repeat;
+        background-size: 284px 369px;
+        top: -45px;
+        left: -5px;
       }
 
-      @include for-big-desktop {
-        width: 275px;
-        height: 400px;
-        top: -36px;
-        left: -35px;
-      }
+      //@include for-big-desktop {
+      //  width: 275px;
+      //  height: 400px;
+      //  top: -36px;
+      //  left: -35px;
+      //}
     }
 
     .front:hover {
@@ -55,13 +67,13 @@
     }
 
     img {
-      width: 145px;
-      height: 252px;
+      width: 194px;
+      height: 279px;
 
-      @include for-big-desktop {
-        width: $lg-card-desktop-width;
-        height: $lg-card-desktop-height;
-      }
+      //@include for-big-desktop {
+      //  width: $lg-card-desktop-width;
+      //  height: $lg-card-desktop-height;
+      //}
     }
   }
 }
