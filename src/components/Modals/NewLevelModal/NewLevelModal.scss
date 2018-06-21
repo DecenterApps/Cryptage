@@ -74,10 +74,10 @@
     margin-top: 8px;
     text-align: center;
 
-    @include for-big-desktop {
-      .orange-button {
-        margin-left: 0;
-      }
-    }
+    //@include for-big-desktop {
+    //  .orange-button {
+    //    margin-left: 0;
+    //  }
+    //}
   }
 }
