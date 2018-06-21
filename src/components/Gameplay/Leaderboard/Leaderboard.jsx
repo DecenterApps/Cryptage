@@ -23,7 +23,7 @@ class Leaderboard extends Component {
 
     return (
       <div className="leaderboard-wrapper">
-        <HeaderBar title="Leaderboard" color="#FF9D14" />
+        <HeaderBar title="Leaderboard" />
 
         <div className="data-wrapper">
           {

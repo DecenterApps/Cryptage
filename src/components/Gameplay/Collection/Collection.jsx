@@ -16,7 +16,7 @@ const cardsLength = Object.keys(cardsConfig.cards).length;
 
 const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
   <div className="collection-wrapper">
-    <HeaderBar title="My collection" color="#FF9D14" />
+    <HeaderBar title="My collection" />
 
     <h1 className="collection-progress">
       {
