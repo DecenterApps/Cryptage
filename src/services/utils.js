@@ -1,7 +1,11 @@
 import React from 'react';
 import update from 'immutability-helper';
+import cardsConfig from '../constants/cards.json';
 import { getSlotForContainer, checkIfCanLevelUp } from './gameMechanicsService';
-import { acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
+import {
+  acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS, rarities,
+  typeGradients
+} from '../actions/actionTypes';
 
 /**
  * Generates unique id
@@ -576,3 +580,32 @@ export const getDropSlotsAvailableLevelUp = (slots, card, globalStats) => slots.
 
   return acc;
 }, 0);
+
+export const getDataForTypeSorting = cards =>
+  Object.keys(typeGradients).reduce((_acc, key) => {
+    const acc = [..._acc];
+    const item = { color: typeGradients[key], name: key, total: 0, collected: 0 };
+    const typeTitles = [];
+
+    Object.keys(cardsConfig.cards).forEach((cardTypeId) => {
+      if (cardsConfig.cards[cardTypeId]['1'].type.toLowerCase() === key) {
+        item.total += 1;
+        typeTitles.push(cardsConfig.cards[cardTypeId]['1'].title);
+      }
+    });
+
+    item.collected = cards.reduce((acc, card) => {
+      const typeIndex = typeTitles.findIndex(title => title === card.stats.title);
+
+      if (typeIndex !== -1) {
+        typeTitles.splice(typeIndex, 1);
+        acc += 1;
+      }
+      return acc;
+    }, 0);
+
+    acc.push(item);
+    return acc;
+  }, []);
+
+export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);

@@ -1,0 +1,26 @@
+.sorting-dropdown-wrapper {
+
+  .selected-item, .dropdown-item {
+    border-left: 4px solid;
+    color: white;
+    font-size: 12px;
+    background: linear-gradient(270deg, rgba(145, 144, 242, 0) 0%, rgba(145, 144, 242, 0.2) 100%);
+    text-transform: uppercase;
+    width: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 8px;
+    cursor: pointer;
+    user-select: none;
+
+    .count {
+      color: #9190F2;
+      font-size: 8px;
+
+      span {
+        margin-left: 7px;
+      }
+    }
+  }
+}

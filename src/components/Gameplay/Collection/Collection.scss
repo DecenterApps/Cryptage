@@ -7,36 +7,24 @@
   width: 640px;
   flex-grow: 1;
   margin: 25px auto 0 auto;
-  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
   //@include for-big-desktop {
   //  width: 840px;
   //  margin-top: 45px;
   //}
 
-  .close-icon {
-    position: absolute;
-    z-index: 10;
-    top: -35px;
-    right: -10px;
-    cursor: pointer;
-    transition: 0.2s ease-in;
-    padding: 10px;
+  .collection-inner-wrapper {
+    display: flex;
+    justify-content: space-between;
 
-    //@include for-big-desktop {
-    //  transform: scale(1.35);
-    //}
 
-    &:hover {
-      opacity: 0.8;
+    .sorting-wrapper {
+      width: 135px;
     }
   }
 
-  .header-bar-wrapper .bar-name {
-
-    //@include for-big-desktop {
-    //  font-size: 18px;
-    //}
+  .header-bar {
+    margin-bottom: 61px;
   }
 
   .collection-progress {
@@ -64,8 +52,9 @@
     height: 380px;
     position: relative;
     justify-content: space-around;
-    padding: 17px 20px 0 20px;
     box-sizing: border-box;
+    width: 482px;
+    padding: 5px 0;
 
     //@include for-big-desktop {
     //  height: 632px;
@@ -73,7 +62,7 @@
 
     .large-card-wrapper {
       height: 142px;
-      margin: 0 -6px 5px;
+      margin: 0 -6px 10px;
 
       .card-title, .card-type {
         width: 96px;
@@ -140,7 +129,7 @@
     position: relative;
     display: flex;
     justify-content: center;
-    margin-top: 5px;
+    margin-top: 10px;
 
     .modal-buttons-bar {
       bottom: 25px;

@@ -1,72 +1,84 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HeaderBar from '../../HeaderBar/HeaderBar';
-import CloseIcon from '../../CloseIcon/CloseIcon';
 import LargeCard from '../../Cards/LargeCard/LargeCard';
-import { range } from '../../../services/utils';
 import cardsConfig from '../../../constants/cards.json';
-
+import SmallButton from '../../SmallButton/SmallButton';
+import { getDataForTypeSorting, capitalize } from '../../../services/utils';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
+import SortingDropdown from './SortingDropdown/SortingDropdown';
 
 import './Collection.scss';
-import SmallButton from '../../SmallButton/SmallButton';
 
-const cardsLength = Object.keys(cardsConfig.cards).length;
+class Collection extends Component {
+  constructor() {
+    super();
 
-const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
-  <div className="collection-wrapper">
-    <HeaderBar title="My collection" />
+    this.state = {
+      selectedType: null,
+    };
 
-    <h1 className="collection-progress">
-      {
-        cards.reduce((cards, card) => {
-          if (cards.indexOf(card.metadata.id) === -1) cards.push(card.metadata.id);
-          return cards;
-        }, []).length
-      }<span>/</span>{ cardsLength }
-    </h1>
+    this.onTypeSelect = this.onTypeSelect.bind(this);
+  }
 
-    <div className="collection-cards-wrapper">
-      {
-        cardsConfig.cardTypes.map(cardType =>
-          Object.keys(cardsConfig.cards)
-            .filter(cardId => cardsConfig.cards[cardId]['1'].type === cardType)
-            .map(cardId => cardId)
-            .map((cardId) => {
-              const foundCard = cards.find(card => card.metadata.id === cardId);
+  onTypeSelect(dataItem) {
+    this.setState({ selectedType: capitalize(dataItem.name) });
+  }
 
-              if (foundCard) {
-                const occurances = cards.reduce((acc, card) => {
-                  if (card.metadata.id === cardId) acc += 1;
-                  return acc;
-                }, 0);
+  render() {
+    const { cards, exitNotLocationsView, newCardTypes } = this.props;
+    const typeSortData = getDataForTypeSorting(cards);
 
-                const newCard = cards.find(card => (card.metadata.id === cardId) && newCardTypes.includes(card.metadata.id)); // eslint-disable-line
+    return (
+      <div className="collection-wrapper">
+        <HeaderBar title="My collection" />
 
-                return (<LargeCard
-                  showNew={Boolean(newCard)}
-                  key={cardId}
-                  card={foundCard}
-                  showCount
-                  duplicates={occurances}
-                />);
-              }
+        <div className="collection-inner-wrapper">
+          <SortingDropdown onSelect={this.onTypeSelect} data={typeSortData} />
 
-              return (<div key={cardId} className="unknown" />);
-          }))
-      }
-    </div>
+          <div className="collection-cards-wrapper">
+            {
+              Object.keys(cardsConfig.cards)
+                .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType)
+                .map(cardId => cardId)
+                .map((cardId) => {
+                  const foundCard = cards.find(card => card.metadata.id === cardId);
 
-    <div className="button-wrapper">
-      <div className="modal-buttons-bar" />
+                  if (foundCard) {
+                    const occurances = cards.reduce((acc, card) => {
+                      if (card.metadata.id === cardId) acc += 1;
+                      return acc;
+                    }, 0);
 
-      <span onClick={exitNotLocationsView}>
-        <SmallButton text="Back" />
-      </span>
-    </div>
-  </div>
-);
+                    const newCard = cards.find(card => (card.metadata.id === cardId) && newCardTypes.includes(card.metadata.id)); // eslint-disable-line
+
+                    return (<LargeCard
+                      showNew={Boolean(newCard)}
+                      key={cardId}
+                      card={foundCard}
+                      showCount
+                      duplicates={occurances}
+                    />);
+                  }
+
+                  return (<div key={cardId} className="unknown" />);
+                })
+            }
+          </div>
+        </div>
+
+        <div className="button-wrapper">
+          <div className="modal-buttons-bar" />
+
+          <span onClick={exitNotLocationsView}>
+          <SmallButton text="Back" />
+        </span>
+        </div>
+      </div>
+    );
+  }
+}
 
 Collection.propTypes = {
   exitNotLocationsView: PropTypes.func.isRequired,
