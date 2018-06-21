@@ -103,7 +103,7 @@
       }
 
       .level {
-        margin-right: 97px;
+        margin-right: 112px;
       }
     }
 
@@ -111,7 +111,7 @@
 
       .player-rank {
         display: flex;
-        height: 20px;
+        height: 33px;
         font-size: 10px;
         white-space: pre;
 
@@ -127,7 +127,7 @@
         $curr-player-bg: linear-gradient(180deg, rgba(54, 38, 95, 0) 0%, rgba(54, 38, 95, 0.7) 51.38%, rgba(54, 38, 95, 0) 100%);
 
         &.curr-player {
-          height: 33px;
+          border: 1px solid $light-purple;
           background: $curr-player-bg;
 
           //@include for-big-desktop {
@@ -138,52 +138,6 @@
         & > div {
           display: flex;
           align-items: center;
-        }
-
-        * {
-          font-family: $font-secondary;
-        }
-
-        &:nth-child(-n+10) .nickname .rank {
-          color: $yellow;
-        }
-
-        &:first-child, &:nth-child(2), &:nth-child(3) {
-          height: 33px;
-          background: linear-gradient(180deg, rgba(54, 38, 95, 0.4) 0%, rgba(54, 38, 95, 0) 100%);
-
-          //@include for-big-desktop {
-          //  height: 46px;
-          //}
-
-          &.curr-player {
-            background: $curr-player-bg;
-          }
-        }
-
-        &:first-child .nickname {
-          .text, .rank {
-            font-size: 16px;
-            //@include for-big-desktop {
-            //  font-size: 25px;
-            //}
-          }
-        }
-        &:nth-child(2) .nickname {
-          .text, .rank {
-            font-size: 13px;
-            //@include for-big-desktop {
-            //  font-size: 21px;
-            //}
-          }
-        }
-        &:nth-child(3) .nickname {
-          .text, .rank {
-            font-size: 11px;
-            //@include for-big-desktop {
-            //  font-size: 18px;
-            //}
-          }
         }
 
         .nickname {
@@ -225,7 +179,7 @@
         }
 
         .xp {
-          width: 101px;
+          width: 116px;
           font-size: 15px;
           justify-content: flex-end;
 
