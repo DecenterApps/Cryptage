@@ -30,7 +30,7 @@ const LargeCard = ({
         image={`cardImages/${card.stats.image}`}
       />
 
-      { showNew && <div className="new-card"><span>new</span></div> }
+      <div className="new-card"><span>new</span></div>
 
       <div className="card-title">{card.stats.title}</div>
       <div className="card-type">{card.stats.type}</div>

@@ -146,4 +146,29 @@
       bottom: 25px;
     }
   }
+
+  .new-card {
+    position: absolute;
+    right: 12px;
+    top: 1px;
+    width: 38px;
+    height: 47px;
+    overflow: hidden;
+
+    span {
+      position: relative;
+      top: 4px;
+      right: -8px;
+      display: block;
+      background-color: rgba(255, 157, 20, 0.8);
+      width: 41px;
+      height: 11px;
+      transform: rotate(45deg);
+      color: white;
+      font-family: "Baloo", sans-serif;
+      text-transform: uppercase;
+      font-size: 8px;
+      text-align: center;
+    }
+  }
 }
