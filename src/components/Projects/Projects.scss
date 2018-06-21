@@ -6,9 +6,9 @@
   width: 133px;
   height: 5px;
 
-  @include for-big-desktop {
-    width: 190px;
-  }
+  //@include for-big-desktop {
+  //  width: 190px;
+  //}
 
   .projects-header {
     margin-bottom: 36px;
