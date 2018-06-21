@@ -49,10 +49,10 @@
         cursor: pointer;
         transition: 0.2s ease-in;
 
-        @include for-big-desktop {
-          transform: scale(1.35);
-          right: 3px;
-        }
+        //@include for-big-desktop {
+        //  transform: scale(1.35);
+        //  right: 3px;
+        //}
 
         &:hover {
           opacity: 0.6;
@@ -78,9 +78,9 @@
       .modal {
         transform: translateY(100px);
 
-        @include for-big-desktop {
-          transform: translateY(170px);
-        }
+        //@include for-big-desktop {
+        //  transform: translateY(170px);
+        //}
       }
     }
 
@@ -88,9 +88,9 @@
       transform: translateY(70px);
       opacity: 1;
 
-      @include for-big-desktop {
-        transform: translateY(130px);
-      }
+      //@include for-big-desktop {
+      //  transform: translateY(130px);
+      //}
     }
   }
 }

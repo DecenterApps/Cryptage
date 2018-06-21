@@ -21,14 +21,14 @@
     line-height: 25px;
     left: 75px;
 
-    @include for-big-desktop {
-      top: 110px;
-      width: 247px;
-      height: 140px;
-      font-size: 20px;
-      line-height: 30px;
-      left: 60px;
-    }
+    //@include for-big-desktop {
+    //  top: 110px;
+    //  width: 247px;
+    //  height: 140px;
+    //  font-size: 20px;
+    //  line-height: 30px;
+    //  left: 60px;
+    //}
 
     &:before {
       content: '';
@@ -40,10 +40,10 @@
       top: 42px;
       background: $purple;
 
-      @include for-big-desktop {
-        width: 60px;
-        left: -60px;
-      }
+      //@include for-big-desktop {
+      //  width: 60px;
+      //  left: -60px;
+      //}
     }
   }
 }

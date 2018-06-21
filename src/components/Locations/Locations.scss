@@ -9,9 +9,9 @@
   display: flex;
   flex-direction: column;
 
-  @include for-big-desktop {
-    max-width: 190px;
-  }
+  //@include for-big-desktop {
+  //  max-width: 190px;
+  //}
 
   .future-button {
     margin: 22px 0 0 3px;
@@ -24,9 +24,9 @@
     margin-bottom: 10px;
     padding-top: 5px;
 
-    @include for-big-desktop {
-      margin-bottom: 30px;
-    }
+    //@include for-big-desktop {
+    //  margin-bottom: 30px;
+    //}
   }
 
   .active-locations-wrapper {
@@ -72,9 +72,9 @@
     .drop-slot-component:not(:last-child) {
       margin-bottom: 10px;
 
-      @include for-big-desktop {
-        margin-bottom: 10px;
-      }
+      //@include for-big-desktop {
+      //  margin-bottom: 10px;
+      //}
     }
   }
 }

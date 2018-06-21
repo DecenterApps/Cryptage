@@ -8,10 +8,10 @@
   display: flex;
   position: relative;
 
-  @include for-big-desktop {
-    //width: 100px;
-    //height: 130px;
-  }
+  //@include for-big-desktop {
+  //  width: 100px;
+  //  height: 130px;
+  //}
 
   &:hover {
     .actions {
@@ -29,11 +29,11 @@
     text-align: center;
     right: -14px;
 
-    @include for-big-desktop {
-      //top: 126px;
-      //font-size: 15px;
-      //right: 3px;
-    }
+    //@include for-big-desktop {
+    //  top: 126px;
+    //  font-size: 15px;
+    //  right: 3px;
+    //}
   }
 
   .rarity-overlay,
@@ -45,10 +45,10 @@
     width: 99%;
     pointer-events: none;
 
-    @include for-big-desktop {
+    //@include for-big-desktop {
       //height: 120px;
       //width: 91px;
-    }
+    //}
   }
   .overlay {
     background-image: url('./handcard-overlay.png');
@@ -108,20 +108,20 @@
       text-align: center;
     }
 
-    @include for-big-desktop {
+    //@include for-big-desktop {
       //bottom: 126px;
       //font-size: 15px;
-    }
+    //}
   }
 
   .card-image {
     flex-grow: 1;
 
-    @include for-big-desktop {
-      .card-image-bg, .card-image-inner {
+    //@include for-big-desktop {
+    //  .card-image-bg, .card-image-inner {
         //transform: scaleX(1.36) scaleY(1.38);
-      }
-    }
+      //}
+    //}
   }
   .level-wrapper {
     position: absolute;
@@ -132,21 +132,21 @@
     color: white;
     z-index: 1;
 
-    @include for-big-desktop {
+    //@include for-big-desktop {
       //font-size: 23px;
       //width: 42px;
       //height: 42px;
-    }
+    //}
 
     .level {
       position: absolute;
       right: 6px;
       font-family: $font-secondary;
 
-      @include for-big-desktop {
+      //@include for-big-desktop {
         //right: 8px;
         //top: -3px;
-      }
+      //}
     }
   }
   .count-wrapper {
@@ -155,11 +155,11 @@
     left: 8px;
     color: white;
 
-    @include for-big-desktop {
+    //@include for-big-desktop {
       //width: 42px;
       //height: 42px;
       //bottom: 6px;
-    }
+    //}
 
     .count {
       font-size: 10px;
@@ -194,9 +194,6 @@
       box-shadow: -1px -1px 0px black;
       .slots-bar {
         background: linear-gradient(0deg, rgba(#9190F2, .6) 20%, rgba(145, 144, 242, .2) 100%);
-      }
-
-      @include for-big-desktop {
       }
 
       span {

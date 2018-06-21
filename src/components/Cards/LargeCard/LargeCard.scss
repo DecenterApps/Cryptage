@@ -86,9 +86,9 @@
       text-align: center;
     }
 
-    @include for-big-desktop {
+    //@include for-big-desktop {
       //bottom: 126px;
       //font-size: 15px;
-    }
+    //}
   }
 }

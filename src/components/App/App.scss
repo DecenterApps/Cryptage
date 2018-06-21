@@ -43,10 +43,10 @@ body {
     transform: scale(2);
     margin-bottom: 25px;
 
-    @include for-big-desktop {
-      transform: scale(2.5);
-      margin-bottom: 40px;
-    }
+    //@include for-big-desktop {
+    //  transform: scale(2.5);
+    //  margin-bottom: 40px;
+    //}
   }
   .show-delayed {
     color: white;
@@ -54,9 +54,9 @@ body {
     margin: 1em;
     animation: fade-in 3s;
 
-    @include for-big-desktop {
-      font-size: 32px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 32px;
+    //}
 
     @keyframes fade-in {
       0% { opacity: 0; }
@@ -73,11 +73,11 @@ body {
   height: 620px;
   margin: auto;
 
-  @include for-big-desktop {
-    width: 1415px;
-    max-width: 1415px;
-    height: 896px;
-  }
+  //@include for-big-desktop {
+  //  width: 1415px;
+  //  max-width: 1415px;
+  //  height: 896px;
+  //}
 
   &.no-acc {
     background: none;
@@ -116,9 +116,9 @@ body {
       background: url("./logo.png") center center no-repeat;
       background-size: cover;
 
-      @include for-big-desktop {
-        display: none;
-      }
+      //@include for-big-desktop {
+      //  display: none;
+      //}
 
       @media (max-height: 800px) {
         display: none;

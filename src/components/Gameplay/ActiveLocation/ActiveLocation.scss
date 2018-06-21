@@ -18,10 +18,10 @@
     position: relative;
     overflow: hidden;
 
-    @include for-big-desktop {
-      margin-top: 15px;
-      max-width: 725px;
-    }
+    //@include for-big-desktop {
+    //  margin-top: 15px;
+    //  max-width: 725px;
+    //}
 
     .active-location-field {
       display: flex;
@@ -82,12 +82,12 @@
         position: relative;
         font-family: $font-secondary;
 
-        @include for-big-desktop {
-          background: none;
-          font-size: 20px;
-          border-bottom: 4px solid $purple;
-          height: 25px;
-        }
+        //@include for-big-desktop {
+        //  background: none;
+        //  font-size: 20px;
+        //  border-bottom: 4px solid $purple;
+        //  height: 25px;
+        //}
 
         &:before {
           content: '';
@@ -100,10 +100,10 @@
           left: -54px;
           top: 0;
 
-          @include for-big-desktop {
-            transform: scaleX(-1.40) scaleY(1.40);
-            top: 4px;
-          }
+          //@include for-big-desktop {
+          //  transform: scaleX(-1.40) scaleY(1.40);
+          //  top: 4px;
+          //}
         }
         &:after {
           content: '';
@@ -118,10 +118,10 @@
           z-index: 2;
           transform: scaleX(-1);
 
-          @include for-big-desktop {
-            transform: scale(1.40);
-            top: 4px;
-          }
+          //@include for-big-desktop {
+          //  transform: scale(1.40);
+          //  top: 4px;
+          //}
         }
       }
       .bar-wrapper {
@@ -129,9 +129,9 @@
         padding: 11px 0;
         position: relative;
 
-        @include for-big-desktop {
-          z-index: 2;
-        }
+        //@include for-big-desktop {
+        //  z-index: 2;
+        //}
         &.left:before {
           transform: none;
         }
@@ -158,10 +158,10 @@
           padding: 0 10px;
           z-index: 1;
 
-          @include for-big-desktop {
-            margin-top: 1px;
-            font-size: 13px;
-          }
+          //@include for-big-desktop {
+          //  margin-top: 1px;
+          //  font-size: 13px;
+          //}
 
           span {
             text-transform: uppercase;
@@ -179,10 +179,10 @@
           transform: skewX(-45deg);
           margin: 0 1px 0 -1px;
 
-          @include for-big-desktop {
-            height: 20px;
-            max-width: 320px;
-          }
+          //@include for-big-desktop {
+          //  height: 20px;
+          //  max-width: 320px;
+          //}
 
           &.left {
             transform: skewX(45deg);
@@ -216,10 +216,10 @@
         background-size: cover;
         mask-image: linear-gradient(rgba(0, 0, 0, .3), transparent);
 
-        @include for-big-desktop {
-          top: 25px;
-          width: 685px;
-        }
+        //@include for-big-desktop {
+        //  top: 25px;
+        //  width: 685px;
+        //}
       }
     }
 

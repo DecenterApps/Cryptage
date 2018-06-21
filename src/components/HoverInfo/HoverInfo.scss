@@ -90,9 +90,9 @@
 
     $orb-radius: 12px;
 
-    @include for-big-desktop {
-      $orb-radius: 17px;
-    }
+    //@include for-big-desktop {
+    //  $orb-radius: 17px;
+    //}
 
     &:before,
     &.cost .orb:before,
@@ -116,10 +116,10 @@
       padding-left: 20px;
       box-sizing: border-box;
 
-      @include for-big-desktop {
-        left: -5px;
-        font-size: 18px;
-      }
+      //@include for-big-desktop {
+      //  left: -5px;
+      //  font-size: 18px;
+      //}
     }
     &.gains:before {
       right: -22px;
@@ -131,9 +131,9 @@
       padding-left: 20px;
       box-sizing: border-box;
 
-      @include for-big-desktop {
-        font-size: 18px;
-      }
+      //@include for-big-desktop {
+      //  font-size: 18px;
+      //}
     }
     &.cost .orb:before {
       background: linear-gradient(270deg, #36265F 0%, rgba(54, 38, 95, 0) 100%);
@@ -141,15 +141,15 @@
       right: 28px;
       z-index: -1;
 
-      @include for-big-desktop {
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        right: 42px;
-        height: 34px;
-        padding: 0 28px 0 45px;
-      }
+      //@include for-big-desktop {
+      //  font-size: 15px;
+      //  display: flex;
+      //  align-items: center;
+      //  justify-content: center;
+      //  right: 42px;
+      //  height: 34px;
+      //  padding: 0 28px 0 45px;
+      //}
     }
     &.gains .orb:after {
       background: linear-gradient(90deg, #36265F 0%, rgba(54, 38, 95, 0) 100%);
@@ -157,16 +157,16 @@
       left: 28px;
       z-index: -1;
 
-      @include for-big-desktop {
-        font-size: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        left: 42px;
-        height: 34px;
-        padding: 0 45px 0 28px;
-
-      }
+      //@include for-big-desktop {
+      //  font-size: 15px;
+      //  display: flex;
+      //  align-items: center;
+      //  justify-content: center;
+      //  left: 42px;
+      //  height: 34px;
+      //  padding: 0 45px 0 28px;
+      //
+      //}
     }
     &.cost {
       left: -54px !important;
@@ -209,14 +209,14 @@
       background-repeat: no-repeat;
       background-position: center;
 
-      @include for-big-desktop {
-        font-size: 17px;
-        height: 34px;
-        width: 66px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+      //@include for-big-desktop {
+      //  font-size: 17px;
+      //  height: 34px;
+      //  width: 66px;
+      //  display: flex;
+      //  align-items: center;
+      //  justify-content: center;
+      //}
     }
     &.gains {
       .orb.funds {

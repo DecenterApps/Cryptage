@@ -63,11 +63,11 @@
   background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
   transition: 0.5s ease-in;
 
-  @include for-big-desktop {
-    height: 36px;
-    white-space: nowrap;
-    font-size: 14px;
-  }
+  //@include for-big-desktop {
+  //  height: 36px;
+  //  white-space: nowrap;
+  //  font-size: 14px;
+  //}
 
   &:hover {
     background: linear-gradient(180deg, #36265F 0%, #1C133B 100%);

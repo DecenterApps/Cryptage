@@ -10,10 +10,10 @@
     width: 253px;
     margin-top: 65px;
 
-    @include for-big-desktop {
-      width: 330px;
-      margin-top: 95px;
-    }
+    //@include for-big-desktop {
+    //  width: 330px;
+    //  margin-top: 95px;
+    //}
 
     .form-description-title, .form-description {
       font-family: $font-primary;
@@ -23,17 +23,17 @@
       text-align: center;
       color: #FFFFFF;
 
-      @include for-big-desktop {
-        font-size: 15px;
-      }
+      //@include for-big-desktop {
+      //  font-size: 15px;
+      //}
     }
 
     .form-description-title {
       font-size: 14px;
 
-      @include for-big-desktop {
-        font-size: 17px;
-      }
+      //@include for-big-desktop {
+      //  font-size: 17px;
+      //}
     }
 
     .form-label {
@@ -44,10 +44,10 @@
       font-family: $font-secondary;
       text-align: center;
 
-      @include for-big-desktop {
-        font-size: 30px;
-        white-space: nowrap;
-      }
+      //@include for-big-desktop {
+      //  font-size: 30px;
+      //  white-space: nowrap;
+      //}
     }
 
     form.form-wrapper {
@@ -100,9 +100,9 @@
       width: 100%;
       background: $background-purple-gradient;
 
-      @include for-big-desktop {
-        height: 75px;
-      }
+      //@include for-big-desktop {
+      //  height: 75px;
+      //}
     }
   }
 }

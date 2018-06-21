@@ -7,9 +7,9 @@
   text-align: right;
   position: relative;
 
-  @include for-big-desktop {
-    margin-bottom: 143px;
-  }
+  //@include for-big-desktop {
+  //  margin-bottom: 143px;
+  //}
 
   .menu-buttons {
     display: flex;

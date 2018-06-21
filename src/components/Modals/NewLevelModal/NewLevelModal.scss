@@ -7,15 +7,15 @@
   width: auto;
   min-width: 635px;
 
-  @include for-big-desktop {
-    height: 602px;
-
-    .modal-body {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-    }
-  }
+  //@include for-big-desktop {
+  //  height: 602px;
+  //
+  //  .modal-body {
+  //    display: flex;
+  //    align-items: center;
+  //    flex-direction: column;
+  //  }
+  //}
 
   .modal-body {
     background: $modal-bg-dark;
@@ -35,19 +35,19 @@
       font-size: 20px;
       text-transform: uppercase;
 
-      @include for-big-desktop {
-        font-size: 24px;
-      }
+      //@include for-big-desktop {
+      //  font-size: 24px;
+      //}
     }
 
     .secondary {
       font-family: $font-primary;
       font-size: 16px;
 
-      @include for-big-desktop {
-        margin-bottom: 10px;
-        font-size: 20px;
-      }
+      //@include for-big-desktop {
+      //  margin-bottom: 10px;
+      //  font-size: 20px;
+      //}
     }
 
     .level {
@@ -57,16 +57,16 @@
       font-size: 87px;
       line-height: 80px;
 
-      @include for-big-desktop {
-        font-size: 103px;
-      }
+      //@include for-big-desktop {
+      //  font-size: 103px;
+      //}
     }
   }
 
   .reveal-cards-wrapper {
-    @include for-big-desktop {
-      display: inline-flex;
-    }
+    //@include for-big-desktop {
+    //  display: inline-flex;
+    //}
   }
 
   .button-wrapper {

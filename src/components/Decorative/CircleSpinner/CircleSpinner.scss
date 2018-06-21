@@ -6,9 +6,9 @@
   width: 32px;
   transform: scale(0.45);
 
-  @include for-big-desktop {
-    transform: scale(0.6);
-  }
+  //@include for-big-desktop {
+  //  transform: scale(0.6);
+  //}
 
   #spinner {
     stroke: $yellow;

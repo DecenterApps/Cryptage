@@ -7,9 +7,9 @@
   min-height: 90px;
   justify-content: center;
 
-  @include for-big-desktop {
+  //@include for-big-desktop {
     //min-height: 108px;
-  }
+  //}
 
   .gameplay-header-content {
     display: flex;
@@ -25,11 +25,11 @@
       font-family: $font-secondary;
     }
 
-    @include for-big-desktop {
+    //@include for-big-desktop {
       //display: flex;
       //flex-grow: 1;
       //justify-content: center;
-    }
+    //}
 
     .section {
       flex: 1 1 0;
@@ -68,9 +68,9 @@
         opacity: .7;
         line-height: 1em;
 
-        @include for-big-desktop {
+        //@include for-big-desktop {
           //font-size: 18px;
-        }
+        //}
       }
 
       .name {
@@ -85,9 +85,9 @@
           text-transform: uppercase;
         }
 
-        @include for-big-desktop {
+        //@include for-big-desktop {
           //font-size: 32px;
-        }
+        //}
       }
 
       .xp-wrapper {
@@ -107,9 +107,9 @@
           opacity: 0.9;
         }
 
-        @include for-big-desktop {
+        //@include for-big-desktop {
           //font-size: 17px;
-        }
+        //}
       }
 
       .xp-loader-wrapper { // svg
@@ -121,11 +121,11 @@
         height: 18px;
         width: 233px;
 
-        @include for-big-desktop {
+        //@include for-big-desktop {
           //transform: scale(1.29);
           //bottom: 18px;
           //left: -1px;
-        }
+        //}
       }
     }
   }
