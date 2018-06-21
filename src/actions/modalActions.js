@@ -4,6 +4,7 @@ import {
   NEW_LEVEL_MODAL,
   REVEAL_BOOSTER_CARDS_MODAL,
   NO_RESTART_PROJECT_MODAL, ERROR_MODAL,
+  MENU_MODAL,
 } from '../components/Modals/modalTypes';
 
 /**
@@ -93,3 +94,11 @@ export const openErrorModal = (title, body) => (dispatch) => {
     errors: { title, body },
   }, true));
 };
+
+/**
+ * Opens the menu modal
+ */
+export const openMenuModal = () => (dispatch) => {
+  dispatch(toggleModal(MENU_MODAL, { width: '616px' }, true));
+};
+
