@@ -9,10 +9,10 @@
   margin: 25px auto 0 auto;
   background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
-  @include for-big-desktop {
-    width: 840px;
-    margin-top: 45px;
-  }
+  //@include for-big-desktop {
+  //  width: 840px;
+  //  margin-top: 45px;
+  //}
 
   .close-icon {
     position: absolute;
@@ -23,9 +23,9 @@
     transition: 0.2s ease-in;
     padding: 10px;
 
-    @include for-big-desktop {
-      transform: scale(1.35);
-    }
+    //@include for-big-desktop {
+    //  transform: scale(1.35);
+    //}
 
     &:hover {
       opacity: 0.8;
@@ -34,9 +34,9 @@
 
   .header-bar-wrapper .bar-name {
 
-    @include for-big-desktop {
-      font-size: 18px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 18px;
+    //}
   }
 
   .collection-progress {
@@ -51,42 +51,99 @@
       margin: 0 5px;
     }
 
-    @include for-big-desktop {
-      font-size: 38px;
-      margin: 25px 0;
-    }
+    //@include for-big-desktop {
+    //  font-size: 38px;
+    //  margin: 25px 0;
+    //}
   }
 
   .collection-cards-wrapper {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    height: 413px;
+    height: 380px;
     position: relative;
     justify-content: space-around;
     padding: 17px 20px 0 20px;
     box-sizing: border-box;
 
-    @include for-big-desktop {
-      height: 632px;
-    }
+    //@include for-big-desktop {
+    //  height: 632px;
+    //}
 
     .large-card-wrapper {
-      margin: 0 5px 40px;
+      height: 142px;
+      margin: 0 -6px 5px;
+
+      .card-title, .card-type {
+        width: 96px;
+        left: 11px;
+        bottom: 25px;
+        font-size: 8px;
+      }
+
+      .card-type {
+        font-size: 7px;
+        bottom: 4px;
+      }
+
+      #rarity.rarity-overlay {
+        width: 111px;
+        height: 153px;
+        top: -6px;
+        left: 4px;
+
+        &.rarity-blue {
+          background-position: -18px -20px;
+          background-size: 148px 193px;
+        }
+        &.rarity-gold {
+          background-position: -19px -20px;
+          background-size: 150px 194px;
+        }
+        &.rarity-red {
+          background-position: -18px -20px;
+          background-size: 148px 193px;
+        }
+      }
+
+      svg {
+        width: 120px;
+        height: 157px;
+        top: -8px;
+      }
+
+      .count-wrapper {
+        position: absolute;
+        color: white;
+        font-size: 10px;
+        top: 5px;
+        left: 22px;
+      }
     }
     .unknown {
-      width: 145px;
-      height: 252px;
-      margin: 0 5px 40px;
-      background-image: url('../RevealCards/bg-back.png');
+      width: 98px;
+      height: 142px;
+      margin: 0 5px 12px;
+      background-image: url('../RevealCards/bg-back2.png');
       background-position: center;
       background-size: cover;
-      border-radius: 12px;
 
-      @include for-big-desktop {
-        width: $lg-card-desktop-width;
-        height: $lg-card-desktop-height;
-      }
+      //@include for-big-desktop {
+      //  width: $lg-card-desktop-width;
+      //  height: $lg-card-desktop-height;
+      //}
+    }
+  }
+
+  .button-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+
+    .modal-buttons-bar {
+      bottom: 25px;
     }
   }
 }

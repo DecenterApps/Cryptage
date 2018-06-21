@@ -36,14 +36,6 @@ const MenuModal = ({ closeModal, changeGameplayView, resetGame }) => (
             Leaderboard
           </a>
           <a
-            onClick={() => {
-              changeGameplayView(GP_BUY_BOOSTER);
-              closeModal();
-            }}
-          >
-            Shop
-          </a>
-          <a
             onClick={async () => {
               localStorage.clear();
               resetGame();

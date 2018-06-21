@@ -79,7 +79,7 @@ export const openRevealBoosterCardsModal = cards => (dispatch) => {
  * @param {Object} errors
  */
 export const openNoRestartProjectModal = errors => (dispatch) => {
-  dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '338px', errors }, true));
+  dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '347px', errors }, true));
 };
 
 /**
@@ -90,7 +90,7 @@ export const openNoRestartProjectModal = errors => (dispatch) => {
  */
 export const openErrorModal = (title, body) => (dispatch) => {
   dispatch(toggleModal(ERROR_MODAL, {
-    width: '338px',
+    width: '347px',
     errors: { title, body },
   }, true));
 };

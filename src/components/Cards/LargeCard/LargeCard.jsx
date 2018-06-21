@@ -38,7 +38,7 @@ const LargeCard = ({
       {
         showCount && duplicates > 1 &&
         <div className="count-wrapper">
-          <div className="count">{duplicates}x</div>
+          <div className="count">x{duplicates}</div>
         </div>
       }
     </div>

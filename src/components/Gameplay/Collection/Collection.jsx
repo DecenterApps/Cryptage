@@ -10,16 +10,13 @@ import cardsConfig from '../../../constants/cards.json';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 
 import './Collection.scss';
+import SmallButton from '../../SmallButton/SmallButton';
 
 const cardsLength = Object.keys(cardsConfig.cards).length;
 
 const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
   <div className="collection-wrapper">
     <HeaderBar title="My collection" color="#FF9D14" />
-
-    <div onClick={exitNotLocationsView}>
-      <CloseIcon />
-    </div>
 
     <h1 className="collection-progress">
       {
@@ -59,6 +56,14 @@ const Collection = ({ cards, exitNotLocationsView, newCardTypes }) => (
               return (<div key={cardId} className="unknown" />);
           }))
       }
+    </div>
+
+    <div className="button-wrapper">
+      <div className="modal-buttons-bar" />
+
+      <span onClick={exitNotLocationsView}>
+        <SmallButton text="Back" />
+      </span>
     </div>
   </div>
 );
