@@ -21,7 +21,7 @@ const LargeCard = ({
       }}
     >
 
-      <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+      <div id="rarity" className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
 
       <LargeCardMain
         typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
@@ -30,7 +30,7 @@ const LargeCard = ({
         image={`cardImages/${card.stats.image}`}
       />
 
-      { showNew && <div className="new-card">new</div> }
+      { showNew && <div className="new-card"><span>new</span></div> }
 
       <div className="card-title">{card.stats.title}</div>
       <div className="card-type">{card.stats.type}</div>

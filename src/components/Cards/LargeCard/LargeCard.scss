@@ -24,7 +24,8 @@
     font-size: 14px;
   }
 
-  .rarity-overlay {
+
+  #rarity.rarity-overlay {
     position: absolute;
     z-index: 1;
     transform: rotateY(0deg);
@@ -55,29 +56,32 @@
       left: -32px;
     }
   }
-  //
-  //.new-card {
-  //  position: absolute;
-  //  z-index: 1;
-  //  text-align: center;
-  //  text-transform: uppercase;
-  //  bottom: 252px;
-  //  left: 35px;
-  //  height: 16px;
-  //  width: 75px;
-  //  background: linear-gradient(180.78deg, rgba(255, 157, 20, 0) 0.92%, rgba(255, 157, 20, 0.2784) 81.11%);
-  //  font-size: 10px;
-  //  color: #FF9D14;
-  //  text-shadow: 0 0 10px rgba(255, 157, 20, 0.9);
-  //
-  //  @include for-big-desktop {
-  //    font-size: 18px;
-  //    height: 25px;
-  //    width: 78px;
-  //    text-align: center;
-  //    bottom: 355px;
-  //    left: 64px;
-  //  }
-  //}
-  //
+  .new-card {
+    position: absolute;
+    right: 17px;
+    top: 20px;
+    width: 67px;
+    height: 55px;
+    overflow: hidden;
+    span {
+      position: relative;
+      top: 11px;
+      right: -10px;
+      display: block;
+      background-color: rgba(255, 157, 20, 0.8);
+      width: 79px;
+      height: 17px;
+      transform: rotate(45deg);
+      color: white;
+      font-family: "Baloo", sans-serif;
+      text-transform: uppercase;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    @include for-big-desktop {
+      //bottom: 126px;
+      //font-size: 15px;
+    }
+  }
 }

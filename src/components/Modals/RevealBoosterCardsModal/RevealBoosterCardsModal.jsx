@@ -8,6 +8,7 @@ import HeaderBar from '../../HeaderBar/HeaderBar';
 import { clearRevealedCards } from '../../../actions/removeCardActions';
 
 import './RevealBoosterCardsModal.scss';
+import SmallButton from '../../SmallButton/SmallButton';
 
 const RevealBoosterCardsModal = ({ closeModal, cards, clearRevealedCards }) => {
   const close = () => {
@@ -17,26 +18,20 @@ const RevealBoosterCardsModal = ({ closeModal, cards, clearRevealedCards }) => {
 
   return (
     <div className="reveal-booster-cards-wrapper">
-      <ModalHeader closeModal={close} />
-      <HeaderBar
-        title="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-        color="#FF9D14"
-        fontSize="13px"
-      />
-      <h4>Open</h4>
-      <h3>Card pack</h3>
-
+      <div className="modal-bar" />
       <ModalBody>
+        <h4>Open</h4>
+        <h3>Card pack</h3>
         <RevealCards cards={cards} />
       </ModalBody>
+      <div className="modal-bar" />
 
       <div className="button-wrapper">
-        <button
-          className="orange-button"
-          onClick={closeModal}
-        >
-          Done
-        </button>
+        <div className="modal-buttons-bar" />
+
+        <span onClick={close}>
+          <SmallButton text="Done" />
+        </span>
       </div>
     </div>
   );
