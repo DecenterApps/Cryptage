@@ -2,8 +2,8 @@ import Mechanic from '../Mechanic';
 import BonusMechanic from './BonusMechanic';
 
 export default class PowerBonusMechanic extends BonusMechanic {
-  getValue() {
-    return this.card.findParent().getBonusStatValue('power');
+  constructor(card) {
+    super(card, 'power');
   }
 
   updateValue(state, value) {
