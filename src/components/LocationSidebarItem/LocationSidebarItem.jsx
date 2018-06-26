@@ -187,7 +187,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.globalStats,
+  globalStats: gameplay.stats,
   draggingCard: app.draggingCard,
 });
 

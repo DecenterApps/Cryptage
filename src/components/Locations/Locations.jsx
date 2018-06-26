@@ -56,7 +56,7 @@ Locations.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay, shop }) => ({
-  locations: gameplay.locations,
+  locations: gameplay.locationSlots,
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
   isBuying: shop.isBuying,

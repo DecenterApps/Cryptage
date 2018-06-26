@@ -12,9 +12,9 @@ const DropSlotsWrapper = props => (
         <DropSlotWrapper
           key={guid()}
           slot={slot}
-          accepts={slot.accepts}
-          slotType={slot.slotType}
-          lastDroppedItem={slot.lastDroppedItem}
+          accepts={slot.acceptedTags}
+          // slotType={slot.slotType}
+          lastDroppedItem={slot.card}
           onDrop={item => props.onItemDrop(index, item)}
           index={index}
           {...props}

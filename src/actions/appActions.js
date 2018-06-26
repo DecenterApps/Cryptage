@@ -36,12 +36,10 @@ export const checkAccount = () => async (dispatch, getState) => {
 
     if (getState().app.account !== account) {
       if (getState().app.account === '') {
-        const balance = await ethService.getBalance(account);
-        dispatch({ type: GET_ACCOUNT_SUCCESS, account, balance });
+        dispatch({ type: GET_ACCOUNT_SUCCESS, account });
         dispatch(loadGameplayState());
         dispatch(updateFundsBlockDifference());
       } else {
-        console.log('reload');
         window.location.reload();
       }
     }

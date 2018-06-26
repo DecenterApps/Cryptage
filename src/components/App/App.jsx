@@ -27,12 +27,12 @@ import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
-    await this.props.loadGameplayState();
-    await this.props.updateFundsBlockDifference();
-    this.props.listenForNewBlocks();
-    this.props.updateCurrentBlockNumber();
+    // await this.props.loadGameplayState();
+    // await this.props.updateFundsBlockDifference();
+    // this.props.listenForNewBlocks();
+    // this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
-    this.props.checkProjectsBonus();
+    // this.props.checkProjectsBonus();
   }
 
   render() {

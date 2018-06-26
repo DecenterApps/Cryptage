@@ -19,7 +19,7 @@ const getClassForFont = (maxDev, available) => {
 const GameplayHeader = ({
   blockNumber, globalStats, nickname, fundsPerBlock, projects,
 }) => {
-  const expPercantage = (globalStats.earnedXp / globalStats.requiredXp);
+  const expPercantage = (globalStats.experience / globalStats.requiredXp);
 
   const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
     if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.stats.cost.development;
@@ -86,10 +86,10 @@ GameplayHeader.propTypes = {
 
 const mapStateToProps = ({ gameplay }) => ({
   blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.globalStats,
+  globalStats: gameplay.stats,
   nickname: gameplay.nickname,
-  fundsPerBlock: gameplay.fundsPerBlock,
-  projects: gameplay.projects,
+  fundsPerBlock: gameplay.stats.fundsPerBlock,
+  projects: gameplay.projectSlots,
 });
 
 export default connect(mapStateToProps)(GameplayHeader);

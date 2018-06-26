@@ -167,7 +167,7 @@ ProjectItem.defaultProps = {
 const mapStateToProps = ({ gameplay, app }) => ({
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.globalStats,
+  globalStats: gameplay.stats,
   projectExecutionTimePercent: gameplay.projectExecutionTimePercent,
   draggingCard: app.draggingCard,
 });

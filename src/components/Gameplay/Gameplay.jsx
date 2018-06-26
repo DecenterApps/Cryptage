@@ -47,7 +47,7 @@ Gameplay.propTypes = {
 const mapStateToProps = ({ gameplay }) => ({
   gameplayView: gameplay.gameplayView,
   nickname: gameplay.nickname,
-  locations: gameplay.locations.filter(({ lastDroppedItem }) => lastDroppedItem !== null),
+  locations: gameplay.locationSlots.filter(({ card }) => card !== undefined),
 });
 
 export default connect(mapStateToProps)(Gameplay);

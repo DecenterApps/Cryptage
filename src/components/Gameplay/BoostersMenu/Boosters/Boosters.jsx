@@ -15,7 +15,6 @@ export default ({
   isBuying,
   isRevealing,
   revealBooster,
-  accountBalance,
   buyBoosterPack,
   currentBlock,
 }) => {

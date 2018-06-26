@@ -44,11 +44,11 @@ CanPlayCardChecker.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.globalStats,
+  globalStats: gameplay.stats,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
   locations: gameplay.locations,
-  projects: gameplay.projects,
+  projects: gameplay.projectSlots,
   activeLocationIndex: gameplay.activeLocationIndex,
   activeContainerIndex: gameplay.activeContainerIndex,
 });

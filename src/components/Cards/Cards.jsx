@@ -133,7 +133,7 @@ const mapStateToProps = ({ app, gameplay }) => ({
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
   locations: gameplay.locations,
-  projects: gameplay.projects,
+  projects: gameplay.projectSlots,
   activeLocationIndex: gameplay.activeLocationIndex,
 });
 

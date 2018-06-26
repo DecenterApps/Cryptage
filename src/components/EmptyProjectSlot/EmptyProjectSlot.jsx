@@ -42,7 +42,7 @@ EmptyProjectSlot.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.globalStats,
+  globalStats: gameplay.stats,
 });
 
 export default connect(mapStateToProps)(EmptyProjectSlot);

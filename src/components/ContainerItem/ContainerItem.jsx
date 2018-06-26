@@ -79,10 +79,10 @@ ContainerItem.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  projects: gameplay.projects,
+  projects: gameplay.projectSlots,
   activeLocationIndex: gameplay.activeLocationIndex,
   blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.globalStats,
+  globalStats: gameplay.stats,
 });
 
 export default connect(mapStateToProps)(ContainerItem);

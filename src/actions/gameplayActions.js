@@ -46,6 +46,7 @@ import {
 
 import { packMoves, readState } from '../services/stateService';
 import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
+import Gameplay from '../classes/Gameplay';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -364,16 +365,11 @@ export const loadGameplayState = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  const payload = JSON.parse(localStorage.getItem(`cryptage-${account}`));
+  let payload = JSON.parse(localStorage.getItem(`cryptage-${account}`));
 
   if (!payload) {
-    // TODO
-    // Check to see if the user has already saved the state
-    // const state = await ipfsService.getFileStream('ipfsHash');
-
-    // console.log(state.toString('utf8'));
-    // Get ipfs hash and pull the content
-    return;
+    const blockNum = await web3.eth.getBlockNumber();
+    payload = new Gameplay(blockNum);
   }
 
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });

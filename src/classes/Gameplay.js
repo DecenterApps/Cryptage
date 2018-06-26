@@ -8,12 +8,18 @@ import './mechanics';
 import './cardTypes';
 import './slotTypes';
 import { calculateLevelData } from '../services/gameMechanicsService';
+import { GP_LOCATION_MAIN, GP_NO_NICKNAME } from '../actions/actionTypes';
 
 const subscriptions = Symbol('subscriptions');
 
 export default class Gameplay {
-
   constructor(blockNumber) {
+    this.nickname = '';
+
+    this.gameplayView = GP_NO_NICKNAME;
+    this.inGameplayView = GP_LOCATION_MAIN;
+    this.activeContainerIndex = 0;
+
     this.cards = [];
     this.blockNumber = blockNumber;
     this.projectExecutionTimePercent = 100;
@@ -37,6 +43,10 @@ export default class Gameplay {
     for (let i = 0; i < this.locationSlots.length; i += 1) {
       this.projectSlots[i] = new ProjectCardSlot();
     }
+  }
+
+  addCards(cards) {
+    this.cards = cards;
   }
 
   subscribe(event, matcher, callback) {

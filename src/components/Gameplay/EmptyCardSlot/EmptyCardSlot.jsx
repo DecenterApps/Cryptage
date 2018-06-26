@@ -109,7 +109,7 @@ EmptyCardSlot.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.globalStats,
+  globalStats: gameplay.stats,
   activeContainerIndex: gameplay.activeContainerIndex,
   activeLocation: gameplay.locations[gameplay.activeLocationIndex].lastDroppedItem,
 });
