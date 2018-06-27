@@ -44,8 +44,8 @@ class Cards extends Component {
 
   groupDuplicates(cards) {
     const noDupliactes = cards.reduce((accumulator, item) => {
-      if (accumulator[item.metadata.id]) accumulator[item.metadata.id].count++;
-      else accumulator[item.metadata.id] = {
+      if (accumulator[item.metadataId]) accumulator[item.metadataId].count++;
+      else accumulator[item.metadataId] = {
         ...item,
         count: 1,
       };
@@ -66,8 +66,8 @@ class Cards extends Component {
     const grouped = noDupliactes.reduce((_accumulator, item) => {
       const accumulator = { ..._accumulator };
 
-      if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
-      else accumulator[item.stats.type] = [item];
+      if (accumulator[item.type]) accumulator[item.type].push(item);
+      else accumulator[item.type] = [item];
       return accumulator;
     }, starter);
 
@@ -132,7 +132,7 @@ const mapStateToProps = ({ app, gameplay }) => ({
   cards: gameplay.cards,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
-  locations: gameplay.locations,
+  locations: gameplay.locationSlots,
   projects: gameplay.projectSlots,
   activeLocationIndex: gameplay.activeLocationIndex,
 });

@@ -25,18 +25,18 @@ class HandCard extends Component {
     const {
       card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      inHand, removeNewCardOnHover, newCardTypes,
+      inHand, removeNewCardOnHover,
     } = this.props;
 
     const uniqueId = guid();
 
-    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
+    const rarityColor = rarities[classForRarity(card.rarityScore)] || '#9C01C2';
 
     return (
       <div
-        className={`card-details type-${card.stats.type.toLowerCase()}`}
+        className={`card-details type-${card.type.toLowerCase()}`}
         onMouseEnter={() => {
-          removeNewCardOnHover(card.metadata.id);
+          removeNewCardOnHover(card.metadataId);
           togglePortal(true);
         }}
         onMouseLeave={() => { togglePortal(false); }}
@@ -55,11 +55,11 @@ class HandCard extends Component {
           </PortalWrapper>
         }
 
-        <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
+        <div className={`rarity-overlay ${classForRarity(card.rarityScore)}`} />
         <svg className="card-image">
           <defs>
             <pattern
-              id={`card-background-${card.metadata.id}-${uniqueId}`}
+              id={`card-background-${card.metadataId}-${uniqueId}`}
               height="100%"
               width="100%"
               patternContentUnits="objectBoundingBox"
@@ -70,15 +70,15 @@ class HandCard extends Component {
                 height="1"
                 width="1"
                 preserveAspectRatio="xMidYMid slice"
-                href={`cardImages/${card.stats.image}`}
+                href={`cardImages/${card.image}`}
               />
             </pattern>
             <linearGradient
               id={`card-rarity-gradient-${uniqueId}`}
-              x1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 20 : 0}%`}
-              x2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 250 : 0}%`}
-              y1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 50 : 0}%`}
-              y2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 0 : 150}%`}
+              x1={`${classForRarity(card.rarityScore) === 'normal' ? 20 : 0}%`}
+              x2={`${classForRarity(card.rarityScore) === 'normal' ? 250 : 0}%`}
+              y1={`${classForRarity(card.rarityScore) === 'normal' ? 50 : 0}%`}
+              y2={`${classForRarity(card.rarityScore) === 'normal' ? 0 : 150}%`}
             >
               <stop
                 offset="0%"
@@ -98,11 +98,11 @@ class HandCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][1] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][1] }}
               />
               <stop
                 offset="100%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][0] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][0] }}
               />
             </linearGradient>
           </defs>
@@ -119,7 +119,7 @@ class HandCard extends Component {
           <polygon
             className="card-image-inner"
             points="10,2 82,2 82,110 74,118 2,118 2,10"
-            fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
+            fill={`url(#card-background-${card.metadataId}-${uniqueId})`}
           />
           <polygon
             className="card-meta-bg"
@@ -127,10 +127,10 @@ class HandCard extends Component {
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
         </svg>
-        <div className={`meta ${card.stats.type.toLowerCase()}`}>
-          <div className="title">{card.stats.title}</div>
+        <div className={`meta ${card.type.toLowerCase()}`}>
+          <div className="title">{card.title}</div>
           <div className="border" />
-          <div className="type">{card.stats.type}</div>
+          <div className="type">{card.type}</div>
         </div>
         {
           showCount && card.count > 1 &&
@@ -140,7 +140,7 @@ class HandCard extends Component {
         }
 
         {
-          inHand && newCardTypes.includes(card.metadata.id) &&
+          inHand && card.isNew &&
           <div className="new-card"><span>new</span></div>
         }
 
@@ -197,12 +197,10 @@ HandCard.propTypes = {
   costErrors: PropTypes.object,
   inHand: PropTypes.bool,
   removeNewCardOnHover: PropTypes.func.isRequired,
-  newCardTypes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
   draggingCard: app.draggingCard,
-  newCardTypes: gameplay.newCardTypes,
 });
 
 const mapDispatchToProps = {

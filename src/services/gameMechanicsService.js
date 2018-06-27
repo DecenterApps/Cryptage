@@ -167,17 +167,17 @@ export const checkIfCanLevelUp = (card, globalStats) =>
 /**
  * Checks if the cards the user wants to play can be played
  *
- * @param {Object} cardStats
+ * @param {Object} card
  * @param {Object} globalStats
  * @param {Object} activeLocation
  * @param {Object} ignoreSpace - this is only for mining cards
  * @return {Boolean}
  */
-export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null, ignoreSpace = false) => {
-  const cardLevel = cardStats.level;
+export const checkIfCanPlayCard = (card, globalStats, activeLocation = null, ignoreSpace = false) => {
+  const cardLevel = card.level;
   const {
     level, funds, development, power, space,
-  } = cardStats.cost;
+  } = card.cost;
 
   if ((cardLevel === 1) && level > globalStats.level) return false;
 
@@ -190,9 +190,9 @@ export const checkIfCanPlayCard = (cardStats, globalStats, activeLocation = null
   if (activeLocation && !ignoreSpace && ((cardLevel === 1) && (space > activeLocation.values.space))) return false;
 
   // checks for duplicates in active location
-  if (activeLocation && ((cardLevel === 1) && cardStats.unique)) {
+  if (activeLocation && ((cardLevel === 1) && card.unique)) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
-      lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
+      lastDroppedItem && (lastDroppedItem.mainCard.stats.title === card.title)
     ));
 
     if (foundElem) return false;
@@ -446,7 +446,8 @@ export const getMaxValueForLocation = (card, stat) => {
  * @return {Array}
  */
 export const getAvailableCards = (cards, gameplayView, inGameplayView, locations, projects) => (dispatch, getState) => {
-  const { globalStats, activeLocationIndex, activeContainerIndex } = getState().gameplay;
+  const { stats, activeLocationIndex, activeContainerIndex } = getState().gameplay;
+  const globalStats = stats;
 
   const locationSlotsLength = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
   const projectsSlotsLength = projects.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
@@ -462,9 +463,9 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
   // only show available project and location cards when there are no played locations
   if (gameplayView === GP_NO_LOCATIONS) {
-    return cards.filter(({ stats }) => {
-      const goodCardType = stats.type === 'Location' || stats.type === 'Project';
-      return goodCardType && checkIfCanPlayCard(stats, globalStats, null);
+    return cards.filter((card) => {
+      const goodCardType = card.type === 'Location' || card.type === 'Project';
+      return goodCardType && checkIfCanPlayCard(card, globalStats, null);
     });
   }
 

@@ -7,7 +7,8 @@ import { toggleCardDrag } from '../../actions/appActions';
 
 const boxSource = { beginDrag(props) { return { card: { ...props.card } }; } };
 
-@DragSource(props => props.card.metadata.id, boxSource, (connect, monitor) => ({
+// TODO CHANGE THIS
+@DragSource(props => props.card.tags.length > 0 ? props.card.tags[0] : 'null', boxSource, (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging(),
   connectDragPreview: connect.dragPreview(),

@@ -47,6 +47,7 @@ import {
 import { packMoves, readState } from '../services/stateService';
 import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
 import Gameplay from '../classes/Gameplay';
+import Card from '../classes/Card';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -138,24 +139,26 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
  * gets Garage, Computer case and CPU because
  * every played gets those cards for free
  */
-const getNewLevelCards = (level, cards) => {
+const getNewLevelCards = async (gameplay, cardIds) => {
+  const { level } = gameplay.stats;
+
   if ((level - 1) < 0) return [];
 
   let minId = -1;
 
-  if (cards.length > 0) {
-    cards.reduce((min, card) => card.id < min ? card.id : min, cards[0].id);  // eslint-disable-line
+  if (cardIds.length > 0) {
+    cardIds.reduce((min, cardId) => cardId.id < min ? cardId.id : min, cardIds[0]);  // eslint-disable-line
   }
 
   let newCards = [];
 
   for (let i = 1; i <= level; i += 1) {
     const cardTypes = cardsPerLevel[i - 1];
+
     if (cardTypes) {
       const newLevelCards = cardTypes.map((metadataId, index) => ({
         id: minId - (index + 1),
-        stats: fetchCardStats(metadataId, 1),
-        metadata: { id: metadataId.toString() },
+        metadataId: metadataId.toString(),
       }));
 
       newCards = [...newCards, ...newLevelCards];
@@ -164,7 +167,7 @@ const getNewLevelCards = (level, cards) => {
     }
   }
 
-  return newCards;
+  return Promise.all(newCards.map(({ id, metadataId }) => Card.getInstance(gameplay, id, 1, metadataId)));
 };
 
 /**
@@ -177,18 +180,18 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
   dispatch({ type: USERS_CARDS_FETCH });
 
   try {
-    const cardsIDs = await ethService.getUsersCards();
-    let cards = await cardService.fetchCardsMeta(cardsIDs);
-    const { level } = getState().gameplay.globalStats;
+    const cardsIds = await ethService.getUsersCards();
+    const { gameplay } = getState();
 
-    const newLevelCards = getNewLevelCards(level, cards);
-    cards = [...cards, ...newLevelCards];
+    const userCards = await Promise.all(cardsIds.map(cardId => Card.getInstance(gameplay, cardId, 1)));
+    const newLevelCards = await getNewLevelCards(gameplay, cardsIds);
 
-    dispatch({
-      type: USERS_CARDS_SUCCESS,
-      allCards: cards,
-      cards: removePlayedCards(cards, getState),
-    });
+    const cards = [...userCards, ...newLevelCards];
+
+    // cards: removePlayedCards(cards, getState)
+    // set which cards are played from current state
+
+    dispatch({ type: USERS_CARDS_SUCCESS, payload: cards });
   } catch (error) {
     dispatch({ type: USERS_CARDS_ERROR, error });
   }
@@ -372,6 +375,7 @@ export const loadGameplayState = () => async (dispatch, getState) => {
     payload = new Gameplay(blockNum);
   }
 
+  console.log('LOAD_STATE_FROM_STORAGE', payload);
   dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 };
 
@@ -413,18 +417,19 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
  *
  * @param {Object} data { nickname }
  */
-export const submitNickname = ({ nickname }) => async (dispatch) => {
-  // Add call to the contract here
+export const submitNickname = ({ nickname }) => async (dispatch, getState) => {
 
-  const cards = cardsPerLevel[0].map((metadataId, index) => ({
-    id: 0 - (index + 1),
-    stats: fetchCardStats(metadataId, 1),
-    metadata: { id: metadataId.toString() },
-  }));
+  const cardsPromise = cardsPerLevel[0].map(async (metadataId, index) => {
+    const id = 0 - (index + 1);
 
-  dispatch(openNewLevelModal(1, cards));
+    return await Card.getInstance(getState().gameplay, id, 1, metadataId.toString());
+  });
 
-  dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
+  Promise.all(cardsPromise).then((cards) => {
+    dispatch(openNewLevelModal(1, cards));
+
+    dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
+  });
 };
 
 /**

@@ -7,11 +7,11 @@ import { classForRarity } from '../../../services/utils';
 import bgBack from './bg-back.png';
 import './RevealCards.scss';
 
-const RevealCards = ({ cards, newCardTypes }) => (
+const RevealCards = ({ cards }) => (
   <div className="reveal-cards-wrapper">
     {
       cards.map((card) => {
-        const showNew = newCardTypes.includes(card.metadata.id);
+        const showNew = card.isNew;
 
         return (
           <div className="revealed-card" key={card.id}>
@@ -21,7 +21,7 @@ const RevealCards = ({ cards, newCardTypes }) => (
             >
               <div className="flipper">
                 <div className="front">
-                  <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+                  <div className={`rarity-overlay rarity-${classForRarity(card.rarityScore)}`} />
                   <img draggable={false} src={bgBack} alt="" />
                 </div>
                 <div className="back">
@@ -39,11 +39,6 @@ const RevealCards = ({ cards, newCardTypes }) => (
 
 RevealCards.propTypes = {
   cards: PropTypes.array.isRequired,
-  newCardTypes: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ gameplay }) => ({
-  newCardTypes: gameplay.newCardTypes,
-});
-
-export default connect(mapStateToProps)(RevealCards);
+export default RevealCards;

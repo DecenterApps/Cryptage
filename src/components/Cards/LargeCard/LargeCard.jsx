@@ -13,27 +13,27 @@ const LargeCard = ({
 }) => {
   return (
     <div
-      className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
+      className={`large-card-wrapper ${card.type.toLowerCase()}`}
       onMouseEnter={() => {
         if (!removeNew) return;
 
-        removeNewCardOnHover(card.metadata.id);
+        removeNewCardOnHover(card.metadataId);
       }}
     >
 
-      <div id="rarity" className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+      <div id="rarity" className={`rarity-overlay rarity-${classForRarity(card.rarityScore)}`} />
 
       <LargeCardMain
-        typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
-        rarityColor={rarities[classForRarity(card.stats.rarityScore)]}
+        typeColor={typeGradients[card.type.toLowerCase()][0]}
+        rarityColor={rarities[classForRarity(card.rarityScore)]}
         id={card.id}
-        image={`cardImages/${card.stats.image}`}
+        image={`cardImages/${card.image}`}
       />
 
       { showNew && <div className="new-card"><span>new</span></div> }
 
-      <div className="card-title">{card.stats.title}</div>
-      <div className="card-type">{card.stats.type}</div>
+      <div className="card-title">{card.title}</div>
+      <div className="card-type">{card.type}</div>
 
       {
         showCount && duplicates > 1 &&

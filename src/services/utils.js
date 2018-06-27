@@ -560,7 +560,7 @@ export const printMechanicsText = (text) => {
  * @param {Array} group
  * @return {Array}
  */
-export const sortTypeGroupByPrice = group => group.sort((a, b) => a.stats.cost.funds - b.stats.cost.funds);
+export const sortTypeGroupByPrice = group => group.sort((a, b) => a.cost.funds - b.cost.funds);
 
 /**
  * Gets number of cards that can be leveled up inside a lastDroppedItem

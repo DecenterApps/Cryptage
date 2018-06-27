@@ -205,7 +205,7 @@ GameplayItem.propTypes = {
 const mapStateToProps = ({ gameplay, app }) => ({
   activeLocationIndex: gameplay.activeLocationIndex,
   blockNumber: app.blockNumber,
-  locations: gameplay.locations,
+  locations: gameplay.locationSlots,
   globalStats: gameplay.stats,
 });
 

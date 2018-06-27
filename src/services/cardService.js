@@ -30,14 +30,14 @@ export const fetchCardMeta = async (id, level = 1) => {
   return {
     id,
     metadata,
-    stats,
+    ...stats,
   };
 };
 
 const fetchCardsMeta = cardIDs => new Promise(async (resolve) => {
   const result = await Promise.all(cardIDs.map(id => fetchCardMeta(id)));
 
-  resolve(result.sort((a, b) => b.stats.typeIndex - a.stats.typeIndex).reverse());
+  resolve(result.sort((a, b) => b.typeIndex - a.typeIndex).reverse());
 });
 
 const getDeck = async () => {

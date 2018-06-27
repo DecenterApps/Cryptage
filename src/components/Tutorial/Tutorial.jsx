@@ -141,7 +141,7 @@ Tutorial.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  level: gameplay.globalStats.level,
+  level: gameplay.stats.level,
 });
 
 const mapDispatchToProps = {

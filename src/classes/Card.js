@@ -6,17 +6,27 @@ import { mergeErrorMessages } from '../services/utils';
 import { isLocationCard } from './matchers';
 import { registerCardTypeConstructor, getCardTypeConstructor, setDefaultCardType } from './Registry';
 import Subscriber from './Subscriber';
+import ethereumService from '../services/ethereumService';
 
 export default class Card extends Subscriber {
 
-  static async getInstance(id, level = 1) {
-    const cardMeta = await fetchCardMeta(id, level);
-    return new (Card.getTypeConstructor(cardMeta.stats.type))({
+  static async getInstance(state, id, level = 1, _metadataId = null) {
+    let metadataId = null;
+
+    if (_metadataId) metadataId = _metadataId;
+    else {
+      const cardMeta = await ethereumService.getCardMetadata(id);
+      metadataId = cardMeta.id;
+    }
+
+    const stats = fetchCardStats(metadataId, level);
+
+    return new (Card.getTypeConstructor(stats.type))({
       id,
-      metadataId: cardMeta.metadata.id,
+      metadataId,
       level,
-      ...cardMeta.stats,
-    });
+      ...stats,
+    }, state);
   }
 
   static getLeveledInstance(id, card, level = undefined) {
@@ -38,6 +48,7 @@ export default class Card extends Subscriber {
 
     this.dropSlots = [];
     this.stackedCards = [this];
+    this.isNew = false;
     this.active = false;
     this.parent = null;
     this.minDropSlots = cardsConfig.locationMinSlots;

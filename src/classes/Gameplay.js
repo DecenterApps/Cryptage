@@ -18,6 +18,7 @@ export default class Gameplay {
 
     this.gameplayView = GP_NO_NICKNAME;
     this.inGameplayView = GP_LOCATION_MAIN;
+    this.activeLocationIndex = 0;
     this.activeContainerIndex = 0;
 
     this.cards = [];
@@ -43,10 +44,6 @@ export default class Gameplay {
     for (let i = 0; i < this.locationSlots.length; i += 1) {
       this.projectSlots[i] = new ProjectCardSlot();
     }
-  }
-
-  addCards(cards) {
-    this.cards = cards;
   }
 
   subscribe(event, matcher, callback) {

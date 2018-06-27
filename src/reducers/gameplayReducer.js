@@ -126,12 +126,8 @@ export default (state = new Gameplay(0), action) => {
     //     },
     //   };
     //
-    // case USERS_CARDS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     allCards: action.allCards || state.allCards,
-    //     cards: action.cards,
-    //   };
+    case USERS_CARDS_SUCCESS:
+      return Object.assign(state, { cards: payload });
     //
     // case REVEAL_SUCCESS:
     //   return {
@@ -144,10 +140,8 @@ export default (state = new Gameplay(0), action) => {
     // case REMOVE_NEW_FROM_CARD:
     //   return { ...state, newCardTypes: payload };
 
-    case LOAD_STATE_FROM_STORAGE: {
-      console.log('LOAD_STATE_FROM_STORAGE', payload);
+    case LOAD_STATE_FROM_STORAGE:
       return payload;
-    }
 
     // case UPDATE_GLOBAL_VALUES:
     //   return { ...state, globalStats: payload };
@@ -214,8 +208,9 @@ export default (state = new Gameplay(0), action) => {
     //     newCardTypes: [...state.newCardTypes, ...payload.newCardTypes],
     //   };
     //
-    // case SUBMIT_NICKNAME_SUCCESS:
-    //   return { ...state, nickname: payload, gameplayView: GP_NO_LOCATIONS };
+    case SUBMIT_NICKNAME_SUCCESS:
+      return Object.assign(state, { gameplayView: GP_NO_LOCATIONS, nickname: payload });
+
     //
     // case UPDATE_FUNDS_PER_BLOCK:
     //   return { ...state, fundsPerBlock: payload };
