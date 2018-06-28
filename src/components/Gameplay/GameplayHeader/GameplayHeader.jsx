@@ -22,7 +22,7 @@ const GameplayHeader = ({
   const expPercantage = (globalStats.experience / globalStats.requiredXp);
 
   const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
-    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.stats.cost.development;
+    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.cost.development;
     return acc;
   }, 0);
 
@@ -44,7 +44,7 @@ const GameplayHeader = ({
         <div className="central">
           <div className="level">Level { globalStats.level }</div>
           <div className="name">{ nickname || 'NICKNAME' }</div>
-          <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
+          <div className="xp-wrapper"> {globalStats.experience} / {globalStats.requiredXp} XP </div>
           {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
           <svg className="xp-loader-wrapper">
             <defs>

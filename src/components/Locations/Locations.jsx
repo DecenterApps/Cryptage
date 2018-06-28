@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleLocationDrop } from '../../actions/dropActions';
 import { buyBoosterPack } from '../../actions/boosterActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
@@ -13,7 +12,7 @@ import { GP_LEADERBOARD, GP_LOCATION_COLLECTION } from '../../actions/actionType
 import './Locations.scss';
 
 const Locations = ({
-  locations, handleLocationDrop, isBuying, buyBoosterPack, gameplayView,
+  locations, isBuying, buyBoosterPack, gameplayView,
 }) => (
   <div className="locations-wrapper">
     <div className="buy-booster-button-wrapper" onClick={buyBoosterPack}>
@@ -36,7 +35,6 @@ const Locations = ({
 
           <DropSlotsWrapper
             dropSlots={locations}
-            onItemDrop={handleLocationDrop}
             element={<LocationSidebarItem />}
             emptyStateElem={<EmptyLocationSlot />}
             mainClass="location-slots-wrapper"
@@ -49,7 +47,6 @@ const Locations = ({
 
 Locations.propTypes = {
   locations: PropTypes.array.isRequired,
-  handleLocationDrop: PropTypes.func.isRequired,
   isBuying: PropTypes.bool.isRequired,
   buyBoosterPack: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
@@ -63,7 +60,7 @@ const mapStateToProps = ({ gameplay, shop }) => ({
 });
 
 const mapDispatchToProp = {
-  handleLocationDrop, buyBoosterPack,
+  buyBoosterPack,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Locations);

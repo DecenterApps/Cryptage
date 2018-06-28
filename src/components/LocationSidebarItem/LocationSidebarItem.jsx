@@ -61,24 +61,24 @@ class LocationSidebarItem extends Component {
     slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
       // get hackers and coffee miners fpb
       if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '18') {
-        fpb += lastDroppedItem.mainCard.stats.bonus.funds;
+        fpb += lastDroppedItem.mainCard.bonus.funds;
       }
 
       if ((lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '23')) {
-        fpb += lastDroppedItem.mainCard.stats.bonus.multiplierFunds;
+        fpb += lastDroppedItem.mainCard.bonus.multiplierFunds;
       }
 
       // get grid connector fpb
       if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '22') {
         const { power } = slot.lastDroppedItem.values;
-        fpb += (power * lastDroppedItem.mainCard.stats.bonus.funds);
+        fpb += (power * lastDroppedItem.mainCard.bonus.funds);
       }
 
       // get containers fpb
       if (lastDroppedItem && lastDroppedItem.dropSlots) {
         lastDroppedItem.dropSlots.forEach((containerSlot) => {
           if (containerSlot.lastDroppedItem) {
-            fpb += containerSlot.lastDroppedItem.mainCard.stats.bonus.funds;
+            fpb += containerSlot.lastDroppedItem.mainCard.bonus.funds;
           }
         });
       }
@@ -111,9 +111,9 @@ class LocationSidebarItem extends Component {
             className={`
             location-sidebar-small
             rarity-border
-            ${classForRarity(mainCard.stats.rarityScore)}`}
+            ${classForRarity(mainCard.rarityScore)}`}
           >
-            <SidebarItemNotActive id={mainCard.id} image={`cardImages/${mainCard.stats.image}`} />
+            <SidebarItemNotActive id={mainCard.id} image={`cardImages/${mainCard.image}`} />
 
             <div className="actions" onClick={e => e.stopPropagation()}>
               <div
@@ -135,13 +135,13 @@ class LocationSidebarItem extends Component {
           <div className={`
             location-sidebar-big
             rarity-border
-            ${classForRarity(mainCard.stats.rarityScore)}`}
+            ${classForRarity(mainCard.rarityScore)}`}
           >
-            <SidebarItemActive id={mainCard.id} image={`cardImages/${mainCard.stats.image}`} />
+            <SidebarItemActive id={mainCard.id} image={`cardImages/${mainCard.image}`} />
 
             <div className="location-data">
-              <div className="loc-name">{mainCard.stats.title}</div>
-              <div className="loc-lvl">Level {mainCard.stats.level}</div>
+              <div className="loc-name">{mainCard.title}</div>
+              <div className="loc-lvl">Level {mainCard.level}</div>
             </div>
 
             <div className="actions" onClick={e => e.stopPropagation()}>

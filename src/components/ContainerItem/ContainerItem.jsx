@@ -32,7 +32,7 @@ class ContainerItem extends Component {
     const {
       index, mainCard, locationIndex, containerIndex, slot, dragItem, globalStats,
     } = this.props;
-    const fpb = mainCard.stats.bonus.funds;
+    const fpb = mainCard.bonus.funds;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
     const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);

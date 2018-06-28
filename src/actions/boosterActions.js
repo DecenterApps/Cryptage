@@ -12,7 +12,7 @@ import {
 
 import { log } from '../services/utils';
 import ethService from '../services/ethereumService';
-import cardService from '../services/cardService';
+import { fetchCardsMeta } from '../services/cardService';
 import { openRevealBoosterCardsModal } from './modalActions';
 
 export const boostersRequest = () => ({
@@ -99,7 +99,7 @@ export const revealBooster = boosterId => async (dispatch, getState) => {
     const cardIds = await ethService.getCardsFromBooster(boosterId);
     log('Cards in booster: ', cardIds);
 
-    const revealedCards = await cardService.fetchCardsMeta(cardIds);
+    const revealedCards = await fetchCardsMeta(cardIds);
 
     dispatch(revealSuccess(revealedCards, boosterId, getState().shop.boosters));
   } catch (e) {

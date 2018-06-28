@@ -25,7 +25,7 @@ const ActiveLocation = ({
   let maxPower = getMaxValueForLocation(card, 'power');
 
   const powerCards = location.lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Power'
+    lastDroppedItem && lastDroppedItem.mainCard.type === 'Power'
   )).map(({ lastDroppedItem }) => lastDroppedItem.mainCard);
 
   // recalculate max power for location if power cards were played
@@ -49,7 +49,7 @@ const ActiveLocation = ({
               <div className="bar left background" />
               <div className="bar left" style={{ width: `${spacePercent}%` }} />
             </div>
-            <div className="location-name">{card.stats.title}</div>
+            <div className="location-name">{card.title}</div>
             <div className="bar-wrapper">
               <div className="bar-label">
                 <span>Power</span>{`${power} / ${maxPower}`}
@@ -64,8 +64,8 @@ const ActiveLocation = ({
             style={{
               backgroundImage: `url(cardImages/${
                 inGameplayView === GP_LOCATION_CONTAINER ?
-                  location.lastDroppedItem.dropSlots[activeContainerIndex].lastDroppedItem.mainCard.stats.image
-                  : card.stats.image
+                  location.lastDroppedItem.dropSlots[activeContainerIndex].lastDroppedItem.mainCard.image
+                  : card.image
                 })`,
             }}
           />

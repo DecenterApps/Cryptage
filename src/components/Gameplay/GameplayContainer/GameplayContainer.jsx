@@ -25,12 +25,12 @@ const GameplayContainer = ({
       <div
         className="background-drop"
         style={{
-          backgroundImage: `url(cardImages/${card.stats.image})`,
+          backgroundImage: `url(cardImages/${card.image})`,
         }}
       />
 
       <h2 className="container-title">
-        {card.stats.title} <span>{fullSlots}/{totalSlots}</span>
+        {card.title} <span>{fullSlots}/{totalSlots}</span>
       </h2>
 
       <DropSlotsWrapper

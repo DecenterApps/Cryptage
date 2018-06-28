@@ -13,8 +13,8 @@ const EmptyProjectSlot = ({ card, globalStats }) => {
   let goodCardType = false;
 
   if (card) {
-    goodCardType = card.stats.type === 'Project';
-    if (goodCardType) canDrop = checkIfCanPlayCard(card.stats, globalStats, null);
+    goodCardType = card.type === 'Project';
+    if (goodCardType) canDrop = checkIfCanPlayCard(card, globalStats, null);
   }
 
   return (

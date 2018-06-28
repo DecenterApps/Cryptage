@@ -66,7 +66,7 @@ class GameplayItem extends Component {
     const assetLevelUpType = acceptedAssetLevelUpIds.includes(mainCard.metadata.id);
     const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
 
-    const isDragMiner = dragItem && dragItem.card && dragItem.card.stats.type === 'Mining';
+    const isDragMiner = dragItem && dragItem.card && dragItem.card.type === 'Mining';
     const isContainer = containerIds.includes(mainCard.metadata.id);
     let remainingSlots = null;
     let canDropMiner = false;
@@ -74,14 +74,14 @@ class GameplayItem extends Component {
     let fpb = 0;
 
     // handle hacker and coffee miner fpb
-    if (mainCard.metadata.id === '18') fpb = mainCard.stats.bonus.funds;
-    if (mainCard.metadata.id === '23') fpb = mainCard.stats.bonus.multiplierFunds;
+    if (mainCard.metadata.id === '18') fpb = mainCard.bonus.funds;
+    if (mainCard.metadata.id === '23') fpb = mainCard.bonus.multiplierFunds;
 
     // handle grid connector fpb
-    if (mainCard.metadata.id === '22') fpb = locationItem.values.power * mainCard.stats.bonus.funds;
+    if (mainCard.metadata.id === '22') fpb = locationItem.values.power * mainCard.bonus.funds;
 
     // handle blockchain smartlock fpb
-    if (mainCard.metadata.id === '43') fpb = locationItem.values.space * mainCard.stats.bonus.multiplierFunds;
+    if (mainCard.metadata.id === '43') fpb = locationItem.values.space * mainCard.bonus.multiplierFunds;
 
     if (isContainer) {
       // export this to another function
@@ -91,10 +91,10 @@ class GameplayItem extends Component {
         const containerId = locationItem.dropSlots[index].lastDroppedItem.mainCard.metadata.id;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
         goodMinerSlotType = emptyContainerSlotArr[0].accepts.includes(dragItem.card.metadata.id);
-        const { stats } = dragItem.card;
+        const { card } = dragItem.card;
 
         if (goodMinerSlotType && containerSlotsLength) {
-          canDropMiner = checkIfCanPlayCard(stats, globalStats, locationItem, true);
+          canDropMiner = checkIfCanPlayCard(card, globalStats, locationItem, true);
         } else if (goodMinerSlotType && !containerSlotsLength) {
           const numLevelUp = getDropSlotsAvailableLevelUp(slot.lastDroppedItem.dropSlots, dragItem.card, globalStats);
           canDropMiner = numLevelUp !== 0;
@@ -102,7 +102,7 @@ class GameplayItem extends Component {
       }
 
       // go to third level view if dragging a mining card
-      if (isOver && dragItem.card.stats.type === 'Mining' && canDropMiner) {
+      if (isOver && dragItem.card.type === 'Mining' && canDropMiner) {
         setTimeout(() => {
           this.goToContainer(isContainer);
         }, 200);
@@ -113,7 +113,7 @@ class GameplayItem extends Component {
       // handle container fpb
       fpb = slot.lastDroppedItem.dropSlots.reduce((acc, currVal) => {
         if (currVal.lastDroppedItem) {
-          acc += currVal.lastDroppedItem.mainCard.stats.bonus.funds;
+          acc += currVal.lastDroppedItem.mainCard.bonus.funds;
         }
 
         return acc;

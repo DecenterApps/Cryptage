@@ -1,6 +1,7 @@
 import update from 'immutability-helper';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import {
+  GENERATE_NEW_GAMEPLAY,
   SET_ACTIVE_LOCATION,
   USERS_CARDS_ERROR,
   LOAD_STATE_FROM_STORAGE,
@@ -289,7 +290,7 @@ export const activateProject = (card, index) => (dispatch, getState) => {
   const { projects, globalStats } = getState().gameplay;
   const alteredProjects = [...projects];
 
-  if (!checkIfCanPlayCard(card.stats, globalStats)) {
+  if (!checkIfCanPlayCard(card, globalStats)) {
     return dispatch(openNoRestartProjectModal(getMathErrors(card.stats, globalStats)));
   }
 
@@ -373,13 +374,15 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   if (!payload) {
     const blockNum = await web3.eth.getBlockNumber();
     payload = new Gameplay(blockNum);
+    return dispatch({ type: GENERATE_NEW_GAMEPLAY, payload });
   }
 
   console.log('LOAD_STATE_FROM_STORAGE', payload);
-  dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+  return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 };
 
 export const updateFundsBlockDifference = () => async (dispatch, getState) => {
+  console.log('updateFundsBlockDifference');
   const { app: { account }, gameplay } = getState();
 
   if (!account) return;
@@ -418,17 +421,17 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
  * @param {Object} data { nickname }
  */
 export const submitNickname = ({ nickname }) => async (dispatch, getState) => {
-
   const cardsPromise = cardsPerLevel[0].map(async (metadataId, index) => {
     const id = 0 - (index + 1);
 
-    return await Card.getInstance(getState().gameplay, id, 1, metadataId.toString());
+    return Card.getInstance(getState().gameplay, id, 1, metadataId.toString());
   });
 
   Promise.all(cardsPromise).then((cards) => {
     dispatch(openNewLevelModal(1, cards));
 
     dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
+    saveGameplayState(getState);
   });
 };
 

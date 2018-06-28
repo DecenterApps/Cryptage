@@ -11,8 +11,8 @@ const EmptyLocationSlot = ({ card, globalStats }) => {
   let goodCardType = false;
 
   if (card) {
-    goodCardType = card.stats.type === 'Location';
-    if (goodCardType) canDrop = checkIfCanPlayCard(card.stats, globalStats, null);
+    goodCardType = card.type === 'Location';
+    if (goodCardType) canDrop = checkIfCanPlayCard(card, globalStats, null);
   }
 
   return (

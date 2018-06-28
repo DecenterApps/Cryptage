@@ -26,7 +26,7 @@ const EmptyCardSlot = ({
       goodCardType = goodSlotType && type === 'Mining';
     }
 
-    if (goodCardType) canDrop = checkIfCanPlayCard(card.stats, globalStats, activeLocation, acceptedType === 'mining');
+    if (goodCardType) canDrop = checkIfCanPlayCard(card, globalStats, activeLocation, acceptedType === 'mining');
   }
 
   return (

@@ -291,12 +291,13 @@ export const clearRevealedCards = () => (dispatch) => { dispatch({ type: CLEAR_R
  * @param cardType
  */
 export const removeNewCardOnHover = cardType => (dispatch, getState) => {
-  const newCardTypes = [...getState().gameplay.newCardTypes];
-
-  if (!newCardTypes.includes(cardType)) return;
-
-  const spliceIndex = newCardTypes.findIndex(newCardType => newCardType === cardType);
-  newCardTypes.splice(spliceIndex, 1);
-
-  dispatch({ type: REMOVE_NEW_FROM_CARD, payload: newCardTypes });
+  // TODO return this later
+  // const newCardTypes = [...getState().gameplay.newCardTypes];
+  //
+  // if (!newCardTypes.includes(cardType)) return;
+  //
+  // const spliceIndex = newCardTypes.findIndex(newCardType => newCardType === cardType);
+  // newCardTypes.splice(spliceIndex, 1);
+  //
+  // dispatch({ type: REMOVE_NEW_FROM_CARD, payload: newCardTypes });
 };

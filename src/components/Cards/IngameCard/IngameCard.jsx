@@ -39,17 +39,17 @@ class IngameCard extends Component {
     } = this.props;
 
     const uniqueId = guid();
-    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
+    const rarityColor = rarities[classForRarity(card.rarityScore)] || '#9C01C2';
 
     return (
       <div
-        className={`ingame-card-details type-${card.stats.type.toLowerCase()}`}
+        className={`ingame-card-details type-${card.type.toLowerCase()}`}
         onMouseEnter={() => {
           removeNewCardOnHover(card.metadata.id);
         }}
         onMouseLeave={() => { togglePortal(false); }}
         onClick={(e) => {
-          if (card.stats.type === 'Container' && played && goToContainer) goToContainer(e);
+          if (card.type === 'Container' && played && goToContainer) goToContainer(e);
         }}
         ref={(ref) => { this.myRef = ref; }}
       >
@@ -67,10 +67,10 @@ class IngameCard extends Component {
         }
 
         <div className="level-wrapper">
-          <div className="level">{card.stats.level}</div>
+          <div className="level">{card.level}</div>
         </div>
         <div className="overlay" />
-        <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
+        <div className={`rarity-overlay ${classForRarity(card.rarityScore)}`} />
         <svg className="card-image">
           <defs>
             <pattern
@@ -85,15 +85,15 @@ class IngameCard extends Component {
                 height="1"
                 width="1"
                 preserveAspectRatio="xMidYMid slice"
-                href={`cardImages/${card.stats.image}`}
+                href={`cardImages/${card.image}`}
               />
             </pattern>c
             <linearGradient
               id={`card-rarity-gradient-${uniqueId}`}
-              x1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 20 : 0}%`}
-              x2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 250 : 0}%`}
-              y1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 50 : 0}%`}
-              y2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 0 : 150}%`}
+              x1={`${classForRarity(card.rarityScore) === 'normal' ? 20 : 0}%`}
+              x2={`${classForRarity(card.rarityScore) === 'normal' ? 250 : 0}%`}
+              y1={`${classForRarity(card.rarityScore) === 'normal' ? 50 : 0}%`}
+              y2={`${classForRarity(card.rarityScore) === 'normal' ? 0 : 150}%`}
             >
               <stop
                 offset="0%"
@@ -113,11 +113,11 @@ class IngameCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][1] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][1] }}
               />
               <stop
                 offset="100%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][0] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][0] }}
               />
             </linearGradient>
           </defs>
@@ -142,10 +142,10 @@ class IngameCard extends Component {
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
         </svg>
-        <div className={`meta ${card.stats.type.toLowerCase()}`}>
-          <div className="title">{card.stats.title}</div>
+        <div className={`meta ${card.type.toLowerCase()}`}>
+          <div className="title">{card.title}</div>
           <div className="border" />
-          <div className="type">{card.stats.type}</div>
+          <div className="type">{card.type}</div>
         </div>
         {
           showCount && card.count > 1 &&
@@ -160,13 +160,13 @@ class IngameCard extends Component {
         }
 
         {
-          card.stats.type === 'Container' && played &&
+          card.type === 'Container' && played &&
           <div className="container-slots-outer-wrapper">
             <div className="container-slots-wrapper">
               <div
                 className="slots-bar"
                 style={{
-                  height: `${100 - 100 * remainingSlots / card.stats.values.space}%`,
+                  height: `${100 - 100 * remainingSlots / card.values.space}%`,
                 }}
               />
             </div>
@@ -203,7 +203,7 @@ class IngameCard extends Component {
           }
 
           {
-            card.stats.type === 'Container' && played && goToContainer &&
+            card.type === 'Container' && played && goToContainer &&
             <div className="go-to-container-wrapper" onClick={goToContainer}>
               <MagnifyingGlassCardIcon />
             </div>

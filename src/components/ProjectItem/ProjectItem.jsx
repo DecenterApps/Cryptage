@@ -47,18 +47,18 @@ class ProjectItem extends Component {
     // remove when refactor is over
     if (timeLeft < 0) timeLeft = 1;
 
-    const cardFundsBonus = mainCard.stats.bonus.funds;
+    const cardFundsBonus = mainCard.bonus.funds;
     const metadataId = mainCard.metadata.id;
     let fpb = 0;
 
     if (metadataId === '30' || metadataId === '27' || metadataId === '29' || metadataId === '37' || metadataId === '24') fpb = modifiedFundsBonus; // eslint-disable-line
     else fpb = cardFundsBonus;
 
-    const xpb = mainCard.stats.bonus.xp;
+    const xpb = mainCard.bonus.xp;
 
     const alteredMainCard = JSON.parse(JSON.stringify(mainCard));
 
-    if (metadataId === '37' || metadataId === '24') alteredMainCard.stats.bonus.funds = modifiedFundsBonus;
+    if (metadataId === '37' || metadataId === '24') alteredMainCard.bonus.funds = modifiedFundsBonus;
 
     return (
       <div
@@ -67,7 +67,7 @@ class ProjectItem extends Component {
           ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
           ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
           rarity-border
-          ${classForRarity(mainCard.stats.rarityScore)}
+          ${classForRarity(mainCard.rarityScore)}
         `}
         ref={(ref) => { this.myRef = ref; }}
       >
@@ -82,7 +82,7 @@ class ProjectItem extends Component {
             </PortalWrapper>
           }
 
-          <ProjectItemVector active={isActive} id={mainCard.id} image={`cardImages/${mainCard.stats.image}`} />
+          <ProjectItemVector active={isActive} id={mainCard.id} image={`cardImages/${mainCard.image}`} />
 
           {
             isActive &&
@@ -91,7 +91,7 @@ class ProjectItem extends Component {
                 strokeWidth="7"
                 strokeColor="#FF9D14"
                 trailColor="transparent"
-                percent={calculatePercent(timeLeft, mainCard.stats.cost.time)}
+                percent={calculatePercent(timeLeft, mainCard.cost.time)}
               />
             </div>
           }

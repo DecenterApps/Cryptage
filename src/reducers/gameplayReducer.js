@@ -35,6 +35,8 @@ import {
   UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
   INCREMENT_TURN,
   REMOVE_ASSET_SLOTS,
+  DROP_CARD,
+  GENERATE_NEW_GAMEPLAY,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -141,6 +143,10 @@ export default (state = new Gameplay(0), action) => {
     //   return { ...state, newCardTypes: payload };
 
     case LOAD_STATE_FROM_STORAGE:
+    case GENERATE_NEW_GAMEPLAY:
+      return payload;
+
+    case DROP_CARD:
       return payload;
 
     // case UPDATE_GLOBAL_VALUES:

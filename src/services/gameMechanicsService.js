@@ -485,7 +485,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       );
 
       if (!miningCardType) {
-        if (availableSlots) return checkIfCanPlayCard(stats, globalStats, activeLocation);
+        if (availableSlots) return checkIfCanPlayCard(card, globalStats, activeLocation);
         if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
         if (!availableSlots && stats.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
       }
@@ -513,7 +513,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
           droppedContainerItem.containerIndex,
         );
 
-        if (goodSlotType && containerSlotLength && checkIfCanPlayCard(stats, globalStats, activeLocation, true)) {
+        if (goodSlotType && containerSlotLength && checkIfCanPlayCard(card, globalStats, activeLocation, true)) {
           canPlayInOneContainer = true;
         }
         if (goodSlotType && !containerSlotLength) {
@@ -543,7 +543,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       if (!isAsset) {
         if (!goodCardType) return false;
 
-        if (availableSlots) return checkIfCanPlayCard(stats, globalStats, null);
+        if (availableSlots) return checkIfCanPlayCard(card, globalStats, null);
         if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
         if (!availableSlots && stats.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
       }
@@ -556,7 +556,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
       if (!goodCardType) return false;
       if (!goodSlotType) return false;
-      if (availableSlots) return checkIfCanPlayCard(stats, globalStats, activeLocation, true);
+      if (availableSlots) return checkIfCanPlayCard(card, globalStats, activeLocation, true);
 
       const { dropSlots } = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex].lastDroppedItem; // eslint-disable-line
       return getDropSlotsAvailableLevelUp(dropSlots, card, globalStats) > 0;

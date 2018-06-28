@@ -11,8 +11,8 @@ const CanPlayCardChecker = ({
   if (!card) return (<div />);
 
   let costErrors = null;
-  const activeLocation = card.stats.type === 'Mining' ? locations[activeLocationIndex].lastDroppedItem : null;
-  const ignoreSpace = card.stats.type === 'Mining';
+  const activeLocation = card.type === 'Mining' ? locations[activeLocationIndex].lastDroppedItem : null;
+  const ignoreSpace = card.type === 'Mining';
 
   const canDrop = getAvailableCards([card], gameplayView, inGameplayView, locations, projects).length === 1;
 
@@ -21,7 +21,7 @@ const CanPlayCardChecker = ({
   }
 
   return (
-    <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
+    <div className={`card-details type-${card.type.toLowerCase()}`}>
       <HandCard costErrors={costErrors} card={card} />
     </div>
   );

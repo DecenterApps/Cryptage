@@ -1,4 +1,5 @@
 import {
+  DROP_CARD,
   DROP_LOCATION,
   DROP_ASSET,
   DROP_MINER,
@@ -45,7 +46,7 @@ export const handleLocationDrop = (index, item) => (dispatch, getState) => {
   const cards = [...gameplay.cards];
   const { lastDroppedItem } = locations[index];
 
-  if (!checkIfCanPlayCard(item.card.stats, globalStats)) return;
+  if (!checkIfCanPlayCard(item.card, globalStats)) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -82,7 +83,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   let globalStats = { ...gameplay.globalStats };
   const metaDataId = item.card.metadata.id;
 
-  if (!checkIfCanPlayCard(item.card.stats, globalStats, locations[activeLocationIndex].lastDroppedItem)) return;
+  if (!checkIfCanPlayCard(item.card, globalStats, locations[activeLocationIndex].lastDroppedItem)) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -157,7 +158,7 @@ export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIn
   const slotItem = containerSlots[cardIndex].lastDroppedItem;
   const locationItem = locations[locationIndex].lastDroppedItem;
 
-  if (!checkIfCanPlayCard(item.card.stats, gameplay.globalStats, locationItem, true)) return;
+  if (!checkIfCanPlayCard(item.card, gameplay.globalStats, locationItem, true)) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
   cards.splice(draggedCardIndex, 1);
@@ -197,7 +198,7 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   const cards = [...gameplay.cards];
   const { lastDroppedItem } = projects[index];
 
-  if (!checkIfCanPlayCard(item.card.stats, globalStats)) return;
+  if (!checkIfCanPlayCard(item.card, globalStats)) return;
   if (lastDroppedItem && lastDroppedItem.isActive) return;
 
   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
@@ -223,4 +224,9 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   }
 
   saveGameplayState(getState);
+};
+
+export const dropCard = (slot, card) => (dispatch, getState) => {
+  const newGameplay = slot.dropCard(getState().gameplay, card);
+  dispatch({ type: DROP_CARD, payload: newGameplay });
 };

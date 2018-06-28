@@ -78,6 +78,8 @@ export const SAVE_STATE_SUCCESS = 'save_state_success';
 export const SAVE_STATE_ERROR = 'save_state_error';
 
 // GAMEPLAY
+export const GENERATE_NEW_GAMEPLAY = 'generate_new_gameplay';
+export const DROP_CARD = 'drop_card';
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
 export const DROP_MINER = 'drop_miner';

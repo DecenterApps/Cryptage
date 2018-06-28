@@ -16,8 +16,8 @@ const dropTarget = {
     // TODO REFACTOR THIS
     if (props.lastDroppedItem) {
       const { mainCard } = props.lastDroppedItem;
-      const { id } = mainCard.metadata;
-      const level = parseInt(mainCard.stats.level, 10);
+      const id = mainCard.metadataId;
+      const level = parseInt(mainCard.level, 10);
       const cardId = monitor.getItem().card.id;
 
       dropItem = { card: { ...mainCard, id: cardId, stats: fetchCardStats(id, level + 1) } };
@@ -25,9 +25,9 @@ const dropTarget = {
 
     props.onDrop(dropItem);
     component.props.toggleCardDrag();
-    if (checkIfCanPlayCard(dropItem.card.stats, props.globalStats)) {
-      // component.props.playTurn(dropItem, props.slotType, props.index, true);
-    }
+    // if (checkIfCanPlayCard(dropItem.card, props.globalStats)) {
+    // component.props.playTurn(dropItem, props.slotType, props.index, true);
+    // }
   },
 };
 
