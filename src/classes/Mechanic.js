@@ -1,3 +1,4 @@
+import serialise from 'serialijse';
 import Subscriber from './Subscriber';
 
 /**
@@ -68,3 +69,5 @@ export default class Mechanic extends Subscriber {
     return state;
   }
 }
+
+serialise.declarePersistable(Mechanic);

@@ -1,10 +1,11 @@
 import React from 'react';
 import update from 'immutability-helper';
+import serialize from 'serialijse';
 import cardsConfig from '../constants/cards.json';
 import { getSlotForContainer, checkIfCanLevelUp } from './gameMechanicsService';
 import {
   acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS, rarities,
-  typeGradients
+  typeGradients,
 } from '../actions/actionTypes';
 
 /**
@@ -234,7 +235,7 @@ export const saveGameplayState = (getState) => {
     return;
   }
 
-  localStorage.setItem(`cryptage-${account}`, JSON.stringify(state.gameplay));
+  localStorage.setItem(`cryptage-${account}`, serialize.serialize(state.gameplay));
 };
 
 /**

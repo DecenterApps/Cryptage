@@ -1,3 +1,5 @@
+import serialise from 'serialijse';
+
 function getAllSlottedCards(card, slotted) {
   for (const slot of card.dropSlots) {
     if (!slot.isEmpty()) {
@@ -70,3 +72,5 @@ export default class CardSlot {
     return !this.card;
   }
 }
+
+serialise.declarePersistable(CardSlot);

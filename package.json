@@ -88,6 +88,7 @@
     "redux-form": "^7.3.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
+    "serialijse": "^0.1.3",
     "stream-equal": "^1.1.0",
     "style-loader": "^0.20.1",
     "web3": "1.0.0-beta.33",

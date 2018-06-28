@@ -1,3 +1,4 @@
+import serialize from 'serialijse';
 import update from 'immutability-helper';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import {
@@ -369,7 +370,7 @@ export const loadGameplayState = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  let payload = JSON.parse(localStorage.getItem(`cryptage-${account}`));
+  let payload = serialize.deserialize(localStorage.getItem(`cryptage-${account}`));
 
   if (!payload) {
     const blockNum = await web3.eth.getBlockNumber();
@@ -387,7 +388,7 @@ export const updateFundsBlockDifference = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  const previousState = JSON.parse(localStorage.getItem(`cryptage-${account}`));
+  const previousState = serialize.deserialize(localStorage.getItem(`cryptage-${account}`));
 
   if (previousState) {
     const currentBlock = await ethService.getBlockNumber();

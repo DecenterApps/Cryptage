@@ -1,3 +1,4 @@
+import serialise from 'serialijse';
 
 const subscriptions = Symbol('subscriptions');
 
@@ -20,3 +21,5 @@ export default class Subscriber {
     this[subscriptions].clear();
   }
 }
+
+serialise.declarePersistable(Subscriber);

@@ -1,3 +1,4 @@
+import serialise from 'serialijse';
 import cardsConfig from '../constants/cards.json';
 import Mechanic from './Mechanic';
 import { fetchCardMeta, fetchCardStats } from '../services/cardService';
@@ -244,3 +245,5 @@ Card.registerTypeConstructor = registerCardTypeConstructor;
 Card.getTypeConstructor = getCardTypeConstructor;
 
 setDefaultCardType(Card);
+
+serialise.declarePersistable(Card);

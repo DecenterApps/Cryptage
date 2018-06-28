@@ -1,3 +1,4 @@
+import serialise from 'serialijse';
 import config from '../constants/config.json';
 import cardConfig from '../constants/cards.json';
 import levels from '../constants/levels.json';
@@ -106,3 +107,5 @@ export default class Gameplay {
     };
   }
 }
+
+serialise.declarePersistable(Gameplay);
