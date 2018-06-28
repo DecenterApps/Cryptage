@@ -81,6 +81,7 @@
         height: 34px;
         position: relative;
         font-family: $font-secondary;
+        font-size: 14px;
 
         //@include for-big-desktop {
         //  background: none;
@@ -157,6 +158,7 @@
           width: 100%;
           padding: 0 10px;
           z-index: 1;
+          line-height: 12px;
 
           //@include for-big-desktop {
           //  margin-top: 1px;
@@ -214,7 +216,7 @@
         background: linear-gradient(180deg, rgb(28, 26, 53) 0%, rgba(54, 38, 95, 0) 100%);
         background-position: center;
         background-size: cover;
-        mask-image: linear-gradient(rgba(0, 0, 0, .3), transparent);
+        mask-image: linear-gradient(rgba(0, 0, 0, .2), transparent);
 
         //@include for-big-desktop {
         //  top: 25px;

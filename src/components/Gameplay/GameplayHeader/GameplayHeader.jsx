@@ -34,8 +34,8 @@ const GameplayHeader = ({
         <div className="section">
           <div className="stats-wrapper people">
             <div className={`count ${getClassForFont(maxDev, globalStats.development)}`}>
-              { globalStats.development }
-              <span className="smaller">&nbsp;&nbsp;/&nbsp;&nbsp;{maxDev}</span>
+              <div>{ globalStats.development }</div>
+              <div className="smaller">&nbsp;&nbsp;/&nbsp;&nbsp;{maxDev}</div>
             </div>
           </div>
         </div>

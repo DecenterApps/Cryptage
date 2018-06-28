@@ -40,7 +40,8 @@ class Collection extends Component {
           <div className="collection-cards-wrapper">
             {
               Object.keys(cardsConfig.cards)
-                .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType)
+                .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType
+                                  || this.state.selectedType === 'All')
                 .map(cardId => cardId)
                 .map((cardId) => {
                   const foundCard = cards.find(card => card.metadata.id === cardId);
@@ -51,7 +52,8 @@ class Collection extends Component {
                       return acc;
                     }, 0);
 
-                    const newCard = cards.find(card => (card.metadata.id === cardId) && newCardTypes.includes(card.metadata.id)); // eslint-disable-line
+                    const newCard = cards.find(card => (card.metadata.id === cardId)
+                                                        && newCardTypes.includes(card.metadata.id));
 
                     return (<LargeCard
                       showNew={Boolean(newCard)}

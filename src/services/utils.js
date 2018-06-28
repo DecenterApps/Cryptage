@@ -606,8 +606,25 @@ export const mergeErrorMessages = (...messages) => {
   return result;
 };
 
-export const getDataForTypeSorting = cards =>
-  Object.keys(typeGradients).reduce((_acc, key) => {
+export const getDataForTypeSorting = (cards) => {
+  const allType = {
+    color: typeGradients.container,
+    name: 'All',
+    total: Object.keys(cardsConfig.cards).length,
+    collected: 0,
+  };
+  const allCards = Object.keys(cardsConfig.cards).map(cardTypeId => cardsConfig.cards[cardTypeId]['1'].title);
+  allType.collected = cards.reduce((acc, card) => {
+    const typeIndex = allCards.findIndex(title => title === card.stats.title);
+
+    if (typeIndex !== -1) {
+      allCards.splice(typeIndex, 1);
+      acc += 1;
+    }
+    return acc;
+  }, 0);
+
+  return Object.keys(typeGradients).reduce((_acc, key) => {
     const acc = [..._acc];
     const item = { color: typeGradients[key], name: key, total: 0, collected: 0 };
     const typeTitles = [];
@@ -631,6 +648,7 @@ export const getDataForTypeSorting = cards =>
 
     acc.push(item);
     return acc;
-  }, []);
+  }, [allType]);
+};
 
 export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);

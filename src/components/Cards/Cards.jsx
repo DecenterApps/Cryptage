@@ -38,6 +38,9 @@ class Cards extends Component {
 
   toggleTabOpen(tabName) {
     const newState = { ...this.state };
+    const currentActive = Object.keys(newState.tabsToggleMap).find(t => newState.tabsToggleMap[t]);
+    console.log(currentActive);
+    if (currentActive !== tabName) newState.tabsToggleMap[currentActive] = false;
     newState.tabsToggleMap[tabName] = !newState.tabsToggleMap[tabName];
     this.setState(newState);
   }
