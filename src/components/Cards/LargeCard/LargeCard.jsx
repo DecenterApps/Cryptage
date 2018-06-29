@@ -56,7 +56,7 @@ class LargeCard extends Component {
         {
           showCount && duplicates > 1 &&
           <div className="count-wrapper">
-            <div className="count">x{duplicates}</div>
+            <div className="count">{duplicates}</div>
           </div>
         }
         <div
