@@ -6,6 +6,7 @@ import metaMaskLogo from './metamask.png';
 
 const NoMetaMask = ({ accountError }) => (
   <div className="no-meta-mask-wrapper">
+    <div className="logo-wrapper" />
     <div className="welcome-text">Welcome to Cryptage</div>
 
     <img src={metaMaskLogo} alt="MetaMask logo" draggable={false} />

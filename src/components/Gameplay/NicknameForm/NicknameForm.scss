@@ -3,71 +3,63 @@
 
 .nickname-form-wrapper {
   flex-grow: 1;
+  text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  height: 100%;
+
+  > div {
+    margin: 0 auto;
+  }
+
+  .form-description-title {
+    font-family: $font-primary;
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+    color: white;
+    margin: 0;
+  }
 
   .content {
-    width: 253px;
-    margin-top: 65px;
+    width: 290px;
 
     //@include for-big-desktop {
     //  width: 330px;
     //  margin-top: 95px;
     //}
 
-    .form-description-title, .form-description {
+    .form-description {
       font-family: $font-primary;
-      font-style: normal;
       font-weight: bold;
-      font-size: 12px;
-      text-align: center;
-      color: #FFFFFF;
+      font-size: 13px;
+      letter-spacing: .02em;
+      color: white;
+      line-height: 1.5em;
 
       //@include for-big-desktop {
       //  font-size: 15px;
       //}
     }
 
-    .form-description-title {
-      font-size: 14px;
-
-      //@include for-big-desktop {
-      //  font-size: 17px;
-      //}
-    }
-
-    .form-label {
-      color: #fff;
-      text-shadow: $text-shadow-prime;
-      font-size: 23px;
-      text-transform: uppercase;
-      font-family: $font-secondary;
-      text-align: center;
-
-      //@include for-big-desktop {
-      //  font-size: 30px;
-      //  white-space: nowrap;
-      //}
-    }
-
     form.form-wrapper {
-      margin-top: 6px;
       position: relative;
+      width: 250px;
+      margin: 50px auto 0;
 
       .form-item-wrapper {
         margin-bottom: 0;
 
         .form-item {
           height: 44px;
-          border: none;
-          background: none;
+          border: 0;
+          outline: 0;
           padding: 0 35px 0 5px;
-          border-bottom: 1px solid $purple;
           font-size: 23px;
-          outline: auto;
-
-          color: $yellow;
-          text-shadow: $text-shadow-prime;
+          background: transparent;
+          color: white;
+          border-radius: 0;
         }
       }
 
@@ -97,7 +89,8 @@
 
     .form-bottom-box {
       height: 58px;
-      width: 100%;
+      width: 250px;
+      margin: 0 auto;
       background: $background-purple-gradient;
 
       //@include for-big-desktop {
