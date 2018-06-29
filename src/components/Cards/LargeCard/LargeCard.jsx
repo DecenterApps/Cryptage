@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { classForRarity } from '../../../services/utils';
@@ -7,43 +7,84 @@ import { rarities, typeGradients } from '../../../actions/actionTypes';
 
 import './LargeCard.scss';
 import LargeCardMain from '../../HoverInfo/LargeCardMain';
+import InfoCardIcon from '../../Decorative/InfoCardIcon';
+import PortalWrapper from '../../PortalWrapper/PortalWrapper';
+import HoverInfo from '../../HoverInfo/HoverInfo';
 
-const LargeCard = ({
-  card, showNew, removeNewCardOnHover, removeNew, showCount, duplicates,
-}) => {
-  return (
-    <div
-      className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
-      onMouseEnter={() => {
-        if (!removeNew) return;
 
-        removeNewCardOnHover(card.metadata.id);
-      }}
-    >
+class LargeCard extends Component {
+  constructor() {
+    super();
+    this.state = { showPortal: false };
+    this.togglePortal = this.togglePortal.bind(this);
+  }
 
-      <div id="rarity" className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+  togglePortal(showOrHide) {
+    console.log(showOrHide);
+    this.setState({ showPortal: showOrHide });
+  }
 
-      <LargeCardMain
-        typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
-        rarityColor={rarities[classForRarity(card.stats.rarityScore)]}
-        id={card.id}
-        image={`cardImages/${card.stats.image}`}
-      />
+  render() {
+    const {
+      card, showNew, removeNewCardOnHover, removeNew, showCount, duplicates,
+    } = this.props;
 
-      { showNew && <div className="new-card"><span>new</span></div> }
+    return (
+      <div
+        className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
+        onMouseEnter={() => {
+          if (!removeNew) return;
 
-      <div className="card-title">{card.stats.title}</div>
-      <div className="card-type">{card.stats.type}</div>
+          removeNewCardOnHover(card.metadata.id);
+        }}
+      >
 
-      {
-        showCount && duplicates > 1 &&
-        <div className="count-wrapper">
-          <div className="count">x{duplicates}</div>
+        <div id="rarity" className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+
+        <LargeCardMain
+          typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
+          rarityColor={rarities[classForRarity(card.stats.rarityScore)]}
+          id={card.id}
+          image={`cardImages/${card.stats.image}`}
+        />
+
+        { showNew && <div className="new-card"><span>new</span></div> }
+
+        <div className="card-title">{card.stats.title}</div>
+        <div className="card-type">{card.stats.type}</div>
+
+        {
+          showCount && duplicates > 1 &&
+          <div className="count-wrapper">
+            <div className="count">x{duplicates}</div>
+          </div>
+        }
+        <div
+          className="actions"
+          onClick={e => e.stopPropagation()}
+        >
+          <div
+            className="hover-info-wrapper"
+            onMouseEnter={() => { this.togglePortal(true); }}
+            onMouseLeave={() => { this.togglePortal(false); }}
+          >
+            <InfoCardIcon />
+          </div>
         </div>
-      }
-    </div>
-  );
-};
+        {
+          this.state.showPortal &&
+          <PortalWrapper>
+            <HoverInfo
+              card={card}
+              center
+              backdrop
+            />
+          </PortalWrapper>
+        }
+      </div>
+    );
+  }
+}
 
 LargeCard.defaultProps = {
   showNew: false,

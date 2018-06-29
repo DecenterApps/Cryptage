@@ -74,7 +74,7 @@ const GameplayHeader = ({
       </div>
     </div>
   );
-}
+};
 
 GameplayHeader.propTypes = {
   blockNumber: PropTypes.number.isRequired,
