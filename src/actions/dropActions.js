@@ -81,7 +81,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   const cards = [...gameplay.cards];
   let locations = [...gameplay.locations];
   let globalStats = { ...gameplay.globalStats };
-  const metaDataId = item.card.metadata.id;
+  const metaDataId = item.card.metadataId;
 
   if (!checkIfCanPlayCard(item.card, globalStats, locations[activeLocationIndex].lastDroppedItem)) return;
 
@@ -121,7 +121,7 @@ export const handleAssetDrop = (index, item) => (dispatch, getState) => {
   }
 
   if (metaDataId === '44') {
-    fundsPerBlock += calcTinkererPerLocationBonus(locations, activeLocationIndex, mainCard.stats);
+    fundsPerBlock += calcTinkererPerLocationBonus(locations, activeLocationIndex, mainCard);
   }
 
   dispatch({
@@ -226,7 +226,11 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   saveGameplayState(getState);
 };
 
-export const dropCard = (slot, card) => (dispatch, getState) => {
-  const newGameplay = slot.dropCard(getState().gameplay, card);
+export const dropCard = (slot, item) => (dispatch, getState) => {
+  // Object.assign({}, getState().gameplay);
+  const newGameplay = slot.dropCard(getState().gameplay, item.card);
+  // console.log('DIFF', oldGameplay, newGameplay);
+
   dispatch({ type: DROP_CARD, payload: newGameplay });
+  saveGameplayState(getState);
 };

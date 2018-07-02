@@ -11,19 +11,7 @@ import { fetchCardStats } from '../../services/cardService';
 
 const dropTarget = {
   drop(props, monitor, component) {
-    let dropItem = monitor.getItem();
-
-    // TODO REFACTOR THIS
-    if (props.lastDroppedItem) {
-      const { mainCard } = props.lastDroppedItem;
-      const id = mainCard.metadataId;
-      const level = parseInt(mainCard.level, 10);
-      const cardId = monitor.getItem().card.id;
-
-      dropItem = { card: { ...mainCard, id: cardId, stats: fetchCardStats(id, level + 1) } };
-    }
-
-    props.onDrop(dropItem);
+    props.onDrop(monitor.getItem());
     component.props.toggleCardDrag();
     // if (checkIfCanPlayCard(dropItem.card, props.globalStats)) {
     // component.props.playTurn(dropItem, props.slotType, props.index, true);
@@ -70,7 +58,7 @@ class DropSlotWrapper extends Component {
 
     return connectDropTarget(
       <div className={className}>
-        {lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, dragItem, index, slot })}
+        {lastDroppedItem && React.cloneElement(children, { card: lastDroppedItem, isOver, dragItem, index, slot })}
         {!lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem, index })}
       </div>,
     );

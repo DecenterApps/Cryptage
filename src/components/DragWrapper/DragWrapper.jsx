@@ -5,7 +5,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend';
 import { connect } from 'react-redux';
 import { toggleCardDrag } from '../../actions/appActions';
 
-const boxSource = { beginDrag(props) { return { card: { ...props.card } }; } };
+const boxSource = { beginDrag(props) { return { card: props.card }; } };
 
 // TODO CHANGE THIS
 @DragSource(props => props.card.tags.length > 0 ? props.card.tags[0] : 'null', boxSource, (connect, monitor) => ({

@@ -159,9 +159,9 @@ const HoverInfo = ({
             {
               card.bonus &&
               card.bonus.funds > 0 &&
-              card.metadata.id !== '43' &&
+              card.metadataId !== '43' &&
               <div
-                data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
+                data-name={fpbCardIds.includes(card.metadataId) ? 'FPB' : 'FUNDS'}
                 className={`orb funds ${classForNumber(card.bonus.funds)}`}
               >
                 {formatBigNumber(card.bonus.funds)}
@@ -170,9 +170,9 @@ const HoverInfo = ({
             {
               card.bonus &&
               card.bonus.funds > 0 &&
-              card.metadata.id === '43' &&
+              card.metadataId === '43' &&
               <div
-                data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
+                data-name={fpbCardIds.includes(card.metadataId) ? 'FPB' : 'FUNDS'}
                 className={`orb funds ${classForNumber(card.bonus.multiplierFunds)}`}
               >
                 {formatBigNumber(card.bonus.multiplierFunds)}

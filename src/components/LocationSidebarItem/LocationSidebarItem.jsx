@@ -49,40 +49,40 @@ class LocationSidebarItem extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      mainCard, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
+      card, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
       globalStats, dragItem, draggingCard,
     } = this.props;
 
-    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
-    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
+    const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
+    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(card, globalStats);
 
-    let fpb = 0;
+    // let fpb = 0;
 
-    slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
-      // get hackers and coffee miners fpb
-      if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '18') {
-        fpb += lastDroppedItem.mainCard.bonus.funds;
-      }
-
-      if ((lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '23')) {
-        fpb += lastDroppedItem.mainCard.bonus.multiplierFunds;
-      }
-
-      // get grid connector fpb
-      if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '22') {
-        const { power } = slot.lastDroppedItem.values;
-        fpb += (power * lastDroppedItem.mainCard.bonus.funds);
-      }
-
-      // get containers fpb
-      if (lastDroppedItem && lastDroppedItem.dropSlots) {
-        lastDroppedItem.dropSlots.forEach((containerSlot) => {
-          if (containerSlot.lastDroppedItem) {
-            fpb += containerSlot.lastDroppedItem.mainCard.bonus.funds;
-          }
-        });
-      }
-    });
+    // slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
+    //   // get hackers and coffee miners fpb
+    //   if (lastDroppedItem && lastDroppedItem.card.metadata.id === '18') {
+    //     fpb += lastDroppedItem.card.bonus.funds;
+    //   }
+    //
+    //   if ((lastDroppedItem && lastDroppedItem.card.metadata.id === '23')) {
+    //     fpb += lastDroppedItem.card.bonus.multiplierFunds;
+    //   }
+    //
+    //   // get grid connector fpb
+    //   if (lastDroppedItem && lastDroppedItem.card.metadata.id === '22') {
+    //     const { power } = slot.lastDroppedItem.values;
+    //     fpb += (power * lastDroppedItem.card.bonus.funds);
+    //   }
+    //
+    //   // get containers fpb
+    //   if (lastDroppedItem && lastDroppedItem.dropSlots) {
+    //     lastDroppedItem.dropSlots.forEach((containerSlot) => {
+    //       if (containerSlot.lastDroppedItem) {
+    //         fpb += containerSlot.lastDroppedItem.card.bonus.funds;
+    //       }
+    //     });
+    //   }
+    // });
 
     const active = (activeLocationIndex === index) && gameplayView === GP_LOCATION;
 
@@ -101,7 +101,7 @@ class LocationSidebarItem extends Component {
           !draggingCard &&
           showPortal &&
           <PortalWrapper>
-            <HoverInfo card={mainCard} parent={this.myRef} type="location" />
+            <HoverInfo card={card} parent={this.myRef} type="location" />
           </PortalWrapper>
         }
 
@@ -111,9 +111,9 @@ class LocationSidebarItem extends Component {
             className={`
             location-sidebar-small
             rarity-border
-            ${classForRarity(mainCard.rarityScore)}`}
+            ${classForRarity(card.rarityScore)}`}
           >
-            <SidebarItemNotActive id={mainCard.id} image={`cardImages/${mainCard.image}`} />
+            <SidebarItemNotActive id={card.id} image={`cardImages/${card.image}`} />
 
             <div className="actions" onClick={e => e.stopPropagation()}>
               <div
@@ -135,13 +135,13 @@ class LocationSidebarItem extends Component {
           <div className={`
             location-sidebar-big
             rarity-border
-            ${classForRarity(mainCard.rarityScore)}`}
+            ${classForRarity(card.rarityScore)}`}
           >
-            <SidebarItemActive id={mainCard.id} image={`cardImages/${mainCard.image}`} />
+            <SidebarItemActive id={card.id} image={`cardImages/${card.image}`} />
 
             <div className="location-data">
-              <div className="loc-name">{mainCard.title}</div>
-              <div className="loc-lvl">Level {mainCard.level}</div>
+              <div className="loc-name">{card.title}</div>
+              <div className="loc-lvl">Level {card.level}</div>
             </div>
 
             <div className="actions" onClick={e => e.stopPropagation()}>
@@ -164,13 +164,13 @@ class LocationSidebarItem extends Component {
 }
 
 LocationSidebarItem.defaultProps = {
-  mainCard: null,
+  card: null,
   dragItem: null,
   draggingCard: false,
 };
 
 LocationSidebarItem.propTypes = {
-  mainCard: PropTypes.object,
+  card: PropTypes.object,
   setActiveLocation: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,

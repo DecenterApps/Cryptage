@@ -23,7 +23,7 @@ import './Gameplay.scss';
 const Gameplay = ({ gameplayView, locations, nickname }) => (
   <div className="gameplay-wrapper">
     <GameplayHeader />
-
+    <h1>{ gameplayView }</h1>
     { !nickname && gameplayView === GP_NO_NICKNAME && <NicknameForm /> }
     { locations.length === 0 && gameplayView === GP_NO_LOCATIONS && <NoLocations /> }
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }
@@ -44,10 +44,14 @@ Gameplay.propTypes = {
   locations: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ gameplay }) => ({
-  gameplayView: gameplay.gameplayView,
-  nickname: gameplay.nickname,
-  locations: gameplay.locationSlots.filter(({ card }) => card !== undefined),
-});
+const mapStateToProps = ({ gameplay }) => {
+  console.log('gameplayView', gameplay.gameplayView);
+  return {
+    gameplayView: gameplay.gameplayView,
+    activeLocationIndex: gameplay.activeLocationIndex,
+    nickname: gameplay.nickname,
+    locations: gameplay.locationSlots.filter(({ card }) => card !== undefined),
+  }
+};
 
 export default connect(mapStateToProps)(Gameplay);

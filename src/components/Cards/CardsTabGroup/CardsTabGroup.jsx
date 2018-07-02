@@ -25,7 +25,7 @@ const CardsTabGroup = ({ cards, title, open, toggleTab }) => {
         {
           cards.map(card => (
             <div key={card.id} className="card-container">
-              <DragWrapper key={card.id} {...{ card }}>
+              <DragWrapper key={card.id} card={card}>
                 <HandCard inHand card={card} hoverCentered />
               </DragWrapper>
             </div>

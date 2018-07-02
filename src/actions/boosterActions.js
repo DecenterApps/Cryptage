@@ -58,7 +58,7 @@ export const revealSuccess = (revealedCards, _id, _boosters) => (dispatch, getSt
   let cards = [...getState().gameplay.cards];
 
   let newCardTypes = revealedCards
-    .filter(revealedCard => allCards.findIndex(card => card.metadata.id === revealedCard.metadata.id) === -1)
+    .filter(revealedCard => allCards.findIndex(card => card.metadataId === revealedCard.metadataId) === -1)
     .map(({ metadata }) => metadata.id);
 
   newCardTypes = newCardTypes.filter((type, index) => newCardTypes.indexOf(type) === index);

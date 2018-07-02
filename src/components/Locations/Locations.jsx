@@ -12,7 +12,7 @@ import { GP_LEADERBOARD, GP_LOCATION_COLLECTION } from '../../actions/actionType
 import './Locations.scss';
 
 const Locations = ({
-  locations, isBuying, buyBoosterPack, gameplayView,
+  locationSlots, isBuying, buyBoosterPack, gameplayView,
 }) => (
   <div className="locations-wrapper">
     <div className="buy-booster-button-wrapper" onClick={buyBoosterPack}>
@@ -33,8 +33,12 @@ const Locations = ({
         <div key="active-locations-wrapper" className="active-locations-wrapper">
           <div className="vertical-line" />
 
+          <div>
+            <h4>{ locationSlots[0].card ? 'YEs' : 'NO' }</h4>
+          </div>
+
           <DropSlotsWrapper
-            dropSlots={locations}
+            dropSlots={locationSlots}
             element={<LocationSidebarItem />}
             emptyStateElem={<EmptyLocationSlot />}
             mainClass="location-slots-wrapper"
@@ -46,18 +50,21 @@ const Locations = ({
 );
 
 Locations.propTypes = {
-  locations: PropTypes.array.isRequired,
+  locationSlots: PropTypes.array.isRequired,
   isBuying: PropTypes.bool.isRequired,
   buyBoosterPack: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ gameplay, shop }) => ({
-  locations: gameplay.locationSlots,
-  activeLocationIndex: gameplay.activeLocationIndex,
-  gameplayView: gameplay.gameplayView,
-  isBuying: shop.isBuying,
-});
+const mapStateToProps = ({ gameplay, shop }) => {
+  console.log('locationSlots', gameplay.locationSlots[0].card);
+  return {
+    locationSlots: [...gameplay.locationSlots],
+    activeLocationIndex: gameplay.activeLocationIndex,
+    gameplayView: gameplay.gameplayView,
+    isBuying: shop.isBuying,
+  };
+};
 
 const mapDispatchToProp = {
   buyBoosterPack,

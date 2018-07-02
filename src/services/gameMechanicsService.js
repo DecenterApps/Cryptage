@@ -32,8 +32,8 @@ export const getLevelValuesForCard = (id, level = '1') => cardsConfig.cards[id][
  * @return {Number}
  */
 export const getLevelCardBonusStatDiff = (card, stat) => {
-  const metaDataId = card.metadata.id;
-  const { level } = card.stats;
+  const metaDataId = card.metadataId;
+  const { level } = card;
 
   let diff = 0;
   const currentLevelValue = getLevelValuesForCard(metaDataId, (level).toString()).bonus[stat];
@@ -58,7 +58,7 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
   const locations = [..._locations];
   const globalStats = { ..._globalStats };
 
-  const { cost, bonus } = card.stats;
+  const { cost, bonus } = card;
 
   const global = ['funds', 'development'];
   const local = ['power', 'space'];
@@ -75,8 +75,8 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
 
     if (Object.keys(localCost).length) {
       Object.keys(localCost).forEach((statKey) => {
-        if (card.stats.level > 1) return;
-        if (card.stats.type === 'Mining' && statKey === 'space') return;
+        if (card.level > 1) return;
+        if (card.type === 'Mining' && statKey === 'space') return;
 
         locations[activeLocationIndex].lastDroppedItem.values[statKey] -= localCost[statKey];
       });
@@ -88,7 +88,7 @@ export const handleCardMathematics = (card, _locations, _globalStats, activeLoca
     const localBonus = filterByKeys(bonus, local);
 
     // Special cards have unique mechanism for bonus
-    if (Object.keys(globalBonus).length && !card.stats.special) {
+    if (Object.keys(globalBonus).length && !card.special) {
       Object.keys(globalBonus).forEach((statKey) => {
         if (statKey === 'development') globalStats[statKey] += getLevelCardBonusStatDiff(card, statKey);
         else globalStats[statKey] += globalBonus[statKey];
@@ -161,8 +161,8 @@ const checkSlotsAvailableForCardType = (
  * @return {Number}
  */
 export const checkIfCanLevelUp = (card, globalStats) =>
-  cardsConfig.cards[card.metadata.id][card.stats.level + 1] &&
-  (globalStats.funds >= cardsConfig.cards[card.metadata.id][card.stats.level + 1].cost.funds);
+  cardsConfig.cards[card.metadataId][card.level + 1] &&
+  (globalStats.funds >= cardsConfig.cards[card.metadataId][card.level + 1].cost.funds);
 
 /**
  * Checks if the cards the user wants to play can be played
@@ -192,7 +192,7 @@ export const checkIfCanPlayCard = (card, globalStats, activeLocation = null, ign
   // checks for duplicates in active location
   if (activeLocation && ((cardLevel === 1) && card.unique)) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
-      lastDroppedItem && (lastDroppedItem.mainCard.stats.title === card.title)
+      lastDroppedItem && (lastDroppedItem.mainCard.title === card.title)
     ));
 
     if (foundElem) return false;
@@ -262,7 +262,7 @@ export const getMathErrors = (cardStats, globalStats, activeLocation = null, ign
   // checks for duplicates in active location
   if (activeLocation && ((cardLevel === 1) && cardStats.unique)) {
     const foundElem = activeLocation.dropSlots.find(({ lastDroppedItem }) => (
-      lastDroppedItem && (lastDroppedItem.mainCard.stats.title === cardStats.title)
+      lastDroppedItem && (lastDroppedItem.mainCard.title === cardStats.title)
     ));
 
     if (foundElem) errors.special.push('You can play only one per location');
@@ -288,7 +288,7 @@ export const getMathErrors = (cardStats, globalStats, activeLocation = null, ign
  */
 export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, locations, projects, gameplayView, inGameplayView, globalStats, _activeLocation = null, ignoreSpace = false) => { // eslint-disable-line
   let errors = { special: [] };
-  const { metadata, stats } = card;
+  const { metadataId } = card;
   let activeLocation = _activeLocation ? { ..._activeLocation } : null;
 
   const locationSlotsLength = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null).length > 0;
@@ -303,21 +303,21 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
 
   // ////////////////////////////////////////////////////////////////////////
   if (gameplayView === GP_NO_LOCATIONS) {
-    const goodCardType = stats.type === 'Location' || stats.type === 'Project';
+    const goodCardType = card.type === 'Location' || card.type === 'Project';
     if (!goodCardType) errors.special.push('You can\'t play this card here');
   }
 
   // ////////////////////////////////////////////////////////////////////////
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_MAIN) {
-    const miningCardType = stats.type === 'Mining';
-    const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+    const miningCardType = card.type === 'Mining';
+    const isAsset = card.type !== 'Location' && card.type !== 'Project';
     activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
-    const availableSlots = checkSlotsAvailableForCardType(stats.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength);  // eslint-disable-line
+    const availableSlots = checkSlotsAvailableForCardType(card.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength);  // eslint-disable-line
 
     if (!miningCardType && !availableSlots) {
-      if (stats.type === 'Location') {
+      if (card.type === 'Location') {
         if (getDropSlotsAvailableLevelUp(locations, card, globalStats) === 0) errors.special.push('No available slots');
-      } else if (stats.type === 'Project') {
+      } else if (card.type === 'Project') {
         if (getDropSlotsAvailableLevelUp(projects, card, globalStats) === 0) errors.special.push('No available slots');
       } else {
         errors.special.push('No available slots');
@@ -328,7 +328,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
       // In active gameplay view checks if miner can be dropped in at least one container
       // shows red error only if containers are full
       const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
-        if (lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Container') {
+        if (lastDroppedItem && lastDroppedItem.mainCard.type === 'Container') {
           const lastDroppedItemCopy = { ...lastDroppedItem };
           lastDroppedItemCopy.containerIndex = slotIndex;
           return lastDroppedItemCopy;
@@ -338,9 +338,9 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
       }).filter(item => item);
 
       const rightTypeContainers = droppedContainers.filter((droppedContainerItem) => {
-        const containerId = droppedContainerItem.mainCard.metadata.id;
+        const containerId = droppedContainerItem.mainCard.metadataId;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
-        return emptyContainerSlotArr[0].accepts.includes(metadata.id);
+        return emptyContainerSlotArr[0].accepts.includes(metadataId);
       });
 
       const fullRightTypeDroppedContainersLength = rightTypeContainers.filter(droppedContainerItem =>
@@ -364,17 +364,17 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
 
   // ////////////////////////////////////////////////////////////////////////
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_CONTAINER) {
-    const goodCardType = stats.type === 'Location' || stats.type === 'Project' || stats.type === 'Mining';
-    const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+    const goodCardType = card.type === 'Location' || card.type === 'Project' || card.type === 'Mining';
+    const isAsset = card.type !== 'Location' && card.type !== 'Project';
     activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
-    const availableSlots = checkSlotsAvailableForCardType(stats.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength); // eslint-disable-line
+    const availableSlots = checkSlotsAvailableForCardType(card.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength); // eslint-disable-line
 
     if (isAsset) {
       // check if active container can take in that card type
       const containerId = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
-        .lastDroppedItem.mainCard.metadata.id;
+        .lastDroppedItem.mainCard.metadataId;
       const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
-      const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
+      const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadataId);
 
       if (!goodCardType) errors.special.push('You can\'t play this card here');
       if (goodCardType && !goodSlotType) errors.special.push('Can\'t play this miner in this container');
@@ -384,7 +384,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
         locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
           .lastDroppedItem.dropSlots.forEach((containerDropSlot) => {
             const { mainCard } = containerDropSlot.lastDroppedItem;
-            const draggingDuplicate = card.metadata.id === mainCard.metadata.id;
+            const draggingDuplicate = card.metadataId === mainCard.metadataId;
             if (draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats)) numLevelUp += 1;
           });
 
@@ -393,15 +393,15 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
     } else {
       if (!goodCardType) errors.special.push('You can\'t play this card here');
 
-      if (stats.type === 'Location') {
+      if (card.type === 'Location') {
         if (getDropSlotsAvailableLevelUp(locations, card, globalStats) === 0) errors.special.push('No available slots');
-      } else if (stats.type === 'Project') {
+      } else if (card.type === 'Project') {
         if (getDropSlotsAvailableLevelUp(projects, card, globalStats) === 0) errors.special.push('No available slots');
       }
     }
   }
 
-  const mathErrors = getMathErrors(stats, globalStats, activeLocation, ignoreSpace);
+  const mathErrors = getMathErrors(card, globalStats, activeLocation, ignoreSpace);
   errors = { ...errors, ...mathErrors, special: [...errors.special, ...mathErrors.special] };
 
   if (errors.special.length > 0) errors.special = errors.special.join('. ');
@@ -418,8 +418,8 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
  * @return {Number}
  */
 export const getMaxValueForLocation = (card, stat) => {
-  const metaDataId = card.metadata.id;
-  const { level } = card.stats;
+  const metaDataId = card.metadataId;
+  const { level } = card;
 
   let base = 0;
 
@@ -472,12 +472,12 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
   // when location drop slots are available only do not show miner type cards
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_MAIN) {
     return cards.filter((card) => {
-      const { stats, metadata } = card;
-      const miningCardType = stats.type === 'Mining';
-      const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+      const { metadataId } = card;
+      const miningCardType = card.type === 'Mining';
+      const isAsset = card.type !== 'Location' && card.type !== 'Project';
       const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
       const availableSlots = checkSlotsAvailableForCardType(
-        stats.type,
+        card.type,
         locationSlotsLength,
         projectsSlotsLength,
         assetSlotsLength,
@@ -486,15 +486,15 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
       if (!miningCardType) {
         if (availableSlots) return checkIfCanPlayCard(card, globalStats, activeLocation);
-        if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
-        if (!availableSlots && stats.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
+        if (!availableSlots && card.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
+        if (!availableSlots && card.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
       }
 
       // In active gameplay view checks if miner can be dropped in at least one location
       let canPlayInOneContainer = false;
 
       const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
-        if (lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Container') {
+        if (lastDroppedItem && lastDroppedItem.mainCard.type === 'Container') {
           const lastDroppedItemCopy = { ...lastDroppedItem };
           lastDroppedItemCopy.containerIndex = slotIndex;
           return lastDroppedItemCopy;
@@ -504,9 +504,9 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       }).filter(item => item);
 
       droppedContainers.forEach((droppedContainerItem) => {
-        const containerId = droppedContainerItem.mainCard.metadata.id;
+        const containerId = droppedContainerItem.mainCard.metadataId;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
-        const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
+        const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadataId);
         const containerSlotLength = getContainerSlotsLength(
           locations,
           locationItem,
@@ -528,12 +528,12 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
   // when container drop slots are available only show miner, project & location type cards
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_CONTAINER) {
     return cards.filter((card) => {
-      const { stats, metadata } = card;
-      const goodCardType = stats.type === 'Location' || stats.type === 'Project' || stats.type === 'Mining';
-      const isAsset = stats.type !== 'Location' && stats.type !== 'Project';
+      const { metadataId } = card;
+      const goodCardType = card.type === 'Location' || card.type === 'Project' || card.type === 'Mining';
+      const isAsset = card.type !== 'Location' && card.type !== 'Project';
       const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
       const availableSlots = checkSlotsAvailableForCardType(
-        stats.type,
+        card.type,
         locationSlotsLength,
         projectsSlotsLength,
         assetSlotsLength,
@@ -544,15 +544,15 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
         if (!goodCardType) return false;
 
         if (availableSlots) return checkIfCanPlayCard(card, globalStats, null);
-        if (!availableSlots && stats.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
-        if (!availableSlots && stats.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
+        if (!availableSlots && card.type === 'Location') return getDropSlotsAvailableLevelUp(locations, card, globalStats) !== 0; // eslint-disable-line
+        if (!availableSlots && card.type === 'Project') return getDropSlotsAvailableLevelUp(projects, card, globalStats) !== 0; // eslint-disable-line
       }
 
       // check if active container can take in that card type
       const containerId = locations[activeLocationIndex].lastDroppedItem.dropSlots[activeContainerIndex]
-        .lastDroppedItem.mainCard.metadata.id;
+        .lastDroppedItem.mainCard.metadataId;
       const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
-      const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadata.id);
+      const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadataId);
 
       if (!goodCardType) return false;
       if (!goodSlotType) return false;
@@ -599,15 +599,15 @@ export const calcLocationPerDevBonus = (item, locations, activeLocationIndex, _g
   let bonus = 0;
 
   const playedDevCards = locations[activeLocationIndex].lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Person'
+    lastDroppedItem && lastDroppedItem.mainCard.type === 'Person'
   )).map(dropSlot => dropSlot.lastDroppedItem.mainCard);
 
   // coffee miners bonus equals the percent of played dev card
-  playedDevCards.forEach(({ stats }) => {
+  playedDevCards.forEach((card) => {
     // this is because of the hacker card
-    if (!stats.bonus || (stats.bonus && !stats.bonus.development)) return;
+    if (!card.bonus || (card.bonus && !card.bonus.development)) return;
 
-    bonus += ((stats.bonus.development / 100) * (item.card.stats.bonus.multiplierDev || 0));
+    bonus += ((card.bonus.development / 100) * (item.card.bonus.multiplierDev || 0));
   });
 
   bonus = Math.floor(bonus);
@@ -649,12 +649,12 @@ const addCardsForNewLevel = level => async (dispatch, getState) => {
   const newCards = cardsPerLevel[level - 1].map((metadataId, index) => ({
     id: minId - (index + 1),
     stats: fetchCardStats(metadataId, 1),
-    metadata: { id: metadataId.toString() },
+    metadataId: metadataId.toString(),
   }));
 
   let newCardTypes = newCards
-    .filter(newCard => allCards.findIndex(card => card.metadata.id === newCard.metadata.id) === -1)
-    .map(({ metadata }) => metadata.id);
+    .filter(newCard => allCards.findIndex(card => card.metadataId === newCard.metadataId) === -1)
+    .map(({ metadataId }) => metadataId);
 
   newCardTypes = newCardTypes.filter((type, index) => newCardTypes.indexOf(type) === index);
 
@@ -690,7 +690,7 @@ export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
  * @return {Number}
  */
 export const increaseFundsByMultiplier = (funds, item) =>
-  Math.floor((funds * (item.mainCard.stats.bonus.multiplierFunds / 100)));
+  Math.floor((funds * (item.mainCard.card.bonus.multiplierFunds / 100)));
 
 /**
  * Calculates how much a single Mining Algorithm Optimization adds bonus funds
@@ -711,7 +711,7 @@ export const bonusFpbMiningAlgo = (miningFpb, multiplierFunds, timesFinished) =>
  * @return {Number}
  */
 const getMinersFpb = (assetCards, locations) => {
-  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+  const containerCards = assetCards.filter(_card => _card.type === 'Container');
 
   return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
     const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
@@ -720,7 +720,7 @@ const getMinersFpb = (assetCards, locations) => {
       .map(container => container.lastDroppedItem.mainCard);
 
     minerCards.forEach((minerCard) => {
-      acc += minerCard.stats.bonus.funds;
+      acc += minerCard.bonus.funds;
     });
 
     return acc;
@@ -736,7 +736,7 @@ const getMinersFpb = (assetCards, locations) => {
  * @return {number}
  */
 export const calcDiffFpbBonusForMiners = (locations, assetCards, item) => {
-  const { multiplierFunds } = item.mainCard.stats.bonus;
+  const { multiplierFunds } = item.mainCard.bonus;
   const { timesFinished } = item;
   const miningFpb = getMinersFpb(assetCards, locations);
 
@@ -755,7 +755,7 @@ export const calcDiffFpbBonusForMiners = (locations, assetCards, item) => {
  * @return {number}
  */
 export const calcFpbBonusForMiners = (locations, assetCards, item) => {
-  const { multiplierFunds } = item.mainCard.stats.bonus;
+  const { multiplierFunds } = item.mainCard.bonus;
   const { timesFinished } = item;
   const miningFpb = getMinersFpb(assetCards, locations);
 
@@ -771,7 +771,7 @@ export const calcFpbBonusForMiners = (locations, assetCards, item) => {
  * @return {number}
  */
 export const calcFundsForDroppedCpuAndGpu = (locations, assetCards, item) => {
-  const containerCards = assetCards.filter(_card => _card.stats.type === 'Container');
+  const containerCards = assetCards.filter(_card => _card.type === 'Container');
 
   return containerCards.reduce((acc, { locationIndex, slotIndex }) => {
     const containerSlots = locations[locationIndex].lastDroppedItem.dropSlots[slotIndex].lastDroppedItem.dropSlots;
@@ -779,11 +779,11 @@ export const calcFundsForDroppedCpuAndGpu = (locations, assetCards, item) => {
       .filter(containerSlot => containerSlot.lastDroppedItem)
       .map(container => container.lastDroppedItem.mainCard);
 
-    const cpuCards = minerCards.filter(({ metadata }) => metadata.id === '9');
-    const gpuCards = minerCards.filter(({ metadata }) => metadata.id === '10');
+    const cpuCards = minerCards.filter(({ metadataId }) => metadataId === '9');
+    const gpuCards = minerCards.filter(({ metadataId }) => metadataId === '10');
 
-    acc += cpuCards.length * (item.mainCard.stats.bonus.multiplierFunds / 3);
-    acc += gpuCards.length * item.mainCard.stats.bonus.multiplierFunds;
+    acc += cpuCards.length * (item.mainCard.bonus.multiplierFunds / 3);
+    acc += gpuCards.length * item.mainCard.bonus.multiplierFunds;
 
     return acc;
   }, 0);
@@ -803,11 +803,11 @@ export const handleBonusDevMechanics = (_locations, activeLocationIndex, _global
   let globalStats = { ..._globalStats };
   let locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
 
-  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.mainCard.metadata.id)); // eslint-disable-line
+  const droppedBonusDevPerLocationCards = locationSlots.filter(({ lastDroppedItem }) => lastDroppedItem && bonusDevPerLocationCards.includes(lastDroppedItem.mainCard.metadataId)); // eslint-disable-line
 
   droppedBonusDevPerLocationCards.forEach(({ lastDroppedItem }) => {
     locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
-    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.mainCard.metadata.id === lastDroppedItem.mainCard.metadata.id)); // eslint-disable-line
+    const cardLocationIndex = locationSlots.findIndex(slot => slot.lastDroppedItem && (slot.lastDroppedItem.mainCard.metadataId === lastDroppedItem.mainCard.metadataId)); // eslint-disable-line
 
     const coffeeMiner = locationSlots[cardLocationIndex].lastDroppedItem;
     const coffeeMinerItem = { card: coffeeMiner.mainCard };
@@ -832,7 +832,7 @@ export const handleBonusDevMechanics = (_locations, activeLocationIndex, _global
  */
 export const checkIfDayTradersDropped = assetCards =>
   assetCards.reduce((acc, card) => {
-    if (card.metadata.id === '41') acc += card.stats.bonus.multiplierFunds;
+    if (card.metadataId === '41') acc += card.bonus.multiplierFunds;
     return acc;
   }, 0);
 
@@ -843,7 +843,7 @@ export const checkIfDayTradersDropped = assetCards =>
  */
 export const checkIfInformationDealerDropped = assetCards =>
   assetCards.reduce((acc, card) => {
-    if (card.metadata.id === '42') acc += card.stats.bonus.multiplierFunds;
+    if (card.metadataId === '42') acc += card.bonus.multiplierFunds;
     return acc;
   }, 0);
 
@@ -861,17 +861,17 @@ export const updateProjectModifiedFunds = () => (dispatch, getState) => {
     const project = { ..._project };
     const { lastDroppedItem } = project;
 
-    if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '24') {
+    if (lastDroppedItem && lastDroppedItem.mainCard.metadataId === '24') {
       updated = true;
       project.lastDroppedItem.modifiedFundsBonus = 0;
-      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.stats.bonus.funds;
+      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.bonus.funds;
       project.lastDroppedItem.modifiedFundsBonus += checkIfDayTradersDropped(getPlayedAssetCards([...locations]));
     }
 
-    if (lastDroppedItem && lastDroppedItem.mainCard.metadata.id === '37') {
+    if (lastDroppedItem && lastDroppedItem.mainCard.metadataId === '37') {
       updated = true;
       project.lastDroppedItem.modifiedFundsBonus = 0;
-      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.stats.bonus.funds;
+      project.lastDroppedItem.modifiedFundsBonus += project.lastDroppedItem.mainCard.bonus.funds;
       project.lastDroppedItem.modifiedFundsBonus += checkIfInformationDealerDropped(getPlayedAssetCards([...locations])); // eslint-disable-line
     }
 
@@ -886,15 +886,15 @@ export const updateProjectModifiedFunds = () => (dispatch, getState) => {
  *
  * @param {Array} locations
  * @param {Number} locationIndex
- * @param {Object} stats
+ * @param {Card} card
  * @return {Number}
  */
-export const calcTinkererPerLocationBonus = (locations, locationIndex, stats) => {
+export const calcTinkererPerLocationBonus = (locations, locationIndex, card) => {
   const locationSlots = locations[locationIndex].lastDroppedItem.dropSlots;
   let minerFundsPerLocations = 0;
 
   locationSlots
-    .filter(locationSlot => locationSlot.lastDroppedItem && locationSlot.lastDroppedItem.mainCard.stats.type === 'Container') // eslint-disable-line
+    .filter(locationSlot => locationSlot.lastDroppedItem && locationSlot.lastDroppedItem.mainCard.type === 'Container') // eslint-disable-line
     .map(locationSlot => locationSlot.lastDroppedItem.mainCard)
     // get all container cards per location
     .forEach((containerCard) => {
@@ -902,10 +902,10 @@ export const calcTinkererPerLocationBonus = (locations, locationIndex, stats) =>
         .filter(containerSlot => containerSlot.lastDroppedItem)
         .map(container => container.lastDroppedItem.mainCard)
         // get all miners per container per location
-        .forEach((minerCard) => { minerFundsPerLocations += minerCard.stats.bonus.funds; });
+        .forEach((minerCard) => { minerFundsPerLocations += minerCard.bonus.funds; });
     });
 
-  return bonusFpbMiningAlgo(minerFundsPerLocations, stats.bonus.multiplierFunds, 1);
+  return bonusFpbMiningAlgo(minerFundsPerLocations, card.bonus.multiplierFunds, 1);
 };
 
 export const calcExpiryBlocksLeft = (card, blockNumber, projectExecutionTimePercent) =>

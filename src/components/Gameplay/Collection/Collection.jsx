@@ -43,15 +43,15 @@ class Collection extends Component {
                 .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType)
                 .map(cardId => cardId)
                 .map((cardId) => {
-                  const foundCard = cards.find(card => card.metadata.id === cardId);
+                  const foundCard = cards.find(card => card.metadataId === cardId);
 
                   if (foundCard) {
                     const occurances = cards.reduce((acc, card) => {
-                      if (card.metadata.id === cardId) acc += 1;
+                      if (card.metadataId === cardId) acc += 1;
                       return acc;
                     }, 0);
 
-                    const newCard = cards.find(card => (card.metadata.id === cardId) && newCardTypes.includes(card.metadata.id)); // eslint-disable-line
+                    const newCard = cards.find(card => (card.metadataId === cardId) && newCardTypes.includes(card.metadata.id)); // eslint-disable-line
 
                     return (<LargeCard
                       showNew={Boolean(newCard)}

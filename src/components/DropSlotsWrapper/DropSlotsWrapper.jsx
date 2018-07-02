@@ -10,20 +10,23 @@ import './DropSlotsWrapper.scss';
 const DropSlotsWrapper = props => (
   <div className="drop-slots-wrapper">
     {
-      props.dropSlots.map((slot, index) => (
-        <DropSlotWrapper
-          key={guid()}
-          slot={slot}
-          accepts={slot.acceptedTags}
-          // slotType={slot.slotType}
-          lastDroppedItem={slot.card}
-          onDrop={(card) => { props.dropCard(slot, card); }}
-          index={index}
-          {...props}
-        >
-          {React.cloneElement(props.element)}
-        </DropSlotWrapper>
-      ))
+      props.dropSlots.map((slot, index) => {
+        console.log('DropSlotsWrapper', slot.card);
+        return (
+          <DropSlotWrapper
+            key={guid()}
+            slot={slot}
+            accepts={slot.acceptedTags}
+            // slotType={slot.slotType}
+            lastDroppedItem={slot.card}
+            onDrop={(item) => { props.dropCard(slot, item); }}
+            index={index}
+            {...props}
+          >
+            {React.cloneElement(props.element)}
+          </DropSlotWrapper>
+        )
+      })
     }
   </div>
 );

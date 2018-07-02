@@ -43,19 +43,21 @@ class Cards extends Component {
   }
 
   groupDuplicates(cards) {
-    const noDupliactes = cards.reduce((accumulator, item) => {
-      if (accumulator[item.metadataId]) accumulator[item.metadataId].count++;
-      else accumulator[item.metadataId] = {
-        ...item,
-        count: 1,
-      };
+    const noDupliactes = cards.reduce((_accumulator, item) => {
+      const accumulator = _accumulator;
+
+      if (accumulator[item.metadataId]) accumulator[item.metadataId].count += 1;
+      else accumulator[item.metadataId] = Object.assign(item, { count: 1 });
+
       return accumulator;
     }, {});
 
     return Object.values(noDupliactes);
   }
 
-  groupCardsByType(cards) {
+  groupCardsByType(_cards) {
+    const cards = _cards.filter(card => !card.active);
+
     const noDupliactes = this.groupDuplicates(cards);
     const {
       getAvailableCards, gameplayView, inGameplayView, locations, projects,

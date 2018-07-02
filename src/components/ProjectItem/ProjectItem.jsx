@@ -40,7 +40,7 @@ class ProjectItem extends Component {
       draggingCard,
     } = this.props;
 
-    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
+    const draggingDuplicate = dragItem && (dragItem.card.metadataId === mainCard.metadata.id);
     const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
 
     let timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));

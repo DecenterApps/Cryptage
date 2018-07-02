@@ -84,13 +84,12 @@ export default (state = new Gameplay(0), action) => {
     //     gameplayView: GP_LOCATION,
     //   };
     //
-    // case SET_ACTIVE_LOCATION:
-    //   return {
-    //     ...state,
-    //     activeLocationIndex: payload,
-    //     gameplayView: GP_LOCATION,
-    //     inGameplayView: GP_LOCATION_MAIN,
-    //   };
+    case SET_ACTIVE_LOCATION:
+      return Object.assign(state, {
+        activeLocationIndex: payload,
+        gameplayView: GP_LOCATION,
+        inGameplayView: GP_LOCATION_MAIN,
+      });
     //
     // case CHANGE_GAMEPLAY_VIEW:
     //   return { ...state, gameplayView: payload };
@@ -144,10 +143,10 @@ export default (state = new Gameplay(0), action) => {
 
     case LOAD_STATE_FROM_STORAGE:
     case GENERATE_NEW_GAMEPLAY:
-      return payload;
+      return Object.assign(state, payload);
 
     case DROP_CARD:
-      return payload;
+      return Object.assign(state, payload);
 
     // case UPDATE_GLOBAL_VALUES:
     //   return { ...state, globalStats: payload };

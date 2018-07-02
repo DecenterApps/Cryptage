@@ -9,12 +9,12 @@ import './mechanics';
 import './cardTypes';
 import './slotTypes';
 import { calculateLevelData } from '../services/gameMechanicsService';
-import { GP_LOCATION_MAIN, GP_NO_NICKNAME } from '../actions/actionTypes';
+import { GP_LOCATION, GP_LOCATION_MAIN, GP_NO_NICKNAME } from '../actions/actionTypes';
 
 const subscriptions = Symbol('subscriptions');
 
 export default class Gameplay {
-  constructor(blockNumber) {
+  constructor(blockNumber, data) {
     this.nickname = '';
 
     this.gameplayView = GP_NO_NICKNAME;
@@ -45,6 +45,8 @@ export default class Gameplay {
     for (let i = 0; i < this.locationSlots.length; i += 1) {
       this.projectSlots[i] = new ProjectCardSlot();
     }
+
+    Object.assign(this, data);
   }
 
   subscribe(event, matcher, callback) {

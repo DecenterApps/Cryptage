@@ -250,16 +250,16 @@ export const saveGameplayState = (getState) => {
  * @return {Array}
  */
 export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex, special) => {
-  const typeId = item.card.metadata.id;
+  const typeId = item.card.metadataId;
   const isContainer = containerIds.includes(typeId);
   let assetAccepts = [];
   let dropSlots = null;
 
   // only Container and Misc asset type cards can't level up
-  if (acceptedAssetLevelUpIds.includes(typeId)) assetAccepts = [item.card.metadata.id];
+  if (acceptedAssetLevelUpIds.includes(typeId)) assetAccepts = [item.card.metadataId];
   // there must be an accept for container for the drag miner over container feature
   if (isContainer) {
-    dropSlots = getSlotForContainer(item.card.metadata.id, item.card.stats.values.space);
+    dropSlots = getSlotForContainer(item.card.metadataId, item.card.stats.values.space);
     assetAccepts = [...dropSlots[0].accepts];
   }
 
@@ -395,7 +395,7 @@ export const updateLocationsDropSlots = (locations, index, item) =>
   update(locations, {
     [index]: {
       // only allow the card type that has been dropped now to be dropped again
-      accepts: { $set: [item.card.metadata.id] },
+      accepts: { $set: [item.card.metadataId] },
       lastDroppedItem: {
         $set: {
           values: { ...item.card.stats.values },
@@ -419,7 +419,7 @@ export const updateProjectsDropSlots = (projects, index, item, blockNumber) =>
   update(projects, {
     [index]: {
       // only allow the card type that has been dropped now to be dropped again
-      accepts: { $set: [item.card.metadata.id] },
+      accepts: { $set: [item.card.metadataId] },
       slotType: { $set: 'project' },
       lastDroppedItem: {
         $set: {
@@ -443,7 +443,7 @@ export const updateProjectsDropSlots = (projects, index, item, blockNumber) =>
 export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations) => { // eslint-disable-line
   const containerSlots = update(_containerSlots, {
     [cardIndex]: {
-      accepts: { $set: [item.card.metadata.id] },
+      accepts: { $set: [item.card.metadataId] },
       lastDroppedItem: {
         $set: {
           cards: [{ ...item.card }],
@@ -506,7 +506,7 @@ export const getCardAtContainer = (locations, locationIndex, containerIndex) => 
   }
 };
 
-const getElemType = (loc, i) => loc && loc.lastDroppedItem.mainCard ? loc.lastDroppedItem.mainCard.metadata.id : []; //eslint-disable-line
+const getElemType = (loc, i) => loc && loc.lastDroppedItem.mainCard ? loc.lastDroppedItem.mainCard.metadataId : []; //eslint-disable-line
 const getSlots = loc => loc && loc.lastDroppedItem ? loc.lastDroppedItem.dropSlots : []; //eslint-disable-line
 
 /**
@@ -576,7 +576,7 @@ export const getDropSlotsAvailableLevelUp = (slots, card, globalStats) => slots.
   if (!slot.lastDroppedItem) return acc;
 
   const { mainCard } = slot.lastDroppedItem;
-  const draggingDuplicate = card.metadata.id === mainCard.metadata.id;
+  const draggingDuplicate = card.metadataId === mainCard.metadataId;
   if (draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats)) acc += 1;
 
   return acc;
