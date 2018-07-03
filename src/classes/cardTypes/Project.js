@@ -15,7 +15,7 @@ export default class ProjectCard extends Card {
     };
 
     this.running = true;
-    this.expiryTime = state.blockNumber + this.cost.time;
+    this.expiryTime = state ? state.blockNumber + this.cost.time : null;
     this.timesFinished = 0;
 
     this.mechanics.push(Mechanic.getInstance('projectExpiry', this));

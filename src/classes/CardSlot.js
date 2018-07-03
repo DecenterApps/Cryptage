@@ -11,7 +11,12 @@ function getAllSlottedCards(card, slotted) {
 
 export default class CardSlot {
   constructor(owner) {
-    if (owner) this.owner = owner;
+    this.acceptedTags = [];
+
+    if (owner) {
+      this.owner = owner;
+      this.accepts = this.owner.acceptedTags;
+    }
   }
 
   dropCard(state, card) {
@@ -50,6 +55,7 @@ export default class CardSlot {
 
     this.card.parent = null;
     this.card = null;
+    this.acceptedTags = [];
 
     return state;
   }

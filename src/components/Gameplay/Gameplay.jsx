@@ -44,14 +44,11 @@ Gameplay.propTypes = {
   locations: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ gameplay }) => {
-  console.log('gameplayView', gameplay.gameplayView);
-  return {
-    gameplayView: gameplay.gameplayView,
-    activeLocationIndex: gameplay.activeLocationIndex,
-    nickname: gameplay.nickname,
-    locations: gameplay.locationSlots.filter(({ card }) => card !== undefined),
-  }
-};
+const mapStateToProps = ({ gameplay }) => ({
+  gameplayView: gameplay.gameplayView,
+  activeLocationIndex: gameplay.activeLocationIndex,
+  nickname: gameplay.nickname,
+  locations: gameplay.locationSlots.filter(({ card }) => card !== undefined),
+});
 
 export default connect(mapStateToProps)(Gameplay);

@@ -194,6 +194,7 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     // set which cards are played from current state
 
     dispatch({ type: USERS_CARDS_SUCCESS, payload: cards });
+    saveGameplayState(getState);
   } catch (error) {
     dispatch({ type: USERS_CARDS_ERROR, error });
   }
@@ -370,16 +371,14 @@ export const loadGameplayState = () => async (dispatch, getState) => {
 
   if (!account) return;
 
-  let payload = serialize.deserialize(localStorage.getItem(`cryptage-${account}`));
+  const data = localStorage.getItem(`cryptage-${account}`);
 
-  if (!payload) {
+  if (!data) {
     const blockNum = await web3.eth.getBlockNumber();
-    payload = new Gameplay(blockNum);
-    return dispatch({ type: GENERATE_NEW_GAMEPLAY, payload });
+    return dispatch({ type: GENERATE_NEW_GAMEPLAY, payload: new Gameplay(blockNum) });
   }
 
-  console.log('LOAD_STATE_FROM_STORAGE', payload);
-  return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
+  return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload: serialize.deserialize(data) });
 };
 
 export const updateFundsBlockDifference = () => async (dispatch, getState) => {

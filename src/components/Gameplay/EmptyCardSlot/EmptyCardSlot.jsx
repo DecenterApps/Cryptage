@@ -14,14 +14,14 @@ const EmptyCardSlot = ({
   let goodCardType = false;
 
   if (card) {
-    const { type } = card.stats;
+    const { type } = card;
 
     if (acceptedType === 'asset') goodCardType = type !== 'Location' && type !== 'Project' && type !== 'Mining';
 
     // for miners you need to check if the container drop slot accepts that certain miner
     if (acceptedType === 'mining') {
-      const { accepts } = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots[index];
-      const goodSlotType = accepts.includes(card.metadata.id);
+      const { accepts } = activeLocation.dropSlots[activeContainerIndex].card.dropSlots[index];
+      const goodSlotType = accepts.includes(card.metadataId);
 
       goodCardType = goodSlotType && type === 'Mining';
     }
@@ -111,7 +111,7 @@ EmptyCardSlot.propTypes = {
 const mapStateToProps = ({ gameplay }) => ({
   globalStats: gameplay.stats,
   activeContainerIndex: gameplay.activeContainerIndex,
-  activeLocation: gameplay.locations[gameplay.activeLocationIndex].lastDroppedItem,
+  activeLocation: [...gameplay.locationSlots][gameplay.activeLocationIndex].card,
 });
 
 export default connect(mapStateToProps)(EmptyCardSlot);

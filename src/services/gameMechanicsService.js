@@ -311,7 +311,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_MAIN) {
     const miningCardType = card.type === 'Mining';
     const isAsset = card.type !== 'Location' && card.type !== 'Project';
-    activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+    activeLocation = isAsset ? locations[activeLocationIndex].card : null;
     const availableSlots = checkSlotsAvailableForCardType(card.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength);  // eslint-disable-line
 
     if (!miningCardType && !availableSlots) {
@@ -327,9 +327,9 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
     if (miningCardType) {
       // In active gameplay view checks if miner can be dropped in at least one container
       // shows red error only if containers are full
-      const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
-        if (lastDroppedItem && lastDroppedItem.mainCard.type === 'Container') {
-          const lastDroppedItemCopy = { ...lastDroppedItem };
+      const droppedContainers = activeLocation.dropSlots.map(({ card }, slotIndex) => {
+        if (card && card.mainCard.type === 'Container') {
+          const lastDroppedItemCopy = { ...card };
           lastDroppedItemCopy.containerIndex = slotIndex;
           return lastDroppedItemCopy;
         }
@@ -338,7 +338,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
       }).filter(item => item);
 
       const rightTypeContainers = droppedContainers.filter((droppedContainerItem) => {
-        const containerId = droppedContainerItem.mainCard.metadataId;
+        const containerId = droppedContainerItem.metadataId;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
         return emptyContainerSlotArr[0].accepts.includes(metadataId);
       });
@@ -366,7 +366,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
   if (gameplayView === GP_LOCATION && inGameplayView === GP_LOCATION_CONTAINER) {
     const goodCardType = card.type === 'Location' || card.type === 'Project' || card.type === 'Mining';
     const isAsset = card.type !== 'Location' && card.type !== 'Project';
-    activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+    activeLocation = isAsset ? locations[activeLocationIndex].card : null;
     const availableSlots = checkSlotsAvailableForCardType(card.type, locationSlotsLength, projectsSlotsLength, assetSlotsLength, containerSlotsLength); // eslint-disable-line
 
     if (isAsset) {
@@ -475,7 +475,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       const { metadataId } = card;
       const miningCardType = card.type === 'Mining';
       const isAsset = card.type !== 'Location' && card.type !== 'Project';
-      const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+      const activeLocation = isAsset ? locations[activeLocationIndex].card : null;
       const availableSlots = checkSlotsAvailableForCardType(
         card.type,
         locationSlotsLength,
@@ -493,9 +493,9 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       // In active gameplay view checks if miner can be dropped in at least one location
       let canPlayInOneContainer = false;
 
-      const droppedContainers = activeLocation.dropSlots.map(({ lastDroppedItem }, slotIndex) => {
-        if (lastDroppedItem && lastDroppedItem.mainCard.type === 'Container') {
-          const lastDroppedItemCopy = { ...lastDroppedItem };
+      const droppedContainers = activeLocation.dropSlots.map(({ card }, slotIndex) => {
+        if (card && card.mainCard.type === 'Container') {
+          const lastDroppedItemCopy = { ...card };
           lastDroppedItemCopy.containerIndex = slotIndex;
           return lastDroppedItemCopy;
         }
@@ -504,7 +504,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       }).filter(item => item);
 
       droppedContainers.forEach((droppedContainerItem) => {
-        const containerId = droppedContainerItem.mainCard.metadataId;
+        const containerId = droppedContainerItem.metadataId;
         const emptyContainerSlotArr = getSlotForContainer(containerId, 1);
         const goodSlotType = emptyContainerSlotArr[0].accepts.includes(metadataId);
         const containerSlotLength = getContainerSlotsLength(
@@ -531,7 +531,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
       const { metadataId } = card;
       const goodCardType = card.type === 'Location' || card.type === 'Project' || card.type === 'Mining';
       const isAsset = card.type !== 'Location' && card.type !== 'Project';
-      const activeLocation = isAsset ? locations[activeLocationIndex].lastDroppedItem : null;
+      const activeLocation = isAsset ? locations[activeLocationIndex].card : null;
       const availableSlots = checkSlotsAvailableForCardType(
         card.type,
         locationSlotsLength,

@@ -226,11 +226,10 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   saveGameplayState(getState);
 };
 
-export const dropCard = (slot, item) => (dispatch, getState) => {
+export const dropCard = (slot, item, index) => (dispatch, getState) => {
   // Object.assign({}, getState().gameplay);
   const newGameplay = slot.dropCard(getState().gameplay, item.card);
-  // console.log('DIFF', oldGameplay, newGameplay);
 
-  dispatch({ type: DROP_CARD, payload: newGameplay });
+  dispatch({ type: DROP_CARD, payload: { newGameplay, index } });
   saveGameplayState(getState);
 };

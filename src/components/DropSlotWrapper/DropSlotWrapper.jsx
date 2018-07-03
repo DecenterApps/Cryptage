@@ -11,7 +11,7 @@ import { fetchCardStats } from '../../services/cardService';
 
 const dropTarget = {
   drop(props, monitor, component) {
-    props.onDrop(monitor.getItem());
+    props.onDrop(monitor.getItem(), props.index);
     component.props.toggleCardDrag();
     // if (checkIfCanPlayCard(dropItem.card, props.globalStats)) {
     // component.props.playTurn(dropItem, props.slotType, props.index, true);
@@ -32,7 +32,7 @@ class DropSlotWrapper extends Component {
       isOver,
       canDrop,
       connectDropTarget,
-      lastDroppedItem,
+      card,
       children,
       activeClass,
       finishedClass,
@@ -43,7 +43,7 @@ class DropSlotWrapper extends Component {
       emptyStateElem,
       slot,
     } = this.props;
-    const isFinished = lastDroppedItem !== null ? lastDroppedItem.isFinished : false;
+    const isFinished = card !== null ? card.isFinished : false;
     const isActive = isOver && canDrop;
     const itemHover = !isActive && canDrop;
 
@@ -53,13 +53,13 @@ class DropSlotWrapper extends Component {
       ${isActive && activeClass}
       ${isFinished && finishedClass}
       ${itemHover && itemHoverClass}
-      ${lastDroppedItem && droppedItemClass}
+      ${card && droppedItemClass}
     `;
 
     return connectDropTarget(
       <div className={className}>
-        {lastDroppedItem && React.cloneElement(children, { card: lastDroppedItem, isOver, dragItem, index, slot })}
-        {!lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem, index })}
+        {card && React.cloneElement(children, { card, isOver, dragItem, index, slot })}
+        {!card && React.cloneElement(emptyStateElem, { ...dragItem, index })}
       </div>,
     );
   }
@@ -71,7 +71,7 @@ DropSlotWrapper.defaultProps = {
   finishedClass: 'drop-slot-finished',
   itemHoverClass: 'drop-slot-item-hover',
   droppedItemClass: 'drop-slot-filled',
-  lastDroppedItem: null,
+  card: null,
   index: null,
   emptyStateElem: <div>Empty slot</div>,
 };
@@ -82,7 +82,7 @@ DropSlotWrapper.propTypes = {
   finishedClass: PropTypes.string,
   itemHoverClass: PropTypes.string,
   droppedItemClass: PropTypes.string,
-  lastDroppedItem: PropTypes.object,
+  card: PropTypes.object,
   index: PropTypes.number,
   children: PropTypes.node.isRequired,
   emptyStateElem: PropTypes.node,

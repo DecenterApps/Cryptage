@@ -73,23 +73,23 @@ export default (state = new Gameplay(0), action) => {
   const { type, payload } = action;
 
   switch (type) {
-    // case DROP_LOCATION:
-    //   return {
-    //     ...state,
-    //     locations: action.locations,
-    //     cards: action.cards,
-    //     activeLocationIndex: action.activeLocationIndex,
-    //     globalStats: action.globalStats,
-    //     inGameplayView: GP_LOCATION_MAIN,
-    //     gameplayView: GP_LOCATION,
-    //   };
-    //
+    case DROP_LOCATION:
+      return {
+        ...state,
+        locations: action.locations,
+        cards: action.cards,
+        activeLocationIndex: action.activeLocationIndex,
+        globalStats: action.globalStats,
+        inGameplayView: GP_LOCATION_MAIN,
+        gameplayView: GP_LOCATION,
+      };
+
     case SET_ACTIVE_LOCATION:
-      return Object.assign(state, {
+      return Object.assign(state, Object.assign(state, {
         activeLocationIndex: payload,
         gameplayView: GP_LOCATION,
         inGameplayView: GP_LOCATION_MAIN,
-      });
+      }));
     //
     // case CHANGE_GAMEPLAY_VIEW:
     //   return { ...state, gameplayView: payload };
@@ -146,7 +146,11 @@ export default (state = new Gameplay(0), action) => {
       return Object.assign(state, payload);
 
     case DROP_CARD:
-      return Object.assign(state, payload);
+      return Object.assign(state, Object.assign(payload.newGameplay, {
+        activeLocationIndex: payload.index,
+        inGameplayView: GP_LOCATION_MAIN,
+        gameplayView: GP_LOCATION,
+      }));
 
     // case UPDATE_GLOBAL_VALUES:
     //   return { ...state, globalStats: payload };

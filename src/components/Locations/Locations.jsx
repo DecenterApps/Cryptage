@@ -33,10 +33,6 @@ const Locations = ({
         <div key="active-locations-wrapper" className="active-locations-wrapper">
           <div className="vertical-line" />
 
-          <div>
-            <h4>{ locationSlots[0].card ? 'YEs' : 'NO' }</h4>
-          </div>
-
           <DropSlotsWrapper
             dropSlots={locationSlots}
             element={<LocationSidebarItem />}
@@ -56,15 +52,12 @@ Locations.propTypes = {
   gameplayView: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ gameplay, shop }) => {
-  console.log('locationSlots', gameplay.locationSlots[0].card);
-  return {
-    locationSlots: [...gameplay.locationSlots],
-    activeLocationIndex: gameplay.activeLocationIndex,
-    gameplayView: gameplay.gameplayView,
-    isBuying: shop.isBuying,
-  };
-};
+const mapStateToProps = ({ gameplay, shop }) => ({
+  locationSlots: [...gameplay.locationSlots],
+  activeLocationIndex: gameplay.activeLocationIndex,
+  gameplayView: gameplay.gameplayView,
+  isBuying: shop.isBuying,
+});
 
 const mapDispatchToProp = {
   buyBoosterPack,
