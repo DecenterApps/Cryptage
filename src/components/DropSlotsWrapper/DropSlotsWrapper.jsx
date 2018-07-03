@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DropSlotWrapper from '../DropSlotWrapper/DropSlotWrapper';
 import { guid } from '../../services/utils';
-import { dropCard } from '../../actions/dropActions';
 
 import './DropSlotsWrapper.scss';
 
@@ -17,7 +16,7 @@ const DropSlotsWrapper = props => (
           accepts={slot.acceptedTags}
           // slotType={slot.slotType}
           card={slot.card}
-          onDrop={(item, index) => { props.dropCard(slot, item, index); }}
+          onDrop={(item, index) => { props.onItemDrop(slot, item, index); }}
           index={index}
           {...props}
         >
@@ -33,7 +32,5 @@ DropSlotsWrapper.propTypes = {
   element: PropTypes.node.isRequired,
 };
 
-const mapDispatchToProps = { dropCard };
-
-export default connect(null, mapDispatchToProps)(DropSlotsWrapper);
+export default DropSlotsWrapper;
 

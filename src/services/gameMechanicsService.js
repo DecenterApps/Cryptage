@@ -409,31 +409,31 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
   return errors;
 };
 
-/**
- * Returns the maximum space a specific location
- * has for a specific level
- *
- * @param {Object} card
- * @param {String} stat
- * @return {Number}
- */
-export const getMaxValueForLocation = (card, stat) => {
-  const metaDataId = card.metadataId;
-  const { level } = card;
-
-  let base = 0;
-
-  for (let i = 1; i <= level; i += 1) {
-    if (i === 1) base += getLevelValuesForCard(metaDataId, (i).toString()).values[stat];
-    else {
-      const pastLevelValue = getLevelValuesForCard(metaDataId, (i - 1).toString()).values[stat];
-      const currentLevelValue = getLevelValuesForCard(metaDataId, (i).toString()).values[stat];
-
-      base += currentLevelValue - pastLevelValue;
-    }
-  }
-  return base;
-};
+// /**
+//  * Returns the maximum space a specific location
+//  * has for a specific level
+//  *
+//  * @param {Object} card
+//  * @param {String} stat
+//  * @return {Number}
+//  */
+// export const getMaxValueForLocation = (card, stat) => {
+//   const metaDataId = card.metadataId;
+//   const { level } = card;
+//
+//   let base = 0;
+//
+//   for (let i = 1; i <= level; i += 1) {
+//     if (i === 1) base += getLevelValuesForCard(metaDataId, (i).toString()).values[stat];
+//     else {
+//       const pastLevelValue = getLevelValuesForCard(metaDataId, (i - 1).toString()).values[stat];
+//       const currentLevelValue = getLevelValuesForCard(metaDataId, (i).toString()).values[stat];
+//
+//       base += currentLevelValue - pastLevelValue;
+//     }
+//   }
+//   return base;
+// };
 
 /**
  * Returns cards that can be played in the current view

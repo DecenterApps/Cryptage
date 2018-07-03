@@ -4,7 +4,7 @@ import serialize from 'serialijse';
 import cardsConfig from '../constants/cards.json';
 import { getSlotForContainer, checkIfCanLevelUp } from './gameMechanicsService';
 import {
-  acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS, rarities,
+  acceptedAssetLevelUpIds, containerIds, rarities,
   typeGradients,
 } from '../actions/actionTypes';
 
@@ -382,30 +382,6 @@ export const filterByKeys = (object, allowedKeys) =>
       obj[key] = object[key];
       return obj;
     }, {});
-
-/**
- * Updates locations object with new location object
- *
- * @param {Array} locations
- * @param {Number} index
- * @param {Object} item
- * @return {Array}
- */
-export const updateLocationsDropSlots = (locations, index, item) =>
-  update(locations, {
-    [index]: {
-      // only allow the card type that has been dropped now to be dropped again
-      accepts: { $set: [item.card.metadataId] },
-      lastDroppedItem: {
-        $set: {
-          values: { ...item.card.stats.values },
-          dropSlots: LOCATION_ITEM_DROP_SLOTS,
-          cards: [{ ...item.card }],
-          mainCard: { ...item.card },
-        },
-      },
-    },
-  });
 
 /**
  * Updates projects object with new project object

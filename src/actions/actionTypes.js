@@ -31,7 +31,6 @@ export const LOCATION_ITEM_DROP_SLOTS = [
   LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT,
   LOCATION_ITEM_SLOT,
 ];
-export const ADDITIONAL_LOCATION_ITEM_DROP_SLOTS = [LOCATION_ITEM_SLOT];
 
 const LOCATION_SLOT = { accepts: [...acceptedLocationDropIds], lastDroppedItem: null, slotType: 'location' };
 export const LOCATION_DROP_SLOTS = [
@@ -79,19 +78,18 @@ export const SAVE_STATE_ERROR = 'save_state_error';
 
 // GAMEPLAY
 export const GENERATE_NEW_GAMEPLAY = 'generate_new_gameplay';
-export const DROP_CARD = 'drop_card';
+
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
 export const DROP_MINER = 'drop_miner';
 export const DROP_PROJECT = 'drop_project';
+
 export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const CHANGE_PROJECT_STATE = 'change_project_state';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
 export const UPDATE_GLOBAL_VALUES = 'update_global_values';
 export const LEVEL_UP_CARD = 'level_up_card';
-export const ADD_LOCATION_SLOTS = 'add_location_slots';
-export const ADD_ASSET_SLOTS = 'add_location_slots';
 export const REMOVE_ASSET_SLOTS = 'remove_location_slots';
 export const ADD_EXPERIENCE = 'add_experience';
 export const SWITCH_IN_GAMEPLAY_VIEW = 'switch_in_gameplay_view';

@@ -23,13 +23,19 @@ const CardsTabGroup = ({ cards, title, open, toggleTab }) => {
 
       <div className={`card-type-inner-wrapper ${openClass}`}>
         {
-          cards.map(card => (
+          cards.length > 0 && cards.map(card => (
             <div key={card.id} className="card-container">
               <DragWrapper key={card.id} card={card}>
                 <HandCard inHand card={card} hoverCentered />
               </DragWrapper>
             </div>
           ))
+        }
+        {
+          cards.length === 0 &&
+          <div>
+            No cards in the tab
+          </div>
         }
       </div>
     </div>

@@ -102,14 +102,15 @@ class Cards extends Component {
 
           {
             !cardsFetching && cards.length > 0 &&
-            Object.keys(playerCards).map(type =>
+            Object.keys(playerCards).map(type => (
               <CardsTabGroup
                 toggleTab={() => { this.toggleTabOpen(type.toLowerCase()); }}
                 open={this.state.tabsToggleMap[type.toLowerCase()]}
                 key={`${type}-${playerCards[type].length}`}
                 title={type}
                 cards={playerCards[type]}
-              />)
+              />
+            ))
           }
         </div>
       </div>
@@ -126,7 +127,6 @@ Cards.propTypes = {
   inGameplayView: PropTypes.string.isRequired,
   locations: PropTypes.array.isRequired,
   projects: PropTypes.array.isRequired,
-  activeLocationIndex: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
@@ -136,7 +136,6 @@ const mapStateToProps = ({ app, gameplay }) => ({
   inGameplayView: gameplay.inGameplayView,
   locations: gameplay.locationSlots,
   projects: gameplay.projectSlots,
-  activeLocationIndex: gameplay.activeLocationIndex,
 });
 
 const mapDispatchToProps = {

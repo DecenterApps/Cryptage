@@ -14,8 +14,6 @@ import {
   PROJECT_DROP_SLOTS,
   DROP_PROJECT,
   CHANGE_PROJECT_STATE,
-  ADD_LOCATION_SLOTS,
-  ADD_ASSET_SLOTS,
   ADD_EXPERIENCE,
   GP_LOCATION_MAIN,
   SWITCH_IN_GAMEPLAY_VIEW,
@@ -74,19 +72,15 @@ export default (state = new Gameplay(0), action) => {
 
   switch (type) {
     case DROP_LOCATION:
-      return {
-        ...state,
-        locations: action.locations,
-        cards: action.cards,
-        activeLocationIndex: action.activeLocationIndex,
-        globalStats: action.globalStats,
+      return Object.assign(state, Object.assign(payload.newGameplay, {
+        activeLocationIndex: payload.index,
         inGameplayView: GP_LOCATION_MAIN,
         gameplayView: GP_LOCATION,
-      };
+      }));
 
     case SET_ACTIVE_LOCATION:
       return Object.assign(state, Object.assign(state, {
-        activeLocationIndex: payload,
+        activeLocationIndex: 5,
         gameplayView: GP_LOCATION,
         inGameplayView: GP_LOCATION_MAIN,
       }));
@@ -145,13 +139,6 @@ export default (state = new Gameplay(0), action) => {
     case GENERATE_NEW_GAMEPLAY:
       return Object.assign(state, payload);
 
-    case DROP_CARD:
-      return Object.assign(state, Object.assign(payload.newGameplay, {
-        activeLocationIndex: payload.index,
-        inGameplayView: GP_LOCATION_MAIN,
-        gameplayView: GP_LOCATION,
-      }));
-
     // case UPDATE_GLOBAL_VALUES:
     //   return { ...state, globalStats: payload };
     //
@@ -161,8 +148,6 @@ export default (state = new Gameplay(0), action) => {
     //     ...payload,
     //   };
     //
-    // case ADD_LOCATION_SLOTS:
-    // case ADD_ASSET_SLOTS:
     // case REMOVE_ASSET_SLOTS:
     // case CHANGE_LOCATIONS_STATE:
     //   return { ...state, locations: payload };

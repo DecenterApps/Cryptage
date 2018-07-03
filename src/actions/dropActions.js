@@ -1,5 +1,4 @@
 import {
-  DROP_CARD,
   DROP_LOCATION,
   DROP_ASSET,
   DROP_MINER,
@@ -9,7 +8,6 @@ import {
 } from './actionTypes';
 import {
   saveGameplayState,
-  updateLocationsDropSlots,
   updateLocationDropSlotItems,
   updateContainerDropSlotItems,
   updateProjectsDropSlots,
@@ -22,7 +20,7 @@ import {
   updateProjectModifiedFunds,
   calcTinkererPerLocationBonus,
 } from '../services/gameMechanicsService';
-import { levelUpLocation, levelUpAsset, levelUpMiner, levelUpProject } from './levelUpActions';
+import { levelUpAsset, levelUpMiner, levelUpProject } from './levelUpActions';
 import {
   addOrReduceFromFundsPerBlock,
   addAssetSlots,
@@ -34,37 +32,17 @@ import {
  * Fires when the player drags a location card from his hand
  * to the location sidebar
  *
- * @param {Number} index
+ * @param {CardSlot} slot
  * @param {Object} item
- * @return {Function}
+ * @param {Number} index
  */
-export const handleLocationDrop = (index, item) => (dispatch, getState) => {
-  const { gameplay } = getState();
+export const handleLocationDrop = (slot, item, index) => (dispatch, getState) => {
+  const newGameplay = slot.dropCard(getState().gameplay, item.card);
 
-  let locations = [...gameplay.locations];
-  let globalStats = { ...gameplay.globalStats };
-  const cards = [...gameplay.cards];
-  const { lastDroppedItem } = locations[index];
-
-  if (!checkIfCanPlayCard(item.card, globalStats)) return;
-
-  const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
-  cards.splice(draggedCardIndex, 1);
-
-  // location drop when slot is empty
-  if (!lastDroppedItem) locations = updateLocationsDropSlots(locations, index, item);
-  // location drop when there is/are already a card/cards in the slot (level-up)
-  else locations = levelUpLocation(locations, index, lastDroppedItem, item.card);
-
-  const { mainCard } = locations[index].lastDroppedItem;
-  ({ locations, globalStats } = handleCardMathematics(mainCard, locations, gameplay.globalStats, index));
-
-  dispatch({
-    type: DROP_LOCATION, activeLocationIndex: index, locations, cards, globalStats,
-  });
-
+  dispatch({ type: DROP_LOCATION, payload: { newGameplay, index } });
   saveGameplayState(getState);
 };
+
 
 /**
  * Fires when the player drags a card from his hand
@@ -223,13 +201,5 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
     dispatch(projectReduceTimeForProjects(projects, index, item.card));
   }
 
-  saveGameplayState(getState);
-};
-
-export const dropCard = (slot, item, index) => (dispatch, getState) => {
-  // Object.assign({}, getState().gameplay);
-  const newGameplay = slot.dropCard(getState().gameplay, item.card);
-
-  dispatch({ type: DROP_CARD, payload: { newGameplay, index } });
   saveGameplayState(getState);
 };

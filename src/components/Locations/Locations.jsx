@@ -8,11 +8,12 @@ import EmptyLocationSlot from '../EmptyLocationSlot/EmptyLocationSlot';
 import FutureButton from '../FutureButton/FutureButton';
 import HeaderLine from '../Decorative/HeaderLine';
 import { GP_LEADERBOARD, GP_LOCATION_COLLECTION } from '../../actions/actionTypes';
+import { handleLocationDrop } from '../../actions/dropActions';
 
 import './Locations.scss';
 
 const Locations = ({
-  locationSlots, isBuying, buyBoosterPack, gameplayView,
+  locationSlots, isBuying, buyBoosterPack, gameplayView, handleLocationDrop,
 }) => (
   <div className="locations-wrapper">
     <div className="buy-booster-button-wrapper" onClick={buyBoosterPack}>
@@ -36,6 +37,7 @@ const Locations = ({
           <DropSlotsWrapper
             dropSlots={locationSlots}
             element={<LocationSidebarItem />}
+            onItemDrop={handleLocationDrop}
             emptyStateElem={<EmptyLocationSlot />}
             mainClass="location-slots-wrapper"
           />
@@ -50,6 +52,7 @@ Locations.propTypes = {
   isBuying: PropTypes.bool.isRequired,
   buyBoosterPack: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
+  handleLocationDrop: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, shop }) => ({
@@ -60,7 +63,7 @@ const mapStateToProps = ({ gameplay, shop }) => ({
 });
 
 const mapDispatchToProp = {
-  buyBoosterPack,
+  buyBoosterPack, handleLocationDrop,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Locations);

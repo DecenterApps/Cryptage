@@ -10,12 +10,9 @@ import {
   USERS_CARDS_SUCCESS,
   CHANGE_GAMEPLAY_VIEW,
   CHANGE_PROJECT_STATE,
-  ADD_LOCATION_SLOTS,
-  ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
   UPDATE_GLOBAL_VALUES,
   ADDITIONAL_LOCATION_DROP_SLOTS,
-  ADDITIONAL_LOCATION_ITEM_DROP_SLOTS,
   GP_NO_LOCATIONS,
   SUBMIT_NICKNAME_SUCCESS,
   GP_LOCATION,
@@ -209,75 +206,6 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
 export const setActiveLocation = payload => (dispatch, getState) => {
   dispatch({ type: SET_ACTIVE_LOCATION, payload });
   saveGameplayState(getState);
-};
-
-/**
- * Checks if all location slots are full, if they are,
- * adds 6 new ones
- *
- * @return {Function}
- */
-export const addLocationSlots = () => (dispatch, getState) => {
-  let locations = [...getState().gameplay.locations];
-  const emptyLocations = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null);
-
-  if (emptyLocations.length > 1) return;
-
-  locations = [...locations, ...ADDITIONAL_LOCATION_DROP_SLOTS];
-  dispatch({ type: ADD_LOCATION_SLOTS, payload: locations });
-};
-
-/**
- * Checks if the active location has only one empty slot, if it does do,
- * adds 1 new empty slot. Unless the space of the active location equals 0.
- *
- * @param {Number} locationIndex
- * @return {Function}
- */
-export const addAssetSlots = locationIndex => (dispatch, getState) => {
-  let locations = [...getState().gameplay.locations];
-  const location = locations[locationIndex].lastDroppedItem;
-  const currentSlots = location.dropSlots;
-
-  const emptyLocations = currentSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null);
-
-  if (emptyLocations.length > 1) return;
-
-  if (location.values.space === 0) return;
-
-  locations = update(locations, {
-    [locationIndex]: {
-      lastDroppedItem: {
-        dropSlots: { $set: [...currentSlots, ...ADDITIONAL_LOCATION_ITEM_DROP_SLOTS] },
-      },
-    },
-  });
-
-  dispatch({ type: ADD_ASSET_SLOTS, payload: locations });
-};
-
-/**
- * On card remove checks if the active location has more than one empty slot, if it does do,
- * removes empty slots until it does
- *
- * @param {Number} locationIndex
- * @return {Function}
- */
-export const removeAssetSlots = locationIndex => (dispatch, getState) => {
-  const locations = [...getState().gameplay.locations];
-  const location = locations[locationIndex].lastDroppedItem;
-  const currentSlots = location.dropSlots;
-
-  const emptyLocations = currentSlots
-    .map((dropSlot, index) => ({ ...dropSlot, index }))
-    .filter(({ lastDroppedItem }) => lastDroppedItem === null);
-
-  if (emptyLocations.length > 2 && currentSlots.length > 6) {
-    const lastEmptySlotIndex = emptyLocations[emptyLocations.length - 1].index;
-    locations[locationIndex].lastDroppedItem.dropSlots.splice(lastEmptySlotIndex, 1);
-
-    dispatch({ type: REMOVE_ASSET_SLOTS, payload: locations });
-  }
 };
 
 /**
