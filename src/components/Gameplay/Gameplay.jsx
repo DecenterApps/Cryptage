@@ -23,7 +23,6 @@ import './Gameplay.scss';
 const Gameplay = ({ gameplayView, locationSlots, nickname }) => (
   <div className="gameplay-wrapper">
     <GameplayHeader />
-    <h1>{ gameplayView }</h1>
     { !nickname && gameplayView === GP_NO_NICKNAME && <NicknameForm /> }
     { locationSlots.length === 0 && gameplayView === GP_NO_LOCATIONS && <NoLocations /> }
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }

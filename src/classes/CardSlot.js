@@ -55,7 +55,6 @@ export default class CardSlot {
 
     this.card.parent = null;
     this.card = null;
-    this.acceptedTags = [];
 
     return state;
   }

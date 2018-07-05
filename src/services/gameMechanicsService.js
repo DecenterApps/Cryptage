@@ -297,7 +297,7 @@ export const getCostErrors = (card, activeLocationIndex, activeContainerIndex, l
   let assetSlotsLength = false;
 
   const locationItem = locations[activeLocationIndex].card;
-  if (locationItem) assetSlotsLength = locationItem.dropSlots.filter(_locationSlot => !locationSlot.card).length > 0; // eslint-disable-line
+  if (locationItem) assetSlotsLength = locationItem.dropSlots.filter(slot => !slot.card).length > 0; // eslint-disable-line
 
   const containerSlotsLength = getContainerSlotsLength(locations, locationItem, activeContainerIndex);
 
@@ -456,7 +456,7 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
 
   const locationItem = locations[activeLocationIndex].card;
   if (locationItem) {
-    assetSlotsLength = locationItem.dropSlots.filter(_locationSlot => !_locationSlot.card).length > 0;
+    assetSlotsLength = locationItem.dropSlots.filter(slot => !slot.card).length > 0;
   }
 
   const containerSlotsLength = getContainerSlotsLength(locations, locationItem, activeContainerIndex);

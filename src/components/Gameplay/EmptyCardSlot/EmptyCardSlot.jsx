@@ -21,7 +21,7 @@ const EmptyCardSlot = ({
     // for miners you need to check if the container drop slot accepts that certain miner
     if (acceptedType === 'mining') {
       const { acceptedTags } = activeLocation.dropSlots[activeContainerIndex].card.dropSlots[index];
-      const goodSlotType = acceptedTags.includes(card.metadataId);
+      const goodSlotType = acceptedTags[0] === card.tags[0];
 
       goodCardType = goodSlotType && type === 'Mining';
     }

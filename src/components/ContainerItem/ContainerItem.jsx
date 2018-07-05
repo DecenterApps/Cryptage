@@ -30,12 +30,12 @@ class ContainerItem extends Component {
 
   render() {
     const {
-      index, mainCard, locationIndex, containerIndex, slot, dragItem, globalStats,
+      index, card, locationIndex, containerIndex, slot, dragItem, globalStats,
     } = this.props;
-    const fpb = mainCard.bonus.funds;
+    const fpb = card.funds;
 
-    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
-    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats);
+    const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
+    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(card, globalStats);
 
     return (
       <div className={`
@@ -51,7 +51,7 @@ class ContainerItem extends Component {
         <IngameCard
           showCount={false}
           played
-          card={mainCard}
+          card={card}
           slot={slot}
           locationIndex={locationIndex}
           containerIndex={containerIndex}
@@ -63,12 +63,12 @@ class ContainerItem extends Component {
 }
 
 ContainerItem.defaultProps = {
-  mainCard: null,
+  card: null,
   dragItem: null,
 };
 
 ContainerItem.propTypes = {
-  mainCard: PropTypes.object,
+  card: PropTypes.object,
   locationIndex: PropTypes.number.isRequired,
   containerIndex: PropTypes.number.isRequired,
   slot: PropTypes.object.isRequired,
