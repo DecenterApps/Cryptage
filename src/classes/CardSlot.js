@@ -15,7 +15,7 @@ export default class CardSlot {
 
     if (owner) {
       this.owner = owner;
-      this.accepts = this.owner.acceptedTags;
+      this.acceptedTags = this.owner.acceptedTags;
     }
   }
 

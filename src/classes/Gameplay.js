@@ -34,7 +34,7 @@ export default class Gameplay {
       fundsPerBlock: 0,
     };
     this.locationSlots = new Array(cardConfig.locationSlots);
-    this.projectSlots = new Array(cardConfig.projectSlots);
+    this.projectSlots = new Array(cardConfig.projectsSlots);
 
     this[subscriptions] = new Map();
 
@@ -42,7 +42,7 @@ export default class Gameplay {
       this.locationSlots[i] = new LocationCardSlot();
     }
 
-    for (let i = 0; i < this.locationSlots.length; i += 1) {
+    for (let i = 0; i < this.projectSlots.length; i += 1) {
       this.projectSlots[i] = new ProjectCardSlot();
     }
 

@@ -20,12 +20,12 @@ import Cards from '../Cards/Cards';
 
 import './Gameplay.scss';
 
-const Gameplay = ({ gameplayView, locations, nickname }) => (
+const Gameplay = ({ gameplayView, locationSlots, nickname }) => (
   <div className="gameplay-wrapper">
     <GameplayHeader />
     <h1>{ gameplayView }</h1>
     { !nickname && gameplayView === GP_NO_NICKNAME && <NicknameForm /> }
-    { locations.length === 0 && gameplayView === GP_NO_LOCATIONS && <NoLocations /> }
+    { locationSlots.length === 0 && gameplayView === GP_NO_LOCATIONS && <NoLocations /> }
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }
     { gameplayView === GP_LOCATION && <ActiveLocation />}
     { gameplayView === GP_LOCATION_COLLECTION && <Collection /> }
@@ -41,14 +41,14 @@ const Gameplay = ({ gameplayView, locations, nickname }) => (
 Gameplay.propTypes = {
   gameplayView: PropTypes.string.isRequired,
   nickname: PropTypes.string.isRequired,
-  locations: PropTypes.array.isRequired,
+  locationSlots: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   gameplayView: gameplay.gameplayView,
   activeLocationIndex: gameplay.activeLocationIndex,
   nickname: gameplay.nickname,
-  locations: gameplay.locationSlots.filter(({ card }) => card !== undefined),
+  locationSlots: gameplay.locationSlots.filter(({ card }) => card !== undefined),
 });
 
 export default connect(mapStateToProps)(Gameplay);

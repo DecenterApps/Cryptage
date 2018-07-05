@@ -72,31 +72,34 @@ export default (state = new Gameplay(0), action) => {
 
   switch (type) {
     case DROP_LOCATION:
-      return Object.assign(state, Object.assign(payload.newGameplay, {
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        ...payload.newGameplay,
         activeLocationIndex: payload.index,
         inGameplayView: GP_LOCATION_MAIN,
         gameplayView: GP_LOCATION,
-      }));
+      });
+
+    case DROP_ASSET:
+    case LOAD_STATE_FROM_STORAGE:
+    case GENERATE_NEW_GAMEPLAY:
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        ...payload,
+      });
 
     case SET_ACTIVE_LOCATION:
-      return Object.assign(state, Object.assign(state, {
-        activeLocationIndex: 5,
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        activeLocationIndex: payload,
         gameplayView: GP_LOCATION,
         inGameplayView: GP_LOCATION_MAIN,
-      }));
+      });
     //
     // case CHANGE_GAMEPLAY_VIEW:
     //   return { ...state, gameplayView: payload };
     //
     // case DROP_MINER:
-    // case DROP_ASSET:
-    //   return {
-    //     ...state,
-    //     locations: action.locations,
-    //     cards: action.cards,
-    //     globalStats: action.globalStats,
-    //     fundsPerBlock: action.fundsPerBlock,
-    //   };
     //
     // case DROP_PROJECT:
     //   return {
@@ -122,7 +125,10 @@ export default (state = new Gameplay(0), action) => {
     //   };
     //
     case USERS_CARDS_SUCCESS:
-      return Object.assign(state, { cards: payload });
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        cards: payload,
+      });
     //
     // case REVEAL_SUCCESS:
     //   return {
@@ -134,10 +140,6 @@ export default (state = new Gameplay(0), action) => {
     //
     // case REMOVE_NEW_FROM_CARD:
     //   return { ...state, newCardTypes: payload };
-
-    case LOAD_STATE_FROM_STORAGE:
-    case GENERATE_NEW_GAMEPLAY:
-      return Object.assign(state, payload);
 
     // case UPDATE_GLOBAL_VALUES:
     //   return { ...state, globalStats: payload };
@@ -152,12 +154,12 @@ export default (state = new Gameplay(0), action) => {
     // case CHANGE_LOCATIONS_STATE:
     //   return { ...state, locations: payload };
     //
-    // case SWITCH_IN_GAMEPLAY_VIEW:
-    //   return {
-    //     ...state,
-    //     inGameplayView: payload.viewType,
-    //     activeContainerIndex: payload.containerIndex,
-    //   };
+    case SWITCH_IN_GAMEPLAY_VIEW:
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        inGameplayView: payload.viewType,
+        activeContainerIndex: payload.containerIndex,
+      });
     //
     // case PLAY_TURN:
     //   return {
@@ -180,16 +182,12 @@ export default (state = new Gameplay(0), action) => {
     //     playedTurns: [],
     //   };
     //
-    // case REMOVE_CARD:
-    //   return {
-    //     ...state,
-    //     locations: action.locations,
-    //     cards: action.cards,
-    //     globalStats: action.globalStats,
-    //     gameplayView: action.gameplayView,
-    //     fundsPerBlock: action.fundsPerBlock,
-    //     projectExecutionTimePercent: action.projectExecutionTimePercent,
-    //   };
+    case REMOVE_CARD:
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        ...payload.newGameplay,
+        gameplayView: payload.gameplayView,
+      });
     //
     // case RETURN_CARDS:
     //   return { ...state, cards: [...state.cards, ...action.cards] };
@@ -203,7 +201,11 @@ export default (state = new Gameplay(0), action) => {
     //   };
     //
     case SUBMIT_NICKNAME_SUCCESS:
-      return Object.assign(state, { gameplayView: GP_NO_LOCATIONS, nickname: payload });
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        gameplayView: GP_NO_LOCATIONS,
+        nickname: payload,
+      });
 
     //
     // case UPDATE_FUNDS_PER_BLOCK:

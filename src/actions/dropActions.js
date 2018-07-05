@@ -48,117 +48,78 @@ export const handleLocationDrop = (slot, item, index) => (dispatch, getState) =>
  * Fires when the player drags a card from his hand
  * to a empty location asset deck slot
  *
- * @param {Number} index
- * @param {Object} item
- * @return {Function}
- */
-export const handleAssetDrop = (index, item) => (dispatch, getState) => {
-  const { gameplay } = getState();
-  const { activeLocationIndex } = gameplay;
-
-  const cards = [...gameplay.cards];
-  let locations = [...gameplay.locations];
-  let globalStats = { ...gameplay.globalStats };
-  const metaDataId = item.card.metadataId;
-
-  if (!checkIfCanPlayCard(item.card, globalStats, locations[activeLocationIndex].lastDroppedItem)) return;
-
-  const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
-  cards.splice(draggedCardIndex, 1);
-
-  const locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
-  const slotItem = locationSlots[index].lastDroppedItem;
-
-  if (!slotItem) {
-    locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, 0);
-  } else {
-    // handle asset level up here
-    locations = levelUpAsset(locations, activeLocationIndex, index, item.card);
-  }
-
-  // On developer drop recalculates location per dev bonus
-  // if cards that have that effect were dropped
-  if (bonusDevPerLocationCards.includes(metaDataId) || item.card.stats.type === 'Person') {
-    ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
-  }
-
-  const { mainCard } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem;
-  const mathRes = handleCardMathematics(mainCard, locations, globalStats, activeLocationIndex);
-
-  ({ locations, globalStats } = mathRes);
-
-  // special cards that need their development to be added to globalStats
-  if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39' || metaDataId === '44') {
-    globalStats.development += getLevelCardBonusStatDiff(mainCard, 'development');
-  }
-
-  let fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
-
-  if (metaDataId === '43') {
-    fundsPerBlock += locations[activeLocationIndex].lastDroppedItem.values.space * mainCard.stats.bonus.multiplierFunds;
-  }
-
-  if (metaDataId === '44') {
-    fundsPerBlock += calcTinkererPerLocationBonus(locations, activeLocationIndex, mainCard);
-  }
-
-  dispatch({
-    type: DROP_ASSET, locations, cards, globalStats, fundsPerBlock,
-  });
-  dispatch(addAssetSlots(activeLocationIndex));
-
-  if (metaDataId === '41' || metaDataId === '42') dispatch(updateProjectModifiedFunds());
-
-  if (timeReduceIds.includes(metaDataId)) {
-    dispatch(assetReduceTimeForProjects(locations, activeLocationIndex, index, item.card));
-  }
-
-  saveGameplayState(getState);
-};
-
-/**
- * AKA third level drop
- *
- * @param {Number} locationIndex
- * @param {Number} containerIndex
- * @param {Number} cardIndex
+ * @param {CardSlot} slot
  * @param {Object} item
  */
-export const handleMinerDropInContainer = (locationIndex, containerIndex, cardIndex, item) => (dispatch, getState) => {
-  const { gameplay } = getState();
+export const handleAssetDrop = (slot, item) => (dispatch, getState) => {
+  const payload = slot.dropCard(getState().gameplay, item.card);
 
-  const cards = [...gameplay.cards];
-  let locations = [...gameplay.locations];
-
-  const containerSlots = [
-    ...locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots,
-  ];
-  const slotItem = containerSlots[cardIndex].lastDroppedItem;
-  const locationItem = locations[locationIndex].lastDroppedItem;
-
-  if (!checkIfCanPlayCard(item.card, gameplay.globalStats, locationItem, true)) return;
-
-  const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
-  cards.splice(draggedCardIndex, 1);
-
-  if (!slotItem) {
-    locations = updateContainerDropSlotItems(locationIndex, containerIndex, cardIndex, item, containerSlots, locations);
-  } else {
-    locations = levelUpMiner(locations, locationIndex, containerIndex, cardIndex, item.card);
-  }
-
-  const { mainCard } = locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.dropSlots[cardIndex].lastDroppedItem; // eslint-disable-line
-  const mathRes = handleCardMathematics(mainCard, locations, gameplay.globalStats, locationIndex);
-  const { globalStats } = mathRes;
-  ({ locations } = mathRes);
-
-  const fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
-
-  dispatch({
-    type: DROP_MINER, locations, cards, globalStats, fundsPerBlock,
-  });
+  dispatch({ type: DROP_ASSET, payload });
   saveGameplayState(getState);
 };
+// export const handleAssetDrop = (index, item) => (dispatch, getState) => {
+//   const { gameplay } = getState();
+//   const { activeLocationIndex } = gameplay;
+//
+//   const cards = [...gameplay.cards];
+//   let locations = [...gameplay.locations];
+//   let globalStats = { ...gameplay.globalStats };
+//   const metaDataId = item.card.metadataId;
+//
+//   if (!checkIfCanPlayCard(item.card, globalStats, locations[activeLocationIndex].lastDroppedItem)) return;
+//
+//   const draggedCardIndex = cards.findIndex(card => parseInt(card.id, 10) === parseInt(item.card.id, 10));
+//   cards.splice(draggedCardIndex, 1);
+//
+//   const locationSlots = [...locations[activeLocationIndex].lastDroppedItem.dropSlots];
+//   const slotItem = locationSlots[index].lastDroppedItem;
+//
+//   if (!slotItem) {
+//     locations = updateLocationDropSlotItems(locationSlots, index, item, locations, activeLocationIndex, 0);
+//   } else {
+//     // handle asset level up here
+//     locations = levelUpAsset(locations, activeLocationIndex, index, item.card);
+//   }
+//
+//   // On developer drop recalculates location per dev bonus
+//   // if cards that have that effect were dropped
+//   if (bonusDevPerLocationCards.includes(metaDataId) || item.card.stats.type === 'Person') {
+//     ({ globalStats, locations } = handleBonusDevMechanics(locations, activeLocationIndex, globalStats));
+//   }
+//
+//   const { mainCard } = locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem;
+//   const mathRes = handleCardMathematics(mainCard, locations, globalStats, activeLocationIndex);
+//
+//   ({ locations, globalStats } = mathRes);
+//
+//   // special cards that need their development to be added to globalStats
+//   if (metaDataId === '18' || metaDataId === '16' || metaDataId === '39' || metaDataId === '44') {
+//     globalStats.development += getLevelCardBonusStatDiff(mainCard, 'development');
+//   }
+//
+//   let fundsPerBlock = addOrReduceFromFundsPerBlock(gameplay.fundsPerBlock, mainCard, true);
+//
+//   if (metaDataId === '43') {
+//     fundsPerBlock += locations[activeLocationIndex].lastDroppedItem.values.space * mainCard.stats.bonus.multiplierFunds;
+//   }
+//
+//   if (metaDataId === '44') {
+//     fundsPerBlock += calcTinkererPerLocationBonus(locations, activeLocationIndex, mainCard);
+//   }
+//
+//   dispatch({
+//     type: DROP_ASSET, locations, cards, globalStats, fundsPerBlock,
+//   });
+//   dispatch(addAssetSlots(activeLocationIndex));
+//
+//   if (metaDataId === '41' || metaDataId === '42') dispatch(updateProjectModifiedFunds());
+//
+//   if (timeReduceIds.includes(metaDataId)) {
+//     dispatch(assetReduceTimeForProjects(locations, activeLocationIndex, index, item.card));
+//   }
+//
+//   saveGameplayState(getState);
+// };
 
 /**
  * Fires when the player drags a project card from his hand

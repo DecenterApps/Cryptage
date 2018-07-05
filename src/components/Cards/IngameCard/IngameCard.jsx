@@ -35,7 +35,7 @@ class IngameCard extends Component {
     const {
       card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      inHand, removeNewCardOnHover, newCardTypes,
+      inHand, removeNewCardOnHover,
     } = this.props;
 
     const uniqueId = guid();
@@ -45,7 +45,7 @@ class IngameCard extends Component {
       <div
         className={`ingame-card-details type-${card.type.toLowerCase()}`}
         onMouseEnter={() => {
-          removeNewCardOnHover(card.metadata.id);
+          removeNewCardOnHover(card.metadataId);
         }}
         onMouseLeave={() => { togglePortal(false); }}
         onClick={(e) => {
@@ -74,7 +74,7 @@ class IngameCard extends Component {
         <svg className="card-image">
           <defs>
             <pattern
-              id={`card-background-${card.metadata.id}-${uniqueId}`}
+              id={`card-background-${card.metadataId}-${uniqueId}`}
               height="100%"
               width="100%"
               patternContentUnits="objectBoundingBox"
@@ -134,7 +134,7 @@ class IngameCard extends Component {
           <polygon
             className="card-image-inner"
             points="10,2 98,2 98,132 90,140 2,140 2,10"
-            fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
+            fill={`url(#card-background-${card.metadataId}-${uniqueId})`}
           />
           <polygon
             className="card-meta-bg"
@@ -154,10 +154,10 @@ class IngameCard extends Component {
           </div>
         }
 
-        {
-          inHand && newCardTypes.includes(card.metadata.id) &&
-          <div className="new-card">new</div>
-        }
+        {/*{*/}
+          {/*inHand && newCardTypes.includes(card.metadataId) &&*/}
+          {/*<div className="new-card">new</div>*/}
+        {/*}*/}
 
         {
           card.type === 'Container' && played &&
@@ -166,7 +166,7 @@ class IngameCard extends Component {
               <div
                 className="slots-bar"
                 style={{
-                  height: `${100 - 100 * remainingSlots / card.values.space}%`,
+                  height: `${100 - 100 * remainingSlots / card.space}%`,
                 }}
               />
             </div>
@@ -258,12 +258,10 @@ IngameCard.propTypes = {
   costErrors: PropTypes.object,
   inHand: PropTypes.bool,
   removeNewCardOnHover: PropTypes.func.isRequired,
-  newCardTypes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
   draggingCard: app.draggingCard,
-  newCardTypes: gameplay.newCardTypes,
 });
 
 const mapDispatchToProps = {

@@ -7425,7 +7425,7 @@
   },
   "cardTypes": ["Location", "Container", "Mining", "Person", "Power", "Misc", "Project"],
   "locationSlots": 6,
-  "projectsSlots": 6,
+  "projectsSlots": 10,
   "locationMinSlots": 6,
   "visibleEmptySlots": 2,
   "boosters": {
