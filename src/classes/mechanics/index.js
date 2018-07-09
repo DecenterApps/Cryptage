@@ -12,6 +12,7 @@ import ProjectGlobalStatPercentBoost from './ProjectGlobalStatPercentBoost';
 import ProjectPerCompletionFpbBoost from './ProjectPerCompletionFpbBoost';
 import TimeReduceMechanic from './TimeReduceMechanic';
 import Unique from './Unique';
+import Card2ProjectStatBonus from './Card2ProjectStatBonus';
 
 serialise.declarePersistable(BonusMechanic);
 serialise.declarePersistable(ContainerMechanic);
@@ -25,3 +26,4 @@ serialise.declarePersistable(ProjectGlobalStatPercentBoost);
 serialise.declarePersistable(ProjectPerCompletionFpbBoost);
 serialise.declarePersistable(TimeReduceMechanic);
 serialise.declarePersistable(Unique);
+serialise.declarePersistable(Card2ProjectStatBonus);
