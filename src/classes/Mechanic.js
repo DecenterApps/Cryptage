@@ -20,8 +20,7 @@ export default class Mechanic extends Subscriber {
 
   static getInstance(name, card, params) {
     if (!registry.has(name)) {
-      // throw ReferenceError(`unknown mechanic '${name}'`);
-      return null;
+      throw ReferenceError(`unknown mechanic '${name}'`);
     }
 
     return params ? new (registry.get(name))(card, ...params) : new (registry.get(name))(card);
