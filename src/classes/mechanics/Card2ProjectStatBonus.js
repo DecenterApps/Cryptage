@@ -28,12 +28,15 @@ export default class Card2ProjectStatBonus extends Mechanic {
     return state;
   }
 
+  singleCardChangeBonus(matchedCard, subscribeState, num) {
+    return matchedCard.changeBonuses(subscribeState, this.createChangeBonus(num));
+  }
+
   onPlay(_state) {
     const state = this.changeBonusForDroppedMatchedCards(_state, this.boostAmount);
 
-    state.subscribe('onPlay', this.matcher, (subscribeState, matchedCard) => {
-      matchedCard.changeBonuses(subscribeState, this.createChangeBonus(this.boostAmount));
-    });
+    state.subscribe('onPlay', this.matcher, (subscribeState, matchedCard) =>
+      this.singleCardChangeBonus(matchedCard, subscribeState, this.boostAmount));
 
     return state;
   }
