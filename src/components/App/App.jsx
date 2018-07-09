@@ -10,9 +10,9 @@ import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
-import { loadGameplayState, updateFundsBlockDifference, checkProjectsBonus } from '../../actions/gameplayActions';
+import { updateFundsBlockDifference, checkProjectsBonus } from '../../actions/gameplayActions';
+import { checkAccount } from '../../actions/stateActions';
 import {
-  checkAccount,
   loadingEnded,
   listenForNewBlocks,
   updateCurrentBlockNumber,

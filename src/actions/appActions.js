@@ -7,11 +7,9 @@ import {
   CLEAR_STORE,
   TOGGLE_TUTORIAL,
 } from './actionTypes';
-import ethService from '../services/ethereumService';
-import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
+import { getPlayedAssetCards } from '../services/utils';
 import { loadGameplayState, updateFundsBlockDifference } from '../actions/gameplayActions';
 import { handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
-import config from '../constants/config.json';
 
 /**
  * Fires action when all data from local storage and web3 has been loaded
@@ -19,38 +17,6 @@ import config from '../constants/config.json';
  * @return {Function}
  */
 export const loadingEnded = () => (dispatch) => { dispatch({ type: LOADING_ENDED }); };
-
-/**
- * Gets user ethereum account from MetaMask
- *
- * @return {Function}
- */
-export const checkAccount = () => async (dispatch, getState) => {
-  try {
-    const network = await ethService.getNetwork();
-    if (config.network !== network) {
-      throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
-    }
-
-    const account = await ethService.getAccount();
-
-    if (getState().app.account !== account) {
-      if (getState().app.account === '') {
-        dispatch({ type: GET_ACCOUNT_SUCCESS, account });
-        dispatch(loadGameplayState());
-        // dispatch(updateFundsBlockDifference());
-      } else {
-        window.location.reload();
-      }
-    }
-  } catch (err) {
-    if (getState().app.accountError !== err.message) {
-      dispatch({ type: GET_ACCOUNT_ERROR, error: err.message });
-    }
-  }
-
-  setTimeout(() => checkAccount()(dispatch, getState), 1000);
-};
 
 /**
  * Gets the current block number and sets

@@ -45,8 +45,6 @@ import {
 
 import { packMoves, readState } from '../services/stateService';
 import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
-import Gameplay from '../classes/Gameplay';
-import Card from '../classes/Card';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -286,27 +284,6 @@ export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOr
   }
 
   return fpb;
-};
-
-/**
- * If the user has an account loads gameplay
- * from localStorage
- *
- * @return {Function}
- */
-export const loadGameplayState = () => async (dispatch, getState) => {
-  const { account } = getState().app;
-
-  if (!account) return;
-
-  const data = localStorage.getItem(`cryptage-${account}`);
-
-  if (!data) {
-    const blockNum = await web3.eth.getBlockNumber();
-    return dispatch({ type: GENERATE_NEW_GAMEPLAY, payload: new Gameplay(blockNum) });
-  }
-
-  return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload: serialize.deserialize(data) });
 };
 
 export const updateFundsBlockDifference = () => async (dispatch, getState) => {
