@@ -12,4 +12,4 @@ export default class PowerBonusMechanic extends BonusMechanic {
   }
 }
 
-Mechanic.registerMechanic('powerBonus', PowerBonusMechanic);
+Mechanic.registerMechanic('powerBonusMechanic', PowerBonusMechanic);

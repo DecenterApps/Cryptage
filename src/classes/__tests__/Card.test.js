@@ -7,13 +7,15 @@ import CardSlot from '../CardSlot';
 describe('Card', () => {
   it('Returns right constructor for registered card type', async () => {
     // Card with the UID of 10 on the contract is a Location
-    const card = await Card.getInstance(10, 1);
+    const gameplay = new Gameplay(0);
+    const card = await Card.getInstance(gameplay, 10, 1);
     expect(card).toBeInstanceOf(LocationCard);
   });
 
   it('Returns default constructor when missing cardType', async () => {
     // Card with the UID of 10 on the contract is a Location
-    const card = await Card.getInstance(0, 1);
+    const gameplay = new Gameplay(0);
+    const card = await Card.getInstance(gameplay, 0, 1);
     expect(card).toBeInstanceOf(Card);
   });
 

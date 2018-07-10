@@ -15,7 +15,7 @@ describe('PowerBonusMechanic', () => {
       metadataId: 42,
     });
 
-    const mechInstance = Mechanic.getInstance('powerBonus', assetCard);
+    const mechInstance = Mechanic.getInstance('powerBonusMechanic', assetCard);
     assetCard.mechanics.push(mechInstance);
 
     const locationCard = new LocationCard({
