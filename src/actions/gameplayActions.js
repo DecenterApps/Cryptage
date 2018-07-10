@@ -45,6 +45,7 @@ import {
 
 import { packMoves, readState } from '../services/stateService';
 import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
+import Card from '../classes/Card';
 
 /**
  * Dispatches action to change the view of central gameplay view

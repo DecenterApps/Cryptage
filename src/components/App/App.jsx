@@ -11,7 +11,7 @@ import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
 import { updateFundsBlockDifference, checkProjectsBonus } from '../../actions/gameplayActions';
-import { checkAccount } from '../../actions/stateActions';
+import { checkAccount, loadGameplayState } from '../../actions/stateActions';
 import {
   loadingEnded,
   listenForNewBlocks,
