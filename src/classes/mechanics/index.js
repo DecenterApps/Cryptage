@@ -14,6 +14,7 @@ import TimeReduceMechanic from './TimeReduceMechanic';
 import Unique from './Unique';
 import Card2ProjectStatBonus from './Card2ProjectStatBonus';
 import CardLocationStatPercentBonus from './CardLocationStatPercentBonus';
+import MatcherMechanic from './MatcherMechanic';
 
 serialise.declarePersistable(BonusMechanic);
 serialise.declarePersistable(ContainerMechanic);
@@ -29,3 +30,4 @@ serialise.declarePersistable(TimeReduceMechanic);
 serialise.declarePersistable(Unique);
 serialise.declarePersistable(Card2ProjectStatBonus);
 serialise.declarePersistable(CardLocationStatPercentBonus);
+serialise.declarePersistable(MatcherMechanic);
