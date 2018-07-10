@@ -12,7 +12,7 @@ export default class CardLocationStatPercentBonus extends MatcherMechanic {
   }
 
   getMatcher() {
-    const parentMatcher = createMatcher({ parent: this.card.parent });
+    const parentMatcher = createMatcher({ id: this.card.parent.id });
     const typeMatcher = createMatcher({ cardType: this.cardType });
     return combineMatchers(parentMatcher, typeMatcher);
   }

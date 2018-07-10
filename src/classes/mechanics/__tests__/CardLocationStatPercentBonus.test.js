@@ -24,6 +24,7 @@ describe('CardLocationStatPercentBonus', () => {
     assetCard.mechanics.push(mechInstance);
 
     const locationCard = new LocationCard({
+      id: 300,
       values: { space: 10, power: 10 },
       cost: { funds: 50, development: 50 },
       acceptedTags: ['asset'],
@@ -57,6 +58,7 @@ describe('CardLocationStatPercentBonus', () => {
     assetCard.mechanics.push(mechInstance);
 
     const locationCard = new LocationCard({
+      id: 300,
       values: { space: 10, power: 10 },
       cost: { funds: 50, development: 50 },
       acceptedTags: ['asset'],
@@ -68,7 +70,7 @@ describe('CardLocationStatPercentBonus', () => {
     gameplay = gameplay.locationSlots[0].card.dropSlots[0].dropCard(gameplay, assetCard);
 
     const mechMatcher = mechInstance.getMatcher();
-    const mockMatcher = createMatcher({ parent: locationCard });
+    const mockMatcher = createMatcher({ parent: locationCard.id });
 
     expect(JSON.stringify(mechMatcher) === JSON.stringify(mockMatcher)).toBeTruthy();
   });
@@ -91,6 +93,7 @@ describe('CardLocationStatPercentBonus', () => {
     assetCard.mechanics.push(mechInstance);
 
     const locationCard = new LocationCard({
+      id: 300,
       values: { space: 10, power: 10 },
       cost: { funds: 50, development: 50 },
       acceptedTags: ['asset'],
