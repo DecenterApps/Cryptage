@@ -5,16 +5,15 @@ export default class DynamicMatcherMechanic extends MatcherMechanic {
   constructor(card, locationStat, boostedStat, boostAmount) {
     super(card);
 
-    this.locationStat = locationStat;
-    this.boostedStat = boostedStat;
-    this.boostAmount = boostAmount;
     this.lastBoostAmount = null;
   }
 
-  getBoostAmount() {
-    // has to have a boost amount that depends on other variables
-    return this.boostAmount * (Math.floor(Math.random() * 6) + 1);
-  }
+  // classes that extend this one have to have a getBoostAmount method
+  // has to have a boost amount that depends on other variables
+  // Example method:
+  // getBoostAmount() {
+  //   return this.boostAmount * (Math.floor(Math.random() * 6) + 1);
+  // }
 
   handleBoostAmountChange(_state, card) {
     let state = _state;

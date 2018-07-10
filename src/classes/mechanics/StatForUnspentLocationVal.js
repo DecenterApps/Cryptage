@@ -1,8 +1,9 @@
 import Mechanic from '../Mechanic';
 import { createMatcher } from '../matchers';
 import MatcherMechanic from './MatcherMechanic';
+import DynamicMatcherMechanic from './DynamicMatcherMechanic';
 
-export default class StatForUnspentLocationVal extends MatcherMechanic {
+export default class StatForUnspentLocationVal extends DynamicMatcherMechanic {
   constructor(card, locationStat, boostedStat, boostAmount) {
     super(card);
 
@@ -18,33 +19,6 @@ export default class StatForUnspentLocationVal extends MatcherMechanic {
 
   getMatcher() {
     return createMatcher({ id: this.card.parent.id });
-  }
-
-  handleBoostAmountChange(_state, card) {
-    let state = _state;
-    const boostAmount = this.getBoostAmount();
-
-    if (boostAmount === this.lastBoostAmount) return state;
-
-    state = this.singleCardChangeBonus(card, state, -this.lastBoostAmount);
-    this.lastBoostAmount = boostAmount;
-    state = this.singleCardChangeBonus(card, state, this.lastBoostAmount);
-
-    return state;
-  }
-
-  onPlay(_state) {
-    this.matcher = this.getMatcher();
-    const state = this.handleBoostAmountChange(_state, this.card);
-
-    state.subscribe('onPlay', this.matcher, (subscribeState) =>
-      this.handleBoostAmountChange(subscribeState, this.card));
-
-    return state;
-  }
-
-  onWithdraw(state) {
-    return this.singleCardChangeBonus(this.card, state, -this.lastBoostAmount);
   }
 }
 
