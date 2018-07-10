@@ -25,4 +25,4 @@ export default class CardNumStatMultiplier extends DynamicMatcherMechanic {
   }
 }
 
-Mechanic.registerMechanic('CardNumStatMultiplier', CardNumStatMultiplier);
+Mechanic.registerMechanic('cardNumStatMultiplier', CardNumStatMultiplier);
