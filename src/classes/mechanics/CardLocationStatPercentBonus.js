@@ -1,6 +1,6 @@
 import Mechanic from '../Mechanic';
 import MatcherMechanic from './MatcherMechanic';
-import { createMatcher } from '../matchers';
+import { combineMatchers, createMatcher } from '../matchers';
 
 export default class CardLocationStatPercentBonus extends MatcherMechanic {
   constructor(card, cardType, boostedStat, boostPercent) {
@@ -12,7 +12,9 @@ export default class CardLocationStatPercentBonus extends MatcherMechanic {
   }
 
   getMatcher() {
-    return createMatcher({ parent: this.card.parent });
+    const parentMatcher = createMatcher({ parent: this.card.parent });
+    const typeMatcher = createMatcher({ cardType: this.cardType });
+    return combineMatchers(parentMatcher, typeMatcher);
   }
 
   createChangeBonus(num) {
