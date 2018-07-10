@@ -11,13 +11,13 @@ export default class DynamicMatcherMechanic extends MatcherMechanic {
   // classes that extend this one have to have a getBoostAmount method
   // has to have a boost amount that depends on other variables
   // Example method:
-  // getBoostAmount() {
+  // getBoostAmount(state) {
   //   return this.boostAmount * (Math.floor(Math.random() * 6) + 1);
   // }
 
   handleBoostAmountChange(_state, card) {
     let state = _state;
-    const boostAmount = this.getBoostAmount();
+    const boostAmount = this.getBoostAmount(state);
 
     if (boostAmount === this.lastBoostAmount) return state;
 
