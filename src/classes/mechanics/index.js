@@ -17,6 +17,7 @@ import CardLocationStatPercentBonus from './CardLocationStatPercentBonus';
 import MatcherMechanic from './MatcherMechanic';
 import AllTypeCardsStatPercentBonus from './AllTypeCardsStatPercentBonus';
 import StatForUnspentLocationVal from './StatForUnspentLocationVal';
+import DynamicMatcherMechanic from './DynamicMatcherMechanic';
 
 serialise.declarePersistable(BonusMechanic);
 serialise.declarePersistable(ContainerMechanic);
@@ -35,3 +36,4 @@ serialise.declarePersistable(CardLocationStatPercentBonus);
 serialise.declarePersistable(MatcherMechanic);
 serialise.declarePersistable(AllTypeCardsStatPercentBonus);
 serialise.declarePersistable(StatForUnspentLocationVal);
+serialise.declarePersistable(DynamicMatcherMechanic);
