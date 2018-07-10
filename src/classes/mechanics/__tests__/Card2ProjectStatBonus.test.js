@@ -28,7 +28,7 @@ describe('Card2ProjectStatBonus', () => {
       metadataId: 42,
     }, gameplay);
 
-    assetCard.mechanics.push(Mechanic.getInstance('card2ProjectStatBonus', this, [37, stat, statBoost]));
+    assetCard.mechanics.push(Mechanic.getInstance('card2ProjectStatBonus', assetCard, [37, stat, statBoost]));
 
     const projectCard = new ProjectCard({
       cost: { development: 1, funds: 1, time: 100, level: 1 },

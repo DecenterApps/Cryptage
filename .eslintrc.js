@@ -33,6 +33,10 @@ module.exports = {
     'no-shadow': 0,
   },
   globals: {
+    JSON: true,
+    describe: true,
+    it: true,
+    expect: true,
     web3: true,
     $: true,
     window: true,

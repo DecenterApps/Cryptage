@@ -1,21 +1,22 @@
 import Mechanic from '../Mechanic';
+import MatcherMechanic from './MatcherMechanic';
 import { createMatcher } from '../matchers';
 
-export default class CardLocationStatPercentBonus extends Mechanic {
+export default class CardLocationStatPercentBonus extends MatcherMechanic {
   constructor(card, cardType, boostedStat, boostPercent) {
     super(card);
 
     this.cardType = cardType;
     this.boostedStat = boostedStat;
-    this.boostPercent = boostPercent;
-    this.matcher = createMatcher({ parent: card.parent });
+    this.boostAmount = boostPercent;
   }
 
-  onPlay(_state) {
-
+  getMatcher() {
+    return createMatcher({ parent: this.card.parent });
   }
 
-  onWithdraw(state) {
+  createChangeBonus(num) {
+    return { [this.boostedStat]: { absolute: 0, relative: num } };
   }
 }
 

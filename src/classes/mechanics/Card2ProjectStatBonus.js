@@ -9,9 +9,11 @@ export default class Card2ProjectStatBonus extends MatcherMechanic {
     this.cardToGiveToMetaId = cardToGiveToMetaId;
     this.boostedStat = boostedStat;
     this.boostAmount = boostAmount;
+  }
 
+  getMatcher() {
     const metadataIdMatcher = createMatcher({ metadataId: this.cardToGiveToMetaId });
-    this.matcher = combineMatchers(isProjectCard, metadataIdMatcher);
+    return combineMatchers(isProjectCard, metadataIdMatcher);
   }
 }
 

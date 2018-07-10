@@ -6,7 +6,10 @@ export default class MatcherMechanic extends Mechanic {
 
     this.boostAmount = null;
     this.boostedStat = null;
-    this.matcher = null;
+  }
+
+  getMatcher() {
+    return () => null;
   }
 
   createChangeBonus(num) {
@@ -30,6 +33,7 @@ export default class MatcherMechanic extends Mechanic {
   }
 
   onPlay(_state) {
+    this.matcher = this.getMatcher();
     const state = this.changeBonusForDroppedMatchedCards(_state, this.boostAmount);
 
     state.subscribe('onPlay', this.matcher, (subscribeState, matchedCard) =>
