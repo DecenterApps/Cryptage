@@ -2685,10 +2685,11 @@
             "name": "unique"
           },
           {
-            "name": "fpbForUnspentLocationVal",
+            "name": "statForUnspentLocationVal",
             "params": [
-              1,
-              "power"
+              "power",
+              "fundsPerBlock",
+              1
             ]
           },
           {
@@ -5164,8 +5165,8 @@
           {
             "name": "cardNumStatMultiplier",
             "params": [
-              "development",
               36,
+              "development",
               2
             ]
           }
@@ -5206,8 +5207,8 @@
           {
             "name": "cardNumStatMultiplier",
             "params": [
-              "development",
               36,
+              "development",
               2
             ]
           }
@@ -5248,8 +5249,8 @@
           {
             "name": "cardNumStatMultiplier",
             "params": [
-              "development",
               36,
+              "development",
               2
             ]
           }
@@ -5290,8 +5291,8 @@
           {
             "name": "cardNumStatMultiplier",
             "params": [
-              "development",
               36,
+              "development",
               2
             ]
           }
@@ -5332,8 +5333,8 @@
           {
             "name": "cardNumStatMultiplier",
             "params": [
-              "development",
               36,
+              "development",
               2
             ]
           }
@@ -6751,10 +6752,11 @@
             "name": "unique"
           },
           {
-            "name": "fpbForUnspentLocationVal",
+            "name": "statForUnspentLocationVal",
             "params": [
-              1,
-              "space"
+              "space",
+              "fundsPerBlock",
+              1
             ]
           }
         ],
@@ -7228,7 +7230,7 @@
       "1": {
         "ID": "8",
         "acceptedTags": [
-          "asicMount"
+          "asic"
         ],
         "cost": {
           "containerSpace": 0,
