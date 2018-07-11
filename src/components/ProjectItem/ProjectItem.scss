@@ -8,7 +8,7 @@
     &.normal .rarity-ring { display: none; }
     &.blue .rarity-ring { stroke: $blue-rarity; }
     &.gold .rarity-ring { stroke: $gold-rarity; }
-    &.red .rarity-ring { stroke: $red-rarity; }
+    &.purple .rarity-ring { stroke: $purple-rarity; }
   }
 
   &:hover .projects-item-wrapper .actions {

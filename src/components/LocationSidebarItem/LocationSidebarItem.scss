@@ -100,9 +100,9 @@
   }
 
   .rarity-border {
-    &.red svg {
-      .outer-ring { stroke: $red-rarity; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $red-rarity; } }
+    &.gold svg {
+      .outer-ring { stroke: $gold-rarity; }
+      .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
     }
 
     &.blue svg {
@@ -110,9 +110,9 @@
       .horizontal-lines, .bars, .right-line { stop { stop-color: $blue-rarity; } }
     }
 
-    &.gold svg .outer-ring {
-      .outer-ring { stroke: $gold-rarity; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
+    &.purple svg {
+      .outer-ring { stroke: $purple-rarity; }
+      .horizontal-lines, .bars, .right-line { stop { stop-color: $purple-rarity; } }
     }
   }
 
