@@ -35,30 +35,16 @@ class ProjectItem extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      mainCard, index, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
-      openConfirmRemoveModal, modifiedFundsBonus, dragItem, globalStats, projectExecutionTimePercent,
+      card, index, expiryTime, showFpb, activateProject, blockNumber,
+      openConfirmRemoveModal, dragItem, globalStats, projectExecutionTimePercent,
       draggingCard,
     } = this.props;
+    const isActive = card.running;
+    const isFinished = card.timesFinished > 0;
 
-    const draggingDuplicate = dragItem && (dragItem.card.metadataId === mainCard.metadata.id);
-    const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
-
-    let timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
-    // remove when refactor is over
-    if (timeLeft < 0) timeLeft = 1;
-
-    const cardFundsBonus = mainCard.bonus.funds;
-    const metadataId = mainCard.metadata.id;
-    let fpb = 0;
-
-    if (metadataId === '30' || metadataId === '27' || metadataId === '29' || metadataId === '37' || metadataId === '24') fpb = modifiedFundsBonus; // eslint-disable-line
-    else fpb = cardFundsBonus;
-
-    const xpb = mainCard.bonus.xp;
-
-    const alteredMainCard = JSON.parse(JSON.stringify(mainCard));
-
-    if (metadataId === '37' || metadataId === '24') alteredMainCard.bonus.funds = modifiedFundsBonus;
+    const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
+    const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(card, globalStats);
+    const timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
 
     return (
       <div
@@ -67,7 +53,7 @@ class ProjectItem extends Component {
           ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
           ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
           rarity-border
-          ${classForRarity(mainCard.rarityScore)}
+          ${classForRarity(card.rarityScore)}
         `}
         ref={(ref) => { this.myRef = ref; }}
       >
@@ -78,11 +64,11 @@ class ProjectItem extends Component {
             !draggingCard &&
             showPortal &&
             <PortalWrapper>
-              <HoverInfo card={alteredMainCard} parent={this.myRef} type="project" />
+              <HoverInfo card={card} parent={this.myRef} type="project" />
             </PortalWrapper>
           }
 
-          <ProjectItemVector active={isActive} id={mainCard.id} image={`cardImages/${mainCard.image}`} />
+          <ProjectItemVector active={isActive} id={card.id} image={`cardImages/${card.image}`} />
 
           {
             isActive &&
@@ -91,14 +77,14 @@ class ProjectItem extends Component {
                 strokeWidth="7"
                 strokeColor="#FF9D14"
                 trailColor="transparent"
-                percent={calculatePercent(timeLeft, mainCard.cost.time)}
+                percent={calculatePercent(timeLeft, card.cost.time)}
               />
             </div>
           }
 
           {
             !isActive && isFinished &&
-            <div className="repeat-project" onClick={() => activateProject(mainCard, index)}>
+            <div className="repeat-project" onClick={() => activateProject(card, index)}>
               <img
                 draggable={false}
                 className="project-check"
@@ -115,7 +101,7 @@ class ProjectItem extends Component {
               onMouseLeave={() => { togglePortal(false); }}
             >
               <InfoCardIcon />
-              <ProjectPill id={mainCard.id} />
+              <ProjectPill id={card.id} />
             </div>
 
             {
@@ -123,10 +109,10 @@ class ProjectItem extends Component {
               <div className="project-pill-close">
                 <DropCardIcon
                   onClick={() => {
-                    openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
+                    openConfirmRemoveModal(undefined, undefined, undefined, undefined, card, index);
                   }}
                 />
-                <ProjectPill id={mainCard.id} />
+                <ProjectPill id={card.id} />
               </div>
             }
           </div>
@@ -137,22 +123,19 @@ class ProjectItem extends Component {
 }
 
 ProjectItem.defaultProps = {
-  mainCard: null,
+  card: null,
   dragItem: null,
   draggingCard: false,
 };
 
 ProjectItem.propTypes = {
-  mainCard: PropTypes.object,
+  card: PropTypes.object,
   index: PropTypes.number.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  isFinished: PropTypes.bool.isRequired,
   showFpb: PropTypes.bool,
   activateProject: PropTypes.func.isRequired,
   openConfirmRemoveModal: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
-  modifiedFundsBonus: PropTypes.number.isRequired,
   dragItem: PropTypes.object,
   globalStats: PropTypes.object.isRequired,
   projectExecutionTimePercent: PropTypes.number.isRequired,

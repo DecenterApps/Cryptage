@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleProjectDrop } from '../../actions/dropActions';
+import { handleAssetDrop } from '../../actions/dropActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import ProjectItem from '../ProjectItem/ProjectItem';
 import EmptyProjectSlot from '../EmptyProjectSlot/EmptyProjectSlot';
@@ -11,7 +11,7 @@ import { GP_LEADERBOARD, GP_LOCATION_COLLECTION } from '../../actions/actionType
 
 import './Projects.scss';
 
-const Projects = ({ projects, handleProjectDrop, gameplayView }) => (
+const Projects = ({ projects, handleAssetDrop, gameplayView }) => (
   <div className="projects-wrapper">
     <Menu />
 
@@ -29,7 +29,7 @@ const Projects = ({ projects, handleProjectDrop, gameplayView }) => (
           <div key="active-projects-wrapper" className="active-projects-wrapper">
             <DropSlotsWrapper
               dropSlots={projects}
-              onItemDrop={handleProjectDrop}
+              onItemDrop={handleAssetDrop}
               element={<ProjectItem />}
               emptyStateElem={<EmptyProjectSlot />}
               mainClass="projects-slots-wrapper"
@@ -42,7 +42,7 @@ const Projects = ({ projects, handleProjectDrop, gameplayView }) => (
 
 Projects.propTypes = {
   projects: PropTypes.array.isRequired,
-  handleProjectDrop: PropTypes.func.isRequired,
+  handleAssetDrop: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
 };
 
@@ -53,7 +53,7 @@ const mapStateToProps = ({ gameplay }) => ({
 });
 
 const mapDispatchToProp = {
-  handleProjectDrop,
+  handleAssetDrop,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Projects);

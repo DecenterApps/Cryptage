@@ -22,6 +22,29 @@ const HoverInfo = ({
   const position = { top: 0, left: 0 };
   const isDesktop = window.innerWidth >= DESKTOP_WIDTH;
   const uniqueId = guid();
+  let displayCard = null;
+
+  if (card.bonus) {
+    if (card.type === 'Project') {
+      const bonus = Object.keys(card.bonus).reduce((_newObj, key) => {
+        const newObj = _newObj;
+        if (card.additionalBonuses[key]) newObj[key] = card.getGainsStatValue(key);
+        return newObj;
+      }, {});
+
+      displayCard = { ...card, bonus };
+    } else {
+      const bonus = Object.keys(card.bonus).reduce((_newObj, key) => {
+        const newObj = _newObj;
+        if (card.additionalBonuses[key]) newObj[key] = card.getBonusStatValue(key);
+        return newObj;
+      }, {});
+
+      displayCard = { ...card, bonus };
+    }
+  } else {
+    displayCard = { ...card };
+  }
 
   if (parent) {
     const parentPos = parent.getBoundingClientRect();
@@ -40,184 +63,182 @@ const HoverInfo = ({
   if (type === 'asset') position.left += 190;
   if (type === 'asset' && isDesktop) position.left += 100;
 
-  if (type === 'project') position.left -= 250;
+  if (type === 'project') position.left -= 350;
   if (type === 'project' && isDesktop) position.left -= 120;
 
   if (type === 'location') position.left += 215;
   if (type === 'location' && isDesktop) position.left += 120;
 
-  const showCost = Object.keys(card.cost).filter((key) => {
-    const valOverZero = key !== 'space' && key !== 'level' && card.cost[key] > 0;
-    const spaceOverOne = key === 'space' && card.cost[key] > 1;
-    const levelOverOne = key === 'level' && card.cost[key] > 1;
+  const showCost = Object.keys(displayCard.cost).filter((key) => {
+    const valOverZero = key !== 'space' && key !== 'level' && displayCard.cost[key] > 0;
+    const spaceOverOne = key === 'space' && displayCard.cost[key] > 1;
+    const levelOverOne = key === 'level' && displayCard.cost[key] > 1;
     const hideTime = key !== 'time';
     return hideTime && (spaceOverOne || levelOverOne || valOverZero);
   }).length > 0;
 
   return (
     <div
-      className={`card-hover-info-wrapper ${center && 'center'} ${card.type.toLowerCase()}`}
+      className={`card-hover-info-wrapper ${center && 'center'} ${displayCard.type.toLowerCase()}`}
       style={{ top: position.top, left: position.left }}
     >
       <div
         className="inner-wrapper"
       >
 
-        <div className={`rarity-overlay ${classForRarity(card.rarityScore)}`} />
+        <div className={`rarity-overlay ${classForRarity(displayCard.rarityScore)}`} />
 
         <LargeCardMain
-          typeColor={typeGradients[card.type.toLowerCase()][0]}
-          rarityColor={rarities[classForRarity(card.rarityScore)]}
-          id={card.id}
-          image={`cardImages/${card.image}`}
+          typeColor={typeGradients[displayCard.type.toLowerCase()][0]}
+          rarityColor={rarities[classForRarity(displayCard.rarityScore)]}
+          id={displayCard.id}
+          image={`cardImages/${displayCard.image}`}
         />
 
         <div className="card-level-wrapper">
           <span className="card-level-text">Level</span>
-          <span className="card-level-val">{card.level}</span>
+          <span className="card-level-val">{displayCard.level}</span>
         </div>
 
-        <div className="card-title">{card.title}</div>
-        <div className="card-type">{card.type}</div>
+        <div className="card-title">{displayCard.title}</div>
+        <div className="card-type">{displayCard.type}</div>
 
         {
-          card.cost &&
+          displayCard.cost &&
           showCost &&
           <div className="cost" data-name="Requires">
             {
-              card.cost.space > 1 &&
+              displayCard.cost.space > 1 &&
               <div
                 data-name="SPACE"
-                className={`orb space ${classForNumber(card.cost.space)}`}
+                className={`orb space ${classForNumber(displayCard.cost.space)}`}
               >
-                {formatBigNumber(card.cost.space)}
+                {formatBigNumber(displayCard.cost.space)}
               </div>
             }
             {
-              card.cost.power > 0 &&
+              displayCard.cost.power > 0 &&
               <div
                 data-name="POWER"
-                className={`orb power ${classForNumber(card.cost.power)}`}
+                className={`orb power ${classForNumber(displayCard.cost.power)}`}
               >
-                {formatBigNumber(card.cost.power)}
+                {formatBigNumber(displayCard.cost.power)}
               </div>
             }
             {
-              card.cost.funds > 0 &&
+              displayCard.cost.funds > 0 &&
               <div
                 data-name="FUNDS"
-                className={`orb funds ${classForNumber(card.cost.funds)}`}
+                className={`orb funds ${classForNumber(displayCard.cost.funds)}`}
               >
-                {formatBigNumber(card.cost.funds)}
+                {formatBigNumber(displayCard.cost.funds)}
               </div>
             }
             {
-              card.cost.level > 1 &&
+              displayCard.cost.level > 1 &&
               <div
                 data-name="LEVEL"
-                className={`orb level ${classForNumber(card.cost.level)}`}
+                className={`orb level ${classForNumber(displayCard.cost.level)}`}
               >
-                {formatBigNumber(card.cost.level)}
+                {formatBigNumber(displayCard.cost.level)}
               </div>
             }
 
             {
-              card.cost.development > 0 &&
+              displayCard.cost.development > 0 &&
               <div
                 data-name="DEV"
-                className={`orb development ${classForNumber(card.cost.development)}`}
+                className={`orb development ${classForNumber(displayCard.cost.development)}`}
               >
-                {formatBigNumber(card.cost.development)}
+                {formatBigNumber(displayCard.cost.development)}
               </div>
             }
           </div>
         }
         {
-          (card.values || card.bonus) &&
-          card.type !== 'Container' &&
+          (displayCard.values || displayCard.bonus) &&
+          displayCard.type !== 'Container' &&
           <div className="gains" data-name="Gains">
             {
-              card.values &&
-              card.values.space > 0 &&
+              displayCard.values &&
+              displayCard.values.space > 0 &&
               <div
                 data-name="SPACE"
-                className={`orb space ${classForNumber(card.values.space)}`}
+                className={`orb space ${classForNumber(displayCard.values.space)}`}
               >
-                {formatBigNumber(card.values.space)}
+                {formatBigNumber(displayCard.values.space)}
               </div>
             }
             {
-              card.values &&
-              card.values.power > 0 &&
+              displayCard.values &&
+              displayCard.values.power > 0 &&
               <div
                 data-name="POWER"
-                className={`orb power ${classForNumber(card.values.power)}`}
+                className={`orb power ${classForNumber(displayCard.values.power)}`}
               >
-                {formatBigNumber(card.values.power)}
+                {formatBigNumber(displayCard.values.power)}
               </div>
             }
             {
-              card.bonus &&
-              card.bonus.funds > 0 &&
-              card.metadataId !== '43' &&
+              displayCard.bonus &&
+              displayCard.bonus.fundsPerBlock > 0 &&
               <div
-                data-name={fpbCardIds.includes(card.metadataId) ? 'FPB' : 'FUNDS'}
-                className={`orb funds ${classForNumber(card.bonus.funds)}`}
+                data-name="FPB"
+                className={`orb funds ${classForNumber(displayCard.bonus.fundsPerBlock)}`}
               >
-                {formatBigNumber(card.bonus.funds)}
+                {formatBigNumber(displayCard.bonus.fundsPerBlock)}
               </div>
             }
             {
-              card.bonus &&
-              card.bonus.funds > 0 &&
-              card.metadataId === '43' &&
+              displayCard.bonus &&
+              displayCard.bonus.funds > 0 &&
               <div
-                data-name={fpbCardIds.includes(card.metadataId) ? 'FPB' : 'FUNDS'}
-                className={`orb funds ${classForNumber(card.bonus.multiplierFunds)}`}
+                data-name={displayCard.bonus.funds === 1 ? 'FUND' : 'FUNDS'}
+                className={`orb funds ${classForNumber(displayCard.bonus.funds)}`}
               >
-                {formatBigNumber(card.bonus.multiplierFunds)}
+                {formatBigNumber(displayCard.bonus.funds)}
               </div>
             }
             {
-              card.bonus &&
-              card.bonus.xp > 0 &&
+              displayCard.bonus &&
+              displayCard.bonus.experience > 0 &&
               <div
                 data-name="XP"
-                className={`orb xp ${classForNumber(card.bonus.xp)}`}
+                className={`orb xp ${classForNumber(displayCard.bonus.experience)}`}
               >
-                {formatBigNumber(card.bonus.xp)}
+                {formatBigNumber(displayCard.bonus.experience)}
               </div>
             }
             {
-              card.bonus &&
-              card.bonus.power > 0 &&
+              displayCard.bonus &&
+              displayCard.bonus.power > 0 &&
               <div
                 data-name="POWER"
-                className={`orb power ${classForNumber(card.bonus.power)}`}
+                className={`orb power ${classForNumber(displayCard.bonus.power)}`}
               >
-                {formatBigNumber(card.bonus.power)}
+                {formatBigNumber(displayCard.bonus.power)}
               </div>
             }
             {
-              card.bonus &&
-              card.bonus.development > 0 &&
+              displayCard.bonus &&
+              displayCard.bonus.development > 0 &&
               <div
                 data-name="DEV"
-                className={`orb development ${classForNumber(card.bonus.development)}`}
+                className={`orb development ${classForNumber(displayCard.bonus.development)}`}
               >
-                {formatBigNumber(card.bonus.development)}
+                {formatBigNumber(displayCard.bonus.development)}
               </div>
             }
 
 
             <div className="description">
               {
-                card.mechanicsText &&
-                <p className="mechanics">{card.mechanicsText}{/**/}</p>
+                displayCard.mechanicsText &&
+                <p className="mechanics">{displayCard.mechanicsText}{/**/}</p>
               }
               {
-                card.flavorText &&
-                <p className="flavor">&ldquo;{card.flavorText}&ldquo;</p>
+                displayCard.flavorText &&
+                <p className="flavor">&ldquo;{displayCard.flavorText}&ldquo;</p>
               }
             </div>
           </div>

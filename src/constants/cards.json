@@ -28,11 +28,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+§          "fundsPerBlock": 0,
           "power": 5,
-          "space": 40,
-          "xp": 0
+          "space": 40
         }
       },
       "2": {
@@ -62,11 +62,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 5,
-          "space": 50,
-          "xp": 0
+          "space": 50
         }
       },
       "3": {
@@ -96,11 +96,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 10,
-          "space": 50,
-          "xp": 0
+          "space": 50
         }
       },
       "4": {
@@ -130,11 +130,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 10,
-          "space": 60,
-          "xp": 0
+          "space": 60
         }
       },
       "5": {
@@ -164,11 +164,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 15,
-          "space": 60,
-          "xp": 0
+          "space": 60
         }
       }
     },
@@ -200,11 +200,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 60,
-          "xp": 0
+          "space": 60
         }
       },
       "2": {
@@ -234,11 +234,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 70,
-          "xp": 0
+          "space": 70
         }
       },
       "3": {
@@ -268,11 +268,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 80,
-          "xp": 0
+          "space": 80
         }
       },
       "4": {
@@ -302,11 +302,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 90,
-          "xp": 0
+          "space": 90
         }
       },
       "5": {
@@ -336,11 +336,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 100,
-          "xp": 0
+          "space": 100
         }
       }
     },
@@ -351,11 +351,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 6,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 6,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -383,11 +383,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 8,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 8,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -415,11 +415,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 10,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 10,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -447,11 +447,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 12,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 12,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -479,11 +479,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 14,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 14,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -513,11 +513,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 20,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 20,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -545,11 +545,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 30,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 30,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -577,11 +577,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 40,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 40,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -609,11 +609,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 50,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 50,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -641,11 +641,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 60,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 60,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -675,11 +675,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 2,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -707,11 +707,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 3,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -739,11 +739,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 4,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -771,11 +771,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 5,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -803,11 +803,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 6,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -837,11 +837,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 4,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -869,11 +869,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 6,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -901,11 +901,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 8,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -933,11 +933,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 10,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -965,11 +965,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 12,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -999,11 +999,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 10,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1031,11 +1031,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 15,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1063,11 +1063,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 20,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1095,11 +1095,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 25,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1127,11 +1127,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 30,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1161,11 +1161,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 22,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1193,11 +1193,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 30,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1225,11 +1225,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 38,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1257,11 +1257,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 46,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1289,11 +1289,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 54,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1323,11 +1323,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 46,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1368,11 +1368,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 56,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1413,11 +1413,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 66,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1458,11 +1458,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 76,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1503,11 +1503,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 86,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1550,11 +1550,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 72,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1593,11 +1593,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 82,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1636,11 +1636,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 92,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1679,11 +1679,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 102,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1722,11 +1722,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 112,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1767,11 +1767,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 16,
-          "fpb": 10,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 10,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1799,11 +1799,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 24,
-          "fpb": 15,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 15,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1831,11 +1831,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 32,
-          "fpb": 20,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 20,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1863,11 +1863,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 40,
-          "fpb": 25,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 25,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1895,11 +1895,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 48,
-          "fpb": 30,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 30,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1929,11 +1929,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 12,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -1966,11 +1966,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 16,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2003,11 +2003,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 20,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2040,11 +2040,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 24,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2077,11 +2077,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 28,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2137,11 +2137,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 24,
-          "space": 80,
-          "xp": 0
+          "space": 80
         }
       },
       "2": {
@@ -2171,11 +2171,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 24,
-          "space": 100,
-          "xp": 0
+          "space": 100
         }
       },
       "3": {
@@ -2205,11 +2205,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 30,
-          "space": 100,
-          "xp": 0
+          "space": 100
         }
       },
       "4": {
@@ -2239,11 +2239,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 30,
-          "space": 120,
-          "xp": 0
+          "space": 120
         }
       },
       "5": {
@@ -2273,11 +2273,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 36,
-          "space": 120,
-          "xp": 0
+          "space": 120
         }
       }
     },
@@ -2288,11 +2288,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 56,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2325,11 +2325,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 72,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2362,11 +2362,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 96,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2399,11 +2399,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 120,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2436,11 +2436,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 144,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2475,11 +2475,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 192,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2512,11 +2512,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 288,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2549,11 +2549,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 384,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2586,11 +2586,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 480,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2623,11 +2623,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 576,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2662,11 +2662,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 1,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2712,11 +2712,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 10,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 10,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2762,11 +2762,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 1,
           "funds": 1,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 1
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2794,11 +2794,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 1,
           "funds": 2,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 1
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2826,11 +2826,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 2,
           "funds": 2,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 2
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2858,11 +2858,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 2,
           "funds": 3,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 2
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2890,11 +2890,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 3,
           "funds": 3,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 3
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2924,11 +2924,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 50,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2956,11 +2956,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 60,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -2988,11 +2988,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 70,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3020,11 +3020,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 80,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3052,11 +3052,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 90,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3086,11 +3086,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 16,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 16
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3126,11 +3126,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 16,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 16
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3166,11 +3166,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 16,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 16
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3206,11 +3206,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 16,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 16
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3246,11 +3246,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 16,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 16
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3288,11 +3288,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 32,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 32
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3330,11 +3330,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 32,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 32
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3372,11 +3372,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 32,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 32
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3414,11 +3414,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 32,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 32
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3456,11 +3456,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 32,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 32
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3500,11 +3500,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 256,
           "funds": 32000,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 256
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3532,11 +3532,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 256,
           "funds": 34000,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 256
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3564,11 +3564,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 256,
           "funds": 36000,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 256
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3596,11 +3596,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 256,
           "funds": 38000,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 256
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3628,11 +3628,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 256,
           "funds": 40000,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 256
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3662,11 +3662,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 1000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 1000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3712,11 +3712,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 1000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 1000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3762,11 +3762,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 1000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 1000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3812,11 +3812,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 1000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 1000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3862,11 +3862,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 1000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 1000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -3935,11 +3935,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 48,
-          "space": 120,
-          "xp": 0
+          "space": 120
         }
       },
       "2": {
@@ -3969,11 +3969,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 48,
-          "space": 140,
-          "xp": 0
+          "space": 140
         }
       },
       "3": {
@@ -4003,11 +4003,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 70,
-          "space": 140,
-          "xp": 0
+          "space": 140
         }
       },
       "4": {
@@ -4037,11 +4037,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 70,
-          "space": 160,
-          "xp": 0
+          "space": 160
         }
       },
       "5": {
@@ -4071,11 +4071,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 92,
-          "space": 160,
-          "xp": 0
+          "space": 160
         }
       }
     },
@@ -4086,11 +4086,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4127,11 +4127,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4168,11 +4168,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4209,11 +4209,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4250,11 +4250,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4293,11 +4293,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 8000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 8000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4333,11 +4333,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 12000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 12000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4373,11 +4373,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 16000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 16000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4413,11 +4413,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 20000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 20000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4453,11 +4453,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 24000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 24000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4495,11 +4495,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 16000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 16000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4527,11 +4527,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 24000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 24000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4559,11 +4559,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 32000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 32000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4591,11 +4591,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 40000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 40000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4623,11 +4623,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 48000,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 48000
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -4657,11 +4657,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 6,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 6,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4689,11 +4689,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 7,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 7,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4721,11 +4721,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 8,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 8,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4753,11 +4753,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 9,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 9,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4785,11 +4785,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 10,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 10,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4819,11 +4819,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 6,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 6,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4851,11 +4851,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 7,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 7,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4883,11 +4883,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 8,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 8,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4915,11 +4915,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 9,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 9,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4947,11 +4947,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 10,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 10,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -4981,11 +4981,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 4,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 4,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -5013,11 +5013,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 5,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 5,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -5045,11 +5045,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 6,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 6,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -5077,11 +5077,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 7,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 7,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -5109,11 +5109,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 8,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 8,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -5143,11 +5143,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 4,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5185,11 +5185,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 6,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5227,11 +5227,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 8,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5269,11 +5269,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 10,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5311,11 +5311,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 12,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5355,11 +5355,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 4,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5387,11 +5387,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 6,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5419,11 +5419,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 8,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5451,11 +5451,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 10,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5483,11 +5483,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 4,
           "funds": 12,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 4
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5538,11 +5538,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 120,
-          "space": 320,
-          "xp": 0
+          "space": 320
         }
       },
       "2": {
@@ -5572,11 +5572,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 120,
-          "space": 360,
-          "xp": 0
+          "space": 360
         }
       },
       "3": {
@@ -5606,11 +5606,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 144,
-          "space": 360,
-          "xp": 0
+          "space": 360
         }
       },
       "4": {
@@ -5640,11 +5640,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 144,
-          "space": 400,
-          "xp": 0
+          "space": 400
         }
       },
       "5": {
@@ -5674,11 +5674,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 168,
-          "space": 400,
-          "xp": 0
+          "space": 400
         }
       }
     },
@@ -5689,11 +5689,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5734,11 +5734,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5779,11 +5779,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5824,11 +5824,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5869,11 +5869,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -5937,11 +5937,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 72,
-          "space": 160,
-          "xp": 0
+          "space": 160
         }
       },
       "2": {
@@ -5971,11 +5971,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 72,
-          "space": 200,
-          "xp": 0
+          "space": 200
         }
       },
       "3": {
@@ -6005,11 +6005,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 96,
-          "space": 200,
-          "xp": 0
+          "space": 200
         }
       },
       "4": {
@@ -6039,11 +6039,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 96,
-          "space": 240,
-          "xp": 0
+          "space": 240
         }
       },
       "5": {
@@ -6073,11 +6073,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 120,
-          "space": 240,
-          "xp": 0
+          "space": 240
         }
       }
     },
@@ -6088,11 +6088,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6131,11 +6131,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6174,11 +6174,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6217,11 +6217,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6260,11 +6260,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6305,11 +6305,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6347,11 +6347,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6389,11 +6389,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6431,11 +6431,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6473,11 +6473,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6517,11 +6517,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6559,11 +6559,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6601,11 +6601,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6643,11 +6643,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6685,11 +6685,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6729,11 +6729,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 1,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 1,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6776,11 +6776,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 4,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6818,11 +6818,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 6,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6860,11 +6860,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 8,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6902,11 +6902,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 10,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -6944,11 +6944,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 12,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 0,
@@ -7009,11 +7009,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 96,
-          "space": 240,
-          "xp": 0
+          "space": 240
         }
       },
       "2": {
@@ -7043,11 +7043,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 96,
-          "space": 280,
-          "xp": 0
+          "space": 280
         }
       },
       "3": {
@@ -7077,11 +7077,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 120,
-          "space": 280,
-          "xp": 0
+          "space": 280
         }
       },
       "4": {
@@ -7111,11 +7111,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 120,
-          "space": 320,
-          "xp": 0
+          "space": 320
         }
       },
       "5": {
@@ -7145,11 +7145,11 @@
         "values": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 144,
-          "space": 320,
-          "xp": 0
+          "space": 320
         }
       }
     },
@@ -7182,11 +7182,11 @@
         "values": {
           "containerSpace": 2,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 2,
-          "xp": 0
+          "space": 2
         }
       }
     },
@@ -7218,11 +7218,11 @@
         "values": {
           "containerSpace": 6,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 6,
-          "xp": 0
+          "space": 6
         }
       }
     },
@@ -7254,11 +7254,11 @@
         "values": {
           "containerSpace": 6,
           "development": 0,
-          "fpb": 0,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 0,
           "power": 0,
-          "space": 6,
-          "xp": 0
+          "space": 6
         }
       }
     },
@@ -7269,11 +7269,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 2,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 2,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -7301,11 +7301,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 3,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 3,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -7333,11 +7333,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 4,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 4,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -7365,11 +7365,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 5,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 5,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
@@ -7397,11 +7397,11 @@
         "bonus": {
           "containerSpace": 0,
           "development": 0,
-          "fpb": 6,
+          "experience": 0,
           "funds": 0,
+          "fundsPerBlock": 6,
           "power": 0,
-          "space": 0,
-          "xp": 0
+          "space": 0
         },
         "cost": {
           "containerSpace": 1,
