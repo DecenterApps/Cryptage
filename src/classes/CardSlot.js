@@ -21,12 +21,19 @@ export default class CardSlot {
 
   dropCard(state, card) {
     if (this.card) {
-      const leveledUp = this.card.levelUp(state, this);
+      const leveledUp = card.levelUp(state, this);
 
       const slottedCards = [];
       getAllSlottedCards(this.card, slottedCards);
 
       let newState = this.removeCard(state);
+
+      leveledUp.stackedCards.map((_stackedCard) => {
+        const stackedCard = _stackedCard;
+        stackedCard.slotted = true;
+        return stackedCard;
+      });
+
       newState = this.dropCard(newState, leveledUp);
 
       for (const [slot, card] of slottedCards) {

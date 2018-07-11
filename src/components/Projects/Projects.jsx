@@ -47,7 +47,7 @@ Projects.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  projects: gameplay.projectSlots,
+  projects: [...gameplay.projectSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
 });

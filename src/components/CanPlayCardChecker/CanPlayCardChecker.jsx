@@ -47,8 +47,8 @@ const mapStateToProps = ({ gameplay }) => ({
   globalStats: gameplay.stats,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
-  locations: gameplay.locationSlots,
-  projects: gameplay.projectSlots,
+  locations: [...gameplay.locationSlots],
+  projects: [...gameplay.projectSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
   activeContainerIndex: gameplay.activeContainerIndex,
 });

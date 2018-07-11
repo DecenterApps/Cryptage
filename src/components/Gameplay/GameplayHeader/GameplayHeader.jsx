@@ -89,7 +89,7 @@ const mapStateToProps = ({ gameplay }) => ({
   globalStats: gameplay.stats,
   nickname: gameplay.nickname,
   fundsPerBlock: gameplay.stats.fundsPerBlock,
-  projects: gameplay.projectSlots,
+  projects: [...gameplay.projectSlots],
 });
 
 export default connect(mapStateToProps)(GameplayHeader);

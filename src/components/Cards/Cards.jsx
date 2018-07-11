@@ -56,7 +56,9 @@ class Cards extends Component {
   }
 
   groupCardsByType(_cards) {
-    const cards = _cards.filter(card => !card.active);
+    const cards = _cards
+      .filter(card => !card.active)
+      .filter(card => !card.slotted);
 
     const noDupliactes = this.groupDuplicates(cards);
     const {
@@ -134,8 +136,8 @@ const mapStateToProps = ({ app, gameplay }) => ({
   cards: gameplay.cards,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
-  locations: gameplay.locationSlots,
-  projects: gameplay.projectSlots,
+  locations: [...gameplay.locationSlots],
+  projects: [...gameplay.projectSlots],
 });
 
 const mapDispatchToProps = {

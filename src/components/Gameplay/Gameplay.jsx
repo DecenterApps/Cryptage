@@ -47,7 +47,7 @@ const mapStateToProps = ({ gameplay }) => ({
   gameplayView: gameplay.gameplayView,
   activeLocationIndex: gameplay.activeLocationIndex,
   nickname: gameplay.nickname,
-  locationSlots: gameplay.locationSlots.filter(({ card }) => card !== undefined),
+  locationSlots: [...gameplay.locationSlots].filter(({ card }) => card !== undefined),
 });
 
 export default connect(mapStateToProps)(Gameplay);

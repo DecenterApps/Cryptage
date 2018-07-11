@@ -49,6 +49,7 @@ export default class Card extends Subscriber {
 
     this.dropSlots = [];
     this.stackedCards = [this];
+    this.slotted = false;
     this.isNew = false;
     this.active = false;
     this.parent = null;
@@ -146,6 +147,8 @@ export default class Card extends Subscriber {
 
   onPlay(state, dropSlot) {
     this.active = true;
+    this.stackedCards[0].slotted = true;
+
     return this._on('onPlay', state, dropSlot);
   }
 
@@ -173,7 +176,9 @@ export default class Card extends Subscriber {
     }
 
     while (this.stackedCards.length) {
-      this.stackedCards.pop().active = false;
+      const popped = this.stackedCards.pop();
+      popped.active = false;
+      popped.slotted = false;
     }
 
     this.unsubscribeAll();

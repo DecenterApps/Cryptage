@@ -163,63 +163,17 @@ export const formatSignature = (_signature) => {
 /**
  * Removes player cards that have been played
  *
- * @param {Array} _cards
- * @param {Function} getState
+ * @param {Array} stateCards
+ * @param {Array} _contractCards
  * @return {Array}
  */
-export const removePlayedCards = (_cards, getState) => {
-  const { locations, projects } = getState().gameplay;
-  const cards = [..._cards];
+export const removePlayedCards = (stateCards, _contractCards) =>
+  _contractCards.map((contractCard) => {
+    const foundCardInState = stateCards.find(stateCard => contractCard.id === stateCard.id);
 
-  locations.forEach(({ lastDroppedItem }) => {
-    if ((lastDroppedItem !== null) && typeof (lastDroppedItem === 'object')) {
-      // remove location cards from player cards
-      lastDroppedItem.cards.forEach((locationCard) => {
-        const playedLocationCardIndex = cards.findIndex(_card => _card.id === locationCard.id);
-        cards.splice(playedLocationCardIndex, 1);
-      });
-
-      // remove asset cards from location drop slots
-      lastDroppedItem.dropSlots.forEach((locationItemSlot) => {
-        const locationItem = locationItemSlot.lastDroppedItem;
-
-        if ((locationItem !== null) && typeof (locationItem === 'object')) {
-          locationItemSlot.lastDroppedItem.cards.forEach((locationItemCard) => {
-            const playedLocationCardIndex = cards.findIndex(_card => _card.id === locationItemCard.id);
-            cards.splice(playedLocationCardIndex, 1);
-
-            // remove miner cards
-            if (locationItemCard.stats.type === 'Container') {
-              locationItem.dropSlots.forEach((containerDropSlot) => {
-                const minerItem = containerDropSlot.lastDroppedItem;
-
-                if ((minerItem !== null) && typeof (minerItem === 'object')) {
-                  minerItem.cards.forEach((minerCard) => {
-                    const playedMinerCardIndex = cards.findIndex(_card => _card.id === minerCard.id);
-                    cards.splice(playedMinerCardIndex, 1);
-                  });
-                }
-              });
-            }
-          });
-        }
-      });
-    }
+    if (!foundCardInState) return contractCard;
+    return foundCardInState;
   });
-
-  // remove project cards from project drop slots
-  projects.forEach(({ lastDroppedItem }) => {
-    if ((lastDroppedItem !== null) && typeof (lastDroppedItem === 'object')) {
-      lastDroppedItem.cards.forEach((projectCard) => {
-        const playedProjectCardIndex = cards.findIndex(_card => _card.id === projectCard.id);
-        cards.splice(playedProjectCardIndex, 1);
-      });
-    }
-  });
-
-  console.log('cards', cards);
-  return cards;
-};
 
 /**
  * Saves current gameplay state to localStorage for account

@@ -64,7 +64,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  locations: gameplay.locationSlots,
+  locations: [...gameplay.locationSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
   activeContainerIndex: gameplay.activeContainerIndex,
 });

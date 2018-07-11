@@ -184,9 +184,7 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     const userCards = await Promise.all(cardsIds.map(cardId => Card.getInstance(gameplay, cardId, 1)));
     const newLevelCards = await getNewLevelCards(gameplay, cardsIds);
 
-    const cards = [...userCards, ...newLevelCards];
-
-    // cards: removePlayedCards(cards, getState)
+    const cards = removePlayedCards(gameplay.cards, [...userCards, ...newLevelCards]);
     // set which cards are played from current state
 
     dispatch({ type: USERS_CARDS_SUCCESS, payload: cards });

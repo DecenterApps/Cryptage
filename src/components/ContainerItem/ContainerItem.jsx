@@ -79,7 +79,7 @@ ContainerItem.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  projects: gameplay.projectSlots,
+  projects: [...gameplay.projectSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
   blockNumber: gameplay.blockNumber,
   globalStats: gameplay.stats,
