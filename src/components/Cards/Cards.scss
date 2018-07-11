@@ -40,7 +40,7 @@
       max-width: 96px;
       flex: 1 1 100%;
       &:last-child {
-        width: auto;
+        min-width: 96px;
         margin-right: 10px !important;
       }
       &:hover {
@@ -87,10 +87,15 @@
   .card-type-wrapper {
     display: inline-flex;
     .card-type-title-wrapper {
-      width: 20px;
-      margin-right: 10px;
-      height: 90px;
+      width: 30px;
+      padding-right: 10px;
+      height: 122px;
       position: relative;
+      cursor: pointer;
+      transition: all .2s;
+      &:hover span {
+        left: 5px !important;
+      }
 
       //@include for-big-desktop {
       //  height: 130px;
@@ -99,7 +104,7 @@
       .card-type-title {
         font-family: $font-secondary;
         position: absolute;
-        bottom: -32px;
+        bottom: 0px;
         height: 0;
         transform: rotate(-90deg);
         transform-origin: top left;
@@ -110,7 +115,9 @@
         z-index: 1;
 
         span {
-          cursor: pointer;
+          left: 0px;
+          transition: all .2s;
+          position: relative;
         }
 
         .orb {
@@ -122,6 +129,7 @@
           position: absolute;
           bottom: -17px;
           left: -28px;
+          cursor: pointer;
         }
       }
     }

@@ -21,9 +21,9 @@ class CardsTabGroup extends React.Component {
 
     return (
       <div className="card-type-wrapper">
-        <div className="card-type-title-wrapper">
+        <div className="card-type-title-wrapper" onClick={toggleTab}>
           <h1 className="card-type-title">
-            <span onClick={toggleTab}>
+            <span>
               { typeToPluralMapping(title) }
             </span>
 

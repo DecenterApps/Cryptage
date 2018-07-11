@@ -14,7 +14,17 @@ const getClassForFont = (maxDev, available) => {
   if (sum > 7) return 'small';
   else if (sum > 5) return 'mid';
   return 'large';
-}
+};
+
+const formatFunds = (_number) => {
+  const number = parseFloat(_number);
+
+  if (number >= 1000000000) return `${number / 1000000000}b`;
+  if (number >= 1000000) return `${number / 1000000}m`;
+  if (number >= 10000) return `${number / 1000}k`;
+
+  return number.toString();
+};
 
 const GameplayHeader = ({
   blockNumber, globalStats, nickname, fundsPerBlock, projects,
@@ -63,7 +73,7 @@ const GameplayHeader = ({
         {/* Right section */}
         <div className="section">
           <div className="stats-wrapper funds">
-            <div>{ globalStats.funds }</div>
+            <div title={globalStats.funds}>{ formatFunds(globalStats.funds) }</div>
             <div className="smaller">
               { fundsPerBlock > 0 && '+' }
               { fundsPerBlock }
