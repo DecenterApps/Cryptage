@@ -28,19 +28,13 @@ class Cards extends Component {
 
   componentDidMount() {
     this.props.usersCardsFetch();
-
-    const that = this.innerCards;
-    $(that).mousewheel((event, delta) => {
-      that.scrollLeft -= (delta * 25);
-      event.preventDefault();
-    });
   }
 
   toggleTabOpen(tabName) {
     const newState = { ...this.state };
     const currentActive = Object.keys(newState.tabsToggleMap).find(t => newState.tabsToggleMap[t]);
-    console.log(currentActive);
-    if (currentActive !== tabName) newState.tabsToggleMap[currentActive] = false;
+    if (currentActive === tabName) return false;
+    newState.tabsToggleMap[currentActive] = false;
     newState.tabsToggleMap[tabName] = !newState.tabsToggleMap[tabName];
     this.setState(newState);
   }
@@ -85,7 +79,7 @@ class Cards extends Component {
 
     return (
       <div className="cards-wrapper">
-        <div className="cards-inner-wrapper" ref={(e) => { this.innerCards = e; }}>
+        <div className="cards-inner-wrapper">
           {
             cardsFetching &&
             <div className="loading-cards">

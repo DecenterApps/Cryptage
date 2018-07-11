@@ -35,7 +35,10 @@
       cursor: move;
       height: 100px;
       transition: all .2s;
-      width: 40px;
+      //width: 40px;
+      min-width: 40px;
+      max-width: 96px;
+      flex: 1 1 100%;
       &:last-child {
         width: auto;
         margin-right: 10px !important;
@@ -126,15 +129,20 @@
       display: flex;
       overflow: hidden;
       padding-top: 23px;
-      transition: width 0.3s ease-in;
+      transition: all 0.3s ease-in;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      transform: scale(1);
 
       &.closed {
         width: 0;
+        opacity: 0;
+        transform: scale(0.8);
       }
       &.open {
-        width: 100%;
+        width: 478px;
+        opacity: 1;
+        overflow-x: auto;
       }
     }
   }
