@@ -42,7 +42,6 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
 
     const newGameplay = gameplay.updateBlockNumber(gameplay, number);
     dispatch({ type: ON_NEW_BLOCK, payload: newGameplay });
-
     // dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
     // dispatch(checkProjectsExpiry());
   });

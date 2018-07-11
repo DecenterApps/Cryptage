@@ -217,6 +217,8 @@ export default class Card extends Subscriber {
     if (!result.allowed) return result;
 
     const instance = Card.getLeveledInstance(this.id, droppedCard);
+    if (!instance.cost) return { allowed: false };
+
     result.allowed = state.stats.funds >= instance.cost.funds;
 
     if (!result.allowed) return result;

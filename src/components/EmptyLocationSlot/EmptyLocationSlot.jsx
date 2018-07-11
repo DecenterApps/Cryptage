@@ -6,21 +6,17 @@ import EmptyHexagon from '../Decorative/EmptyHexagon';
 
 import './EmptyLocationSlot.scss';
 
-const EmptyLocationSlot = ({ card, globalStats }) => {
+const EmptyLocationSlot = ({ card, gameplay, slot }) => {
   let canDrop = false;
-  let goodCardType = false;
 
-  if (card) {
-    goodCardType = card.type === 'Location';
-    if (goodCardType) canDrop = checkIfCanPlayCard(card, globalStats, null);
-  }
+  if (card && slot) canDrop = slot.canDrop(gameplay, card).allowed;
 
   return (
     <div
       className={`
         empty-loc-slot-wrapper
-        ${(card && goodCardType && canDrop) && 'can-drop'}
-        ${(card && goodCardType && !canDrop) && 'no-drop'}
+        ${(card && canDrop) && 'can-drop'}
+        ${(card && !canDrop) && 'no-drop'}
       `}
     >
       <div className="empty-loc-slot">
@@ -32,15 +28,17 @@ const EmptyLocationSlot = ({ card, globalStats }) => {
 
 EmptyLocationSlot.defaultProps = {
   card: null,
+  slot: null,
 };
 
 EmptyLocationSlot.propTypes = {
   card: PropTypes.object,
-  globalStats: PropTypes.object.isRequired,
+  slot: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.stats,
+  gameplay,
 });
 
 export default connect(mapStateToProps)(EmptyLocationSlot);

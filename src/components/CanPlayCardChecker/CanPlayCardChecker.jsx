@@ -4,21 +4,11 @@ import PropTypes from 'prop-types';
 import HandCard from '../Cards/HandCard/HandCard';
 import { getAvailableCards, getCostErrors } from '../../services/gameMechanicsService';
 
-const CanPlayCardChecker = ({
-  card, globalStats, getAvailableCards, gameplayView, inGameplayView, locations, projects, activeLocationIndex,
-  activeContainerIndex,
-}) => {
+const CanPlayCardChecker = ({ card, locations, projects, gameplay }) => {
   if (!card) return (<div />);
 
-  let costErrors = null;
-  const activeLocation = card.type === 'Mining' ? locations[activeLocationIndex].lastDroppedItem : null;
-  const ignoreSpace = card.type === 'Mining';
-
-  const canDrop = getAvailableCards([card], gameplayView, inGameplayView, locations, projects).length === 1;
-
-  if (!canDrop) {
-    costErrors = getCostErrors(card, activeLocationIndex, activeContainerIndex, locations, projects, gameplayView, inGameplayView, globalStats, activeLocation, ignoreSpace); // eslint-disable-line
-  }
+  let canDrop = getCostErrors(card, locations, projects, gameplay);
+  const costErrors = {};
 
   return (
     <div className={`card-details type-${card.type.toLowerCase()}`}>
@@ -33,6 +23,7 @@ CanPlayCardChecker.defaultProps = {
 
 CanPlayCardChecker.propTypes = {
   card: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
   globalStats: PropTypes.object.isRequired,
   getAvailableCards: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
@@ -44,6 +35,7 @@ CanPlayCardChecker.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
+  gameplay,
   globalStats: gameplay.stats,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
