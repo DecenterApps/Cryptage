@@ -7,35 +7,18 @@ import UnavailableDropIcon from '../../Decorative/UnavailableDropIcon';
 
 import './EmptyCardSlot.scss';
 
-const EmptyCardSlot = ({
-  card, globalStats, activeLocation, acceptedType, activeContainerIndex, index,
-}) => {
+const EmptyCardSlot = ({ card, gameplay, slot }) => {
   let canDrop = false;
-  let goodCardType = false;
 
-  if (card) {
-    const { type } = card;
-
-    if (acceptedType === 'asset') goodCardType = type !== 'Location' && type !== 'Project' && type !== 'Mining';
-
-    // for miners you need to check if the container drop slot accepts that certain miner
-    if (acceptedType === 'mining') {
-      const { acceptedTags } = activeLocation.dropSlots[activeContainerIndex].card.dropSlots[index];
-      const goodSlotType = acceptedTags[0] === card.tags[0];
-
-      goodCardType = goodSlotType && type === 'Mining';
-    }
-
-    if (goodCardType) canDrop = checkIfCanPlayCard(card, globalStats, activeLocation, acceptedType === 'mining');
-  }
+  if (card && slot) canDrop = slot.canDrop(gameplay, card).allowed;
 
   return (
     <div
       className={`
         empty-slot-wrapper
         empty-asset-wrapper
-        ${(card && goodCardType && canDrop) && 'can-drop'}
-        ${(card && goodCardType && !canDrop) && 'no-drop'}
+        ${(card && canDrop) && 'can-drop'}
+        ${(card && !canDrop) && 'no-drop'}
       `}
     >
       {/*<div className="inner-empty-slot">*/}
@@ -96,22 +79,17 @@ const EmptyCardSlot = ({
 
 EmptyCardSlot.defaultProps = {
   card: null,
-  index: 0,
+  slot: null,
 };
 
 EmptyCardSlot.propTypes = {
   card: PropTypes.object,
-  globalStats: PropTypes.object.isRequired,
-  activeLocation: PropTypes.object.isRequired,
-  acceptedType: PropTypes.string.isRequired,
-  activeContainerIndex: PropTypes.number.isRequired,
-  index: PropTypes.number,
+  slot: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.stats,
-  activeContainerIndex: gameplay.activeContainerIndex,
-  activeLocation: [...gameplay.locationSlots][gameplay.activeLocationIndex].card,
+  gameplay
 });
 
 export default connect(mapStateToProps)(EmptyCardSlot);
