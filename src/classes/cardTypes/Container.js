@@ -6,7 +6,7 @@ export default class ContainerCard extends Card {
   constructor(data) {
     super(data);
 
-    this.dropSlots = data ? new Array(data.values.space) : null;
+    this.dropSlots = data ? new Array(data.values.containerSpace) : null;
     this.space = data ? data.values.space : null;
 
     this.mechanics.push(Mechanic.getInstance('container', this));

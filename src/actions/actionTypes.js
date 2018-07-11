@@ -78,6 +78,8 @@ export const SAVE_STATE_ERROR = 'save_state_error';
 
 // GAMEPLAY
 export const GENERATE_NEW_GAMEPLAY = 'generate_new_gameplay';
+export const ON_NEW_BLOCK = 'on_new_block';
+export const RESTART_PROJECT = 'restart_project';
 
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';

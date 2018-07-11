@@ -26,6 +26,7 @@ import {
   CHANGE_LOCATIONS_STATE,
   UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
   REMOVE_ASSET_SLOTS,
+  RESTART_PROJECT,
 } from './actionTypes';
 import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
@@ -213,36 +214,8 @@ export const setActiveLocation = payload => (dispatch, getState) => {
  * @return {Function}
  */
 export const activateProject = (card, index) => (dispatch, getState) => {
-  const { blockNumber } = getState().app;
-  const { projects, globalStats } = getState().gameplay;
-  const alteredProjects = [...projects];
-
-  if (!checkIfCanPlayCard(card, globalStats)) {
-    return dispatch(openNoRestartProjectModal(getMathErrors(card.stats, globalStats)));
-  }
-
-  if (card.stats.level > 1 && card.stats.cost.development > globalStats.development) {
-    return dispatch(openNoRestartProjectModal({ development: true, funds: false }));
-  }
-
-  alteredProjects[index].lastDroppedItem.isFinished = false;
-  alteredProjects[index].lastDroppedItem.isActive = true;
-  alteredProjects[index].lastDroppedItem.expiryTime = blockNumber +
-    alteredProjects[index].lastDroppedItem.mainCard.stats.cost.time;
-
-  const mathRes = handleCardMathematics(card, [], globalStats, index);
-  const alterGlobalStats = mathRes.globalStats;
-
-  // dispatch(playTurn({ card }, 'project', index, true));
-
-  dispatch({
-    type: CHANGE_PROJECT_STATE,
-    projects: alteredProjects,
-  });
-  dispatch({
-    type: UPDATE_GLOBAL_VALUES,
-    payload: alterGlobalStats,
-  });
+  const newState = card.restartProject(getState().gameplay);
+  dispatch({ type: RESTART_PROJECT, payload: newState });
   saveGameplayState(getState);
 };
 
@@ -283,28 +256,6 @@ export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOr
   }
 
   return fpb;
-};
-
-export const updateFundsBlockDifference = () => async (dispatch, getState) => {
-  console.log('updateFundsBlockDifference');
-  const { app: { account }, gameplay } = getState();
-
-  if (!account) return;
-
-  const previousState = serialize.deserialize(localStorage.getItem(`cryptage-${account}`));
-
-  if (previousState) {
-    const currentBlock = await ethService.getBlockNumber();
-    const blockDiff = currentBlock - previousState.blockNumber;
-    console.log(`Add ${previousState.fundsPerBlock} funds for ${blockDiff} blocks`);
-
-    const locations = [...gameplay.locations];
-    const globalStats = { ...gameplay.globalStats };
-
-    globalStats.funds += blockDiff * previousState.fundsPerBlock;
-
-    dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
-  }
 };
 
 /**

@@ -10,8 +10,8 @@ import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
-import { updateFundsBlockDifference, checkProjectsBonus } from '../../actions/gameplayActions';
-import { checkAccount, loadGameplayState } from '../../actions/stateActions';
+import { checkProjectsBonus } from '../../actions/gameplayActions';
+import { checkAccount } from '../../actions/stateActions';
 import {
   loadingEnded,
   listenForNewBlocks,
@@ -27,10 +27,8 @@ import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
-    // await this.props.loadGameplayState();
-    // await this.props.updateFundsBlockDifference();
-    // this.props.listenForNewBlocks();
-    // this.props.updateCurrentBlockNumber();
+    this.props.listenForNewBlocks();
+    this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
     // this.props.checkProjectsBonus();
   }
@@ -81,24 +79,20 @@ class App extends Component {
 
 App.propTypes = {
   checkAccount: PropTypes.func.isRequired,
-  loadGameplayState: PropTypes.func.isRequired,
   loadingEnded: PropTypes.func.isRequired,
   loadingApp: PropTypes.bool.isRequired,
   listenForNewBlocks: PropTypes.func.isRequired,
   updateCurrentBlockNumber: PropTypes.func.isRequired,
   accountError: PropTypes.string.isRequired,
-  updateFundsBlockDifference: PropTypes.func.isRequired,
   tutorialOpen: PropTypes.bool.isRequired,
   checkProjectsBonus: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
   checkAccount,
-  loadGameplayState,
   loadingEnded,
   listenForNewBlocks,
   updateCurrentBlockNumber,
-  updateFundsBlockDifference,
   checkProjectsBonus,
 };
 

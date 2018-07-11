@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import { activateProject, } from '../../actions/gameplayActions';
+import { activateProject } from '../../actions/gameplayActions';
 import { classForRarity, formatBigNumber } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';

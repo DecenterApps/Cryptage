@@ -1,5 +1,6 @@
 import {
   DROP_LOCATION,
+  ON_NEW_BLOCK,
   CHANGE_GAMEPLAY_VIEW,
   SET_ACTIVE_LOCATION,
   DROP_ASSET,
@@ -35,6 +36,7 @@ import {
   REMOVE_ASSET_SLOTS,
   DROP_CARD,
   GENERATE_NEW_GAMEPLAY,
+  RESTART_PROJECT,
 } from '../actions/actionTypes';
 import { mergeDeep } from '../services/utils';
 import config from '../constants/config.json';
@@ -83,7 +85,14 @@ export default (state = new Gameplay(0), action) => {
     case DROP_ASSET:
     case LOAD_STATE_FROM_STORAGE:
     case GENERATE_NEW_GAMEPLAY:
+    case RESTART_PROJECT:
       return new Gameplay(state.blockNumber, {
+        ...state,
+        ...payload,
+      });
+
+    case ON_NEW_BLOCK:
+      return new Gameplay(payload.blockNumber, {
         ...state,
         ...payload,
       });
@@ -207,6 +216,9 @@ export default (state = new Gameplay(0), action) => {
         nickname: payload,
       });
 
+    case UPDATE_BLOCK_NUMBER:
+      return new Gameplay(payload, { ...state });
+
     //
     // case UPDATE_FUNDS_PER_BLOCK:
     //   return { ...state, fundsPerBlock: payload };
@@ -214,8 +226,6 @@ export default (state = new Gameplay(0), action) => {
     // case UPDATE_LOCATIONS:
     //   return { ...state, locations: payload };
     //
-    // case UPDATE_BLOCK_NUMBER:
-    //   return { ...state, blockNumber: payload };
     //
     // case UPDATE_PROJECT_EXECUTION_TIME_PERCENT:
     //   return { ...state, projectExecutionTimePercent: payload };

@@ -6,6 +6,7 @@ import {
   TOGGLE_CARD_DRAG,
   CLEAR_STORE,
   TOGGLE_TUTORIAL,
+  ON_NEW_BLOCK,
 } from './actionTypes';
 import { getPlayedAssetCards } from '../services/utils';
 import { loadGameplayState, updateFundsBlockDifference } from '../actions/gameplayActions';
@@ -36,14 +37,14 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
   window.web3Subscriber.eth.subscribe('newBlockHeaders', async (error, _number) => {
     if (error) return console.error('newBlockHeaders listener error', error);
 
+    const { gameplay } = getState();
     const { number } = _number;
 
-    dispatch({ type: UPDATE_BLOCK_NUMBER, payload: number });
+    const newGameplay = gameplay.updateBlockNumber(gameplay, number);
+    dispatch({ type: ON_NEW_BLOCK, payload: newGameplay });
 
-    const { locations } = getState().gameplay;
-
-    dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
-    dispatch(checkProjectsExpiry());
+    // dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
+    // dispatch(checkProjectsExpiry());
   });
 };
 
