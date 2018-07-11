@@ -78,7 +78,7 @@ class ProjectItem extends Component {
             !draggingCard &&
             showPortal &&
             <PortalWrapper>
-              <HoverInfo card={alteredMainCard} parent={this.myRef} type="project" />
+              <HoverInfo card={alteredMainCard} center backdrop />
             </PortalWrapper>
           }
 

@@ -68,6 +68,7 @@
       display: flex;
       font-size: 0;
       z-index: 1;
+      padding: 0 5px;
       .location-name {
         text-transform: uppercase;
         line-height: 19px;
@@ -154,11 +155,12 @@
         .bar-label {
           position: absolute;
           color: white;
-          font-size: 10px;
+          font-size: 9px;
           width: 100%;
           padding: 0 10px;
           z-index: 1;
-          line-height: 12px;
+          line-height: 13px;
+          font-family: $font-primary;
 
           //@include for-big-desktop {
           //  margin-top: 1px;
@@ -167,15 +169,16 @@
 
           span {
             text-transform: uppercase;
-            font-weight: bold;
-            margin-right: 6px;
+            margin-right: 5px;
+            font-family: inherit;
           }
           &.left {
             text-align: right;
           }
         }
         .bar {
-          background-color: $red;
+          //background-color: $red;
+          background: linear-gradient(to right, rgba($red, 0) 0%, $red 15%);
           max-width: 225px;
           height: 12px;
           transform: skewX(-45deg);
@@ -188,12 +191,14 @@
 
           &.left {
             transform: skewX(45deg);
-            background-color: $blue;
+            //background-color: $blue;
+            background: linear-gradient(to left, rgba($blue, 0) 0%, $blue 15%);
             margin: 0 -1px 0 1px;
             float: right;
           }
           &.background {
-            background-color: #1C1935;
+            //background-color: #1C1935;
+            background: #1C1935;
             position: absolute;
             width: 100%;
           }

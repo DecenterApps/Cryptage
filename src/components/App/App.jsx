@@ -54,7 +54,7 @@ class App extends Component {
       );
     }
 
-    if (!nickname) {
+    if (!nickname && !accountError) {
       return (<Redirect to="/newuser" />);
     }
 

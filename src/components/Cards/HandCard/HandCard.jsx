@@ -52,6 +52,8 @@ class HandCard extends Component {
               parent={hoverCentered ? null : this.myRef}
               type={hoverCentered ? null : 'asset'}
               backdrop={hoverCentered}
+              showLevel={false}
+              delayHover
             />
           </PortalWrapper>
         }

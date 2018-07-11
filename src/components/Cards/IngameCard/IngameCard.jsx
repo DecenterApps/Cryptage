@@ -47,7 +47,6 @@ class IngameCard extends Component {
         onMouseEnter={() => {
           removeNewCardOnHover(card.metadata.id);
         }}
-        onMouseLeave={() => { togglePortal(false); }}
         onClick={(e) => {
           if (card.stats.type === 'Container' && played && goToContainer) goToContainer(e);
         }}
@@ -57,18 +56,17 @@ class IngameCard extends Component {
           !draggingCard &&
           showPortal &&
           <PortalWrapper>
-            <HoverInfo
-              card={card}
-              center={hoverCentered}
-              parent={hoverCentered ? null : this.myRef}
-              type={hoverCentered ? null : 'asset'}
-            />
+            <HoverInfo card={card} center backdrop />
           </PortalWrapper>
         }
 
-        <div className="level-wrapper">
-          <div className="level">{card.stats.level}</div>
-        </div>
+        {
+          card.stats.type !== 'Container' &&
+          card.stats.type !== 'Misc' &&
+          <div className="level-wrapper">
+            <div className="level">{card.stats.level}</div>
+          </div>
+        }
         <div className="overlay" />
         <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
         <svg className="card-image">
@@ -183,9 +181,8 @@ class IngameCard extends Component {
         >
           <div
             className="hover-info-wrapper"
-            onMouseEnter={() => {
-              togglePortal(true);
-            }}
+            onMouseEnter={() => { togglePortal(true); }}
+            onMouseLeave={() => { togglePortal(false); }}
           >
             <InfoCardIcon />
           </div>

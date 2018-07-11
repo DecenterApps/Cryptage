@@ -13,11 +13,17 @@ import formStyle from '../../../common/forms.scss';
 import './NicknameForm.scss';
 
 let NicknameForm = ({
-                      handleSubmit, pristine, invalid, submitFormError, submittingForm, nickname,
-                    }) => (
+  handleSubmit,
+  pristine,
+  invalid,
+  submitFormError,
+  submittingForm,
+  nickname,
+  accountError,
+}) => (
   <div className="nickname-form-wrapper">
     {
-      nickname && <Redirect to="/" />
+      (nickname || accountError) && <Redirect to="/" />
     }
     <p className="form-description-title">Welcome to</p>
     <div className="logo-wrapper" />
@@ -61,6 +67,8 @@ NicknameForm.propTypes = {
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   submittingForm: PropTypes.bool.isRequired,
+  nickname: PropTypes.string.isRequired,
+  accountError: PropTypes.string.isRequired,
 };
 
 NicknameForm = reduxForm({ form: 'nicknameForm', validate: nicknameFormValidator })(NicknameForm);
@@ -69,6 +77,7 @@ const mapStateToProps = ({ app, gameplay }) => ({
   submitFormError: app.nicknameError,
   submittingForm: app.submittingNickname,
   nickname: gameplay.nickname,
+  accountError: app.accountError,
 });
 
 const mapDispatchToProps = {

@@ -17,7 +17,7 @@ const classForNumber = (_number) => {
 };
 
 const HoverInfo = ({
-  card, center, parent, type, backdrop,
+  card, center, parent, type, backdrop, showLevel, delayHover,
 }) => {
   const position = { top: 0, left: 0 };
   const isDesktop = window.innerWidth >= DESKTOP_WIDTH;
@@ -40,11 +40,11 @@ const HoverInfo = ({
   if (type === 'asset') position.left += 190;
   if (type === 'asset' && isDesktop) position.left += 100;
 
-  if (type === 'project') position.left -= 250;
-  if (type === 'project' && isDesktop) position.left -= 120;
-
-  if (type === 'location') position.left += 215;
-  if (type === 'location' && isDesktop) position.left += 120;
+  // if (type === 'project') position.left -= 250;
+  // if (type === 'project' && isDesktop) position.left -= 120;
+  //
+  // if (type === 'location') position.left += 215;
+  // if (type === 'location' && isDesktop) position.left += 120;
 
   const showCost = Object.keys(card.stats.cost).filter((key) => {
     const valOverZero = key !== 'space' && key !== 'level' && card.stats.cost[key] > 0;
@@ -55,7 +55,11 @@ const HoverInfo = ({
   }).length > 0;
 
   return (
-    <div className={`card-hover-info-backdrop ${backdrop ? 'has-backdrop' : ''}`}>
+    <div className={`
+      card-hover-info-backdrop
+      ${backdrop ? 'has-backdrop' : ''}
+      ${delayHover ? 'delayed-backdrop' : ''}`}
+    >
       <div
         className={`card-hover-info-wrapper ${center && 'center'} ${card.stats.type.toLowerCase()}`}
         style={{ top: position.top, left: position.left }}
@@ -73,10 +77,15 @@ const HoverInfo = ({
             image={`cardImages/${card.stats.image}`}
           />
 
-          <div className="card-level-wrapper">
-            <span className="card-level-text">Level</span>
-            <span className="card-level-val">{card.stats.level}</span>
-          </div>
+          {
+            showLevel &&
+            card.stats.type !== 'Container' &&
+            card.stats.type !== 'Misc' &&
+            <div className="card-level-wrapper">
+              <span className="card-level-text">Level</span>
+              <span className="card-level-val">{card.stats.level}</span>
+            </div>
+          }
 
           <div className="card-title">{card.stats.title}</div>
           <div className="card-type">{card.stats.type}</div>
@@ -234,6 +243,8 @@ HoverInfo.defaultProps = {
   parent: null,
   type: '',
   backdrop: false,
+  showLevel: true,
+  delayHover: false,
 };
 
 HoverInfo.propTypes = {
@@ -242,6 +253,8 @@ HoverInfo.propTypes = {
   type: PropTypes.string,
   card: PropTypes.shape({}).isRequired,
   backdrop: PropTypes.bool,
+  showLevel: PropTypes.bool,
+  delayHover: PropTypes.bool,
 };
 
 export default HoverInfo;

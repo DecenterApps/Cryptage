@@ -101,7 +101,7 @@ class LocationSidebarItem extends Component {
           !draggingCard &&
           showPortal &&
           <PortalWrapper>
-            <HoverInfo card={mainCard} parent={this.myRef} type="location" />
+            <HoverInfo card={mainCard} center backdrop />
           </PortalWrapper>
         }
 

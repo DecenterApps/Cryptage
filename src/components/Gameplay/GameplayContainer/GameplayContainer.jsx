@@ -30,7 +30,7 @@ const GameplayContainer = ({
       />
 
       <h2 className="container-title">
-        {card.stats.title} <span>{fullSlots}/{totalSlots}</span>
+        {card.stats.title} <span>{fullSlots} / {totalSlots}</span>
       </h2>
 
       <DropSlotsWrapper

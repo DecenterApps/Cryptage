@@ -141,6 +141,6 @@ export const typeGradients = {
 export const rarities = {
   normal: '#9797FB',
   blue: '#0086D1',
-  gold: '#9B01C1',
-  red: '#FF9D14',
+  purple: '#9B01C1',
+  gold: '#FF9D14',
 };
