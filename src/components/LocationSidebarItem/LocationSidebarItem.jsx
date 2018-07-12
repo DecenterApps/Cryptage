@@ -6,9 +6,6 @@ import { setActiveLocation } from '../../actions/gameplayActions';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
 import { classForRarity } from '../../services/utils';
-import MagnifyingGlassIcon from '../Decorative/MagnifyingGlassIcon';
-import ChevronDownIcon from '../Decorative/ChevronDownIcon';
-import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import SidebarItemNotActive from './SidebarItemNotActive';
 
@@ -20,27 +17,10 @@ import SidebarItemActive from './SidebarItemActive';
 class LocationSidebarItem extends Component {
   constructor() {
     super();
-    this.state = {
-      show: false,
-      showPortal: false,
-    };
 
-    this.toggleFundsStat = this.toggleFundsStat.bind(this);
+    this.state = { showPortal: false };
+
     this.togglePortal = this.togglePortal.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.blockNumber === this.props.blockNumber) return;
-
-    this.toggleFundsStat();
-    setTimeout(this.toggleFundsStat, 2000);
-  }
-
-  /**
-   * Shows or hides funds stats per block
-   */
-  toggleFundsStat() {
-    this.setState({ show: !this.state.show });
   }
 
   togglePortal(showOrHide) { this.setState({ showPortal: showOrHide }); }
@@ -50,40 +30,11 @@ class LocationSidebarItem extends Component {
     const { showPortal } = this.state;
     const {
       card, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
-      globalStats, dragItem, draggingCard,
+      gameplay, dragItem, draggingCard,
     } = this.props;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const canLevelUp = draggingDuplicate && checkIfCanLevelUp(card, globalStats);
-
-    // let fpb = 0;
-
-    // slot.lastDroppedItem.dropSlots.forEach(({ lastDroppedItem }) => {
-    //   // get hackers and coffee miners fpb
-    //   if (lastDroppedItem && lastDroppedItem.card.metadata.id === '18') {
-    //     fpb += lastDroppedItem.card.bonus.funds;
-    //   }
-    //
-    //   if ((lastDroppedItem && lastDroppedItem.card.metadata.id === '23')) {
-    //     fpb += lastDroppedItem.card.bonus.multiplierFunds;
-    //   }
-    //
-    //   // get grid connector fpb
-    //   if (lastDroppedItem && lastDroppedItem.card.metadata.id === '22') {
-    //     const { power } = slot.lastDroppedItem.values;
-    //     fpb += (power * lastDroppedItem.card.bonus.funds);
-    //   }
-    //
-    //   // get containers fpb
-    //   if (lastDroppedItem && lastDroppedItem.dropSlots) {
-    //     lastDroppedItem.dropSlots.forEach((containerSlot) => {
-    //       if (containerSlot.lastDroppedItem) {
-    //         fpb += containerSlot.lastDroppedItem.card.bonus.funds;
-    //       }
-    //     });
-    //   }
-    // });
-
+    const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, card).allowed;
     const active = (activeLocationIndex === index) && gameplayView === GP_LOCATION;
 
     return (
@@ -170,6 +121,7 @@ LocationSidebarItem.defaultProps = {
 };
 
 LocationSidebarItem.propTypes = {
+  gameplay: PropTypes.object.isRequired,
   card: PropTypes.object,
   setActiveLocation: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
@@ -178,16 +130,15 @@ LocationSidebarItem.propTypes = {
   openConfirmRemoveModal: PropTypes.func.isRequired,
   slot: PropTypes.object.isRequired,
   blockNumber: PropTypes.number.isRequired,
-  globalStats: PropTypes.object.isRequired,
   dragItem: PropTypes.object,
   draggingCard: PropTypes.bool,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
+  gameplay,
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.stats,
   draggingCard: app.draggingCard,
 });
 
