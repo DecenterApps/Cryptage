@@ -35,15 +35,15 @@ class ProjectItem extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      card, index, expiryTime, showFpb, activateProject, blockNumber,
-      openConfirmRemoveModal, dragItem, globalStats, projectExecutionTimePercent,
+      card, slot, index, expiryTime, showFpb, activateProject, blockNumber,
+      openConfirmRemoveModal, dragItem, gameplay, projectExecutionTimePercent,
       draggingCard,
     } = this.props;
     const isActive = card.running;
     const isFinished = card.timesFinished > 0;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(card, globalStats);
+    const canLevelUp = draggingDuplicate && !isActive && slot.canDrop(gameplay, dragItem.card);
     const timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
 
     return (
@@ -126,10 +126,13 @@ ProjectItem.defaultProps = {
   card: null,
   dragItem: null,
   draggingCard: false,
+  expiryTime: null,
+  showFpb: null,
 };
 
 ProjectItem.propTypes = {
   card: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   showFpb: PropTypes.bool,
   activateProject: PropTypes.func.isRequired,
@@ -137,20 +140,15 @@ ProjectItem.propTypes = {
   blockNumber: PropTypes.number.isRequired,
   expiryTime: PropTypes.number,
   dragItem: PropTypes.object,
-  globalStats: PropTypes.object.isRequired,
   projectExecutionTimePercent: PropTypes.number.isRequired,
   draggingCard: PropTypes.bool,
-};
-
-ProjectItem.defaultProps = {
-  expiryTime: null,
-  showFpb: null,
+  slot: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
+  gameplay,
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.stats,
   projectExecutionTimePercent: gameplay.projectExecutionTimePercent,
   draggingCard: app.draggingCard,
 });
