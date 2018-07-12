@@ -11,6 +11,7 @@ import {
 import { getPlayedAssetCards } from '../services/utils';
 import { loadGameplayState, updateFundsBlockDifference } from '../actions/gameplayActions';
 import { handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
+import { checkIfNewLevel } from '../services/gameMechanicsService';
 
 /**
  * Fires action when all data from local storage and web3 has been loaded
@@ -41,6 +42,7 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
     const { number } = _number;
 
     const newGameplay = gameplay.updateBlockNumber(gameplay, number);
+    dispatch(checkIfNewLevel(newGameplay.stats.level));
     dispatch({ type: ON_NEW_BLOCK, payload: newGameplay });
     // dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
     // dispatch(checkProjectsExpiry());
@@ -58,8 +60,6 @@ export const toggleCardDrag = payload => (dispatch) => {
 
 /**
  * Toggles if a card is being dragged in the game
- *
- * @param {Boolean} payload
  */
 export const resetGame = () => (dispatch) => {
   dispatch({ type: CLEAR_STORE });

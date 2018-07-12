@@ -333,7 +333,6 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         funds: funds + receivedFunds,
       },
     });
-    dispatch(checkIfNewLevel(level));
     saveGameplayState(getState);
   }
 

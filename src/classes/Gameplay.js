@@ -28,6 +28,7 @@ export default class Gameplay {
     this.stats = {
       level: config.globalStats.level,
       experience: config.globalStats.experience,
+      earnedXp: 0,
       requiredXp: levels[1].change,
       funds: config.globalStats.funds,
       development: config.globalStats.development,

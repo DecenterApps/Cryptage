@@ -44,7 +44,7 @@ const GameplayHeader = ({
         <div className="central">
           <div className="level">Level { globalStats.level }</div>
           <div className="name">{ nickname || 'NICKNAME' }</div>
-          <div className="xp-wrapper"> {globalStats.experience} / {globalStats.requiredXp} XP </div>
+          <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
           {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
           <svg className="xp-loader-wrapper">
             <defs>
@@ -74,7 +74,7 @@ const GameplayHeader = ({
       </div>
     </div>
   );
-}
+};
 
 GameplayHeader.propTypes = {
   blockNumber: PropTypes.number.isRequired,

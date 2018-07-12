@@ -201,14 +201,12 @@ export default (state = new Gameplay(0), action) => {
     // case RETURN_CARDS:
     //   return { ...state, cards: [...state.cards, ...action.cards] };
     //
-    // case ADD_NEW_LEVEL_CARDS:
-    //   return {
-    //     ...state,
-    //     cards: payload.cards,
-    //     allCards: payload.allCards,
-    //     newCardTypes: [...state.newCardTypes, ...payload.newCardTypes],
-    //   };
-    //
+    case ADD_NEW_LEVEL_CARDS:
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        cards: payload,
+      });
+
     case SUBMIT_NICKNAME_SUCCESS:
       return new Gameplay(state.blockNumber, {
         ...state,

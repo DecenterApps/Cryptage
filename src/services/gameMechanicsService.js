@@ -14,6 +14,7 @@ import {
   bonusDevPerLocationCards,
 } from '../actions/actionTypes';
 import { fetchCardStats } from './cardService';
+import Card from '../classes/Card';
 
 /**
  * Returns initial values for stack of cards
@@ -466,15 +467,23 @@ export const getAvailableCards = (cards, gameplayView, inGameplayView, locations
  * @return {Array}
  */
 export const calculateLevelData = (experience) => {
-
-  let level = 0;
-  while (levels[level].exp < experience) {
-    level++;
+  let earnedXp = experience;
+  let currentLevel;
+  let nextLevel;
+  for (let i = 0; i < levels.length; i += 1) {
+    if (earnedXp < levels[i].change) {
+      currentLevel = levels[i - 1];
+      nextLevel = levels[i];
+      break;
+    }
+    earnedXp -= levels[i].change;
   }
 
   return {
-    level,
-    requiredXp: levels[level + 1].change - (experience - levels[level].exp),
+    experience,
+    earnedXp,
+    requiredXp: nextLevel.change,
+    level: currentLevel.level,
   };
 };
 
@@ -532,43 +541,35 @@ export const doNotShowProjectFpb = projectIndex => (dispatch, getState) => {
  * @param {Number} level
  */
 const addCardsForNewLevel = level => async (dispatch, getState) => {
-  let cards = [...getState().gameplay.cards];
-  let allCards = [...getState().gameplay.allCards];
+  const { gameplay } = getState();
+  const cards = [...gameplay.cards];
 
-  const minId = allCards.reduce((min, card) => { // eslint-disable-line
+  const minId = cards.reduce((min, card) => { // eslint-disable-line
     return card.id < min ? card.id : min;
-  }, allCards[0].id);
+  }, cards[0].id);
 
-  const newCards = cardsPerLevel[level - 1].map((metadataId, index) => ({
-    id: minId - (index + 1),
-    stats: fetchCardStats(metadataId, 1),
-    metadataId: metadataId.toString(),
-  }));
+  const newCards = cardsPerLevel[level - 1].map((metadataId, index) =>
+    Card.getInstance(gameplay, minId - (index + 1), 1, metadataId));
 
-  let newCardTypes = newCards
-    .filter(newCard => allCards.findIndex(card => card.metadataId === newCard.metadataId) === -1)
-    .map(({ metadataId }) => metadataId);
+  return Promise.all(newCards, (_newCards) => {
+    console.log('_newCards', _newCards);
+    dispatch({ type: ADD_NEW_LEVEL_CARDS, payload: [...cards, ...newCards] });
 
-  newCardTypes = newCardTypes.filter((type, index) => newCardTypes.indexOf(type) === index);
-
-  cards = [...cards, ...newCards];
-  allCards = [...allCards, ...newCards];
-
-  dispatch({ type: ADD_NEW_LEVEL_CARDS, payload: { newCardTypes, cards, allCards } });
-
-  return newCards;
+    return _newCards;
+  });
 };
 
 /**
  * Checks if new level. If new level opens new level modal with added cards
  *
- * @param {Number} currLevel
+ * @param {Number} level
  */
-export const checkIfNewLevel = currLevel => async (dispatch, getState) => {
-  const { level } = getState().gameplay.globalStats;
+export const checkIfNewLevel = level => async (dispatch, getState) => {
+  const currLevel = getState().gameplay.stats.level;
 
   if (currLevel === level) return;
   if ((level - 1) <= 0) return;
+
   let cards = [];
   if (level <= cardsPerLevel.length) cards = await dispatch(addCardsForNewLevel(level));
 
