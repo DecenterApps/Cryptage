@@ -34,7 +34,7 @@ class LocationSidebarItem extends Component {
     } = this.props;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, card).allowed;
+    const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card).allowed;
     const active = (activeLocationIndex === index) && gameplayView === GP_LOCATION;
 
     return (
