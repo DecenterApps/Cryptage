@@ -19,10 +19,12 @@ const getClassForFont = (maxDev, available) => {
 const formatFunds = (_number) => {
   const number = parseFloat(_number);
 
-  if (number >= 1000000000) return `${number / 1000000000}b`;
-  if (number >= 1000000) return `${number / 1000000}m`;
-  if (number >= 10000) return `${number / 1000}k`;
-
+  if (number >= 1000000000) return `${Math.floor(number / 1000) / 1000000} billion`;
+  if (number >= 1000000) return `${Math.floor(number / 1000) / 1000} million`;
+  if (number >= 1000) {
+    const _number = number.toString(10);
+    return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
+  }
   return number.toString();
 };
 
@@ -35,6 +37,8 @@ const GameplayHeader = ({
     if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.stats.cost.development;
     return acc;
   }, 0);
+
+  const formatedFunds = formatFunds(globalStats.funds).split(' ');
 
   return (
     <div className="gameplay-header-wrapper">
@@ -73,7 +77,13 @@ const GameplayHeader = ({
         {/* Right section */}
         <div className="section">
           <div className="stats-wrapper funds">
-            <div title={globalStats.funds}>{ formatFunds(globalStats.funds) }</div>
+            <div title={globalStats.funds}>
+              { formatedFunds[0] }
+              {
+                formatedFunds.length > 1 &&
+                <span className="smaller"> { formatedFunds[1] }</span>
+              }
+            </div>
             <div className="smaller">
               { fundsPerBlock > 0 && '+' }
               { fundsPerBlock }
