@@ -5,9 +5,9 @@ export default class Unique extends Mechanic {
     const { title } = this.card;
 
     const unique = destination.owner.dropSlots.reduce((acc, dropSlot) => {
-      if (dropSlot.card && dropSlot.card.title === title) acc = false;
+      if (dropSlot.card && dropSlot.card.title === title) acc = true;
       return acc;
-    }, true);
+    }, false);
 
     return { unique };
   }

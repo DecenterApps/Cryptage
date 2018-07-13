@@ -7,8 +7,7 @@ import { getAvailableCards, getCostErrors } from '../../services/gameMechanicsSe
 const CanPlayCardChecker = ({ card, locations, projects, gameplay }) => {
   if (!card) return (<div />);
 
-  let canDrop = getCostErrors(card, locations, projects, gameplay);
-  const costErrors = {};
+  const costErrors = getCostErrors(card, locations, projects, gameplay);
 
   return (
     <div className={`card-details type-${card.type.toLowerCase()}`}>

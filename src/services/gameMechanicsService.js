@@ -1,7 +1,10 @@
 import levels from '../constants/levels.json';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import cardsConfig from '../constants/cards.json';
-import { filterByKeys, getDropSlotsAvailableLevelUp, getPlayedAssetCards, updateLocationDropSlotItems } from './utils';
+import {
+  filterByKeys, getDropSlotsAvailableLevelUp, getPlayedAssetCards, mergeErrorMessages,
+  updateLocationDropSlotItems
+} from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
 import {
   CHANGE_PROJECT_STATE,
@@ -301,11 +304,11 @@ const getSlotErrors = (card, slots, gameplay) => {
     if (!errorObj.allowed) errors.push(errorObj);
 
     if (slot.card && slot.card.dropSlots) {
-      errors = errors.concat(getSlotErrors(slot.card, slot.card.dropSlots, gameplay));
+      errors = errors.concat(getSlotErrors(card, slot.card.dropSlots, gameplay));
     }
   });
 
-  return errors;
+  return mergeErrorMessages(...errors);
 };
 
 /**
@@ -318,10 +321,10 @@ const getSlotErrors = (card, slots, gameplay) => {
  * @return {Object}
  */
 export const getCostErrors = (card, locations, projects, gameplay) => {
-  const errors1 = getSlotErrors(card, locations, gameplay);
-  const errors2 = getSlotErrors(card, projects, gameplay);
+  const locErrors = getSlotErrors(card, locations, gameplay);
+  const projectErrors = getSlotErrors(card, projects, gameplay);
 
-  return {};
+  return mergeErrorMessages(locErrors, projectErrors);
 };
 
 /**
