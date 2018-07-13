@@ -74,7 +74,7 @@ class LargeCard extends Component {
         {
           this.state.showPortal &&
           <PortalWrapper>
-            <HoverInfo card={card} center backdrop />
+            <HoverInfo card={card} center backdrop showLevel={false} />
           </PortalWrapper>
         }
       </div>
