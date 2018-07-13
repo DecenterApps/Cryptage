@@ -56,7 +56,6 @@ import Card from '../classes/Card';
  */
 export const changeGameplayView = payload => (dispatch, getState) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
-  saveGameplayState(getState);
 };
 
 /**
@@ -189,7 +188,6 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
     // set which cards are played from current state
 
     dispatch({ type: USERS_CARDS_SUCCESS, payload: cards });
-    saveGameplayState(getState);
   } catch (error) {
     dispatch({ type: USERS_CARDS_ERROR, error });
   }
@@ -201,9 +199,8 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
  * @param {Number} payload - activeLocationIndex
  * @return {Function}
  */
-export const setActiveLocation = payload => (dispatch, getState) => {
+export const setActiveLocation = payload => (dispatch) => {
   dispatch({ type: SET_ACTIVE_LOCATION, payload });
-  saveGameplayState(getState);
 };
 
 /**
@@ -216,7 +213,6 @@ export const setActiveLocation = payload => (dispatch, getState) => {
 export const activateProject = (card, index) => (dispatch, getState) => {
   const newState = card.restartProject(getState().gameplay);
   dispatch({ type: RESTART_PROJECT, payload: newState });
-  saveGameplayState(getState);
 };
 
 /**
@@ -286,7 +282,6 @@ export const submitNickname = ({ nickname }) => async (dispatch, getState) => {
     dispatch(openNewLevelModal(1, cards));
 
     dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
-    saveGameplayState(getState);
   });
 };
 
@@ -318,7 +313,6 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
     dispatch({ type: CLEAR_TURNS });
     dispatch({ type: SAVE_STATE_SUCCESS, payload: { isSaving: false } });
-    saveGameplayState(getState);
   } catch (err) {
     console.log(err);
     dispatch(openErrorModal(

@@ -48,7 +48,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case GET_ACCOUNT_SUCCESS:
       return {
-        ...state, account: action.account, accountError: '',
+        ...state, account: payload, accountError: '',
       };
 
     case GET_ACCOUNT_ERROR:

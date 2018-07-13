@@ -37,41 +37,12 @@ import {
   DROP_CARD,
   GENERATE_NEW_GAMEPLAY,
   RESTART_PROJECT,
+  GET_ACCOUNT_SUCCESS,
 } from '../actions/actionTypes';
-import { mergeDeep } from '../services/utils';
-import config from '../constants/config.json';
-import levels from '../constants/levels.json';
+import { saveGameplayState } from '../services/utils';
 import Gameplay from '../classes/Gameplay';
 
-// const INITIAL_STATE = {
-//   nickname: '',
-//   blockNumber: 0,
-//   lastSavedStateBlock: 0,
-//   fundsPerBlock: 0,
-//   gameplayView: GP_NO_NICKNAME,
-//   inGameplayView: GP_LOCATION_MAIN,
-//   allCards: [],
-//   cards: [],
-//   newCardTypes: [],
-//   locations: LOCATION_DROP_SLOTS,
-//   projects: PROJECT_DROP_SLOTS,
-//   projectExecutionTimePercent: 100,
-//    : 0,
-//   activeContainerIndex: 0,
-//   playedTurns: [],
-//   globalStats: {
-//     level: config.globalStats.level,
-//     experience: config.globalStats.experience,
-//     earnedXp: 0,
-//     requiredXp: levels[1].change,
-//     funds: config.globalStats.funds,
-//     development: config.globalStats.development,
-//   },
-// };
-
-export default (state = new Gameplay(0), action) => {
-  const { type, payload } = action;
-
+const switchState = (state, type, payload) => {
   switch (type) {
     case DROP_LOCATION:
       return new Gameplay(state.blockNumber, {
@@ -217,6 +188,12 @@ export default (state = new Gameplay(0), action) => {
     case UPDATE_BLOCK_NUMBER:
       return new Gameplay(payload, { ...state });
 
+    case GET_ACCOUNT_SUCCESS:
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        account: payload,
+      });
+
     //
     // case UPDATE_FUNDS_PER_BLOCK:
     //   return { ...state, fundsPerBlock: payload };
@@ -231,4 +208,11 @@ export default (state = new Gameplay(0), action) => {
     default:
       return state;
   }
+};
+
+
+export default (state = new Gameplay(0), action) => {
+  const { type, payload } = action;
+
+  return saveGameplayState(switchState(state, type, payload), type);
 };

@@ -47,7 +47,7 @@ export const checkAccount = () => async (dispatch, getState) => {
 
     if (getState().app.account !== account) {
       if (getState().app.account === '') {
-        dispatch({ type: GET_ACCOUNT_SUCCESS, account });
+        dispatch({ type: GET_ACCOUNT_SUCCESS, payload: account });
         dispatch(loadGameplayState());
         // dispatch(updateFundsBlockDifference());
       } else {

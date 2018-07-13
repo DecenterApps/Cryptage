@@ -40,7 +40,6 @@ export const handleLocationDrop = (slot, item, index) => (dispatch, getState) =>
   const newGameplay = slot.dropCard(getState().gameplay, item.card);
 
   dispatch({ type: DROP_LOCATION, payload: { newGameplay, index } });
-  saveGameplayState(getState);
 };
 
 
@@ -55,7 +54,6 @@ export const handleAssetDrop = (slot, item) => (dispatch, getState) => {
   const payload = slot.dropCard(getState().gameplay, item.card);
 
   dispatch({ type: DROP_ASSET, payload });
-  saveGameplayState(getState);
 };
 // export const handleAssetDrop = (index, item) => (dispatch, getState) => {
 //   const { gameplay } = getState();
@@ -161,6 +159,4 @@ export const handleProjectDrop = (index, item) => (dispatch, getState) => {
   if (timeReduceIds.includes(mainCard.metadata.id)) {
     dispatch(projectReduceTimeForProjects(projects, index, item.card));
   }
-
-  saveGameplayState(getState);
 };

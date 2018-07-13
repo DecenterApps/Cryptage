@@ -241,8 +241,6 @@ export const handlePlayedAssetCardsPassive = cards => (dispatch, getState) => {
     + profitableDappFunds + blockchainSmartlockFunds + bonusMiningFundsPerLocation;
 
   if (total !== getState().gameplay.fundsPerBlock) dispatch({ type: UPDATE_FUNDS_PER_BLOCK, payload: total });
-
-  saveGameplayState(getState);
 };
 
 /**
@@ -333,7 +331,6 @@ export const checkProjectsExpiry = () => (dispatch, getState) => {
         funds: funds + receivedFunds,
       },
     });
-    saveGameplayState(getState);
   }
 
   return receivedFunds;

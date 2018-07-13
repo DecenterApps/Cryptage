@@ -120,7 +120,6 @@ export const handleCardCancel = (slot, locationIndex, containerIndex, containerS
   }
 
   dispatch({ type: REMOVE_CARD, payload: { newGameplay, gameplayView } });
-  saveGameplayState(getState);
 };
 // export const handleCardCancel = (slot, locationIndex, containerIndex, containerSlotIndex) => (dispatch, getState) => {
 //   const { gameplay } = getState();

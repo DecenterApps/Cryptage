@@ -4,7 +4,7 @@ import serialize from 'serialijse';
 import cardsConfig from '../constants/cards.json';
 import { getSlotForContainer, checkIfCanLevelUp } from './gameMechanicsService';
 import {
-  acceptedAssetLevelUpIds, containerIds, rarities,
+  acceptedAssetLevelUpIds, containerIds, GET_ACCOUNT_SUCCESS, rarities,
   typeGradients,
 } from '../actions/actionTypes';
 
@@ -178,18 +178,22 @@ export const removePlayedCards = (stateCards, _contractCards) =>
 /**
  * Saves current gameplay state to localStorage for account
  *
- * @param {Function} getState
+ * @param {Gameplay} state
+ * @param {String} type
+ * @return {Gameplay} state
  */
-export const saveGameplayState = (getState) => {
-  const state = getState();
-  const { account } = state.app;
+export const saveGameplayState = (state, type) => {
+  const { account } = state;
+
+  if (type === GET_ACCOUNT_SUCCESS) return state;
 
   if (!account) {
     console.error('Account missing when trying to save state');
-    return;
+    return state;
   }
 
-  localStorage.setItem(`cryptage-${account}`, serialize.serialize(state.gameplay));
+  localStorage.setItem(`cryptage-${account}`, serialize.serialize(state));
+  return state;
 };
 
 /**

@@ -234,7 +234,7 @@ const HoverInfo = ({
             <div className="description">
               {
                 displayCard.mechanicsText &&
-                <p className="mechanics">{displayCard.mechanicsText}{/**/}</p>
+                <p className="mechanics">{displayCard.mechanicsText}</p>
               }
               {
                 displayCard.flavorText &&
