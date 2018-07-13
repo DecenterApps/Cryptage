@@ -11,7 +11,8 @@
     &.purple .rarity-ring { stroke: $purple-rarity; }
   }
 
-  &:hover .projects-item-wrapper .actions {
+  &:hover .projects-item-wrapper .actions,
+  &:hover .projects-item-wrapper .blocks-left {
     display: block;
   }
 
@@ -94,6 +95,17 @@
       }
     }
 
+    .blocks-left {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 3px;
+      color: $yellow;
+      text-align: center;
+      font-size: 11px;
+    }
+
     .project-item-vector {
       position: relative;
       right: 6px;
@@ -107,7 +119,6 @@
       z-index: 2;
       top: 8px;
       width: 35px;
-      transform: rotateY(180deg);
     }
 
     .project-check {

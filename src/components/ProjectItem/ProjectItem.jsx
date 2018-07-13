@@ -19,7 +19,7 @@ import restart from './assets/restart.png';
 import InfoCardIcon from '../Decorative/InfoCardIcon';
 import DropCardIcon from '../Decorative/DropCardIcon';
 
-const calculatePercent = (expiryTime, costTime) => ((expiryTime / costTime) * 100);
+const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime) * 100);
 
 class ProjectItem extends Component {
   constructor() {
@@ -43,7 +43,8 @@ class ProjectItem extends Component {
     const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
     const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
 
-    let timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
+    const blocksLeft = expiryTime - blockNumber;
+    let timeLeft = Math.floor((projectExecutionTimePercent / 100) * blocksLeft);
     // remove when refactor is over
     if (timeLeft < 0) timeLeft = 1;
 
@@ -130,6 +131,11 @@ class ProjectItem extends Component {
               </div>
             }
           </div>
+
+          {
+            blocksLeft > 0 &&
+            <div className="blocks-left">{ blocksLeft }</div>
+          }
         </div>
       </div>
     );
