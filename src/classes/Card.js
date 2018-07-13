@@ -72,7 +72,7 @@ export default class Card extends Subscriber {
       return Mechanic.getInstance(name, this, params);
     }).concat([
       Mechanic.getInstance('cost', this, ['level']),
-      Mechanic.getInstance('core', this, ['funds']),
+      Mechanic.getInstance('core', this, ['funds', true]),
       Mechanic.getInstance('core', this, ['development']),
       Mechanic.getInstance('bonus', this, ['funds', true]),
       Mechanic.getInstance('bonus', this, ['development']),
@@ -127,7 +127,11 @@ export default class Card extends Subscriber {
 
   _can(method, ...params) {
     const errorMessages = this.mechanics
-      .map(mechanic => mechanic[method] ? mechanic[method](...params) : null)
+      .map(mechanic => {
+        if (!mechanic) return null;
+
+        return mechanic[method] ? mechanic[method](...params) : null;
+      })
       .filter(errorMessage => errorMessage !== null);
 
     return mergeErrorMessages(...errorMessages);
@@ -183,6 +187,8 @@ export default class Card extends Subscriber {
 
     this.unsubscribeAll();
 
+    this.stackedCards = [this];
+
     return newState;
   }
 
@@ -217,7 +223,7 @@ export default class Card extends Subscriber {
     if (!result.allowed) return result;
 
     const instance = Card.getLeveledInstance(state, this.id, droppedCard);
-    if (!instance.cost) return { allowed: false };
+    if (!instance.cost) return { allowed: false, noNextLevel: false };
 
     result.allowed = state.stats.funds >= instance.cost.funds;
 

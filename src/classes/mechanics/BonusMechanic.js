@@ -34,8 +34,8 @@ export default class BonusMechanic extends CoreMechanic {
   }
 
   onWithdraw(state) {
-    if (this.isPermanent) return state;
     this.unsubscribeAll();
+    if (this.isPermanent) return state;
     return this.onBeforeChangeBonuses(state);
   }
 }

@@ -71,7 +71,7 @@ export default class CardSlot {
       const { acceptedTags } = this.owner || this;
 
       if (!acceptedTags.some(acceptedTag => card.tags.includes(acceptedTag))) {
-        return { allowed: false };
+        return { allowed: false, tags: false };
       }
 
       return card.canPlay(state, this);

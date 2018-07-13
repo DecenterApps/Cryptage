@@ -62,9 +62,9 @@ class Cards extends Component {
 
     const noDupliactes = this.groupDuplicates(cards);
     const {
-      getAvailableCards, gameplayView, inGameplayView, locations, projects,
+      getAvailableCards, gameplayView, inGameplayView, locations, projects, gameplay,
     } = this.props;
-    let available = getAvailableCards(cards, gameplayView, inGameplayView, locations, projects);
+    let available = getAvailableCards(locations, projects, gameplay);
     available = this.groupDuplicates(available);
     const starter = { available };
     const grouped = noDupliactes.reduce((_accumulator, item) => {
@@ -121,6 +121,7 @@ class Cards extends Component {
 }
 
 Cards.propTypes = {
+  gameplay: PropTypes.object.isRequired,
   usersCardsFetch: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
   cardsFetching: PropTypes.bool.isRequired,
@@ -132,6 +133,7 @@ Cards.propTypes = {
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
+  gameplay,
   cardsFetching: app.cardsFetching,
   cards: gameplay.cards,
   gameplayView: gameplay.gameplayView,
