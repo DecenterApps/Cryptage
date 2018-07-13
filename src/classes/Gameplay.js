@@ -8,7 +8,7 @@ import { createMatcher, isActiveCard } from './matchers';
 import './mechanics';
 import './cardTypes';
 import './slotTypes';
-import { calculateLevelData } from '../services/gameMechanicsService';
+import { calculateLevelData, getSlotActiveCards } from '../services/gameMechanicsService';
 import { GP_LOCATION, GP_LOCATION_MAIN, GP_NO_NICKNAME } from '../actions/actionTypes';
 
 const subscriptions = Symbol('subscriptions');
@@ -88,16 +88,15 @@ export default class Gameplay {
     return this.cards.filter(createMatcher(matcher));
   }
 
-  updateBlockNumber(state, blockNumber) {
+  updateBlockNumber(_state, blockNumber) {
+    let state = _state;
     const blockCount = blockNumber - state.blockNumber;
 
     if (blockCount < 1) return state;
 
-    for (const card of this.cards) {
-      if (card.active) {
-        state = card.block(state, blockNumber, blockCount);
-      }
-    }
+    getSlotActiveCards(state).forEach((card) => {
+      state = card.block(state, blockNumber, blockCount);
+    });
 
     return {
       ...state,

@@ -272,6 +272,27 @@ export const getMathErrors = (cardStats, globalStats, activeLocation = null, ign
   return errors;
 };
 
+const getActiveCards = (slots) => {
+  let cards = [];
+
+  slots.forEach((slot) => {
+    if (slot.card) cards.push(slot.card);
+
+    if (slot.card && slot.card.dropSlots) {
+      cards = cards.concat(getActiveCards(slot.card.dropSlots));
+    }
+  });
+
+  return cards;
+};
+
+export const getSlotActiveCards = (gameplay) => {
+  const locationCards = getActiveCards(gameplay.locationSlots);
+  const projectCards = getActiveCards(gameplay.projectSlots);
+
+  return [...locationCards, ...projectCards];
+};
+
 const getSlotErrors = (card, slots, gameplay) => {
   let errors = [];
 

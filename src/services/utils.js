@@ -185,12 +185,7 @@ export const removePlayedCards = (stateCards, _contractCards) =>
 export const saveGameplayState = (state, type) => {
   const { account } = state;
 
-  if (type === GET_ACCOUNT_SUCCESS) return state;
-
-  if (!account) {
-    console.error('Account missing when trying to save state');
-    return state;
-  }
+  if (type === GET_ACCOUNT_SUCCESS || !account) return state;
 
   localStorage.setItem(`cryptage-${account}`, serialize.serialize(state));
   return state;

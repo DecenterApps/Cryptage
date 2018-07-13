@@ -30,7 +30,7 @@ export default class Card extends Subscriber {
     }, state);
   }
 
-  static getLeveledInstance(id, card, level = undefined) {
+  static getLeveledInstance(state, id, card, level = undefined) {
     if (!level) {
       level = card.level + 1;
     }
@@ -40,7 +40,7 @@ export default class Card extends Subscriber {
       metadataId: card.metadataId,
       level,
       ...stats,
-    });
+    }, state);
   }
 
   constructor(data) {
@@ -216,7 +216,7 @@ export default class Card extends Subscriber {
 
     if (!result.allowed) return result;
 
-    const instance = Card.getLeveledInstance(this.id, droppedCard);
+    const instance = Card.getLeveledInstance(state, this.id, droppedCard);
     if (!instance.cost) return { allowed: false };
 
     result.allowed = state.stats.funds >= instance.cost.funds;
@@ -230,7 +230,7 @@ export default class Card extends Subscriber {
     // this === dragged card
     const droppedCard = dropSlot.card;
 
-    const leveledUp = Card.getLeveledInstance(this.id, droppedCard);
+    const leveledUp = Card.getLeveledInstance(state, this.id, droppedCard);
     leveledUp.dropSlots = droppedCard.dropSlots;
     leveledUp.additionalBonuses = droppedCard.additionalBonuses;
     leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
