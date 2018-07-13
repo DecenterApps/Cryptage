@@ -19,8 +19,8 @@ const getClassForFont = (maxDev, available) => {
 const formatFunds = (_number) => {
   const number = parseFloat(_number);
 
-  if (number >= 1000000000) return `${Math.floor(number / 1000) / 1000000} billion`;
-  if (number >= 1000000) return `${Math.floor(number / 1000) / 1000} million`;
+  if (number >= 1000000000) return `${Math.floor(number / 100000000) / 10} billion`;
+  if (number >= 1000000) return `${Math.floor(number / 100000) / 10} million`;
   if (number >= 1000) {
     const _number = number.toString(10);
     return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
