@@ -58,11 +58,13 @@
         .info-card-icon {
           position: absolute;
           z-index: 6;
-          left: -2px;
-          bottom: 62px;
+          left: -7px;
+          bottom: 57px;
           width: 10px;
           height: 10px;
           cursor: pointer;
+          padding: 5px;
+          box-sizing: content-box;
 
           path { fill: $yellow; }
         }
@@ -79,9 +81,13 @@
         .close-icon {
           position: absolute;
           z-index: 6;
-          left: 45px;
-          bottom: 56px;
+          left: 39px;
+          bottom: 57px;
+          height: 10px;
+          line-height: 10px;
           cursor: pointer;
+          padding: 5px;
+          box-sizing: content-box;
 
           svg line { stroke: $yellow; }
         }

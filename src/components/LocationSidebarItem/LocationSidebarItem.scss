@@ -77,10 +77,9 @@
     }
 
     .actions {
-      left: 66px;
-      top: 20px;
+      left: 75px;
+      top: 10px;
       width: 32px;
-      height: 30px;
     }
   }
 
@@ -93,6 +92,7 @@
     > div {
       transition: all 0.2s;
       cursor: pointer;
+      padding: 10px 5px;
       svg {
         width: 10px;
         height: 10px;
@@ -100,6 +100,9 @@
       &:hover {
         opacity: 0.7;
         transform: scale(1.2);
+      }
+      &:first-child {
+        padding-right: 10px;
       }
     }
   }

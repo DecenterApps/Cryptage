@@ -121,12 +121,13 @@ class ProjectItem extends Component {
 
             {
               !isActive &&
-              <div className="project-pill-close">
-                <DropCardIcon
-                  onClick={() => {
-                    openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
-                  }}
-                />
+              <div
+                className="project-pill-close"
+                onClick={() => {
+                  openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
+                }}
+              >
+                <DropCardIcon />
                 <ProjectPill id={mainCard.id} />
               </div>
             }
