@@ -49,12 +49,15 @@
     &:hover {
       .actions { display: flex; }
       .location-data { display: none; }
+      .location-inner-gradient {
+        fill: url(#paint0_linear1_hover) !important;
+      }
     }
 
     .location-data {
       position: absolute;
-      left: 43px;
-      top: 12px;
+      left: 5px;
+      bottom: 8px;
       color: white;
       white-space: nowrap;
       text-transform: uppercase;
@@ -62,12 +65,14 @@
       .loc-name {
         width: 70px;
         font-size: 13px;
+        line-height: 20px;
         @include ellipsis;
       }
 
       .loc-lvl {
         font-size: 11px;
         opacity: 0.5;
+        line-height: 10px;
       }
     }
 
