@@ -9,11 +9,9 @@ import {
   REVEAL_SUCCESS,
   REVEAL_ERROR,
 } from './actionTypes';
-
-import { log } from '../services/utils';
 import ethService from '../services/ethereumService';
-import { fetchCardsMeta } from '../services/cardService';
 import { openRevealBoosterCardsModal } from './modalActions';
+import Card from '../classes/Card';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -54,17 +52,9 @@ export const revealRequest = (_id, _boosters) => {
 };
 
 export const revealSuccess = (revealedCards, _id, _boosters) => (dispatch, getState) => {
-  let allCards = [...getState().gameplay.allCards];
   let cards = [...getState().gameplay.cards];
 
-  let newCardTypes = revealedCards
-    .filter(revealedCard => allCards.findIndex(card => card.metadataId === revealedCard.metadataId) === -1)
-    .map(({ metadata }) => metadata.id);
-
-  newCardTypes = newCardTypes.filter((type, index) => newCardTypes.indexOf(type) === index);
-
   cards = [...cards, ...revealedCards];
-  allCards = [...allCards, ...revealedCards];
 
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
@@ -73,11 +63,9 @@ export const revealSuccess = (revealedCards, _id, _boosters) => (dispatch, getSt
   dispatch({
     type: REVEAL_SUCCESS,
     cards,
-    allCards,
     boosters,
     revealedCards,
     isRevealing: false,
-    newCardTypes,
   });
 
   dispatch(openRevealBoosterCardsModal(revealedCards));
@@ -94,12 +82,12 @@ export const revealError = (error, _id, _boosters) => {
 
 export const revealBooster = boosterId => async (dispatch, getState) => {
   dispatch(revealRequest(boosterId, getState().shop.boosters));
+  const { gameplay } = getState();
 
   try {
     const cardIds = await ethService.getCardsFromBooster(boosterId);
-    log('Cards in booster: ', cardIds);
 
-    const revealedCards = await fetchCardsMeta(cardIds);
+    const revealedCards = await Promise.all(cardIds.map(cardId => Card.getInstance(gameplay, cardId, 1)));
 
     dispatch(revealSuccess(revealedCards, boosterId, getState().shop.boosters));
   } catch (e) {

@@ -42,7 +42,9 @@ import {
 import { saveGameplayState } from '../services/utils';
 import Gameplay from '../classes/Gameplay';
 
-const switchState = (state, type, payload) => {
+const switchState = (state, action) => {
+  const { type, payload } = action;
+
   switch (type) {
     case DROP_LOCATION:
       return new Gameplay(state.blockNumber, {
@@ -110,13 +112,11 @@ const switchState = (state, type, payload) => {
         cards: payload,
       });
     //
-    // case REVEAL_SUCCESS:
-    //   return {
-    //     ...state,
-    //     allCards: action.allCards || state.allCards,
-    //     cards: action.cards,
-    //     newCardTypes: [...state.newCardTypes, ...action.newCardTypes],
-    //   };
+    case REVEAL_SUCCESS:
+      return new Gameplay(state.blockNumber, {
+        ...state,
+        cards: action.cards,
+      });
     //
     // case REMOVE_NEW_FROM_CARD:
     //   return { ...state, newCardTypes: payload };
@@ -212,7 +212,5 @@ const switchState = (state, type, payload) => {
 
 
 export default (state = new Gameplay(0), action) => {
-  const { type, payload } = action;
-
-  return saveGameplayState(switchState(state, type, payload), type);
+  return saveGameplayState(switchState(state, action), action.type);
 };
