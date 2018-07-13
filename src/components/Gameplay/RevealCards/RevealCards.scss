@@ -75,5 +75,20 @@
       //  height: $lg-card-desktop-height;
       //}
     }
+    .large-card-wrapper .actions {
+      top: 45px;
+      left: 17px;
+      width: 32px;
+      height: 85px;
+      padding-top: 6px;
+      div {
+        width: 32px;
+        height: 32px;
+        svg {
+          height: 18px;
+          width: 18px !important;
+        }
+      }
+    }
   }
 }
