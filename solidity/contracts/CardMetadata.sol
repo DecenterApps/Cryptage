@@ -1,4 +1,4 @@
-pragma solidity ^0.4.22;
+pragma solidity ^0.4.24;
 
 /// @title Contract holding all metadata about token(card)
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -8,9 +8,7 @@ contract CardMetadata is Ownable{
     struct CardProperties {
         uint id;
         uint rarity;
-        bytes32 ipfsHash;
-        uint8 ipfsHashFunction;
-        uint8 ipfsSize;
+        string ipfsHash;
         address artist;
     }
 
@@ -21,10 +19,8 @@ contract CardMetadata is Ownable{
     /// @dev needs to use three params for ipfs hash due to Solidity limitations for sending string from contract to contract
     /// @param _rarity of card
     /// @param _ipfsHash ipfs hash to card attributes
-    /// @param _ipfsHashFunction hash function that is used
-    /// @param _ipfsSize length of hash
     /// @param _artist is address of card artist
-    function addCardMetadata(uint _rarity, bytes32 _ipfsHash, uint8 _ipfsHashFunction, uint8 _ipfsSize, address _artist) public onlyOwner{
+    function addCardMetadata(uint _rarity, string _ipfsHash, address _artist) public onlyOwner{
         uint metadataId = properties.length;
         
         // we can't do aks for rarities[-1] so if metadataId is zero we just add it
@@ -36,26 +32,11 @@ contract CardMetadata is Ownable{
 
         properties.push(CardProperties({
             ipfsHash: _ipfsHash,
-            ipfsHashFunction: _ipfsHashFunction,
-            ipfsSize: _ipfsSize,
             rarity: _rarity,
             artist: _artist,
             id: metadataId
         }));
     }
-
-    /// @dev only for testing purposes
-    function setNewRarities(uint[] _rarities) public onlyOwner {
-        require (_rarities.length == rarities.length);
-        
-
-        rarities[0] = _rarities[0];
-        for(uint i = 1; i<_rarities.length; i++) {
-            rarities[i] = _rarities[i] + rarities[i-1];
-            properties[i].rarity = _rarities[i];
-        }
-    }
-
 
     /// @notice returns artist of card
     /// @param _metadataId is matadataId of card

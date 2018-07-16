@@ -160,7 +160,7 @@ contract Marketplace is Ownable{
     /// @param _cardId is card which metadataId we'd like to get
     function getCardMetadata(uint _cardId) private view returns (uint){
         uint metadataId;
-        (metadataId,,,,,) = cryptageCards.metadata(_cardId);
+        (metadataId,,,) = cryptageCards.metadata(_cardId);
         return metadataId;
     }
 

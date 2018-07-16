@@ -31,13 +31,12 @@ contract CryptageCards is ERC721Token, Ownable {
 
         uint id;
 //        uint rarity;
-//        bytes32 ipfsHash;
-//        uint8 ipfsHashFunction;
-//        uint8 ipfsSize;
+        string memory ipfsHash;
 //        address artist;
-        (id, , , , , ) = metadataContract.properties(_metadataId);
+        (id, ,ipfsHash, ) = metadataContract.properties(_metadataId);
 
         _metadata[cardId] = id;
+        _setTokenURI(cardId, ipfsHash);
 
         return cardId;
     }
@@ -52,8 +51,8 @@ contract CryptageCards is ERC721Token, Ownable {
         }
     }
 
-    function metadata(uint _cardId) public view returns (uint, uint, bytes32, uint8, uint8, address){
-        return metadataContract.properties(_cardId);
+    function metadata(uint _cardId) public view returns (uint, uint, string, address){
+        return metadataContract.properties(_metadata[_cardId]);
     }
 
     /// @notice adds booster address to contract only if it doesn't exist
