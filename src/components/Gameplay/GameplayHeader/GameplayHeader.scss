@@ -1,301 +1,115 @@
-@import "../../../common/colors";
-@import "../../../common/variables";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-.gameplay-header-wrapper {
-  color: #fff;
-  display: flex;
-  min-height: 100px;
-  justify-content: center;
+import './GameplayHeader.scss';
 
-  @include for-big-desktop {
-    min-height: 108px;
-  }
-
-  .gameplay-header-content {
-    display: inline-flex;
-
-    @include for-big-desktop {
-      display: flex;
-      flex-grow: 1;
-      justify-content: center;
-    }
-
-    .section {
-      width: 262px;
-      position: relative;
-      top: 9px;
-      display: flex;
-      flex-direction: column;
-
-      @include for-big-desktop {
-        width: 411px;
-      }
-
-      .stats-container {
-        display: flex;
-      }
-
-      .stats-wrapper {
-        margin: 15px 0 10px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &.dev-stats {
-          margin-right: 19px;
-          margin-left: 60px;
-
-          @include for-big-desktop {
-            margin-left: 85px;
-          }
-        }
-
-        &.funds-stats {
-          align-items: flex-start;
-
-          .label {
-            margin-left: 4px;
-          }
-
-          .count div {
-            font-family: $font-secondary;
-          }
-
-          .fpb {
-            font-family: $font-secondary;
-            position: absolute;
-            display: flex;
-            font-size: 12px;
-            line-height: 8px;
-            top: 33px;
-            color: $yellow;
-
-            @include for-big-desktop {
-              top: 39px;
-              font-size: 17px;
-            }
-
-            span {
-              font-family: $font-secondary;
-              font-size: 8px;
-              margin-left: 4px;
-
-              @include for-big-desktop {
-                font-size: 11px;
-              }
-            }
-          }
-        }
-
-        .funds-circle,
-        .dev-circle {
-          margin-right: 7px;
-          width: 26px;
-          height: 26px;
-          border-radius: 50px;
-
-          @include for-big-desktop {
-            width: 37px;
-            height: 37px;
-          }
-        }
-
-        .dev-circle {
-          background: linear-gradient(180deg, #9B01C1 24.31%, rgba(155, 1, 193, 0.67) 100%);
-        }
-        .funds-circle {
-          background: linear-gradient(180deg, #FF9D14 24.31%, rgba(255, 157, 20, 0.67) 100%);;
-        }
-
-        img {
-          margin-right: 7px;
-          width: 26px;
-          height: 26px;
-
-          @include for-big-desktop {
-            width: 37px;
-            height: 37px;
-          }
-        }
-
-        .meta-wrapper {
-          text-transform: uppercase;
-
-          .count {
-            font-family: $font-secondary;
-            font-size: 16px;
-            display: flex;
-            align-items: baseline;
-            line-height: 18px;
-
-            @include for-big-desktop {
-              font-size: 23px;
-            }
-
-            &.smallest {
-              font-size: 8px;
-              position: relative;
-              top: -1px;
-              @include for-big-desktop {  font-size: 11px;  }
-            }
-            &.small {
-              font-size: 11px;
-              @include for-big-desktop {  font-size: 18px;  }
-            }
-            &.mid {
-              font-size: 14px;
-              @include for-big-desktop {  font-size: 21px;  }
-            }
-            &.large {
-              font-size: 16px;
-              @include for-big-desktop {  font-size: 23px;  }
-            }
-          }
-
-          .label {
-            font-size: 8px;
-
-            @include for-big-desktop {
-              font-size: 11px;
-            }
-
-            &.fun {
-              white-space: nowrap;
-            }
-          }
-        }
-      }
-
-      .bar {
-        border: 2px solid $dark-purple;
-        box-shadow: 0 0 44px #441E83;
-        width: 100%;
-      }
-
-    }
-
-    .central {
-      position: relative;
-
-      .central-small {
-        position: absolute;
-
-        img {
-          width: 190px;
-          position: absolute;
-          z-index: 4;
-          top: -38px;
-          left: -12px;
-
-          @include for-big-desktop {
-            width: 243px;
-            left: -37px;
-            top: -50px
-          }
-        }
-
-        .level {
-          font-weight: bold;
-          font-size: 13px;
-          text-transform: uppercase;
-          color: #FF9D14;
-          position: absolute;
-          z-index: 5;
-          width: 84px;
-          left: 42px;
-          top: 6px;
-          text-align: center;
-
-          @include for-big-desktop {
-            font-size: 18px;
-            width: 95px;
-            left: 38px;
-          }
-        }
-      }
-
-      .central-big {
-        position: relative;
-        width: 170px;
-        top: 10px;
-
-        .big-stats {
-          z-index: 2;
-          position: absolute;
-          text-align: center;
-          left: 8px;
-          top: 26px;
-          width: 155px;
-          @include for-big-desktop {
-            width: 170px;
-            left: -1px;
-          }
-
-          .name {
-            font-family: $font-secondary;
-            font-size: 23px;
-            text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
-            width: 100%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            display:inline-block;
-
-            .no-name {
-              text-transform: uppercase;
-            }
-
-            @include for-big-desktop {
-              font-size: 32px;
-            }
-          }
-
-          .xp-wrapper {
-            font-family: $font-secondary;
-            font-size: 12px;
-            color: white;
-            position: relative;
-            top: -4px;
-            z-index: 12;
-            overflow: hidden;
-            white-space: pre;
-            text-overflow: ellipsis;
-
-            @include for-big-desktop {
-              font-size: 17px;
-              top: -10px;
-            }
-          }
-
-          .xp-loader-wrapper {
-            position: absolute;
-            bottom: 7px;
-            left: 0;
-            height: 14px;
-            width: 156px;
-
-            @include for-big-desktop {
-              transform: scale(1.29);
-              bottom: 18px;
-              left: 9px;
-            }
-          }
-        }
-
-        img {
-          position: absolute;
-          width: 350px;
-          top: -42px;
-          left: -90px;
-          z-index: 2;
-
-          @include for-big-desktop {
-            width: 449px;
-            left: -140px;
-            top: -60px;
-          }
-        }
-      }
-    }
-  }
+function getlength(number) {
+  return number.toString().length;
 }
+
+const getClassForFont = (maxDev, available) => {
+  const sum = getlength(maxDev) + getlength(available) + 1;
+  if (sum > 9) return 'smallest';
+  if (sum > 7) return 'small';
+  else if (sum > 5) return 'mid';
+  return 'large';
+};
+
+const formatFunds = (_number) => {
+  const number = parseFloat(_number);
+
+  if (number >= 1000000000) return `${Math.floor(number / 100000000) / 10} billion`;
+  if (number >= 1000000) return `${Math.floor(number / 100000) / 10} million`;
+  if (number >= 1000) {
+    const _number = number.toString(10);
+    return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
+  }
+  return number.toString();
+};
+
+const GameplayHeader = ({
+  blockNumber, globalStats, nickname, fundsPerBlock, projects,
+}) => {
+  const expPercantage = (globalStats.earnedXp / globalStats.requiredXp);
+
+  const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
+    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.stats.cost.development;
+    return acc;
+  }, 0);
+
+  const formatedFunds = formatFunds(globalStats.funds).split(' ');
+
+  return (
+    <div className="gameplay-header-wrapper">
+      <div className="gameplay-header-content">
+
+        {/* Left section */}
+        <div className="section">
+          <div className="stats-wrapper people">
+            <div className={`count ${getClassForFont(maxDev, globalStats.development)}`}>
+              { globalStats.development }
+              <span className="smaller">&nbsp;&nbsp;/&nbsp;&nbsp;{maxDev}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Central section */}
+        <div className="central">
+          <div className="level">Level { globalStats.level }</div>
+          <div className="name">{ nickname || 'NICKNAME' }</div>
+          <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
+          {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
+          <svg className="xp-loader-wrapper">
+            <defs>
+              <linearGradient id="exp-bar" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset={0.5 - (expPercantage * 0.5) - 0.05} stopColor="#1E9500" stopOpacity="0"/>
+                <stop offset={0.5 - (expPercantage * 0.5)} stopColor="#21A500"/>
+                <stop offset="0.5" stopColor="#28C800"/>
+                <stop offset={0.5 + (expPercantage * 0.5)} stopColor="#21A600"/>
+                <stop offset={0.5 + (expPercantage * 0.5) + 0.05} stopColor="#1E9500" stopOpacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M53 0H0L5.5 8H47L58 18H172L182 8H227.5L232.5 0H177L172 4H58L53 0Z" fill="url(#exp-bar)"/>
+          </svg>
+        </div>
+
+        {/* Right section */}
+        <div className="section">
+          <div className="stats-wrapper funds">
+            <div title={globalStats.funds}>
+              { formatedFunds[0] }
+              {
+                formatedFunds.length > 1 &&
+                <span className="smaller"> { formatedFunds[1] }</span>
+              }
+            </div>
+            <div className="smaller">
+              { fundsPerBlock > 0 && '+' }
+              { fundsPerBlock }
+              <span className="smaller">&nbsp;&nbsp;FPB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+GameplayHeader.propTypes = {
+  blockNumber: PropTypes.number.isRequired,
+  globalStats: PropTypes.object.isRequired,
+  nickname: PropTypes.string.isRequired,
+  fundsPerBlock: PropTypes.number.isRequired,
+  projects: PropTypes.array.isRequired,
+};
+
+const mapStateToProps = ({ gameplay }) => ({
+  blockNumber: gameplay.blockNumber,
+  globalStats: gameplay.globalStats,
+  nickname: gameplay.nickname,
+  fundsPerBlock: gameplay.fundsPerBlock,
+  projects: gameplay.projects,
+});
+
+export default connect(mapStateToProps)(GameplayHeader);

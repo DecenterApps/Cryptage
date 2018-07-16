@@ -8,12 +8,46 @@
     "dev": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-dev.config.js --host=0.0.0.0",
     "prod": "webpack --config ./build/webpack-prod.config.js",
     "staging": "webpack --config ./build/webpack-staging.config.js",
-    "prod-serve": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-prod.config.js"
+    "prod-serve": "webpack-dev-server --history-api-fallback --compress --config ./build/webpack-prod.config.js",
+    "test": "jest --colors",
+    "test:watch": "jest --onlyChanged --watch"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "./node_modules",
+      "./src"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss|png|jpg|jpeg)$": "<rootDir>/build/__mocks__/staticFileStub.js"
+    },
+    "setupFiles": [
+      "<rootDir>/build/__mocks__/globals.js"
+    ],
+    "testMatch": [
+      "**/tests/**/*.js",
+      "**/?(*.)(spec|test).js"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/classes/**/*.{js}",
+      "!**/node_modules/**"
+    ],
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/coverage/",
+      "./dist"
+    ],
+    "verbose": true
   },
   "dependencies": {
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -38,6 +72,7 @@
     "image-loader": "^0.0.1",
     "image-webpack-loader": "^4.0.0",
     "immutability-helper": "^2.6.5",
+    "jest": "^22.4.3",
     "node-sass": "^4.7.2",
     "openzeppelin-solidity": "^1.11.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",

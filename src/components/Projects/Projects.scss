@@ -6,20 +6,28 @@
   width: 133px;
   height: 5px;
 
-  @include for-big-desktop {
-    width: 190px;
-  }
+  //@include for-big-desktop {
+  //  width: 190px;
+  //}
 
   .projects-header {
-    text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 36px;
 
-    @include for-big-desktop {
-      margin-bottom: 41px;
-    }
+    .bar-wrapper {
+      color: white;
 
-    .bar-wrapper .bar-text {
-      left: 95px;
+      svg {
+        transform: rotateY(180deg);
+      }
+
+      .section-header-main-text {
+        left: 16px;
+      }
+
+      .section-header-sub-text {
+        right: 6px;
+        left: inherit;
+      }
     }
   }
 
@@ -33,11 +41,6 @@
     justify-content: normal;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 100px;
-
-    @include for-big-desktop {
-      width: 142px;
-    }
 
     .drop-slot-component {
       &.drop-slot-active, &.drop-slot-item-hover {
@@ -49,23 +52,11 @@
   .projects-slots-wrapper {
     height: $project-size;
     width: $project-size;
-    margin-bottom: 14px;
-
-    @include for-big-desktop {
-      height: $project-size-desktop;
-      width: $project-size-desktop;
-    }
+    margin-bottom: 16px;
 
     &:nth-child(2n) {
       position: relative;
-      top: 30px;
-    }
-
-    .empty-project {
-      font-size: 8px;
-      border: none;
-      color: #fff;
-      opacity: 0.44;
+      margin-left: 19px;
     }
   }
 }

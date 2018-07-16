@@ -2,33 +2,11 @@
 
 .active-container-wrapper {
   width: 100%;
+  height: 100%;
   color: #fff;
   text-align: center;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  .close-icon {
-    position: absolute;
-    top: 105px;
-    right: -65px;
-    cursor: pointer;
-    transition: 0.2s ease-in;
-    padding: 10px;
-    z-index: 50;
-
-    @include for-big-desktop {
-      top: 145px;
-      right: -78px;
-      transform: scale(1.35);
-    }
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
+  padding-bottom: 20px;
 
   .active-container-card-wrapper {
     position: relative;
@@ -38,35 +16,27 @@
     margin-top: 14px;
   }
 
-  .container-bottom-wrapper {
-    width: 566px;
-    position: relative;
-    margin-top: 35px;
-    height: 200px;
-    background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
+  .container-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    line-height: 1.4em;
+    font-family: $font-secondary;
 
-    @include for-big-desktop {
-      width: 807px;
-      height: 280px;
-
-      .header-bar-wrapper .bar-name {
-        font-size: 18px;
-      }
+    span {
+      margin-left: 5px;
     }
+  }
 
-    .container-slots {
+  .small-button {
+    margin-top: 12px;
+  }
 
-      .drop-slots-wrapper {
-        @include gameplayEmptySlot();
+  .drop-slots-wrapper {
+    max-height: 245px;
+    overflow: auto;
+  }
 
-        justify-content: center;
-        max-width: 455px;
-        margin: auto;
-
-        .drop-slot-component:not(:first-child) {
-          margin-left: 27px;
-        }
-      }
-    }
+  .modal-buttons-bar {
+    bottom: 8px;
   }
 }

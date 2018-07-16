@@ -24,7 +24,7 @@ const Gameplay = ({ gameplayView, locations, nickname }) => (
   <div className="gameplay-wrapper">
     <GameplayHeader />
 
-    { !nickname && gameplayView === GP_NO_NICKNAME && <NicknameForm /> }
+    {/*{ !nickname && gameplayView === GP_NO_NICKNAME && <NicknameForm /> }*/}
     { locations.length === 0 && gameplayView === GP_NO_LOCATIONS && <NoLocations /> }
     { gameplayView === GP_BUY_BOOSTER && <BoostersMenu /> }
     { gameplayView === GP_LOCATION && <ActiveLocation />}

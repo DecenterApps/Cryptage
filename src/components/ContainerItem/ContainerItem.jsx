@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import HandCard from '../Cards/HandCard/HandCard';
+import IngameCard from '../Cards/IngameCard/IngameCard';
 import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 
 import './ContainerItem.scss';
@@ -48,7 +48,7 @@ class ContainerItem extends Component {
           this.state.show && <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         }
 
-        <HandCard
+        <IngameCard
           showCount={false}
           played
           card={mainCard}

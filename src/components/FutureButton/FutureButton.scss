@@ -1,0 +1,97 @@
+.future-button {
+  width: 133px;
+  position: relative;
+  transition: 0.3s ease-in;
+
+  &:hover .button-text-wrapper:not(.disabled) {
+    cursor: pointer;
+
+    .text {
+      color: darken(white, 15);
+    }
+  }
+
+  .button-text-wrapper {
+    position: absolute;
+    font-size: 11px;
+    margin: 0 auto;
+    width: 100%;
+    color: white;
+    text-align: center;
+    z-index: 2;
+    top: 20px;
+
+    &.disabled {
+      cursor: not-allowed;
+      user-select: none;
+    }
+
+    &.loading {
+      top: 13px;
+      left: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .spinner-wrapper {
+        display: block;
+      }
+    }
+
+    .text {
+      text-transform: uppercase;
+      display: inline-flex;
+    }
+
+    .spinner-wrapper {
+      display: none;
+
+      #spinner {
+        stroke: #9797FC;
+      }
+    }
+  }
+
+  &.reverse {
+
+    &:before {
+      transform: rotate(180deg);
+      right: -12px;
+      top: 15px;
+      left: auto;
+    }
+
+    &:after {
+      transform: rotateY(180deg);
+      left: -14px;
+      top: 6px;
+    }
+  }
+
+  &:before {
+    width: 28px;
+    content: " ";
+    position: absolute;
+    left: -12px;
+    top: 6px;
+    height: 37px;
+    background: url('./SideLeft.svg');
+  }
+
+  .button-center {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  &:after {
+    width: 33px;
+    content: " ";
+    position: absolute;
+    right: -3px;
+    z-index: 0;
+    top: 6px;
+    height: 37px;
+    background: url('./SideRight.svg');
+  }
+}

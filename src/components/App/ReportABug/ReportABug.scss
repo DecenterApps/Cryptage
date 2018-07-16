@@ -15,9 +15,9 @@
     font-size: 8px;
     margin: 5px 0 0 0;
 
-    @include for-big-desktop {
-      font-size: 11px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 11px;
+    //}
   }
 
   &:hover {
@@ -28,9 +28,9 @@
     height: 40px;
     width: 40px;
 
-    @include for-big-desktop {
-      height: 55px;
-      width: 55px;
-    }
+    //@include for-big-desktop {
+    //  height: 55px;
+    //  width: 55px;
+    //}
   }
 }

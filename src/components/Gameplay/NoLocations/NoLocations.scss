@@ -12,23 +12,23 @@
     width: 183px;
     height: 104px;
     background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
-    top: 40px;
+    top: 25px;
     display: flex;
     padding: 0 50px;
     align-items: center;
     justify-content: center;
     text-align: center;
     line-height: 25px;
-    left: 45px;
+    left: 75px;
 
-    @include for-big-desktop {
-      top: 110px;
-      width: 247px;
-      height: 140px;
-      font-size: 20px;
-      line-height: 30px;
-      left: 60px;
-    }
+    //@include for-big-desktop {
+    //  top: 110px;
+    //  width: 247px;
+    //  height: 140px;
+    //  font-size: 20px;
+    //  line-height: 30px;
+    //  left: 60px;
+    //}
 
     &:before {
       content: '';
@@ -40,10 +40,10 @@
       top: 42px;
       background: $purple;
 
-      @include for-big-desktop {
-        width: 60px;
-        left: -60px;
-      }
+      //@include for-big-desktop {
+      //  width: 60px;
+      //  left: -60px;
+      //}
     }
   }
 }

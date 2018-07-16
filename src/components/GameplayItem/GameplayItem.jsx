@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import HandCard from '../Cards/HandCard/HandCard';
+import IngameCard from '../Cards/IngameCard/IngameCard';
 import { switchInGameplayView } from '../../actions/gameplayActions';
 import { acceptedAssetLevelUpIds, containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 import {
@@ -133,13 +133,13 @@ class GameplayItem extends Component {
         {
           !isContainer &&
           <div className="asset-card-wrapper">
-            {
-              this.state.show &&
-              (fpb > 0) &&
-              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
-            }
+            {/*{*/}
+              {/*this.state.show &&*/}
+              {/*(fpb > 0) &&*/}
+              {/*<div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
+            {/*}*/}
 
-            <HandCard
+            <IngameCard
               showCount={false}
               card={mainCard}
               slot={slot}
@@ -158,13 +158,13 @@ class GameplayItem extends Component {
               ${isDragMiner && goodMinerSlotType && !canDropMiner && 'no-drop-miner'}
             `}
           >
-            {
-              this.state.show &&
-              (fpb > 0) &&
-              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
-            }
+            {/*{*/}
+              {/*this.state.show &&*/}
+              {/*(fpb > 0) &&*/}
+              {/*<div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
+            {/*}*/}
 
-            <HandCard
+            <IngameCard
               goToContainer={() => { this.goToContainer(isContainer); }}
               showCount={false}
               card={mainCard}

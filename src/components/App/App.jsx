@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
 import Projects from '../Projects/Projects';
 import NoMetaMask from './NoMetaMask/NoMetaMask';
-import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
-import { loadGameplayState, updateFundsBlockDifference, checkProjectsBonus } from '../../actions/gameplayActions';
+import {
+  loadGameplayState,
+  updateFundsBlockDifference,
+  checkProjectsBonus,
+} from '../../actions/gameplayActions';
 import {
   checkAccount,
   loadingEnded,
@@ -28,6 +32,7 @@ class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
     await this.props.loadGameplayState();
+    if (!this.props.nickname) return this.props.loadingEnded();
     await this.props.updateFundsBlockDifference();
     this.props.listenForNewBlocks();
     this.props.updateCurrentBlockNumber();
@@ -36,7 +41,7 @@ class App extends Component {
   }
 
   render() {
-    const { loadingApp, accountError, tutorialOpen } = this.props;
+    const { loadingApp, accountError, tutorialOpen, nickname } = this.props;
 
     if (loadingApp) {
       return (
@@ -49,11 +54,14 @@ class App extends Component {
       );
     }
 
+    if (!nickname && !accountError) {
+      return (<Redirect to="/newuser" />);
+    }
+
     return (
       <div className={`app-wrapper ${accountError ? 'no-acc' : 'has-acc'}`}>
 
         <div className="app-top-section-wrapper">
-          <div className="logo-wrapper" />
 
           {accountError && <NoMetaMask accountError={accountError} />}
 
@@ -66,7 +74,6 @@ class App extends Component {
           }
         </div>
 
-        <ModalRoot />
         <Feedback />
         <ReportABug />
         <CustomDragLayer />
@@ -90,6 +97,7 @@ App.propTypes = {
   updateFundsBlockDifference: PropTypes.func.isRequired,
   tutorialOpen: PropTypes.bool.isRequired,
   checkProjectsBonus: PropTypes.func.isRequired,
+  nickname: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -102,10 +110,11 @@ const mapDispatchToProps = {
   checkProjectsBonus,
 };
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app, gameplay }) => ({
   loadingApp: app.loadingApp,
   accountError: app.accountError,
   tutorialOpen: app.tutorialOpen,
+  nickname: gameplay.nickname,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,14 +1,14 @@
 @import "../../common/variables";
 
 .modal-backdrop {
-  position: absolute;
+  position: fixed;
   outline: none;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 0;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(#130D23, 0);
   transition: all 0.15s ease-out;
   text-align: center;
   visibility: hidden;
@@ -16,13 +16,16 @@
 
   .modal-wrapper {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
   }
 
   .modal {
     margin-top: 0;
     top: 0;
-    transform: translateY(0);
+    transform: translateY(-70px);
     opacity: 0;
     transition: all 0.3s ease-out;
     border-bottom-left-radius: $border-radius-modal;
@@ -49,10 +52,10 @@
         cursor: pointer;
         transition: 0.2s ease-in;
 
-        @include for-big-desktop {
-          transform: scale(1.35);
-          right: 3px;
-        }
+        //@include for-big-desktop {
+        //  transform: scale(1.35);
+        //  right: 3px;
+        //}
 
         &:hover {
           opacity: 0.6;
@@ -67,30 +70,30 @@
   }
 
   &.open {
-    background-color: rgba(#0A0F1E, 0.95);
+    background-color: rgba(#130D23, .8);
     z-index: 1000;
-    overflow: auto;
+    //overflow: auto;
     visibility: visible;
 
     &.reveal-modal {
-      background: rgba(26, 18, 46, 0.9);
+      //background: rgba(26, 18, 46, 0.9);
 
       .modal {
-        transform: translateY(100px);
+        transform: translateY(30px);
 
-        @include for-big-desktop {
-          transform: translateY(170px);
-        }
+        //@include for-big-desktop {
+        //  transform: translateY(170px);
+        //}
       }
     }
 
     .modal {
-      transform: translateY(70px);
+      transform: translateY(0px);
       opacity: 1;
 
-      @include for-big-desktop {
-        transform: translateY(130px);
-      }
+      //@include for-big-desktop {
+      //  transform: translateY(130px);
+      //}
     }
   }
 }

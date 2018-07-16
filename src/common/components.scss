@@ -8,87 +8,43 @@
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
 }
 
+.modal-bar {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, rgba(#9797FB, 0), #9797FB, rgba(#9797FB, 0));
+  box-shadow: 0 0 9px #220079;
+}
+
+.modal-buttons-bar {
+  width: 268px;
+  height: 2px;
+  background: linear-gradient(to right, rgba(#9797FB, 0), #9797FB, rgba(#9797FB, 0));
+  box-shadow: 0 0 9px #220079;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 25px;
+}
+
 .bar-wrapper {
   position: relative;
+  text-transform: uppercase;
 
-  &.reverse-bar {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-
-    .bar-text {
-      -webkit-transform: scaleX(-1);
-      transform: scaleX(-1);
-    }
-  }
-
-  .bar-1 {
-    width: 40px;
-    @include purple-line;
-
-    @include for-big-desktop {
-      width: 68px;
-    }
-  }
-
-  .bar-2 {
+  .section-header-main-text {
     position: absolute;
-    left: 37px;
-    bottom: 7px;
-    width: 20px;
-    transform: rotate(-45deg);
-    @include purple-line;
-
-    @include for-big-desktop {
-      width: 25px;
-      left: 64px;
-      bottom: 9px;
-    }
+    font-size: 11px;
+    left: 65px;
+    bottom: 9px;
   }
 
-  .bar-3 {
-    width: 65px;
-    left: 54px;
-    position: absolute;
-    bottom: 14px;
-    @include purple-line;
-
-    @include for-big-desktop {
-      left: 85px;
-      bottom: 18px;
-      width: 84px;
-    }
-  }
-
-  .bar-4 {
-    width: 20px;
-    transform: rotate(45deg);
-    left: 116px;
-    position: absolute;
-    bottom: 7px;
-    @include purple-line;
-
-    @include for-big-desktop {
-      left: 165px;
-      width: 25px;
-      bottom: 9px;
-    }
-  }
-
-  .bar-text {
-    position: absolute;
-    left: 66px;
-    font-weight: bold;
-    bottom: 0;
+  .section-header-sub-text {
     font-size: 8px;
-    text-transform: uppercase;
-    color: #fff;
-    font-family: $font-secondary;
-
-    @include for-big-desktop {
-      font-size: 14px;
-      bottom: -8px;
-      left: 91px;
-    }
+    opacity: 0.3;
+    text-shadow: 0 0 3px #9B01C1;
+    position: absolute;
+    top: 9px;
+    left: 5px;
   }
 }
 
@@ -107,11 +63,11 @@
   background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
   transition: 0.5s ease-in;
 
-  @include for-big-desktop {
-    height: 36px;
-    white-space: nowrap;
-    font-size: 14px;
-  }
+  //@include for-big-desktop {
+  //  height: 36px;
+  //  white-space: nowrap;
+  //  font-size: 14px;
+  //}
 
   &:hover {
     background: linear-gradient(180deg, #36265F 0%, #1C133B 100%);

@@ -1,7 +1,11 @@
 import React from 'react';
 import update from 'immutability-helper';
+import cardsConfig from '../constants/cards.json';
 import { getSlotForContainer, checkIfCanLevelUp } from './gameMechanicsService';
-import { acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS } from '../actions/actionTypes';
+import {
+  acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS, rarities,
+  typeGradients
+} from '../actions/actionTypes';
 
 /**
  * Generates unique id
@@ -529,8 +533,8 @@ export const classForRarity = (_rarity) => {
   const number = parseInt(_rarity, 10);
   if (number >= 850) return 'normal';
   if (number >= 600) return 'blue';
-  if (number >= 325) return 'gold';
-  return 'red';
+  if (number >= 325) return 'purple';
+  return 'gold';
 };
 
 /**
@@ -576,3 +580,75 @@ export const getDropSlotsAvailableLevelUp = (slots, card, globalStats) => slots.
 
   return acc;
 }, 0);
+
+
+export const mergeErrorMessages = (...messages) => {
+  const result = {};
+  let allowed = true;
+  for (const message of messages) {
+    for (const prop of Object.keys(message)) {
+      if (Array.isArray(message[prop])) {
+        if (!result[prop]) {
+          result[prop] = message[prop].slice(0);
+        } else {
+          result[prop] = result[prop].concat(message[prop]);
+        }
+        if (allowed && result[prop].length > 0) {
+          allowed = false;
+        }
+      } else if (typeof result[prop] === 'undefined' || result[prop]) {
+        result[prop] = message[prop];
+        allowed = allowed && result[prop];
+      }
+    }
+  }
+  result.allowed = allowed;
+  return result;
+};
+
+export const getDataForTypeSorting = (cards) => {
+  const allType = {
+    color: typeGradients.container,
+    name: 'All',
+    total: Object.keys(cardsConfig.cards).length,
+    collected: 0,
+  };
+  const allCards = Object.keys(cardsConfig.cards).map(cardTypeId => cardsConfig.cards[cardTypeId]['1'].title);
+  allType.collected = cards.reduce((acc, card) => {
+    const typeIndex = allCards.findIndex(title => title === card.stats.title);
+
+    if (typeIndex !== -1) {
+      allCards.splice(typeIndex, 1);
+      acc += 1;
+    }
+    return acc;
+  }, 0);
+
+  return Object.keys(typeGradients).reduce((_acc, key) => {
+    const acc = [..._acc];
+    const item = { color: typeGradients[key], name: key, total: 0, collected: 0 };
+    const typeTitles = [];
+
+    Object.keys(cardsConfig.cards).forEach((cardTypeId) => {
+      if (cardsConfig.cards[cardTypeId]['1'].type.toLowerCase() === key) {
+        item.total += 1;
+        typeTitles.push(cardsConfig.cards[cardTypeId]['1'].title);
+      }
+    });
+
+    item.collected = cards.reduce((acc, card) => {
+      const typeIndex = typeTitles.findIndex(title => title === card.stats.title);
+
+      if (typeIndex !== -1) {
+        typeTitles.splice(typeIndex, 1);
+        acc += 1;
+      }
+      return acc;
+    }, 0);
+
+    acc.push(item);
+    return acc;
+  }, [allType]);
+};
+
+export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);

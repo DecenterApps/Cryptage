@@ -4,6 +4,7 @@ import {
   NEW_LEVEL_MODAL,
   REVEAL_BOOSTER_CARDS_MODAL,
   NO_RESTART_PROJECT_MODAL, ERROR_MODAL,
+  MENU_MODAL,
 } from '../components/Modals/modalTypes';
 
 /**
@@ -48,7 +49,7 @@ export const openConfirmRemoveModal = (
     containerSlotIndex,
     projectCard,
     projectIndex,
-    width: '271px',
+    width: '440px',
   };
   dispatch(toggleModal(CONFIRM_REMOVE_MODAL, props, true));
 };
@@ -69,7 +70,7 @@ export const openNewLevelModal = (level, cards) => (dispatch) => {
  * @param {Object} cards
  */
 export const openRevealBoosterCardsModal = cards => (dispatch) => {
-  dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { cards, className: 'reveal-modal' }, true));
+  dispatch(toggleModal(REVEAL_BOOSTER_CARDS_MODAL, { width: '1000px', cards, className: 'reveal-modal' }, true));
 };
 
 /**
@@ -78,7 +79,7 @@ export const openRevealBoosterCardsModal = cards => (dispatch) => {
  * @param {Object} errors
  */
 export const openNoRestartProjectModal = errors => (dispatch) => {
-  dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '271px', errors }, true));
+  dispatch(toggleModal(NO_RESTART_PROJECT_MODAL, { width: '347px', errors }, true));
 };
 
 /**
@@ -89,7 +90,15 @@ export const openNoRestartProjectModal = errors => (dispatch) => {
  */
 export const openErrorModal = (title, body) => (dispatch) => {
   dispatch(toggleModal(ERROR_MODAL, {
-    width: '271px',
+    width: '347px',
     errors: { title, body },
   }, true));
 };
+
+/**
+ * Opens the menu modal
+ */
+export const openMenuModal = () => (dispatch) => {
+  dispatch(toggleModal(MENU_MODAL, { width: '616px' }, true));
+};
+

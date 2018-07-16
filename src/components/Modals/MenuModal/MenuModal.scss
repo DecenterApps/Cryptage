@@ -1,0 +1,91 @@
+@import "../../../common/colors";
+@import "../../../common/variables";
+
+.menu-modal-wrapper {
+  h3 {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .modal-body {
+    background: $modal-bg-dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px 0;
+  }
+
+  .buttons-wrapper {
+    position: relative;
+    margin-top: 8px;
+    width: 100%;
+
+    .modal-buttons-bar {
+      bottom: 25px;
+    }
+  }
+
+  .menu {
+    height: 100%;
+    transition: all .1s;
+    padding: 5px;
+
+    //@include for-big-desktop {
+    //  width: 335px;
+    //  margin-left: 665px;
+    //}
+
+    .links {
+      //@include for-big-desktop {
+      //  margin: 56px 0;
+      //
+      //  display: flex;
+      //  align-items: flex-end;
+      //  justify-content: center;
+      //  flex-direction: column;
+      //}
+    }
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 20px;
+      font-family: $font-secondary;
+      padding: 8px;
+      color: white;
+      text-transform: uppercase;
+      &:hover {
+        color: $yellow;
+      }
+
+      //@include for-big-desktop {
+      //  font-size: 28px;
+      //  padding-right: 65px;
+      //}
+    }
+    .coming-soon {
+      cursor: default;
+      opacity: 0.5;
+      position: relative;
+
+      &:hover {
+        color: #fff;
+      }
+
+      span {
+        font-size: 10px;
+        text-transform: uppercase;
+
+        //@include for-big-desktop {
+        //  top: 3px;
+        //  font-size: 12px;
+        //  padding-right: 65px;
+        //}
+      }
+    }
+  }
+}

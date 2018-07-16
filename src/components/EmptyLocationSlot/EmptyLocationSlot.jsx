@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
-import AvailableDropIcon from '../Decorative/AvailableDropIcon';
-import UnavailableDropIcon from '../Decorative/UnavailableDropIcon';
+import EmptyHexagon from '../Decorative/EmptyHexagon';
 
 import './EmptyLocationSlot.scss';
 
@@ -25,10 +24,7 @@ const EmptyLocationSlot = ({ card, globalStats }) => {
       `}
     >
       <div className="empty-loc-slot">
-        {
-          card && goodCardType &&
-          <div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div>
-        }
+        <EmptyHexagon />
       </div>
     </div>
   );

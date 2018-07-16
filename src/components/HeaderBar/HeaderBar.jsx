@@ -14,7 +14,7 @@ export default ({ title, color }) => (
           {title || ''}
         </div>
       </div>
-      <div className="bar-wrapper" />
+      <div className="bar-wrapper reverse" />
     </div>
 
     <div className="background-drop" />
