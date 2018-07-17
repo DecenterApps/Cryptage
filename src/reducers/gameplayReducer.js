@@ -95,20 +95,17 @@ const switchState = (state, action) => {
     //   };
     //
     case USERS_CARDS_SUCCESS:
+    case REMOVE_NEW_FROM_CARD:
       return new Gameplay(state.blockNumber, {
         ...state,
         cards: payload,
       });
-    //
+
     case REVEAL_SUCCESS:
       return new Gameplay(state.blockNumber, {
         ...state,
         cards: action.cards,
       });
-    //
-    // case REMOVE_NEW_FROM_CARD:
-    //   return { ...state, newCardTypes: payload };
-
     // case UPDATE_GLOBAL_VALUES:
     //   return { ...state, globalStats: payload };
     //

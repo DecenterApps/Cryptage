@@ -22,6 +22,7 @@ import {
   updateProjectModifiedFunds,
   calcTinkererPerLocationBonus,
 } from '../services/gameMechanicsService';
+import { NEW_LEVEL_MODAL } from '../components/Modals/modalTypes';
 
 /**
  * Checks if player can cancel a card;
@@ -265,16 +266,15 @@ export const clearRevealedCards = () => (dispatch) => { dispatch({ type: CLEAR_R
 /**
  * Fires when the user hovers over a card element with "new".
  *
- * @param cardType
+ * @param {String} newCardMetadataId
  */
-export const removeNewCardOnHover = cardType => (dispatch, getState) => {
-  // TODO return this later
-  // const newCardTypes = [...getState().gameplay.newCardTypes];
-  //
-  // if (!newCardTypes.includes(cardType)) return;
-  //
-  // const spliceIndex = newCardTypes.findIndex(newCardType => newCardType === cardType);
-  // newCardTypes.splice(spliceIndex, 1);
-  //
-  // dispatch({ type: REMOVE_NEW_FROM_CARD, payload: newCardTypes });
+export const removeNewCardOnHover = newCardMetadataId => (dispatch, getState) => {
+  const newCardsArr = [...getState().gameplay.cards]
+    .map((_newCard) => {
+      const newCard = _newCard;
+      if (_newCard.isNew && _newCard.metadataId === newCardMetadataId) newCard.isNew = false;
+      return newCard;
+    });
+
+  dispatch({ type: REMOVE_NEW_FROM_CARD, payload: newCardsArr });
 };

@@ -54,6 +54,12 @@ export const revealRequest = (_id, _boosters) => {
 export const revealSuccess = (revealedCards, _id, _boosters) => (dispatch, getState) => {
   let cards = [...getState().gameplay.cards];
 
+  revealedCards.forEach((_revealCard) => {
+    const revealCard = _revealCard;
+    const foundCard = cards.find(card => card.metadataId === revealCard.metadataId);
+    if (!foundCard) revealCard.isNew = true;
+  });
+
   cards = [...cards, ...revealedCards];
 
   const boosters = [..._boosters];
