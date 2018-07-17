@@ -15,7 +15,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Well, you gotta start somewhere...",
         "image": "garage.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -49,7 +49,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Well, you gotta start somewhere...",
         "image": "garage.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -83,7 +83,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Well, you gotta start somewhere...",
         "image": "garage.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -117,7 +117,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Well, you gotta start somewhere...",
         "image": "garage.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -151,7 +151,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Well, you gotta start somewhere...",
         "image": "garage.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -187,7 +187,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
         "image": "coworking-space.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -221,7 +221,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
         "image": "coworking-space.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -255,7 +255,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
         "image": "coworking-space.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -289,7 +289,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
         "image": "coworking-space.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -323,7 +323,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
         "image": "coworking-space.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -366,7 +366,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Legend says that these were used to play the mighty video games of old...",
         "image": "classic-gpu.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -398,7 +398,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Legend says that these were used to play the mighty video games of old...",
         "image": "classic-gpu.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -430,7 +430,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Legend says that these were used to play the mighty video games of old...",
         "image": "classic-gpu.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -462,7 +462,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Legend says that these were used to play the mighty video games of old...",
         "image": "classic-gpu.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -494,7 +494,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Legend says that these were used to play the mighty video games of old...",
         "image": "classic-gpu.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -528,7 +528,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "A truly efficient miner, from a more profitable age.",
         "image": "asic-miner.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -560,7 +560,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "A truly efficient miner, from a more profitable age.",
         "image": "asic-miner.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -592,7 +592,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "A truly efficient miner, from a more profitable age.",
         "image": "asic-miner.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -624,7 +624,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "A truly efficient miner, from a more profitable age.",
         "image": "asic-miner.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -656,7 +656,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "A truly efficient miner, from a more profitable age.",
         "image": "asic-miner.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -690,7 +690,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I have no idea what I'm doing...",
         "image": "intern-programmer.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -722,7 +722,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I have no idea what I'm doing...",
         "image": "intern-programmer.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -754,7 +754,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I have no idea what I'm doing...",
         "image": "intern-programmer.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -786,7 +786,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I have no idea what I'm doing...",
         "image": "intern-programmer.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -818,7 +818,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I have no idea what I'm doing...",
         "image": "intern-programmer.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -852,7 +852,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -884,7 +884,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -916,7 +916,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -948,7 +948,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -980,7 +980,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -1014,7 +1014,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -1046,7 +1046,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -1078,7 +1078,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -1110,7 +1110,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -1142,7 +1142,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -1176,7 +1176,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember the old days: The DAO hack, Parity wallet bug, optimizing around gas limits... You kids today have it easy.",
         "image": "senior-developer.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -1208,7 +1208,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember the old days: The DAO hack, Parity wallet bug, optimizing around gas limits... You kids today have it easy.",
         "image": "senior-developer.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -1240,7 +1240,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember the old days: The DAO hack, Parity wallet bug, optimizing around gas limits... You kids today have it easy.",
         "image": "senior-developer.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -1272,7 +1272,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember the old days: The DAO hack, Parity wallet bug, optimizing around gas limits... You kids today have it easy.",
         "image": "senior-developer.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -1304,7 +1304,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember the old days: The DAO hack, Parity wallet bug, optimizing around gas limits... You kids today have it easy.",
         "image": "senior-developer.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -1338,7 +1338,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The strength of the team is in its members. The strength of each member is in the team.",
         "image": "technical-team-leader.jpg",
         "level": 1,
         "mechanics": [
@@ -1354,7 +1354,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1383,7 +1383,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The strength of the team is in its members. The strength of each member is in the team.",
         "image": "technical-team-leader.jpg",
         "level": 2,
         "mechanics": [
@@ -1399,7 +1399,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1428,7 +1428,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The strength of the team is in its members. The strength of each member is in the team.",
         "image": "technical-team-leader.jpg",
         "level": 3,
         "mechanics": [
@@ -1444,7 +1444,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1473,7 +1473,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The strength of the team is in its members. The strength of each member is in the team.",
         "image": "technical-team-leader.jpg",
         "level": 4,
         "mechanics": [
@@ -1489,7 +1489,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1518,7 +1518,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The strength of the team is in its members. The strength of each member is in the team.",
         "image": "technical-team-leader.jpg",
         "level": 5,
         "mechanics": [
@@ -1534,7 +1534,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1565,7 +1565,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
         "image": "project-architect.jpg",
         "level": 1,
         "mechanics": [
@@ -1579,7 +1579,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1608,7 +1608,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
         "image": "project-architect.jpg",
         "level": 2,
         "mechanics": [
@@ -1622,7 +1622,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1651,7 +1651,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
         "image": "project-architect.jpg",
         "level": 3,
         "mechanics": [
@@ -1665,7 +1665,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1694,7 +1694,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
         "image": "project-architect.jpg",
         "level": 4,
         "mechanics": [
@@ -1708,7 +1708,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1737,7 +1737,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
         "image": "project-architect.jpg",
         "level": 5,
         "mechanics": [
@@ -1751,7 +1751,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1782,10 +1782,10 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Gain 10 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1814,10 +1814,10 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 2,
-        "mechanicsText": "",
+        "mechanicsText": "Gain 10 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1846,10 +1846,10 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 3,
-        "mechanicsText": "",
+        "mechanicsText": "Gain 10 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1878,10 +1878,10 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 4,
-        "mechanicsText": "",
+        "mechanicsText": "Gain 10 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1910,10 +1910,10 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 5,
-        "mechanicsText": "",
+        "mechanicsText": "Gain 10 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1944,7 +1944,7 @@
           "space": 5,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Free power, free people!",
         "image": "solar-panels.jpg",
         "level": 1,
         "mechanics": [
@@ -1981,7 +1981,7 @@
           "space": 5,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Free power, free people!",
         "image": "solar-panels.jpg",
         "level": 2,
         "mechanics": [
@@ -2018,7 +2018,7 @@
           "space": 5,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Free power, free people!",
         "image": "solar-panels.jpg",
         "level": 3,
         "mechanics": [
@@ -2055,7 +2055,7 @@
           "space": 5,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Free power, free people!",
         "image": "solar-panels.jpg",
         "level": 4,
         "mechanics": [
@@ -2092,7 +2092,7 @@
           "space": 5,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Free power, free people!",
         "image": "solar-panels.jpg",
         "level": 5,
         "mechanics": [
@@ -2124,7 +2124,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I love the smell of damp mould in the morning...",
         "image": "shaggy-office.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -2158,7 +2158,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I love the smell of damp mould in the morning...",
         "image": "shaggy-office.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -2192,7 +2192,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I love the smell of damp mould in the morning...",
         "image": "shaggy-office.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -2226,7 +2226,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I love the smell of damp mould in the morning...",
         "image": "shaggy-office.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -2260,7 +2260,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I love the smell of damp mould in the morning...",
         "image": "shaggy-office.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -2303,7 +2303,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This thing gives you so much power for a low price. I guess some would say it is... overpowered.",
         "image": "black-market-batteries.jpg",
         "level": 1,
         "mechanics": [
@@ -2340,7 +2340,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This thing gives you so much power for a low price. I guess some would say it is... overpowered.",
         "image": "black-market-batteries.jpg",
         "level": 2,
         "mechanics": [
@@ -2377,7 +2377,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This thing gives you so much power for a low price. I guess some would say it is... overpowered.",
         "image": "black-market-batteries.jpg",
         "level": 3,
         "mechanics": [
@@ -2414,7 +2414,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This thing gives you so much power for a low price. I guess some would say it is... overpowered.",
         "image": "black-market-batteries.jpg",
         "level": 4,
         "mechanics": [
@@ -2451,7 +2451,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This thing gives you so much power for a low price. I guess some would say it is... overpowered.",
         "image": "black-market-batteries.jpg",
         "level": 5,
         "mechanics": [
@@ -2490,7 +2490,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
         "image": "diy-power-generator.jpg",
         "level": 1,
         "mechanics": [
@@ -2527,7 +2527,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
         "image": "diy-power-generator.jpg",
         "level": 2,
         "mechanics": [
@@ -2564,7 +2564,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
         "image": "diy-power-generator.jpg",
         "level": 3,
         "mechanics": [
@@ -2601,7 +2601,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
         "image": "diy-power-generator.jpg",
         "level": 4,
         "mechanics": [
@@ -2638,7 +2638,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
         "image": "diy-power-generator.jpg",
         "level": 5,
         "mechanics": [
@@ -2677,7 +2677,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "GRIDCONEEEEEEEEECT!",
         "image": "grid-connector.jpg",
         "level": 1,
         "mechanics": [
@@ -2696,7 +2696,7 @@
             "name": ""
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Gain 1 FUND per block for each unit of unspent POWER at location.",
         "rarityScore": "100",
         "tags": [
           "asset"
@@ -2727,7 +2727,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Make money by grinding sweet sweet coffee... Truly mankind's greatest invention. ",
         "image": "coffee-machine-miner.jpg",
         "level": 1,
         "mechanics": [
@@ -2746,7 +2746,7 @@
             "name": ""
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Gain 10 FPB. All developers at the location gain 10% bonus DEV.",
         "rarityScore": "625",
         "tags": [
           "asset"
@@ -2777,10 +2777,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
         "image": "day-trading.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "1000",
         "tags": [
           "project"
@@ -2809,10 +2809,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
         "image": "day-trading.jpg",
         "level": 2,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "1000",
         "tags": [
           "project"
@@ -2841,10 +2841,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
         "image": "day-trading.jpg",
         "level": 3,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "1000",
         "tags": [
           "project"
@@ -2873,10 +2873,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
         "image": "day-trading.jpg",
         "level": 4,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "1000",
         "tags": [
           "project"
@@ -2905,10 +2905,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
         "image": "day-trading.jpg",
         "level": 5,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "1000",
         "tags": [
           "project"
@@ -2939,10 +2939,10 @@
           "space": 0,
           "time": 10
         },
-        "flavorText": "",
+        "flavorText": "Hey, this isn't what I signed up for!",
         "image": "outsourced-project.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 10 blocks.",
         "rarityScore": "975",
         "tags": [
           "project"
@@ -2971,10 +2971,10 @@
           "space": 0,
           "time": 10
         },
-        "flavorText": "",
+        "flavorText": "Hey, this isn't what I signed up for!",
         "image": "outsourced-project.jpg",
         "level": 2,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 10 blocks.",
         "rarityScore": "975",
         "tags": [
           "project"
@@ -3003,10 +3003,10 @@
           "space": 0,
           "time": 10
         },
-        "flavorText": "",
+        "flavorText": "Hey, this isn't what I signed up for!",
         "image": "outsourced-project.jpg",
         "level": 3,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 10 blocks.",
         "rarityScore": "975",
         "tags": [
           "project"
@@ -3035,10 +3035,10 @@
           "space": 0,
           "time": 10
         },
-        "flavorText": "",
+        "flavorText": "Hey, this isn't what I signed up for!",
         "image": "outsourced-project.jpg",
         "level": 4,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 10 blocks.",
         "rarityScore": "975",
         "tags": [
           "project"
@@ -3067,10 +3067,10 @@
           "space": 0,
           "time": 10
         },
-        "flavorText": "",
+        "flavorText": "Hey, this isn't what I signed up for!",
         "image": "outsourced-project.jpg",
         "level": 5,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 10 blocks.",
         "rarityScore": "975",
         "tags": [
           "project"
@@ -3101,7 +3101,7 @@
           "space": 0,
           "time": 40
         },
-        "flavorText": "",
+        "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
         "image": "profitable-dapp.jpg",
         "level": 1,
         "mechanics": [
@@ -3112,7 +3112,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3141,7 +3141,7 @@
           "space": 0,
           "time": 40
         },
-        "flavorText": "",
+        "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
         "image": "profitable-dapp.jpg",
         "level": 2,
         "mechanics": [
@@ -3152,7 +3152,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3181,7 +3181,7 @@
           "space": 0,
           "time": 40
         },
-        "flavorText": "",
+        "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
         "image": "profitable-dapp.jpg",
         "level": 3,
         "mechanics": [
@@ -3192,7 +3192,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3221,7 +3221,7 @@
           "space": 0,
           "time": 40
         },
-        "flavorText": "",
+        "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
         "image": "profitable-dapp.jpg",
         "level": 4,
         "mechanics": [
@@ -3232,7 +3232,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3261,7 +3261,7 @@
           "space": 0,
           "time": 40
         },
-        "flavorText": "",
+        "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
         "image": "profitable-dapp.jpg",
         "level": 5,
         "mechanics": [
@@ -3272,7 +3272,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3303,7 +3303,7 @@
           "space": 0,
           "time": 100
         },
-        "flavorText": "",
+        "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
         "image": "mining-algorithm-optimization.jpg",
         "level": 1,
         "mechanics": [
@@ -3316,7 +3316,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3345,7 +3345,7 @@
           "space": 0,
           "time": 100
         },
-        "flavorText": "",
+        "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
         "image": "mining-algorithm-optimization.jpg",
         "level": 2,
         "mechanics": [
@@ -3358,7 +3358,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3387,7 +3387,7 @@
           "space": 0,
           "time": 100
         },
-        "flavorText": "",
+        "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
         "image": "mining-algorithm-optimization.jpg",
         "level": 3,
         "mechanics": [
@@ -3400,7 +3400,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3429,7 +3429,7 @@
           "space": 0,
           "time": 100
         },
-        "flavorText": "",
+        "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
         "image": "mining-algorithm-optimization.jpg",
         "level": 4,
         "mechanics": [
@@ -3442,7 +3442,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3471,7 +3471,7 @@
           "space": 0,
           "time": 100
         },
-        "flavorText": "",
+        "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
         "image": "mining-algorithm-optimization.jpg",
         "level": 5,
         "mechanics": [
@@ -3484,7 +3484,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3515,10 +3515,10 @@
           "space": 0,
           "time": 200
         },
-        "flavorText": "",
+        "flavorText": "Get your buzzwords here! Get'em while they're hot!",
         "image": "initial-coin-offering.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 200 blocks.",
         "rarityScore": "875",
         "tags": [
           "project"
@@ -3547,10 +3547,10 @@
           "space": 0,
           "time": 200
         },
-        "flavorText": "",
+        "flavorText": "Get your buzzwords here! Get'em while they're hot!",
         "image": "initial-coin-offering.jpg",
         "level": 2,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 200 blocks.",
         "rarityScore": "875",
         "tags": [
           "project"
@@ -3579,10 +3579,10 @@
           "space": 0,
           "time": 200
         },
-        "flavorText": "",
+        "flavorText": "Get your buzzwords here! Get'em while they're hot!",
         "image": "initial-coin-offering.jpg",
         "level": 3,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 200 blocks.",
         "rarityScore": "875",
         "tags": [
           "project"
@@ -3611,10 +3611,10 @@
           "space": 0,
           "time": 200
         },
-        "flavorText": "",
+        "flavorText": "Get your buzzwords here! Get'em while they're hot!",
         "image": "initial-coin-offering.jpg",
         "level": 4,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 200 blocks.",
         "rarityScore": "875",
         "tags": [
           "project"
@@ -3643,10 +3643,10 @@
           "space": 0,
           "time": 200
         },
-        "flavorText": "",
+        "flavorText": "Get your buzzwords here! Get'em while they're hot!",
         "image": "initial-coin-offering.jpg",
         "level": 5,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 200 blocks.",
         "rarityScore": "875",
         "tags": [
           "project"
@@ -3677,7 +3677,7 @@
           "space": 0,
           "time": 1000
         },
-        "flavorText": "",
+        "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 1,
         "mechanics": [
@@ -3698,7 +3698,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3727,7 +3727,7 @@
           "space": 0,
           "time": 1000
         },
-        "flavorText": "",
+        "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 2,
         "mechanics": [
@@ -3748,7 +3748,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3777,7 +3777,7 @@
           "space": 0,
           "time": 1000
         },
-        "flavorText": "",
+        "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 3,
         "mechanics": [
@@ -3798,7 +3798,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3827,7 +3827,7 @@
           "space": 0,
           "time": 1000
         },
-        "flavorText": "",
+        "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 4,
         "mechanics": [
@@ -3848,7 +3848,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3877,7 +3877,7 @@
           "space": 0,
           "time": 1000
         },
-        "flavorText": "",
+        "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
         "image": "rent-computing-power.jpg",
         "level": 5,
         "mechanics": [
@@ -3898,7 +3898,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3922,7 +3922,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
         "image": "downtown-office.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -3956,7 +3956,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
         "image": "downtown-office.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -3990,7 +3990,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
         "image": "downtown-office.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -4024,7 +4024,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
         "image": "downtown-office.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -4058,7 +4058,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
         "image": "downtown-office.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -4101,7 +4101,7 @@
           "space": 0,
           "time": 2000
         },
-        "flavorText": "",
+        "flavorText": "Just HODL it.",
         "image": "coin-staking.jpg",
         "level": 1,
         "mechanics": [
@@ -4113,7 +4113,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4142,7 +4142,7 @@
           "space": 0,
           "time": 2000
         },
-        "flavorText": "",
+        "flavorText": "Just HODL it.",
         "image": "coin-staking.jpg",
         "level": 2,
         "mechanics": [
@@ -4154,7 +4154,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4183,7 +4183,7 @@
           "space": 0,
           "time": 2000
         },
-        "flavorText": "",
+        "flavorText": "Just HODL it.",
         "image": "coin-staking.jpg",
         "level": 3,
         "mechanics": [
@@ -4195,7 +4195,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4224,7 +4224,7 @@
           "space": 0,
           "time": 2000
         },
-        "flavorText": "",
+        "flavorText": "Just HODL it.",
         "image": "coin-staking.jpg",
         "level": 4,
         "mechanics": [
@@ -4236,7 +4236,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4265,7 +4265,7 @@
           "space": 0,
           "time": 2000
         },
-        "flavorText": "",
+        "flavorText": "Just HODL it.",
         "image": "coin-staking.jpg",
         "level": 5,
         "mechanics": [
@@ -4277,7 +4277,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4308,7 +4308,7 @@
           "space": 0,
           "time": 3000
         },
-        "flavorText": "",
+        "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 1,
         "mechanics": [
@@ -4319,7 +4319,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4348,7 +4348,7 @@
           "space": 0,
           "time": 3000
         },
-        "flavorText": "",
+        "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 2,
         "mechanics": [
@@ -4359,7 +4359,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4388,7 +4388,7 @@
           "space": 0,
           "time": 3000
         },
-        "flavorText": "",
+        "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 3,
         "mechanics": [
@@ -4399,7 +4399,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4428,7 +4428,7 @@
           "space": 0,
           "time": 3000
         },
-        "flavorText": "",
+        "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 4,
         "mechanics": [
@@ -4439,7 +4439,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4468,7 +4468,7 @@
           "space": 0,
           "time": 3000
         },
-        "flavorText": "",
+        "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
         "image": "decentralized-protocol-development.jpg",
         "level": 5,
         "mechanics": [
@@ -4479,7 +4479,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4510,10 +4510,10 @@
           "space": 0,
           "time": 300000
         },
-        "flavorText": "",
+        "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: Two weeks™",
         "rarityScore": "375",
         "tags": [
           "project"
@@ -4542,10 +4542,10 @@
           "space": 0,
           "time": 300000
         },
-        "flavorText": "",
+        "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 2,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: Two weeks™",
         "rarityScore": "375",
         "tags": [
           "project"
@@ -4574,10 +4574,10 @@
           "space": 0,
           "time": 300000
         },
-        "flavorText": "",
+        "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 3,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: Two weeks™",
         "rarityScore": "375",
         "tags": [
           "project"
@@ -4606,10 +4606,10 @@
           "space": 0,
           "time": 300000
         },
-        "flavorText": "",
+        "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 4,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: Two weeks™",
         "rarityScore": "375",
         "tags": [
           "project"
@@ -4638,10 +4638,10 @@
           "space": 0,
           "time": 300000
         },
-        "flavorText": "",
+        "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 5,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: Two weeks™",
         "rarityScore": "375",
         "tags": [
           "project"
@@ -4672,7 +4672,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Foundation holo-tech. Shiny!",
         "image": "holographic-gpu.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -4704,7 +4704,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Foundation holo-tech. Shiny!",
         "image": "holographic-gpu.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -4736,7 +4736,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Foundation holo-tech. Shiny!",
         "image": "holographic-gpu.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -4768,7 +4768,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Foundation holo-tech. Shiny!",
         "image": "holographic-gpu.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -4800,7 +4800,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Foundation holo-tech. Shiny!",
         "image": "holographic-gpu.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -4834,7 +4834,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
         "image": "corporate-grade-gpu.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -4866,7 +4866,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
         "image": "corporate-grade-gpu.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -4898,7 +4898,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
         "image": "corporate-grade-gpu.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -4930,7 +4930,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
         "image": "corporate-grade-gpu.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -4962,7 +4962,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
         "image": "corporate-grade-gpu.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -4996,7 +4996,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Home made. It MOSTLY works.",
         "image": "3d-printed-gpu.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -5028,7 +5028,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Home made. It MOSTLY works.",
         "image": "3d-printed-gpu.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -5060,7 +5060,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Home made. It MOSTLY works.",
         "image": "3d-printed-gpu.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -5092,7 +5092,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Home made. It MOSTLY works.",
         "image": "3d-printed-gpu.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -5124,7 +5124,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Home made. It MOSTLY works.",
         "image": "3d-printed-gpu.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -5158,7 +5158,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
         "image": "white-hat-hacker.jpg",
         "level": 1,
         "mechanics": [
@@ -5171,7 +5171,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Has DEV equal to the number of WHH cards in game x2.",
         "rarityScore": "900",
         "tags": [
           "asset"
@@ -5200,7 +5200,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
         "image": "white-hat-hacker.jpg",
         "level": 2,
         "mechanics": [
@@ -5213,7 +5213,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Has DEV equal to the number of WHH cards in game x2.",
         "rarityScore": "900",
         "tags": [
           "asset"
@@ -5242,7 +5242,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
         "image": "white-hat-hacker.jpg",
         "level": 3,
         "mechanics": [
@@ -5255,7 +5255,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Has DEV equal to the number of WHH cards in game x2.",
         "rarityScore": "900",
         "tags": [
           "asset"
@@ -5284,7 +5284,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
         "image": "white-hat-hacker.jpg",
         "level": 4,
         "mechanics": [
@@ -5297,7 +5297,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Has DEV equal to the number of WHH cards in game x2.",
         "rarityScore": "900",
         "tags": [
           "asset"
@@ -5326,7 +5326,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
         "image": "white-hat-hacker.jpg",
         "level": 5,
         "mechanics": [
@@ -5339,7 +5339,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Has DEV equal to the number of WHH cards in game x2.",
         "rarityScore": "900",
         "tags": [
           "asset"
@@ -5370,10 +5370,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Nobody could have predicted the rise of prediction markets.",
         "image": "prediction-market-participation.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "900",
         "tags": [
           "project"
@@ -5402,10 +5402,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Nobody could have predicted the rise of prediction markets.",
         "image": "prediction-market-participation.jpg",
         "level": 2,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "900",
         "tags": [
           "project"
@@ -5434,10 +5434,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Nobody could have predicted the rise of prediction markets.",
         "image": "prediction-market-participation.jpg",
         "level": 3,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "900",
         "tags": [
           "project"
@@ -5466,10 +5466,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Nobody could have predicted the rise of prediction markets.",
         "image": "prediction-market-participation.jpg",
         "level": 4,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "900",
         "tags": [
           "project"
@@ -5498,10 +5498,10 @@
           "space": 0,
           "time": 1
         },
-        "flavorText": "",
+        "flavorText": "Nobody could have predicted the rise of prediction markets.",
         "image": "prediction-market-participation.jpg",
         "level": 5,
-        "mechanicsText": "",
+        "mechanicsText": "Time to complete: 1 block.",
         "rarityScore": "900",
         "tags": [
           "project"
@@ -5525,7 +5525,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
         "image": "corporate-tower.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -5559,7 +5559,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
         "image": "corporate-tower.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -5593,7 +5593,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
         "image": "corporate-tower.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -5627,7 +5627,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
         "image": "corporate-tower.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -5661,7 +5661,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
         "image": "corporate-tower.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -5704,7 +5704,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I detected a .62% decrease in productivity today - but it's nothing a little unpaid overtime can't fix.",
         "image": "corporate-efficiency-officer.jpg",
         "level": 1,
         "mechanics": [
@@ -5720,7 +5720,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5749,7 +5749,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I detected a .62% decrease in productivity today - but it's nothing a little unpaid overtime can't fix.",
         "image": "corporate-efficiency-officer.jpg",
         "level": 2,
         "mechanics": [
@@ -5765,7 +5765,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5794,7 +5794,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I detected a .62% decrease in productivity today - but it's nothing a little unpaid overtime can't fix.",
         "image": "corporate-efficiency-officer.jpg",
         "level": 3,
         "mechanics": [
@@ -5810,7 +5810,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5839,7 +5839,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I detected a .62% decrease in productivity today - but it's nothing a little unpaid overtime can't fix.",
         "image": "corporate-efficiency-officer.jpg",
         "level": 4,
         "mechanics": [
@@ -5855,7 +5855,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5884,7 +5884,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I detected a .62% decrease in productivity today - but it's nothing a little unpaid overtime can't fix.",
         "image": "corporate-efficiency-officer.jpg",
         "level": 5,
         "mechanics": [
@@ -5900,7 +5900,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5924,7 +5924,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I swear, one day these things are going to run themselves.",
         "image": "smart-office.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -5958,7 +5958,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I swear, one day these things are going to run themselves.",
         "image": "smart-office.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -5992,7 +5992,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I swear, one day these things are going to run themselves.",
         "image": "smart-office.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -6026,7 +6026,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I swear, one day these things are going to run themselves.",
         "image": "smart-office.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -6060,7 +6060,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I swear, one day these things are going to run themselves.",
         "image": "smart-office.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -6103,7 +6103,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "You may call our conduct unethical. I call it effective.",
         "image": "corporate-executive.jpg",
         "level": 1,
         "mechanics": [
@@ -6117,7 +6117,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6146,7 +6146,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "You may call our conduct unethical. I call it effective.",
         "image": "corporate-executive.jpg",
         "level": 2,
         "mechanics": [
@@ -6160,7 +6160,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6189,7 +6189,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "You may call our conduct unethical. I call it effective.",
         "image": "corporate-executive.jpg",
         "level": 3,
         "mechanics": [
@@ -6203,7 +6203,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6232,7 +6232,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "You may call our conduct unethical. I call it effective.",
         "image": "corporate-executive.jpg",
         "level": 4,
         "mechanics": [
@@ -6246,7 +6246,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6275,7 +6275,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "You may call our conduct unethical. I call it effective.",
         "image": "corporate-executive.jpg",
         "level": 5,
         "mechanics": [
@@ -6289,7 +6289,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6320,7 +6320,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
         "image": "day-trader.jpg",
         "level": 1,
         "mechanics": [
@@ -6333,7 +6333,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6362,7 +6362,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
         "image": "day-trader.jpg",
         "level": 2,
         "mechanics": [
@@ -6375,7 +6375,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6404,7 +6404,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
         "image": "day-trader.jpg",
         "level": 3,
         "mechanics": [
@@ -6417,7 +6417,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6446,7 +6446,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
         "image": "day-trader.jpg",
         "level": 4,
         "mechanics": [
@@ -6459,7 +6459,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6488,7 +6488,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
         "image": "day-trader.jpg",
         "level": 5,
         "mechanics": [
@@ -6501,7 +6501,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6532,7 +6532,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 1,
         "mechanics": [
@@ -6545,7 +6545,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6574,7 +6574,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 2,
         "mechanics": [
@@ -6587,7 +6587,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6616,7 +6616,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 3,
         "mechanics": [
@@ -6629,7 +6629,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6658,7 +6658,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 4,
         "mechanics": [
@@ -6671,7 +6671,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6700,7 +6700,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I give rumors out for free. It's the facts that I sell.",
         "image": "information-dealer.jpg",
         "level": 5,
         "mechanics": [
@@ -6713,7 +6713,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6744,7 +6744,7 @@
           "space": 40,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "Gee, whatever happened to the company that came up with this idea?",
         "image": "blockchain-smartlock.jpg",
         "level": 1,
         "mechanics": [
@@ -6760,7 +6760,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Unique. Gain 1 FUND per block for each unit of unspent SPACE at location.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -6791,7 +6791,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
         "image": "hardware-tinkerer.jpg",
         "level": 1,
         "mechanics": [
@@ -6804,7 +6804,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6833,7 +6833,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
         "image": "hardware-tinkerer.jpg",
         "level": 2,
         "mechanics": [
@@ -6846,7 +6846,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6875,7 +6875,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
         "image": "hardware-tinkerer.jpg",
         "level": 3,
         "mechanics": [
@@ -6888,7 +6888,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6917,7 +6917,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
         "image": "hardware-tinkerer.jpg",
         "level": 4,
         "mechanics": [
@@ -6930,7 +6930,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6959,7 +6959,7 @@
           "space": 20,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
         "image": "hardware-tinkerer.jpg",
         "level": 5,
         "mechanics": [
@@ -6972,7 +6972,7 @@
             ]
           }
         ],
-        "mechanicsText": "",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6996,7 +6996,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -7030,7 +7030,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -7064,7 +7064,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -7098,7 +7098,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -7132,7 +7132,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "This used to be a bank HQ. But times have changed.",
         "image": "office-building.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -7169,10 +7169,10 @@
           "space": 5,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "A non-transparent PC. How quaint.",
         "image": "computer-case.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Can contain up to 2 CPUs or GPUs.",
         "rarityScore": "875",
         "tags": [
           "asset"
@@ -7205,10 +7205,10 @@
           "space": 15,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "How this thing is holding together is anybody's guess...",
         "image": "mining-rig.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Can contain up to 6 GPUs.",
         "rarityScore": "875",
         "tags": [
           "asset"
@@ -7241,10 +7241,10 @@
           "space": 25,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "It's basically a glorified fridge. With shiny buttons.",
         "image": "asic-mount.jpg",
         "level": 1,
-        "mechanicsText": "",
+        "mechanicsText": "Can contain up to 6 ASIC miners.",
         "rarityScore": "850",
         "tags": [
           "asset"
@@ -7284,7 +7284,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
         "image": "cpu.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -7316,7 +7316,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
         "image": "cpu.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -7348,7 +7348,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
         "image": "cpu.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -7380,7 +7380,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
         "image": "cpu.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -7412,7 +7412,7 @@
           "space": 1,
           "time": 0
         },
-        "flavorText": "",
+        "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
         "image": "cpu.jpg",
         "level": 5,
         "mechanicsText": "",
