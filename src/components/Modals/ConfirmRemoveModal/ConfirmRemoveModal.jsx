@@ -10,14 +10,9 @@ import SmallButton from '../../SmallButton/SmallButton';
 
 const ConfirmRemoveModal = ({
   slot, locationIndex, containerIndex, containerSlotIndex, handleCardCancel, closeModal, canCancelCard,
-  projectCard, projectIndex, removeProject,
 }) => {
-  let canCancel = true;
-
-  let onClose = () => { handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex); };
-
-  if (projectCard) onClose = () => { removeProject(projectCard, projectIndex); };
-  else canCancel = canCancelCard(slot, locationIndex);
+  const onClose = () => { handleCardCancel(slot, locationIndex, containerIndex, containerSlotIndex); };
+  const canCancel = canCancelCard(slot);
 
   return (
     <div className="confirm-modal-wrapper">
@@ -73,8 +68,6 @@ ConfirmRemoveModal.defaultProps = {
   locationIndex: undefined,
   containerIndex: undefined,
   containerSlotIndex: undefined,
-  projectCard: undefined,
-  projectIndex: undefined,
 };
 
 ConfirmRemoveModal.propTypes = {
@@ -82,12 +75,9 @@ ConfirmRemoveModal.propTypes = {
   locationIndex: PropTypes.number,
   handleCardCancel: PropTypes.func.isRequired,
   canCancelCard: PropTypes.func.isRequired,
-  removeProject: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   containerIndex: PropTypes.number,
   containerSlotIndex: PropTypes.number,
-  projectCard: PropTypes.object,
-  projectIndex: PropTypes.number,
 };
 
 const mapDispatchToProps = {

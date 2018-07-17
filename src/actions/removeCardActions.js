@@ -26,46 +26,14 @@ import {
 /**
  * Checks if player can cancel a card;
  *
- * @param slot
- * @param locationIndex
+ * @param {Object} slot
  */
-export const canCancelCard = (slot, locationIndex) => (dispatch, getState) => {
+export const canCancelCard = slot => (dispatch, getState) => {
   const { gameplay } = getState();
-  const locations = [...gameplay.locationSlots];
-  const item = { ...slot.card };
-  let currentItem;
-  let totalDev = 0;
 
-  if (item.dropSlots) {
-    for (let i = 0; i < item.dropSlots.length; i += 1) {
-      currentItem = item.dropSlots[i].card;
+  if (slot.isEmpty()) return false;
 
-      if (currentItem && currentItem.dropSlots === null) {
-        if (currentItem.type === 'Person') {
-          totalDev += currentItem.bonus.development;
-        }
-        if (bonusDevPerLocationCards.includes(currentItem.metadataId)) {
-          totalDev += currentItem.special;
-        }
-      }
-
-      if (currentItem && (currentItem.dropSlots !== null && currentItem.dropSlots !== undefined)) {
-        const canCancelSlotItem = canCancelCard(item.dropSlots[i], locationIndex);
-        if (!canCancelSlotItem) return false;
-      }
-    }
-  } else {
-    if (bonusDevPerLocationCards.includes(item.mainCard.metadataId)) {
-      totalDev += item.special;
-    }
-    if (item.type === 'Person') {
-      totalDev += item.bonus.development;
-    }
-    // when trying to remove a power card which has its power occupied
-    if (locations[locationIndex].card.power - item.bonus.power < 0) return false;
-  }
-
-  return gameplay.stats.development >= totalDev;
+  return slot.card.canWithdraw(gameplay).allowed;
 };
 
 /**

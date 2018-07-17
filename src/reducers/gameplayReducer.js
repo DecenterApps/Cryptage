@@ -11,9 +11,7 @@ import {
   LOAD_STATE_FROM_STORAGE,
   UPDATE_GLOBAL_VALUES,
   LEVEL_UP_CARD,
-  DROP_MINER,
   PROJECT_DROP_SLOTS,
-  DROP_PROJECT,
   CHANGE_PROJECT_STATE,
   ADD_EXPERIENCE,
   GP_LOCATION_MAIN,
@@ -34,7 +32,6 @@ import {
   UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
   INCREMENT_TURN,
   REMOVE_ASSET_SLOTS,
-  DROP_CARD,
   GENERATE_NEW_GAMEPLAY,
   RESTART_PROJECT,
   GET_ACCOUNT_SUCCESS,
@@ -81,15 +78,6 @@ const switchState = (state, action) => {
     // case CHANGE_GAMEPLAY_VIEW:
     //   return { ...state, gameplayView: payload };
     //
-    // case DROP_MINER:
-    //
-    // case DROP_PROJECT:
-    //   return {
-    //     ...state,
-    //     projects: action.projects,
-    //     cards: action.cards,
-    //     globalStats: action.globalStats,
-    //   };
     //
     // case CHANGE_PROJECT_STATE:
     //   return {

@@ -83,8 +83,6 @@ export const RESTART_PROJECT = 'restart_project';
 
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
-export const DROP_MINER = 'drop_miner';
-export const DROP_PROJECT = 'drop_project';
 
 export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const CHANGE_PROJECT_STATE = 'change_project_state';
