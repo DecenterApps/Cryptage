@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import IngameCard from '../Cards/IngameCard/IngameCard';
 import { switchInGameplayView } from '../../actions/gameplayActions';
-import { acceptedAssetLevelUpIds, containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
+import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 
 import './GameplayItem.scss';
 
@@ -33,7 +33,6 @@ class GameplayItem extends Component {
 
     let remainingSlots = null;
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const assetLevelUpType = acceptedAssetLevelUpIds.includes(card.metadataId);
     const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card).allowed;
 
     const isDragMiner = dragItem && dragItem.card && dragItem.card.type === 'Mining';
@@ -66,7 +65,6 @@ class GameplayItem extends Component {
         gameplay-item-wrapper
         ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
         ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
-        ${assetLevelUpType ? 'right-asset-type' : 'not-right-asset-type'}
         ${isContainer && 'container'}
       `}
       >

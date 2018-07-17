@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalBody from '../ModalBody';
 import SmallButton from '../../SmallButton/SmallButton';
-import { GP_LOCATION_COLLECTION, GP_BUY_BOOSTER, GP_LEADERBOARD } from '../../../actions/actionTypes';
+import { GP_LOCATION_COLLECTION, GP_LEADERBOARD } from '../../../actions/actionTypes';
 import { changeGameplayView } from '../../../actions/gameplayActions';
 import { resetGame } from '../../../actions/appActions';
 

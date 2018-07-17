@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { usersCardsFetch } from '../../actions/gameplayActions';
 import { getAvailableCards } from '../../services/gameMechanicsService';
-import HandCard from './HandCard/HandCard';
-import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
 import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
 import { sortTypeGroupByPrice } from '../../services/utils';

@@ -10,7 +10,6 @@ import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
-import { checkProjectsBonus } from '../../actions/gameplayActions';
 import { checkAccount } from '../../actions/stateActions';
 import {
   loadingEnded,
@@ -30,7 +29,6 @@ class App extends Component {
     this.props.listenForNewBlocks();
     this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
-    // this.props.checkProjectsBonus();
   }
 
   render() {
@@ -85,7 +83,6 @@ App.propTypes = {
   updateCurrentBlockNumber: PropTypes.func.isRequired,
   accountError: PropTypes.string.isRequired,
   tutorialOpen: PropTypes.bool.isRequired,
-  checkProjectsBonus: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -93,7 +90,6 @@ const mapDispatchToProps = {
   loadingEnded,
   listenForNewBlocks,
   updateCurrentBlockNumber,
-  checkProjectsBonus,
 };
 
 const mapStateToProps = ({ app }) => ({

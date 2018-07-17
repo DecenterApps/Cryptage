@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classForRarity, guid } from '../../services/utils';
-import { fpbCardIds, DESKTOP_WIDTH, rarities, typeGradients } from '../../actions/actionTypes';
+import { formatBigNumber, classForRarity } from '../../services/utils';
+import { DESKTOP_WIDTH, rarities, typeGradients } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
 import LargeCardMain from './LargeCardMain';
@@ -21,7 +21,6 @@ const HoverInfo = ({
 }) => {
   const position = { top: 0, left: 0 };
   const isDesktop = window.innerWidth >= DESKTOP_WIDTH;
-  const uniqueId = guid();
   let displayCard = null;
 
   if (card.bonus) {

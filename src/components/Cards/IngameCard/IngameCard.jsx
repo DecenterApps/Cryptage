@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { guid, formatBigNumberWithBreak, range, classForRarity } from '../../../services/utils';
+import { guid, formatBigNumberWithBreak, classForRarity } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import DropCardIcon from '../../Decorative/DropCardIcon';
 import MagnifyingGlassCardIcon from '../../Decorative/MagnifyingGlassCardIcon';

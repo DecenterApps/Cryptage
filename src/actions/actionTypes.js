@@ -2,49 +2,7 @@ import cardConfig from '../constants/cards.json';
 
 export const DESKTOP_WIDTH = 1920;
 
-export const acceptedAssetDropIds =
-  Object.keys(cardConfig.cards).filter(key =>
-    cardConfig.cards[key]['1'].type !== 'Location' &&
-    cardConfig.cards[key]['1'].type !== 'Mining' &&
-    cardConfig.cards[key]['1'].type !== 'Project');
-
-export const acceptedAssetLevelUpIds =
-  Object.keys(cardConfig.cards).filter(key =>
-    cardConfig.cards[key]['1'].type !== 'Location' &&
-    cardConfig.cards[key]['1'].type !== 'Mining' &&
-    cardConfig.cards[key]['1'].type !== 'Misc' &&
-    cardConfig.cards[key]['1'].type !== 'Container' &&
-    cardConfig.cards[key]['1'].type !== 'Project');
-
-const minerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Mining');
-export const fpbCardIds = [...minerIds, '18', '22', '23', '26', '43'];
-export const timeReduceIds = ['17', '40', '31'];
-
-export const acceptedLocationDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Location'); // eslint-disable-line
-
-export const acceptedProjectDropIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Project');  // eslint-disable-line
-
 export const containerIds = Object.keys(cardConfig.cards).filter(key => cardConfig.cards[key]['1'].type === 'Container');  // eslint-disable-line
-
-const LOCATION_ITEM_SLOT = { accepts: [...acceptedAssetDropIds], lastDroppedItem: null, slotType: 'location_slot' };
-export const LOCATION_ITEM_DROP_SLOTS = [
-  LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT, LOCATION_ITEM_SLOT,
-  LOCATION_ITEM_SLOT,
-];
-
-const LOCATION_SLOT = { accepts: [...acceptedLocationDropIds], lastDroppedItem: null, slotType: 'location' };
-export const LOCATION_DROP_SLOTS = [
-  LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT, LOCATION_SLOT,
-];
-export const ADDITIONAL_LOCATION_DROP_SLOTS = [LOCATION_SLOT];
-
-const PROJECT_SLOT = { accepts: [...acceptedProjectDropIds], lastDroppedItem: null, slotType: 'project' };
-export const PROJECT_DROP_SLOTS = [
-  PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT,
-  PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT, PROJECT_SLOT,
-];
-
-export const bonusDevPerLocationCards = ['16', '23', '39'];
 
 // APP
 export const LOADING_ENDED = 'loading_ended';
@@ -85,26 +43,16 @@ export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
 
 export const SET_ACTIVE_LOCATION = 'set_active_location';
-export const CHANGE_PROJECT_STATE = 'change_project_state';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';
-export const UPDATE_GLOBAL_VALUES = 'update_global_values';
-export const LEVEL_UP_CARD = 'level_up_card';
-export const REMOVE_ASSET_SLOTS = 'remove_location_slots';
-export const ADD_EXPERIENCE = 'add_experience';
 export const SWITCH_IN_GAMEPLAY_VIEW = 'switch_in_gameplay_view';
 export const PLAY_TURN = 'play_turn';
 export const INCREMENT_TURN = 'increment_turn';
 export const REMOVE_CARD = 'remove_card';
-export const RETURN_CARDS = 'return_cards';
-export const UPDATE_FUNDS_PER_BLOCK = 'update_funds_per_block';
-export const UPDATE_LOCATIONS = 'update_locations';
 export const ADD_NEW_LEVEL_CARDS = 'add_new_cards';
 export const CLEAR_REVEALED_CARDS = 'clear_revealed_cards';
 export const CLEAR_TURNS = 'clear_turns';
 export const REMOVE_NEW_FROM_CARD = 'remove_new_from_card';
-export const CHANGE_LOCATIONS_STATE = 'change_locations_state';
-export const UPDATE_PROJECT_EXECUTION_TIME_PERCENT = 'update_project_execution_time_percent';
 
 // GAMEPLAY_VIEWS
 export const GP_BUY_BOOSTER = 'buy_booster';
@@ -129,13 +77,13 @@ export const FETCH_LEADERBOARD_DATA_ERROR = 'fetch_leaderboard_data_error';
 export const TOGGLE_TUTORIAL = 'toggle_tutorial';
 
 export const typeGradients = {
-  misc:       ['#3215E6', 'rgba(49, 20, 230, 0)'],
-  power:      ['#CE060D', 'rgba(206, 5, 13, 0)'],
-  location:   ['#3CC8CC', 'rgba(60, 200, 204, 0)'],
-  person:     ['#9F00C7', 'rgba(95, 38, 79, 0)'],
-  project:    ['#878787', 'rgba(135, 135, 135, 0)'],
-  mining:     ['#75341F', 'rgba(117, 52, 30, 0)'],
-  container:  ['#4A7420', 'rgba(74, 116, 32, 0)'],
+  misc: ['#3215E6', 'rgba(49, 20, 230, 0)'],
+  power: ['#CE060D', 'rgba(206, 5, 13, 0)'],
+  location: ['#3CC8CC', 'rgba(60, 200, 204, 0)'],
+  person: ['#9F00C7', 'rgba(95, 38, 79, 0)'],
+  project: ['#878787', 'rgba(135, 135, 135, 0)'],
+  mining: ['#75341F', 'rgba(117, 52, 30, 0)'],
+  container: ['#4A7420', 'rgba(74, 116, 32, 0)'],
 };
 
 export const rarities = {

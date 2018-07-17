@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 
 import { playTurn } from '../../actions/gameplayActions';
 import { toggleCardDrag } from '../../actions/appActions';
-import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
 import './DropSlotWrapper.scss';
-import { fetchCardStats } from '../../services/cardService';
 
 const dropTarget = {
   drop(props, monitor, component) {

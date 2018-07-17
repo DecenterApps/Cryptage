@@ -1,6 +1,4 @@
 import {
-  GET_ACCOUNT_SUCCESS,
-  GET_ACCOUNT_ERROR,
   LOADING_ENDED,
   UPDATE_BLOCK_NUMBER,
   TOGGLE_CARD_DRAG,
@@ -8,9 +6,6 @@ import {
   TOGGLE_TUTORIAL,
   ON_NEW_BLOCK,
 } from './actionTypes';
-import { getPlayedAssetCards } from '../services/utils';
-import { loadGameplayState, updateFundsBlockDifference } from '../actions/gameplayActions';
-import { handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
 import { checkIfNewLevel } from '../services/gameMechanicsService';
 
 /**
@@ -44,8 +39,6 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
     const newGameplay = gameplay.updateBlockNumber(gameplay, number);
     dispatch(checkIfNewLevel(newGameplay.stats.level));
     dispatch({ type: ON_NEW_BLOCK, payload: newGameplay });
-    // dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
-    // dispatch(checkProjectsExpiry());
   });
 };
 

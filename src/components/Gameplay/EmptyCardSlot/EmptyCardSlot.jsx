@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { checkIfCanPlayCard } from '../../../services/gameMechanicsService';
-import AvailableDropIcon from '../../Decorative/AvailableDropIcon';
-import UnavailableDropIcon from '../../Decorative/UnavailableDropIcon';
 
 import './EmptyCardSlot.scss';
 
@@ -21,12 +18,12 @@ const EmptyCardSlot = ({ card, gameplay, slot }) => {
         ${(card && !canDrop) && 'no-drop'}
       `}
     >
-      {/*<div className="inner-empty-slot">*/}
-        {/*{*/}
-          {/*card && goodCardType &&*/}
-          {/*<div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div>*/}
-        {/*}*/}
-      {/*</div>*/}
+      {/* <div className="inner-empty-slot"> */}
+      {/* { */}
+      {/* card && goodCardType && */}
+      {/* <div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div> */}
+      {/* } */}
+      {/* </div> */}
       <svg>
         <defs>
           <linearGradient
@@ -89,7 +86,7 @@ EmptyCardSlot.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  gameplay
+  gameplay,
 });
 
 export default connect(mapStateToProps)(EmptyCardSlot);

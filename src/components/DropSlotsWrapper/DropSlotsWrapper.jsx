@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DropSlotWrapper from '../DropSlotWrapper/DropSlotWrapper';
 import { guid } from '../../services/utils';

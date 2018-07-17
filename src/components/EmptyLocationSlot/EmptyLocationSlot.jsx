@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
 import EmptyHexagon from '../Decorative/EmptyHexagon';
 
 import './EmptyLocationSlot.scss';

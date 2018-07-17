@@ -1,18 +1,11 @@
-import serialize from 'serialijse';
-import update from 'immutability-helper';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import {
-  GENERATE_NEW_GAMEPLAY,
   SET_ACTIVE_LOCATION,
   USERS_CARDS_ERROR,
-  LOAD_STATE_FROM_STORAGE,
   USERS_CARDS_FETCH,
   USERS_CARDS_SUCCESS,
   CHANGE_GAMEPLAY_VIEW,
-  CHANGE_PROJECT_STATE,
   SWITCH_IN_GAMEPLAY_VIEW,
-  UPDATE_GLOBAL_VALUES,
-  ADDITIONAL_LOCATION_DROP_SLOTS,
   GP_NO_LOCATIONS,
   SUBMIT_NICKNAME_SUCCESS,
   GP_LOCATION,
@@ -23,28 +16,12 @@ import {
   SAVE_STATE_SUCCESS,
   SAVE_STATE_REQUEST,
   INCREMENT_TURN,
-  CHANGE_LOCATIONS_STATE,
-  UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
-  REMOVE_ASSET_SLOTS,
   RESTART_PROJECT,
 } from './actionTypes';
-import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
-import ipfsService from '../services/ipfsService';
-import {
-  checkIfCanPlayCard,
-  getSlotForContainer,
-  handleCardMathematics,
-  getLevelCardBonusStatDiff,
-  getMathErrors,
-} from '../services/gameMechanicsService';
-import {
-  saveGameplayState,
-  removePlayedCards,
-  getCardAtContainer,
-} from '../services/utils';
+import { removePlayedCards, getCardAtContainer } from '../services/utils';
 
-import { packMoves, readState } from '../services/stateService';
+import { packMoves } from '../services/stateService';
 import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
 import Card from '../classes/Card';
 
@@ -54,7 +31,7 @@ import Card from '../classes/Card';
  * @param {String} payload - view name
  * @return {Function}
  */
-export const changeGameplayView = payload => (dispatch, getState) => {
+export const changeGameplayView = payload => (dispatch) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
 };
 
@@ -223,45 +200,6 @@ export const activateProject = card => (dispatch, getState) => {
 };
 
 /**
- * Checks if dropped card should update global fpb
- *
- * @param {Number} _fpb
- * @param {Object} card
- * @param {Boolean} addOrReduce - true is add, false is reduce
- * @param {Number} numToAddOrReduce - number which takes a lot of logic to calculate
- * (on purpose outside of function)
- * @return {Number}
- */
-export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
-  let fpb = _fpb;
-
-  if (card.stats && (card.stats.type === 'Mining' || card.metadata.id === '18' || card.metadata.id === '22')) { // eslint-disable-line
-    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'funds');
-    else fpb -= card.stats.bonus.funds;
-  }
-
-  if (card.stats && card.metadata.id === '23') {
-    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
-    else fpb -= card.stats.bonus.multiplierFunds;
-  }
-
-  // Special mechanics for card with id 26, Adds fpb when completed;
-  if (card.mainCard && card.mainCard.metadata.id === '26') {
-    const { timesFinished, mainCard } = card;
-
-    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
-    else fpb -= (timesFinished * mainCard.stats.bonus.multiplierFunds);
-  }
-
-  if (card.mainCard && card.mainCard.metadata.id === '27') {
-    if (addOrReduce) fpb += numToAddOrReduce;
-    else fpb -= numToAddOrReduce;
-  }
-
-  return fpb;
-};
-
-/**
  * Dispatches when a user clickes on a container card.
  * It then takes him to the container card view
  *
@@ -339,87 +277,10 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 export const exitNotLocationsView = () => (dispatch, getState) => {
   let toGoView = GP_LOCATION;
   const { gameplay } = getState();
-  const locations = gameplay.locations.filter(({ lastDroppedItem }) => lastDroppedItem !== null);
+  const locations = gameplay.locations.filter(({ card }) => card);
 
   if (locations.length === 0) toGoView = GP_NO_LOCATIONS;
   if (!gameplay.nickname) toGoView = GP_NO_NICKNAME;
 
   dispatch(changeGameplayView(toGoView));
-};
-
-/**
- * Checks if bonus for projects is still visible, disables it if it is.
- */
-export const checkProjectsBonus = () => (dispatch, getState) => {
-  let changed = false;
-  let projects = [...getState().gameplay.projects];
-
-  projects = projects.map((_project) => {
-    const project = { ..._project };
-
-    if (project.lastDroppedItem && project.lastDroppedItem.showFpb) {
-      changed = true;
-      project.lastDroppedItem.showFpb = false;
-    }
-
-    return project;
-  });
-
-  if (changed) dispatch({ type: CHANGE_PROJECT_STATE, projects });
-};
-
-/**
- * Updates projectExecutionTimePercent based on how much a card alters it
- *
- * @param {Object} card
- * @param {Number} lastDecrease
- * @return {Number} percentDecreased
- */
-export const updateProjectExecutionTimePercent = (card, lastDecrease) => (dispatch, getState) => {
-  let { projectExecutionTimePercent } = getState().gameplay;
-
-  // add how much was taken in order to decrease again
-  projectExecutionTimePercent += lastDecrease;
-
-  // calc how much percent is going to be decreased
-  const percentDecreased = Math.ceil((card.stats.bonus.multiplierTime / 100) * projectExecutionTimePercent);
-  projectExecutionTimePercent -= percentDecreased;
-
-  if (projectExecutionTimePercent < 0) projectExecutionTimePercent = 0;
-
-  dispatch({ type: UPDATE_PROJECT_EXECUTION_TIME_PERCENT, payload: projectExecutionTimePercent });
-  return percentDecreased;
-};
-
-/**
- * Reduces projects execution time when asset it dropped/leveled up
- *
- * @param {Array} _projects
- * @param {Number} index
- * @param {Object} card
- */
-export const projectReduceTimeForProjects = (_projects, index, card) => (dispatch) => {
-  const projects = [..._projects];
-  const lastDecrease = card.stats.level === 1 ? 0 : projects[index].lastDroppedItem.special;
-
-  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
-  projects[index].lastDroppedItem.special = percentDecreased;
-  dispatch({ type: CHANGE_PROJECT_STATE, projects });
-};
-
-/**
- * Reduces projects execution time when asset it dropped/leveled up
- *
- * @param {Array} _locations
- * @param {Number} activeLocationIndex
- * @param {Number} index
- * @param {Object} card
- */
-export const assetReduceTimeForProjects = (_locations, activeLocationIndex, index, card) => (dispatch) => {
-  const locations = [..._locations];
-  const lastDecrease = card.stats.level === 1 ? 0 : locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special; // eslint-disable-line
-
-  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special = percentDecreased;
-  dispatch({ type: CHANGE_LOCATIONS_STATE, payload: locations });
 };

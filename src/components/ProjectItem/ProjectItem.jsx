@@ -4,17 +4,15 @@ import { connect } from 'react-redux';
 import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
 import { activateProject } from '../../actions/gameplayActions';
-import { classForRarity, formatBigNumber } from '../../services/utils';
-import ChevronDownIcon from '../Decorative/ChevronDownIcon';
+import { classForRarity } from '../../services/utils';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
-import { calcExpiryBlocksLeft, checkIfCanLevelUp } from '../../services/gameMechanicsService';
+import { calcExpiryBlocksLeft } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import ProjectItemVector from './ProjectItemVector';
 import ProjectPill from './ProjectPill';
 
 import './ProjectItem.scss';
 
-import activeBg from './assets/active-item-bg.png';
 import restart from './assets/restart.png';
 import InfoCardIcon from '../Decorative/InfoCardIcon';
 import DropCardIcon from '../Decorative/DropCardIcon';

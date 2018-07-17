@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ModalHeader from '../ModalHeader';
 import ModalBody from '../ModalBody';
-import { canCancelCard, handleCardCancel, removeProject } from '../../../actions/removeCardActions';
+import { canCancelCard, handleCardCancel } from '../../../actions/removeCardActions';
 
 import './ConfirmRemoveModal.scss';
 import SmallButton from '../../SmallButton/SmallButton';
@@ -81,7 +80,7 @@ ConfirmRemoveModal.propTypes = {
 };
 
 const mapDispatchToProps = {
-  handleCardCancel, canCancelCard, removeProject,
+  handleCardCancel, canCancelCard,
 };
 
 export default connect(null, mapDispatchToProps)(ConfirmRemoveModal);

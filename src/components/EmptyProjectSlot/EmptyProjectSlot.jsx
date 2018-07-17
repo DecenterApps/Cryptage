@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
-import AvailableDropIcon from '../Decorative/AvailableDropIcon';
-import UnavailableDropIcon from '../Decorative/UnavailableDropIcon';
 
 import './EmptyProjectSlot.scss';
 import EmptyProjectItemVector from './EmptyProjectItemVector';

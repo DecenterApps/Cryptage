@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import IngameCard from '../Cards/IngameCard/IngameCard';
-import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
 
 import './ContainerItem.scss';
 
