@@ -207,11 +207,18 @@ export const setActiveLocation = payload => (dispatch) => {
  * Activates a dropped project
  *
  * @param {Object} card
- * @param {Number} index
  * @return {Function}
  */
-export const activateProject = (card, index) => (dispatch, getState) => {
-  const newState = card.restartProject(getState().gameplay);
+export const activateProject = card => (dispatch, getState) => {
+  const { gameplay } = getState();
+
+  const constPlayErrors = card.canRestart(gameplay);
+
+  if (!constPlayErrors.allowed) {
+    return dispatch(openNoRestartProjectModal(constPlayErrors));
+  }
+
+  const newState = card.restartProject(gameplay);
   dispatch({ type: RESTART_PROJECT, payload: newState });
 };
 

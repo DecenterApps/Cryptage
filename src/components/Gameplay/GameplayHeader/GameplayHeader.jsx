@@ -14,15 +14,18 @@ const getClassForFont = (maxDev, available) => {
   if (sum > 7) return 'small';
   else if (sum > 5) return 'mid';
   return 'large';
-}
+};
 
 const GameplayHeader = ({
-  blockNumber, globalStats, nickname, fundsPerBlock, projects,
+  globalStats, nickname, fundsPerBlock, projects,
 }) => {
   const expPercantage = (globalStats.experience / globalStats.requiredXp);
 
-  const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
-    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.cost.development;
+  const maxDev = globalStats.development + projects.reduce((_acc, { card }) => {
+    let acc = _acc;
+    if (card && card.running) {
+      acc += card.cost.development;
+    }
     return acc;
   }, 0);
 
@@ -49,14 +52,14 @@ const GameplayHeader = ({
           <svg className="xp-loader-wrapper">
             <defs>
               <linearGradient id="exp-bar" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset={0.5 - (expPercantage * 0.5) - 0.05} stopColor="#1E9500" stopOpacity="0"/>
-                <stop offset={0.5 - (expPercantage * 0.5)} stopColor="#21A500"/>
-                <stop offset="0.5" stopColor="#28C800"/>
-                <stop offset={0.5 + (expPercantage * 0.5)} stopColor="#21A600"/>
-                <stop offset={0.5 + (expPercantage * 0.5) + 0.05} stopColor="#1E9500" stopOpacity="0"/>
+                <stop offset={0.5 - (expPercantage * 0.5) - 0.05} stopColor="#1E9500" stopOpacity="0" />
+                <stop offset={0.5 - (expPercantage * 0.5)} stopColor="#21A500" />
+                <stop offset="0.5" stopColor="#28C800" />
+                <stop offset={0.5 + (expPercantage * 0.5)} stopColor="#21A600" />
+                <stop offset={0.5 + (expPercantage * 0.5) + 0.05} stopColor="#1E9500" stopOpacity="0" />
               </linearGradient>
             </defs>
-            <path d="M53 0H0L5.5 8H47L58 18H172L182 8H227.5L232.5 0H177L172 4H58L53 0Z" fill="url(#exp-bar)"/>
+            <path d="M53 0H0L5.5 8H47L58 18H172L182 8H227.5L232.5 0H177L172 4H58L53 0Z" fill="url(#exp-bar)" />
           </svg>
         </div>
 
@@ -77,7 +80,6 @@ const GameplayHeader = ({
 };
 
 GameplayHeader.propTypes = {
-  blockNumber: PropTypes.number.isRequired,
   globalStats: PropTypes.object.isRequired,
   nickname: PropTypes.string.isRequired,
   fundsPerBlock: PropTypes.number.isRequired,
@@ -85,7 +87,6 @@ GameplayHeader.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  blockNumber: gameplay.blockNumber,
   globalStats: gameplay.stats,
   nickname: gameplay.nickname,
   fundsPerBlock: gameplay.stats.fundsPerBlock,

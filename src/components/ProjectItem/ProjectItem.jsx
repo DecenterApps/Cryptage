@@ -7,7 +7,7 @@ import { activateProject } from '../../actions/gameplayActions';
 import { classForRarity, formatBigNumber } from '../../services/utils';
 import ChevronDownIcon from '../Decorative/ChevronDownIcon';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
-import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
+import { calcExpiryBlocksLeft, checkIfCanLevelUp } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import ProjectItemVector from './ProjectItemVector';
 import ProjectPill from './ProjectPill';
@@ -44,7 +44,7 @@ class ProjectItem extends Component {
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate && !isActive && slot.canDrop(gameplay, dragItem.card);
-    const timeLeft = Math.floor((projectExecutionTimePercent / 100) * (expiryTime - blockNumber));
+    const timeLeft = calcExpiryBlocksLeft(card, blockNumber, projectExecutionTimePercent);
 
     return (
       <div
