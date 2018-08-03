@@ -1,115 +1,132 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+@import "../../../common/colors";
+@import "../../../common/variables";
 
-import './GameplayHeader.scss';
+.gameplay-header-wrapper {
+  color: #fff;
+  display: flex;
+  min-height: 90px;
+  justify-content: center;
 
-function getlength(number) {
-  return number.toString().length;
-}
+  //@include for-big-desktop {
+  //min-height: 108px;
+  //}
 
-const getClassForFont = (maxDev, available) => {
-  const sum = getlength(maxDev) + getlength(available) + 1;
-  if (sum > 9) return 'smallest';
-  if (sum > 7) return 'small';
-  else if (sum > 5) return 'mid';
-  return 'large';
-};
+  .gameplay-header-content {
+    display: flex;
+    width: 653px;
+    max-width: 653px;
+    height: 90px;
+    background-image: url("./header-bg.png");
+    background-size: 653px;
+    background-position: center;
+    background-repeat: no-repeat;
 
-const formatFunds = (_number) => {
-  const number = parseFloat(_number);
+    * {
+      font-family: $font-secondary;
+    }
 
-  if (number >= 1000000000) return `${Math.floor(number / 100000000) / 10} billion`;
-  if (number >= 1000000) return `${Math.floor(number / 100000) / 10} million`;
-  if (number >= 1000) {
-    const _number = number.toString(10);
-    return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
+    //@include for-big-desktop {
+    //display: flex;
+    //flex-grow: 1;
+    //justify-content: center;
+    //}
+
+    .section {
+      flex: 1 1 0;
+      position: relative;
+      padding-top: 34px;
+      box-sizing: border-box;
+
+      .stats-wrapper {
+        font-size: 19px;
+
+        .smaller {
+          font-size: .65em;
+        }
+
+        &.people {
+          padding: 0 20px 0 60px;
+        }
+
+        &.funds {
+          padding: 2px 0 0 20px;
+          line-height: 0.8em;
+        }
+      }
+    }
+
+    .central {
+      position: relative;
+      width: 284px;
+      text-align: center;
+      padding: 29px 10px 0;
+
+      .level {
+        font-size: 15px;
+        text-transform: uppercase;
+        text-shadow: 0px 0px 30px rgba(33, 35, 234, 0.7);
+        opacity: .7;
+        line-height: 1em;
+
+        //@include for-big-desktop {
+        //font-size: 18px;
+        //}
+      }
+
+      .name {
+        font-size: 22px;
+        text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        line-height: 1.1em;
+
+        .no-name {
+          text-transform: uppercase;
+        }
+
+        //@include for-big-desktop {
+        //font-size: 32px;
+        //}
+      }
+
+      .xp-wrapper {
+        font-family: $font-secondary;
+        font-size: 11px;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 18px;
+        z-index: 1;
+        opacity: 0.7;
+        transition: opacity .3s;
+        cursor: default;
+        &:hover {
+          opacity: 0.9;
+        }
+
+        //@include for-big-desktop {
+        //font-size: 17px;
+        //}
+      }
+
+      .xp-loader-wrapper { // svg
+        position: absolute;
+        bottom: 3px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 18px;
+        width: 233px;
+
+        //@include for-big-desktop {
+        //transform: scale(1.29);
+        //bottom: 18px;
+        //left: -1px;
+        //}
+      }
+    }
   }
-  return number.toString();
-};
-
-const GameplayHeader = ({
-  blockNumber, globalStats, nickname, fundsPerBlock, projects,
-}) => {
-  const expPercantage = (globalStats.earnedXp / globalStats.requiredXp);
-
-  const maxDev = globalStats.development + projects.reduce((acc, { lastDroppedItem }) => {
-    if (lastDroppedItem && lastDroppedItem.isActive) acc += lastDroppedItem.mainCard.stats.cost.development;
-    return acc;
-  }, 0);
-
-  const formatedFunds = formatFunds(globalStats.funds).split(' ');
-
-  return (
-    <div className="gameplay-header-wrapper">
-      <div className="gameplay-header-content">
-
-        {/* Left section */}
-        <div className="section">
-          <div className="stats-wrapper people">
-            <div className={`count ${getClassForFont(maxDev, globalStats.development)}`}>
-              { globalStats.development }
-              <span className="smaller">&nbsp;&nbsp;/&nbsp;&nbsp;{maxDev}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Central section */}
-        <div className="central">
-          <div className="level">Level { globalStats.level }</div>
-          <div className="name">{ nickname || 'NICKNAME' }</div>
-          <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
-          {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
-          <svg className="xp-loader-wrapper">
-            <defs>
-              <linearGradient id="exp-bar" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset={0.5 - (expPercantage * 0.5) - 0.05} stopColor="#1E9500" stopOpacity="0"/>
-                <stop offset={0.5 - (expPercantage * 0.5)} stopColor="#21A500"/>
-                <stop offset="0.5" stopColor="#28C800"/>
-                <stop offset={0.5 + (expPercantage * 0.5)} stopColor="#21A600"/>
-                <stop offset={0.5 + (expPercantage * 0.5) + 0.05} stopColor="#1E9500" stopOpacity="0"/>
-              </linearGradient>
-            </defs>
-            <path d="M53 0H0L5.5 8H47L58 18H172L182 8H227.5L232.5 0H177L172 4H58L53 0Z" fill="url(#exp-bar)"/>
-          </svg>
-        </div>
-
-        {/* Right section */}
-        <div className="section">
-          <div className="stats-wrapper funds">
-            <div title={globalStats.funds}>
-              { formatedFunds[0] }
-              {
-                formatedFunds.length > 1 &&
-                <span className="smaller"> { formatedFunds[1] }</span>
-              }
-            </div>
-            <div className="smaller">
-              { fundsPerBlock > 0 && '+' }
-              { fundsPerBlock }
-              <span className="smaller">&nbsp;&nbsp;FPB</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-GameplayHeader.propTypes = {
-  blockNumber: PropTypes.number.isRequired,
-  globalStats: PropTypes.object.isRequired,
-  nickname: PropTypes.string.isRequired,
-  fundsPerBlock: PropTypes.number.isRequired,
-  projects: PropTypes.array.isRequired,
-};
-
-const mapStateToProps = ({ gameplay }) => ({
-  blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.globalStats,
-  nickname: gameplay.nickname,
-  fundsPerBlock: gameplay.fundsPerBlock,
-  projects: gameplay.projects,
-});
-
-export default connect(mapStateToProps)(GameplayHeader);
+}

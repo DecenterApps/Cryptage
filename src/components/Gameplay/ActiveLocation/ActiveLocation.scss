@@ -25,11 +25,14 @@
 
     .active-location-field {
       display: flex;
-      width: 100%;
-      top: 30px;
+      top: 23px;
       transition: all .3s;
       position: absolute;
-      height: 330px;
+      height: 340px;
+      overflow: auto;
+      width: 520px;
+      margin: 0 10px;
+      padding-top: 20px;
 
       &.location {
         &.hidden {
