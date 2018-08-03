@@ -8,6 +8,7 @@ import SmallButton from '../../SmallButton/SmallButton';
 import { getDataForTypeSorting, capitalize } from '../../../services/utils';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 import SortingDropdown from './SortingDropdown/SortingDropdown';
+import { fetchCardStats } from '../../../services/cardService';
 
 import './Collection.scss';
 
@@ -42,7 +43,11 @@ class Collection extends Component {
               Object.keys(cardsConfig.cards)
                 .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType
                                   || this.state.selectedType === 'All')
-                .map(cardId => cardId)
+                .sort((a, b) => {
+                  const A = fetchCardStats(a);
+                  const B = fetchCardStats(b);
+                  return (A.type + A.cost.level + a).localeCompare(B.type + B.cost.level + b);
+                })
                 .map((cardId) => {
                   const foundCard = cards.find(card => card.metadata.id === cardId);
 
