@@ -20,12 +20,12 @@
   &.dragging-success.level-up-success {
     &.normal .border-ring {
       stroke: $empty-slot-can-drop;
-      stroke-width: 2px;
+      stroke-opacity: 1;
     }
     &.blue, &.gold, &.red {
       .rarity-ring {
         stroke: $empty-slot-can-drop;
-        stroke-width: 2px;
+        stroke-width: 1px;
       }
     }
   }
