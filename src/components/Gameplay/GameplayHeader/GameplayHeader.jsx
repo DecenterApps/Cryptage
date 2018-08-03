@@ -85,9 +85,8 @@ const GameplayHeader = ({
               }
             </div>
             <div className="smaller">
-              { fundsPerBlock > 0 && '+' }
               { fundsPerBlock }
-              <span className="smaller">&nbsp;&nbsp;FPB</span>
+              <span className="smaller">&nbsp;&nbsp;Funds Per Block</span>
             </div>
           </div>
         </div>

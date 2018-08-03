@@ -142,96 +142,96 @@ const HoverInfo = ({
               }
             </div>
           }
-          {
-            (card.stats.values || card.stats.bonus) &&
-            card.stats.type !== 'Container' &&
-            <div className="gains" data-name="Gains">
-              {
-                card.stats.values &&
-                card.stats.values.space > 0 &&
-                <div
-                  data-name="SPACE"
-                  className={`orb space ${classForNumber(card.stats.values.space)}`}
-                >
-                  {formatBigNumber(card.stats.values.space)}
-                </div>
-              }
-              {
-                card.stats.values &&
-                card.stats.values.power > 0 &&
-                <div
-                  data-name="POWER"
-                  className={`orb power ${classForNumber(card.stats.values.power)}`}
-                >
-                  {formatBigNumber(card.stats.values.power)}
-                </div>
-              }
-              {
-                card.stats.bonus &&
-                card.stats.bonus.funds > 0 &&
-                card.metadata.id !== '43' &&
-                <div
-                  data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
-                  className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
-                >
-                  {formatBigNumber(card.stats.bonus.funds)}
-                </div>
-              }
-              {
-                card.stats.bonus &&
-                card.stats.bonus.funds > 0 &&
-                card.metadata.id === '43' &&
-                <div
-                  data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
-                  className={`orb funds ${classForNumber(card.stats.bonus.multiplierFunds)}`}
-                >
-                  {formatBigNumber(card.stats.bonus.multiplierFunds)}
-                </div>
-              }
-              {
-                card.stats.bonus &&
-                card.stats.bonus.xp > 0 &&
-                <div
-                  data-name="XP"
-                  className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
-                >
-                  {formatBigNumber(card.stats.bonus.xp)}
-                </div>
-              }
-              {
-                card.stats.bonus &&
-                card.stats.bonus.power > 0 &&
-                <div
-                  data-name="POWER"
-                  className={`orb power ${classForNumber(card.stats.bonus.power)}`}
-                >
-                  {formatBigNumber(card.stats.bonus.power)}
-                </div>
-              }
-              {
-                card.stats.bonus &&
-                card.stats.bonus.development > 0 &&
-                <div
-                  data-name="DEV"
-                  className={`orb development ${classForNumber(card.stats.bonus.development)}`}
-                >
-                  {formatBigNumber(card.stats.bonus.development)}
-                </div>
-              }
-
-
-              <div className="description">
+          <div className="right-side">
+            {
+              (card.stats.values || card.stats.bonus) &&
+              card.stats.type !== 'Container' &&
+              <div className="gains" data-name="Gains">
                 {
-                  card.stats.mechanicsText &&
-                  <p className="mechanics">{card.stats.mechanicsText}{/**/}</p>
+                  card.stats.values &&
+                  card.stats.values.space > 0 &&
+                  <div
+                    data-name="SPACE"
+                    className={`orb space ${classForNumber(card.stats.values.space)}`}
+                  >
+                    {formatBigNumber(card.stats.values.space)}
+                  </div>
                 }
                 {
-                  card.stats.flavorText &&
-                  <p className="flavor">&ldquo;{card.stats.flavorText}&ldquo;</p>
+                  card.stats.values &&
+                  card.stats.values.power > 0 &&
+                  <div
+                    data-name="POWER"
+                    className={`orb power ${classForNumber(card.stats.values.power)}`}
+                  >
+                    {formatBigNumber(card.stats.values.power)}
+                  </div>
+                }
+                {
+                  card.stats.bonus &&
+                  card.stats.bonus.funds > 0 &&
+                  card.metadata.id !== '43' &&
+                  <div
+                    data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
+                    className={`orb funds ${classForNumber(card.stats.bonus.funds)}`}
+                  >
+                    {formatBigNumber(card.stats.bonus.funds)}
+                  </div>
+                }
+                {
+                  card.stats.bonus &&
+                  card.stats.bonus.funds > 0 &&
+                  card.metadata.id === '43' &&
+                  <div
+                    data-name={fpbCardIds.includes(card.metadata.id) ? 'FPB' : 'FUNDS'}
+                    className={`orb funds ${classForNumber(card.stats.bonus.multiplierFunds)}`}
+                  >
+                    {formatBigNumber(card.stats.bonus.multiplierFunds)}
+                  </div>
+                }
+                {
+                  card.stats.bonus &&
+                  card.stats.bonus.xp > 0 &&
+                  <div
+                    data-name="XP"
+                    className={`orb xp ${classForNumber(card.stats.bonus.xp)}`}
+                  >
+                    {formatBigNumber(card.stats.bonus.xp)}
+                  </div>
+                }
+                {
+                  card.stats.bonus &&
+                  card.stats.bonus.power > 0 &&
+                  <div
+                    data-name="POWER"
+                    className={`orb power ${classForNumber(card.stats.bonus.power)}`}
+                  >
+                    {formatBigNumber(card.stats.bonus.power)}
+                  </div>
+                }
+                {
+                  card.stats.bonus &&
+                  card.stats.bonus.development > 0 &&
+                  <div
+                    data-name="DEV"
+                    className={`orb development ${classForNumber(card.stats.bonus.development)}`}
+                  >
+                    {formatBigNumber(card.stats.bonus.development)}
+                  </div>
                 }
               </div>
+            }
+            <div className="description">
+              {
+                card.stats.mechanicsText &&
+                <p className="mechanics">{card.stats.mechanicsText}{/**/}</p>
+              }
+              {
+                card.stats.flavorText &&
+                <p className="flavor">&ldquo;{card.stats.flavorText}&ldquo;</p>
+              }
             </div>
-          }
+          </div>
         </div>
       </div>
     </div>

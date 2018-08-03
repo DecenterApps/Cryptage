@@ -109,7 +109,7 @@
       }
     }
 
-    .cost, .gains {
+    .cost, .right-side {
       position: absolute;
       top: 20px !important;
       z-index: 3;
@@ -121,8 +121,9 @@
       //}
 
       &:before,
+      .gains:before,
       &.cost .orb:before,
-      &.gains .orb:after {
+      .gains .orb:after {
         content: attr(data-name);
         text-transform: capitalize;
         height: 33px;
@@ -147,7 +148,7 @@
         //  font-size: 18px;
         //}
       }
-      &.gains:before {
+      .gains:before {
         right: -22px;
         top: -20px;
         width: 80px;
@@ -177,7 +178,7 @@
         //  padding: 0 28px 0 45px;
         //}
       }
-      &.gains .orb:after {
+      .gains .orb:after {
         background: linear-gradient(90deg, #36265F 0%, rgba(54, 38, 95, 0) 100%);
         padding: 0 40px 0 15px;
         left: 28px;
@@ -206,7 +207,7 @@
           border-top-right-radius: $orb-radius;
         }
       }
-      &.gains {
+      &.right-side {
         left: auto;
         right: -46px !important;
 
@@ -214,9 +215,12 @@
         //  right: -67px !important;
         //}
 
-        .orb {
-          border-bottom-left-radius: $orb-radius;
-          border-top-left-radius: $orb-radius;
+        .gains {
+          margin-bottom: 20px;
+          .orb {
+            border-bottom-left-radius: $orb-radius;
+            border-top-left-radius: $orb-radius;
+          }
         }
       }
       width: 40px;
@@ -244,7 +248,7 @@
         //  justify-content: center;
         //}
       }
-      &.gains {
+      .gains {
         .orb.funds {
           background: linear-gradient(90deg, #FF9D14 24.31%, rgba(255, 157, 20, 0) 100%);
         }
@@ -283,7 +287,6 @@
         width: 190px;
         text-align: left;
         font-size: 12px;
-        margin-top: 20px;
 
         .mechanics {
           margin-bottom: 9px;

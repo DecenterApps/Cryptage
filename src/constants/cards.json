@@ -781,7 +781,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "It compiled! That means it's working.",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -811,7 +811,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "It compiled! That means it's working.",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -841,7 +841,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "It compiled! That means it's working.",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -871,7 +871,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "It compiled! That means it's working.",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -901,7 +901,7 @@
           "space": 10,
           "time": 0
         },
-        "flavorText": "It compiled! That means it's working.",
+        "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
         "image": "junior-developer.jpg",
         "level": 5,
         "mechanicsText": "",
@@ -933,7 +933,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "You've just hired me for exactly 14.5 seconds. How can I help?",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -963,7 +963,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "You've just hired me for exactly 14.5 seconds. How can I help?",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -993,7 +993,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "You've just hired me for exactly 14.5 seconds. How can I help?",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -1023,7 +1023,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "You've just hired me for exactly 14.5 seconds. How can I help?",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -1053,7 +1053,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "You've just hired me for exactly 14.5 seconds. How can I help?",
+        "flavorText": "Do you even decentralize, bro?",
         "image": "freelance-consultant.jpg",
         "level": 5,
         "mechanicsText": "",
