@@ -106,6 +106,13 @@ class LocationSidebarItem extends Component {
         }
 
         {
+          (activeLocationIndex !== index) &&
+          (fpb > 0) &&
+          this.state.show &&
+          <div className="fpb">+ {fpb} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>
+        }
+
+        {
           !active &&
           <div
             className={`
