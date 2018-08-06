@@ -86,6 +86,26 @@ class ProjectItem extends Component {
           <ProjectItemVector active={isActive} id={mainCard.id} image={`cardImages/${mainCard.stats.image}`} />
 
           {
+            showFpb &&
+            <div className="bonus">
+              {
+                (xpb > 0) && <div>+ { formatBigNumber(xpb) } XP</div>
+              }
+              {
+                (metadataId === '26' || metadataId === '27') &&
+                (fpb > 0) &&
+                <div>+ { formatBigNumber(fpb) } FPB</div>
+              }
+              {
+                (metadataId !== '26' && metadataId !== '27') &&
+                (fpb > 0) &&
+                <div>+ { formatBigNumber(fpb) } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+              }
+            </div>
+          }
+
+
+          {
             isActive &&
             <div className="project-progress">
               <Circle

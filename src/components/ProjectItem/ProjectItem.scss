@@ -136,5 +136,56 @@
       right: 48px;
       top: 13px;
     }
+
+    .bonus {
+      position: absolute;
+      white-space: nowrap;
+      bottom: 0;
+      line-height: 12px;
+      left: 0;
+      right: 0;
+      text-transform: uppercase;
+      font-size: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 1;
+      z-index: 10;
+      //animation: fadeOut 1s ease-out 2s forwards;
+      pointer-events: none;
+
+      @keyframes fadeOut {
+        0% {opacity: 1;}
+        100% {opacity: 0;}
+      }
+
+      @include for-big-desktop {
+        width: 67px;
+        height: 67px;
+        left: -2px;
+        top: -1px;
+        font-size: 12px;
+      }
+
+      div {
+        font-family: $font-secondary;
+        text-shadow: 0 0 13px rgba(255, 157, 20, 0.7);
+        text-align: center;
+        line-height: 10px;
+
+        @include for-big-desktop {
+          line-height: 13px;
+        }
+
+        &:first-child {
+          color: #33FF00;
+        }
+
+        &:nth-child(2) {
+          color: $yellow;
+        }
+      }
+    }
   }
 }

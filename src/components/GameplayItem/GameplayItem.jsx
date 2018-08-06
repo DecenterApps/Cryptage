@@ -133,11 +133,11 @@ class GameplayItem extends Component {
         {
           !isContainer &&
           <div className="asset-card-wrapper">
-            {/*{*/}
-              {/*this.state.show &&*/}
-              {/*(fpb > 0) &&*/}
-              {/*<div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
-            {/*}*/}
+            {
+              this.state.show &&
+              (fpb > 0) &&
+              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+            }
 
             <IngameCard
               showCount={false}
@@ -158,11 +158,11 @@ class GameplayItem extends Component {
               ${isDragMiner && goodMinerSlotType && !canDropMiner && 'no-drop-miner'}
             `}
           >
-            {/*{*/}
-              {/*this.state.show &&*/}
-              {/*(fpb > 0) &&*/}
-              {/*<div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
-            {/*}*/}
+            {
+              this.state.show &&
+              (fpb > 0) &&
+              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+            }
 
             <IngameCard
               goToContainer={() => { this.goToContainer(isContainer); }}

@@ -31,9 +31,11 @@
 
   .fpb {
     position: absolute;
-    bottom: 90px;
+    top: -20px;
+    width: 100px;
     z-index: 20;
     pointer-events: none;
+    text-align: center;
 
     @include elementInAndOut;
     @include  for-big-desktop {
