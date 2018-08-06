@@ -5,22 +5,26 @@
 .projects-wrapper {
   width: 133px;
   height: 5px;
+  position: relative;
 
   //@include for-big-desktop {
   //  width: 190px;
   //}
 
   .projects-header {
-    margin-bottom: 36px;
+    height: 48px;
 
     .bar-wrapper {
       color: white;
+      background-image: url('./projects-bg.png');
+      height: 100px;
 
       svg {
         transform: rotateY(180deg);
       }
 
       .section-header-main-text {
+        top: -5px;
         left: 16px;
       }
 
@@ -32,7 +36,7 @@
   }
 
   .active-projects-wrapper {
-    display: flex;
+    //display: flex;
     height: 100%;
     justify-content: center;
   }
@@ -55,7 +59,6 @@
     margin-bottom: 16px;
 
     &:nth-child(2n) {
-      position: relative;
       margin-left: 19px;
     }
   }

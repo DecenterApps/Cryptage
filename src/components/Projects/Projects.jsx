@@ -17,25 +17,23 @@ const Projects = ({ projects, handleProjectDrop, gameplayView }) => (
 
     {
       (gameplayView !== GP_LEADERBOARD &&
-        gameplayView !== GP_LOCATION_COLLECTION) && [
+        gameplayView !== GP_LOCATION_COLLECTION) &&
+        <div key="active-projects-wrapper" className="active-projects-wrapper">
           <div key="projects-header" className="projects-header">
             <div className="bar-wrapper">
               <HeaderLine />
               <div className="section-header-main-text">Projects</div>
               <div className="section-header-sub-text">Summary</div>
             </div>
-          </div>,
-
-          <div key="active-projects-wrapper" className="active-projects-wrapper">
-            <DropSlotsWrapper
-              dropSlots={projects}
-              onItemDrop={handleProjectDrop}
-              element={<ProjectItem />}
-              emptyStateElem={<EmptyProjectSlot />}
-              mainClass="projects-slots-wrapper"
-            />
-          </div>,
-      ]
+          </div>
+          <DropSlotsWrapper
+            dropSlots={projects}
+            onItemDrop={handleProjectDrop}
+            element={<ProjectItem />}
+            emptyStateElem={<EmptyProjectSlot />}
+            mainClass="projects-slots-wrapper"
+          />
+        </div>
     }
   </div>
 );

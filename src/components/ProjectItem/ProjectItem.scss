@@ -12,7 +12,7 @@
   }
 
   &:hover .projects-item-wrapper .actions,
-  &:hover .projects-item-wrapper .blocks-left {
+  &:hover .blocks-left {
     display: block;
   }
 
@@ -101,17 +101,6 @@
       }
     }
 
-    .blocks-left {
-      display: none;
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 3px;
-      color: $yellow;
-      text-align: center;
-      font-size: 11px;
-    }
-
     .project-item-vector {
       position: relative;
       right: 6px;
@@ -186,6 +175,24 @@
           color: $yellow;
         }
       }
+    }
+  }
+
+  .blocks-left {
+    display: none;
+    position: absolute;
+    top: 115px;
+    right: 6px;
+    bottom: 3px;
+    text-align: center;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: $yellow;
+    span {
+      color: white;
+      opacity: .3;
+      font-size: 8px;
+      text-shadow: 0 0 3px #9B01C1;
     }
   }
 }

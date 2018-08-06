@@ -87,8 +87,8 @@ $lg-card-desktop-height: 355px;
 }
 
 @mixin elementInAndOut {
-  //animation: fadeinout 2s linear forwards;
-  //opacity: 0;
+  animation: fadeinout 2s linear forwards;
+  opacity: 0;
   z-index: 20;
   font-family: $font-secondary;
   font-size: 12px;

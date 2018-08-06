@@ -153,11 +153,11 @@ class ProjectItem extends Component {
             }
           </div>
 
-          {
-            blocksLeft > 0 &&
-            <div className="blocks-left">{ blocksLeft }</div>
-          }
         </div>
+        {
+          blocksLeft > 0 &&
+          <div className="blocks-left">{ blocksLeft } <span>blocks left</span></div>
+        }
       </div>
     );
   }
