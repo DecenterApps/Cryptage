@@ -44,7 +44,7 @@ class ProjectItem extends Component {
     const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
 
     const blocksLeft = expiryTime - blockNumber;
-    let timeLeft = Math.floor((projectExecutionTimePercent / 100) * blocksLeft);
+    let timeLeft = Math.ceil((projectExecutionTimePercent / 100) * blocksLeft);
     // remove when refactor is over
     if (timeLeft < 0) timeLeft = 1;
 

@@ -39,6 +39,8 @@
       min-width: 40px;
       max-width: 96px;
       flex: 1 1 100%;
+      padding: 0 4px;
+
       &:last-child {
         min-width: 96px;
         margin-right: 10px !important;
