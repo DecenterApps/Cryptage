@@ -18,6 +18,7 @@
       color: white;
       background-image: url('./projects-bg.png');
       height: 100px;
+      pointer-events: none;
 
       svg {
         transform: rotateY(180deg);

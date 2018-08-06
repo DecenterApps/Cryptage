@@ -56,7 +56,7 @@ const GameplayHeader = ({
 
         {/* Central section */}
         <div className="central">
-          <div className="block-number"><span>Current Block: </span>{blockNumber}</div>
+          <div className="block-number"><span>Current Block: </span>{blockNumber.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')}</div>
           <div className="level">Level { globalStats.level }</div>
           <div className="name">{ nickname || 'NICKNAME' }</div>
           <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>

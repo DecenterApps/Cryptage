@@ -23,7 +23,7 @@ const Projects = ({ projects, handleProjectDrop, gameplayView }) => (
             <div className="bar-wrapper">
               <HeaderLine />
               <div className="section-header-main-text">Projects</div>
-              <div className="section-header-sub-text">Summary</div>
+              {/* <div className="section-header-sub-text">Summary</div> */}
             </div>
           </div>
           <DropSlotsWrapper

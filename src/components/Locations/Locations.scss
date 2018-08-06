@@ -26,6 +26,7 @@
     .bar-wrapper {
       background-image: url('./locations-bg.png');
       height: 100px;
+      pointer-events: none;
 
       .section-header-main-text {
         top: -5px;
