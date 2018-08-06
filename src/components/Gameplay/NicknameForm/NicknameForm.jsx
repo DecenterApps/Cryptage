@@ -28,13 +28,9 @@ let NicknameForm = ({
     <p className="form-description-title">Welcome to</p>
     <div className="logo-wrapper" />
     <div className="content">
-      <p className="form-description">
-        Since this appears to be your first time playing, we will be happy to walk you through the
-        basic game mechanics. But please choose your username first.
-      </p>
-
       <form onSubmit={handleSubmit} className="form-wrapper" autoComplete="off">
         <Field
+          id="nickname"
           name="nickname"
           showErrorText
           focus
@@ -54,10 +50,16 @@ let NicknameForm = ({
           <button type="submit"><ArrowRight /></button>
         </span>
 
+        <label htmlFor="nickname">
+          Choose Your Username First
+        </label>
         {/* <span>{ submittingForm ? 'Submitting' : 'Submit' }</span> */}
       </form>
       <div className="form-bottom-box" />
     </div>
+    <div className="bg"></div>
+    {/*<div className="bg-left" />*/}
+    {/*<div className="bg-right" />*/}
   </div>
 );
 

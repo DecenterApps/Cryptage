@@ -9,7 +9,7 @@ import ModalRoot from './components/Modals/ModalRoot';
 export const RoutesWrapper = ({ store }) => (
   <div className="app-wrapper">
     <Provider store={store}>
-      <div>
+      <div style={{ height: '100%' }}>
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={App} />
