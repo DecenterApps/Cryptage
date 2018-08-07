@@ -3,7 +3,7 @@
 
 .ingame-card-details {
   width: 100px;
-  height: 142px;
+  height: 145px;
   box-sizing: border-box;
   display: flex;
   position: relative;
@@ -55,33 +55,12 @@
     background-position: center;
   }
   .rarity-overlay {
-    &.blue {
-      position: absolute;
-      top: -23px;
-      left: -24px;
-      height: 169px;
-      width: 133px;
-      background: url("./blue-rarity-border.png");
-      background-size: 148px 188px;
-    }
-    &.gold {
-      position: absolute;
-      top: -23px;
-      left: -23px;
-      height: 169px;
-      width: 133px;
-      background: url("./gold-rarity-border.png");
-      background-size: 147px 187px;
-    }
-    &.purple {
-      position: absolute;
-      top: -23px;
-      left: -23px;
-      height: 169px;
-      width: 133px;
-      background: url("./purple-rarity-border.png");
-      background-size: 147px 187px;
-    }
+    position: absolute;
+    top: -25px;
+    left: -25px;
+    height: 200px;
+    width: 150px;
+    background-size: 100%;
   }
 
   .new-card {
@@ -183,7 +162,7 @@
       margin-top: 4px;
       margin-left: 1px;
       display: flex;
-      border: 1px solid #404472;
+      border: 1px solid rgba(#75341F, .4);
       border-right: 0;
       border-bottom: 0;
       background: linear-gradient(to bottom, #101427, #36265F);

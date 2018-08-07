@@ -77,36 +77,14 @@
     }
 
     .rarity-overlay {
-      &.blue {
-        position: absolute;
-        top: -8px;
-        left: -15px;
-        width: 236px;
-        height: 364px;
-        background-size: 100%;
-        transform: scale(1.15);
-        background: url("../Cards/HandCard/blue-rarity-border.png") no-repeat;
-      }
-      &.gold {
-        position: absolute;
-        top: 0;
-        left: -12px;
-        width: 236px;
-        height: 364px;
-        background-size: 100%;
-        transform: scale(1.2);
-        background: url("../Cards/HandCard/gold-rarity-border.png") no-repeat;
-      }
-      &.purple {
-        position: absolute;
-        top: -4px;
-        left: -4px;
-        width: 343px;
-        height: 364px;
-        background-size: cover;
-        transform: scale(1.18);
-        background: url("../Cards/HandCard/purple-rarity-border.png") no-repeat;
-      }
+      position: absolute;
+      top: -6px;
+      left: -12px;
+      width: 250px;
+      height: 326px;
+      transform: scale(1.15);
+      background-repeat: no-repeat;
+      background-size: 100%;
     }
 
     .cost, .right-side {

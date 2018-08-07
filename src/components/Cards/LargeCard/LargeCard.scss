@@ -32,41 +32,15 @@
   }
 
 
-  #rarity.rarity-overlay {
+  .large-card-rarity.rarity-overlay {
     position: absolute;
-    top: -25px;
-    left: -25px;
-    width: 244px;
-    height: 332px;
+    width: 279px;
+    height: 322px;
     transform: rotateY(0deg);
-    background-size: cover;
     z-index: 1;
-
-    //@include for-big-desktop {
-    //  width: 275px;
-    //  height: 400px;
-    //  top: -36px;
-    //  left: -35px;
-    //}
-
-    &.rarity-blue {
-      background: url('../../Cards/HandCard/blue-rarity-border.png') no-repeat;
-      background-size: 283px 371px;
-      top: -31px;
-      left: -32px;
-    }
-    &.rarity-gold {
-      background: url('../../Cards/HandCard/gold-rarity-border.png') no-repeat;
-      background-size: 285px 371px;
-      top: -30px;
-      left: -34px
-    }
-    &.rarity-purple {
-      background: url('../../Cards/HandCard/purple-rarity-border.png') no-repeat;
-      background-size: 284px 369px;
-      top: -30px;
-      left: -32px;
-    }
+    background-size: 100%;
+    top: -27px;
+    left: -30px;
   }
   .new-card {
     position: absolute;

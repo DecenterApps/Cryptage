@@ -537,6 +537,19 @@ export const classForRarity = (_rarity) => {
   return 'gold';
 };
 
+export const classNameForRarity = (_rarity) => {
+  const number = parseInt(_rarity, 10);
+  if (number >= 850) return 'normal';
+  if (number >= 600) return 'scarce';
+  if (number >= 325) return 'rare';
+  return 'elite';
+};
+
+export const rarityBorder = (stats) => {
+  if (classNameForRarity(stats.rarityScore) === 'normal') return '';
+  return `url('/rarityBorders/rarity-${classNameForRarity(stats.rarityScore)}-${stats.type.toLowerCase()}.png')`;
+};
+
 /**
  * If mechanics text has 'Time to complete' puts it in another line
  *
@@ -554,13 +567,18 @@ export const printMechanicsText = (text) => {
   return [firstPart, secondPart];
 };
 
+export const compareCards = (a, b) => {
+  if (a.stats.type !== b.stats.type) return (a.stats.type).localeCompare(b.stats.type);
+  if (a.stats.cost.level !== b.stats.cost.level) return a.stats.cost.level - b.stats.cost.level;
+  return a.stats.cost.funds - b.stats.cost.funds;
+}
 /**
- * Sorts cards in group by price
+ * Sorts cards in group
  *
  * @param {Array} group
  * @return {Array}
  */
-export const sortTypeGroupByPrice = group => group.sort((a, b) => a.stats.cost.funds - b.stats.cost.funds);
+export const sortTypeGroupByPrice = group => group.sort(compareCards);
 
 /**
  * Gets number of cards that can be leveled up inside a lastDroppedItem

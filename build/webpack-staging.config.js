@@ -78,6 +78,10 @@ module.exports = {
         to: 'cardImages/',
       },
       {
+        from: './src/constants/rarityBorders/',
+        to: 'rarityBorders/',
+      },
+      {
         from: './src/components/Tutorial/images',
         to: 'tutorialImages/',
       }

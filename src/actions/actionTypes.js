@@ -138,6 +138,8 @@ export const typeGradients = {
   container:  ['#75341F', 'rgba(117, 52, 30, 0)'],
 };
 
+
+// delete
 export const rarities = {
   normal: '#9797FB',
   blue: '#0086D1',

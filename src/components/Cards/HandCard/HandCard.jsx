@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { guid, classForRarity } from '../../../services/utils';
+import { guid, classForRarity, rarityBorder } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
@@ -31,6 +31,7 @@ class HandCard extends Component {
     const uniqueId = guid();
 
     const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
+    const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
 
     return (
       <div
@@ -58,7 +59,10 @@ class HandCard extends Component {
           </PortalWrapper>
         }
 
-        <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
+        <div
+          style={{ backgroundImage: rarityBorder(card.stats) }}
+          className="rarity-overlay"
+        />
         <svg className="card-image">
           <defs>
             <pattern
@@ -85,11 +89,11 @@ class HandCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: rarityColor }}
+                style={{ stopColor: typeColor }}
               />
               <stop
                 offset="50%"
-                style={{ stopColor: `${rarityColor}00` }}
+                style={{ stopColor: `${typeColor}00` }}
               />
             </linearGradient>
             <linearGradient

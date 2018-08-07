@@ -56,33 +56,12 @@
     background-position: center;
   }
   .rarity-overlay {
-    &.blue {
-      position: absolute;
-      top: -22px;
-      left: -21px;
-      height: 161px;
-      width: 124px;
-      background: url("./blue-rarity-border.png");
-      background-size: 126px 163px;
-    }
-    &.gold {
-      position: absolute;
-      top: -22px;
-      left: -22px;
-      height: 161px;
-      width: 124px;
-      background: url("./gold-rarity-border.png");
-      background-size: 128px 164px;
-    }
-    &.purple {
-      position: absolute;
-      top: -22px;
-      left: -22px;
-      height: 161px;
-      width: 124px;
-      background: url("./purple-rarity-border.png");
-      background-size: 128px 163px;
-    }
+    position: absolute;
+    top: -21px;
+    left: -21px;
+    height: 161px;
+    width: 127px;
+    background-size: 126px 163px;
   }
 
   .new-card {

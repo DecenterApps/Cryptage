@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classForRarity, guid } from '../../services/utils';
-import { fpbCardIds, DESKTOP_WIDTH, rarities, typeGradients } from '../../actions/actionTypes';
+import { formatBigNumber, classForRarity, guid, rarityBorder } from '../../services/utils';
+import { fpbCardIds, DESKTOP_WIDTH, typeGradients } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
 import LargeCardMain from './LargeCardMain';
@@ -68,11 +68,13 @@ const HoverInfo = ({
           className="inner-wrapper"
         >
 
-          <div className={`rarity-overlay ${classForRarity(card.stats.rarityScore)}`} />
+          <div
+            style={{ backgroundImage: rarityBorder(card.stats) }}
+            className="rarity-overlay"
+          />
 
           <LargeCardMain
             typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
-            rarityColor={rarities[classForRarity(card.stats.rarityScore)]}
             id={card.id}
             image={`cardImages/${card.stats.image}`}
           />

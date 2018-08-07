@@ -68,12 +68,16 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new FaviconsWebpackPlugin(path.resolve('favicon.png')),
     new WriteFilePlugin({
-      test: /^cardImages/,
+      test: /^cardImages|^rarityBorders/,
     }),
     new CopyWebpackPlugin([
       {
         from: './src/constants/cardImages/',
         to: 'cardImages/',
+      },
+      {
+        from: './src/constants/rarityBorders/',
+        to: 'rarityBorders/',
       },
       {
         from: './src/components/Tutorial/images',

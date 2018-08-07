@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { classForRarity } from '../../../services/utils';
+import { classForRarity, rarityBorder } from '../../../services/utils';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import { rarities, typeGradients } from '../../../actions/actionTypes';
 
@@ -39,7 +39,10 @@ class LargeCard extends Component {
         }}
       >
 
-        <div id="rarity" className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+        <div
+          style={{ backgroundImage: rarityBorder(card.stats) }}
+          className="large-card-rarity rarity-overlay"
+        />
 
         <LargeCardMain
           typeColor={typeGradients[card.stats.type.toLowerCase()][0]}

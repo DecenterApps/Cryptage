@@ -103,7 +103,7 @@
     justify-content: center;
     transition: all .2s;
     display: flex;
-
+    z-index: 1;
     opacity: 0;
     transform: translateX(-20px);
     pointer-events: none;
@@ -148,22 +148,22 @@
     }
   }
 
-  .rarity-border {
-    &.gold svg {
-      .outer-ring { stroke: $gold-rarity; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
-    }
-
-    &.blue svg {
-      .outer-ring { stroke: $blue-rarity }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $blue-rarity; } }
-    }
-
-    &.purple svg {
-      .outer-ring { stroke: $purple-rarity; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $purple-rarity; } }
-    }
-  }
+  //.rarity-border {
+  //  &.gold svg {
+  //    .outer-ring { stroke: $gold-rarity; }
+  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
+  //  }
+  //
+  //  &.blue svg {
+  //    .outer-ring { stroke: $blue-rarity }
+  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $blue-rarity; } }
+  //  }
+  //
+  //  &.purple svg {
+  //    .outer-ring { stroke: $purple-rarity; }
+  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $purple-rarity; } }
+  //  }
+  //}
 
   &.dragging-success.level-up-success {
     .location-sidebar-small, .location-sidebar-big {

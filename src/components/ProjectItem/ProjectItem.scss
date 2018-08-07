@@ -4,11 +4,11 @@
 .project-container {
 
   &.rarity-border {
-
-    &.normal .rarity-ring { display: none; }
-    &.blue .rarity-ring { stroke: $blue-rarity; }
-    &.gold .rarity-ring { stroke: $gold-rarity; }
-    &.purple .rarity-ring { stroke: $purple-rarity; }
+    .rarity-ring { display: none; }
+    //&.normal .rarity-ring { display: none; }
+    //&.blue .rarity-ring { stroke: $blue-rarity; }
+    //&.gold .rarity-ring { stroke: $gold-rarity; }
+    //&.purple .rarity-ring { stroke: $purple-rarity; }
   }
 
   &:hover .projects-item-wrapper .actions,

@@ -5,7 +5,7 @@ import HeaderBar from '../../HeaderBar/HeaderBar';
 import LargeCard from '../../Cards/LargeCard/LargeCard';
 import cardsConfig from '../../../constants/cards.json';
 import SmallButton from '../../SmallButton/SmallButton';
-import { getDataForTypeSorting, capitalize } from '../../../services/utils';
+import { getDataForTypeSorting, capitalize, compareCards } from '../../../services/utils';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 import SortingDropdown from './SortingDropdown/SortingDropdown';
 import { fetchCardStats } from '../../../services/cardService';
@@ -44,9 +44,9 @@ class Collection extends Component {
                 .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType
                                   || this.state.selectedType === 'All')
                 .sort((a, b) => {
-                  const A = fetchCardStats(a);
-                  const B = fetchCardStats(b);
-                  return (A.type + A.cost.level + a).localeCompare(B.type + B.cost.level + b);
+                  const A = { stats: fetchCardStats(a) };
+                  const B = { stats: fetchCardStats(b) };
+                  return compareCards(A, B);
                 })
                 .map((cardId) => {
                   const foundCard = cards.find(card => card.metadata.id === cardId);

@@ -19,8 +19,8 @@ const getClassForFont = (maxDev, available) => {
 const formatFunds = (_number) => {
   const number = parseFloat(_number);
 
-  if (number >= 1000000000) return `${Math.floor(number / 100000000) / 10} billion`;
-  if (number >= 1000000) return `${Math.floor(number / 100000) / 10} million`;
+  if (number >= 1000000000) return `${Math.floor(number / 100000000) / 10}B`;
+  if (number >= 1000000) return `${Math.floor(number / 100000) / 10}M`;
   if (number >= 1000) {
     const _number = number.toString(10);
     return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
@@ -38,7 +38,8 @@ const GameplayHeader = ({
     return acc;
   }, 0);
 
-  const formatedFunds = formatFunds(globalStats.funds).split(' ');
+  const formatedFunds = formatFunds(globalStats.funds);
+  const formatedFpb = formatFunds(fundsPerBlock);
 
   return (
     <div className="gameplay-header-wrapper">
@@ -79,14 +80,10 @@ const GameplayHeader = ({
         <div className="section">
           <div className="stats-wrapper funds">
             <div title={globalStats.funds}>
-              { formatedFunds[0] }
-              {
-                formatedFunds.length > 1 &&
-                <span className="smaller"> { formatedFunds[1] }</span>
-              }
+              { formatedFunds }
             </div>
             <div className="smaller">
-              { fundsPerBlock }
+              { formatedFpb }
               <span className="smaller">&nbsp;&nbsp;Funds Per Block</span>
             </div>
           </div>

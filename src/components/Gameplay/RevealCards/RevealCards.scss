@@ -27,32 +27,33 @@
 
     .rarity-overlay {
       position: absolute;
-      top: -25px;
-      left: -25px;
-      width: 244px;
-      height: 332px;
-      transform: rotateY(180deg);
+      top: -27px;
+      left: -30px;
+      width: 279px;
+      height: 322px;
+      //transform: rotateY(180deg);
       background-size: cover;
       z-index: 1;
+      pointer-events: none;
 
-      &.rarity-blue {
-        background: url('../../Cards/HandCard/blue-rarity-border.png') no-repeat;
-        background-size: 283px 371px;
-        top: -46px;
-        left: -6px;
-      }
-      &.rarity-gold {
-        background: url('../../Cards/HandCard/gold-rarity-border.png') no-repeat;
-        background-size: 285px 371px;
-        top: -46px;
-        left: -5px;
-      }
-      &.rarity-purple {
-        background: url('../../Cards/HandCard/purple-rarity-border.png') no-repeat;
-        background-size: 284px 369px;
-        top: -45px;
-        left: -5px;
-      }
+      //&.rarity-blue {
+      //  background: url('../../Cards/HandCard/blue-rarity-border.png') no-repeat;
+      //  background-size: 283px 371px;
+      //  top: -46px;
+      //  left: -6px;
+      //}
+      //&.rarity-gold {
+      //  background: url('../../Cards/HandCard/gold-rarity-border.png') no-repeat;
+      //  background-size: 285px 371px;
+      //  top: -46px;
+      //  left: -5px;
+      //}
+      //&.rarity-purple {
+      //  background: url('../../Cards/HandCard/purple-rarity-border.png') no-repeat;
+      //  background-size: 284px 369px;
+      //  top: -45px;
+      //  left: -5px;
+      //}
 
       //@include for-big-desktop {
       //  width: 275px;
