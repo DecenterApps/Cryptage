@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 
-const LargeCardMain = ({ id, image, typeColor }) => (
+const LargeCardMain = ({ id, image, typeColor, borderColor }) => (
   <svg width={226} height={313} viewBox="0 0 226 313" fill="none" className="large-card-main">
     <g filter={`url(#${id}lcfilter0_d)`}>
       <path d="M172.642 0H19.5779L0 19.5478V259.452V279H19.5779H172.642L192.22 259.452V19.5478V0H172.642Z" transform="translate(16.7803 17)" fill={`url(#${id}lcpattern0)`} />
@@ -41,8 +41,8 @@ const LargeCardMain = ({ id, image, typeColor }) => (
         <stop offset={1} stopColor="#150836" />
       </linearGradient>
       <linearGradient id={`${id}lcpaint1_linear`} x2={1} gradientUnits="userSpaceOnUse" gradientTransform="matrix(205.532 -128.892 4666.97 7419.06 -2283.62 -3571.75)">
-        <stop stopColor={typeColor} />
-        <stop offset={1} stopColor={typeColor} stopOpacity={0} />
+        <stop stopColor={borderColor} />
+        <stop offset={1} stopColor={borderColor} stopOpacity={0} />
       </linearGradient>
       <linearGradient className="bottom-glow" id={`${id}lcpaint2_linear`} x2={1} gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.77981 -95.9618 107.338 1.98469 49.5599 278.008)">
         <stop stopColor={typeColor} />

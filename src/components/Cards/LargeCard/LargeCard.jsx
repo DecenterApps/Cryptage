@@ -29,6 +29,9 @@ class LargeCard extends Component {
       card, showNew, removeNewCardOnHover, removeNew, showCount, duplicates,
     } = this.props;
 
+    const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+
     return (
       <div
         className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
@@ -45,8 +48,8 @@ class LargeCard extends Component {
         />
 
         <LargeCardMain
-          typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
-          rarityColor={rarities[classForRarity(card.stats.rarityScore)]}
+          typeColor={typeColor}
+          borderColor={borderColor}
           id={card.id}
           image={`cardImages/${card.stats.image}`}
         />

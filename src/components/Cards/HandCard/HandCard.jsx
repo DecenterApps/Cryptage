@@ -32,6 +32,7 @@ class HandCard extends Component {
 
     const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
     const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
 
     return (
       <div
@@ -89,11 +90,11 @@ class HandCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: typeColor }}
+                style={{ stopColor: borderColor }}
               />
               <stop
                 offset="50%"
-                style={{ stopColor: `${typeColor}00` }}
+                style={{ stopColor: `${borderColor}00` }}
               />
             </linearGradient>
             <linearGradient

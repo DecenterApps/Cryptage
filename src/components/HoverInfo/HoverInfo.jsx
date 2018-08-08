@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classNameForRarity, guid, rarityBorder } from '../../services/utils';
+import {
+  formatBigNumber,
+  classNameForRarity,
+  guid,
+  rarityBorder,
+  classForRarity
+} from '../../services/utils';
 import { fpbCardIds, DESKTOP_WIDTH, typeGradients } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
@@ -59,6 +65,9 @@ const HoverInfo = ({
                                           card.stats.bonus.xp > 0 || card.stats.bonus.power > 0 ||
                                           card.stats.bonus.development > 0));
 
+  const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
+  const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+
   return (
     <div className={`
       card-hover-info-backdrop
@@ -79,7 +88,8 @@ const HoverInfo = ({
           />
 
           <LargeCardMain
-            typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
+            typeColor={typeColor}
+            borderColor={borderColor}
             id={card.id}
             image={`cardImages/${card.stats.image}`}
           />
