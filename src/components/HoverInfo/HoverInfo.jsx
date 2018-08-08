@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classForRarity, guid, rarityBorder } from '../../services/utils';
+import { formatBigNumber, classNameForRarity, guid, rarityBorder } from '../../services/utils';
 import { fpbCardIds, DESKTOP_WIDTH, typeGradients } from '../../actions/actionTypes';
 
 import './HoverInfo.scss';
@@ -53,6 +53,11 @@ const HoverInfo = ({
     const hideTime = key !== 'time';
     return hideTime && (spaceOverOne || levelOverOne || valOverZero);
   }).length > 0;
+
+  const showGains = (card.stats.values && (card.stats.values.space > 0 || card.stats.values.power > 0)) ||
+                    (card.stats.bonus && (card.stats.bonus.funds > 0 || card.stats.bonus.funds > 0 ||
+                                          card.stats.bonus.xp > 0 || card.stats.bonus.power > 0 ||
+                                          card.stats.bonus.development > 0));
 
   return (
     <div className={`
@@ -146,7 +151,7 @@ const HoverInfo = ({
           }
           <div className="right-side">
             {
-              (card.stats.values || card.stats.bonus) &&
+              showGains &&
               card.stats.type !== 'Container' &&
               <div className="gains" data-name="Gains">
                 {
@@ -224,6 +229,10 @@ const HoverInfo = ({
               </div>
             }
             <div className="description">
+              {
+                classNameForRarity(card.stats.rarityScore) !== 'normal' &&
+                <p className="rarity">Card rarity: <span>{classNameForRarity(card.stats.rarityScore)}</span></p>
+              }
               {
                 card.stats.mechanicsText &&
                 <p className="mechanics">{card.stats.mechanicsText}{/**/}</p>
