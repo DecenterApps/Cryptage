@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { guid, classForRarity, rarityBorder } from '../../../services/utils';
+import { guid, classForRarity } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
@@ -9,6 +9,7 @@ import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { rarities, typeGradients } from '../../../actions/actionTypes';
 
 import './HandCard.scss';
+import RarityBorder from '../RarityBorder/RarityBorder';
 
 class HandCard extends Component {
   constructor() {
@@ -60,10 +61,7 @@ class HandCard extends Component {
           </PortalWrapper>
         }
 
-        <div
-          style={{ backgroundImage: rarityBorder(card.stats) }}
-          className="rarity-overlay"
-        />
+        <RarityBorder card={card} />
         <svg className="card-image">
           <defs>
             <pattern

@@ -4,10 +4,10 @@ import {
   formatBigNumber,
   classNameForRarity,
   guid,
-  rarityBorder,
-  classForRarity
+  classForRarity,
 } from '../../services/utils';
 import { fpbCardIds, DESKTOP_WIDTH, typeGradients } from '../../actions/actionTypes';
+import RarityBorder from '../Cards/RarityBorder/RarityBorder';
 
 import './HoverInfo.scss';
 import LargeCardMain from './LargeCardMain';
@@ -82,10 +82,7 @@ const HoverInfo = ({
           className="inner-wrapper"
         >
 
-          <div
-            style={{ backgroundImage: rarityBorder(card.stats) }}
-            className="rarity-overlay"
-          />
+          <RarityBorder card={card} />
 
           <LargeCardMain
             typeColor={typeColor}

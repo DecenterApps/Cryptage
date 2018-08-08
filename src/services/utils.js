@@ -545,11 +545,6 @@ export const classNameForRarity = (_rarity) => {
   return 'elite';
 };
 
-export const rarityBorder = (stats) => {
-  if (classNameForRarity(stats.rarityScore) === 'normal') return '';
-  return `url('/rarityBorders/rarity-${classNameForRarity(stats.rarityScore)}-${stats.type.toLowerCase()}.png')`;
-};
-
 /**
  * If mechanics text has 'Time to complete' puts it in another line
  *

@@ -6,7 +6,6 @@ import {
   formatBigNumberWithBreak,
   range,
   classForRarity,
-  rarityBorder
 } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import DropCardIcon from '../../Decorative/DropCardIcon';
@@ -18,6 +17,7 @@ import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { rarities, typeGradients } from '../../../actions/actionTypes';
 
 import './IngameCard.scss';
+import RarityBorder from '../RarityBorder/RarityBorder';
 
 const classForNumber = (_number) => {
   const number = formatBigNumberWithBreak(_number);
@@ -76,10 +76,7 @@ class IngameCard extends Component {
           </div>
         }
         <div className="overlay" />
-        <div
-          style={{ backgroundImage: rarityBorder(card.stats) }}
-          className="rarity-overlay"
-        />
+        <RarityBorder card={card} />
         <svg className="card-image">
           <defs>
             <pattern

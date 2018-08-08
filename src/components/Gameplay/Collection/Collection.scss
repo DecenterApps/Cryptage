@@ -76,12 +76,12 @@
         bottom: 4px;
       }
 
-      .large-card-rarity.rarity-overlay {
-        top: -24px;
-        left: -13px;
-        background-size: 145px;
-        width: 145px;
-        height: 200px;
+      .large-card-rarity .rarity-overlay {
+        top: -8px;
+        left: 4px;
+        svg {
+          width: 111px;
+        }
       }
 
       svg {
