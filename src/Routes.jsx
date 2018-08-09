@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import App from './components/App/App';
 import NicknameForm from './components/Gameplay/NicknameForm/NicknameForm';
@@ -10,12 +10,12 @@ export const RoutesWrapper = ({ store }) => (
   <div className="app-wrapper">
     <Provider store={store}>
       <div style={{ height: '100%' }}>
-        <BrowserRouter>
+        <HashRouter>
           <Switch>
             <Route exact path="/" component={App} />
             <Route path="/newuser" component={NicknameForm} />
           </Switch>
-        </BrowserRouter>
+        </HashRouter>
         <ModalRoot />
       </div>
     </Provider>
