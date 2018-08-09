@@ -60,7 +60,9 @@ const GameplayHeader = ({
           <div className="block-number"><span>Current Block: </span>{blockNumber.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')}</div>
           <div className="level">Level { globalStats.level }</div>
           <div className="name">{ nickname || 'NICKNAME' }</div>
-          <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
+          <div className="xp-wrapper">
+            {globalStats.earnedXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} / {globalStats.requiredXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} XP
+          </div>
           {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
           <svg className="xp-loader-wrapper">
             <defs>
