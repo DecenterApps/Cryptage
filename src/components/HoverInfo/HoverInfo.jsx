@@ -236,10 +236,7 @@ const HoverInfo = ({
               </div>
             }
             <div className="description">
-              {
-                classNameForRarity(card.stats.rarityScore) !== 'normal' &&
-                <p className="rarity">Card rarity: <span>{classNameForRarity(card.stats.rarityScore)}</span></p>
-              }
+              <p className="rarity">Card rarity: <span>{classNameForRarity(card.stats.rarityScore)}</span></p>
               {
                 card.stats.mechanicsText &&
                 <p className="mechanics">{card.stats.mechanicsText}{/**/}</p>

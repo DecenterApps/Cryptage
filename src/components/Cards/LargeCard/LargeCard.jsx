@@ -72,7 +72,7 @@ class LargeCard extends Component {
           <div
             className="hover-info-wrapper"
             onMouseEnter={() => { this.togglePortal(true); }}
-            // onMouseLeave={() => { this.togglePortal(false); }}
+            onMouseLeave={() => { this.togglePortal(false); }}
           >
             <InfoCardIcon />
           </div>
