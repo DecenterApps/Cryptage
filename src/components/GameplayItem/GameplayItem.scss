@@ -38,10 +38,10 @@
     text-align: center;
 
     @include elementInAndOut;
-    @include  for-big-desktop {
-      font-size: 17px;
-      bottom: 128px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 17px;
+    //  bottom: 128px;
+    //}
   }
 
   .asset-card-wrapper {
