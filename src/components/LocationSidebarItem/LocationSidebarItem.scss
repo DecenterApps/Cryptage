@@ -141,11 +141,11 @@
 
     @include elementInAndOut;
 
-    @include for-big-desktop {
-      font-size: 17px;
-      width: 200px;
-      left: 154px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 17px;
+    //  width: 200px;
+    //  left: 154px;
+    //}
   }
 
   //.rarity-border {
