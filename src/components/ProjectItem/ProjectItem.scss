@@ -149,13 +149,13 @@
         100% {opacity: 0;}
       }
 
-      @include for-big-desktop {
-        width: 67px;
-        height: 67px;
-        left: -2px;
-        top: -1px;
-        font-size: 12px;
-      }
+      //@include for-big-desktop {
+      //  width: 67px;
+      //  height: 67px;
+      //  left: -2px;
+      //  top: -1px;
+      //  font-size: 12px;
+      //}
 
       div {
         font-family: $font-secondary;
@@ -163,9 +163,9 @@
         text-align: center;
         line-height: 10px;
 
-        @include for-big-desktop {
-          line-height: 13px;
-        }
+        //@include for-big-desktop {
+        //  line-height: 13px;
+        //}
 
         &:first-child {
           color: #33FF00;
