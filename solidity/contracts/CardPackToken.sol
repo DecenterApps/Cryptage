@@ -53,7 +53,7 @@ contract CardPackToken is StandardToken, Ownable {
 
         approve(address(booster), ONE_CARD_PACK_TOKEN);
 
-        booster.buyInstantBoosterWithToken(msg.sender);
+        // booster.buyInstantBoosterWithToken(msg.sender);
     }
 
     /// @notice A function a owner can call to stop minting of tokens

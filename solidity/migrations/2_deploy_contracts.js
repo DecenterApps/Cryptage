@@ -1,7 +1,6 @@
 const CryptageCards = artifacts.require("./CryptageCards.sol");
 const Booster = artifacts.require("./Booster.sol");
 const CardMetadata = artifacts.require("./CardMetadata.sol");
-const CardPackToken = artifacts.require('./CardPackToken');
 
 module.exports = function(deployer) {
 	deployer.deploy(CardMetadata)
