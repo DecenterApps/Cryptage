@@ -1,6 +1,6 @@
 import os
 import json
-
+import collections
 
 """
 ==============
@@ -42,17 +42,18 @@ for contract in os.listdir(directory):
 
 
 
-for key in dict:
-    print(key, dict[key])
+# for key in dict:
+#     print(key, dict[key])
 
 with open("../src/constants/config.json.dist","r+") as jsonFile:
     data = json.load(jsonFile)
 
     for key in data:
-        if (type(data[key]) is not dict) or (data[key].get("abi") == None) or (dict.get(key) == None):
+        if (not isinstance(data[key], collections.Mapping)) or (data[key].get("abi") == None) or (dict.get(key) == None):
             continue
         data[key]["abi"] = abi[key]
         data[key]["address"] = dict[key]
+        print("Added {} with address: {}".format(key, dict[key]))
 
     data["network"] = network_id
 
