@@ -14,6 +14,8 @@ import { log } from '../services/utils';
 import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
 import { openRevealBoosterCardsModal } from './modalActions';
+import config from '../constants/config.json';
+import sdk from '../services/bitGuildPortalSDK_v0.1';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -126,17 +128,33 @@ export const buyBoosterError = error => ({
 });
 
 export const buyBoosterPack = () => async (dispatch, getState) => {
-  const { blockNumber } = getState().app;
+  const { blockNumber, account } = getState().app;
   dispatch(buyBoosterRequest());
   try {
-    const result = await ethService.buyBooster();
-
-    const booster = {
-      id: result.events.BoosterInstantBought.returnValues.boosterId,
-      blockNumber,
-    };
-    dispatch(buyBoosterSuccess(booster));
-    dispatch(revealBooster(booster.id));
+    sdk.isOnPortal()
+      .then((isOnPortal) => {
+        if (isOnPortal) {
+          console.log('===== isOnPortal: ', isOnPortal);
+          const bitGuildContract = new window.web3.eth.Contract(config.bitGuildContract.abi, config.bitGuildContract.address);
+          bitGuildContract.approveAndCall(config.boosterContract.address, 0.001 * 1e18, '', {
+            from: account
+          });
+        } else {
+          console.log('===== isOnPortal: ', isOnPortal);
+          return Promise.reject();
+        }
+    })
+    .catch(async () => {
+      let result = await ethService.buyBooster();
+      console.log('===== catch: ', result);
+      let booster = {
+        id: result.events.BoosterInstantBought.returnValues.boosterId,
+        blockNumber,
+      };
+      console.log('RES', result)
+      dispatch(buyBoosterSuccess(booster));
+      dispatch(revealBooster(booster.id));
+    });
   } catch (e) {
     dispatch(buyBoosterError(e.message));
   }
