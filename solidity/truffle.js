@@ -13,6 +13,14 @@ module.exports = {
             network_id: '42',
             gasPrice: 2000000000, // 2 GWei
             gas: 5400000,
+        },
+        rinkeby: {
+            provider: function() {
+                return new HDWalletProvider(mnemonic, `https://rinkeby.decenter.com/`);
+            },
+            network_id: '42',
+            gasPrice: 2000000000, // 2 GWei
+            gas: 5400000,
         }
     }
 }

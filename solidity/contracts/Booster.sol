@@ -4,6 +4,20 @@ import "./CryptageCards.sol";
 import "./CardMetadata.sol";
 import "./CardPackToken.sol";
 
+
+contract BitGuildToken {
+
+    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success);
+}
+
+
+contract PLATPriceOracle {
+
+    // How much PLAT you get for 1 ETH, multiplied by 10^18
+    uint256 public ETHPrice;
+}
+
+
 contract Booster is Ownable {
 
     modifier onlyCardPackToken {
@@ -13,17 +27,17 @@ contract Booster is Ownable {
 
     CryptageCards public cryptageCards;
     CardMetadata public metadataContract;
+    BitGuildToken public tokenContract = BitGuildToken(0x0F2698b7605fE937933538387b3d6Fec9211477d);
+    PLATPriceOracle public platPriceOracle = PLATPriceOracle(0x20159d575724b68d8a1a80E16FCB874883329114);
 
-
-    uint public BOOSTER_PRICE = 10 ** 15; // 0.001 ether
-    uint public OWNER_PERCENTAGE = 60;
-    uint public CARD_ARTIST_PERCENTAGE = 3;
-    uint public REVEALER_PERCENTAGE = 25;
-    uint ONE_CARD_PACK_TOKEN = 10 ** 8;
-
+    uint public constant BOOSTER_PRICE = 10 ** 15; // 0.001 ether
+    uint public constant OWNER_PERCENTAGE = 60;
+    uint public constant CARD_ARTIST_PERCENTAGE = 3;
+    uint public constant REVEALER_PERCENTAGE = 25;
+    
     uint public numberOfCardsInBooster = 5;
 
-    bool public BUY_WITH_REVEAL = false;
+    bool public buyWithReveal = false;
 
     mapping(address => uint) public withdrawBalance;
     mapping(uint => address) public boosterOwners;
@@ -48,73 +62,46 @@ contract Booster is Ownable {
     /// @notice buy booster for BOOSTER_PRICE with automatic reveal
     function buyInstantBooster() public payable {
         require(msg.value >= BOOSTER_PRICE);
-        require(!BUY_WITH_REVEAL);
-        require(!isContract(msg.sender));
+        require(!buyWithReveal);
+        // we don't want any contract to call this method
+        require(tx.origin == msg.sender);
 
-//        uint boosterId = numOfBoosters;
-//        numOfBoosters++;
+        uint boosterId;
+        uint[] memory cardIds;
 
-        uint numOfCardTypes = metadataContract.getNumberOfCards();
+        (boosterId, cardIds) = mintCardsForUser(msg.sender, uint(blockhash(block.number-1)));
 
-        assert(numOfCardTypes >= numberOfCardsInBooster);
-
-        uint blockhashNum = uint(blockhash(block.number-1));
-        // hash(random hash), n(size of array we need)
-        uint[] memory metadataIds = _random(blockhashNum, numberOfCardsInBooster);
-        uint[] memory cardIds = new uint[](metadataIds.length);
-
-        for (uint i = 0; i<metadataIds.length; i++) {
-            cardIds[i] = cryptageCards.createCard(msg.sender, metadataIds[i]);
-
-            address artist = metadataContract.getArtist(metadataIds[i]);
+        for (uint i = 0; i < cardIds.length; i++) {
+            address artist = metadataContract.getArtist(cryptageCards._metadata(cardIds[i]));
             withdrawBalance[artist] += BOOSTER_PRICE * CARD_ARTIST_PERCENTAGE / 100;
         }
 
-        boosters[numOfBoosters] = cardIds;
-        numOfBoosters++;
         // all money from buy and reveal goes to owner (leaving reveal percentage if we decide to change process)
         withdrawBalance[owner] += BOOSTER_PRICE * OWNER_PERCENTAGE / 100 + BOOSTER_PRICE * REVEALER_PERCENTAGE / 100;
 
-        emit BoosterInstantBought(msg.sender, numOfBoosters-1);
+        emit BoosterInstantBought(msg.sender, boosterId);
     }
 
-    /// @notice buy booster for one CardPackToken with automatic reveal
-    /// @param _to Address that will receive a booster
-    function buyInstantBoosterWithToken(address _to) public payable {
-        require(!BUY_WITH_REVEAL);
-        require(!isContract(_to));
+      // Function that is called when trying to use PLAT for payments from approveAndCall
+    function receiveApproval(address _sender, uint256 _value, BitGuildToken _tokenContract, bytes _extraData) public {
+        require(_tokenContract == tokenContract);
+        require(_tokenContract.transferFrom(_sender, address(this), _value));
+        require(platPriceOracle.ETHPrice() * BOOSTER_PRICE / (1 ether) <= _value);
+                
+        uint boosterId;
+        uint[] memory cardIds;
 
-        uint boosterId = numOfBoosters;
+        (boosterId, cardIds) = mintCardsForUser(_sender, uint(blockhash(block.number-1)));
 
-        cardPackToken.transferFrom(_to, this, ONE_CARD_PACK_TOKEN);
-        boughtWithToken[boosterId] = true;
+        // should decide how we are going to distribute PLAT
 
-        numOfBoosters++;
-
-        uint numOfCardTypes = metadataContract.getNumberOfCards();
-
-        assert(numOfCardTypes >= numberOfCardsInBooster);
-
-        uint blockhashNum = uint(blockhash(block.number-1));
-        // hash(random hash), n(size of array we need)
-        uint[] memory metadataIds = _random(blockhashNum, numberOfCardsInBooster);
-        uint[] memory cardIds = new uint[](metadataIds.length);
-
-        for (uint i = 0; i<metadataIds.length; i++) {
-            cardIds[i] = cryptageCards.createCard(_to, metadataIds[i]);
-        }
-
-        boosters[boosterId] = cardIds;
-
-        emit BoosterInstantBought(_to, boosterId);
+        emit BoosterInstantBought(_sender, boosterId);
     }
-
 
     /// @notice buy booster for BOOSTER_PRICE
     function buyBooster() public payable {
         require(msg.value >= BOOSTER_PRICE);
-        require(BUY_WITH_REVEAL);
-        require(!isContract(msg.sender));
+        require(buyWithReveal);
 
         uint boosterId = numOfBoosters;
 
@@ -128,65 +115,28 @@ contract Booster is Ownable {
         emit BoosterBought(msg.sender, boosterId);
     }
 
-
-
-    /// @notice Buying a booster with a CardPackToken
-    /// @param _to Address that will receive a booster
-    function buyBoosterWithToken(address _to) public onlyCardPackToken {
-        require(BUY_WITH_REVEAL);
-        require(!isContract(msg.sender));
-
-        uint boosterId = numOfBoosters;
-
-        cardPackToken.transferFrom(_to, this, ONE_CARD_PACK_TOKEN);
-
-        boughtWithToken[boosterId] = true;
-
-        boosterOwners[boosterId] = _to;
-        blockNumbers[boosterId] = block.number;
-
-        unrevealedBoosters[_to].push(boosterId);
-
-        numOfBoosters++;
-
-        emit BoosterBought(_to, boosterId);
-    }
-
-    /// @notice reveal booster you just bought, if you don't reveal it in first 100 blocks since buying, anyone can reveal it before 255 blocks pass
+    /// @notice reveal booster you just bought, 
+    /// @notice if you don't reveal it in first 100 blocks since buying, 
+    /// @notice anyone can reveal it before 255 blocks pass
     /// @param _boosterId id of booster that is bought
     function revealBooster(uint _boosterId) public {
         require(blockNumbers[_boosterId] > block.number - 255);
         require(boosterOwners[_boosterId] == msg.sender || blockNumbers[_boosterId] < block.number - 100);
 
-        uint numOfCardTypes = metadataContract.getNumberOfCards();
-
-        assert(numOfCardTypes >= numberOfCardsInBooster);
-
         _removeBooster(msg.sender, _boosterId);
 
-        uint blockhashNum = uint(blockhash(blockNumbers[_boosterId]));
-        // hash(random hash), n(size of array we need)
-        uint[] memory metadataIds = _random(blockhashNum, numberOfCardsInBooster);
+        uint boosterId;
+        uint[] memory cardIds;
 
-        uint[] memory cardIds = new uint[](metadataIds.length);
+        (boosterId, cardIds) = mintCardsForUser(msg.sender, uint(blockhash(blockNumbers[_boosterId])));
 
-        for (uint i = 0; i<metadataIds.length; i++) {
-            cardIds[i] = cryptageCards.createCard(msg.sender, metadataIds[i]);
-
-            if (!boughtWithToken[_boosterId]){
-                address artist = metadataContract.getArtist(metadataIds[i]);
-                withdrawBalance[artist] += BOOSTER_PRICE * CARD_ARTIST_PERCENTAGE / 100;
-            }
+        for (uint i = 0; i < cardIds.length; i++) {
+            address artist = metadataContract.getArtist(cryptageCards._metadata(cardIds[i]));
+            withdrawBalance[artist] += BOOSTER_PRICE * CARD_ARTIST_PERCENTAGE / 100;
         }
 
-        boosters[_boosterId] = cardIds;
-
-        if (boughtWithToken[_boosterId] == true) {
-            cardPackToken.transfer(msg.sender, ONE_CARD_PACK_TOKEN / 10);
-        } else {
-            withdrawBalance[msg.sender] += BOOSTER_PRICE * REVEALER_PERCENTAGE / 100;
-            withdrawBalance[owner] += BOOSTER_PRICE * OWNER_PERCENTAGE / 100;
-        }
+        withdrawBalance[msg.sender] += BOOSTER_PRICE * REVEALER_PERCENTAGE / 100;
+        withdrawBalance[owner] += BOOSTER_PRICE * OWNER_PERCENTAGE / 100;
 
         emit BoosterRevealed(_boosterId);
     }
@@ -203,7 +153,6 @@ contract Booster is Ownable {
     function getCardFromBooster(uint _boosterId) public view returns(uint[]) {
         return boosters[_boosterId];
     }
-
 
     /// @notice adds metadata address to contract only if it doesn't exist
     /// @param _metadataContract address of metadata contract
@@ -230,12 +179,39 @@ contract Booster is Ownable {
         msg.sender.transfer(balance);
     }
 
+    /// @notice owner is able to change if we are buying booster with reveal or without it
+    /// @param _buyWithReveal bool that says should we buy with reveal or not
+    function setBytWithReveal(bool _buyWithReveal) public onlyOwner {
+        buyWithReveal = _buyWithReveal;
+    }
+
+    function mintCardsForUser(address _to, uint _blockhash) private returns (uint boosterId, uint[] cardIds) {
+        uint numOfCardTypes = metadataContract.getNumberOfCards();
+        
+        boosterId = numOfBoosters;
+        numOfBoosters++;
+
+        assert(numOfCardTypes >= numberOfCardsInBooster);
+
+        // hash(random hash), n(size of array we need)
+        uint[] memory metadataIds = _random(_blockhash, numberOfCardsInBooster);
+        cardIds = new uint[](metadataIds.length);
+
+        for (uint i = 0; i < metadataIds.length; i++) {
+            cardIds[i] = cryptageCards.createCard(_to, metadataIds[i]);
+        }
+
+        boosters[boosterId] = cardIds;
+
+        return (boosterId, cardIds);
+    }
+
     function _removeBooster(address _user, uint _boosterId) private {
         uint boostersLength = unrevealedBoosters[_user].length;
 
         delete boosterOwners[_boosterId];
 
-        for (uint i = 0; i<boostersLength; i++) {
+        for (uint i = 0; i < boostersLength; i++) {
             if (unrevealedBoosters[_user][i] == _boosterId) {
                 unrevealedBoosters[_user][i] = unrevealedBoosters[_user][boostersLength-1];
 
@@ -256,7 +232,7 @@ contract Booster is Ownable {
         uint _hashCopy = _hash;
 
 
-        for (uint i = 0; i<_n; i++) {
+        for (uint i = 0; i < _n; i++) {
             // balanceOf is used because you would get same cards if buyBooster called at same block
             _hashCopy = uint(
                 keccak256(
@@ -274,12 +250,6 @@ contract Booster is Ownable {
         }
 
         return metadataIds;
-    }
-
-    /// @notice owner is able to change if we are buying booster with reveal or without it
-    /// @param _buyWithReveal bool that says should we buy with reveal or not
-    function setBytWithReveal(bool _buyWithReveal) public onlyOwner {
-        BUY_WITH_REVEAL = _buyWithReveal;
     }
 
     function isContract(address addr) private view returns (bool) {

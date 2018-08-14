@@ -5,20 +5,21 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 import "./CardMetadata.sol";
 
+
 /// @title Contract derived from ERC721Token contract with custom implementation on Booster and Metadata
 contract CryptageCards is ERC721Token, Ownable {
 
     CardMetadata metadataContract;
     address boosterContractAddress;
 
-    mapping(uint => uint) _metadata;
+    mapping(uint => uint) public _metadata;
 
     modifier onlyBoosterContract() {
         require(msg.sender == boosterContractAddress);
         _;
     }
     
-    constructor() ERC721Token("CryptageCards", "CPT") public {}
+    constructor() public ERC721Token("CryptageCards", "CPT") {}
     
     /// @notice create card with specific type and index
     /// @param _owner address of new owner
@@ -33,7 +34,7 @@ contract CryptageCards is ERC721Token, Ownable {
 //        uint rarity;
         string memory ipfsHash;
 //        address artist;
-        (id, ,ipfsHash, ) = metadataContract.properties(_metadataId);
+        (id, , ipfsHash, ) = metadataContract.properties(_metadataId);
 
         _metadata[cardId] = id;
         _setTokenURI(cardId, ipfsHash);
