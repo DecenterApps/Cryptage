@@ -9,8 +9,8 @@ import "./CardMetadata.sol";
 /// @title Contract derived from ERC721Token contract with custom implementation on Booster and Metadata
 contract CryptageCards is ERC721Token, Ownable {
 
-    CardMetadata metadataContract;
-    address boosterContractAddress;
+    CardMetadata public metadataContract;
+    address public boosterContractAddress;
 
     mapping(uint => uint) public _metadata;
 
@@ -42,17 +42,23 @@ contract CryptageCards is ERC721Token, Ownable {
         return cardId;
     }
 
+    /// @notice get all cards owned by user
+    /// @param _user address of user
+    function getUserCards(address _user) public view returns(uint[]) {
+        return ownedTokens[_user];
+    }
+
     /// @notice get how many cards of specific type user has
     /// @param _user address of user
     /// @param _metadataId metadataId of card
     function numberOfCardsWithType(address _user, uint _metadataId) public view returns(uint _num) {
         uint len = ownedTokens[_user].length;
-        for(uint i = 0; i<len; i++) {
+        for (uint i = 0; i < len; i++) {
             _num += (_metadata[ownedTokens[_user][i]] == _metadataId) ? 1 : 0;
         }
     }
 
-    function metadata(uint _cardId) public view returns (uint, uint, string, address){
+    function metadata(uint _cardId) public view returns (uint, uint, string, address) {
         return metadataContract.properties(_metadata[_cardId]);
     }
 
