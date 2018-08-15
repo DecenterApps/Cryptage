@@ -545,6 +545,20 @@ export const classNameForRarity = (_rarity) => {
   return 'elite';
 };
 
+export const compareCategories = (a, b) => {
+  const categoryMap = [
+    'available',
+    'location',
+    'container',
+    'mining',
+    'person',
+    'project',
+    'power',
+    'misc',
+  ];
+  return categoryMap.indexOf(a.toLowerCase()) - categoryMap.indexOf(b.toLowerCase());
+};
+
 /**
  * If mechanics text has 'Time to complete' puts it in another line
  *
@@ -563,10 +577,11 @@ export const printMechanicsText = (text) => {
 };
 
 export const compareCards = (a, b) => {
-  if (a.stats.type !== b.stats.type) return (a.stats.type).localeCompare(b.stats.type);
+  if (a.stats.type !== b.stats.type) return compareCategories(a.stats.type, b.stats.type);
   if (a.stats.cost.level !== b.stats.cost.level) return a.stats.cost.level - b.stats.cost.level;
   return a.stats.cost.funds - b.stats.cost.funds;
-}
+};
+
 /**
  * Sorts cards in group
  *

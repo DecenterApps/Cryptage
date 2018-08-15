@@ -14,6 +14,9 @@ import { log } from '../services/utils';
 import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
 import { openRevealBoosterCardsModal } from './modalActions';
+import config from '../constants/config.json';
+import sdk from '../services/bitGuildPortalSDK_v0.1';
+import { BigNumber } from 'bignumber.js';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -126,17 +129,46 @@ export const buyBoosterError = error => ({
 });
 
 export const buyBoosterPack = () => async (dispatch, getState) => {
-  const { blockNumber } = getState().app;
+  const { blockNumber, account } = getState().app;
   dispatch(buyBoosterRequest());
   try {
-    const result = await ethService.buyBooster();
+    sdk.isOnPortal()
+      .then( async (isOnPortal) => {
+        if (isOnPortal) {
+          console.log('===== isOnPortal: ', isOnPortal);
 
-    const booster = {
-      id: result.events.BoosterInstantBought.returnValues.boosterId,
-      blockNumber,
-    };
-    dispatch(buyBoosterSuccess(booster));
-    dispatch(revealBooster(booster.id));
+          const bitGuildContract = new window.web3.eth.Contract(config.bitGuildContract.abi, config.bitGuildContract.address);
+          const oracleContract = new window.web3.eth.Contract(config.oracleContract.abi, config.oracleContract.address);
+
+          console.log(oracleContract);
+          console.log('PLAT :', PLATprice);
+          const PLATprice = await oracleContract.methods.ETHPrice().call();
+
+          const price = new BigNumber(PLATprice, 10);
+          const amount = new BigNumber(price * 1e15 / 1e18);
+
+          console.log('bn: ', amount, '\n', amount.toString());
+
+          bitGuildContract.methods.approveAndCall(config.boosterContract.address, amount, '0x00').send({
+            from: account
+          });
+
+        } else {
+          console.log('===== isOnPortal: ', isOnPortal);
+          return Promise.reject();
+        }
+    })
+    .catch(async () => {
+      let result = await ethService.buyBooster();
+      console.log('===== catch: ', result);
+      let booster = {
+        id: result.events.BoosterInstantBought.returnValues.boosterId,
+        blockNumber,
+      };
+      console.log('RES', result)
+      dispatch(buyBoosterSuccess(booster));
+      dispatch(revealBooster(booster.id));
+    });
   } catch (e) {
     dispatch(buyBoosterError(e.message));
   }

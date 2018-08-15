@@ -51,7 +51,7 @@
     overflow: auto;
     height: 380px;
     position: relative;
-    //justify-content: space-between;
+    justify-content: space-between;
     box-sizing: border-box;
     width: 482px;
     padding: 5px 6px;
@@ -79,6 +79,8 @@
       .large-card-rarity .rarity-overlay {
         top: -8px;
         left: 4px;
+        width: 110px;
+        height: 150px;
         svg {
           width: 111px;
         }

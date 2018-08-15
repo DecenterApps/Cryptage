@@ -7,7 +7,7 @@ import HandCard from './HandCard/HandCard';
 import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
 import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
-import { sortTypeGroupByPrice } from '../../services/utils';
+import { compareCategories, sortTypeGroupByPrice } from '../../services/utils';
 import cardsConfig from '../../constants/cards.json';
 
 import './Cards.scss';
@@ -68,9 +68,20 @@ class Cards extends Component {
       return accumulator;
     }, starter);
 
-    Object.keys(grouped).forEach((key) => { grouped[key] = sortTypeGroupByPrice(grouped[key]); });
+    const sortedByType = Object.keys(grouped)
+      .sort(compareCategories)
+      .reduce((result, key) => {
+        result[key] = grouped[key];
+        return result;
+      }, {});
 
-    return grouped;
+    Object.keys(sortedByType)
+      .forEach((key) => {
+        console.log(key);
+        sortedByType[key] = sortTypeGroupByPrice(sortedByType[key]);
+      });
+
+    return sortedByType;
   }
 
   render() {
