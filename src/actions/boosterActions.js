@@ -16,6 +16,7 @@ import cardService from '../services/cardService';
 import { openRevealBoosterCardsModal } from './modalActions';
 import config from '../constants/config.json';
 import sdk from '../services/bitGuildPortalSDK_v0.1';
+import { BigNumber } from 'bignumber.js';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -132,13 +133,26 @@ export const buyBoosterPack = () => async (dispatch, getState) => {
   dispatch(buyBoosterRequest());
   try {
     sdk.isOnPortal()
-      .then((isOnPortal) => {
+      .then( async (isOnPortal) => {
         if (isOnPortal) {
           console.log('===== isOnPortal: ', isOnPortal);
+
           const bitGuildContract = new window.web3.eth.Contract(config.bitGuildContract.abi, config.bitGuildContract.address);
-          bitGuildContract.approveAndCall(config.boosterContract.address, 0.001 * 1e18, '', {
+          const oracleContract = new window.web3.eth.Contract(config.oracleContract.abi, config.oracleContract.address);
+
+          console.log(oracleContract);
+          console.log('PLAT :', PLATprice);
+          const PLATprice = await oracleContract.methods.ETHPrice().call();
+
+          const price = new BigNumber(PLATprice, 10);
+          const amount = new BigNumber(price * 1e15 / 1e18);
+
+          console.log('bn: ', amount, '\n', amount.toString());
+
+          bitGuildContract.methods.approveAndCall(config.boosterContract.address, amount, '0x00').send({
             from: account
           });
+
         } else {
           console.log('===== isOnPortal: ', isOnPortal);
           return Promise.reject();
