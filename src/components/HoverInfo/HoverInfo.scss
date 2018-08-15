@@ -78,13 +78,9 @@
 
     .rarity-overlay {
       position: absolute;
-      top: -6px;
-      left: -12px;
-      width: 250px;
-      height: 326px;
-      transform: scale(1.15);
-      background-repeat: no-repeat;
-      background-size: 100%;
+      width: 221px;
+      top: 4px;
+      left: 2px;
     }
 
     .cost, .right-side {
@@ -112,7 +108,7 @@
       }
       &.cost:before {
         left: -30px;
-        top: -55px;
+        top: -65px;
         width: 80px;
         height: 60px;
         line-height: 100px;
@@ -128,7 +124,7 @@
       }
       .gains:before {
         right: -22px;
-        top: -20px;
+        top: -30px;
         width: 80px;
         height: 60px;
         text-align: left;
@@ -265,6 +261,12 @@
         width: 190px;
         text-align: left;
         font-size: 12px;
+
+        .rarity {
+          span {
+            text-transform: capitalize;
+          }
+        }
 
         .mechanics {
           margin-bottom: 9px;

@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatBigNumber, classForRarity, guid, rarityBorder } from '../../services/utils';
+import {
+  formatBigNumber,
+  classNameForRarity,
+  guid,
+  classForRarity,
+} from '../../services/utils';
 import { fpbCardIds, DESKTOP_WIDTH, typeGradients } from '../../actions/actionTypes';
+import RarityBorder from '../Cards/RarityBorder/RarityBorder';
 
 import './HoverInfo.scss';
 import LargeCardMain from './LargeCardMain';
@@ -54,6 +60,14 @@ const HoverInfo = ({
     return hideTime && (spaceOverOne || levelOverOne || valOverZero);
   }).length > 0;
 
+  const showGains = (card.stats.values && (card.stats.values.space > 0 || card.stats.values.power > 0)) ||
+                    (card.stats.bonus && (card.stats.bonus.funds > 0 || card.stats.bonus.funds > 0 ||
+                                          card.stats.bonus.xp > 0 || card.stats.bonus.power > 0 ||
+                                          card.stats.bonus.development > 0));
+
+  const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
+  const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+
   return (
     <div className={`
       card-hover-info-backdrop
@@ -68,13 +82,11 @@ const HoverInfo = ({
           className="inner-wrapper"
         >
 
-          <div
-            style={{ backgroundImage: rarityBorder(card.stats) }}
-            className="rarity-overlay"
-          />
+          <RarityBorder card={card} />
 
           <LargeCardMain
-            typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
+            typeColor={typeColor}
+            borderColor={borderColor}
             id={card.id}
             image={`cardImages/${card.stats.image}`}
           />
@@ -146,7 +158,7 @@ const HoverInfo = ({
           }
           <div className="right-side">
             {
-              (card.stats.values || card.stats.bonus) &&
+              showGains &&
               card.stats.type !== 'Container' &&
               <div className="gains" data-name="Gains">
                 {
@@ -224,6 +236,7 @@ const HoverInfo = ({
               </div>
             }
             <div className="description">
+              <p className="rarity">Card rarity: <span>{classNameForRarity(card.stats.rarityScore)}</span></p>
               {
                 card.stats.mechanicsText &&
                 <p className="mechanics">{card.stats.mechanicsText}{/**/}</p>

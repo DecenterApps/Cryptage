@@ -6,6 +6,7 @@ import { classForRarity } from '../../../services/utils';
 
 import bgBack from './bg-back.png';
 import './RevealCards.scss';
+import RarityBorder from '../../Cards/RarityBorder/RarityBorder';
 
 const RevealCards = ({ cards, newCardTypes }) => (
   <div className="reveal-cards-wrapper">
@@ -21,7 +22,7 @@ const RevealCards = ({ cards, newCardTypes }) => (
             >
               <div className="flipper">
                 <div className="front">
-                  <div className={`rarity-overlay rarity-${classForRarity(card.stats.rarityScore)}`} />
+                  <RarityBorder card={card} />
                   <img draggable={false} src={bgBack} alt="" />
                 </div>
                 <div className="back">

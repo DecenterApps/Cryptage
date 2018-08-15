@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { classForRarity, rarityBorder } from '../../../services/utils';
+import { classForRarity } from '../../../services/utils';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import { rarities, typeGradients } from '../../../actions/actionTypes';
 
@@ -10,6 +10,7 @@ import LargeCardMain from '../../HoverInfo/LargeCardMain';
 import InfoCardIcon from '../../Decorative/InfoCardIcon';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import HoverInfo from '../../HoverInfo/HoverInfo';
+import RarityBorder from '../RarityBorder/RarityBorder';
 
 
 class LargeCard extends Component {
@@ -29,6 +30,9 @@ class LargeCard extends Component {
       card, showNew, removeNewCardOnHover, removeNew, showCount, duplicates,
     } = this.props;
 
+    const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+
     return (
       <div
         className={`large-card-wrapper ${card.stats.type.toLowerCase()}`}
@@ -39,14 +43,13 @@ class LargeCard extends Component {
         }}
       >
 
-        <div
-          style={{ backgroundImage: rarityBorder(card.stats) }}
-          className="large-card-rarity rarity-overlay"
-        />
+        <div className="large-card-rarity">
+          <RarityBorder card={card} />
+        </div>
 
         <LargeCardMain
-          typeColor={typeGradients[card.stats.type.toLowerCase()][0]}
-          rarityColor={rarities[classForRarity(card.stats.rarityScore)]}
+          typeColor={typeColor}
+          borderColor={borderColor}
           id={card.id}
           image={`cardImages/${card.stats.image}`}
         />

@@ -3,7 +3,7 @@
 
 .card-details {
   width: 84px;
-  height: 120px;
+  height: 123px;
   box-sizing: border-box;
   display: flex;
   position: relative;
@@ -57,11 +57,9 @@
   }
   .rarity-overlay {
     position: absolute;
-    top: -21px;
-    left: -21px;
-    height: 161px;
-    width: 127px;
-    background-size: 126px 163px;
+    top: -6px;
+    left: -7px;
+    width: 97px;
   }
 
   .new-card {

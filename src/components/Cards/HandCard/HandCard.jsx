@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { guid, classForRarity, rarityBorder } from '../../../services/utils';
+import { guid, classForRarity } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
@@ -9,6 +9,7 @@ import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { rarities, typeGradients } from '../../../actions/actionTypes';
 
 import './HandCard.scss';
+import RarityBorder from '../RarityBorder/RarityBorder';
 
 class HandCard extends Component {
   constructor() {
@@ -32,6 +33,7 @@ class HandCard extends Component {
 
     const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
     const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
 
     return (
       <div
@@ -59,10 +61,7 @@ class HandCard extends Component {
           </PortalWrapper>
         }
 
-        <div
-          style={{ backgroundImage: rarityBorder(card.stats) }}
-          className="rarity-overlay"
-        />
+        <RarityBorder card={card} />
         <svg className="card-image">
           <defs>
             <pattern
@@ -89,11 +88,11 @@ class HandCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: typeColor }}
+                style={{ stopColor: borderColor }}
               />
               <stop
                 offset="50%"
-                style={{ stopColor: `${typeColor}00` }}
+                style={{ stopColor: `${borderColor}00` }}
               />
             </linearGradient>
             <linearGradient
@@ -115,22 +114,22 @@ class HandCard extends Component {
           </defs>
           <polygon
             className="card-image-bg"
-            points="8,0 84,0 84,112 76,120 0,120 0,8"
+            points="8,0 84,0 84,115 76,123 0,123 0,8"
             fill={`url(#card-rarity-gradient-${uniqueId})`}
           />
           <polygon
             className="card-image-bg-inner"
-            points="9,1 83,1 83,111 75,119 1,119 1,9"
+            points="9,1 83,1 83,114 75,122 1,122 1,9"
             fill="black"
           />
           <polygon
             className="card-image-inner"
-            points="10,2 82,2 82,110 74,118 2,118 2,10"
+            points="10,2 82,2 82,113 74,121 2,121 2,10"
             fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
           />
           <polygon
             className="card-meta-bg"
-            points="2,50 82,50 82,110 74,118 2,118 "
+            points="2,50 82,50 82,113 74,121 2,121 "
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
         </svg>

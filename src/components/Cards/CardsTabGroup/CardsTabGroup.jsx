@@ -27,7 +27,7 @@ class CardsTabGroup extends React.Component {
               { typeToPluralMapping(title) }
             </span>
 
-            <div className="orb" style={{ backgroundColor: orbColor ? orbColor[0] : '#FF9D14' }} />
+            <div className="orb" style={{ backgroundColor: orbColor ? orbColor[0] : 'white' }} />
           </h1>
         </div>
 
