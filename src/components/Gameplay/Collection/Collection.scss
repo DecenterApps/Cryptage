@@ -51,7 +51,7 @@
     overflow: auto;
     height: 380px;
     position: relative;
-    justify-content: space-between;
+    justify-content: flex-start;
     box-sizing: border-box;
     width: 482px;
     padding: 5px 6px;
@@ -62,7 +62,7 @@
 
     .large-card-wrapper {
       height: 142px;
-      margin: 0 -4px 20px -4px;
+      margin: 0 -2px 20px -2px;
 
       .card-title, .card-type {
         width: 96px;
@@ -103,7 +103,7 @@
     .unknown {
       width: 98px;
       height: 142px;
-      margin: 0 7px 20px;
+      margin: 0 9px 20px;
       background-image: url('../RevealCards/bg-back2.png');
       background-position: center;
       background-size: cover;

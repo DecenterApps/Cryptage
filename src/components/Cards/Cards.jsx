@@ -77,7 +77,6 @@ class Cards extends Component {
 
     Object.keys(sortedByType)
       .forEach((key) => {
-        console.log(key);
         sortedByType[key] = sortTypeGroupByPrice(sortedByType[key]);
       });
 
