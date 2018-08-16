@@ -5,6 +5,7 @@ import NoRestartProjectModal from './NoRestartProjectModal/NoRestartProjectModal
 import ErrorModal from './ErrorModal/ErrorModal';
 import MenuModal from './MenuModal/MenuModal';
 import MetamaskModal from './MetamaskModal/MetamaskModal';
+import MetamaskInstalledModal from './MetamaskInstalledModal/MetamaskInstalledModal';
 
 // Register modal types here
 export const CONFIRM_REMOVE_MODAL = 'confirm_remove_modal';
@@ -14,6 +15,7 @@ export const NO_RESTART_PROJECT_MODAL = 'no_restart_project_modal';
 export const ERROR_MODAL = 'error_modal';
 export const MENU_MODAL = 'menu_modal';
 export const METAMASK_MODAL = 'metamask_modal';
+export const METAMASK_INSTALLED_MODAL = 'metamask_installed_modal';
 
 export default {
   [CONFIRM_REMOVE_MODAL]: ConfirmRemoveModal,
@@ -23,4 +25,5 @@ export default {
   [ERROR_MODAL]: ErrorModal,
   [MENU_MODAL]: MenuModal,
   [METAMASK_MODAL]: MetamaskModal,
+  [METAMASK_INSTALLED_MODAL]: MetamaskInstalledModal,
 };

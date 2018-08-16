@@ -49,9 +49,9 @@ import {
   openErrorModal,
   openNewLevelModal,
   openNoRestartProjectModal,
-  toggleModal
+  toggleModal,
 } from './modalActions';
-import { METAMASK_MODAL } from '../components/Modals/modalTypes';
+import { METAMASK_INSTALLED_MODAL, METAMASK_MODAL } from '../components/Modals/modalTypes';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -371,18 +371,23 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   if (!account) return;
 
   const payload = JSON.parse(localStorage.getItem(`cryptage-${account}`));
+  if (payload) return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 
-  if (!payload) {
-    // TODO
-    // Check to see if the user has already saved the state
-    // const state = await ipfsService.getFileStream('ipfsHash');
+  // TODO
+  // Check to see if the user has already saved the state
+  // const state = await ipfsService.getFileStream('ipfsHash');
 
-    // console.log(state.toString('utf8'));
-    // Get ipfs hash and pull the content
-    return;
+  // console.log(state.toString('utf8'));
+  // Get ipfs hash and pull the content
+
+  const tempAccountState = JSON.parse(localStorage.getItem('cryptage-0x0000000000000000000000000000000000000000'));
+  if (tempAccountState) {
+    dispatch({ type: LOAD_STATE_FROM_STORAGE, payload: tempAccountState });
+    dispatch(toggleModal(METAMASK_INSTALLED_MODAL, {}, true));
+    setTimeout(() => {
+      localStorage.removeItem('cryptage-0x0000000000000000000000000000000000000000')
+    }, 10000);
   }
-
-  dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
 };
 
 export const updateFundsBlockDifference = () => async (dispatch, getState) => {

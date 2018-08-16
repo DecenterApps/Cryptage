@@ -52,7 +52,7 @@ class NicknameForm extends Component {
                 It appears you don&apos;t have{' '}
                 <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">MetaMask</a>
                 {' '}installed. You can still play the game for a
-                while but for the complete experience we recommend installing Metamask.
+                while, but for the complete experience we recommend installing Metamask.
               </p>
               <h3 onClick={() => {
                 this.setState({ showExtendedWarning: !this.state.showExtendedWarning})
