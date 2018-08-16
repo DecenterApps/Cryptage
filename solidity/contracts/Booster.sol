@@ -49,9 +49,9 @@ contract Booster is Ownable {
 
     uint public numOfBoosters;
 
-    event BoosterBought(address user, uint boosterId);
-    event BoosterRevealed(uint boosterId);
-    event BoosterInstantBought(address user, uint boosterId);
+    event BoosterBought(address indexed user, uint indexed boosterId);
+    event BoosterRevealed(uint indexed boosterId);
+    event BoosterInstantBought(address indexed user, uint indexed boosterId);
 
     CardPackToken public cardPackToken;
 
