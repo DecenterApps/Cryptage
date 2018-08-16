@@ -1,5 +1,6 @@
 import config from '../constants/config.json';
 import cardsInfo from '../constants/cards.json';
+import { BigNumber } from 'bignumber.js';
 import { log } from './utils';
 
 const getAccount = () => (
@@ -49,11 +50,26 @@ const getBoosterContract = async () => {
   });
 };
 
+const getBoosterContractWS = async () => {
+  const account = await getAccount();
+  return new web3Subscriber.eth.Contract(config.boosterContract.abi, config.boosterContract.address, {
+    from: account,
+  });
+};
+
 const getStateContract = async () => {
   const account = await getAccount();
   return new web3.eth.Contract(config.stateContract.abi, config.stateContract.address, {
     from: account,
   });
+};
+
+const getBitGuildContract = () => {
+  return new window.web3.eth.Contract(config.bitGuildContract.abi, config.bitGuildContract.address);
+};
+
+const getOracleContract = () => {
+  return new window.web3.eth.Contract(config.oracleContract.abi, config.oracleContract.address);
 };
 
 const getLeaderboardContract = acc =>
@@ -160,6 +176,40 @@ const buyBooster = async () => {
   }
 };
 
+const buyBoosterBitGuild = async (_account) => new Promise(async (resolve, reject) => {
+  const account = _account || await getAccount();
+
+  const bitGuildContract = getBitGuildContract();
+  const oracleContract = getOracleContract();
+  const boosterContract = await getBoosterContractWS();
+
+  const PLATprice = await oracleContract.methods.ETHPrice().call();
+  const price = new BigNumber(PLATprice, 10);
+  const amount = new BigNumber(price * 1e15 / 1e18);
+  
+  try {
+    bitGuildContract.methods.approveAndCall(config.boosterContract.address, amount, '0x00').send({
+      from: account
+    }, function(err, res) {
+      console.log(res)
+      boosterContract.once( 'BoosterInstantBought',
+        { filter: { user: account } },
+        (error, result) => {
+          if (!error) {
+            console.log(result);
+            resolve(result.returnValues.boosterId);
+          } else {
+            console.log(error);
+            resolve({error : 'Cannot get cards.'});
+          }
+      });
+    });
+  } catch (e) {
+    log(e);
+    throw Error('Cannot get cards.');
+  }
+});
+
 const revealBooster = async (id) => {
   const boosterContract = await getBoosterContract();
   return boosterContract.methods.revealBooster(parseInt(id, 10)).send();
@@ -192,6 +242,7 @@ export default {
   getBoughtBoosters,
   getCardsFromBooster,
   buyBooster,
+  buyBoosterBitGuild,
   revealBooster,
   updateMoves,
   getState,
