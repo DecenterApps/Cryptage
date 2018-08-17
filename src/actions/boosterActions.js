@@ -136,8 +136,12 @@ export const buyBoosterPack = () => async (dispatch, getState) => {
           console.log('isOnPortal: ', isOnPortal);
 
           let result = await ethService.buyBoosterBitGuild(account);
-        
-          if (result.error) return false;
+          console.log(result);
+
+          if (result.error) {
+            dispatch(buyBoosterError(error));
+            return;
+          }
 
           let booster = {
             id: result,
@@ -151,17 +155,19 @@ export const buyBoosterPack = () => async (dispatch, getState) => {
           return Promise.reject();
         }
     })
-    .catch(async (err) => {
-      // TODO if user cancels a transaction on portal it will reject here and another transaction will popup
-      let result = await ethService.buyBooster();
-      console.log(err);
-      let booster = {
-        id: result.events.BoosterInstantBought.returnValues.boosterId,
-        blockNumber,
-      };
-      console.log('isOnPortal.catch result: ', result);
-      dispatch(buyBoosterSuccess(booster));
-      dispatch(revealBooster(booster.id));
+    .catch(async () => {
+      try {
+        let result = await ethService.buyBooster();
+        let booster = {
+          id: result.events.BoosterInstantBought.returnValues.boosterId,
+          blockNumber,
+        };
+        console.log('isOnPortal.catch result: ', result);
+        dispatch(buyBoosterSuccess(booster));
+        dispatch(revealBooster(booster.id));
+      } catch (e) {
+        dispatch(buyBoosterError(e.message));
+      }
     });
   } catch (e) {
     dispatch(buyBoosterError(e.message));

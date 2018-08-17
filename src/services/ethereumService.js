@@ -191,18 +191,22 @@ const buyBoosterBitGuild = async (_account) => new Promise(async (resolve, rejec
     bitGuildContract.methods.approveAndCall(config.boosterContract.address, amount, '0x00').send({
       from: account
     }, function(err, res) {
-      console.log(res)
-      boosterContract.once( 'BoosterInstantBought',
-        { filter: { user: account } },
-        (error, result) => {
-          if (!error) {
-            console.log(result);
-            resolve(result.returnValues.boosterId);
-          } else {
-            console.log(error);
-            resolve({error : 'Cannot get cards.'});
-          }
-      });
+      console.log(err, res);
+      if (!err) {
+        boosterContract.once( 'BoosterInstantBought',
+          { filter: { user: account } },
+          (error, result) => {
+            if (!error) {
+              console.log(result);
+              resolve(result.returnValues.boosterId);
+            } else {
+              console.log(error);
+              resolve({error : 'Cannot get boosterId.'});
+            }
+        });
+      } else {
+        resolve(err);
+      }
     });
   } catch (e) {
     log(e);
