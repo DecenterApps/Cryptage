@@ -22,10 +22,11 @@ const MetamaskModal = ({ closeModal, tried }) => (
         <p>
           It appears you don&apos;t have{' '}
           <a target="_blank" rel="noopener noreferrer" href="https://metamask.io/">MetaMask</a>
-          {' '}installed. <br />
-          You need it in order to { tried }. <br />
+          {' '}installed.
+          You need it in order to { tried }.
           You can still play the game but for the complete experience we recommend
-          installing Metamask.
+          installing MetaMask.
+          Make sure to reload this page after installing it.
         </p>
         <h3>What is MetaMask?</h3>
         <p>
