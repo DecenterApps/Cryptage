@@ -1,0 +1,31 @@
+@import '../../../common/colors';
+@import '../../../common/variables';
+
+.metamask-warning {
+  font-family: $font-secondary;
+  padding: 2px;
+  font-size: 13px;
+  position: relative;
+  width: 600px;
+  text-align: center;
+  color: #A4A4A4;
+  .metamask-warning-inner {
+    z-index: 1;
+    position: relative;
+    background: linear-gradient(to bottom, #0D1121 10%, rgba(13, 17, 33, 255) 50%, #0D1121 90%);
+    padding: 25px 35px 5px;
+    p > a {
+      color: white;
+      text-decoration: none;
+    }
+    h3 {
+      color: $yellow;
+      text-transform: uppercase;
+      font-weight: normal;
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+  }
+}

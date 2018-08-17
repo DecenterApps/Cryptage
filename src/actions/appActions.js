@@ -29,7 +29,7 @@ export const checkAccount = () => async (dispatch, getState) => {
   try {
     const network = await ethService.getNetwork();
     if (config.network !== network) {
-      throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
+      throw new Error(`Wrong network - please set MetaMask to ${nameOfNetwork(config.network)}`);
     }
 
     const account = await ethService.getAccount();

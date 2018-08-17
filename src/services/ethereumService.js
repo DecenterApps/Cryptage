@@ -6,8 +6,12 @@ const getAccount = () => (
   new Promise((resolve, reject) => {
     web3.eth.getAccounts()
       .then((accounts) => {
-        if (!accounts.length) throw new Error('No accounts (Possibly locked)');
-        resolve(accounts[0]);
+        if (window.hasMetaMask) {
+          if (!accounts.length) throw new Error('No accounts (Possibly locked)');
+          resolve(accounts[0]);
+        } else {
+          resolve('0x0000000000000000000000000000000000000000');
+        }
       })
       .catch((err) => {
         reject(err);
