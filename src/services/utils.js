@@ -97,7 +97,7 @@ export const nameOfNetwork = (networkId) => {
   const networks = {
     1: 'Mainnet',
     3: 'Ropsten',
-    4: 'Rinkedby',
+    4: 'Rinkeby',
     42: 'Kovan',
   };
   return networks[networkId] || 'Unknown network';
