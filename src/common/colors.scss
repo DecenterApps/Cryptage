@@ -3,7 +3,6 @@ $white: #fff;
 
 $border-color: lightgray;
 
-$yellow: #FF9D14;
 $empty-slot-can-drop: #33FF00;
 $red: #FF1414;
 
@@ -22,25 +21,25 @@ $blue: #0086D1;
 
 $power: #CE060D;
 $misc: #3215E5;
-$location: #3CC8CC;
+$location: #0086D1;
 $person: #9C01C2;
-$project: #878787;
-$mining: #75341F;
-$container: #4A7420;
+$project: #1E9500;
+$mining: #FF9D14;
+$container: #75341F;
 
-$misc-gradient: linear-gradient(180deg, #3215E6 0%, rgba(49, 20, 230, 0.33) 100%);
-$power-gradient: linear-gradient(180deg, #CE060D 0%, rgba(206, 5, 13, 0.43) 100%);
-$location-gradient: linear-gradient(180deg, #3CC8CC 0%, rgba(60, 200, 204, 0.33) 100%);
-$person-gradient: linear-gradient(180deg, #9F00C7 0%, rgba(95, 38, 79, 0.41) 100%);
-$project-gradient: linear-gradient(180deg, #878787 0%, rgba(#878787, 0.36) 100%);
-$mining-gradient: linear-gradient(180deg, #75341F 0%, rgba(117, 52, 30, 0.57) 100%);
-$container-gradient: linear-gradient(180deg, #4A7420 0%, rgba(74, 116, 32, 0.41) 100%);
+$misc-gradient: linear-gradient(180deg, $misc 0%, rgba($misc, 0.33) 100%);
+$power-gradient: linear-gradient(180deg, $power 0%, rgba($power, 0.43) 100%);
+$location-gradient: linear-gradient(180deg, $location 0%, rgba($location, 0.33) 100%);
+$person-gradient: linear-gradient(180deg, $person 0%, rgba($person, 0.41) 100%);
+$project-gradient: linear-gradient(180deg, $project 0%, rgba($project, 0.36) 100%);
+$mining-gradient: linear-gradient(180deg, $mining 0%, rgba($mining, 0.57) 100%);
+$container-gradient: linear-gradient(180deg, $container 0%, rgba($container, 0.41) 100%);
 $background-purple-gradient: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
 $text-shadow-prime: 0 0 30px rgba(33, 35, 234, 0.7);
 $modal-bg: rgba(54, 38, 95, 0.9);
 $modal-bg-dark: linear-gradient(270deg, rgba(19, 13, 35, 0) 0%, #140D24 8.69%, #150D26 91.6%, rgba(21, 13, 38, 0) 100%);
 
-$gold-rarity: #9B01C1;
-$red-rarity: #FF9D14;
+$purple-rarity: #9B01C1;
+$gold-rarity: #FF9D14;
 $blue-rarity: #0086D1;

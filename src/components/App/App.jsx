@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext } from 'react-dnd';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Locations from '../Locations/Locations';
 import Gameplay from '../Gameplay/Gameplay';
 import Projects from '../Projects/Projects';
 import NoMetaMask from './NoMetaMask/NoMetaMask';
-import ModalRoot from '../Modals/ModalRoot';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
+import { loadGameplayState } from '../../actions/gameplayActions';
 import { checkAccount } from '../../actions/stateActions';
 import {
   loadingEnded,
@@ -26,13 +27,14 @@ import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
+    if (!this.props.nickname) return this.props.loadingEnded();
     this.props.listenForNewBlocks();
     this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
   }
 
   render() {
-    const { loadingApp, accountError, tutorialOpen } = this.props;
+    const { loadingApp, accountError, tutorialOpen, nickname } = this.props;
 
     if (loadingApp) {
       return (
@@ -45,11 +47,14 @@ class App extends Component {
       );
     }
 
+    if (!nickname && !accountError) {
+      return (<Redirect to="/newuser" />);
+    }
+
     return (
       <div className={`app-wrapper ${accountError ? 'no-acc' : 'has-acc'}`}>
 
         <div className="app-top-section-wrapper">
-          <div className="logo-wrapper" />
 
           {accountError && <NoMetaMask accountError={accountError} />}
 
@@ -62,7 +67,6 @@ class App extends Component {
           }
         </div>
 
-        <ModalRoot />
         <Feedback />
         <ReportABug />
         <CustomDragLayer />
@@ -83,6 +87,7 @@ App.propTypes = {
   updateCurrentBlockNumber: PropTypes.func.isRequired,
   accountError: PropTypes.string.isRequired,
   tutorialOpen: PropTypes.bool.isRequired,
+  nickname: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -92,10 +97,11 @@ const mapDispatchToProps = {
   updateCurrentBlockNumber,
 };
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app, gameplay }) => ({
   loadingApp: app.loadingApp,
   accountError: app.accountError,
   tutorialOpen: app.tutorialOpen,
+  nickname: gameplay.nickname,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -17,7 +17,7 @@ import restart from './assets/restart.png';
 import InfoCardIcon from '../Decorative/InfoCardIcon';
 import DropCardIcon from '../Decorative/DropCardIcon';
 
-const calculatePercent = (expiryTime, costTime) => ((expiryTime / costTime) * 100);
+const calculatePercent = (expiryTime, costTime) => 100 - ((expiryTime / costTime) * 100);
 
 class ProjectItem extends Component {
   constructor() {
@@ -37,6 +37,7 @@ class ProjectItem extends Component {
       openConfirmRemoveModal, dragItem, gameplay, projectExecutionTimePercent,
       draggingCard,
     } = this.props;
+    const blocksLeft = expiryTime - blockNumber;
     const isActive = card.running;
     const isFinished = card.timesFinished > 0;
 
@@ -53,7 +54,6 @@ class ProjectItem extends Component {
           rarity-border
           ${classForRarity(card.rarityScore)}
         `}
-        ref={(ref) => { this.myRef = ref; }}
       >
         <div
           className={`projects-item-wrapper ${!isActive && isFinished && 'project-finished'}`}
@@ -62,7 +62,7 @@ class ProjectItem extends Component {
             !draggingCard &&
             showPortal &&
             <PortalWrapper>
-              <HoverInfo card={card} parent={this.myRef} type="project" />
+              <HoverInfo card={card} center backdrop />
             </PortalWrapper>
           }
 
@@ -104,17 +104,23 @@ class ProjectItem extends Component {
 
             {
               !isActive &&
-              <div className="project-pill-close">
-                <DropCardIcon
-                  onClick={() => {
-                    openConfirmRemoveModal(undefined, undefined, undefined, undefined, card, index);
-                  }}
-                />
+              <div
+                className="project-pill-close"
+                onClick={() => {
+                  openConfirmRemoveModal(undefined, undefined, undefined, undefined, card, index);
+                }}
+              >
+                <DropCardIcon />
                 <ProjectPill id={card.id} />
               </div>
             }
           </div>
+
         </div>
+        {
+          blocksLeft > 0 &&
+          <div className="blocks-left">{ blocksLeft } <span>blocks left</span></div>
+        }
       </div>
     );
   }

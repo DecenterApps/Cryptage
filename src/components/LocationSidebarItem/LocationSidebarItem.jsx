@@ -46,15 +46,21 @@ class LocationSidebarItem extends Component {
         ${active && 'active'}
       `}
         onClick={() => { setActiveLocation(index); }}
-        ref={(ref) => { this.myRef = ref; }}
       >
         {
           !draggingCard &&
           showPortal &&
           <PortalWrapper>
-            <HoverInfo card={card} parent={this.myRef} type="location" />
+            <HoverInfo card={card} center backdrop />
           </PortalWrapper>
         }
+
+        {/*{*/}
+          {/*(activeLocationIndex !== index) &&*/}
+          {/*(fpb > 0) &&*/}
+          {/*this.state.show &&*/}
+          {/*<div className="fpb">+ {fpb} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>*/}
+        {/*}*/}
 
         {
           !active &&
@@ -91,8 +97,8 @@ class LocationSidebarItem extends Component {
             <SidebarItemActive id={card.id} image={`cardImages/${card.image}`} />
 
             <div className="location-data">
-              <div className="loc-name">{card.title}</div>
-              <div className="loc-lvl">Level {card.level}</div>
+              <div className="loc-lvl">Level {card.stats.level}</div>
+              <div className="loc-name">{card.stats.title}</div>
             </div>
 
             <div className="actions" onClick={e => e.stopPropagation()}>

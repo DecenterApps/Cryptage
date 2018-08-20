@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LargeCard from '../../Cards/LargeCard/LargeCard';
-import { classForRarity } from '../../../services/utils';
+import RarityBorder from '../../Cards/RarityBorder/RarityBorder';
 
 import bgBack from './bg-back.png';
 import './RevealCards.scss';
@@ -20,7 +20,7 @@ const RevealCards = ({ cards }) => (
             >
               <div className="flipper">
                 <div className="front">
-                  <div className={`rarity-overlay rarity-${classForRarity(card.rarityScore)}`} />
+                  <RarityBorder card={card} />
                   <img draggable={false} src={bgBack} alt="" />
                 </div>
                 <div className="back">

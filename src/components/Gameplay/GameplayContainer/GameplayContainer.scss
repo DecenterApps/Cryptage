@@ -21,6 +21,7 @@
     text-transform: uppercase;
     line-height: 1.4em;
     font-family: $font-secondary;
+    margin-bottom: 0;
 
     span {
       margin-left: 5px;
@@ -28,11 +29,16 @@
   }
 
   .small-button {
-    margin-top: 12px;
+    margin-top: 35px;
   }
 
   .drop-slots-wrapper {
-    max-height: 245px;
+    max-height: 215px;
     overflow: auto;
+    padding-top: 10px;
+  }
+
+  .modal-buttons-bar {
+    bottom: 27px;
   }
 }

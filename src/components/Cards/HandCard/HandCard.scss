@@ -3,7 +3,7 @@
 
 .card-details {
   width: 84px;
-  height: 120px;
+  height: 123px;
   box-sizing: border-box;
   display: flex;
   position: relative;
@@ -56,33 +56,10 @@
     background-position: center;
   }
   .rarity-overlay {
-    &.blue {
-      position: absolute;
-      top: -22px;
-      left: -21px;
-      height: 161px;
-      width: 124px;
-      background: url("./blue-rarity-border.png");
-      background-size: 126px 163px;
-    }
-    &.gold {
-      position: absolute;
-      top: -22px;
-      left: -21px;
-      height: 161px;
-      width: 124px;
-      background: url("./gold-rarity-border.png");
-      background-size: 128px 164px;
-    }
-    &.purple {
-      position: absolute;
-      top: -22px;
-      left: -22px;
-      height: 161px;
-      width: 124px;
-      background: url("./purple-rarity-border.png");
-      background-size: 128px 163px;
-    }
+    position: absolute;
+    top: -6px;
+    left: -7px;
+    width: 97px;
   }
 
   .new-card {
@@ -237,7 +214,6 @@
     }
 
     .title {
-      text-transform: uppercase;
       white-space: pre-wrap;
     }
     .border {

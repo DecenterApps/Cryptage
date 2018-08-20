@@ -26,6 +26,7 @@
     align-items: center;
     overflow-y: hidden;
     overscroll-behavior: contain contain;
+    text-align: center;
 
     //@include for-big-desktop {
     //  height: 190px;
@@ -35,9 +36,14 @@
       cursor: move;
       height: 100px;
       transition: all .2s;
-      width: 40px;
+      //width: 40px;
+      min-width: 40px;
+      max-width: 96px;
+      flex: 1 1 100%;
+      padding: 0 4px;
+
       &:last-child {
-        width: auto;
+        min-width: 96px;
         margin-right: 10px !important;
       }
       &:hover {
@@ -84,10 +90,15 @@
   .card-type-wrapper {
     display: inline-flex;
     .card-type-title-wrapper {
-      width: 20px;
-      margin-right: 10px;
-      height: 90px;
+      width: 30px;
+      padding-right: 10px;
+      height: 122px;
       position: relative;
+      cursor: pointer;
+      transition: all .2s;
+      &:hover span {
+        left: 5px !important;
+      }
 
       //@include for-big-desktop {
       //  height: 130px;
@@ -96,7 +107,7 @@
       .card-type-title {
         font-family: $font-secondary;
         position: absolute;
-        bottom: -32px;
+        bottom: 0px;
         height: 0;
         transform: rotate(-90deg);
         transform-origin: top left;
@@ -107,7 +118,9 @@
         z-index: 1;
 
         span {
-          cursor: pointer;
+          left: 0px;
+          transition: all .2s;
+          position: relative;
         }
 
         .orb {
@@ -119,6 +132,7 @@
           position: absolute;
           bottom: -17px;
           left: -28px;
+          cursor: pointer;
         }
       }
     }
@@ -126,15 +140,20 @@
       display: flex;
       overflow: hidden;
       padding-top: 23px;
-      transition: width 0.3s ease-in;
+      transition: all 0.3s ease-in;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
+      transform: scale(1);
 
       &.closed {
         width: 0;
+        opacity: 0;
+        transform: scale(0.8);
       }
       &.open {
-        width: 100%;
+        width: 448px;
+        opacity: 1;
+        overflow-x: auto;
       }
     }
   }

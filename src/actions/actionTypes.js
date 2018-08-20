@@ -81,14 +81,16 @@ export const typeGradients = {
   power: ['#CE060D', 'rgba(206, 5, 13, 0)'],
   location: ['#3CC8CC', 'rgba(60, 200, 204, 0)'],
   person: ['#9F00C7', 'rgba(95, 38, 79, 0)'],
-  project: ['#878787', 'rgba(135, 135, 135, 0)'],
-  mining: ['#75341F', 'rgba(117, 52, 30, 0)'],
-  container: ['#4A7420', 'rgba(74, 116, 32, 0)'],
+  project: ['#1E9500', 'rgba(30, 149, 0, 0)'],
+  mining: ['#FF9D14', 'rgba(255, 157, 20, 0)'],
+  container: ['#75341F', 'rgba(117, 52, 30, 0)'],
 };
 
+
+// delete
 export const rarities = {
   normal: '#9797FB',
   blue: '#0086D1',
-  gold: '#9B01C1',
-  red: '#FF9D14',
+  purple: '#9B01C1',
+  gold: '#FF9D14',
 };

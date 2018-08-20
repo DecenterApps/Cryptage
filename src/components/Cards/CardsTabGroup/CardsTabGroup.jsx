@@ -5,42 +5,49 @@ import DragWrapper from '../../DragWrapper/DragWrapper';
 import { typeToPluralMapping } from '../../../constants/mappings';
 import { typeGradients } from '../../../actions/actionTypes';
 
-const CardsTabGroup = ({ cards, title, open, toggleTab }) => {
-  const orbColor = typeGradients[title.toLowerCase()];
-  const openClass = open ? 'open' : 'closed';
+class CardsTabGroup extends React.Component {
+  componentDidMount() {
+    const that = this.innerCards;
+    $(that).mousewheel((event, delta) => {
+      that.scrollLeft -= (delta * 25);
+      event.preventDefault();
+    });
+  }
 
-  return (
-    <div className="card-type-wrapper">
-      <div className="card-type-title-wrapper">
-        <h1 className="card-type-title">
-          <span onClick={toggleTab}>
-            { typeToPluralMapping(title) }
-          </span>
+  render() {
+    const {
+      cards, title, open, toggleTab,
+    } = this.props;
+    const orbColor = typeGradients[title.toLowerCase()];
+    const openClass = open ? 'open' : 'closed';
 
-          <div className="orb" style={{ backgroundColor: orbColor ? orbColor[0] : '#FF9D14' }} />
-        </h1>
+    return (
+      <div className="card-type-wrapper">
+        <div className="card-type-title-wrapper" onClick={toggleTab}>
+          <h1 className="card-type-title">
+            <span>
+              { typeToPluralMapping(title) }
+            </span>
+
+            <div className="orb" style={{ backgroundColor: orbColor ? orbColor[0] : 'white' }} />
+          </h1>
+        </div>
+
+        <div className={`card-type-inner-wrapper ${openClass}`} ref={(e) => { this.innerCards = e; }}>
+          {
+            cards.map(card => (
+              <div key={card.id} className="card-container">
+                <DragWrapper key={card.id} {...{ card }}>
+                  <HandCard inHand card={card} hoverCentered />
+                </DragWrapper>
+              </div>
+            ))
+          }
+        </div>
       </div>
-
-      <div className={`card-type-inner-wrapper ${openClass}`}>
-        {
-          cards.length > 0 && cards.map(card => (
-            <div key={card.id} className="card-container">
-              <DragWrapper key={card.id} card={card}>
-                <HandCard inHand card={card} hoverCentered />
-              </DragWrapper>
-            </div>
-          ))
-        }
-        {
-          cards.length === 0 &&
-          <div>
-            No cards in the tab
-          </div>
-        }
-      </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 CardsTabGroup.defaultProps = {
   open: false,

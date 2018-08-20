@@ -8,7 +8,7 @@ const SidebarItemActive = ({ image, id }) => (
       <g filter={`url(#${id}filter0_d)`}>
         <path d="M9.72973 0L0 9.38645V37.1377L9.72973 46.5241H122.838L131.351 36.7296V9.1824L122.838 0H9.72973Z" transform="translate(15 15)" fill={`url(#${id}pattern0)`} />
       </g>
-      <path d="M9.72973 0L0 9.38645V37.1377L9.72973 46.5241H122.838L131.351 36.7296V9.1824L122.838 0H9.72973Z" transform="translate(15 15)" fill={`url(#${id}paint0_linear1)`} stroke={`url(#${id}paint1_linear1)`} strokeWidth="1.22026" />
+      <path className="location-inner-gradient" d="M9.72973 0L0 9.38645V37.1377L9.72973 46.5241H122.838L131.351 36.7296V9.1824L122.838 0H9.72973Z" transform="translate(15 15)" fill={`url(#${id}paint0_linear1)`} stroke={`url(#${id}paint1_linear1)`} strokeWidth="1.22026" />
       <g filter={`url(#${id}filter2_d)`}>
         <path d="M9.72973 -1.83039H8.99074L8.4589 -1.31731L-1.27084 8.06914L-1.83039 8.60895V9.38645V37.1377V37.9152L-1.27084 38.455L8.4589 47.8415L8.99074 48.3545H9.72973H122.838H123.672L124.219 47.7249L132.733 37.9304L133.182 37.4139V36.7296V9.1824V8.46442L132.694 7.93793L124.18 -1.24447L123.637 -1.83039H122.838H9.72973Z" transform="translate(15 15)" stroke={`url(#${id}paint3_linear)`} strokeWidth="3.66078" />
       </g>
@@ -47,7 +47,12 @@ const SidebarItemActive = ({ image, id }) => (
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
         </filter>
-        <linearGradient id={`${id}paint0_linear1`} x2={1} gradientUnits="userSpaceOnUse" gradientTransform="matrix(131.351 -1.96921e-06 -144.934 1128.22 72.4669 -540.849)">
+        <linearGradient id={`${id}paint0_linear1`} x2={1} gradientUnits="userSpaceOnUse" gradientTransform="translate(102) scale(47) rotate(90)">
+          <stop stopColor="#2F1968" stopOpacity={0} />
+          <stop offset="0.219367" stopColor="#2F1968" stopOpacity="0.66" />
+          <stop offset={1} stopColor="#150836" />
+        </linearGradient>
+        <linearGradient id="paint0_linear1_hover" x2={1} gradientUnits="userSpaceOnUse" gradientTransform="matrix(131.351 -1.96921e-06 -144.934 1128.22 72.4669 -540.849)">
           <stop stopColor="#2F1968" stopOpacity={0} />
           <stop offset="0.452436" stopColor="#2F1968" stopOpacity="0.83" />
           <stop offset={1} stopColor="#150836" />

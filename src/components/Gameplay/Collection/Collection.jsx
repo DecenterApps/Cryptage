@@ -5,9 +5,10 @@ import HeaderBar from '../../HeaderBar/HeaderBar';
 import LargeCard from '../../Cards/LargeCard/LargeCard';
 import cardsConfig from '../../../constants/cards.json';
 import SmallButton from '../../SmallButton/SmallButton';
-import { getDataForTypeSorting, capitalize } from '../../../services/utils';
+import { getDataForTypeSorting, capitalize, compareCards } from '../../../services/utils';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 import SortingDropdown from './SortingDropdown/SortingDropdown';
+import { fetchCardStats } from '../../../services/cardService';
 
 import './Collection.scss';
 
@@ -40,8 +41,13 @@ class Collection extends Component {
           <div className="collection-cards-wrapper">
             {
               Object.keys(cardsConfig.cards)
-                .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType)
-                .map(cardId => cardId)
+                .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType
+                                  || this.state.selectedType === 'All')
+                .sort((a, b) => {
+                  const A = { stats: fetchCardStats(a) };
+                  const B = { stats: fetchCardStats(b) };
+                  return compareCards(A, B);
+                })
                 .map((cardId) => {
                   const foundCard = cards.find(card => card.metadataId === cardId);
 
@@ -51,7 +57,8 @@ class Collection extends Component {
                       return acc;
                     }, 0);
 
-                    const newCard = cards.find(card => (card.metadataId === cardId) && newCardTypes.includes(card.metadata.id)); // eslint-disable-line
+                    const newCard = cards.find(card => (card.metadataId === cardId)
+                                                        && newCardTypes.includes(card.metadataId));
 
                     return (<LargeCard
                       showNew={Boolean(newCard)}

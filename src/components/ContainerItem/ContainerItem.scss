@@ -6,7 +6,8 @@
 
   .fpb {
     position: absolute;
-    bottom: 90px;
+    top: -20px;
+    width: 100px;
 
     @include elementInAndOut;
     @include  for-big-desktop {

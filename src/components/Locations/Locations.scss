@@ -18,11 +18,20 @@
   }
 
   .locations-header {
-    padding: 14px 0;
     text-transform: uppercase;
     color: #fff;
-    margin-bottom: 10px;
     padding-top: 5px;
+    height: 48px;
+
+    .bar-wrapper {
+      background-image: url('./locations-bg.png');
+      height: 100px;
+      pointer-events: none;
+
+      .section-header-main-text {
+        top: -5px;
+      }
+    }
 
     //@include for-big-desktop {
     //  margin-bottom: 30px;

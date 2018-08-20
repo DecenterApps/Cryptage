@@ -1,7 +1,6 @@
 import React from 'react';
 import serialize from 'serialijse';
 import cardsConfig from '../constants/cards.json';
-import { checkIfCanLevelUp } from './gameMechanicsService';
 import { GET_ACCOUNT_SUCCESS, typeGradients } from '../actions/actionTypes';
 
 /**
@@ -276,13 +275,41 @@ export const classForRarity = (_rarity) => {
   return 'gold';
 };
 
+export const classNameForRarity = (_rarity) => {
+  const number = parseInt(_rarity, 10);
+  if (number >= 850) return 'normal';
+  if (number >= 600) return 'scarce';
+  if (number >= 325) return 'rare';
+  return 'elite';
+};
+
+export const compareCategories = (a, b) => {
+  const categoryMap = [
+    'available',
+    'location',
+    'container',
+    'mining',
+    'person',
+    'project',
+    'power',
+    'misc',
+  ];
+  return categoryMap.indexOf(a.toLowerCase()) - categoryMap.indexOf(b.toLowerCase());
+};
+
+export const compareCards = (a, b) => {
+  if (a.stats.type !== b.stats.type) return compareCategories(a.stats.type, b.stats.type);
+  if (a.stats.cost.level !== b.stats.cost.level) return a.stats.cost.level - b.stats.cost.level;
+  return a.stats.cost.funds - b.stats.cost.funds;
+};
+
 /**
- * Sorts cards in group by price
+ * Sorts cards in group
  *
  * @param {Array} group
  * @return {Array}
  */
-export const sortTypeGroupByPrice = group => group.sort((a, b) => a.cost.funds - b.cost.funds);
+export const sortTypeGroupByPrice = group => group.sort(compareCards);
 
 export const mergeErrorMessages = (...messages) => {
   const result = {};
@@ -308,8 +335,25 @@ export const mergeErrorMessages = (...messages) => {
   return result;
 };
 
-export const getDataForTypeSorting = cards =>
-  Object.keys(typeGradients).reduce((_acc, key) => {
+export const getDataForTypeSorting = (cards) => {
+  const allType = {
+    color: typeGradients.container,
+    name: 'All',
+    total: Object.keys(cardsConfig.cards).length,
+    collected: 0,
+  };
+  const allCards = Object.keys(cardsConfig.cards).map(cardTypeId => cardsConfig.cards[cardTypeId]['1'].title);
+  allType.collected = cards.reduce((acc, card) => {
+    const typeIndex = allCards.findIndex(title => title === card.stats.title);
+
+    if (typeIndex !== -1) {
+      allCards.splice(typeIndex, 1);
+      acc += 1;
+    }
+    return acc;
+  }, 0);
+
+  return Object.keys(typeGradients).reduce((_acc, key) => {
     const acc = [..._acc];
     const item = { color: typeGradients[key], name: key, total: 0, collected: 0 };
     const typeTitles = [];
@@ -333,6 +377,7 @@ export const getDataForTypeSorting = cards =>
 
     acc.push(item);
     return acc;
-  }, []);
+  }, [allType]);
+};
 
 export const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);

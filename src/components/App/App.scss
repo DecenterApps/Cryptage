@@ -27,7 +27,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .loading-wrapper {
@@ -79,16 +79,6 @@ body {
   //  height: 896px;
   //}
 
-  &.no-acc {
-    background: none;
-    box-shadow: none;
-
-    .app-top-section-wrapper .logo-wrapper {
-      left: 295px;
-      top: 20px;
-    }
-  }
-
   .app-error {
     position: fixed;
     top: 0;
@@ -105,25 +95,19 @@ body {
     position: relative;
     display: flex;
     height: 100%;
+  }
+}
 
-    .logo-wrapper {
-      position: absolute;
-      width: 417px;
-      height: 105px;
-      top: -115px;
-      left: 291px;
-      z-index: 200;
-      background: url("./logo.png") center center no-repeat;
-      background-size: cover;
+.logo-wrapper {
+  width: 417px;
+  height: 105px;
+  left: 291px;
+  z-index: 200;
+  background: url("./logo.png") center center no-repeat;
+  background-size: cover;
 
-      //@include for-big-desktop {
-      //  display: none;
-      //}
-
-      @media (max-height: 800px) {
-        display: none;
-      }
-    }
+  @media (max-height: 800px) {
+    display: none;
   }
 }
 

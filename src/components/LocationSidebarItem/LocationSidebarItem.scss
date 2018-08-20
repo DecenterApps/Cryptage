@@ -2,6 +2,7 @@
 @import '../../common/variables';
 
 .location-sidebar-item-wrapper {
+  position: relative;
 
   .location-sidebar-small {
     position: relative;
@@ -13,23 +14,24 @@
     justify-content: center;
 
     &:hover .actions {
-      display: flex;
+      pointer-events: all;
+      opacity: 1;
+      transform: translateX(0px);
     }
 
     .sidebar-item-not-active {
       position: relative;
       top: 4px;
+      z-index: 1;
     }
 
     .actions {
-      left: 64px;
-      top: 12px;
-      width: 32px;
-      height: 15px;
+      left: 40px;
+      top: 3px;
 
       > div {
-        svg path { fill: $light-purple; }
-        .close-icon svg line { stroke: $light-purple; }
+        //svg path { fill: $light-purple; }
+        //.close-icon svg line { stroke: $light-purple; }
       }
     }
   }
@@ -44,77 +46,124 @@
       position: absolute;
       bottom: -17px;
       right: -19px;
+      z-index: 1;
     }
 
     &:hover {
-      .actions { display: flex; }
-      .location-data { display: none; }
+      .actions {
+        pointer-events: all;
+        opacity: 1;
+        transform: translateX(0px);
+      }
+      //.location-data { display: none; }
+      //.location-inner-gradient {
+        //fill: url(#paint0_linear1_hover) !important;
+      //}
     }
 
     .location-data {
       position: absolute;
-      left: 43px;
-      top: 12px;
+      left: 5px;
+      bottom: 8px;
       color: white;
       white-space: nowrap;
       text-transform: uppercase;
+      z-index: 2;
 
       .loc-name {
-        width: 70px;
+        width: 100px;
         font-size: 13px;
+        line-height: 20px;
         @include ellipsis;
       }
 
       .loc-lvl {
         font-size: 11px;
         opacity: 0.5;
+        line-height: 10px;
       }
     }
 
     .actions {
-      left: 66px;
-      top: 20px;
-      width: 32px;
-      height: 30px;
+      left: 112px;
+      top: 6px;
     }
   }
 
   .actions {
-    display: none;
+    background: linear-gradient(270.4deg, #453A7C 37.27%, rgba(69, 58, 124, 0) 83.98%);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    height: 45px;
+    width: 35px;
     position: absolute;
-    flex-direction: row-reverse;
-    justify-content: space-between;
+    text-align: right;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    transition: all .2s;
+    display: flex;
+    z-index: 1;
+    opacity: 0;
+    transform: translateX(-20px);
+    pointer-events: none;
 
     > div {
       transition: all 0.2s;
       cursor: pointer;
+      padding: 2px 7px;
+      text-align: right;
+      z-index: 5;
+      position: relative;
+      width: 30px;
+      display: inline-block;
+      line-height: 16px;
+
       svg {
         width: 10px;
         height: 10px;
       }
       &:hover {
         opacity: 0.7;
-        transform: scale(1.2);
+        //transform: scale(1.2);
+      }
+      &:first-child {
+      }
+      &:last-child {
       }
     }
   }
+  .fpb {
+    width: 130px;
+    position: absolute;
+    top: 15px;
+    left: 62px;
 
-  .rarity-border {
-    &.red svg {
-      .outer-ring { stroke: $red-rarity; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $red-rarity; } }
-    }
+    @include elementInAndOut;
 
-    &.blue svg {
-      .outer-ring { stroke: $blue-rarity }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $blue-rarity; } }
-    }
-
-    &.gold svg .outer-ring {
-      .outer-ring { stroke: $gold-rarity; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
-    }
+    //@include for-big-desktop {
+    //  font-size: 17px;
+    //  width: 200px;
+    //  left: 154px;
+    //}
   }
+
+  //.rarity-border {
+  //  &.gold svg {
+  //    .outer-ring { stroke: $gold-rarity; }
+  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
+  //  }
+  //
+  //  &.blue svg {
+  //    .outer-ring { stroke: $blue-rarity }
+  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $blue-rarity; } }
+  //  }
+  //
+  //  &.purple svg {
+  //    .outer-ring { stroke: $purple-rarity; }
+  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $purple-rarity; } }
+  //  }
+  //}
 
   &.dragging-success.level-up-success {
     .location-sidebar-small, .location-sidebar-big {

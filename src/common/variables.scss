@@ -3,7 +3,7 @@
 $card-width: 63.5px; // export this to common
 $card-height: 88.9px; // export this to common
 
-$font-primary: 'Montserrat', sans-serif;
+$font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Baloo', sans-serif;
 
 $project-size: 50px;
@@ -69,7 +69,7 @@ $lg-card-desktop-height: 355px;
     display: flex;
     width: 100px;
     height: 142px;
-    margin: 7px 10px;
+    margin: 12px 10px;
     position: relative;
 
     //@include for-big-desktop {
@@ -87,7 +87,7 @@ $lg-card-desktop-height: 355px;
 }
 
 @mixin elementInAndOut {
-  animation: fadeinout 2s linear forwards;
+  animation: fadeinout 2s ease-out forwards;
   opacity: 0;
   z-index: 20;
   font-family: $font-secondary;

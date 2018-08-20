@@ -26,7 +26,6 @@ const dropTarget = {
 class DropSlotWrapper extends Component {
   render() {
     const {
-      dragItem,
       isOver,
       canDrop,
       connectDropTarget,
@@ -41,6 +40,7 @@ class DropSlotWrapper extends Component {
       emptyStateElem,
       slot,
     } = this.props;
+    const dragItem = this.props.dragItem && this.props.dragItem.card && this.props.dragItem;
     const isFinished = card !== null ? card.isFinished : false;
     const isActive = isOver && canDrop;
     const itemHover = !isActive && canDrop;

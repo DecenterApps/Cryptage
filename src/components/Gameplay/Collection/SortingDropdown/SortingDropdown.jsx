@@ -38,6 +38,7 @@ class SortingDropdown extends Component {
 
     return (
       <div className="sorting-dropdown-wrapper">
+        <div className="label">FILTER:</div>
         <div
           className="selected-item"
           onClick={this.toggleDropdown}

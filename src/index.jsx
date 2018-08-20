@@ -7,18 +7,16 @@ import NoMetaMask from './components/App/NoMetaMask/NoMetaMask';
 import config from './constants/config.json';
 
 const startApp = () => {
-  const hasMetaMask = typeof web3 !== 'undefined';
+  const hasMetaMask = typeof window.web3 !== 'undefined';
 
-  if (hasMetaMask) {
-    window.web3 = new Web3(web3.currentProvider);
-    window.web3Subscriber = new Web3(config.wsProvider);
-  }
+  window.web3 = new Web3((window.web3 && window.web3.currentProvider) || config.wsProvider);
+  window.web3Subscriber = new Web3(config.wsProvider);
+  window.hasMetaMask = hasMetaMask;
 
   if (!hasMetaMask) {
-    ReactDOM.render(<NoMetaMask />, document.getElementById('root'));
-  } else {
-    ReactDOM.render(<Routes store={store} />, document.getElementById('root'));
+    console.log('User without MetaMask');
   }
+  ReactDOM.render(<Routes store={store} />, document.getElementById('root'));
 };
 
 window.addEventListener('load', startApp);

@@ -13,8 +13,6 @@ const MenuModal = ({ closeModal, changeGameplayView, resetGame }) => (
   <div className="menu-modal-wrapper">
     <div className="modal-bar" />
     <ModalBody>
-      <h3>Menu</h3>
-
       <div
         className="menu"
       >

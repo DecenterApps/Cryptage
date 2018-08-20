@@ -10,8 +10,9 @@ import {
   REVEAL_ERROR,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
-import { openRevealBoosterCardsModal } from './modalActions';
+import { openRevealBoosterCardsModal, toggleModal } from './modalActions';
 import Card from '../classes/Card';
+import { METAMASK_MODAL } from '../components/Modals/modalTypes';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -120,6 +121,7 @@ export const buyBoosterError = error => ({
 });
 
 export const buyBoosterPack = () => async (dispatch, getState) => {
+  if (!window.hasMetaMask) return dispatch(toggleModal(METAMASK_MODAL, { tried: 'buy a card pack' }, true));
   const { blockNumber } = getState().app;
   dispatch(buyBoosterRequest());
   try {

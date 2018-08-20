@@ -8,7 +8,7 @@
   justify-content: center;
 
   //@include for-big-desktop {
-    //min-height: 108px;
+  //min-height: 108px;
   //}
 
   .gameplay-header-content {
@@ -26,9 +26,9 @@
     }
 
     //@include for-big-desktop {
-      //display: flex;
-      //flex-grow: 1;
-      //justify-content: center;
+    //display: flex;
+    //flex-grow: 1;
+    //justify-content: center;
     //}
 
     .section {
@@ -59,17 +59,47 @@
       position: relative;
       width: 284px;
       text-align: center;
-      padding: 29px 10px 0;
+      padding: 33px 10px 0;
+
+      .block-number {
+        position: absolute;
+        width: 180px;
+        height: 37px;
+        line-height: 37px;
+        background: url('./block-number-bg.png');
+        background-size: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        font-size: 13px;
+        span {
+          font-size: 10px;
+          opacity: .7;
+          text-transform: uppercase;
+          margin-right: 3px;
+          vertical-align: middle;
+          &:before {
+            content: '';
+            height: 11px;
+            width: 11px;
+            display: inline-block;
+            background: url("./eth-icon.svg");
+            vertical-align: middle;
+            margin: 0 4px 2px 0;
+          }
+        }
+      }
 
       .level {
         font-size: 15px;
         text-transform: uppercase;
         text-shadow: 0px 0px 30px rgba(33, 35, 234, 0.7);
         opacity: .7;
-        line-height: 1em;
+        line-height: .9em;
 
         //@include for-big-desktop {
-          //font-size: 18px;
+        //font-size: 18px;
         //}
       }
 
@@ -86,7 +116,7 @@
         }
 
         //@include for-big-desktop {
-          //font-size: 32px;
+        //font-size: 32px;
         //}
       }
 
@@ -108,7 +138,7 @@
         }
 
         //@include for-big-desktop {
-          //font-size: 17px;
+        //font-size: 17px;
         //}
       }
 
@@ -122,9 +152,9 @@
         width: 233px;
 
         //@include for-big-desktop {
-          //transform: scale(1.29);
-          //bottom: 18px;
-          //left: -1px;
+        //transform: scale(1.29);
+        //bottom: 18px;
+        //left: -1px;
         //}
       }
     }

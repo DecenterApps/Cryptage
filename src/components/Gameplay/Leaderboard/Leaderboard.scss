@@ -7,7 +7,6 @@
   height: 496px;
   flex-grow: 1;
   margin: 25px auto 0 auto;
-  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 39.58%);
 
   //@include for-big-desktop {
   //  margin-top: 45px;
@@ -63,7 +62,8 @@
   }
 
   .data-wrapper {
-    margin-top: 40px;
+    margin-top: 20px;
+    padding-top: 20px;
     color: white;
     height: 390px;
     overflow: auto;
@@ -75,14 +75,26 @@
 
     .data-header {
       margin-bottom: 10px;
+      position: relative;
+      &:after {
+        display: block;
+        content: '';
+        pointer-events: none;
+        height: 40px;
+        width: 100%;
+        top: -10px;
+        position: absolute;
+        background: radial-gradient(rgba(#5E1FFF, .2) 0%, transparent 70%);
+      }
 
       &>span {
+        position: relative;
+        z-index: 1;
         font-size: 12px;
         font-family: $font-secondary;
         flex-grow: 1;
         text-align: center;
         color: rgba(255, 255, 255, 0.3);
-        text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
 
         //@include for-big-desktop {
         //  font-size: 16px;
@@ -124,11 +136,8 @@
         //  font-size: 17px;
         //}
 
-        $curr-player-bg: linear-gradient(180deg, rgba(54, 38, 95, 0) 0%, rgba(54, 38, 95, 0.7) 51.38%, rgba(54, 38, 95, 0) 100%);
-
         &.curr-player {
           border: 1px solid $light-purple;
-          background: $curr-player-bg;
 
           //@include for-big-desktop {
           //  height: 46px;

@@ -10,6 +10,7 @@ import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { rarities, typeGradients } from '../../../actions/actionTypes';
+import RarityBorder from '../RarityBorder/RarityBorder';
 
 import './IngameCard.scss';
 
@@ -39,7 +40,9 @@ class IngameCard extends Component {
     } = this.props;
 
     const uniqueId = guid();
-    const rarityColor = rarities[classForRarity(card.rarityScore)] || '#9C01C2';
+    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
+    const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
 
     return (
       <div
@@ -47,7 +50,6 @@ class IngameCard extends Component {
         onMouseEnter={() => {
           removeNewCardOnHover(card.metadataId);
         }}
-        onMouseLeave={() => { togglePortal(false); }}
         onClick={(e) => {
           if (card.type === 'Container' && played && goToContainer) goToContainer(e);
         }}
@@ -57,20 +59,19 @@ class IngameCard extends Component {
           !draggingCard &&
           showPortal &&
           <PortalWrapper>
-            <HoverInfo
-              card={card}
-              center={hoverCentered}
-              parent={hoverCentered ? null : this.myRef}
-              type={hoverCentered ? null : 'asset'}
-            />
+            <HoverInfo card={card} center backdrop />
           </PortalWrapper>
         }
 
-        <div className="level-wrapper">
-          <div className="level">{card.level}</div>
-        </div>
+        {
+          card.type !== 'Container' &&
+          card.type !== 'Misc' &&
+          <div className="level-wrapper">
+            <div className="level">{card.level}</div>
+          </div>
+        }
         <div className="overlay" />
-        <div className={`rarity-overlay ${classForRarity(card.rarityScore)}`} />
+        <RarityBorder card={card} />
         <svg className="card-image">
           <defs>
             <pattern
@@ -87,21 +88,21 @@ class IngameCard extends Component {
                 preserveAspectRatio="xMidYMid slice"
                 href={`cardImages/${card.image}`}
               />
-            </pattern>c
+            </pattern>
             <linearGradient
               id={`card-rarity-gradient-${uniqueId}`}
               x1={`${classForRarity(card.rarityScore) === 'normal' ? 20 : 0}%`}
               x2={`${classForRarity(card.rarityScore) === 'normal' ? 250 : 0}%`}
-              y1={`${classForRarity(card.rarityScore) === 'normal' ? 50 : 0}%`}
-              y2={`${classForRarity(card.rarityScore) === 'normal' ? 0 : 150}%`}
+              y1={`${classForRarity(card.rarityScore) === 'normal' ? 50 : 50}%`}
+              y2={`${classForRarity(card.rarityScore) === 'normal' ? 0 : 250}%`}
             >
               <stop
                 offset="0%"
-                style={{ stopColor: rarityColor }}
+                style={{ stopColor: borderColor }}
               />
               <stop
                 offset="50%"
-                style={{ stopColor: `${rarityColor}00` }}
+                style={{ stopColor: `${borderColor}30` }}
               />
             </linearGradient>
             <linearGradient
@@ -123,22 +124,22 @@ class IngameCard extends Component {
           </defs>
           <polygon
             className="card-image-bg"
-            points="8,0 100,0 100,134 92,142 0,142 0,8"
+            points="9,0 100,0 100,136 91,145 0,145 0,9"
             fill={`url(#card-rarity-gradient-${uniqueId})`}
           />
           <polygon
             className="card-image-bg-inner"
-            points="9,1 99,1 99,133 91,141 1,141 1,9"
+            points="10,1 99,1 99,135 90,144 1,144 1,10"
             fill="black"
           />
           <polygon
             className="card-image-inner"
-            points="10,2 98,2 98,132 90,140 2,140 2,10"
+            points="11,2 98,2 98,134 89,143 2,143 2,11"
             fill={`url(#card-background-${card.metadataId}-${uniqueId})`}
           />
           <polygon
             className="card-meta-bg"
-            points="2,70 98,70 98,132 90,140 2,140 "
+            points="2,70 98,70 98,134 89,143 2,143 "
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
         </svg>
@@ -155,8 +156,8 @@ class IngameCard extends Component {
         }
 
         {/*{*/}
-          {/*inHand && newCardTypes.includes(card.metadataId) &&*/}
-          {/*<div className="new-card">new</div>*/}
+        {/*inHand && newCardTypes.includes(card.metadataId) &&*/}
+        {/*<div className="new-card">new</div>*/}
         {/*}*/}
 
         {
@@ -183,9 +184,8 @@ class IngameCard extends Component {
         >
           <div
             className="hover-info-wrapper"
-            onMouseEnter={() => {
-              togglePortal(true);
-            }}
+            onMouseEnter={() => { togglePortal(true); }}
+            onMouseLeave={() => { togglePortal(false); }}
           >
             <InfoCardIcon />
           </div>

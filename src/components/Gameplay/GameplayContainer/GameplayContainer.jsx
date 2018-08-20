@@ -30,7 +30,7 @@ const GameplayContainer = ({
       />
 
       <h2 className="container-title">
-        {card.title} <span>{fullSlots}/{totalSlots}</span>
+        {card.title} <span>{fullSlots} / {totalSlots}</span>
       </h2>
 
       <DropSlotsWrapper
@@ -44,9 +44,12 @@ const GameplayContainer = ({
         mainClass="active-location-slot-wrapper"
       />
 
-      <span onClick={() => { switchInGameplayView(activeContainerIndex, GP_LOCATION_MAIN); }}>
-        <SmallButton text="Back" />
-      </span>
+      <div>
+        <div className="modal-buttons-bar" />
+        <span onClick={() => { switchInGameplayView(activeContainerIndex, GP_LOCATION_MAIN); }}>
+          <SmallButton text="Back" />
+        </span>
+      </div>
     </div>
   );
 };

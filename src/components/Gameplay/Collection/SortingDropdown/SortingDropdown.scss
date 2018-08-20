@@ -1,5 +1,8 @@
 .sorting-dropdown-wrapper {
-
+  .label {
+    color: #777;
+    margin: 5px 10px;
+  }
   .selected-item, .dropdown-item {
     border-left: 4px solid;
     color: white;

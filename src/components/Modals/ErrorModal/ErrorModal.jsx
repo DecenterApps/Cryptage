@@ -8,14 +8,14 @@ import SmallButton from '../../SmallButton/SmallButton';
 const ErrorModal = ({ closeModal, errors }) => (
   <div className="confirm-modal-wrapper">
 
-    <div className="modal-bar" />
+    <div className="modal-warning-bar" />
     <ModalBody>
       <h3 className="title">{errors.title}</h3>
       <div key="D" className="main-text">
         {errors.body}
       </div>
     </ModalBody>
-    <div className="modal-bar" />
+    <div className="modal-warning-bar" />
 
     <div className="buttons-wrapper">
       <div className="modal-buttons-bar" />

@@ -22,16 +22,17 @@ const Locations = ({
 
     {
       (gameplayView !== GP_LEADERBOARD &&
-      gameplayView !== GP_LOCATION_COLLECTION) && [
+      gameplayView !== GP_LOCATION_COLLECTION) &&
+      <div>
         <div key="locations-header" className="locations-header">
           <div className="bar-wrapper">
             <HeaderLine />
             <div className="section-header-main-text">Locations</div>
-            <div className="section-header-sub-text">Summary</div>
+            {/* <div className="section-header-sub-text">Summary</div> */}
           </div>
-        </div>,
-
+        </div>
         <div key="active-locations-wrapper" className="active-locations-wrapper">
+
           <div className="vertical-line" />
 
           <DropSlotsWrapper
@@ -41,8 +42,8 @@ const Locations = ({
             emptyStateElem={<EmptyLocationSlot />}
             mainClass="location-slots-wrapper"
           />
-        </div>,
-      ]
+        </div>
+      </div>
     }
   </div>
 );

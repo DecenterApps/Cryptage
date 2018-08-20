@@ -64,7 +64,7 @@ class Leaderboard extends Component {
                       </div>
 
                       <div className="level">{level}</div>
-                      <div className="xp">{xp}</div>
+                      <div className="xp">{xp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')}</div>
                     </div>
                   ))
                 }

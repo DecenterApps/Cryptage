@@ -16,8 +16,21 @@ const getClassForFont = (maxDev, available) => {
   return 'large';
 };
 
+const formatFunds = (_number) => {
+  const number = parseFloat(_number);
+
+  if (number >= 1000000000000) return `${Math.floor(number / 100000000000) / 10}T`;
+  if (number >= 1000000000) return `${Math.floor(number / 100000000) / 10}B`;
+  if (number >= 1000000) return `${Math.floor(number / 100000) / 10}M`;
+  if (number >= 1000) {
+    const _number = number.toString(10);
+    return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
+  }
+  return number.toString();
+};
+
 const GameplayHeader = ({
-  globalStats, nickname, fundsPerBlock, projects,
+  globalStats, nickname, fundsPerBlock, projects, blockNumber,
 }) => {
   const expPercantage = (globalStats.experience / globalStats.requiredXp);
 
@@ -28,6 +41,9 @@ const GameplayHeader = ({
     }
     return acc;
   }, 0);
+
+  const formatedFunds = formatFunds(globalStats.funds);
+  const formatedFpb = formatFunds(fundsPerBlock);
 
   return (
     <div className="gameplay-header-wrapper">
@@ -45,9 +61,17 @@ const GameplayHeader = ({
 
         {/* Central section */}
         <div className="central">
+          <div className="block-number">
+            <span>
+              Current Block:
+            </span>
+            {blockNumber.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')}
+          </div>
           <div className="level">Level { globalStats.level }</div>
           <div className="name">{ nickname || 'NICKNAME' }</div>
-          <div className="xp-wrapper"> {globalStats.earnedXp} / {globalStats.requiredXp} XP </div>
+          <div className="xp-wrapper">
+            {globalStats.earnedXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} / {globalStats.requiredXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} XP
+          </div>
           {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
           <svg className="xp-loader-wrapper">
             <defs>
@@ -66,11 +90,12 @@ const GameplayHeader = ({
         {/* Right section */}
         <div className="section">
           <div className="stats-wrapper funds">
-            <div>{ globalStats.funds }</div>
+            <div title={globalStats.funds}>
+              { formatedFunds }
+            </div>
             <div className="smaller">
-              { fundsPerBlock > 0 && '+' }
-              { fundsPerBlock }
-              <span className="smaller">&nbsp;&nbsp;FPB</span>
+              { formatedFpb }
+              <span className="smaller">&nbsp;&nbsp;Funds Per Block</span>
             </div>
           </div>
         </div>
@@ -80,6 +105,7 @@ const GameplayHeader = ({
 };
 
 GameplayHeader.propTypes = {
+  blockNumber: PropTypes.number.isRequired,
   globalStats: PropTypes.object.isRequired,
   nickname: PropTypes.string.isRequired,
   fundsPerBlock: PropTypes.number.isRequired,
@@ -87,6 +113,7 @@ GameplayHeader.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
+  blockNumber: gameplay.blockNumber,
   globalStats: gameplay.stats,
   nickname: gameplay.nickname,
   fundsPerBlock: gameplay.stats.fundsPerBlock,

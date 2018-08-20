@@ -20,9 +20,15 @@ import {
 } from './actionTypes';
 import ethService from '../services/ethereumService';
 import { removePlayedCards, getCardAtContainer } from '../services/utils';
+import { METAMASK_MODAL } from '../components/Modals/modalTypes';
 
 import { packMoves } from '../services/stateService';
-import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
+import {
+  openErrorModal,
+  openNewLevelModal,
+  openNoRestartProjectModal,
+  toggleModal,
+} from './modalActions';
 import Card from '../classes/Card';
 
 /**
@@ -234,6 +240,7 @@ export const submitNickname = ({ nickname }) => async (dispatch, getState) => {
  * Sends tx to contract to save current state
  */
 export const saveStateToContract = () => async (dispatch, getState) => {
+  if (!window.hasMetaMask) return dispatch(toggleModal(METAMASK_MODAL, { tried: 'save game state' }, true));
   // Add call to the contract here
   const { gameplay } = getState();
   dispatch({ type: SAVE_STATE_REQUEST, payload: { isSaving: true } });

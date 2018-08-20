@@ -5,7 +5,7 @@ import { usersCardsFetch } from '../../actions/gameplayActions';
 import { getAvailableCards } from '../../services/gameMechanicsService';
 import Spinner from '../Spinner/Spinner';
 import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
-import { sortTypeGroupByPrice } from '../../services/utils';
+import { compareCategories, sortTypeGroupByPrice } from '../../services/utils';
 import cardsConfig from '../../constants/cards.json';
 
 import './Cards.scss';
@@ -26,16 +26,13 @@ class Cards extends Component {
 
   componentDidMount() {
     this.props.usersCardsFetch();
-
-    const that = this.innerCards;
-    $(that).mousewheel((event, delta) => {
-      that.scrollLeft -= (delta * 25);
-      event.preventDefault();
-    });
   }
 
   toggleTabOpen(tabName) {
     const newState = { ...this.state };
+    const currentActive = Object.keys(newState.tabsToggleMap).find(t => newState.tabsToggleMap[t]);
+    if (currentActive === tabName) return false;
+    newState.tabsToggleMap[currentActive] = false;
     newState.tabsToggleMap[tabName] = !newState.tabsToggleMap[tabName];
     this.setState(newState);
   }
@@ -73,9 +70,19 @@ class Cards extends Component {
       return accumulator;
     }, starter);
 
-    Object.keys(grouped).forEach((key) => { grouped[key] = sortTypeGroupByPrice(grouped[key]); });
+    const sortedByType = Object.keys(grouped)
+      .sort(compareCategories)
+      .reduce((result, key) => {
+        result[key] = grouped[key];
+        return result;
+      }, {});
 
-    return grouped;
+    Object.keys(sortedByType)
+      .forEach((key) => {
+        sortedByType[key] = sortTypeGroupByPrice(sortedByType[key]);
+      });
+
+    return sortedByType;
   }
 
   render() {
@@ -84,7 +91,7 @@ class Cards extends Component {
 
     return (
       <div className="cards-wrapper">
-        <div className="cards-inner-wrapper" ref={(e) => { this.innerCards = e; }}>
+        <div className="cards-inner-wrapper">
           {
             cardsFetching &&
             <div className="loading-cards">

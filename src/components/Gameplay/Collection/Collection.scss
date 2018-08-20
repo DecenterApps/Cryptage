@@ -51,10 +51,10 @@
     overflow: auto;
     height: 380px;
     position: relative;
-    justify-content: space-around;
+    justify-content: flex-start;
     box-sizing: border-box;
     width: 482px;
-    padding: 5px 0;
+    padding: 5px 6px;
 
     //@include for-big-desktop {
     //  height: 632px;
@@ -62,7 +62,7 @@
 
     .large-card-wrapper {
       height: 142px;
-      margin: 0 -6px 10px;
+      margin: 0 -2px 20px -2px;
 
       .card-title, .card-type {
         width: 96px;
@@ -76,23 +76,13 @@
         bottom: 4px;
       }
 
-      #rarity.rarity-overlay {
-        width: 111px;
-        height: 153px;
-        top: -6px;
+      .large-card-rarity .rarity-overlay {
+        top: -8px;
         left: 4px;
-
-        &.rarity-blue {
-          background-position: -18px -20px;
-          background-size: 148px 193px;
-        }
-        &.rarity-gold {
-          background-position: -19px -20px;
-          background-size: 150px 194px;
-        }
-        &.rarity-red {
-          background-position: -18px -20px;
-          background-size: 148px 193px;
+        width: 110px;
+        height: 150px;
+        svg {
+          width: 111px;
         }
       }
 
@@ -105,15 +95,15 @@
       .count-wrapper {
         position: absolute;
         color: white;
-        font-size: 10px;
-        top: 5px;
-        left: 22px;
+        font-size: 12px;
+        top: 2px;
+        right: 18px;
       }
     }
     .unknown {
       width: 98px;
       height: 142px;
-      margin: 0 5px 12px;
+      margin: 0 9px 20px;
       background-image: url('../RevealCards/bg-back2.png');
       background-position: center;
       background-size: cover;

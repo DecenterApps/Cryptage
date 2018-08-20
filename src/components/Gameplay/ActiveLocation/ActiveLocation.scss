@@ -25,11 +25,14 @@
 
     .active-location-field {
       display: flex;
-      width: 100%;
-      top: 30px;
+      top: 23px;
       transition: all .3s;
       position: absolute;
-      height: 330px;
+      height: 342px;
+      overflow: auto;
+      width: 520px;
+      margin: 0 10px;
+      padding-top: 10px;
 
       &.location {
         &.hidden {
@@ -68,6 +71,7 @@
       display: flex;
       font-size: 0;
       z-index: 1;
+      padding: 0 5px;
       .location-name {
         text-transform: uppercase;
         line-height: 19px;
@@ -81,6 +85,7 @@
         height: 34px;
         position: relative;
         font-family: $font-secondary;
+        font-size: 14px;
 
         //@include for-big-desktop {
         //  background: none;
@@ -153,10 +158,12 @@
         .bar-label {
           position: absolute;
           color: white;
-          font-size: 10px;
+          font-size: 9px;
           width: 100%;
           padding: 0 10px;
           z-index: 1;
+          line-height: 13px;
+          font-family: $font-primary;
 
           //@include for-big-desktop {
           //  margin-top: 1px;
@@ -165,15 +172,16 @@
 
           span {
             text-transform: uppercase;
-            font-weight: bold;
-            margin-right: 6px;
+            margin-right: 5px;
+            font-family: inherit;
           }
           &.left {
             text-align: right;
           }
         }
         .bar {
-          background-color: $red;
+          //background-color: $red;
+          background: linear-gradient(to right, rgba($red, 0) 0%, $red 15%);
           max-width: 225px;
           height: 12px;
           transform: skewX(-45deg);
@@ -186,12 +194,14 @@
 
           &.left {
             transform: skewX(45deg);
-            background-color: $blue;
+            //background-color: $blue;
+            background: linear-gradient(to left, rgba($blue, 0) 0%, $blue 15%);
             margin: 0 -1px 0 1px;
             float: right;
           }
           &.background {
-            background-color: #1C1935;
+            //background-color: #1C1935;
+            background: #1C1935;
             position: absolute;
             width: 100%;
           }
@@ -214,7 +224,7 @@
         background: linear-gradient(180deg, rgb(28, 26, 53) 0%, rgba(54, 38, 95, 0) 100%);
         background-position: center;
         background-size: cover;
-        mask-image: linear-gradient(rgba(0, 0, 0, .3), transparent);
+        mask-image: linear-gradient(rgba(0, 0, 0, .2), transparent);
 
         //@include for-big-desktop {
         //  top: 25px;
