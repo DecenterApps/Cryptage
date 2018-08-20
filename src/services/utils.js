@@ -298,9 +298,9 @@ export const compareCategories = (a, b) => {
 };
 
 export const compareCards = (a, b) => {
-  if (a.stats.type !== b.stats.type) return compareCategories(a.stats.type, b.stats.type);
-  if (a.stats.cost.level !== b.stats.cost.level) return a.stats.cost.level - b.stats.cost.level;
-  return a.stats.cost.funds - b.stats.cost.funds;
+  if (a.type !== b.type) return compareCategories(a.type, b.type);
+  if (a.cost.level !== b.cost.level) return a.cost.level - b.cost.level;
+  return a.cost.funds - b.cost.funds;
 };
 
 /**
@@ -344,7 +344,7 @@ export const getDataForTypeSorting = (cards) => {
   };
   const allCards = Object.keys(cardsConfig.cards).map(cardTypeId => cardsConfig.cards[cardTypeId]['1'].title);
   allType.collected = cards.reduce((acc, card) => {
-    const typeIndex = allCards.findIndex(title => title === card.stats.title);
+    const typeIndex = allCards.findIndex(title => title === card.title);
 
     if (typeIndex !== -1) {
       allCards.splice(typeIndex, 1);
@@ -366,7 +366,7 @@ export const getDataForTypeSorting = (cards) => {
     });
 
     item.collected = cards.reduce((acc, card) => {
-      const typeIndex = typeTitles.findIndex(title => title === card.stats.title);
+      const typeIndex = typeTitles.findIndex(title => title === card.title);
 
       if (typeIndex !== -1) {
         typeTitles.splice(typeIndex, 1);

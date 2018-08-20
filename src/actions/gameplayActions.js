@@ -284,7 +284,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 export const exitNotLocationsView = () => (dispatch, getState) => {
   let toGoView = GP_LOCATION;
   const { gameplay } = getState();
-  const locations = gameplay.locations.filter(({ card }) => card);
+  const locations = gameplay.locationSlots.filter(({ card }) => card);
 
   if (locations.length === 0) toGoView = GP_NO_LOCATIONS;
   if (!gameplay.nickname) toGoView = GP_NO_NICKNAME;

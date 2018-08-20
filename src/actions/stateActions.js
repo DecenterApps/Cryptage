@@ -9,6 +9,8 @@ import Gameplay from '../classes/Gameplay';
 import ethService from '../services/ethereumService';
 import config from '../constants/config.json';
 import { nameOfNetwork } from '../services/utils';
+import { toggleModal } from './modalActions';
+import { METAMASK_INSTALLED_MODAL } from '../components/Modals/modalTypes';
 
 /**
  * If the user has an account loads gameplay
@@ -22,13 +24,21 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   if (!account) return;
 
   const data = localStorage.getItem(`cryptage-${account}`);
+  if (data) return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload: serialijse.deserialize(data) });
 
-  if (!data) {
-    const blockNum = await web3.eth.getBlockNumber();
-    return dispatch({ type: GENERATE_NEW_GAMEPLAY, payload: new Gameplay(blockNum) });
+  const tempAccountState = JSON.parse(localStorage.getItem('cryptage-0x0000000000000000000000000000000000000000'));
+  if (tempAccountState) {
+    dispatch({ type: LOAD_STATE_FROM_STORAGE, payload: serialijse.deserialize(tempAccountState) });
+    dispatch(toggleModal(METAMASK_INSTALLED_MODAL, {}, true));
+    setTimeout(() => {
+      localStorage.removeItem('cryptage-0x0000000000000000000000000000000000000000');
+    }, 10000);
+    return;
   }
 
-  return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload: serialijse.deserialize(data) });
+  // New game
+  const blockNum = await web3.eth.getBlockNumber();
+  return dispatch({ type: GENERATE_NEW_GAMEPLAY, payload: new Gameplay(blockNum) });
 };
 
 /**

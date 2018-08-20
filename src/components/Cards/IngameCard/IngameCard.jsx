@@ -40,9 +40,8 @@ class IngameCard extends Component {
     } = this.props;
 
     const uniqueId = guid();
-    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
-    const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
-    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+    const typeColor = typeGradients[card.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.rarityScore) !== 'normal' ? typeColor : '#9797FB';
 
     return (
       <div
@@ -53,7 +52,6 @@ class IngameCard extends Component {
         onClick={(e) => {
           if (card.type === 'Container' && played && goToContainer) goToContainer(e);
         }}
-        ref={(ref) => { this.myRef = ref; }}
       >
         {
           !draggingCard &&

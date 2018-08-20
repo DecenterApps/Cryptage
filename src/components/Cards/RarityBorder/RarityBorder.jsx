@@ -7,8 +7,8 @@ import Scarce from './Scarce';
 import Elite from './Elite';
 
 const RarityBorder = ({ card }) => {
-  const color = typeGradients[card.stats.type.toLowerCase()][0];
-  const rarity = classNameForRarity(card.stats.rarityScore);
+  const color = typeGradients[card.type.toLowerCase()][0];
+  const rarity = classNameForRarity(card.rarityScore);
   return (
     <div className="rarity-overlay">
       { rarity === 'rare' && <Rare color={color} /> }

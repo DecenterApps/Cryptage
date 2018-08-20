@@ -1,7 +1,7 @@
 import serialise from 'serialijse';
 import cardsConfig from '../constants/cards.json';
 import Mechanic from './Mechanic';
-import { fetchCardMeta, fetchCardStats } from '../services/cardService';
+import { fetchCardStats } from '../services/cardService';
 import CardSlot from './CardSlot';
 import { mergeErrorMessages } from '../services/utils';
 import { isLocationCard } from './matchers';

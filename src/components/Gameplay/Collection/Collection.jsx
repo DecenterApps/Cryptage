@@ -28,7 +28,7 @@ class Collection extends Component {
   }
 
   render() {
-    const { cards, exitNotLocationsView, newCardTypes } = this.props;
+    const { cards, exitNotLocationsView } = this.props;
     const typeSortData = getDataForTypeSorting(cards);
 
     return (
@@ -44,8 +44,8 @@ class Collection extends Component {
                 .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType
                                   || this.state.selectedType === 'All')
                 .sort((a, b) => {
-                  const A = { stats: fetchCardStats(a) };
-                  const B = { stats: fetchCardStats(b) };
+                  const A = fetchCardStats(a);
+                  const B = fetchCardStats(b);
                   return compareCards(A, B);
                 })
                 .map((cardId) => {
@@ -57,8 +57,7 @@ class Collection extends Component {
                       return acc;
                     }, 0);
 
-                    const newCard = cards.find(card => (card.metadataId === cardId)
-                                                        && newCardTypes.includes(card.metadataId));
+                    const newCard = cards.find(card => card.isNew);
 
                     return (<LargeCard
                       showNew={Boolean(newCard)}
@@ -79,8 +78,8 @@ class Collection extends Component {
           <div className="modal-buttons-bar" />
 
           <span onClick={exitNotLocationsView}>
-          <SmallButton text="Back" />
-        </span>
+            <SmallButton text="Back" />
+          </span>
         </div>
       </div>
     );
@@ -90,13 +89,11 @@ class Collection extends Component {
 Collection.propTypes = {
   exitNotLocationsView: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
-  newCardTypes: PropTypes.array.isRequired,
 
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  cards: gameplay.allCards,
-  newCardTypes: gameplay.newCardTypes,
+  cards: gameplay.cards,
 });
 
 const mapDispatchToProps = {

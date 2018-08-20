@@ -97,8 +97,8 @@ class LocationSidebarItem extends Component {
             <SidebarItemActive id={card.id} image={`cardImages/${card.image}`} />
 
             <div className="location-data">
-              <div className="loc-lvl">Level {card.stats.level}</div>
-              <div className="loc-name">{card.stats.title}</div>
+              <div className="loc-lvl">Level {card.level}</div>
+              <div className="loc-name">{card.title}</div>
             </div>
 
             <div className="actions" onClick={e => e.stopPropagation()}>

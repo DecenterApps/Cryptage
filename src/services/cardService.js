@@ -1,7 +1,7 @@
 import ethService from './ethereumService';
 import cardsConfig from '../constants/cards.json';
 
-export const fetchCardStats = (id, level) => {
+export const fetchCardStats = (id, level = '1') => {
   const statsForCardExist = cardsConfig.cards[id.toString()];
 
   if (!statsForCardExist) throw ReferenceError(`No stats for card with ID ${id}`);
