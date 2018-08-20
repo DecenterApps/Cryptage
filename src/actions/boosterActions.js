@@ -128,28 +128,31 @@ export const buyBoosterError = error => ({
 
 export const buyBoosterPack = () => async (dispatch, getState) => {
   const { blockNumber, account } = getState().app;
-  dispatch(buyBoosterRequest());
   try {
     sdk.isOnPortal()
       .then( async (isOnPortal) => {
         if (isOnPortal) {
           console.log('isOnPortal: ', isOnPortal);
+          const bitGuildContract  = ethService.getBitGuildContract();
+          let balance = Number(await bitGuildContract.methods.balanceOf(account).call());
 
-          let result = await ethService.buyBoosterBitGuild(account);
-          console.log(result);
-
-          if (result.error) {
-            dispatch(buyBoosterError(error));
-            return;
+          if (balance === 0) {
+            console.log('Insufficient Funds')
+          } else {
+            dispatch(buyBoosterRequest());
+            let result = await ethService.buyBoosterBitGuild(account);
+            console.log(result);
+            if (result.error) {
+              dispatch(buyBoosterError(error));
+              return;
+            }
+            let booster = {
+              id: result,
+              blockNumber,
+            };
+            dispatch(buyBoosterSuccess(booster));
+            dispatch(revealBooster(booster.id));
           }
-
-          let booster = {
-            id: result,
-            blockNumber,
-          };
-
-          dispatch(buyBoosterSuccess(booster));
-          dispatch(revealBooster(booster.id));
         } else {
           console.log('isOnPortal: ', isOnPortal);
           return Promise.reject();
@@ -157,14 +160,21 @@ export const buyBoosterPack = () => async (dispatch, getState) => {
     })
     .catch(async () => {
       try {
-        let result = await ethService.buyBooster();
-        let booster = {
-          id: result.events.BoosterInstantBought.returnValues.boosterId,
-          blockNumber,
-        };
-        console.log('isOnPortal.catch result: ', result);
-        dispatch(buyBoosterSuccess(booster));
-        dispatch(revealBooster(booster.id));
+        let balance = Number(await ethService.getBalance(account));
+
+        if (balance <= 0.001) {
+          console.log('Insufficient Funds')
+        } else {
+          dispatch(buyBoosterRequest());
+          let result = await ethService.buyBooster();
+          let booster = {
+            id: result.events.BoosterInstantBought.returnValues.boosterId,
+            blockNumber,
+          };
+          console.log('isOnPortal.catch result: ', result);
+          dispatch(buyBoosterSuccess(booster));
+          dispatch(revealBooster(booster.id));
+        }
       } catch (e) {
         dispatch(buyBoosterError(e.message));
       }
