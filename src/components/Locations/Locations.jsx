@@ -17,7 +17,7 @@ const Locations = ({
 }) => (
   <div className="locations-wrapper">
     <div className="buy-booster-button-wrapper" onClick={buyBoosterPack}>
-      <FutureButton text="Buy card pack" loading={isBuying} disabled={isBuying} />
+      <FutureButton text="Buy card pack" hoverText="Ξ 0.001" loading={isBuying} disabled={isBuying} />
     </div>
 
     {

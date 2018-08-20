@@ -8,6 +8,12 @@
 
     .text {
       color: darken(white, 15);
+      &-hover {
+        display: block;
+      }
+      &-main {
+        display: none;
+      }
     }
   }
 
@@ -41,6 +47,9 @@
     .text {
       text-transform: uppercase;
       display: inline-flex;
+      &-hover {
+        display: none;
+      }
     }
 
     .spinner-wrapper {
