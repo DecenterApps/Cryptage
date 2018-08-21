@@ -9,17 +9,10 @@ import InfoCardIcon from '../../Decorative/InfoCardIcon';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
-import { rarities, typeGradients } from '../../../actions/actionTypes';
+import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
 
 import './IngameCard.scss';
-
-const classForNumber = (_number) => {
-  const number = formatBigNumberWithBreak(_number);
-  if (number.length > 3) return 'small';
-  if (number.length === 3) return 'smaller';
-  return '';
-};
 
 class IngameCard extends Component {
   constructor() {
@@ -34,9 +27,9 @@ class IngameCard extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
+      card, showCount, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      inHand, removeNewCardOnHover,
+      removeNewCardOnHover,
     } = this.props;
 
     const uniqueId = guid();
@@ -153,11 +146,6 @@ class IngameCard extends Component {
           </div>
         }
 
-        {/*{*/}
-        {/*inHand && newCardTypes.includes(card.metadataId) &&*/}
-        {/*<div className="new-card">new</div>*/}
-        {/*}*/}
-
         {
           card.type === 'Container' && played &&
           <div className="container-slots-outer-wrapper">
@@ -165,7 +153,7 @@ class IngameCard extends Component {
               <div
                 className="slots-bar"
                 style={{
-                  height: `${100 - 100 * remainingSlots / card.space}%`,
+                  height: `${100 - (100 * (remainingSlots / card.space))}%`,
                 }}
               />
             </div>
@@ -221,7 +209,6 @@ IngameCard.defaultProps = {
   },
   canRemove: true,
   showCount: true,
-  hoverCentered: false,
   played: false,
   remainingSlots: 0,
   goToContainer: null,
@@ -231,7 +218,6 @@ IngameCard.defaultProps = {
   slot: null,
   draggingCard: false,
   costErrors: null,
-  inHand: false,
 };
 
 IngameCard.propTypes = {
@@ -242,7 +228,6 @@ IngameCard.propTypes = {
     }),
   }),
   showCount: PropTypes.bool,
-  hoverCentered: PropTypes.bool,
   remainingSlots: PropTypes.number,
   played: PropTypes.bool,
   goToContainer: PropTypes.func,
@@ -254,11 +239,10 @@ IngameCard.propTypes = {
   draggingCard: PropTypes.bool,
   canRemove: PropTypes.bool,
   costErrors: PropTypes.object,
-  inHand: PropTypes.bool,
   removeNewCardOnHover: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ app, gameplay }) => ({
+const mapStateToProps = ({ app }) => ({
   draggingCard: app.draggingCard,
 });
 

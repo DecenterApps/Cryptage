@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { classForRarity } from '../../../services/utils';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import { typeGradients } from '../../../actions/actionTypes';
-
-import './LargeCard.scss';
 import LargeCardMain from '../../HoverInfo/LargeCardMain';
 import InfoCardIcon from '../../Decorative/InfoCardIcon';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import RarityBorder from '../RarityBorder/RarityBorder';
+
+import './LargeCard.scss';
 
 
 class LargeCard extends Component {

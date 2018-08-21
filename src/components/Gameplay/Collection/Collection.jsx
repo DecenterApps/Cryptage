@@ -52,18 +52,18 @@ class Collection extends Component {
                   const foundCard = cards.find(card => card.metadataId === cardId);
 
                   if (foundCard) {
-                    const occurances = cards.reduce((acc, card) => {
+                    const occurances = cards.reduce((_acc, card) => {
+                      let acc = _acc;
                       if (card.metadataId === cardId) acc += 1;
                       return acc;
                     }, 0);
 
-                    const newCard = cards.find(card => card.isNew);
-
                     return (<LargeCard
-                      showNew={Boolean(newCard)}
+                      showNew={foundCard.isNew}
                       key={cardId}
                       card={foundCard}
                       showCount
+                      removeNew
                       duplicates={occurances}
                     />);
                   }
