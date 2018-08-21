@@ -2691,9 +2691,6 @@
               "fundsPerBlock",
               1
             ]
-          },
-          {
-            "name": ""
           }
         ],
         "mechanicsText": "Unique. Gain 1 FUND per block for each unit of unspent POWER at location.",
@@ -2741,9 +2738,6 @@
               "development",
               10
             ]
-          },
-          {
-            "name": ""
           }
         ],
         "mechanicsText": "Unique. Gain 10 FPB. All developers at the location gain 10% bonus DEV.",
@@ -6996,7 +6990,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank headquarters. But times have changed.",
         "image": "office-building.jpg",
         "level": 1,
         "mechanicsText": "",
@@ -7030,7 +7024,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank headquarters. But times have changed.",
         "image": "office-building.jpg",
         "level": 2,
         "mechanicsText": "",
@@ -7064,7 +7058,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank headquarters. But times have changed.",
         "image": "office-building.jpg",
         "level": 3,
         "mechanicsText": "",
@@ -7098,7 +7092,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank headquarters. But times have changed.",
         "image": "office-building.jpg",
         "level": 4,
         "mechanicsText": "",
@@ -7132,7 +7126,7 @@
           "space": 0,
           "time": 0
         },
-        "flavorText": "This used to be a bank HQ. But times have changed.",
+        "flavorText": "This used to be a bank headquarters. But times have changed.",
         "image": "office-building.jpg",
         "level": 5,
         "mechanicsText": "",

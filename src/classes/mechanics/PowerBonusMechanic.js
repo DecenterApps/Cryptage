@@ -10,6 +10,12 @@ export default class PowerBonusMechanic extends BonusMechanic {
     this.card.findParent().power += value;
     return state;
   }
+
+  canWithdraw() {
+    return {
+      [this.stat]: this.card.findParent().power - this.getValue() >= 0,
+    };
+  }
 }
 
 Mechanic.registerMechanic('powerBonusMechanic', PowerBonusMechanic);
