@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
 import { activateProject } from '../../actions/gameplayActions';
-import { classForRarity } from '../../services/utils';
+import { classForRarity, formatBigNumber } from '../../services/utils';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { calcExpiryBlocksLeft } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
@@ -33,17 +33,20 @@ class ProjectItem extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      card, slot, index, expiryTime, showFpb, activateProject, blockNumber,
+      card, slot, index, activateProject, blockNumber,
       openConfirmRemoveModal, dragItem, gameplay, projectExecutionTimePercent,
-      draggingCard,
+      draggingCard
     } = this.props;
-    const blocksLeft = expiryTime - blockNumber;
     const isActive = card.running;
     const isFinished = card.timesFinished > 0;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate && !isActive && slot.canDrop(gameplay, dragItem.card);
     const timeLeft = calcExpiryBlocksLeft(card, blockNumber, projectExecutionTimePercent);
+
+    const xpb = card.getGainsStatValue('experience');
+    const fpb = card.getGainsStatValue('fundsPerBlock');
+    const funds = card.getGainsStatValue('funds');
 
     return (
       <div
@@ -67,6 +70,15 @@ class ProjectItem extends Component {
           }
 
           <ProjectItemVector active={isActive} id={card.id} image={`cardImages/${card.image}`} />
+
+          {
+            (card.finishedNow && !isActive && isFinished) &&
+            <div className="bonus">
+              { (xpb > 0) && <div>+ { formatBigNumber(xpb) } XP</div> }
+              { (fpb > 0) && <div>+ { formatBigNumber(fpb) } FPB</div> }
+              { (funds > 0) && <div>+ { formatBigNumber(funds) } { funds === 1 ? 'FUND' : 'FUNDS' }</div> }
+            </div>
+          }
 
           {
             isActive &&
@@ -118,8 +130,8 @@ class ProjectItem extends Component {
 
         </div>
         {
-          blocksLeft > 0 &&
-          <div className="blocks-left">{ blocksLeft } <span>blocks left</span></div>
+          timeLeft > 0 &&
+          <div className="blocks-left">{ timeLeft } <span>blocks left</span></div>
         }
       </div>
     );
@@ -130,19 +142,15 @@ ProjectItem.defaultProps = {
   card: null,
   dragItem: null,
   draggingCard: false,
-  expiryTime: null,
-  showFpb: null,
 };
 
 ProjectItem.propTypes = {
   card: PropTypes.object,
   gameplay: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  showFpb: PropTypes.bool,
   activateProject: PropTypes.func.isRequired,
   openConfirmRemoveModal: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
-  expiryTime: PropTypes.number,
   dragItem: PropTypes.object,
   projectExecutionTimePercent: PropTypes.number.isRequired,
   draggingCard: PropTypes.bool,
