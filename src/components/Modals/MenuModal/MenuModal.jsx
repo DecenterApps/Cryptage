@@ -6,6 +6,7 @@ import SmallButton from '../../SmallButton/SmallButton';
 import { GP_LOCATION_COLLECTION, GP_BUY_BOOSTER, GP_LEADERBOARD } from '../../../actions/actionTypes';
 import { changeGameplayView } from '../../../actions/gameplayActions';
 import { resetGame } from '../../../actions/appActions';
+import ethService from '../../../services/ethereumService';
 
 import './MenuModal.scss';
 
@@ -35,7 +36,8 @@ const MenuModal = ({ closeModal, changeGameplayView, resetGame }) => (
           </a>
           <a
             onClick={async () => {
-              localStorage.clear();
+              const account = await ethService.getAccount();
+              localStorage.removeItem('cryptage-' + account);
               resetGame();
               closeModal();
               // await ethereumService.resetState();
