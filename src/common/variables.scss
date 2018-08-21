@@ -3,7 +3,7 @@
 $card-width: 63.5px; // export this to common
 $card-height: 88.9px; // export this to common
 
-$font-primary: 'Montserrat', sans-serif;
+$font-primary: 'Roboto', sans-serif;
 $font-secondary: 'Baloo', sans-serif;
 
 $project-size: 50px;
@@ -60,23 +60,23 @@ $lg-card-desktop-height: 355px;
 }
 
 @mixin gameplayEmptySlot {
-  margin-top: 70px;
+  //margin-top: 70px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
 
   .active-location-slot-wrapper {
     display: flex;
-    width: 70px;
-    height: 90px;
-    margin: 15px 15px 20px;
+    width: 100px;
+    height: 142px;
+    margin: 12px 10px;
     position: relative;
 
-    @include for-big-desktop {
-      width: 100px;
-      height: 125px;
-      margin: 20px 24px 18px 24px;
-    }
+    //@include for-big-desktop {
+    //  width: 100px;
+    //  height: 142px;
+    //  margin: 20px 24px 18px 24px;
+    //}
   }
 }
 
@@ -87,7 +87,7 @@ $lg-card-desktop-height: 355px;
 }
 
 @mixin elementInAndOut {
-  animation: fadeinout 2s linear forwards;
+  animation: fadeinout 2s ease-out forwards;
   opacity: 0;
   z-index: 20;
   font-family: $font-secondary;

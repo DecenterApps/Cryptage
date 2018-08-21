@@ -5,30 +5,64 @@
 .active-location-wrapper {
   flex-grow: 1;
   display: flex;
-  align-items: end;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  padding-top: 10px;
 
   .active-location-content {
-    max-width: 515px;
+    max-width: 540px;
     width: 100%;
     margin-top: 5px;
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
 
-    @include for-big-desktop {
-      margin-top: 15px;
-      max-width: 725px;
-    }
+    //@include for-big-desktop {
+    //  margin-top: 15px;
+    //  max-width: 725px;
+    //}
 
     .active-location-field {
-      margin: 0 30px;
+      display: flex;
+      top: 23px;
+      transition: all .3s;
+      position: absolute;
+      height: 342px;
+      overflow: auto;
+      width: 520px;
+      margin: 0 10px;
+      padding-top: 10px;
+
+      &.location {
+        &.hidden {
+          opacity: 0;
+          pointer-events: none;
+          //transform: translateY(300px);
+        }
+        &.active {
+
+        }
+      }
+
+      &.container {
+        &.hidden {
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(300px);
+        }
+        &.active {
+
+        }
+      }
 
       .drop-slots-wrapper {
-        height: 250px;
-        overflow: auto;
-
-        @include for-big-desktop {
-          margin-top: 95px;
-          height: 326px;
-        }
+        //height: 324px;
+        //overflow: auto;
+        //
+        //@include for-big-desktop {
+        //  height: 500px;
+        //}
       }
     }
 
@@ -37,72 +71,82 @@
       display: flex;
       font-size: 0;
       z-index: 1;
+      padding: 0 5px;
       .location-name {
         text-transform: uppercase;
-        font-size: 14px;
+        line-height: 19px;
         color: white;
         text-align: center;
-        margin: 0 25px;
+        margin: 0 9px;
+        padding: 0 30px;
         flex-grow: 0;
         background-image: url('./title-middle.png');
-        height: 27px;
+        background-size: 100% 34px;
+        height: 34px;
         position: relative;
         font-family: $font-secondary;
-        line-height: 5px;
+        font-size: 14px;
 
-        @include for-big-desktop {
-          background: none;
-          font-size: 20px;
-          border-bottom: 4px solid $purple;
-          height: 25px;
-        }
+        //@include for-big-desktop {
+        //  background: none;
+        //  font-size: 20px;
+        //  border-bottom: 4px solid $purple;
+        //  height: 25px;
+        //}
 
         &:before {
           content: '';
           background-image: url('./title-attachment.png');
-          height: 27px;
-          width: 25px;
+          background-size: 82px 34px;
+          height: 34px;
+          width: 82px;
           display: block;
           position: absolute;
-          left: -25px;
+          left: -54px;
           top: 0;
-          transform: scaleX(-1);
 
-          @include for-big-desktop {
-            transform: scaleX(-1.40) scaleY(1.40);
-            top: 4px;
-          }
+          //@include for-big-desktop {
+          //  transform: scaleX(-1.40) scaleY(1.40);
+          //  top: 4px;
+          //}
         }
         &:after {
           content: '';
           background-image: url('./title-attachment.png');
-          height: 27px;
-          width: 25px;
+          background-size: 82px 34px;
+          height: 34px;
+          width: 82px;
           display: block;
           position: absolute;
-          right: -25px;
+          right: -54px;
           top: 0;
           z-index: 2;
+          transform: scaleX(-1);
 
-          @include for-big-desktop {
-            transform: scale(1.40);
-            top: 4px;
-          }
+          //@include for-big-desktop {
+          //  transform: scale(1.40);
+          //  top: 4px;
+          //}
         }
       }
       .bar-wrapper {
         flex-grow: 1;
-        padding: 6px 0;
+        padding: 11px 0;
         position: relative;
 
-        @include for-big-desktop {
-          z-index: 2;
+        //@include for-big-desktop {
+        //  z-index: 2;
+        //}
+        &.left:before {
+          transform: none;
         }
-
         &:before {
           content: '';
           background-image: url('./title-extension.png');
-          height: 27px;
+          background-size: 176px 34px;
+          background-position: right top;
+          background-repeat: no-repeat;
+          height: 34px;
           width: 100%;
           display: block;
           position: absolute;
@@ -114,45 +158,50 @@
         .bar-label {
           position: absolute;
           color: white;
-          font-size: 10px;
+          font-size: 9px;
           width: 100%;
           padding: 0 10px;
           z-index: 1;
+          line-height: 13px;
+          font-family: $font-primary;
 
-          @include for-big-desktop {
-            margin-top: 1px;
-            font-size: 13px;
-          }
+          //@include for-big-desktop {
+          //  margin-top: 1px;
+          //  font-size: 13px;
+          //}
 
           span {
             text-transform: uppercase;
-            font-weight: bold;
-            margin-right: 6px;
+            margin-right: 5px;
+            font-family: inherit;
           }
           &.left {
             text-align: right;
           }
         }
         .bar {
-          background-color: $red;
+          //background-color: $red;
+          background: linear-gradient(to right, rgba($red, 0) 0%, $red 15%);
           max-width: 225px;
           height: 12px;
           transform: skewX(-45deg);
-          margin: 0 10px 0 -10px;
+          margin: 0 1px 0 -1px;
 
-          @include for-big-desktop {
-            height: 20px;
-            max-width: 320px;
-          }
+          //@include for-big-desktop {
+          //  height: 20px;
+          //  max-width: 320px;
+          //}
 
           &.left {
             transform: skewX(45deg);
-            background-color: $blue;
-            margin: 0 -10px 0 10px;
+            //background-color: $blue;
+            background: linear-gradient(to left, rgba($blue, 0) 0%, $blue 15%);
+            margin: 0 -1px 0 1px;
             float: right;
           }
           &.background {
-            background-color: #1C1935;
+            //background-color: #1C1935;
+            background: #1C1935;
             position: absolute;
             width: 100%;
           }
@@ -169,18 +218,18 @@
 
       .background-drop {
         position: absolute;
-        top: 16px;
-        width: 484px;
+        top: 23px;
+        width: 516px;
         height: 132px;
         background: linear-gradient(180deg, rgb(28, 26, 53) 0%, rgba(54, 38, 95, 0) 100%);
         background-position: center;
         background-size: cover;
-        mask-image: linear-gradient(rgba(0, 0, 0, .3), transparent);
+        mask-image: linear-gradient(rgba(0, 0, 0, .2), transparent);
 
-        @include for-big-desktop {
-          top: 25px;
-          width: 685px;
-        }
+        //@include for-big-desktop {
+        //  top: 25px;
+        //  width: 685px;
+        //}
       }
     }
 
@@ -192,19 +241,6 @@
       .drop-slot-component {
         &.drop-slot-active, &.drop-slot-item-hover {
           background: none;
-        }
-      }
-    }
-
-    .active-container-wrapper {
-
-      .drop-slots-wrapper {
-        height: 110px;
-        margin-top: 40px;
-
-        @include for-big-desktop {
-          height: 165px;
-          max-width: 750px;
         }
       }
     }

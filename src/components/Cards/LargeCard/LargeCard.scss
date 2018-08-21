@@ -2,335 +2,97 @@
 @import '../../../common/colors';
 
 .large-card-wrapper {
-  box-shadow: 0px 0px 74px #1A122E;
-  margin: auto;
-  width: 145px;
-  height: 252px;
-  background-position: center;
-  background-size: cover;
-  text-align: center;
-  color: white;
   position: relative;
-  border-radius: 12px;
-
-  @include for-big-desktop {
-    width: $lg-card-desktop-width;
-    height: $lg-card-desktop-height;
-    border-radius: 20px;
+  &:hover {
+    .actions {
+      display: block;
+    }
   }
 
-  * {
-    font-family: $font-secondary;
+  .large-card-main {
+    width: 219px;
+    position: relative;
+    top: -2px;
   }
-  .count-wrapper {
-    z-index: 10;
-    position: absolute;
-    bottom: 0;
-    left: -15px;
-    width: 27px;
-    height: 27px;
+
+  .card-title, .card-type {
     color: white;
-
-    @include for-big-desktop {
-      left: -27px;
-      width: 53px;
-      height: 53px;
-    }
-
-    &:before {
-      position: absolute;
-      bottom: 0;
-      content: '';
-      border-bottom: 38px solid rgba(#36265F, 1);
-      border-right: 38px solid transparent;
-
-      @include for-big-desktop {
-        border-bottom: 53px solid rgba(#36265F, 1);
-        border-right: 53px solid transparent;
-      }
-    }
-    .count {
-      position: absolute;
-      bottom: 5px;
-      left: 21px;
-      font-size: 10px;
-      line-height: 10px;
-      font-family: $font-secondary;
-
-      @include for-big-desktop {
-        font-size: 16px;
-        left: 32px;
-        bottom: 9px;
-      }
-    }
-  }
-
-  .overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 145px;
-    height: 252px;
-    border-radius: 12px;
-    background-image: url('../../HoverInfo/CardFront01.png');
-    background-size: cover;
-    z-index: 1;
-
-    @include for-big-desktop {
-      width: $lg-card-desktop-width;
-      height: $lg-card-desktop-height;
-    }
+    width: 185px;
+    left: 17px;
+    text-align: center;
+    text-transform: capitalize;
+    bottom: 70px;
+    font-size: 16px;
   }
 
-  .rarity-overlay {
+  .card-type {
+    bottom: 35px;
+    font-size: 14px;
+  }
+
+
+  .large-card-rarity .rarity-overlay {
     position: absolute;
-    top: -25px;
-    left: -25px;
-    width: 195px;
-    height: 300px;
-    background-size: cover;
+    width: 279px;
+    height: 322px;
+    transform: rotateY(0deg);
     z-index: 1;
-
-    @include for-big-desktop {
-      width: 275px;
-      height: 400px;
-      top: -36px;
-      left: -35px;
-    }
-
-    &.rarity-blue {
-      background-image: url('../../HoverInfo/scarce.png');
-    }
-    &.rarity-gold {
-      background-image: url('../../HoverInfo/elite.png');
-    }
-    &.rarity-red {
-      background-image: url('../../HoverInfo/rare.png');
-    }
+    background-size: 100%;
+    top: -27px;
+    left: -30px;
   }
-
   .new-card {
     position: absolute;
-    z-index: 1;
-    text-align: center;
-    text-transform: uppercase;
-    bottom: 252px;
-    left: 35px;
-    height: 16px;
-    width: 75px;
-    background: linear-gradient(180.78deg, rgba(255, 157, 20, 0) 0.92%, rgba(255, 157, 20, 0.2784) 81.11%);
-    font-size: 10px;
-    color: #FF9D14;
-    text-shadow: 0 0 10px rgba(255, 157, 20, 0.9);
-
-    @include for-big-desktop {
-      font-size: 18px;
-      height: 25px;
-      width: 78px;
-      text-align: center;
-      bottom: 355px;
-      left: 64px;
-    }
-  }
-
-  .title {
-    z-index: 2;
-    position: relative;
-    padding: 5px 7px 0 7px;
-    font-size: 9px;
-    text-transform: uppercase;
-
-    @include for-big-desktop {
-      font-size: 13px;
-      padding: 5px 15px 0 15px;
-    }
-  }
-  .meta {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    font-size: 9px;
+    right: 17px;
+    top: 20px;
+    width: 67px;
+    height: 55px;
     overflow: hidden;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    z-index: 2;
-    padding-top: 30px;
-    background: linear-gradient(to bottom, rgba(#36265F, 0) 0%, rgba(#36265F, 0.8) 100%);
-    .meta-inner {
-      background-color: #2D224E;
-    }
-    .type {
-      text-transform: uppercase;
-      margin-top: -10px;
-      padding: 12px 0 2px;
-
-      @include for-big-desktop {
-        font-size: 11px;
-      }
-
-      &:before {
-        content: '';
-        display: block;
-        top: -2px;
-        position: relative;
-      }
-    }
-    .description {
-      padding: 10px 4px 5px;
-      p {
-        margin: 5px 0 0;
-        font-family: $font-primary;
-
-        @include for-big-desktop {
-          max-width: 160px;
-          text-align: center;
-          margin: auto;
-        }
-      }
-      .mechanics {
-        font-weight: bold;
-
-        @include for-big-desktop {
-          font-size: 11px;
-        }
-      }
-      .flavor {
-        font-style: italic;
-        font-weight: 300;
-
-        @include for-big-desktop {
-          font-size: 11px;
-        }
-      }
-    }
-  }
-
-
-  &.misc { .type, .description {
-    background: linear-gradient(to bottom, rgba($misc, 0), rgba($misc, .7));
-    &:before { border-top: 1px solid $misc; }
-  } }
-  &.power { .type, .description {
-    background: linear-gradient(to bottom, rgba($power, 0), rgba($power, .7));
-    &:before { border-top: 1px solid $power; }
-  } }
-  &.location { .type, .description {
-    background: linear-gradient(to bottom, rgba($location, 0), rgba($location, .7));
-    &:before { border-top: 1px solid $location; }
-  } }
-  &.person { .type, .description {
-    background: linear-gradient(to bottom, rgba($person, 0), rgba($person, .7));
-    &:before { border-top: 1px solid $person; }
-  } }
-  &.project { .type, .description {
-    background: linear-gradient(to bottom, rgba($project, 0), rgba($project, .7));
-    &:before { border-top: 1px solid $project; }
-  } }
-  &.mining { .type, .description {
-    background: linear-gradient(to bottom, rgba($mining, 0), rgba($mining, .7));
-    &:before { border-top: 1px solid $mining; }
-  } }
-  &.container { .type, .description {
-    background: linear-gradient(to bottom, rgba($container, 0), rgba($container, .7));
-    &:before { border-top: 1px solid $container; }
-  } }
-
-
-  .cost, .gains {
-    position: absolute;
-    top: 20px !important;
-    z-index: 3;
-
-    $orb-radius: 12px;
-
-    @include for-big-desktop {
-      $orb-radius: 17px;
-    }
-
-    &.cost {
-      left: -20px !important;
-
-      @include for-big-desktop {
-        left: -25px !important;
-      }
-
-      .orb {
-        border-bottom-right-radius: $orb-radius;
-        border-top-right-radius: $orb-radius;
-      }
-    }
-    &.gains {
-      left: auto;
-      right: -20px !important;
-
-      @include for-big-desktop {
-        right: 4px !important;
-      }
-
-      .orb {
-        border-bottom-left-radius: $orb-radius;
-        border-top-left-radius: $orb-radius;
-      }
-    }
-    width: 40px;
-    .orb {
+    span {
       position: relative;
-      width: 47px;
-      height: 24px;
-      padding: 2px 0;
-      margin: 7px 0;
-      line-height: 22px;
+      top: 11px;
+      right: -10px;
+      display: block;
+      background-color: rgba(255, 157, 20, 0.8);
+      width: 79px;
+      height: 17px;
+      transform: rotate(45deg);
       color: white;
-      font-size: 12px;
-      font-family: $font-secondary;
+      font-family: "Baloo", sans-serif;
+      text-transform: uppercase;
+      font-size: 10px;
       text-align: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+    }
 
-      @include for-big-desktop {
-        font-size: 17px;
-        height: 34px;
-        width: 66px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-    &.gains {
-      .orb.funds {
-        background: linear-gradient(90deg, #FF9D14 24.31%, rgba(255, 157, 20, 0) 100%);
-      }
-      .orb.power {
-        background: linear-gradient(90deg, #BC0924 24.31%, rgba(189, 9, 37, 0) 100%);
-      }
-      .orb.xp {
-        background: linear-gradient(90deg, #2AD100 24.31%, rgba(42, 209, 0, 0) 100%);
-      }
-      .orb.space {
-        background: linear-gradient(90deg, #3CC8CC 24.31%, rgba(60, 200, 204, 0) 100%);
-      }
-      .orb.development {
-        background: linear-gradient(90deg, #9B01C1 24.31%, rgba(155, 1, 193, 0) 100%);
-      }
-    }
-    &.cost {
-      .orb.funds {
-        background: linear-gradient(-90deg, #FF9D14 24.31%, rgba(255, 157, 20, 0) 100%);
-      }
-      .orb.space {
-        background: linear-gradient(-90deg, #3CC8CC 24.31%, rgba(60, 200, 204, 0) 100%);
-      }
-      .orb.level {
-        background: linear-gradient(-90deg, #2AD100 24.31%, rgba(42, 209, 0, 0) 100%);
-      }
-      .orb.development {
-        background: linear-gradient(-90deg, #9B01C1 24.31%, rgba(155, 1, 193, 0) 100%);
-      }
-      .orb.power {
-        background: linear-gradient(-90deg, #BC0924 24.31%, rgba(189, 9, 37, 0) 100%);
+    //@include for-big-desktop {
+      //bottom: 126px;
+      //font-size: 15px;
+    //}
+  }
+  .actions {
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    width: 20px;
+    height: 60px;
+    border-top-right-radius: 10px;
+    background: linear-gradient(to bottom, #513792 35%, rgba(#513792, 0) 100%);
+    padding: 5px 0;
+    z-index: 1;
+    > div {
+      transition: all 0.2s;
+      cursor: pointer;
+      display: flex;
+      width: 19px;
+      height: 20px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      svg {
+        width: 6px !important;
       }
     }
   }
-
 }

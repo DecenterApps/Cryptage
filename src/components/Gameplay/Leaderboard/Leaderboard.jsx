@@ -9,6 +9,7 @@ import { guid } from '../../../services/utils';
 import CircleSpinner from '../../Decorative/CircleSpinner/CircleSpinner';
 
 import './Leaderboard.scss';
+import SmallButton from '../../SmallButton/SmallButton';
 
 class Leaderboard extends Component {
   componentWillMount() {
@@ -22,11 +23,7 @@ class Leaderboard extends Component {
 
     return (
       <div className="leaderboard-wrapper">
-        <HeaderBar title="Leaderboard" color="#FF9D14" />
-
-        <div onClick={exitNotLocationsView}>
-          <CloseIcon />
-        </div>
+        <HeaderBar title="Leaderboard" />
 
         <div className="data-wrapper">
           {
@@ -46,9 +43,9 @@ class Leaderboard extends Component {
             !fetching &&
             fetchingSuccess && [
               <div key="leaderboard-table-header" className="data-header">
-                <span className="nickname">Nickname</span>
-                <span className="level">level</span>
-                <span className="exp">exp</span>
+                <span className="nickname">Player</span>
+                <span className="level">Level</span>
+                <span className="exp">Exp</span>
               </div>,
               <div key="leaderboard-table-body" className="data-table">
                 {
@@ -67,13 +64,21 @@ class Leaderboard extends Component {
                       </div>
 
                       <div className="level">{level}</div>
-                      <div className="xp">{xp}</div>
+                      <div className="xp">{xp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')}</div>
                     </div>
                   ))
                 }
               </div>,
             ]
           }
+        </div>
+
+        <div className="button-wrapper">
+          <div className="modal-buttons-bar" />
+
+          <span onClick={exitNotLocationsView}>
+            <SmallButton text="Back" />
+          </span>
         </div>
       </div>
     );

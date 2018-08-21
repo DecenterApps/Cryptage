@@ -6,19 +6,20 @@
   padding: 0 20px;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 
   .revealed-card {
     display: inline-block;
     margin-right: 25px;
-    width: 145px;
-    height: 252px;
+    width: 194px;
+    height: 285px;
     margin-bottom: 30px;
 
-    @include for-big-desktop {
-      width: $lg-card-desktop-width;
-      height: $lg-card-desktop-height;
-      margin-right: 45px;
-    }
+    //@include for-big-desktop {
+    //  width: $lg-card-desktop-width;
+    //  height: $lg-card-desktop-height;
+    //  margin-right: 45px;
+    //}
 
     &:last-of-type {
       margin-right: 0;
@@ -26,28 +27,25 @@
 
     .rarity-overlay {
       position: absolute;
-      top: -25px;
-      left: -25px;
-      width: 195px;
-      height: 300px;
+      top: 7px;
+      left: 2px;
+      width: 214px;
       background-size: cover;
       z-index: 1;
-      &.rarity-blue {
-        background-image: url('../../HoverInfo/scarce.png');
-      }
-      &.rarity-gold {
-        background-image: url('../../HoverInfo/elite.png');
-      }
-      &.rarity-red {
-        background-image: url('../../HoverInfo/rare.png');
-      }
+      pointer-events: none;
 
-      @include for-big-desktop {
-        width: 275px;
-        height: 400px;
-        top: -36px;
-        left: -35px;
-      }
+      //@include for-big-desktop {
+      //  width: 275px;
+      //  height: 400px;
+      //  top: -36px;
+      //  left: -35px;
+      //}
+    }
+
+    .front .rarity-overlay {
+      top: -8px;
+      left: -9px;
+      transform: rotateY(180deg);
     }
 
     .front:hover {
@@ -55,12 +53,27 @@
     }
 
     img {
-      width: 145px;
-      height: 252px;
+      width: 194px;
+      height: 279px;
 
-      @include for-big-desktop {
-        width: $lg-card-desktop-width;
-        height: $lg-card-desktop-height;
+      //@include for-big-desktop {
+      //  width: $lg-card-desktop-width;
+      //  height: $lg-card-desktop-height;
+      //}
+    }
+    .large-card-wrapper .actions {
+      top: 45px;
+      left: 17px;
+      width: 32px;
+      height: 85px;
+      padding-top: 6px;
+      div {
+        width: 32px;
+        height: 32px;
+        svg {
+          height: 18px;
+          width: 18px !important;
+        }
       }
     }
   }

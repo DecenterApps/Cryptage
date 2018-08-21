@@ -2,39 +2,45 @@
 @import '../../../common/variables';
 
 .reveal-booster-cards-wrapper {
-  background: linear-gradient(180deg, rgba(54, 38, 95, 0.5) 0%, rgba(54, 38, 95, 0) 60%);
+  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
   height: 497px;
+  width: auto;
+
+  .modal-body {
+    background: $modal-bg-dark;
+  }
 
   h4 {
-    margin-top: 7px;
-    font-size: 17px;
-    margin-bottom: 8px;
-    color: $yellow;
+    padding-top: 15px;
+    margin: 0;
+    font-size: 18px;
+    color: white;
+    text-align: center;
 
-    @include for-big-desktop {
-      font-size: 21px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 21px;
+    //}
+  }
+
+  .reveal-cards-wrapper {
+    flex-wrap: nowrap;
   }
 
   h3 {
+    text-align: center;
     font-size: 37px;
     margin: 0 0 15px 0;
-    font-family: $font-secondary;
     color: $yellow;
     text-transform: uppercase;
 
-    @include for-big-desktop {
-      font-size: 44px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 44px;
+    //}
   }
 
   .button-wrapper {
-    @include flex-center;
-
-    button {
-      margin-left: 0;
-      width: 86px;
-      padding: 0;
-    }
+    position: relative;
+    margin-top: 8px;
+    text-align: center;
   }
 }

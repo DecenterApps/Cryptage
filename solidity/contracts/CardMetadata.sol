@@ -1,0 +1,82 @@
+pragma solidity ^0.4.24;
+
+/// @title Contract holding all metadata about token(card)
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+
+contract CardMetadata is Ownable{
+
+    struct CardProperties {
+        uint id;
+        uint rarity;
+        string ipfsHash;
+        address artist;
+    }
+
+    CardProperties[] public properties;  
+    uint[] public rarities;
+
+    /// @notice method to add metadata types
+    /// @dev needs to use three params for ipfs hash due to Solidity limitations for sending string from contract to contract
+    /// @param _rarity of card
+    /// @param _ipfsHash ipfs hash to card attributes
+    /// @param _artist is address of card artist
+    function addCardMetadata(uint _rarity, string _ipfsHash, address _artist) public onlyOwner{
+        uint metadataId = properties.length;
+        
+        // we can't do aks for rarities[-1] so if metadataId is zero we just add it
+        if (metadataId == 0) {
+            rarities.push(_rarity);
+        } else {
+            rarities.push(_rarity + rarities[metadataId-1]);
+        } 
+
+        properties.push(CardProperties({
+            ipfsHash: _ipfsHash,
+            rarity: _rarity,
+            artist: _artist,
+            id: metadataId
+        }));
+    }
+
+    /// @notice returns artist of card
+    /// @param _metadataId is matadataId of card
+    function getArtist(uint _metadataId) view public returns(address){
+        return properties[_metadataId].artist;
+    }
+    /// @notice returns how many cards there are 
+    function getNumberOfCards() view public returns (uint) {
+        return properties.length;
+    }
+    /// @notice returns maximal number value
+    function getMaxRandom() view public returns (uint) {
+        return rarities[rarities.length - 1];
+    }
+
+
+    function getCardByRarity(uint _rarity) view public returns (uint) {
+        require(_rarity <= rarities[rarities.length-1]);
+        
+        uint right = rarities.length - 1;
+        uint left = 0;
+        uint index = (right + left) / 2;
+        
+        while (left <= right) {
+            index = (right + left) / 2;
+            
+            /// if it is between right (including) and left we found it
+            if (_rarity <= rarities[index] && (index == 0 || _rarity > rarities[index-1])) {
+                return index;
+            }
+            
+            if (_rarity > rarities[index] && _rarity <= rarities[index+1]) {
+                return index+1;
+            }
+            
+            if (_rarity < rarities[index]) {
+                right = index - 1;
+            } else {
+                left = index;
+            }
+        }
+    }
+}

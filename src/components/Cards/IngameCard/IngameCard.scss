@@ -1,0 +1,333 @@
+@import '../../../common/colors';
+@import '../../../common/variables';
+
+.ingame-card-details {
+  width: 100px;
+  height: 145px;
+  box-sizing: border-box;
+  display: flex;
+  position: relative;
+
+  //@include for-big-desktop {
+    //width: 100px;
+    //height: 130px;
+  //}
+
+  &:hover {
+    .actions {
+      display: block;
+    }
+  }
+
+  .special-errors {
+    font-family: $font-secondary;
+    position: absolute;
+    top: 90px;
+    color: #FF0000;
+    width: 100px;
+    line-height: 15px;
+    text-align: center;
+    right: -14px;
+
+    //@include for-big-desktop {
+      //top: 126px;
+      //font-size: 15px;
+      //right: 3px;
+    //}
+  }
+
+  .rarity-overlay,
+  .overlay {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 98%;
+    width: 99%;
+
+    //@include for-big-desktop {
+      //height: 120px;
+      //width: 91px;
+    //}
+  }
+  .overlay {
+    background-image: url('./handcard-overlay.png');
+    background-size: cover;
+    background-position: center;
+  }
+  .rarity-overlay {
+    position: absolute;
+    top: -7px;
+    left: -8px;
+    width: 116px;
+  }
+
+  .new-card {
+    font-family: $font-secondary;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: $yellow;
+    text-shadow: 0 0 13px rgba(255, 157, 20, 0.7);
+    position: absolute;
+    left: 0;
+    bottom: 88px;
+  }
+
+  .card-image {
+    flex-grow: 1;
+
+    //@include for-big-desktop {
+    //  .card-image-bg, .card-image-inner {
+        //transform: scaleX(1.36) scaleY(1.38);
+    //  }
+    //}
+  }
+  .level-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 27px;
+    height: 27px;
+    color: white;
+    z-index: 1;
+
+    //@include for-big-desktop {
+      //font-size: 23px;
+      //width: 42px;
+      //height: 42px;
+    //}
+
+    .level {
+      position: absolute;
+      right: 6px;
+      font-family: $font-secondary;
+
+      //@include for-big-desktop {
+        //right: 8px;
+        //top: -3px;
+      //}
+    }
+  }
+  .count-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 27px;
+    height: 27px;
+    color: white;
+
+    //@include for-big-desktop {
+      //width: 42px;
+      //height: 42px;
+      //bottom: 6px;
+    //}
+
+    &:before {
+      position: absolute;
+      bottom: 0;
+      content: '';
+      border-bottom: 30px solid rgba(#36265F, .85);
+      border-right: 30px solid transparent;
+
+      //@include for-big-desktop {
+      //  border-bottom: 42px solid rgba(#36265F, .85);
+      //  border-right: 43px solid transparent;
+      //}
+    }
+    .count {
+      position: absolute;
+      bottom: 2px;
+      left: 4px;
+      font-size: 10px;
+      line-height: 10px;
+      font-family: $font-secondary;
+
+      //@include for-big-desktop {
+      //  font-size: 15px;
+      //  bottom: 5px;
+      //}
+    }
+  }
+  .container-slots-outer-wrapper {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 9px;
+    height: 48px;
+    overflow: hidden;
+    .container-slots-wrapper {
+      width: 8px;
+      height: 40px;
+      margin-top: 4px;
+      margin-left: 1px;
+      display: flex;
+      border: 1px solid rgba(#75341F, .4);
+      border-right: 0;
+      border-bottom: 0;
+      background: linear-gradient(to bottom, #101427, #36265F);
+      flex-direction: column;
+      transform: skewY(-45deg);
+      box-shadow: -1px -1px 0px black;
+      .slots-bar {
+        background: linear-gradient(0deg, rgba(#9190F2, .6) 20%, rgba(145, 144, 242, .2) 100%);
+      }
+
+      //@include for-big-desktop {
+      //}
+
+      span {
+        display: inline-block;
+        flex-grow: 1;
+        background-color: #36265F;
+
+        &.empty {
+          background-color: transparent;
+        }
+        &:not(:first-child) {
+          margin-left: 1px;
+        }
+      }
+    }
+  }
+
+  .section-wrapper {
+    border: 1px solid black;
+  }
+
+  .card-image {
+    text-align: center;
+
+    img {
+      width: 115px;
+    }
+  }
+
+  .meta {
+    position: absolute;
+    font-size: 8px;
+    line-height: 12px;
+    text-align: center;
+    color: white;
+    width: 100%;
+    bottom: 0;
+    padding: 0 0 5px;
+    * {
+      font-family: $font-secondary;
+    }
+
+    .title {
+    }
+    .border {
+      display: block;
+      height: 1px;
+      background: linear-gradient(to right, rgba($misc, 0), rgba($misc, 1), rgba($misc, 0));
+      margin-bottom: 2px;
+      &:after, &:before {
+        content: '';
+        display: block;
+        height: 2px;
+        background-color: $misc;
+        width: 12px;
+        position: absolute;
+        margin: auto;
+      }
+      &:after {
+        left: -12px;
+        right: 0px;
+        transform: skewX(45deg);
+      }
+      &:before {
+        left: 0px;
+        right: -12px;
+        transform: skewX(-45deg);
+      }
+    }
+
+    &.misc {
+      .border {
+        background: linear-gradient(to right, rgba($misc, 0), rgba($misc, 1), rgba($misc, 0));
+        &:after, &:before {
+          background-color: $misc;
+        }
+      }
+    }
+    &.power {
+      .border {
+        background: linear-gradient(to right, rgba($power, 0), rgba($power, 1), rgba($power, 0));
+        &:after, &:before {
+          background-color: $power;
+        }
+      }
+    }
+    &.location {
+      .border {
+        background: linear-gradient(to right, rgba($location, 0), rgba($location, 1), rgba($location, 0));
+        &:after, &:before {
+          background-color: $location;
+        }
+      }
+    }
+    &.person {
+      .border {
+        background: linear-gradient(to right, rgba($person, 0), rgba($person, 1), rgba($person, 0));
+        &:after, &:before {
+          background-color: $person;
+        }
+      }
+    }
+    &.project {
+      .border {
+        background: linear-gradient(to right, rgba($project, 0), rgba($project, 1), rgba($project, 0));
+        &:after, &:before {
+          background-color: $project;
+        }
+      }
+    }
+    &.mining {
+      .border {
+        background: linear-gradient(to right, rgba($mining, 0), rgba($mining, 1), rgba($mining, 0));
+        &:after, &:before {
+          background-color: $mining;
+        }
+      }
+    }
+    &.container {
+      .border {
+        background: linear-gradient(to right, rgba($container, 0), rgba($container, 1), rgba($container, 0));
+        &:after, &:before {
+          background-color: $container;
+        }
+      }
+    }
+  }
+
+  .actions {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 2px;
+    width: 20px;
+    height: 90px;
+    border-top-right-radius: 10px;
+    background: linear-gradient(to bottom, #513792 35%, rgba(#513792, 0) 100%);
+    padding: 5px 0;
+    > div {
+      transition: all 0.2s;
+      cursor: pointer;
+      display: flex;
+      width: 19px;
+      height: 20px;
+      align-items: center;
+      justify-content: center;
+      svg {
+        width: 9px;
+      }
+      &:hover {
+        opacity: 0.7;
+        transform: scale(1.2);
+      }
+    }
+    .remove-card-wrapper {}
+    .go-to-container-wrapper {}
+  }
+
+}

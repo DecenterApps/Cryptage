@@ -10,38 +10,38 @@
   z-index: 1;
   .bar-name {
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 22px;
     font-weight: bold;
     color: white;
     text-align: center;
     margin: 0 22px;
     flex-grow: 0;
-    background-image: url('./assets/title.png');
-    height: 17px;
+    background: url('./assets/title.png') no-repeat center bottom;
+    background-size: 100%;
+    height: 37px;
     position: relative;
     font-family: $font-secondary;
     line-height: 35px;
     &:before {
       content: '';
-      background-image: url('./assets/middle.png');
-      height: 27px;
-      width: 22px;
+      background: url('./assets/middle.png') no-repeat;
+      height: 17px;
+      width: 40px;
       display: block;
       position: absolute;
-      left: -22px;
-      top: 0;
+      left: -38px;
+      top: 17px;
       z-index: 2;
-      transform: scaleX(-1);
     }
     &:after {
       content: '';
-      background-image: url('./assets/middle.png');
-      height: 27px;
-      width: 22px;
+      background: url('./assets/middle2.png') no-repeat;
+      height: 17px;
+      width: 40px;
       display: block;
       position: absolute;
-      right: -22px;
-      top: 0;
+      right: -39px;
+      top: 17px;
       z-index: 2;
     }
   }
@@ -49,17 +49,22 @@
     flex-grow: 1;
     padding: 6px 0;
     position: relative;
+
+    &.reverse:before {
+      transform: rotate(180deg);
+      left: 16px;
+    }
+
     &:before {
       content: '';
-      background-image: url('./assets/extension.png');
-      height: 27px;
+      background: url('./assets/extension.png') no-repeat right;
+      height: 2px;
       width: 100%;
       display: block;
       position: absolute;
-      //left: -25px;
-      top: 0;
+      top: 17px;
+      right: 15px;
       z-index: 2;
-      transform: scaleX(-1);
     }
     .bar-label {
       position: absolute;

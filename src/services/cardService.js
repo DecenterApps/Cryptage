@@ -4,7 +4,7 @@ import { log } from './utils';
 
 const deckSize = 8;
 
-export const fetchCardStats = (id, level) => {
+export const fetchCardStats = (id, level = '1') => {
   if (cardStats.cards[id.toString()]) {
     const stats = { ...cardStats.cards[id.toString()][level.toString()] };
     stats.typeIndex = cardStats.cardTypes.findIndex(cardType => cardType === stats.type);
@@ -23,9 +23,10 @@ export const fetchCardStats = (id, level) => {
   };
 };
 
-const fetchCardMeta = async id => {
+export const fetchCardMeta = async (id, level = 1) => {
   const metadata = await ethService.getCardMetadata(id);
-  const stats = fetchCardStats(metadata.id, 1);
+  const stats = fetchCardStats(metadata.id, level);
+
   return {
     id,
     metadata,

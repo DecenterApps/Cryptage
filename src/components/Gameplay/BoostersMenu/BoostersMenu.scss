@@ -29,15 +29,15 @@
   margin: 25px auto 0 auto;
   background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 100%);
 
-  @include for-big-desktop {
-    width: 870px;
-    margin-top: 45px;
-  }
+  //@include for-big-desktop {
+  //  width: 870px;
+  //  margin-top: 45px;
+  //}
 
   .header-bar-wrapper .bar-name {
-    @include for-big-desktop {
-      font-size: 18px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 18px;
+    //}
   }
 
   .close-icon {
@@ -49,9 +49,9 @@
     transition: 0.2s ease-in;
     padding: 10px;
 
-    @include for-big-desktop {
-      transform: scale(1.35);
-    }
+    //@include for-big-desktop {
+    //  transform: scale(1.35);
+    //}
 
     &:hover {
       opacity: 0.8;
@@ -85,10 +85,10 @@
     opacity: 0.2;
     text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
 
-    @include for-big-desktop {
-      font-size: 12px;
-      width: 85px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 12px;
+    //  width: 85px;
+    //}
   }
 
   .booster-placeholder, .open-booster-placeholder {
@@ -128,9 +128,9 @@
     width: auto;
     padding-top: 2px;
 
-    @include for-big-desktop {
-      margin-top: 104px;
-    }
+    //@include for-big-desktop {
+    //  margin-top: 104px;
+    //}
 
     &.button-buying {
       border: none;
@@ -153,10 +153,10 @@
     height: 400px;
     overflow: auto;
 
-    @include for-big-desktop {
-      margin-top: 50px;
-      height: 600px;
-    }
+    //@include for-big-desktop {
+    //  margin-top: 50px;
+    //  height: 600px;
+    //}
   }
 
   .reveal-text {
@@ -181,10 +181,10 @@
     font-weight: bold;
     justify-content: center;
 
-    @include for-big-desktop {
-      font-size: 18px;
-      align-items: center;
-    }
+    //@include for-big-desktop {
+    //  font-size: 18px;
+    //  align-items: center;
+    //}
 
     img {
       display: inline;
@@ -192,10 +192,10 @@
       width: 26px;
       margin-right: 4px;
 
-      @include for-big-desktop {
-        height: 37px;
-        width: 37px;
-      }
+      //@include for-big-desktop {
+      //  height: 37px;
+      //  width: 37px;
+      //}
     }
   }
 
@@ -222,9 +222,9 @@
       color: #fff;
       max-width: 154px;
 
-      @include for-big-desktop {
-        max-width: 217px;
-      }
+      //@include for-big-desktop {
+      //  max-width: 217px;
+      //}
 
       .num-of-boosters {
         display: none;
@@ -242,10 +242,10 @@
         height: 227px;
         width: 154px;
 
-        @include for-big-desktop {
-          height: 320px;
-          width: 217px;
-        }
+        //@include for-big-desktop {
+        //  height: 320px;
+        //  width: 217px;
+        //}
       }
 
       .circle-loader-wrapper {
@@ -259,16 +259,16 @@
         flex-direction: column;
         color: $yellow;
 
-        @include for-big-desktop {
-          top: 130px;
-          left: 68px;
-          width: 77px;
-
-          .spinner-wrapper {
-            margin-bottom: 15px;
-            transform: scale(1);
-          }
-        }
+        //@include for-big-desktop {
+        //  top: 130px;
+        //  left: 68px;
+        //  width: 77px;
+        //
+        //  .spinner-wrapper {
+        //    margin-bottom: 15px;
+        //    transform: scale(1);
+        //  }
+        //}
 
         div {
           margin-top: -10px;
@@ -276,9 +276,9 @@
           font-family: $font-secondary;
           text-shadow: 0 0 44px #000000;
 
-          @include for-big-desktop {
-            font-size: 17px;
-          }
+          //@include for-big-desktop {
+          //  font-size: 17px;
+          //}
         }
       }
 
@@ -334,11 +334,11 @@
         right: 0;
         margin: auto;
 
-        @include for-big-desktop {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+        //@include for-big-desktop {
+        //  display: flex;
+        //  align-items: center;
+        //  justify-content: center;
+        //}
 
         .num-of-boosters {
           display: block;

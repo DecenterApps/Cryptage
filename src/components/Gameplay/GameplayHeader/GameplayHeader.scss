@@ -4,290 +4,158 @@
 .gameplay-header-wrapper {
   color: #fff;
   display: flex;
-  min-height: 100px;
+  min-height: 90px;
   justify-content: center;
 
-  @include for-big-desktop {
-    min-height: 108px;
-  }
+  //@include for-big-desktop {
+  //min-height: 108px;
+  //}
 
   .gameplay-header-content {
-    display: inline-flex;
+    display: flex;
+    width: 653px;
+    max-width: 653px;
+    height: 90px;
+    background-image: url("./header-bg.png");
+    background-size: 653px;
+    background-position: center;
+    background-repeat: no-repeat;
 
-    @include for-big-desktop {
-      display: flex;
-      flex-grow: 1;
-      justify-content: center;
+    * {
+      font-family: $font-secondary;
     }
 
+    //@include for-big-desktop {
+    //display: flex;
+    //flex-grow: 1;
+    //justify-content: center;
+    //}
+
     .section {
-      width: 262px;
+      flex: 1 1 0;
       position: relative;
-      top: 9px;
-      display: flex;
-      flex-direction: column;
-
-      @include for-big-desktop {
-        width: 411px;
-      }
-
-      .stats-container {
-        display: flex;
-      }
+      padding-top: 34px;
+      box-sizing: border-box;
 
       .stats-wrapper {
-        margin: 15px 0 10px 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        font-size: 19px;
 
-        &.dev-stats {
-          margin-right: 19px;
-          margin-left: 60px;
-
-          @include for-big-desktop {
-            margin-left: 85px;
-          }
+        .smaller {
+          font-size: .65em;
         }
 
-        &.funds-stats {
-          align-items: flex-start;
-
-          .label {
-            margin-left: 4px;
-          }
-
-          .count div {
-            font-family: $font-secondary;
-          }
-
-          .fpb {
-            font-family: $font-secondary;
-            position: absolute;
-            display: flex;
-            font-size: 12px;
-            line-height: 8px;
-            top: 33px;
-            color: $yellow;
-
-            @include for-big-desktop {
-              top: 39px;
-              font-size: 17px;
-            }
-
-            span {
-              font-family: $font-secondary;
-              font-size: 8px;
-              margin-left: 4px;
-
-              @include for-big-desktop {
-                font-size: 11px;
-              }
-            }
-          }
+        &.people {
+          padding: 0 20px 0 60px;
         }
 
-        .funds-circle,
-        .dev-circle {
-          margin-right: 7px;
-          width: 26px;
-          height: 26px;
-          border-radius: 50px;
-
-          @include for-big-desktop {
-            width: 37px;
-            height: 37px;
-          }
-        }
-
-        .dev-circle {
-          background: linear-gradient(180deg, #9B01C1 24.31%, rgba(155, 1, 193, 0.67) 100%);
-        }
-        .funds-circle {
-          background: linear-gradient(180deg, #FF9D14 24.31%, rgba(255, 157, 20, 0.67) 100%);;
-        }
-
-        img {
-          margin-right: 7px;
-          width: 26px;
-          height: 26px;
-
-          @include for-big-desktop {
-            width: 37px;
-            height: 37px;
-          }
-        }
-
-        .meta-wrapper {
-          text-transform: uppercase;
-
-          .count {
-            font-family: $font-secondary;
-            font-size: 16px;
-            display: flex;
-            align-items: baseline;
-            line-height: 18px;
-
-            @include for-big-desktop {
-              font-size: 23px;
-            }
-
-            &.smallest {
-              font-size: 8px;
-              position: relative;
-              top: -1px;
-              @include for-big-desktop {  font-size: 11px;  }
-            }
-            &.small {
-              font-size: 11px;
-              @include for-big-desktop {  font-size: 18px;  }
-            }
-            &.mid {
-              font-size: 14px;
-              @include for-big-desktop {  font-size: 21px;  }
-            }
-            &.large {
-              font-size: 16px;
-              @include for-big-desktop {  font-size: 23px;  }
-            }
-          }
-
-          .label {
-            font-size: 8px;
-
-            @include for-big-desktop {
-              font-size: 11px;
-            }
-
-            &.fun {
-              white-space: nowrap;
-            }
-          }
+        &.funds {
+          padding: 2px 0 0 20px;
+          line-height: 0.8em;
         }
       }
-
-      .bar {
-        border: 2px solid $dark-purple;
-        box-shadow: 0 0 44px #441E83;
-        width: 100%;
-      }
-
     }
 
     .central {
       position: relative;
+      width: 284px;
+      text-align: center;
+      padding: 33px 10px 0;
 
-      .central-small {
+      .block-number {
         position: absolute;
-
-        img {
-          width: 190px;
-          position: absolute;
-          z-index: 4;
-          top: -38px;
-          left: -12px;
-
-          @include for-big-desktop {
-            width: 243px;
-            left: -37px;
-            top: -50px
-          }
-        }
-
-        .level {
-          font-weight: bold;
-          font-size: 13px;
+        width: 180px;
+        height: 37px;
+        line-height: 37px;
+        background: url('./block-number-bg.png');
+        background-size: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        font-size: 13px;
+        span {
+          font-size: 10px;
+          opacity: .7;
           text-transform: uppercase;
-          color: #FF9D14;
-          position: absolute;
-          z-index: 5;
-          width: 84px;
-          left: 42px;
-          top: 6px;
-          text-align: center;
-
-          @include for-big-desktop {
-            font-size: 18px;
-            width: 95px;
-            left: 38px;
+          margin-right: 3px;
+          vertical-align: middle;
+          &:before {
+            content: '';
+            height: 11px;
+            width: 11px;
+            display: inline-block;
+            background: url("./eth-icon.svg");
+            vertical-align: middle;
+            margin: 0 4px 2px 0;
           }
         }
       }
 
-      .central-big {
-        position: relative;
-        width: 170px;
-        top: 10px;
+      .level {
+        font-size: 15px;
+        text-transform: uppercase;
+        text-shadow: 0px 0px 30px rgba(33, 35, 234, 0.7);
+        opacity: .7;
+        line-height: .9em;
 
-        .big-stats {
-          z-index: 2;
-          position: absolute;
-          text-align: center;
-          left: 8px;
-          top: 26px;
-          width: 155px;
+        //@include for-big-desktop {
+        //font-size: 18px;
+        //}
+      }
 
-          .name {
-            font-family: $font-secondary;
-            font-size: 23px;
-            text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
-            width: 100%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-            display:inline-block;
+      .name {
+        font-size: 22px;
+        text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        line-height: 1.1em;
 
-            .no-name {
-              text-transform: uppercase;
-            }
-
-            @include for-big-desktop {
-              font-size: 32px;
-            }
-          }
-
-          .xp-wrapper {
-            font-family: $font-secondary;
-            font-size: 12px;
-            color: white;
-            position: relative;
-            top: -4px;
-            z-index: 12;
-
-            @include for-big-desktop {
-              font-size: 17px;
-              top: -10px;
-            }
-          }
-
-          .xp-loader-wrapper {
-            position: absolute;
-            bottom: 7px;
-            left: 0;
-            height: 14px;
-            width: 156px;
-
-            @include for-big-desktop {
-              transform: scale(1.29);
-              bottom: 18px;
-              left: -1px;
-            }
-          }
+        .no-name {
+          text-transform: uppercase;
         }
 
-        img {
-          position: absolute;
-          width: 350px;
-          top: -42px;
-          left: -90px;
-          z-index: 2;
+        //@include for-big-desktop {
+        //font-size: 32px;
+        //}
+      }
 
-          @include for-big-desktop {
-            width: 449px;
-            left: -140px;
-            top: -60px;
-          }
+      .xp-wrapper {
+        font-family: $font-secondary;
+        font-size: 11px;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 18px;
+        z-index: 1;
+        opacity: 0.7;
+        transition: opacity .3s;
+        cursor: default;
+        &:hover {
+          opacity: 0.9;
         }
+
+        //@include for-big-desktop {
+        //font-size: 17px;
+        //}
+      }
+
+      .xp-loader-wrapper { // svg
+        position: absolute;
+        bottom: 3px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 18px;
+        width: 233px;
+
+        //@include for-big-desktop {
+        //transform: scale(1.29);
+        //bottom: 18px;
+        //left: -1px;
+        //}
       }
     }
   }

@@ -12,7 +12,7 @@
   top: calc(50% - 40px);
   border-radius: 0 4px 4px 0;
 
-  @include for-big-desktop {
-    font-size: 20px;
-  }
+  //@include for-big-desktop {
+  //  font-size: 20px;
+  //}
 }

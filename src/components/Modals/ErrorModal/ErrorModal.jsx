@@ -1,20 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ModalHeader from '../ModalHeader';
 import ModalBody from '../ModalBody';
 
 import '../ConfirmRemoveModal/ConfirmRemoveModal.scss';
+import SmallButton from '../../SmallButton/SmallButton';
 
 const ErrorModal = ({ closeModal, errors }) => (
   <div className="confirm-modal-wrapper">
-    <ModalHeader closeModal={closeModal} />
+
+    <div className="modal-warning-bar" />
     <ModalBody>
       <h3 className="title">{errors.title}</h3>
       <div key="D" className="main-text">
         {errors.body}
       </div>
-      <button key="E" className="orange-button" onClick={closeModal}>Close</button>
     </ModalBody>
+    <div className="modal-warning-bar" />
+
+    <div className="buttons-wrapper">
+      <div className="modal-buttons-bar" />
+
+      <span onClick={closeModal}><SmallButton text="Close" /></span>
+    </div>
   </div>
 );
 

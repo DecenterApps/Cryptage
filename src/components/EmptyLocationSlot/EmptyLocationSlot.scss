@@ -2,47 +2,18 @@
 @import "../../common/variables";
 
 .empty-loc-slot-wrapper {
-  width: 103px;
-  height: 44px;
-  border: 1px solid $purple;
-  padding: 2px;
-
-  @include for-big-desktop {
-    width: 146px;
-    height: 62px;
+  &.can-drop .empty-loc-slot svg .outer-ring {
+    stroke: $empty-slot-can-drop;
   }
 
-  &.can-drop {
-    border: 1px solid $empty-slot-can-drop;
-  }
-
-  &.no-drop {
-    border: 1px solid $red;
+  &.no-drop .empty-loc-slot svg .outer-ring {
+    stroke: $red;
   }
 
   .empty-loc-slot {
     display: flex;
     height: 100%;
-    border: 2px dashed $purple;;
     align-items: center;
-    justify-content: center;
-    background: linear-gradient(180deg, #0A0F1D 0%, #1C133B 100%);
-    text-align: center;
-    font-weight: bold;
-    font-size: 8px;
-    color: #FFFFFF;
-    text-shadow: 0 0 30px rgba(33, 35, 234, 0.7);
-
-    .drop-content svg {
-      display: flex;
-      width: 20px;
-      height: 20px;
-
-      @include for-big-desktop {
-        width: 25px;
-        height: 25px;
-      }
-    }
+    padding-left: 8px;
   }
 }
-

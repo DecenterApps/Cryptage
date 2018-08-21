@@ -3,22 +3,21 @@
 
 .leaderboard-wrapper {
   position: relative;
-  width: 467px;
+  width: 513px;
   height: 496px;
   flex-grow: 1;
   margin: 25px auto 0 auto;
-  background: linear-gradient(180deg, rgba(54, 38, 95, 0.3) 0%, rgba(54, 38, 95, 0) 39.58%);
 
-  @include for-big-desktop {
-    margin-top: 45px;
-    width: 660px;
-    height: 700px;
-  }
+  //@include for-big-desktop {
+  //  margin-top: 45px;
+  //  width: 660px;
+  //  height: 700px;
+  //}
 
   .header-bar-wrapper .bar-name {
-    @include for-big-desktop {
-      font-size: 18px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 18px;
+    //}
   }
 
   .close-icon {
@@ -30,10 +29,10 @@
     transition: 0.2s ease-in;
     padding: 10px;
 
-    @include for-big-desktop {
-      transform: scale(1.35);
-      right: -8px;
-    }
+    //@include for-big-desktop {
+    //  transform: scale(1.35);
+    //  right: -8px;
+    //}
 
     &:hover {
       opacity: 0.8;
@@ -56,51 +55,67 @@
     text-align: center;
     margin-top: 40px;
 
-    @include for-big-desktop {
-      font-size: 20px;
-      margin-top: 50px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 20px;
+    //  margin-top: 50px;
+    //}
   }
 
   .data-wrapper {
-    margin-top: 40px;
+    margin-top: 20px;
+    padding-top: 20px;
     color: white;
-    height: 430px;
+    height: 390px;
     overflow: auto;
 
-    @include for-big-desktop {
-      height: 650px;
-      margin-top: 50px;
-    }
+    //@include for-big-desktop {
+    //  height: 650px;
+    //  margin-top: 50px;
+    //}
 
     .data-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      text-transform: uppercase;
       margin-bottom: 10px;
+      position: relative;
+      &:after {
+        display: block;
+        content: '';
+        pointer-events: none;
+        height: 40px;
+        width: 100%;
+        top: -10px;
+        position: absolute;
+        background: radial-gradient(rgba(#5E1FFF, .2) 0%, transparent 70%);
+      }
 
       &>span {
-        font-size: 11px;
+        position: relative;
+        z-index: 1;
+        font-size: 12px;
         font-family: $font-secondary;
         flex-grow: 1;
         text-align: center;
+        color: rgba(255, 255, 255, 0.3);
 
-        @include for-big-desktop {
-          font-size: 16px;
-        }
+        //@include for-big-desktop {
+        //  font-size: 16px;
+        //}
       }
 
-      .nickname, .xp {
+      .nickname {
+        margin-left: 42px;
+        margin-right: 236px;
+      }
+
+      .xp {
         max-width: 210px;
 
-        @include for-big-desktop {
-          max-width: 330px;
-        }
+        //@include for-big-desktop {
+        //  max-width: 330px;
+        //}
       }
 
       .level {
-        max-width: 47px;
+        margin-right: 112px;
       }
     }
 
@@ -108,24 +123,25 @@
 
       .player-rank {
         display: flex;
-        height: 20px;
-        font-size: 12px;
+        height: 33px;
+        font-size: 10px;
         white-space: pre;
 
-        @include for-big-desktop {
-          height: 28px;
-          font-size: 17px;
+        &:nth-child(2n) {
+          background: linear-gradient(270deg, rgba(47, 25, 104, 0) 0%, rgba(47, 25, 104, 0.162431) 18.78%, rgba(47, 25, 104, 0.2) 81.77%, rgba(47, 25, 104, 0) 100%);
         }
 
-        $curr-player-bg: linear-gradient(180deg, rgba(54, 38, 95, 0) 0%, rgba(54, 38, 95, 0.7) 51.38%, rgba(54, 38, 95, 0) 100%);
+        //@include for-big-desktop {
+        //  height: 28px;
+        //  font-size: 17px;
+        //}
 
         &.curr-player {
-          height: 33px;
-          background: $curr-player-bg;
+          border: 1px solid $light-purple;
 
-          @include for-big-desktop {
-            height: 46px;
-          }
+          //@include for-big-desktop {
+          //  height: 46px;
+          //}
         }
 
         & > div {
@@ -133,93 +149,65 @@
           align-items: center;
         }
 
-        * {
-          font-family: $font-secondary;
-        }
-
-        &:nth-child(-n+10) .nickname .rank {
-          color: $yellow;
-        }
-
-        &:first-child, &:nth-child(2), &:nth-child(3) {
-          height: 33px;
-          background: linear-gradient(180deg, rgba(54, 38, 95, 0.4) 0%, rgba(54, 38, 95, 0) 100%);
-
-          @include for-big-desktop {
-            height: 46px;
-          }
-
-          &.curr-player {
-            background: $curr-player-bg;
-          }
-        }
-
-        &:first-child .nickname {
-          .text, .rank {
-            font-size: 18px;
-            @include for-big-desktop {
-              font-size: 25px;
-            }
-          }
-        }
-        &:nth-child(2) .nickname {
-          .text, .rank {
-            font-size: 15px;
-            @include for-big-desktop {
-              font-size: 21px;
-            }
-          }
-        }
-        &:nth-child(3) .nickname {
-          .text, .rank {
-            font-size: 13px;
-            @include for-big-desktop {
-              font-size: 18px;
-            }
-          }
-        }
-
         .nickname {
-          margin-left: 64px;
-          width: 145px;
+          margin-left: 42px;
+          width: 268px;
+          position: relative;
 
-          @include for-big-desktop {
-            margin-left: 125px;
-            width: 203px;
-          }
+          //@include for-big-desktop {
+          //  margin-left: 125px;
+          //  width: 203px;
+          //}
 
           .rank {
-            margin-right: 6px;
+            position: absolute;
+            margin-right: 16px;
+            font-family: $font-primary;
+            left: -26px;
 
-            @include for-big-desktop {
-              margin-right: 10px;
-            }
+            //@include for-big-desktop {
+            //  margin-right: 10px;
+            //}
           }
 
           .text {
-            width: 120px;
+            width: 263px;
+            font-size: 15px;
             @include ellipsis;
 
-            @include for-big-desktop {
-              width: 200px;
-            }
+            //@include for-big-desktop {
+            //  width: 200px;
+            //}
           }
         }
 
         .level {
           width: 47px;
+          font-size: 15px;
           justify-content: center;
         }
 
         .xp {
-          width: 115px;
+          width: 116px;
+          font-size: 15px;
           justify-content: flex-end;
 
-          @include for-big-desktop {
-            width: 156px;
-          }
+          //@include for-big-desktop {
+          //  width: 156px;
+          //}
         }
       }
+    }
+  }
+
+  .button-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+
+    .modal-buttons-bar {
+      bottom: 25px;
     }
   }
 }

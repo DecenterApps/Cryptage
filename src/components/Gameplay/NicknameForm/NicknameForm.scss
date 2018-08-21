@@ -3,72 +3,134 @@
 
 .nickname-form-wrapper {
   flex-grow: 1;
+  text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  height: 100%;
+  @media (min-height: 900px) {
+    margin-top: -10vh;
+  }
+
+  > div {
+    margin: 0 auto;
+  }
+
+  .logo-wrapper {
+    display: block !important;
+    min-height: 105px;
+    margin-bottom: 20px;
+  }
+
+  .form-description-title {
+    font-family: $font-secondary;
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+    color: white;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  .metamask-warning {
+    font-family: $font-secondary;
+    padding: 2px;
+    font-size: 13px;
+    position: relative;
+    width: 360px;
+    color: #A4A4A4;
+    &:before {
+      content: '';
+      display: block;
+      height: 40px;
+      width: 100%;
+      left: 0;
+      top: 0;
+      background: linear-gradient(to bottom, $yellow, rgba($yellow, 0));
+      position: absolute;
+    }
+    &:after {
+      content: '';
+      display: block;
+      height: 40px;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba($yellow, 0), $yellow);
+      position: absolute;
+    }
+    .metamask-warning-inner {
+      z-index: 1;
+      position: relative;
+      background: linear-gradient(to bottom, #0D1121 10%, rgba(13, 17, 33, 255) 50%, #0D1121 90%);
+      padding: 25px 35px 5px;
+      p > a {
+        color: white;
+        text-decoration: none;
+      }
+      h3 {
+        color: $yellow;
+        text-transform: uppercase;
+        font-weight: normal;
+        cursor: pointer;
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+    }
+  }
 
   .content {
-    width: 253px;
-    margin-top: 65px;
+    width: 290px;
 
-    @include for-big-desktop {
-      width: 330px;
-      margin-top: 95px;
-    }
+    //@include for-big-desktop {
+    //  width: 330px;
+    //  margin-top: 95px;
+    //}
 
-    .form-description-title, .form-description {
+    .form-description {
       font-family: $font-primary;
-      font-style: normal;
       font-weight: bold;
-      font-size: 12px;
-      text-align: center;
-      color: #FFFFFF;
-
-      @include for-big-desktop {
-        font-size: 15px;
-      }
-    }
-
-    .form-description-title {
       font-size: 14px;
+      letter-spacing: .02em;
+      color: white;
+      line-height: 1.5em;
 
-      @include for-big-desktop {
-        font-size: 17px;
-      }
-    }
-
-    .form-label {
-      color: #fff;
-      text-shadow: $text-shadow-prime;
-      font-size: 23px;
-      text-transform: uppercase;
-      font-family: $font-secondary;
-      text-align: center;
-
-      @include for-big-desktop {
-        font-size: 30px;
-        white-space: nowrap;
-      }
+      //@include for-big-desktop {
+      //  font-size: 15px;
+      //}
     }
 
     form.form-wrapper {
-      margin-top: 6px;
       position: relative;
+      width: 225px;
+      margin: 30px auto 0;
 
       .form-item-wrapper {
         margin-bottom: 0;
 
         .form-item {
-          height: 44px;
-          border: none;
-          background: none;
+          height: 36px;
+          border: 0;
+          border-bottom: 1px solid #7B77D2;
+          outline: 0;
           padding: 0 35px 0 5px;
-          border-bottom: 1px solid $purple;
-          font-size: 23px;
-          outline: auto;
-
-          color: $yellow;
-          text-shadow: $text-shadow-prime;
+          background: transparent;
+          color: white;
+          border-radius: 0;
         }
+      }
+      label {
+        text-align: center;
+        opacity: .3;
+        color: white;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -25px;
+        font-family: $font-primary;
+        font-weight: bold;
       }
 
       .arrow-right-wrapper {
@@ -97,12 +159,47 @@
 
     .form-bottom-box {
       height: 58px;
-      width: 100%;
+      width: 225px;
+      margin: 0 auto;
       background: $background-purple-gradient;
 
-      @include for-big-desktop {
-        height: 75px;
-      }
+      //@include for-big-desktop {
+      //  height: 75px;
+      //}
     }
+  }
+
+  .bg {
+    position: fixed;
+    width: 100%;
+    height: 200px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(#12172E, 0), #12172E);
+    pointer-events: none;
+    &:after,
+    &:before {
+      content: '';
+      position: fixed;
+      pointer-events: none;
+      height: 90vh;
+      width: 40vw;
+      bottom: 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+
+    &:after {
+      right: 0;
+      background-position: right bottom;
+      background-image: url('./nickname-bg-right.png');
+    }
+    &:before {
+      left: 0;
+      background-position: left bottom;
+      background-image: url('./nickname-bg-left.png');
+    }
+
   }
 }

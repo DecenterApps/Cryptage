@@ -5,7 +5,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: $font-secondary;
 }
 
 html {
@@ -27,7 +27,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .loading-wrapper {
@@ -43,10 +43,10 @@ body {
     transform: scale(2);
     margin-bottom: 25px;
 
-    @include for-big-desktop {
-      transform: scale(2.5);
-      margin-bottom: 40px;
-    }
+    //@include for-big-desktop {
+    //  transform: scale(2.5);
+    //  margin-bottom: 40px;
+    //}
   }
   .show-delayed {
     color: white;
@@ -54,9 +54,9 @@ body {
     margin: 1em;
     animation: fade-in 3s;
 
-    @include for-big-desktop {
-      font-size: 32px;
-    }
+    //@include for-big-desktop {
+    //  font-size: 32px;
+    //}
 
     @keyframes fade-in {
       0% { opacity: 0; }
@@ -68,29 +68,16 @@ body {
 
 .app-wrapper {
   position: relative;
-  box-shadow: 0 0 24px #36265F;
   width: 1000px;
   max-width: 1000px;
   height: 620px;
   margin: auto;
-  background: url("./game-background.png") center center no-repeat;
-  background-size: cover;
 
-  @include for-big-desktop {
-    width: 1415px;
-    max-width: 1415px;
-    height: 896px;
-  }
-
-  &.no-acc {
-    background: none;
-    box-shadow: none;
-
-    .app-top-section-wrapper .logo-wrapper {
-      left: 295px;
-      top: 20px;
-    }
-  }
+  //@include for-big-desktop {
+  //  width: 1415px;
+  //  max-width: 1415px;
+  //  height: 896px;
+  //}
 
   .app-error {
     position: fixed;
@@ -108,25 +95,19 @@ body {
     position: relative;
     display: flex;
     height: 100%;
+  }
+}
 
-    .logo-wrapper {
-      position: absolute;
-      width: 417px;
-      height: 105px;
-      top: -115px;
-      left: 291px;
-      z-index: 200;
-      background: url("./logo.png") center center no-repeat;
-      background-size: cover;
+.logo-wrapper {
+  width: 417px;
+  height: 105px;
+  left: 291px;
+  z-index: 200;
+  background: url("./logo.png") center center no-repeat;
+  background-size: cover;
 
-      @include for-big-desktop {
-        display: none;
-      }
-
-      @media (max-height: 800px) {
-        display: none;
-      }
-    }
+  @media (max-height: 800px) {
+    display: none;
   }
 }
 

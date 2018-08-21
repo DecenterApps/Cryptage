@@ -38,12 +38,58 @@ const EmptyCardSlot = ({
         ${(card && goodCardType && !canDrop) && 'no-drop'}
       `}
     >
-      <div className="inner-empty-slot">
-        {
-          card && goodCardType &&
-          <div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div>
-        }
-      </div>
+      {/*<div className="inner-empty-slot">*/}
+        {/*{*/}
+          {/*card && goodCardType &&*/}
+          {/*<div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div>*/}
+        {/*}*/}
+      {/*</div>*/}
+      <svg>
+        <defs>
+          <linearGradient
+            id="empty-slot-border-gradient"
+            y1="0%"
+            y2="100%"
+            x1="0%"
+            x2="0%"
+          >
+            <stop
+              offset="0%"
+              style={{ stopColor: '#6E6CBC' }}
+            />
+            <stop
+              offset="100%"
+              style={{ stopColor: 'rgba(110, 108, 168, .3)' }}
+            />
+          </linearGradient>
+          <linearGradient
+            id="empty-slot-fill-gradient"
+            y1="70%"
+            y2="30%"
+            x1="0%"
+            x2="100%"
+          >
+            <stop
+              offset="0%"
+              style={{ stopColor: 'rgba(47, 25, 104, .3)' }}
+            />
+            <stop
+              offset="50%"
+              style={{ stopColor: 'rgba(47, 25, 104, .4)' }}
+            />
+            <stop
+              offset="100%"
+              style={{ stopColor: 'rgba(21, 8, 54, .4)' }}
+            />
+          </linearGradient>
+        </defs>
+        <polygon
+          className="empty-slot-border-gradient"
+          points="8,0 100,0 100,134 92,142 0,142 0,8"
+          stroke="url(#empty-slot-border-gradient)"
+          fill="url(#empty-slot-fill-gradient)"
+        />
+      </svg>
     </div>
   );
 };

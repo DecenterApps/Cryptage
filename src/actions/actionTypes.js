@@ -127,3 +127,22 @@ export const FETCH_LEADERBOARD_DATA_SUCCESS = 'fetch_leaderboard_data_success';
 export const FETCH_LEADERBOARD_DATA_ERROR = 'fetch_leaderboard_data_error';
 
 export const TOGGLE_TUTORIAL = 'toggle_tutorial';
+
+export const typeGradients = {
+  misc:       ['#3215E6', 'rgba(49, 20, 230, 0)'],
+  power:      ['#CE060D', 'rgba(206, 5, 13, 0)'],
+  location:   ['#3CC8CC', 'rgba(60, 200, 204, 0)'],
+  person:     ['#9F00C7', 'rgba(95, 38, 79, 0)'],
+  project:    ['#1E9500', 'rgba(30, 149, 0, 0)'],
+  mining:     ['#FF9D14', 'rgba(255, 157, 20, 0)'],
+  container:  ['#75341F', 'rgba(117, 52, 30, 0)'],
+};
+
+
+// delete
+export const rarities = {
+  normal: '#9797FB',
+  blue: '#0086D1',
+  purple: '#9B01C1',
+  gold: '#FF9D14',
+};

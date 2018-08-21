@@ -7,26 +7,36 @@ import HandCard from './HandCard/HandCard';
 import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
 import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
-import { sortTypeGroupByPrice } from '../../services/utils';
+import { compareCategories, sortTypeGroupByPrice } from '../../services/utils';
+import cardsConfig from '../../constants/cards.json';
 
 import './Cards.scss';
 
 class Cards extends Component {
   constructor() {
     super();
-    this.state = {
-      tab: 'all',
-    };
+
+    const tabsToggleMap = {};
+
+    for (const key of cardsConfig.cardTypes) {
+      tabsToggleMap[key.toLowerCase()] = false;
+    }
+    tabsToggleMap.available = true;
+
+    this.state = { tabsToggleMap };
   }
 
   componentDidMount() {
     this.props.usersCardsFetch();
+  }
 
-    const that = this.innerCards;
-    $(that).mousewheel((event, delta) => {
-      that.scrollLeft -= (delta * 25);
-      event.preventDefault();
-    });
+  toggleTabOpen(tabName) {
+    const newState = { ...this.state };
+    const currentActive = Object.keys(newState.tabsToggleMap).find(t => newState.tabsToggleMap[t]);
+    if (currentActive === tabName) return false;
+    newState.tabsToggleMap[currentActive] = false;
+    newState.tabsToggleMap[tabName] = !newState.tabsToggleMap[tabName];
+    this.setState(newState);
   }
 
   groupDuplicates(cards) {
@@ -44,53 +54,42 @@ class Cards extends Component {
 
   groupCardsByType(cards) {
     const noDupliactes = this.groupDuplicates(cards);
+    const {
+      getAvailableCards, gameplayView, inGameplayView, locations, projects,
+    } = this.props;
+    let available = getAvailableCards(cards, gameplayView, inGameplayView, locations, projects);
+    available = this.groupDuplicates(available);
+    const starter = { available };
     const grouped = noDupliactes.reduce((_accumulator, item) => {
       const accumulator = { ..._accumulator };
 
       if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
       else accumulator[item.stats.type] = [item];
       return accumulator;
-    }, {});
+    }, starter);
 
-    return Object.values(grouped).map(sortTypeGroupByPrice);
+    const sortedByType = Object.keys(grouped)
+      .sort(compareCategories)
+      .reduce((result, key) => {
+        result[key] = grouped[key];
+        return result;
+      }, {});
+
+    Object.keys(sortedByType)
+      .forEach((key) => {
+        sortedByType[key] = sortTypeGroupByPrice(sortedByType[key]);
+      });
+
+    return sortedByType;
   }
 
   render() {
-    const {
-      cardsFetching, cards, getAvailableCards, gameplayView, inGameplayView, locations, projects,
-      activeLocationIndex,
-    } = this.props;
-
-    const availableCards = getAvailableCards(cards, gameplayView, inGameplayView, locations, projects);
-    const containerAndMinerCards = cards.filter(({ stats }) => stats.type === 'Mining' || stats.type === 'Container');
-    const activeTabCards = cards.filter(card => card.stats.type.toLowerCase() === this.state.tab);
+    const { cardsFetching, cards } = this.props;
+    const playerCards = this.groupCardsByType(cards);
 
     return (
       <div className="cards-wrapper">
-        <div className="card-tabs-wrapper">
-          {
-            [
-              ['all', 'All'],
-              ['available', 'Available'],
-              ['location', 'Locations'],
-              ['person', 'People'],
-              ['project', 'Projects'],
-              ['mining', 'Mining'],
-              ['power', 'Power'],
-              ['misc', 'Miscellaneous'],
-
-            ].map(type => (
-              <div
-                key={type[0]}
-                className={`tab ${this.state.tab === type[0] && 'active'}`}
-                onClick={() => this.setState({ tab: type[0] })}
-              >
-                {type[1]}
-              </div>
-            ))
-          }
-        </div>
-        <div className="cards-inner-wrapper" ref={(e) => { this.innerCards = e; }}>
+        <div className="cards-inner-wrapper">
           {
             cardsFetching &&
             <div className="loading-cards">
@@ -108,39 +107,14 @@ class Cards extends Component {
 
           {
             !cardsFetching && cards.length > 0 &&
-            this.state.tab === 'all' &&
-            this.groupCardsByType(cards).map(type =>
-              <CardsTabGroup key={`${type[0].stats.type}-${type.length}`} type={type} />)
-          }
-
-          {
-            !cardsFetching && cards.length > 0 &&
-            this.state.tab === 'available' &&
-            this.groupCardsByType(availableCards).map(type =>
-              <CardsTabGroup key={`${type[0].stats.type}-${type.length}`} type={type} />)
-          }
-          {
-
-            !cardsFetching && cards.length > 0 &&
-            this.state.tab === 'mining' &&
-            this.groupCardsByType(containerAndMinerCards).map(type =>
-              <CardsTabGroup key={`${type[0].stats.type}-${type.length}`} type={type} />)
-          }
-
-          {
-            !cardsFetching && cards.length > 0 &&
-            this.state.tab !== 'all' &&
-            this.state.tab !== 'available' &&
-            this.state.tab !== 'mining' &&
-            this.groupDuplicates(activeTabCards)
-              .sort((a, b) => a.stats.cost.funds - b.stats.cost.funds)
-              .map(card => (
-                <div key={card.id} className="card-container">
-                  <DragWrapper key={card.id} {...{ card }}>
-                    <HandCard inHand card={card} hoverCentered />
-                  </DragWrapper>
-                </div>
-            ))
+            Object.keys(playerCards).map(type =>
+              <CardsTabGroup
+                toggleTab={() => { this.toggleTabOpen(type.toLowerCase()); }}
+                open={this.state.tabsToggleMap[type.toLowerCase()]}
+                key={`${type}-${playerCards[type].length}`}
+                title={type}
+                cards={playerCards[type]}
+              />)
           }
         </div>
       </div>
