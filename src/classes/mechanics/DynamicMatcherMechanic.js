@@ -1,5 +1,6 @@
 import Mechanic from '../Mechanic';
 import MatcherMechanic from './MatcherMechanic';
+import { transformQuery } from '../matchers';
 
 export default class DynamicMatcherMechanic extends MatcherMechanic {
   constructor(card, locationStat, boostedStat, boostAmount) {
@@ -29,11 +30,10 @@ export default class DynamicMatcherMechanic extends MatcherMechanic {
   }
 
   onPlay(_state) {
-    this.matcher = this.getMatcher();
+    const matcher = transformQuery(this.getQuery());
     const state = this.handleBoostAmountChange(_state, this.card);
 
-    state.subscribe('onPlay', this.matcher, (subscribeState) =>
-      this.handleBoostAmountChange(subscribeState, this.card));
+    state.subscribe('onPlay', matcher, subscribeState => this.handleBoostAmountChange(subscribeState, this.card));
 
     return state;
   }
