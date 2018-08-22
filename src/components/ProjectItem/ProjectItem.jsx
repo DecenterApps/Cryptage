@@ -119,7 +119,7 @@ class ProjectItem extends Component {
               <div
                 className="project-pill-close"
                 onClick={() => {
-                  openConfirmRemoveModal(undefined, undefined, undefined, undefined, card, index);
+                  openConfirmRemoveModal(slot, undefined, undefined, undefined, card, index);
                 }}
               >
                 <DropCardIcon />

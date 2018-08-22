@@ -150,7 +150,7 @@ export default class Card extends Subscriber {
 
     Object.assign(result, this._can('canPlay', state, dropSlot));
 
-    return result;
+    return mergeErrorMessages(result);
   }
 
   onPlay(state, dropSlot) {
