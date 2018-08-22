@@ -73,7 +73,7 @@ ContainerItem.propTypes = {
   containerIndex: PropTypes.number.isRequired,
   slot: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  // blockNumber: PropTypes.number.isRequired,
+  blockNumber: PropTypes.number.isRequired,
   dragItem: PropTypes.object,
 };
 
@@ -81,7 +81,7 @@ const mapStateToProps = ({ gameplay }) => ({
   gameplay,
   projects: [...gameplay.projectSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
-  // blockNumber: gameplay.blockNumber,
+  blockNumber: gameplay.blockNumber,
 });
 
 export default connect(mapStateToProps)(ContainerItem);

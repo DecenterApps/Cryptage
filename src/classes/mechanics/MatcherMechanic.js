@@ -1,4 +1,5 @@
 import Mechanic from '../Mechanic';
+import { transformQuery } from '../matchers';
 
 export default class MatcherMechanic extends Mechanic {
   constructor(card) {
@@ -8,8 +9,8 @@ export default class MatcherMechanic extends Mechanic {
     this.boostedStat = null;
   }
 
-  getMatcher() {
-    return () => null;
+  getQuery() {
+    return null;
   }
 
   createChangeBonus(num) {
@@ -18,9 +19,10 @@ export default class MatcherMechanic extends Mechanic {
 
   changeBonusForDroppedMatchedCards(_state, num) {
     let state = _state;
+    const matcher = transformQuery(this.getQuery());
 
     state.cards.forEach((card) => {
-      if (this.matcher(card)) {
+      if (matcher(card)) {
         state = card.changeBonuses(state, this.createChangeBonus(num));
       }
     });
@@ -33,10 +35,11 @@ export default class MatcherMechanic extends Mechanic {
   }
 
   onPlay(_state) {
-    this.matcher = this.getMatcher();
+    const matcher = transformQuery(this.getQuery());
+
     const state = this.changeBonusForDroppedMatchedCards(_state, this.boostAmount);
 
-    state.subscribe('onPlay', this.matcher, (subscribeState, matchedCard) =>
+    state.subscribe('onPlay', matcher, (subscribeState, matchedCard) =>
       this.singleCardChangeBonus(matchedCard, subscribeState, this.boostAmount));
 
     return state;
