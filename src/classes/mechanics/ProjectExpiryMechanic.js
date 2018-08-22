@@ -6,6 +6,10 @@ export default class ProjectExpiryMechanic extends Mechanic {
     return { projectActive: !this.card.running };
   }
 
+  onPlay(state) {
+    this.card.expiryTime = state.blockNumber + this.card.cost.time;
+  }
+
   block(state, blockNumber) {
     const blocksLeft = calcExpiryBlocksLeft(this.card, blockNumber, state.projectExecutionTimePercent);
 
