@@ -39,7 +39,7 @@ class LargeCard extends Component {
         onMouseEnter={() => {
           if (!removeNew) return;
 
-          removeNewCardOnHover(card.metadataId);
+          if (card.newCard) removeNewCardOnHover(card.metadataId);
         }}
       >
 

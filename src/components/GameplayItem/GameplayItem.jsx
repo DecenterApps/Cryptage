@@ -10,8 +10,19 @@ import './GameplayItem.scss';
 class GameplayItem extends Component {
   constructor() {
     super();
-
+    this.state = { show: false };
     this.goToContainer = this.goToContainer.bind(this);
+    this.toggleFundsStat = this.toggleFundsStat.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.blockNumber === this.props.blockNumber) return false;
+    this.toggleFundsStat();
+    setTimeout(this.toggleFundsStat, 2000);
+  }
+
+  toggleFundsStat() {
+    this.setState({ show: !this.state.show });
   }
 
   /**
@@ -31,6 +42,8 @@ class GameplayItem extends Component {
       dragItem, locations, gameplay,
     } = this.props;
 
+    let fpb = card.getBonusStatValue('fundsPerBlock');
+
     let remainingSlots = null;
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card).allowed;
@@ -41,6 +54,17 @@ class GameplayItem extends Component {
 
     if (isContainer) {
       remainingSlots = card.dropSlots.filter(({ card }) => card === null).length;
+
+      let fpc = [];
+      for (let i of card.dropSlots) {
+        if (!i.card) {
+          fpc.push(0);
+        } else {
+          fpc.push(i.card.getBonusStatValue('fundsPerBlock'));
+        }
+      }
+
+      fpb = fpc.reduce((a, b) => a + b, 0)
 
       if (isDragMiner) {
         canDropMiner = card.dropSlots.reduce((_acc, dropSlot) => {
@@ -71,11 +95,11 @@ class GameplayItem extends Component {
         {
           !isContainer &&
           <div className="asset-card-wrapper">
-            {/*{*/}
-              {/*this.state.show &&*/}
-              {/*(fpb > 0) &&*/}
-              {/*<div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
-            {/*}*/}
+            {
+              this.state.show &&
+              (fpb > 0) &&
+              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+            }
 
             <IngameCard
               showCount={false}
@@ -96,11 +120,11 @@ class GameplayItem extends Component {
               ${isDragMiner && !canDropMiner && 'no-drop-miner'}
             `}
           >
-            {/*{*/}
-              {/*this.state.show &&*/}
-              {/*(fpb > 0) &&*/}
-              {/*<div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
-            {/*}*/}
+            {
+              this.state.show &&
+              (fpb > 0) &&
+              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+            }
 
             <IngameCard
               goToContainer={() => { this.goToContainer(isContainer); }}
@@ -135,12 +159,14 @@ GameplayItem.propTypes = {
   locations: PropTypes.array.isRequired,
   slot: PropTypes.object.isRequired,
   dragItem: PropTypes.object,
+  blockNumber: PropTypes.number.isRequired
 };
 
-const mapStateToProps = ({ gameplay /* app */ }) => ({
+const mapStateToProps = ({ gameplay }) => ({
   gameplay,
   activeLocationIndex: gameplay.activeLocationIndex,
   locations: [...gameplay.locationSlots],
+  blockNumber: gameplay.blockNumber
 });
 
 const mapDispatchToProps = {

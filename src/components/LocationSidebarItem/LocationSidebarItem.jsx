@@ -18,12 +18,23 @@ class LocationSidebarItem extends Component {
   constructor() {
     super();
 
-    this.state = { showPortal: false };
+    this.state = { showPortal: false, show: false };
 
     this.togglePortal = this.togglePortal.bind(this);
+    this.toggleFundsStat = this.toggleFundsStat.bind(this);
   }
 
   togglePortal(showOrHide) { this.setState({ showPortal: showOrHide }); }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.blockNumber === this.props.blockNumber) return false;
+    this.toggleFundsStat();
+    setTimeout(this.toggleFundsStat, 2000);
+  }
+
+  toggleFundsStat() {
+    this.setState({ show: !this.state.show });
+  }
 
   render() {
     const { togglePortal } = this;
@@ -32,6 +43,28 @@ class LocationSidebarItem extends Component {
       card, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
       gameplay, dragItem, draggingCard,
     } = this.props;
+
+    let fpc = [];
+    for (let i of card.dropSlots) {
+      if (!i.card) {
+        fpc.push(0);
+      } else if (i.card.constructor.name === 'ContainerCard') {
+        let ccf = [];
+        let containerCard = i.card;
+        for (let i of containerCard.dropSlots) {
+          if (!i.card) {
+            ccf.push(0);
+          } else {
+            ccf.push(i.card.getBonusStatValue('fundsPerBlock'));
+          }
+        }
+        let sum = ccf.reduce((a, b) => a + b, 0)
+        fpc.push(sum)
+      } else if (i.card.constructor.name === 'Card') {
+        fpc.push(i.card.getBonusStatValue('fundsPerBlock'));
+      }
+    }
+    let fpb = fpc.reduce((a, b) => a + b, 0);
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card).allowed;
@@ -55,12 +88,11 @@ class LocationSidebarItem extends Component {
           </PortalWrapper>
         }
 
-        {/*{*/}
-          {/*(activeLocationIndex !== index) &&*/}
-          {/*(fpb > 0) &&*/}
-          {/*this.state.show &&*/}
-          {/*<div className="fpb">+ {fpb} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>*/}
-        {/*}*/}
+        {
+          (fpb > 0) &&
+          this.state.show &&
+          <div className="fpb" style={ { textAlign: (activeLocationIndex === index) ? 'right' : '' } }>+ {fpb} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>
+        }
 
         {
           !active &&

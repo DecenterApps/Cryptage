@@ -38,7 +38,7 @@ class HandCard extends Component {
       <div
         className={`card-details type-${card.type.toLowerCase()}`}
         onMouseEnter={() => {
-          removeNewCardOnHover(card.metadataId);
+          if (card.newCard) removeNewCardOnHover(card.metadataId);
           togglePortal(true);
         }}
         onMouseLeave={() => { togglePortal(false); }}

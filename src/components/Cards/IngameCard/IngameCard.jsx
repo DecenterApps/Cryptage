@@ -40,7 +40,7 @@ class IngameCard extends Component {
       <div
         className={`ingame-card-details type-${card.type.toLowerCase()}`}
         onMouseEnter={() => {
-          removeNewCardOnHover(card.metadataId);
+          if (card.newCard) removeNewCardOnHover(card.metadataId);
         }}
         onClick={(e) => {
           if (card.type === 'Container' && played && goToContainer) goToContainer(e);

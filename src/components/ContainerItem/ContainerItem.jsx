@@ -6,32 +6,28 @@ import IngameCard from '../Cards/IngameCard/IngameCard';
 import './ContainerItem.scss';
 
 class ContainerItem extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = { show: false };
-  //
-  //   this.toggleFundsStat = this.toggleFundsStat.bind(this);
-  // }
-  //
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.blockNumber === this.props.blockNumber) return;
-  //
-  //   this.toggleFundsStat();
-  //   setTimeout(this.toggleFundsStat, 2000);
-  // }
-  //
-  // /**
-  //  * Shows or hides funds stats per block
-  //  */
-  // toggleFundsStat() {
-  //   this.setState({ show: !this.state.show });
-  // }
+  constructor() {
+    super();
+    this.state = { show: false };
+    this.toggleFundsStat = this.toggleFundsStat.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.blockNumber === this.props.blockNumber) return false;
+    this.toggleFundsStat();
+    setTimeout(this.toggleFundsStat, 2000);
+  }
+
+  toggleFundsStat() {
+    this.setState({ show: !this.state.show });
+  }
 
   render() {
     const {
-      index, card, locationIndex, containerIndex, slot, dragItem, gameplay,
+      index, card, locationIndex, containerIndex, slot, dragItem, gameplay
     } = this.props;
-    // const fpb = card.funds;
+
+    const fpb = card.getBonusStatValue('fundsPerBlock');
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card);
@@ -43,10 +39,11 @@ class ContainerItem extends Component {
         ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
       `}
       >
-        {/*{*/}
-          {/*this.state.show && <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>*/}
-        {/*}*/}
-
+        {
+          this.state.show &&
+          (fpb > 0) &&
+          <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+        }
         <IngameCard
           showCount={false}
           played
@@ -73,7 +70,7 @@ ContainerItem.propTypes = {
   containerIndex: PropTypes.number.isRequired,
   slot: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  // blockNumber: PropTypes.number.isRequired,
+  blockNumber: PropTypes.number.isRequired,
   dragItem: PropTypes.object,
 };
 
@@ -81,7 +78,7 @@ const mapStateToProps = ({ gameplay }) => ({
   gameplay,
   projects: [...gameplay.projectSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
-  // blockNumber: gameplay.blockNumber,
+  blockNumber: gameplay.blockNumber,
 });
 
 export default connect(mapStateToProps)(ContainerItem);

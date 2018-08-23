@@ -10,7 +10,7 @@ const DropSlotsWrapper = props => (
     {
       props.dropSlots.map((slot, index) => (
         <DropSlotWrapper
-          key={guid()}
+          key={index.toString() + (slot.card && slot.card.id)}
           slot={slot}
           accepts={slot.acceptedTags}
           // slotType={slot.slotType}
