@@ -11,7 +11,7 @@ export default class Card2ProjectStatBonus extends MatcherMechanic {
   }
 
   getQuery() {
-    return [{ type: 'Project' }, { metadataId: this.cardToGiveToMetaId }];
+    return [{ type: 'Project' }, { metadataId: this.cardToGiveToMetaId.toString() }];
   }
 }
 

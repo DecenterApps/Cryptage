@@ -14,7 +14,7 @@ export default class ProjectCard extends Card {
       power: 0,
     };
 
-    this.running = true;
+    this.running = false;
     this.expiryTime = null;
     this.timesFinished = 0;
 

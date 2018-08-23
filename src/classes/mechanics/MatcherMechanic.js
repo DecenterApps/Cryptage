@@ -39,9 +39,10 @@ export default class MatcherMechanic extends Mechanic {
 
     const state = this.changeBonusForDroppedMatchedCards(_state, this.boostAmount);
 
-    const onSubscribedEvent = (subscribeState, matchedCard) => this.singleCardChangeBonus(matchedCard, subscribeState, this.boostAmount); // eslint-disable-line
+    const onSubscribedEvent = (subscribeState, matchedCard, num) => this.singleCardChangeBonus(matchedCard, subscribeState, num); // eslint-disable-line
 
-    this.card.subscribe(state, 'onPlay', matcher, onSubscribedEvent);
+    this.card.subscribe(state, 'onPlay', matcher, (ss, mc) => onSubscribedEvent(ss, mc, this.boostAmount));
+    this.card.subscribe(state, 'onWithdraw', matcher, (ss, mc) => onSubscribedEvent(ss, mc, -this.boostAmount));
 
     return state;
   }
