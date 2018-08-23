@@ -22,7 +22,7 @@ export default class MatcherMechanic extends Mechanic {
     const matcher = transformQuery(this.getQuery());
 
     state.cards.forEach((card) => {
-      if (matcher(card)) {
+      if (matcher(card) && (card.id !== this.card.id)) {
         state = card.changeBonuses(state, this.createChangeBonus(num));
       }
     });
@@ -39,8 +39,9 @@ export default class MatcherMechanic extends Mechanic {
 
     const state = this.changeBonusForDroppedMatchedCards(_state, this.boostAmount);
 
-    state.subscribe('onPlay', matcher, (subscribeState, matchedCard) =>
-      this.singleCardChangeBonus(matchedCard, subscribeState, this.boostAmount));
+    const onSubscribedEvent = (subscribeState, matchedCard) => this.singleCardChangeBonus(matchedCard, subscribeState, this.boostAmount); // eslint-disable-line
+
+    this.card.subscribe(state, 'onPlay', matcher, onSubscribedEvent);
 
     return state;
   }

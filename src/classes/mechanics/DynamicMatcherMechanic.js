@@ -33,7 +33,7 @@ export default class DynamicMatcherMechanic extends MatcherMechanic {
     const matcher = transformQuery(this.getQuery());
     const state = this.handleBoostAmountChange(_state, this.card);
 
-    state.subscribe('onPlay', matcher, subscribeState => this.handleBoostAmountChange(subscribeState, this.card));
+    this.card.subscribe('onPlay', matcher, subscribeState => this.handleBoostAmountChange(subscribeState, this.card));
 
     return state;
   }
