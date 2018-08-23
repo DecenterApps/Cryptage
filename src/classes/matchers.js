@@ -1,4 +1,5 @@
 import { getCardTypeConstructor } from './Registry';
+import { isObject } from '../services/utils';
 
 export const isActiveCard = createMatcher({});
 export const isAvailableCard = createMatcher({ active: false });
@@ -116,3 +117,13 @@ export function createMatcher(query) {
     return conjunctive;
   };
 }
+
+export const transformQuery = (query) => {
+  if (Array.isArray(query)) {
+    return combineMatchers(...query);
+  } else if (isObject(query)) {
+    return createMatcher(query);
+  }
+
+  return null;
+};

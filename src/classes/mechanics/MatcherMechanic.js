@@ -1,4 +1,5 @@
 import Mechanic from '../Mechanic';
+import { transformQuery } from '../matchers';
 
 export default class MatcherMechanic extends Mechanic {
   constructor(card) {
@@ -8,8 +9,8 @@ export default class MatcherMechanic extends Mechanic {
     this.boostedStat = null;
   }
 
-  getMatcher() {
-    return () => null;
+  getQuery() {
+    return null;
   }
 
   createChangeBonus(num) {
@@ -18,9 +19,10 @@ export default class MatcherMechanic extends Mechanic {
 
   changeBonusForDroppedMatchedCards(_state, num) {
     let state = _state;
+    const matcher = transformQuery(this.getQuery());
 
     state.cards.forEach((card) => {
-      if (this.matcher(card)) {
+      if (matcher(card) && (card.id !== this.card.id)) {
         state = card.changeBonuses(state, this.createChangeBonus(num));
       }
     });
@@ -33,11 +35,14 @@ export default class MatcherMechanic extends Mechanic {
   }
 
   onPlay(_state) {
-    this.matcher = this.getMatcher();
+    const matcher = transformQuery(this.getQuery());
+
     const state = this.changeBonusForDroppedMatchedCards(_state, this.boostAmount);
 
-    state.subscribe('onPlay', this.matcher, (subscribeState, matchedCard) =>
-      this.singleCardChangeBonus(matchedCard, subscribeState, this.boostAmount));
+    const onSubscribedEvent = (subscribeState, matchedCard, num) => this.singleCardChangeBonus(matchedCard, subscribeState, num); // eslint-disable-line
+
+    this.card.subscribe(state, 'onPlay', matcher, (ss, mc) => onSubscribedEvent(ss, mc, this.boostAmount));
+    this.card.subscribe(state, 'onWithdraw', matcher, (ss, mc) => onSubscribedEvent(ss, mc, -this.boostAmount));
 
     return state;
   }

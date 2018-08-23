@@ -1,5 +1,4 @@
 import Mechanic from '../Mechanic';
-import { createMatcher } from '../matchers';
 import DynamicMatcherMechanic from './DynamicMatcherMechanic';
 
 export default class CardNumStatMultiplier extends DynamicMatcherMechanic {
@@ -20,8 +19,8 @@ export default class CardNumStatMultiplier extends DynamicMatcherMechanic {
     return this.getNumOfActiveObserverCards(state) * this.timesMultiplier;
   }
 
-  getMatcher() {
-    return createMatcher({ metadataId: this.observedCardId });
+  getQuery() {
+    return { metadataId: this.observedCardId };
   }
 }
 

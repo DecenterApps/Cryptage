@@ -1,4 +1,3 @@
-import { combineMatchers, createMatcher, isProjectCard } from '../matchers';
 import MatcherMechanic from './MatcherMechanic';
 import Mechanic from '../Mechanic';
 
@@ -11,9 +10,8 @@ export default class Card2ProjectStatBonus extends MatcherMechanic {
     this.boostAmount = boostAmount;
   }
 
-  getMatcher() {
-    const metadataIdMatcher = createMatcher({ metadataId: this.cardToGiveToMetaId });
-    return combineMatchers(isProjectCard, metadataIdMatcher);
+  getQuery() {
+    return [{ type: 'Project' }, { metadataId: this.cardToGiveToMetaId.toString() }];
   }
 }
 

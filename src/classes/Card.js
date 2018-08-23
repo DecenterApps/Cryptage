@@ -87,6 +87,10 @@ export default class Card extends Subscriber {
     for (const stat of Object.keys(bonusesObject)) {
       this.additionalBonuses[stat].absolute += bonusesObject[stat].absolute;
       this.additionalBonuses[stat].relative += bonusesObject[stat].relative;
+
+      if (this.additionalBonuses[stat].relative > 100) {
+        this.additionalBonuses[stat].relative = 100;
+      }
     }
 
     return this._on('onAfterChangeBonuses', state);
@@ -97,7 +101,7 @@ export default class Card extends Subscriber {
     const absBonus = this.additionalBonuses[stat].absolute;
     const relativeBonus = this.additionalBonuses[stat].relative;
 
-    return (baseBonus + absBonus) * (1 + relativeBonus);
+    return Math.floor(((baseBonus + absBonus) * (100 + relativeBonus)) / 100);
   }
 
   addNewDropSlot(SlotType = CardSlot) {
@@ -146,7 +150,7 @@ export default class Card extends Subscriber {
 
     Object.assign(result, this._can('canPlay', state, dropSlot));
 
-    return result;
+    return mergeErrorMessages(result);
   }
 
   onPlay(state, dropSlot) {

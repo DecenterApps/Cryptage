@@ -17,8 +17,8 @@ export default class StatForUnspentLocationVal extends DynamicMatcherMechanic {
     return this.card.parent[this.locationStat] * this.boostAmount;
   }
 
-  getMatcher() {
-    return createMatcher({ id: this.card.parent.id });
+  getQuery() {
+    return { id: this.card.parent.id };
   }
 }
 

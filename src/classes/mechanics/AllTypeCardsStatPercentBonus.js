@@ -1,6 +1,5 @@
 import Mechanic from '../Mechanic';
 import MatcherMechanic from './MatcherMechanic';
-import { createMatcher } from '../matchers';
 
 export default class AllTypeCardsStatPercentBonus extends MatcherMechanic {
   constructor(card, cardType, boostedStat, boostPercent) {
@@ -11,8 +10,8 @@ export default class AllTypeCardsStatPercentBonus extends MatcherMechanic {
     this.boostAmount = boostPercent;
   }
 
-  getMatcher() {
-    return createMatcher({ cardType: this.cardType });
+  getQuery() {
+    return { type: this.cardType };
   }
 
   createChangeBonus(num) {
