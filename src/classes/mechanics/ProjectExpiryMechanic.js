@@ -33,6 +33,12 @@ export default class ProjectExpiryMechanic extends Mechanic {
 
     return state;
   }
+
+  onWithdraw(state) {
+    this.unsubscribeAll();
+    this.card.timesFinished = 0;
+    return state;
+  }
 }
 
 Mechanic.registerMechanic('projectExpiry', ProjectExpiryMechanic);
