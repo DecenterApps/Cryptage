@@ -97,7 +97,10 @@ export const toggleCardDrag = payload => (dispatch) => {
  *
  * @param {Boolean} payload
  */
-export const resetGame = () => (dispatch) => {
+export const resetGame = () => async (dispatch) => {
+
+  const account = await ethService.getAccount();
+  localStorage.removeItem('cryptage-' + account);
   dispatch({ type: CLEAR_STORE });
 };
 

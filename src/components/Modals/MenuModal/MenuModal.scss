@@ -87,5 +87,18 @@
         //}
       }
     }
+    &.reset-confirmation {
+      & .title {
+        display: block;
+        text-align: center;
+        font-size: 20px;
+        margin: 10px 0;
+      }
+      & .links {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
+      }
+    }
   }
 }
