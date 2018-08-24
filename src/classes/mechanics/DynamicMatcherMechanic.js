@@ -3,43 +3,50 @@ import MatcherMechanic from './MatcherMechanic';
 import { transformQuery } from '../matchers';
 
 export default class DynamicMatcherMechanic extends MatcherMechanic {
-  constructor(card, locationStat, boostedStat, boostAmount) {
+  constructor(card) {
     super(card);
 
     this.lastBoostAmount = null;
   }
 
-  // classes that extend this one have to have a getBoostAmount method
-  // has to have a boost amount that depends on other variables
-  // Example method:
-  // getBoostAmount(state) {
-  //   return this.boostAmount * (Math.floor(Math.random() * 6) + 1);
-  // }
+  /**
+   * Classes that extend this one have to have a getBoostAmount method
+   * has to have a boost amount that depends on other variables
+   *
+   * @param {Object} state
+   * @return {Number}
+   */
+  getBoostAmount(state) {
+    return 0;
+  }
 
-  handleBoostAmountChange(_state, card) {
+  handleBoostAmountChange(_state, action, matchedCard) {
+    if (action === 'withdraw' && matchedCard.id === this.card.id) return _state;
     let state = _state;
     const boostAmount = this.getBoostAmount(state);
 
     if (boostAmount === this.lastBoostAmount) return state;
 
-    state = this.singleCardChangeBonus(card, state, -this.lastBoostAmount);
+    if (this.lastBoostAmount > 0) this.singleCardChangeBonus(this.card, state, -this.lastBoostAmount);
     this.lastBoostAmount = boostAmount;
-    state = this.singleCardChangeBonus(card, state, this.lastBoostAmount);
+    state = this.singleCardChangeBonus(this.card, state, this.lastBoostAmount);
 
     return state;
   }
 
-  onPlay(_state) {
+  onPlay(state) {
+    this.lastBoostAmount = 0;
     const matcher = transformQuery(this.getQuery());
-    const state = this.handleBoostAmountChange(_state, this.card);
 
-    this.card.subscribe('onPlay', matcher, subscribeState => this.handleBoostAmountChange(subscribeState, this.card));
+    this.card.subscribe(state, 'onPlay', matcher, ss => this.handleBoostAmountChange(ss, 'play'));
+    this.card.subscribe(state, 'onWithdraw', matcher, (ss, mc) => this.handleBoostAmountChange(ss, 'withdraw', mc));
 
     return state;
   }
 
   onWithdraw(state) {
-    return this.singleCardChangeBonus(this.card, state, -this.lastBoostAmount);
+    this.singleCardChangeBonus(this.card, state, -this.lastBoostAmount);
+    return state;
   }
 }
 

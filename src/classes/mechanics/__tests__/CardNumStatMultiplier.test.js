@@ -6,7 +6,7 @@ import LocationCard from '../../cardTypes/Location';
 
 describe('CardNumStatMultiplier', () => {
   it('Bonus equals the number of observed card occurrences times multiplier', async () => {
-    const observedCardId = 36;
+    const observedCardId = '36';
     const stat = 'development';
     const timesMultiplier = 2;
     const baseBonus = 100;

@@ -169,6 +169,7 @@ export default class Card extends Subscriber {
   }
 
   onWithdraw(state) {
+    this.withdrawing = true;
     let newState = this._on('onWithdraw', state);
 
     this.additionalBonuses = {
@@ -193,6 +194,7 @@ export default class Card extends Subscriber {
 
     this.stackedCards = [this];
 
+    this.withdrawing = false;
     return newState;
   }
 

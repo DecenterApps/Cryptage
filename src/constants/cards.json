@@ -1399,7 +1399,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 15% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1444,7 +1444,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1489,7 +1489,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 25% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1534,7 +1534,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 10% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 30% bonus DEV.",
         "rarityScore": "700",
         "tags": [
           "asset"
@@ -1622,7 +1622,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 11%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1665,7 +1665,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 12%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1708,7 +1708,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 13%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1751,7 +1751,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 10%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 14%.",
         "rarityScore": "325",
         "tags": [
           "asset"
@@ -1817,7 +1817,7 @@
         "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 2,
-        "mechanicsText": "Gain 10 FUNDS each block.",
+        "mechanicsText": "Gain 15 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1849,7 +1849,7 @@
         "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 3,
-        "mechanicsText": "Gain 10 FUNDS each block.",
+        "mechanicsText": "Gain 20 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1881,7 +1881,7 @@
         "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 4,
-        "mechanicsText": "Gain 10 FUNDS each block.",
+        "mechanicsText": "Gain 25 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -1913,7 +1913,7 @@
         "flavorText": "Code is law. And I break the code.",
         "image": "black-hat-hacker.jpg",
         "level": 5,
-        "mechanicsText": "Gain 10 FUNDS each block.",
+        "mechanicsText": "Gain 30 FUNDS each block.",
         "rarityScore": "725",
         "tags": [
           "asset"
@@ -3146,7 +3146,7 @@
             ]
           }
         ],
-        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
+        "mechanicsText": "Permanently increases FPB by 2. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3186,7 +3186,7 @@
             ]
           }
         ],
-        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
+        "mechanicsText": "Permanently increases FPB by 3. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3226,7 +3226,7 @@
             ]
           }
         ],
-        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
+        "mechanicsText": "Permanently increases FPB by 4. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3266,7 +3266,7 @@
             ]
           }
         ],
-        "mechanicsText": "Permanently increases FPB by 1. Time to complete: 40 blocks.",
+        "mechanicsText": "Permanently increases FPB by 5. Time to complete: 40 blocks.",
         "rarityScore": "950",
         "tags": [
           "project"
@@ -3352,7 +3352,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 6%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3394,7 +3394,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 7%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3436,7 +3436,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 8%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3478,7 +3478,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 9%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3742,7 +3742,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 170 FUNDS per CPU and 510 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3792,7 +3792,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 190 FUNDS per CPU and 570 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3842,7 +3842,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 210 FUNDS per CPU and 630 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -3892,7 +3892,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 150 FUNDS per CPU and 450 FUNDS per GPU played. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 230 FUNDS per CPU and 690 FUNDS per GPU played. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4148,7 +4148,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 4% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4189,7 +4189,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 6% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4230,7 +4230,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 8% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4271,7 +4271,7 @@
             ]
           }
         ],
-        "mechanicsText": "Gains 2% of total FUNDS. Time to complete: 2000 blocks.",
+        "mechanicsText": "Gains 10% of total FUNDS. Time to complete: 2000 blocks.",
         "rarityScore": "850",
         "tags": [
           "project"
@@ -4353,7 +4353,7 @@
             ]
           }
         ],
-        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 4%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4393,7 +4393,7 @@
             ]
           }
         ],
-        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 6%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4433,7 +4433,7 @@
             ]
           }
         ],
-        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 8%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -4473,7 +4473,7 @@
             ]
           }
         ],
-        "mechanicsText": "Decreases time needed to complete other projects by 2%. Time to complete: 3000 blocks.",
+        "mechanicsText": "Decreases time needed to complete other projects by 10%. Time to complete: 3000 blocks.",
         "rarityScore": "625",
         "tags": [
           "project"
@@ -5759,7 +5759,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 25% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5804,7 +5804,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 30% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5849,7 +5849,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 35% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -5894,7 +5894,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. All developers on the same location gain 20% bonus DEV.",
+        "mechanicsText": "Unique. All developers on the same location gain 40% bonus DEV.",
         "rarityScore": "650",
         "tags": [
           "asset"
@@ -6154,7 +6154,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 6%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6197,7 +6197,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 7%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6240,7 +6240,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 8%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6283,7 +6283,7 @@
             ]
           }
         ],
-        "mechanicsText": "Unique. Decreases time needed to complete projects by 5%.",
+        "mechanicsText": "Unique. Decreases time needed to complete projects by 9%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6369,7 +6369,7 @@
             ]
           }
         ],
-        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
+        "mechanicsText": "Day Trading project gains 2 additional FUNDS per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6411,7 +6411,7 @@
             ]
           }
         ],
-        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
+        "mechanicsText": "Day Trading project gains 3 additional FUNDS per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6453,7 +6453,7 @@
             ]
           }
         ],
-        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
+        "mechanicsText": "Day Trading project gains 4 additional FUNDS per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6495,7 +6495,7 @@
             ]
           }
         ],
-        "mechanicsText": "Day Trading project gains 1 additional FUND per execution.",
+        "mechanicsText": "Day Trading project gains 5 additional FUNDS per execution.",
         "rarityScore": "750",
         "tags": [
           "asset"
@@ -6581,7 +6581,7 @@
             ]
           }
         ],
-        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
+        "mechanicsText": "Prediction Market Participation project gains 4 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6623,7 +6623,7 @@
             ]
           }
         ],
-        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
+        "mechanicsText": "Prediction Market Participation project gains 6 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6665,7 +6665,7 @@
             ]
           }
         ],
-        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
+        "mechanicsText": "Prediction Market Participation project gains 8 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6707,7 +6707,7 @@
             ]
           }
         ],
-        "mechanicsText": "Prediction Market Participation project gains 2 additional FUNDS per execution.",
+        "mechanicsText": "Prediction Market Participation project gains 10 additional FUNDS per execution.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6840,7 +6840,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 6%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6882,7 +6882,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 7%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6924,7 +6924,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 8%.",
         "rarityScore": "600",
         "tags": [
           "asset"
@@ -6966,7 +6966,7 @@
             ]
           }
         ],
-        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 5%.",
+        "mechanicsText": "Boosts mining efficiency for all mining equipement at the current location by 9%.",
         "rarityScore": "600",
         "tags": [
           "asset"
