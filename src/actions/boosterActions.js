@@ -13,7 +13,7 @@ import {
 import { log } from '../services/utils';
 import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
-import { openRevealBoosterCardsModal } from './modalActions';
+import { openRevealBoosterCardsModal, openErrorModal } from './modalActions';
 import sdk from '../services/bitGuildPortalSDK_v0.1';
 
 export const boostersRequest = () => ({
@@ -133,11 +133,15 @@ export const buyBoosterPack = () => async (dispatch, getState) => {
       .then( async (isOnPortal) => {
         if (isOnPortal) {
           console.log('isOnPortal: ', isOnPortal);
+          
           const bitGuildContract  = ethService.getBitGuildContract();
           let balance = Number(await bitGuildContract.methods.balanceOf(account).call());
-
+          
           if (balance === 0) {
-            console.log('Insufficient Funds')
+            dispatch(openErrorModal(
+              'Insufficient Funds',
+              'Please add more PLAT to your wallet.',
+            ));
           } else {
             dispatch(buyBoosterRequest());
             let result = await ethService.buyBoosterBitGuild(account);
@@ -163,7 +167,10 @@ export const buyBoosterPack = () => async (dispatch, getState) => {
         let balance = Number(await ethService.getBalance(account));
 
         if (balance <= 0.001) {
-          console.log('Insufficient Funds')
+          dispatch(openErrorModal(
+            'Insufficient Funds',
+            'Please add more ETH to your wallet.',
+          ));
         } else {
           dispatch(buyBoosterRequest());
           let result = await ethService.buyBooster();
