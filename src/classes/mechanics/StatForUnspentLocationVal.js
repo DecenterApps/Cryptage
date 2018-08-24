@@ -18,7 +18,7 @@ export default class StatForUnspentLocationVal extends DynamicMatcherMechanic {
   }
 
   getQuery() {
-    return { id: this.card.parent.id };
+    return { $op: '||', parent: this.card.parent.id, metadataId: this.card.metadataId.toString() };
   }
 }
 
