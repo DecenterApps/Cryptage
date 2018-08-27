@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formattedNumber } from '../../services/utils';
+import { formattedNumber } from '../../../services/utils';
 
 import './GameplayHeader.scss';
 
