@@ -55,6 +55,7 @@ export default class Card extends Subscriber {
     this.parent = null;
     this.minDropSlots = cardsConfig.locationMinSlots;
     this.minEmptyDropSlots = 2;
+    this.additionalData = {};
 
     this.additionalBonuses = {
       funds: { absolute: 0, relative: 0 },
@@ -179,6 +180,7 @@ export default class Card extends Subscriber {
       fundsPerBlock: { absolute: 0, relative: 0 },
       power: { absolute: 0, relative: 0 },
     };
+    this.additionalData = {};
 
     for (const slot of this.dropSlots) {
       newState = slot.removeCard(newState);
@@ -244,6 +246,8 @@ export default class Card extends Subscriber {
 
     const leveledUp = Card.getLeveledInstance(state, this.id, droppedCard);
     leveledUp.dropSlots = droppedCard.dropSlots;
+    leveledUp.timesFinished = droppedCard.timesFinished;
+    leveledUp.additionalData = droppedCard.additionalData;
     leveledUp.additionalBonuses = droppedCard.additionalBonuses;
     leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
 

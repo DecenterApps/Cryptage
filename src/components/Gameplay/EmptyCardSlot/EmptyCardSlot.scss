@@ -7,12 +7,12 @@
   //border: 1px solid #281F49;
   //padding: 2px;
 
-  &.can-drop {
-    border: 1px solid $empty-slot-can-drop;
+  &.can-drop .empty-slot-border-gradient {
+    stroke: $empty-slot-can-drop;
   }
 
-  &.no-drop {
-    border: 1px solid $red;
+  &.no-drop .empty-slot-border-gradient {
+    stroke: $red;
   }
 
   svg {
