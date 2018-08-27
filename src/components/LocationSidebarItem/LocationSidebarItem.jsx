@@ -91,7 +91,9 @@ class LocationSidebarItem extends Component {
         {
           (fpb > 0) &&
           this.state.show &&
-          <div className="fpb" style={ { textAlign: (activeLocationIndex === index) ? 'right' : '' } }>+ {formattedNumber(fpb)} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>
+          <div className={`fpb
+          
+          ${ (activeLocationIndex === index) ? 'right' : '' }`}>+ {formattedNumber(fpb)} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>
         }
 
         {
