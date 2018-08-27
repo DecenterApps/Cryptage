@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { formattedNumber } from '../../services/utils';
 
 import './GameplayHeader.scss';
 
@@ -16,19 +17,6 @@ const getClassForFont = (maxDev, available) => {
   return 'large';
 };
 
-const formatFunds = (_number) => {
-  const number = parseFloat(_number);
-
-  if (number >= 1000000000000) return `${Math.floor(number / 100000000000) / 10}T`;
-  if (number >= 1000000000) return `${Math.floor(number / 100000000) / 10}B`;
-  if (number >= 1000000) return `${Math.floor(number / 100000) / 10}M`;
-  if (number >= 1000) {
-    const _number = number.toString(10);
-    return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
-  }
-  return number.toString();
-};
-
 const GameplayHeader = ({
   globalStats, nickname, fundsPerBlock, projects, blockNumber,
 }) => {
@@ -42,8 +30,8 @@ const GameplayHeader = ({
     return acc;
   }, 0);
 
-  const formatedFunds = formatFunds(globalStats.funds);
-  const formatedFpb = formatFunds(fundsPerBlock);
+  const formatedFunds = formattedNumber(globalStats.funds);
+  const formatedFpb = formattedNumber(fundsPerBlock);
 
   return (
     <div className="gameplay-header-wrapper">

@@ -5,7 +5,7 @@ import HoverInfo from '../HoverInfo/HoverInfo';
 import { setActiveLocation } from '../../actions/gameplayActions';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { GP_LOCATION } from '../../actions/actionTypes';
-import { classForRarity } from '../../services/utils';
+import { classForRarity, formattedNumber } from '../../services/utils';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import SidebarItemNotActive from './SidebarItemNotActive';
 
@@ -91,7 +91,7 @@ class LocationSidebarItem extends Component {
         {
           (fpb > 0) &&
           this.state.show &&
-          <div className="fpb" style={ { textAlign: (activeLocationIndex === index) ? 'right' : '' } }>+ {fpb} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>
+          <div className="fpb" style={ { textAlign: (activeLocationIndex === index) ? 'right' : '' } }>+ {formattedNumber(fpb)} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>
         }
 
         {

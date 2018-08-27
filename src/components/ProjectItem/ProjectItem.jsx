@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
 import { activateProject } from '../../actions/gameplayActions';
-import { classForRarity, formatBigNumber } from '../../services/utils';
+import { classForRarity, formattedNumber } from '../../services/utils';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
 import { calcExpiryBlocksLeft } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
@@ -74,9 +74,9 @@ class ProjectItem extends Component {
           {
             (card.finishedNow && !isActive && isFinished) &&
             <div className="bonus">
-              { (xpb > 0) && <div>+ { formatBigNumber(xpb) } XP</div> }
-              { (fpb > 0) && <div>+ { formatBigNumber(fpb) } FPB</div> }
-              { (funds > 0) && <div>+ { formatBigNumber(funds) } { funds === 1 ? 'FUND' : 'FUNDS' }</div> }
+              { (xpb > 0) && <div>+ { formattedNumber(xpb) } XP</div> }
+              { (fpb > 0) && <div>+ { formattedNumber(fpb) } FPB</div> }
+              { (funds > 0) && <div>+ { formattedNumber(funds) } { funds === 1 ? 'FUND' : 'FUNDS' }</div> }
             </div>
           }
 
