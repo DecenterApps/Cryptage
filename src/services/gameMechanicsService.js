@@ -3,7 +3,7 @@ import cardsPerLevel from '../constants/cardsPerLevel.json';
 import cardsConfig from '../constants/cards.json';
 import { mergeErrorMessages } from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
-import { ADD_NEW_LEVEL_CARDS } from '../actions/actionTypes';
+import { ADD_NEW_LEVEL_CARDS, GP_LOCATION_CONTAINER } from '../actions/actionTypes';
 import Card from '../classes/Card';
 
 /**
@@ -66,7 +66,7 @@ const getAllowedSlotsLength = (card, slots, gameplay) => {
 
   slots.forEach((slot) => {
     const statsObj = slot.canDrop(gameplay, card);
-    if (statsObj.allowed && Object.keys(statsObj).length > 1) allowedSlots.push(statsObj);
+    if (statsObj.allowed) allowedSlots.push(statsObj);
 
     if (slot.card && slot.card.dropSlots) {
       allowedSlots = allowedSlots.concat(getAllowedSlotsLength(card, slot.card.dropSlots, gameplay));
@@ -76,8 +76,23 @@ const getAllowedSlotsLength = (card, slots, gameplay) => {
   return allowedSlots;
 };
 
-const canPlayCardInAnySlot = (card, locations, projects, gameplay) => {
-  const locAllowed = getAllowedSlotsLength(card, locations, gameplay);
+const getLocSlots = (gameplay) => {
+  const { activeLocationIndex, activeContainerIndex, inGameplayView } = gameplay;
+
+  let slots = [];
+
+  if (inGameplayView !== GP_LOCATION_CONTAINER) {
+    const slotCard = gameplay.locationSlots[activeLocationIndex].card;
+    slots = slotCard ? slotCard.dropSlots : [];
+  } else {
+    slots = gameplay.locationSlots[gameplay.activeLocationIndex].card.dropSlots[activeContainerIndex].card.dropSlots;
+  }
+
+  return slots;
+};
+
+export const canPlayCardInAnySlot = (card, locations, projects, gameplay) => {
+  const locAllowed = getAllowedSlotsLength(card, getLocSlots(gameplay), gameplay);
   const projectAllowed = getAllowedSlotsLength(card, projects, gameplay);
 
   return locAllowed.length > 0 || projectAllowed.length > 0;
@@ -94,7 +109,7 @@ const canPlayCardInAnySlot = (card, locations, projects, gameplay) => {
  * @return {Object}
  */
 export const getCostErrors = (card, locations, projects, gameplay) => {
-  const locErrors = getSlotErrors(card, locations, gameplay);
+  const locErrors = getSlotErrors(card, getLocSlots(gameplay), gameplay);
   const projectErrors = getSlotErrors(card, projects, gameplay);
 
   return mergeErrorMessages(locErrors, projectErrors);

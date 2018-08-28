@@ -78,9 +78,7 @@ const HoverInfo = ({
   }).length > 0;
 
   const showGains = (displayCard.values && (displayCard.values.space > 0 || displayCard.values.power > 0)) ||
-                    (displayCard.bonus && (displayCard.bonus.funds > 0 || displayCard.bonus.funds > 0 ||
-                                          displayCard.bonus.xp > 0 || displayCard.bonus.power > 0 ||
-                                          displayCard.bonus.development > 0));
+                    (displayCard.bonus && Object.keys(displayCard.bonus).some(key => displayCard.bonus[key] > 0));
 
   const typeColor = typeGradients[displayCard.type.toLowerCase()][0];
   const borderColor = classForRarity(displayCard.rarityScore) !== 'normal' ? typeColor : '#9797FB';
@@ -200,12 +198,12 @@ const HoverInfo = ({
                 }
                 {
                   displayCard.bonus &&
-                  displayCard.bonus.xp > 0 &&
+                  displayCard.bonus.experience > 0 &&
                   <div
                     data-name="XP"
-                    className={`orb xp ${classForNumber(displayCard.bonus.xp)}`}
+                    className={`orb xp ${classForNumber(displayCard.bonus.experience)}`}
                   >
-                    {formatBigNumber(displayCard.bonus.xp)}
+                    {formatBigNumber(displayCard.bonus.experience)}
                   </div>
                 }
                 {
@@ -226,6 +224,16 @@ const HoverInfo = ({
                     className={`orb development ${classForNumber(displayCard.bonus.development)}`}
                   >
                     {formatBigNumber(displayCard.bonus.development)}
+                  </div>
+                }
+                {
+                  displayCard.bonus &&
+                  displayCard.bonus.fundsPerBlock > 0 &&
+                  <div
+                    data-name="FPB"
+                    className={`orb funds ${classForNumber(displayCard.bonus.fundsPerBlock)}`}
+                  >
+                    {formatBigNumber(displayCard.bonus.fundsPerBlock)}
                   </div>
                 }
               </div>

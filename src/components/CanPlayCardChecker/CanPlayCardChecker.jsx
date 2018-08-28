@@ -2,12 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HandCard from '../Cards/HandCard/HandCard';
-import { getAvailableCards, getCostErrors } from '../../services/gameMechanicsService';
+import { canPlayCardInAnySlot, getAvailableCards, getCostErrors } from '../../services/gameMechanicsService';
 
-const CanPlayCardChecker = ({ card, locations, projects, gameplay }) => {
+const CanPlayCardChecker = ({
+  card, locations, projects, gameplay,
+}) => {
   if (!card) return (<div />);
+  let costErrors = { allowed: true };
 
-  const costErrors = getCostErrors(card, locations, projects, gameplay);
+  const canPlay = canPlayCardInAnySlot(card, locations, projects, gameplay);
+
+  if (!canPlay) costErrors = getCostErrors(card, locations, projects, gameplay);
 
   return (
     <div className={`card-details type-${card.type.toLowerCase()}`}>

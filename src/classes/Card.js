@@ -220,24 +220,21 @@ export default class Card extends Subscriber {
     return this._on('block', state, blockCount);
   }
 
-  canLevelUp(state, dropSlot) {
-    // this === dragged card
-    const droppedCard = dropSlot.card;
-
+  canLevelUp(state, draggedCard) {
     const result = {
-      allowed: droppedCard.metadataId === this.metadataId && droppedCard.level < 5,
+      allowed: draggedCard.metadataId === this.metadataId && this.level < 5,
     };
 
     if (!result.allowed) return result;
 
-    const instance = Card.getLeveledInstance(state, this.id, droppedCard);
+    const instance = Card.getLeveledInstance(state, this.id, draggedCard);
     if (!instance.cost) return { allowed: false, noNextLevel: false };
 
     result.allowed = state.stats.funds >= instance.cost.funds;
 
     if (!result.allowed) return result;
 
-    return Object.assign(result, droppedCard._can('canLevelUp', state, dropSlot));
+    return Object.assign(result, this._can('canLevelUp', state, draggedCard));
   }
 
   levelUp(state, dropSlot) {

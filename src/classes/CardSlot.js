@@ -77,7 +77,7 @@ export default class CardSlot {
       return card.canPlay(state, this);
     }
 
-    return this.card.canLevelUp(state, this);
+    return this.card.canLevelUp(state, card);
   }
 
   isEmpty() {
