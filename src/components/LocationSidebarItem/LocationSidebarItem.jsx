@@ -8,6 +8,8 @@ import { GP_LOCATION } from '../../actions/actionTypes';
 import { classForRarity, formattedNumber } from '../../services/utils';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import SidebarItemNotActive from './SidebarItemNotActive';
+import RarityBorderActive from './RarityBorderActive/RarityBorderActive';
+import RarityBorderNotActive from './RarityBorderNotActive/RarityBorderNotActive';
 
 import './LocationSidebarItem.scss';
 import InfoCardIcon from '../Decorative/InfoCardIcon';
@@ -104,6 +106,7 @@ class LocationSidebarItem extends Component {
             rarity-border
             ${classForRarity(card.rarityScore)}`}
           >
+            <RarityBorderNotActive card={card} />
             <SidebarItemNotActive id={card.id} image={`cardImages/${card.image}`} />
 
             <div className="actions" onClick={e => e.stopPropagation()}>
@@ -128,6 +131,7 @@ class LocationSidebarItem extends Component {
             rarity-border
             ${classForRarity(card.rarityScore)}`}
           >
+            <RarityBorderActive card={card} />
             <SidebarItemActive id={card.id} image={`cardImages/${card.image}`} />
 
             <div className="location-data">

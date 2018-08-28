@@ -86,9 +86,14 @@ render() {
     <div className="modal-bar" />
 
     <div className="buttons-wrapper">
-      <div className="modal-buttons-bar" />
-
-      <span onClick={closeModal}><SmallButton text="Close" /></span>
+      {
+        !this.state.showResetConfirmation &&
+        <div className="modal-buttons-bar" />
+      }
+      {
+        !this.state.showResetConfirmation &&
+        <span onClick={closeModal}><SmallButton text="Close" /></span>
+      }
     </div>
   </div>
   )}
