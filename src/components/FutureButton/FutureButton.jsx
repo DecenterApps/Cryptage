@@ -4,7 +4,7 @@ import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 
 import './FutureButton.scss';
 
-export default function FutureButton({ text, loading, disabled, reverse }) {
+export default function FutureButton({ text, hoverText, loading, disabled, reverse }) {
   return (
     <div className={`future-button ${reverse ? 'reverse' : 'not-reversed'}`}>
 
@@ -13,7 +13,10 @@ export default function FutureButton({ text, loading, disabled, reverse }) {
         ${ loading ? 'loading' : 'not-loading' }
         ${ disabled ? 'disabled' : 'not-disabled' }`}
       >
-        <div className="text">{ text }</div>
+        <div className="text">
+          <span className={` ${ hoverText === undefined ? '' : 'text-main' } `}>{ text }</span>
+          { hoverText === undefined ? '' : <span className="text-hover">{ hoverText }</span>} 
+        </div>
 
         <CircleSpinner />
       </div>

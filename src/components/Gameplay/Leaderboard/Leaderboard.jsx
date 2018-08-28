@@ -45,7 +45,7 @@ class Leaderboard extends Component {
               <div key="leaderboard-table-header" className="data-header">
                 <span className="nickname">Player</span>
                 <span className="level">Level</span>
-                <span className="exp">Exp</span>
+                <span className="exp">Experience</span>
               </div>,
               <div key="leaderboard-table-body" className="data-table">
                 {
