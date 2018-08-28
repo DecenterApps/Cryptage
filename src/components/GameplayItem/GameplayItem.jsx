@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import IngameCard from '../Cards/IngameCard/IngameCard';
 import { switchInGameplayView } from '../../actions/gameplayActions';
+import { formattedNumber } from '../../services/utils';
 import { containerIds, GP_LOCATION_CONTAINER } from '../../actions/actionTypes';
 
 import './GameplayItem.scss';
@@ -98,7 +99,7 @@ class GameplayItem extends Component {
             {
               this.state.show &&
               (fpb > 0) &&
-              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+              <div className="fpb">+ { formattedNumber(fpb) } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
             }
 
             <IngameCard
@@ -123,7 +124,7 @@ class GameplayItem extends Component {
             {
               this.state.show &&
               (fpb > 0) &&
-              <div className="fpb">+ { fpb } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
+              <div className="fpb">+ { formattedNumber(fpb) } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
             }
 
             <IngameCard

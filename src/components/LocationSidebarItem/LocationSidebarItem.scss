@@ -134,12 +134,16 @@
     }
   }
   .fpb {
-    width: 130px;
+    white-space: nowrap;
     position: absolute;
-    top: 15px;
+    top: 18px;
     left: 62px;
 
     @include elementInAndOut;
+
+    &.right {
+      margin-left: 70px;
+    }
 
     //@include for-big-desktop {
     //  font-size: 17px;
