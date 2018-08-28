@@ -10,6 +10,7 @@ import { calcExpiryBlocksLeft } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import ProjectItemVector from './ProjectItemVector';
 import ProjectPill from './ProjectPill';
+import RarityBorder from './RarityBorder/RarityBorder';
 
 import './ProjectItem.scss';
 
@@ -68,7 +69,8 @@ class ProjectItem extends Component {
               <HoverInfo card={card} center backdrop />
             </PortalWrapper>
           }
-
+          
+          <RarityBorder card={card} />
           <ProjectItemVector active={isActive} id={card.id} image={`cardImages/${card.image}`} />
 
           {

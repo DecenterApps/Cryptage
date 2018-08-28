@@ -2,20 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SidebarItemActive = ({ image, id }) => (
+const SidebarItemActive = ({ card, image, id }) => (
   <div className="sidebar-item-active">
     <svg width={161} height={77} viewBox="0 0 161 77" fill="none">
       <g filter={`url(#${id}filter0_d)`}>
         <path d="M9.72973 0L0 9.38645V37.1377L9.72973 46.5241H122.838L131.351 36.7296V9.1824L122.838 0H9.72973Z" transform="translate(15 15)" fill={`url(#${id}pattern0)`} />
       </g>
       <path className="location-inner-gradient" d="M9.72973 0L0 9.38645V37.1377L9.72973 46.5241H122.838L131.351 36.7296V9.1824L122.838 0H9.72973Z" transform="translate(15 15)" fill={`url(#${id}paint0_linear1)`} stroke={`url(#${id}paint1_linear1)`} strokeWidth="1.22026" />
-      <g filter={`url(#${id}filter2_d)`}>
-        <path d="M9.72973 -1.83039H8.99074L8.4589 -1.31731L-1.27084 8.06914L-1.83039 8.60895V9.38645V37.1377V37.9152L-1.27084 38.455L8.4589 47.8415L8.99074 48.3545H9.72973H122.838H123.672L124.219 47.7249L132.733 37.9304L133.182 37.4139V36.7296V9.1824V8.46442L132.694 7.93793L124.18 -1.24447L123.637 -1.83039H122.838H9.72973Z" transform="translate(15 15)" stroke={`url(#${id}paint3_linear)`} strokeWidth="3.66078" />
-      </g>
       <path d="M9.0991 0L0 7.65737V30.2965L9.0991 37.9539H114.876L122.838 29.9636V7.4909L116.092 0H9.0991Z" transform="translate(18.6484 18.6731)" stroke={`url(#${id}paint4_linear)`} strokeOpacity="0.29" strokeWidth="1.22026" />
-      <g filter={`url(#${id}filter3_d)`}>
-        <line y1="-2.04435" x2="30.0397" y2="-2.04435" transform="translate(146.352 22.8337) rotate(90)" stroke={`url(#${id}paint5_linear)`} strokeWidth="4.08869" />
-      </g>
       <defs>
         <filter id={`${id}filter0_d`} x="4.01765" y="4.01765" width="153.316" height="68.4889" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
           <feFlood floodOpacity={0} result="BackgroundImageFix" />
