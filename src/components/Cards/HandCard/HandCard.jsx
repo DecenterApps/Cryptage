@@ -62,6 +62,7 @@ class HandCard extends Component {
 
     const noMainErrors = (costErrorsLeft.length === 0 && costErrorsRight.length === 0);
     if (noMainErrors && ('allowed' in costErrors) && !costErrors.allowed) {
+      console.log('showErrorOverlay', costErrors);
       showErrorOverlay = true;
     }
 
@@ -152,6 +153,11 @@ class HandCard extends Component {
             points="9,1 83,1 83,114 75,122 1,122 1,9"
             fill="black"
           />
+          <polygon
+            className="card-image-inner"
+            points="10,2 82,2 82,113 74,121 2,121 2,10"
+            fill={`url(#card-background-${card.metadataId}-${uniqueId})`}
+          />
           {
             showErrorOverlay &&
             <polygon
@@ -160,11 +166,6 @@ class HandCard extends Component {
               fill="rgba(221, 15, 48, 0.4)"
             />
           }
-          <polygon
-            className="card-image-inner"
-            points="10,2 82,2 82,113 74,121 2,121 2,10"
-            fill={`url(#card-background-${card.metadataId}-${uniqueId})`}
-          />
           <polygon
             className="card-meta-bg"
             points="2,50 82,50 82,113 74,121 2,121 "
