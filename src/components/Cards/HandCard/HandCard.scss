@@ -330,4 +330,59 @@
     .go-to-container-wrapper {}
   }
 
+  .cost-errors {
+    position: absolute;
+    top: 10px;
+    z-index: -1;
+
+    &.cost-errors-left {
+      left: -76px;
+    }
+
+    &.cost-errors-right {
+      right: -76px;
+
+      .cost-error {
+        background: linear-gradient(90deg, #DD0F30 0%, rgba(221, 15, 48, 0) 58.44%);
+        flex-direction: row-reverse;
+
+        .bonus-cost-icon {
+          margin-left: 5px;
+          margin-right: 0;
+        }
+
+        .cost-error-data {
+          display: flex;
+          flex-direction: column;
+
+          .num {
+            text-align: right;
+          }
+        }
+      }
+    }
+
+    .cost-error {
+      display: flex;
+      color: white;
+      width: 77px;
+      background: linear-gradient(270deg, #DD0F30 0%, rgba(221, 15, 48, 0) 58.44%);
+      height: 27px;
+      align-items: center;
+      justify-content: center;
+
+      .bonus-cost-icon {
+        margin-right: 5px;
+      }
+
+      .cost-error-data {
+        line-height: 11px;
+        position: relative;
+        top: 1px;
+
+        .num { font-size: 12px }
+        .err { font-size: 9px }
+      }
+    }
+  }
 }

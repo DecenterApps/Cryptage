@@ -5,6 +5,7 @@ import { mergeErrorMessages } from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
 import { ADD_NEW_LEVEL_CARDS, GP_LOCATION_CONTAINER } from '../actions/actionTypes';
 import Card from '../classes/Card';
+import LocationCardSlot from '../classes/slotTypes/LocationCardSlot';
 
 /**
  * Returns initial values for stack of cards
@@ -53,7 +54,7 @@ const getSlotErrors = (card, slots, gameplay) => {
     const errorObj = slot.canDrop(gameplay, card);
     if (!errorObj.allowed) errors.push(errorObj);
 
-    if (slot.card && slot.card.dropSlots) {
+    if (!(slot instanceof LocationCardSlot) && slot.card && slot.card.dropSlots) {
       errors = errors.concat(getSlotErrors(card, slot.card.dropSlots, gameplay));
     }
   });
@@ -68,7 +69,7 @@ const getAllowedSlotsLength = (card, slots, gameplay) => {
     const statsObj = slot.canDrop(gameplay, card);
     if (statsObj.allowed) allowedSlots.push(statsObj);
 
-    if (slot.card && slot.card.dropSlots) {
+    if (!(slot instanceof LocationCardSlot) && slot.card && slot.card.dropSlots) {
       allowedSlots = allowedSlots.concat(getAllowedSlotsLength(card, slot.card.dropSlots, gameplay));
     }
   });
@@ -87,6 +88,8 @@ const getLocSlots = (gameplay) => {
   } else {
     slots = gameplay.locationSlots[gameplay.activeLocationIndex].card.dropSlots[activeContainerIndex].card.dropSlots;
   }
+
+  slots = [...gameplay.locationSlots, ...slots];
 
   return slots;
 };
