@@ -31,21 +31,17 @@ class ContainerItem extends Component {
     const fpb = card.getBonusStatValue('fundsPerBlock');
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card);
+    const canLevelUp = draggingDuplicate ? slot.canDrop(gameplay, dragItem.card).allowed : false;
 
     return (
-      <div className={`
-        container-item-wrapper
-        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
-        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
-      `}
-      >
+      <div className="container-item-wrapper">
         {
           this.state.show &&
           (fpb > 0) &&
           <div className="fpb">+ { formattedNumber(fpb) } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         }
         <IngameCard
+          canLevelUp={canLevelUp}
           showCount={false}
           played
           card={card}

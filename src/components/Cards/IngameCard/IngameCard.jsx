@@ -29,7 +29,7 @@ class IngameCard extends Component {
     const {
       card, showCount, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      removeNewCardOnHover,
+      removeNewCardOnHover, canLevelUp,
     } = this.props;
 
     const uniqueId = guid();
@@ -133,6 +133,22 @@ class IngameCard extends Component {
             points="2,70 98,70 98,134 89,143 2,143 "
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
+          {
+            draggingCard && canLevelUp &&
+            <polygon
+              className="card-image-inner"
+              points="11,2 98,2 98,134 89,143 2,143 2,11"
+              fill="rgba(35, 175, 0, 0.4)"
+            />
+          }
+          {
+            draggingCard && !canLevelUp &&
+            <polygon
+              className="card-image-inner"
+              points="11,2 98,2 98,134 89,143 2,143 2,11"
+              fill="rgba(221, 15, 48, 0.4)"
+            />
+          }
         </svg>
         <div className={`meta ${card.type.toLowerCase()}`}>
           <div className="title">{card.title}</div>
@@ -240,6 +256,7 @@ IngameCard.propTypes = {
   canRemove: PropTypes.bool,
   costErrors: PropTypes.object,
   removeNewCardOnHover: PropTypes.func.isRequired,
+  canLevelUp: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ app }) => ({

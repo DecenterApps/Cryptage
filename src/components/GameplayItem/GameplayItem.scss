@@ -9,18 +9,6 @@
   background-size: cover;
   background-position: center;
 
-  &.dragging-success.level-up-success.right-asset-type {
-    .card-image .card-image-bg {
-      fill: $empty-slot-can-drop;
-    }
-  }
-
-  &.dragging-success.level-up-fail.right-asset-type {
-    .card-image .card-image-bg {
-      fill: $red;
-    }
-  }
-
   &.container {
     cursor: pointer;
   }
@@ -46,17 +34,5 @@
 
   .asset-card-wrapper {
     position: relative;
-  }
-
-  .container-card-wrapper {
-    position: relative;
-
-    &.can-drop-miner .ingame-card-details .card-image .card-image-bg {
-      fill: $empty-slot-can-drop;
-    }
-
-    &.no-drop-miner .ingame-card-details .card-image .card-image-bg {
-      fill: $red;
-    }
   }
 }

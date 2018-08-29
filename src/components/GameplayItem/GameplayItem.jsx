@@ -47,7 +47,7 @@ class GameplayItem extends Component {
 
     let remainingSlots = null;
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card).allowed;
+    const canLevelUp = draggingDuplicate ? slot.canDrop(gameplay, dragItem.card).allowed : false;
 
     const isDragMiner = dragItem && dragItem.card && dragItem.card.type === 'Mining';
     const isContainer = containerIds.includes(card.metadataId);
@@ -86,12 +86,7 @@ class GameplayItem extends Component {
 
     return (
       <div
-        className={`
-        gameplay-item-wrapper
-        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
-        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
-        ${isContainer && 'container'}
-      `}
+        className={`gameplay-item-wrapper ${isContainer && 'container'}`}
       >
         {
           !isContainer &&
@@ -103,6 +98,7 @@ class GameplayItem extends Component {
             }
 
             <IngameCard
+              canLevelUp={canLevelUp}
               showCount={false}
               card={card}
               slot={slot}
@@ -114,13 +110,7 @@ class GameplayItem extends Component {
         }
         {
           isContainer &&
-          <div
-            className={`
-              container-card-wrapper
-              ${isDragMiner && canDropMiner && 'can-drop-miner'}
-              ${isDragMiner && !canDropMiner && 'no-drop-miner'}
-            `}
-          >
+          <div className="container-card-wrapper">
             {
               this.state.show &&
               (fpb > 0) &&
@@ -131,6 +121,7 @@ class GameplayItem extends Component {
               goToContainer={() => { this.goToContainer(isContainer); }}
               showCount={false}
               card={card}
+              canLevelUp={canDropMiner}
               remainingSlots={remainingSlots}
               locationIndex={activeLocationIndex}
               containerIndex={index}
