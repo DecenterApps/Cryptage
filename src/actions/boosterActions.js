@@ -9,12 +9,12 @@ import {
   REVEAL_SUCCESS,
   REVEAL_ERROR,
 } from './actionTypes';
-
-import { log } from '../services/utils';
 import ethService from '../services/ethereumService';
 import cardService from '../services/cardService';
-import { openRevealBoosterCardsModal, openErrorModal } from './modalActions';
+import Card from '../classes/Card';
+import { openRevealBoosterCardsModal, openErrorModal, toggleModal } from './modalActions';
 import sdk from '../services/bitGuildPortalSDK_v0.1';
+import { METAMASK_MODAL } from '../components/Modals/modalTypes';
 
 export const boostersRequest = () => ({
   type: BOOSTERS_REQUEST,
@@ -55,17 +55,15 @@ export const revealRequest = (_id, _boosters) => {
 };
 
 export const revealSuccess = (revealedCards, _id, _boosters) => (dispatch, getState) => {
-  let allCards = [...getState().gameplay.allCards];
   let cards = [...getState().gameplay.cards];
 
-  let newCardTypes = revealedCards
-    .filter(revealedCard => allCards.findIndex(card => card.metadata.id === revealedCard.metadata.id) === -1)
-    .map(({ metadata }) => metadata.id);
-
-  newCardTypes = newCardTypes.filter((type, index) => newCardTypes.indexOf(type) === index);
+  revealedCards.forEach((_revealCard) => {
+    const revealCard = _revealCard;
+    const foundCard = cards.find(card => card.metadataId === revealCard.metadataId);
+    if (!foundCard) revealCard.isNew = true;
+  });
 
   cards = [...cards, ...revealedCards];
-  allCards = [...allCards, ...revealedCards];
 
   const boosters = [..._boosters];
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
@@ -74,11 +72,9 @@ export const revealSuccess = (revealedCards, _id, _boosters) => (dispatch, getSt
   dispatch({
     type: REVEAL_SUCCESS,
     cards,
-    allCards,
     boosters,
     revealedCards,
     isRevealing: false,
-    newCardTypes,
   });
 
   dispatch(openRevealBoosterCardsModal(revealedCards));
@@ -95,12 +91,12 @@ export const revealError = (error, _id, _boosters) => {
 
 export const revealBooster = boosterId => async (dispatch, getState) => {
   dispatch(revealRequest(boosterId, getState().shop.boosters));
+  const { gameplay } = getState();
 
   try {
     const cardIds = await ethService.getCardsFromBooster(boosterId);
-    log('Cards in booster: ', cardIds);
 
-    const revealedCards = await cardService.fetchCardsMeta(cardIds);
+    const revealedCards = await Promise.all(cardIds.map(cardId => Card.getInstance(gameplay, cardId, 1)));
 
     dispatch(revealSuccess(revealedCards, boosterId, getState().shop.boosters));
   } catch (e) {
@@ -127,16 +123,18 @@ export const buyBoosterError = error => ({
 });
 
 export const buyBoosterPack = () => async (dispatch, getState) => {
+  if (!window.hasMetaMask) return dispatch(toggleModal(METAMASK_MODAL, { tried: 'buy a card pack' }, true));
+
   const { blockNumber, account } = getState().app;
   try {
     sdk.isOnPortal()
       .then( async (isOnPortal) => {
         if (isOnPortal) {
           console.log('isOnPortal: ', isOnPortal);
-          
+
           const bitGuildContract  = ethService.getBitGuildContract();
           let balance = Number(await bitGuildContract.methods.balanceOf(account).call());
-          
+
           if (balance === 0) {
             dispatch(openErrorModal(
               'Insufficient Funds',
@@ -161,31 +159,31 @@ export const buyBoosterPack = () => async (dispatch, getState) => {
           console.log('isOnPortal: ', isOnPortal);
           return Promise.reject();
         }
-    })
-    .catch(async () => {
-      try {
-        let balance = Number(await ethService.getBalance(account));
+      })
+      .catch(async () => {
+        try {
+          let balance = Number(await ethService.getBalance(account));
 
-        if (balance <= 0.001) {
-          dispatch(openErrorModal(
-            'Insufficient Funds',
-            'Please add more ETH to your wallet.',
-          ));
-        } else {
-          dispatch(buyBoosterRequest());
-          let result = await ethService.buyBooster();
-          let booster = {
-            id: result.events.BoosterInstantBought.returnValues.boosterId,
-            blockNumber,
-          };
-          console.log('isOnPortal.catch result: ', result);
-          dispatch(buyBoosterSuccess(booster));
-          dispatch(revealBooster(booster.id));
+          if (balance <= 0.001) {
+            dispatch(openErrorModal(
+              'Insufficient Funds',
+              'Please add more ETH to your wallet.',
+            ));
+          } else {
+            dispatch(buyBoosterRequest());
+            let result = await ethService.buyBooster();
+            let booster = {
+              id: result.events.BoosterInstantBought.returnValues.boosterId,
+              blockNumber,
+            };
+            console.log('isOnPortal.catch result: ', result);
+            dispatch(buyBoosterSuccess(booster));
+            dispatch(revealBooster(booster.id));
+          }
+        } catch (e) {
+          dispatch(buyBoosterError(e.message));
         }
-      } catch (e) {
-        dispatch(buyBoosterError(e.message));
-      }
-    });
+      });
   } catch (e) {
     dispatch(buyBoosterError(e.message));
   }

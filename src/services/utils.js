@@ -1,11 +1,7 @@
 import React from 'react';
-import update from 'immutability-helper';
+import serialize from 'serialijse';
 import cardsConfig from '../constants/cards.json';
-import { getSlotForContainer, checkIfCanLevelUp } from './gameMechanicsService';
-import {
-  acceptedAssetLevelUpIds, containerIds, LOCATION_ITEM_DROP_SLOTS, rarities,
-  typeGradients
-} from '../actions/actionTypes';
+import { GET_ACCOUNT_SUCCESS, typeGradients } from '../actions/actionTypes';
 
 /**
  * Generates unique id
@@ -162,177 +158,32 @@ export const formatSignature = (_signature) => {
 /**
  * Removes player cards that have been played
  *
- * @param {Array} _cards
- * @param {Function} getState
+ * @param {Array} stateCards
+ * @param {Array} _contractCards
  * @return {Array}
  */
-export const removePlayedCards = (_cards, getState) => {
-  const { locations, projects } = getState().gameplay;
-  const cards = [..._cards];
+export const removePlayedCards = (stateCards, _contractCards) =>
+  _contractCards.map((contractCard) => {
+    const foundCardInState = stateCards.find(stateCard => contractCard.id === stateCard.id);
 
-  locations.forEach(({ lastDroppedItem }) => {
-    if ((lastDroppedItem !== null) && typeof (lastDroppedItem === 'object')) {
-      // remove location cards from player cards
-      lastDroppedItem.cards.forEach((locationCard) => {
-        const playedLocationCardIndex = cards.findIndex(_card => _card.id === locationCard.id);
-        cards.splice(playedLocationCardIndex, 1);
-      });
-
-      // remove asset cards from location drop slots
-      lastDroppedItem.dropSlots.forEach((locationItemSlot) => {
-        const locationItem = locationItemSlot.lastDroppedItem;
-
-        if ((locationItem !== null) && typeof (locationItem === 'object')) {
-          locationItemSlot.lastDroppedItem.cards.forEach((locationItemCard) => {
-            const playedLocationCardIndex = cards.findIndex(_card => _card.id === locationItemCard.id);
-            cards.splice(playedLocationCardIndex, 1);
-
-            // remove miner cards
-            if (locationItemCard.stats.type === 'Container') {
-              locationItem.dropSlots.forEach((containerDropSlot) => {
-                const minerItem = containerDropSlot.lastDroppedItem;
-
-                if ((minerItem !== null) && typeof (minerItem === 'object')) {
-                  minerItem.cards.forEach((minerCard) => {
-                    const playedMinerCardIndex = cards.findIndex(_card => _card.id === minerCard.id);
-                    cards.splice(playedMinerCardIndex, 1);
-                  });
-                }
-              });
-            }
-          });
-        }
-      });
-    }
+    if (!foundCardInState) return contractCard;
+    return foundCardInState;
   });
-
-  // remove project cards from project drop slots
-  projects.forEach(({ lastDroppedItem }) => {
-    if ((lastDroppedItem !== null) && typeof (lastDroppedItem === 'object')) {
-      lastDroppedItem.cards.forEach((projectCard) => {
-        const playedProjectCardIndex = cards.findIndex(_card => _card.id === projectCard.id);
-        cards.splice(playedProjectCardIndex, 1);
-      });
-    }
-  });
-
-  console.log('cards', cards);
-  return cards;
-};
 
 /**
  * Saves current gameplay state to localStorage for account
  *
- * @param {Function} getState
+ * @param {Gameplay} state
+ * @param {String} type
+ * @return {Gameplay} state
  */
-export const saveGameplayState = (getState) => {
-  const state = getState();
-  const { account } = state.app;
+export const saveGameplayState = (state, type) => {
+  const { account } = state;
 
-  if (!account) {
-    console.error('Account missing when trying to save state');
-    return;
-  }
+  if (type === GET_ACCOUNT_SUCCESS || !account) return state;
 
-  localStorage.setItem(`cryptage-${account}`, JSON.stringify(state.gameplay));
-};
-
-/**
- * Updates active location drop slot items
- *
- * @param {Array} _locationSlots
- * @param {Number} index
- * @param {Object} item
- * @param {Array} _locations
- * @param {Number} activeLocationIndex
- * @param {Object} special
- * @return {Array}
- */
-export const updateLocationDropSlotItems = (_locationSlots, index, item, _locations, activeLocationIndex, special) => {
-  const typeId = item.card.metadata.id;
-  const isContainer = containerIds.includes(typeId);
-  let assetAccepts = [];
-  let dropSlots = null;
-
-  // only Container and Misc asset type cards can't level up
-  if (acceptedAssetLevelUpIds.includes(typeId)) assetAccepts = [item.card.metadata.id];
-  // there must be an accept for container for the drag miner over container feature
-  if (isContainer) {
-    dropSlots = getSlotForContainer(item.card.metadata.id, item.card.stats.values.space);
-    assetAccepts = [...dropSlots[0].accepts];
-  }
-
-  const locationSlots = update(_locationSlots, {
-    [index]: {
-      accepts: { $set: assetAccepts },
-      lastDroppedItem: {
-        $set: {
-          cards: [{ ...item.card }],
-          mainCard: { ...item.card, slotIndex: index, locationIndex: activeLocationIndex },
-          dropSlots,
-          special,
-        },
-      },
-    },
-  });
-
-  return update(_locations, {
-    [activeLocationIndex]: {
-      lastDroppedItem: {
-        dropSlots: { $set: locationSlots },
-      },
-    },
-  });
-};
-
-/**
- * Gets all asset cards that were dropped on the field
- *
- * @param {Array} _locations
- * @return {Array}
- */
-export const getPlayedAssetCards = (_locations) => {
-  const locations = _locations.filter(_location => _location.lastDroppedItem);
-
-  const playedCards = locations.map((_locationWithCards) => {
-    const arr = _locationWithCards.lastDroppedItem.dropSlots
-      .filter(_locationDropSlot => _locationDropSlot.lastDroppedItem)
-      .map(({ lastDroppedItem }) => lastDroppedItem.mainCard);
-
-    return Array.prototype.concat(...arr);
-  });
-
-  return Array.prototype.concat(...playedCards);
-};
-
-/**
- * Gets all location cards that were dropped on location slots
- *
- * @param {Array} _locations
- * @return {Array}
- */
-export const getPlayedLocationCards = _locations => (
-  Array.prototype.concat(_locations
-    .filter(_location => _location.lastDroppedItem)
-    .map(_locationWithCards => _locationWithCards.lastDroppedItem.mainCard))
-);
-
-/**
- * Calculates the number of total cards needed
- * to level up
- *
- * @param {Number} level
- * @return {Object}
- */
-const calcCardsNeededToLevelUp = (level) => {
-  if (level === 1) return 3;
-
-  let numOfCards = 3;
-  for (let i = 2; i <= level; i += 1) {
-    numOfCards += (i + 1);
-  }
-
-  return numOfCards;
+  localStorage.setItem(`cryptage-${account}`, serialize.serialize(state));
+  return state;
 };
 
 /**
@@ -382,101 +233,30 @@ export const filterByKeys = (object, allowedKeys) =>
       return obj;
     }, {});
 
-/**
- * Updates locations object with new location object
- *
- * @param {Array} locations
- * @param {Number} index
- * @param {Object} item
- * @return {Array}
- */
-export const updateLocationsDropSlots = (locations, index, item) =>
-  update(locations, {
-    [index]: {
-      // only allow the card type that has been dropped now to be dropped again
-      accepts: { $set: [item.card.metadata.id] },
-      lastDroppedItem: {
-        $set: {
-          values: { ...item.card.stats.values },
-          dropSlots: LOCATION_ITEM_DROP_SLOTS,
-          cards: [{ ...item.card }],
-          mainCard: { ...item.card },
-        },
-      },
-    },
-  });
-
-/**
- * Updates projects object with new project object
- *
- * @param {Array} projects
- * @param {Number} index
- * @param {Object} item
- * @return {Array}
- */
-export const updateProjectsDropSlots = (projects, index, item, blockNumber) =>
-  update(projects, {
-    [index]: {
-      // only allow the card type that has been dropped now to be dropped again
-      accepts: { $set: [item.card.metadata.id] },
-      slotType: { $set: 'project' },
-      lastDroppedItem: {
-        $set: {
-          cards: [{ ...item.card }],
-          mainCard: { ...item.card },
-          isActive: true,
-          isFinished: false,
-          expiryTime: blockNumber + item.card.stats.cost.time,
-          timesFinished: 0,
-          modifiedFundsBonus: 0,
-        },
-      },
-    },
-  });
-
-/**
- * Updates active location drop slot items
- *
- * @return {Array}
- */
-export const updateContainerDropSlotItems = (locationIndex, containerIndex, cardIndex, item, _containerSlots, _locations) => { // eslint-disable-line
-  const containerSlots = update(_containerSlots, {
-    [cardIndex]: {
-      accepts: { $set: [item.card.metadata.id] },
-      lastDroppedItem: {
-        $set: {
-          cards: [{ ...item.card }],
-          mainCard: { ...item.card },
-        },
-      },
-    },
-  });
-
-  let locationSlots = [..._locations[locationIndex].lastDroppedItem.dropSlots];
-
-  locationSlots = update(locationSlots, {
-    [containerIndex]: {
-      lastDroppedItem: {
-        dropSlots: { $set: containerSlots },
-      },
-    },
-  });
-
-  return update(_locations, {
-    [locationIndex]: {
-      lastDroppedItem: {
-        dropSlots: { $set: locationSlots },
-      },
-    },
-  });
-};
-
 export const formatBigNumber = (_number) => {
   const number = parseFloat(_number);
 
   if (number >= 1000000) return `${number / 1000000}m`;
   if (number >= 1000) return `${number / 1000}k`;
 
+  return number.toString();
+};
+
+export const formattedNumber = (_number) => {
+  const number = parseFloat(_number);
+  if (number >= 1000000000000) {
+    return `${Math.floor((number / 100000000) / 10)}B`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  if (number >= 1000000000) {
+    return `${Math.floor((number / 100000) / 10)}M`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  if (number >= 1000000) {
+    return `${Math.floor((number / 100) / 10)}K`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  if (number >= 1000) {
+    const _number = number.toString(10);
+    return `${_number.substr(0, _number.length - 3)},${_number.substr(_number.length - 3)}`;
+  }
   return number.toString();
 };
 
@@ -503,30 +283,6 @@ export const getCardAtContainer = (locations, locationIndex, containerIndex) => 
   } catch (e) {
     return null;
   }
-};
-
-const getElemType = (loc, i) => loc && loc.lastDroppedItem.mainCard ? loc.lastDroppedItem.mainCard.metadata.id : []; //eslint-disable-line
-const getSlots = loc => loc && loc.lastDroppedItem ? loc.lastDroppedItem.dropSlots : []; //eslint-disable-line
-
-/**
- * Gets cards ids for all the cards in the given location
- *
- */
-export const getCardIdsFromLocation = (location, items) => {
-  if (!getSlots(location)) {
-    return;
-  }
-
-  getSlots(location).forEach((elem, i) => {
-    if (elem.lastDroppedItem) {
-      if (getElemType(elem, i) === []) {
-        return;
-      }
-
-      items.push(getElemType(elem, i));
-      getCardIdsFromLocation(elem, items);
-    }
-  });
 };
 
 export const classForRarity = (_rarity) => {
@@ -559,27 +315,10 @@ export const compareCategories = (a, b) => {
   return categoryMap.indexOf(a.toLowerCase()) - categoryMap.indexOf(b.toLowerCase());
 };
 
-/**
- * If mechanics text has 'Time to complete' puts it in another line
- *
- * @param {String} text
- * @return {*}
- */
-export const printMechanicsText = (text) => {
-  const timeToCompleteIndex = text.indexOf('Time to complete');
-
-  if (timeToCompleteIndex <= 0) return [text];
-
-  const firstPart = text.substr(0, timeToCompleteIndex);
-  const secondPart = text.substr(timeToCompleteIndex, text.length - 1);
-
-  return [firstPart, secondPart];
-};
-
 export const compareCards = (a, b) => {
-  if (a.stats.type !== b.stats.type) return compareCategories(a.stats.type, b.stats.type);
-  if (a.stats.cost.level !== b.stats.cost.level) return a.stats.cost.level - b.stats.cost.level;
-  return a.stats.cost.funds - b.stats.cost.funds;
+  if (a.type !== b.type) return compareCategories(a.type, b.type);
+  if (a.cost.level !== b.cost.level) return a.cost.level - b.cost.level;
+  return a.cost.funds - b.cost.funds;
 };
 
 /**
@@ -589,26 +328,6 @@ export const compareCards = (a, b) => {
  * @return {Array}
  */
 export const sortTypeGroupByPrice = group => group.sort(compareCards);
-
-/**
- * Gets number of cards that can be leveled up inside a lastDroppedItem
- *
- * @param slots
- * @param card
- * @param globalStats
- */
-export const getDropSlotsAvailableLevelUp = (slots, card, globalStats) => slots.reduce((_acc, slot) => {
-  let acc = JSON.parse(JSON.stringify(_acc));
-
-  if (!slot.lastDroppedItem) return acc;
-
-  const { mainCard } = slot.lastDroppedItem;
-  const draggingDuplicate = card.metadata.id === mainCard.metadata.id;
-  if (draggingDuplicate && checkIfCanLevelUp(mainCard, globalStats)) acc += 1;
-
-  return acc;
-}, 0);
-
 
 export const mergeErrorMessages = (...messages) => {
   const result = {};
@@ -643,7 +362,7 @@ export const getDataForTypeSorting = (cards) => {
   };
   const allCards = Object.keys(cardsConfig.cards).map(cardTypeId => cardsConfig.cards[cardTypeId]['1'].title);
   allType.collected = cards.reduce((acc, card) => {
-    const typeIndex = allCards.findIndex(title => title === card.stats.title);
+    const typeIndex = allCards.findIndex(title => title === card.title);
 
     if (typeIndex !== -1) {
       allCards.splice(typeIndex, 1);
@@ -665,7 +384,7 @@ export const getDataForTypeSorting = (cards) => {
     });
 
     item.collected = cards.reduce((acc, card) => {
-      const typeIndex = typeTitles.findIndex(title => title === card.stats.title);
+      const typeIndex = typeTitles.findIndex(title => title === card.title);
 
       if (typeIndex !== -1) {
         typeTitles.splice(typeIndex, 1);

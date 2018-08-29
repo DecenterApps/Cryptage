@@ -20,8 +20,7 @@ class BoostersMenu extends React.Component {
       boosters, isBuying, isFetching, revealedCards, isRevealing,
     } = this.props.shop;
     const {
-      accountBalance, revealBooster, buyBoosterPack, currentBlock,
-      exitNotLocationsView,
+      revealBooster, buyBoosterPack, currentBlock, exitNotLocationsView,
     } = this.props;
     const isReveal = revealedCards.length > 0;
 
@@ -40,7 +39,6 @@ class BoostersMenu extends React.Component {
           isFetching={isFetching}
           revealBooster={revealBooster}
           buyBoosterPack={buyBoosterPack}
-          accountBalance={accountBalance}
           currentBlock={currentBlock}
         />
       </div>
@@ -59,18 +57,12 @@ BoostersMenu.propTypes = {
   getBoosters: PropTypes.func.isRequired,
   buyBoosterPack: PropTypes.func.isRequired,
   revealBooster: PropTypes.func.isRequired,
-  accountBalance: PropTypes.string,
   exitNotLocationsView: PropTypes.func.isRequired,
   currentBlock: PropTypes.number.isRequired,
 };
 
-BoostersMenu.defaultProps = {
-  accountBalance: '',
-};
-
 const mapStateToProps = state => ({
   shop: state.shop,
-  accountBalance: state.app.accountBalance,
   currentBlock: state.gameplay.blockNumber,
 });
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleLocationDrop } from '../../actions/dropActions';
 import { buyBoosterPack } from '../../actions/boosterActions';
 import DropSlotsWrapper from '../DropSlotsWrapper/DropSlotsWrapper';
 import LocationSidebarItem from '../LocationSidebarItem/LocationSidebarItem';
@@ -9,15 +8,16 @@ import EmptyLocationSlot from '../EmptyLocationSlot/EmptyLocationSlot';
 import FutureButton from '../FutureButton/FutureButton';
 import HeaderLine from '../Decorative/HeaderLine';
 import { GP_LEADERBOARD, GP_LOCATION_COLLECTION } from '../../actions/actionTypes';
+import { handleLocationDrop } from '../../actions/dropActions';
 
 import './Locations.scss';
 
 const Locations = ({
-  locations, handleLocationDrop, isBuying, buyBoosterPack, gameplayView,
+  locationSlots, isBuying, buyBoosterPack, gameplayView, handleLocationDrop,
 }) => (
   <div className="locations-wrapper">
     <div className="buy-booster-button-wrapper" onClick={buyBoosterPack}>
-      <FutureButton text="Buy card pack" loading={isBuying} disabled={isBuying} />
+      <FutureButton text="Buy card pack" hoverText="Ξ 0.001" loading={isBuying} disabled={isBuying} />
     </div>
 
     {
@@ -36,9 +36,9 @@ const Locations = ({
           <div className="vertical-line" />
 
           <DropSlotsWrapper
-            dropSlots={locations}
-            onItemDrop={handleLocationDrop}
+            dropSlots={locationSlots}
             element={<LocationSidebarItem />}
+            onItemDrop={handleLocationDrop}
             emptyStateElem={<EmptyLocationSlot />}
             mainClass="location-slots-wrapper"
           />
@@ -49,22 +49,22 @@ const Locations = ({
 );
 
 Locations.propTypes = {
-  locations: PropTypes.array.isRequired,
-  handleLocationDrop: PropTypes.func.isRequired,
+  locationSlots: PropTypes.array.isRequired,
   isBuying: PropTypes.bool.isRequired,
   buyBoosterPack: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
+  handleLocationDrop: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, shop }) => ({
-  locations: gameplay.locations,
+  locationSlots: [...gameplay.locationSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
   gameplayView: gameplay.gameplayView,
   isBuying: shop.isBuying,
 });
 
 const mapDispatchToProp = {
-  handleLocationDrop, buyBoosterPack,
+  buyBoosterPack, handleLocationDrop,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Locations);

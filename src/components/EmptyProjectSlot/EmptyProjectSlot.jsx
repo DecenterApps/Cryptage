@@ -1,28 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
-import AvailableDropIcon from '../Decorative/AvailableDropIcon';
-import UnavailableDropIcon from '../Decorative/UnavailableDropIcon';
 
 import './EmptyProjectSlot.scss';
 import EmptyProjectItemVector from './EmptyProjectItemVector';
 
-const EmptyProjectSlot = ({ card, globalStats }) => {
+const EmptyProjectSlot = ({ card, gameplay, slot }) => {
   let canDrop = false;
-  let goodCardType = false;
 
-  if (card) {
-    goodCardType = card.stats.type === 'Project';
-    if (goodCardType) canDrop = checkIfCanPlayCard(card.stats, globalStats, null);
-  }
+  if (card && slot) canDrop = slot.canDrop(gameplay, card).allowed;
 
   return (
     <div
       className={`
         empty-project-slot-wrapper
-        ${(card && goodCardType && canDrop) && 'can-drop'}
-        ${(card && goodCardType && !canDrop) && 'no-drop'}
+        ${(card && canDrop) && 'can-drop'}
+        ${(card && !canDrop) && 'no-drop'}
       `}
     >
       <div className="empty-project-slot">
@@ -34,15 +27,17 @@ const EmptyProjectSlot = ({ card, globalStats }) => {
 
 EmptyProjectSlot.defaultProps = {
   card: null,
+  slot: null,
 };
 
 EmptyProjectSlot.propTypes = {
   card: PropTypes.object,
-  globalStats: PropTypes.object.isRequired,
+  slot: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.globalStats,
+  gameplay,
 });
 
 export default connect(mapStateToProps)(EmptyProjectSlot);

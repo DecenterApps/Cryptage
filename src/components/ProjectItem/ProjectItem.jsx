@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
-import { activateProject, } from '../../actions/gameplayActions';
-import { classForRarity, formatBigNumber } from '../../services/utils';
-import ChevronDownIcon from '../Decorative/ChevronDownIcon';
+import { activateProject } from '../../actions/gameplayActions';
+import { classForRarity, formattedNumber } from '../../services/utils';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
-import { checkIfCanLevelUp } from '../../services/gameMechanicsService';
+import { calcExpiryBlocksLeft } from '../../services/gameMechanicsService';
 import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import ProjectItemVector from './ProjectItemVector';
 import ProjectPill from './ProjectPill';
+import RarityBorder from './RarityBorder/RarityBorder';
 
 import './ProjectItem.scss';
 
-import activeBg from './assets/active-item-bg.png';
 import restart from './assets/restart.png';
 import InfoCardIcon from '../Decorative/InfoCardIcon';
 import DropCardIcon from '../Decorative/DropCardIcon';
@@ -35,31 +34,20 @@ class ProjectItem extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      mainCard, index, isActive, expiryTime, showFpb, activateProject, blockNumber, isFinished,
-      openConfirmRemoveModal, modifiedFundsBonus, dragItem, globalStats, projectExecutionTimePercent,
-      draggingCard,
+      card, slot, index, activateProject, blockNumber,
+      openConfirmRemoveModal, dragItem, gameplay, projectExecutionTimePercent,
+      draggingCard
     } = this.props;
+    const isActive = card.running;
+    const isFinished = card.timesFinished > 0;
 
-    const draggingDuplicate = dragItem && (dragItem.card.metadata.id === mainCard.metadata.id);
-    const canLevelUp = draggingDuplicate && !isActive && checkIfCanLevelUp(mainCard, globalStats);
+    const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
+    const canLevelUp = draggingDuplicate && !isActive && slot.canDrop(gameplay, dragItem.card);
+    const timeLeft = calcExpiryBlocksLeft(card, blockNumber, projectExecutionTimePercent);
 
-    const blocksLeft = expiryTime - blockNumber;
-    let timeLeft = Math.ceil((projectExecutionTimePercent / 100) * blocksLeft);
-    // remove when refactor is over
-    if (timeLeft < 0) timeLeft = 1;
-
-    const cardFundsBonus = mainCard.stats.bonus.funds;
-    const metadataId = mainCard.metadata.id;
-    let fpb = 0;
-
-    if (metadataId === '30' || metadataId === '27' || metadataId === '29' || metadataId === '37' || metadataId === '24') fpb = modifiedFundsBonus; // eslint-disable-line
-    else fpb = cardFundsBonus;
-
-    const xpb = mainCard.stats.bonus.xp;
-
-    const alteredMainCard = JSON.parse(JSON.stringify(mainCard));
-
-    if (metadataId === '37' || metadataId === '24') alteredMainCard.stats.bonus.funds = modifiedFundsBonus;
+    const xpb = card.getGainsStatValue('experience');
+    const fpb = card.getGainsStatValue('fundsPerBlock');
+    const funds = card.getGainsStatValue('funds');
 
     return (
       <div
@@ -68,9 +56,8 @@ class ProjectItem extends Component {
           ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
           ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
           rarity-border
-          ${classForRarity(mainCard.stats.rarityScore)}
+          ${classForRarity(card.rarityScore)}
         `}
-        ref={(ref) => { this.myRef = ref; }}
       >
         <div
           className={`projects-item-wrapper ${!isActive && isFinished && 'project-finished'}`}
@@ -79,31 +66,21 @@ class ProjectItem extends Component {
             !draggingCard &&
             showPortal &&
             <PortalWrapper>
-              <HoverInfo card={alteredMainCard} center backdrop />
+              <HoverInfo card={card} center backdrop />
             </PortalWrapper>
           }
-
-          <ProjectItemVector active={isActive} id={mainCard.id} image={`cardImages/${mainCard.stats.image}`} />
+          
+          <RarityBorder card={card} />
+          <ProjectItemVector active={isActive} id={card.id} image={`cardImages/${card.image}`} />
 
           {
-            showFpb &&
+            (card.finishedNow && !isActive && isFinished) &&
             <div className="bonus">
-              {
-                (xpb > 0) && <div>+ { formatBigNumber(xpb) } XP</div>
-              }
-              {
-                (metadataId === '26' || metadataId === '27') &&
-                (fpb > 0) &&
-                <div>+ { formatBigNumber(fpb) } FPB</div>
-              }
-              {
-                (metadataId !== '26' && metadataId !== '27') &&
-                (fpb > 0) &&
-                <div>+ { formatBigNumber(fpb) } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
-              }
+              { (xpb > 0) && <div>+ { formattedNumber(xpb) } XP</div> }
+              { (fpb > 0) && <div>+ { formattedNumber(fpb) } FPB</div> }
+              { (funds > 0) && <div>+ { formattedNumber(funds) } { funds === 1 ? 'FUND' : 'FUNDS' }</div> }
             </div>
           }
-
 
           {
             isActive &&
@@ -112,14 +89,14 @@ class ProjectItem extends Component {
                 strokeWidth="7"
                 strokeColor="#FF9D14"
                 trailColor="transparent"
-                percent={calculatePercent(timeLeft, mainCard.stats.cost.time)}
+                percent={calculatePercent(timeLeft, card.cost.time)}
               />
             </div>
           }
 
           {
             !isActive && isFinished &&
-            <div className="repeat-project" onClick={() => activateProject(mainCard, index)}>
+            <div className="repeat-project" onClick={() => activateProject(card, index)}>
               <img
                 draggable={false}
                 className="project-check"
@@ -136,7 +113,7 @@ class ProjectItem extends Component {
               onMouseLeave={() => { togglePortal(false); }}
             >
               <InfoCardIcon />
-              <ProjectPill id={mainCard.id} />
+              <ProjectPill id={card.id} />
             </div>
 
             {
@@ -144,19 +121,19 @@ class ProjectItem extends Component {
               <div
                 className="project-pill-close"
                 onClick={() => {
-                  openConfirmRemoveModal(undefined, undefined, undefined, undefined, mainCard, index);
+                  openConfirmRemoveModal(slot, undefined, undefined, undefined, card, index);
                 }}
               >
                 <DropCardIcon />
-                <ProjectPill id={mainCard.id} />
+                <ProjectPill id={card.id} />
               </div>
             }
           </div>
 
         </div>
         {
-          blocksLeft > 0 &&
-          <div className="blocks-left">{ blocksLeft } <span>blocks left</span></div>
+          timeLeft > 0 &&
+          <div className="blocks-left">{ timeLeft } <span>blocks left</span></div>
         }
       </div>
     );
@@ -164,37 +141,28 @@ class ProjectItem extends Component {
 }
 
 ProjectItem.defaultProps = {
-  mainCard: null,
+  card: null,
   dragItem: null,
   draggingCard: false,
 };
 
 ProjectItem.propTypes = {
-  mainCard: PropTypes.object,
+  card: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  isActive: PropTypes.bool.isRequired,
-  isFinished: PropTypes.bool.isRequired,
-  showFpb: PropTypes.bool,
   activateProject: PropTypes.func.isRequired,
   openConfirmRemoveModal: PropTypes.func.isRequired,
   blockNumber: PropTypes.number.isRequired,
-  expiryTime: PropTypes.number,
-  modifiedFundsBonus: PropTypes.number.isRequired,
   dragItem: PropTypes.object,
-  globalStats: PropTypes.object.isRequired,
   projectExecutionTimePercent: PropTypes.number.isRequired,
   draggingCard: PropTypes.bool,
-};
-
-ProjectItem.defaultProps = {
-  expiryTime: null,
-  showFpb: null,
+  slot: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay, app }) => ({
+  gameplay,
   gameplayView: gameplay.gameplayView,
   blockNumber: gameplay.blockNumber,
-  globalStats: gameplay.globalStats,
   projectExecutionTimePercent: gameplay.projectExecutionTimePercent,
   draggingCard: app.draggingCard,
 });

@@ -10,13 +10,9 @@ import Projects from '../Projects/Projects';
 import NoMetaMask from './NoMetaMask/NoMetaMask';
 import ReportABug from './ReportABug/ReportABug';
 import CustomDragLayer from '../CustomDragLayer/CustomDragLayer';
+import { loadGameplayState } from '../../actions/gameplayActions';
+import { checkAccount } from '../../actions/stateActions';
 import {
-  loadGameplayState,
-  updateFundsBlockDifference,
-  checkProjectsBonus,
-} from '../../actions/gameplayActions';
-import {
-  checkAccount,
   loadingEnded,
   listenForNewBlocks,
   updateCurrentBlockNumber,
@@ -31,13 +27,10 @@ import CircleSpinner from '../Decorative/CircleSpinner/CircleSpinner';
 class App extends Component {
   async componentWillMount() {
     await this.props.checkAccount();
-    await this.props.loadGameplayState();
     if (!this.props.nickname) return this.props.loadingEnded();
-    await this.props.updateFundsBlockDifference();
     this.props.listenForNewBlocks();
     this.props.updateCurrentBlockNumber();
     this.props.loadingEnded();
-    this.props.checkProjectsBonus();
   }
 
   render() {
@@ -88,26 +81,20 @@ class App extends Component {
 
 App.propTypes = {
   checkAccount: PropTypes.func.isRequired,
-  loadGameplayState: PropTypes.func.isRequired,
   loadingEnded: PropTypes.func.isRequired,
   loadingApp: PropTypes.bool.isRequired,
   listenForNewBlocks: PropTypes.func.isRequired,
   updateCurrentBlockNumber: PropTypes.func.isRequired,
   accountError: PropTypes.string.isRequired,
-  updateFundsBlockDifference: PropTypes.func.isRequired,
   tutorialOpen: PropTypes.bool.isRequired,
-  checkProjectsBonus: PropTypes.func.isRequired,
   nickname: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = {
   checkAccount,
-  loadGameplayState,
   loadingEnded,
   listenForNewBlocks,
   updateCurrentBlockNumber,
-  updateFundsBlockDifference,
-  checkProjectsBonus,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({

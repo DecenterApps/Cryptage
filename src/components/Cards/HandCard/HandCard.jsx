@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { guid, classForRarity } from '../../../services/utils';
+import { guid, classForRarity, formatBigNumber } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
-import { rarities, typeGradients } from '../../../actions/actionTypes';
+import { typeGradients } from '../../../actions/actionTypes';
+import RarityBorder from '../RarityBorder/RarityBorder';
+import BonusCostIcon from '../../Decorative/BonusCostIcon/BonusCostIcon';
 
 import './HandCard.scss';
-import RarityBorder from '../RarityBorder/RarityBorder';
+
+const RenderCostError = ({ costError, card }) => (
+  <div className="cost-error">
+    <BonusCostIcon type={costError} />
+    <div className="cost-error-data">
+      <div className="num">{ formatBigNumber(card.cost[costError]) }</div>
+      <div className="err">{ costError === 'development' ? 'DEV' : costError.toUpperCase() }</div>
+    </div>
+  </div>
+);
+
+RenderCostError.propTypes = {
+  costError: PropTypes.string.isRequired,
+  card: PropTypes.object.isRequired,
+};
 
 class HandCard extends Component {
   constructor() {
@@ -21,25 +37,40 @@ class HandCard extends Component {
   togglePortal(showOrHide) { this.setState({ showPortal: showOrHide }); }
 
   render() {
+    let showErrorOverlay = false;
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
       card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      inHand, removeNewCardOnHover, newCardTypes,
+      inHand, removeNewCardOnHover,
     } = this.props;
 
     const uniqueId = guid();
 
-    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
-    const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
-    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+
+    const costErrorsLeft = Object.keys(costErrors)
+      .filter(key => key === 'funds' || key === 'space' || key === 'power')
+      .filter(key => !costErrors[key]);
+
+    const costErrorsRight = Object.keys(costErrors)
+      .filter(key => key === 'level' || key === 'development')
+      .filter(key => !costErrors[key]);
+
+    const typeColor = typeGradients[card.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+
+    const noMainErrors = (costErrorsLeft.length === 0 && costErrorsRight.length === 0);
+    if (noMainErrors && ('allowed' in costErrors) && !costErrors.allowed) {
+      console.log('showErrorOverlay', costErrors);
+      showErrorOverlay = true;
+    }
 
     return (
       <div
-        className={`card-details type-${card.stats.type.toLowerCase()}`}
+        className={`card-details type-${card.type.toLowerCase()}`}
         onMouseEnter={() => {
-          removeNewCardOnHover(card.metadata.id);
+          if (card.newCard) removeNewCardOnHover(card.metadataId);
           togglePortal(true);
         }}
         onMouseLeave={() => { togglePortal(false); }}
@@ -65,7 +96,7 @@ class HandCard extends Component {
         <svg className="card-image">
           <defs>
             <pattern
-              id={`card-background-${card.metadata.id}-${uniqueId}`}
+              id={`card-background-${card.metadataId}-${uniqueId}`}
               height="100%"
               width="100%"
               patternContentUnits="objectBoundingBox"
@@ -76,15 +107,15 @@ class HandCard extends Component {
                 height="1"
                 width="1"
                 preserveAspectRatio="xMidYMid slice"
-                href={`cardImages/${card.stats.image}`}
+                href={`cardImages/${card.image}`}
               />
             </pattern>
             <linearGradient
               id={`card-rarity-gradient-${uniqueId}`}
-              x1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 20 : 0}%`}
-              x2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 250 : 0}%`}
-              y1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 50 : 0}%`}
-              y2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 0 : 150}%`}
+              x1={`${classForRarity(card.rarityScore) === 'normal' ? 20 : 0}%`}
+              x2={`${classForRarity(card.rarityScore) === 'normal' ? 250 : 0}%`}
+              y1={`${classForRarity(card.rarityScore) === 'normal' ? 50 : 0}%`}
+              y2={`${classForRarity(card.rarityScore) === 'normal' ? 0 : 150}%`}
             >
               <stop
                 offset="0%"
@@ -104,11 +135,11 @@ class HandCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][1] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][1] }}
               />
               <stop
                 offset="100%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][0] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][0] }}
               />
             </linearGradient>
           </defs>
@@ -125,18 +156,26 @@ class HandCard extends Component {
           <polygon
             className="card-image-inner"
             points="10,2 82,2 82,113 74,121 2,121 2,10"
-            fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
+            fill={`url(#card-background-${card.metadataId}-${uniqueId})`}
           />
+          {
+            showErrorOverlay &&
+            <polygon
+              className="card-image-inner-overlay"
+              points="10,2 82,2 82,113 74,121 2,121 2,10"
+              fill="rgba(221, 15, 48, 0.4)"
+            />
+          }
           <polygon
             className="card-meta-bg"
             points="2,50 82,50 82,113 74,121 2,121 "
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
         </svg>
-        <div className={`meta ${card.stats.type.toLowerCase()}`}>
-          <div className="title">{card.stats.title}</div>
+        <div className={`meta ${card.type.toLowerCase()}`}>
+          <div className="title">{card.title}</div>
           <div className="border" />
-          <div className="type">{card.stats.type}</div>
+          <div className="type">{card.type}</div>
         </div>
         {
           showCount && card.count > 1 &&
@@ -146,13 +185,26 @@ class HandCard extends Component {
         }
 
         {
-          inHand && newCardTypes.includes(card.metadata.id) &&
+          inHand && card.isNew &&
           <div className="new-card"><span>new</span></div>
         }
 
         {
-          costErrors && costErrors.special &&
-          <div className="special-errors">{costErrors.special}</div>
+          costErrorsLeft.length > 0 &&
+          <div className="cost-errors cost-errors-left">
+            { costErrorsLeft.map(costError => (
+              <RenderCostError key={`cost-error-${costError}`} costError={costError} card={card} />
+              ))}
+          </div>
+        }
+
+        {
+          costErrorsRight.length > 0 &&
+          <div className="cost-errors cost-errors-right">
+            { costErrorsRight.map(costError =>
+              (<RenderCostError key={`cost-error-${costError}`} costError={costError} card={card} />
+              ))}
+          </div>
         }
       </div>
     );
@@ -177,7 +229,7 @@ HandCard.defaultProps = {
   containerSlotIndex: undefined,
   slot: null,
   draggingCard: false,
-  costErrors: null,
+  costErrors: {},
   inHand: false,
 };
 
@@ -203,12 +255,10 @@ HandCard.propTypes = {
   costErrors: PropTypes.object,
   inHand: PropTypes.bool,
   removeNewCardOnHover: PropTypes.func.isRequired,
-  newCardTypes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
   draggingCard: app.draggingCard,
-  newCardTypes: gameplay.newCardTypes,
 });
 
 const mapDispatchToProps = {

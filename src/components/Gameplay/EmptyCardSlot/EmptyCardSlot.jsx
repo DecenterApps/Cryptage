@@ -1,49 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { checkIfCanPlayCard } from '../../../services/gameMechanicsService';
-import AvailableDropIcon from '../../Decorative/AvailableDropIcon';
-import UnavailableDropIcon from '../../Decorative/UnavailableDropIcon';
 
 import './EmptyCardSlot.scss';
 
-const EmptyCardSlot = ({
-  card, globalStats, activeLocation, acceptedType, activeContainerIndex, index,
-}) => {
+const EmptyCardSlot = ({ card, gameplay, slot }) => {
   let canDrop = false;
-  let goodCardType = false;
 
-  if (card) {
-    const { type } = card.stats;
-
-    if (acceptedType === 'asset') goodCardType = type !== 'Location' && type !== 'Project' && type !== 'Mining';
-
-    // for miners you need to check if the container drop slot accepts that certain miner
-    if (acceptedType === 'mining') {
-      const { accepts } = activeLocation.dropSlots[activeContainerIndex].lastDroppedItem.dropSlots[index];
-      const goodSlotType = accepts.includes(card.metadata.id);
-
-      goodCardType = goodSlotType && type === 'Mining';
-    }
-
-    if (goodCardType) canDrop = checkIfCanPlayCard(card.stats, globalStats, activeLocation, acceptedType === 'mining');
-  }
+  if (card && slot) canDrop = slot.canDrop(gameplay, card).allowed;
 
   return (
     <div
       className={`
         empty-slot-wrapper
         empty-asset-wrapper
-        ${(card && goodCardType && canDrop) && 'can-drop'}
-        ${(card && goodCardType && !canDrop) && 'no-drop'}
+        ${(card && canDrop) && 'can-drop'}
+        ${(card && !canDrop) && 'no-drop'}
       `}
     >
-      {/*<div className="inner-empty-slot">*/}
-        {/*{*/}
-          {/*card && goodCardType &&*/}
-          {/*<div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div>*/}
-        {/*}*/}
-      {/*</div>*/}
+      {/* <div className="inner-empty-slot"> */}
+      {/* { */}
+      {/* card && goodCardType && */}
+      {/* <div className="drop-content">{ canDrop ? <AvailableDropIcon /> : <UnavailableDropIcon /> }</div> */}
+      {/* } */}
+      {/* </div> */}
       <svg>
         <defs>
           <linearGradient
@@ -96,22 +76,17 @@ const EmptyCardSlot = ({
 
 EmptyCardSlot.defaultProps = {
   card: null,
-  index: 0,
+  slot: null,
 };
 
 EmptyCardSlot.propTypes = {
   card: PropTypes.object,
-  globalStats: PropTypes.object.isRequired,
-  activeLocation: PropTypes.object.isRequired,
-  acceptedType: PropTypes.string.isRequired,
-  activeContainerIndex: PropTypes.number.isRequired,
-  index: PropTypes.number,
+  slot: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.globalStats,
-  activeContainerIndex: gameplay.activeContainerIndex,
-  activeLocation: gameplay.locations[gameplay.activeLocationIndex].lastDroppedItem,
+  gameplay,
 });
 
 export default connect(mapStateToProps)(EmptyCardSlot);

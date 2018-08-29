@@ -14,6 +14,12 @@
   background: linear-gradient(to right, rgba(#9797FB, 0), #9797FB, rgba(#9797FB, 0));
   box-shadow: 0 0 9px #220079;
 }
+.modal-warning-bar {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, rgba($yellow, 0), $yellow, rgba($yellow, 0));
+  box-shadow: 0 0 9px #220079;
+}
 
 .modal-buttons-bar {
   width: 268px;

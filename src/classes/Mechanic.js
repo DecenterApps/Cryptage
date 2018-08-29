@@ -1,3 +1,4 @@
+import serialise from 'serialijse';
 import Subscriber from './Subscriber';
 
 /**
@@ -18,6 +19,8 @@ export default class Mechanic extends Subscriber {
   }
 
   static getInstance(name, card, params) {
+    if (!name) return null;
+
     if (!registry.has(name)) {
       throw ReferenceError(`unknown mechanic '${name}'`);
     }
@@ -67,3 +70,5 @@ export default class Mechanic extends Subscriber {
     return state;
   }
 }
+
+serialise.declarePersistable(Mechanic);

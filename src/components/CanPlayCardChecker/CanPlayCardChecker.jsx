@@ -2,26 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HandCard from '../Cards/HandCard/HandCard';
-import { getAvailableCards, getCostErrors } from '../../services/gameMechanicsService';
+import { canPlayCardInAnySlot, getAvailableCards, getCostErrors } from '../../services/gameMechanicsService';
 
 const CanPlayCardChecker = ({
-  card, globalStats, getAvailableCards, gameplayView, inGameplayView, locations, projects, activeLocationIndex,
-  activeContainerIndex,
+  card, locations, projects, gameplay,
 }) => {
   if (!card) return (<div />);
+  let costErrors = { allowed: true };
 
-  let costErrors = null;
-  const activeLocation = card.stats.type === 'Mining' ? locations[activeLocationIndex].lastDroppedItem : null;
-  const ignoreSpace = card.stats.type === 'Mining';
+  const canPlay = canPlayCardInAnySlot(card, locations, projects, gameplay);
 
-  const canDrop = getAvailableCards([card], gameplayView, inGameplayView, locations, projects).length === 1;
-
-  if (!canDrop) {
-    costErrors = getCostErrors(card, activeLocationIndex, activeContainerIndex, locations, projects, gameplayView, inGameplayView, globalStats, activeLocation, ignoreSpace); // eslint-disable-line
-  }
+  if (!canPlay) costErrors = getCostErrors(card, locations, projects, gameplay);
 
   return (
-    <div className={`card-details type-${card.stats.type.toLowerCase()}`}>
+    <div className={`card-details type-${card.type.toLowerCase()}`}>
       <HandCard costErrors={costErrors} card={card} />
     </div>
   );
@@ -33,6 +27,7 @@ CanPlayCardChecker.defaultProps = {
 
 CanPlayCardChecker.propTypes = {
   card: PropTypes.object,
+  gameplay: PropTypes.object.isRequired,
   globalStats: PropTypes.object.isRequired,
   getAvailableCards: PropTypes.func.isRequired,
   gameplayView: PropTypes.string.isRequired,
@@ -44,11 +39,12 @@ CanPlayCardChecker.propTypes = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  globalStats: gameplay.globalStats,
+  gameplay,
+  globalStats: gameplay.stats,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
-  locations: gameplay.locations,
-  projects: gameplay.projects,
+  locations: [...gameplay.locationSlots],
+  projects: [...gameplay.projectSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
   activeContainerIndex: gameplay.activeContainerIndex,
 });

@@ -5,29 +5,15 @@ import { connect } from 'react-redux';
 
 import { playTurn } from '../../actions/gameplayActions';
 import { toggleCardDrag } from '../../actions/appActions';
-import { checkIfCanPlayCard } from '../../services/gameMechanicsService';
 import './DropSlotWrapper.scss';
-import { fetchCardStats } from '../../services/cardService';
 
 const dropTarget = {
   drop(props, monitor, component) {
-    let dropItem = monitor.getItem();
-
-    // TODO REFACTOR THIS
-    if (props.lastDroppedItem) {
-      const { mainCard } = props.lastDroppedItem;
-      const { id } = mainCard.metadata;
-      const level = parseInt(mainCard.stats.level, 10);
-      const cardId = monitor.getItem().card.id;
-
-      dropItem = { card: { ...mainCard, id: cardId, stats: fetchCardStats(id, level + 1) } };
-    }
-
-    props.onDrop(dropItem);
+    props.onDrop(monitor.getItem(), props.index);
     component.props.toggleCardDrag();
-    if (checkIfCanPlayCard(dropItem.card.stats, props.globalStats)) {
-      component.props.playTurn(dropItem, props.slotType, props.index, true);
-    }
+    // if (checkIfCanPlayCard(dropItem.card, props.globalStats)) {
+    // component.props.playTurn(dropItem, props.slotType, props.index, true);
+    // }
   },
 };
 
@@ -43,7 +29,7 @@ class DropSlotWrapper extends Component {
       isOver,
       canDrop,
       connectDropTarget,
-      lastDroppedItem,
+      card,
       children,
       activeClass,
       finishedClass,
@@ -55,7 +41,7 @@ class DropSlotWrapper extends Component {
       slot,
     } = this.props;
     const dragItem = this.props.dragItem && this.props.dragItem.card && this.props.dragItem;
-    const isFinished = lastDroppedItem !== null ? lastDroppedItem.isFinished : false;
+    const isFinished = card !== null ? card.isFinished : false;
     const isActive = isOver && canDrop;
     const itemHover = !isActive && canDrop;
 
@@ -65,13 +51,13 @@ class DropSlotWrapper extends Component {
       ${isActive && activeClass}
       ${isFinished && finishedClass}
       ${itemHover && itemHoverClass}
-      ${lastDroppedItem && droppedItemClass}
+      ${card && droppedItemClass}
     `;
 
     return connectDropTarget(
       <div className={className}>
-        {lastDroppedItem && React.cloneElement(children, { ...lastDroppedItem, isOver, dragItem, index, slot })}
-        {!lastDroppedItem && React.cloneElement(emptyStateElem, { ...dragItem, index })}
+        {card && React.cloneElement(children, { card, isOver, dragItem, index, slot })}
+        {!card && React.cloneElement(emptyStateElem, { ...dragItem, index, slot })}
       </div>,
     );
   }
@@ -83,7 +69,7 @@ DropSlotWrapper.defaultProps = {
   finishedClass: 'drop-slot-finished',
   itemHoverClass: 'drop-slot-item-hover',
   droppedItemClass: 'drop-slot-filled',
-  lastDroppedItem: null,
+  card: null,
   index: null,
   emptyStateElem: <div>Empty slot</div>,
 };
@@ -94,7 +80,7 @@ DropSlotWrapper.propTypes = {
   finishedClass: PropTypes.string,
   itemHoverClass: PropTypes.string,
   droppedItemClass: PropTypes.string,
-  lastDroppedItem: PropTypes.object,
+  card: PropTypes.object,
   index: PropTypes.number,
   children: PropTypes.node.isRequired,
   emptyStateElem: PropTypes.node,

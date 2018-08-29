@@ -1,19 +1,11 @@
-import update from 'immutability-helper';
 import cardsPerLevel from '../constants/cardsPerLevel.json';
 import {
   SET_ACTIVE_LOCATION,
   USERS_CARDS_ERROR,
-  LOAD_STATE_FROM_STORAGE,
   USERS_CARDS_FETCH,
   USERS_CARDS_SUCCESS,
   CHANGE_GAMEPLAY_VIEW,
-  CHANGE_PROJECT_STATE,
-  ADD_LOCATION_SLOTS,
-  ADD_ASSET_SLOTS,
   SWITCH_IN_GAMEPLAY_VIEW,
-  UPDATE_GLOBAL_VALUES,
-  ADDITIONAL_LOCATION_DROP_SLOTS,
-  ADDITIONAL_LOCATION_ITEM_DROP_SLOTS,
   GP_NO_LOCATIONS,
   SUBMIT_NICKNAME_SUCCESS,
   GP_LOCATION,
@@ -24,28 +16,20 @@ import {
   SAVE_STATE_SUCCESS,
   SAVE_STATE_REQUEST,
   INCREMENT_TURN,
-  CHANGE_LOCATIONS_STATE,
-  UPDATE_PROJECT_EXECUTION_TIME_PERCENT,
-  REMOVE_ASSET_SLOTS,
+  RESTART_PROJECT,
 } from './actionTypes';
-import cardService, { fetchCardStats } from '../services/cardService';
 import ethService from '../services/ethereumService';
-import ipfsService from '../services/ipfsService';
-import {
-  checkIfCanPlayCard,
-  getSlotForContainer,
-  handleCardMathematics,
-  getLevelCardBonusStatDiff,
-  getMathErrors,
-} from '../services/gameMechanicsService';
-import {
-  saveGameplayState,
-  removePlayedCards,
-  getCardAtContainer,
-} from '../services/utils';
+import { removePlayedCards, getCardAtContainer } from '../services/utils';
+import { METAMASK_MODAL } from '../components/Modals/modalTypes';
 
-import { packMoves, readState } from '../services/stateService';
-import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './modalActions';
+import { packMoves } from '../services/stateService';
+import {
+  openErrorModal,
+  openNewLevelModal,
+  openNoRestartProjectModal,
+  toggleModal,
+} from './modalActions';
+import Card from '../classes/Card';
 
 /**
  * Dispatches action to change the view of central gameplay view
@@ -53,9 +37,8 @@ import { openErrorModal, openNewLevelModal, openNoRestartProjectModal } from './
  * @param {String} payload - view name
  * @return {Function}
  */
-export const changeGameplayView = payload => (dispatch, getState) => {
+export const changeGameplayView = payload => (dispatch) => {
   dispatch({ type: CHANGE_GAMEPLAY_VIEW, payload });
-  saveGameplayState(getState);
 };
 
 /**
@@ -137,24 +120,26 @@ export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getSt
  * gets Garage, Computer case and CPU because
  * every played gets those cards for free
  */
-const getNewLevelCards = (level, cards) => {
+const getNewLevelCards = async (gameplay, cardIds) => {
+  const { level } = gameplay.stats;
+
   if ((level - 1) < 0) return [];
 
   let minId = -1;
 
-  if (cards.length > 0) {
-    cards.reduce((min, card) => card.id < min ? card.id : min, cards[0].id);  // eslint-disable-line
+  if (cardIds.length > 0) {
+    cardIds.reduce((min, cardId) => cardId.id < min ? cardId.id : min, cardIds[0]);  // eslint-disable-line
   }
 
   let newCards = [];
 
   for (let i = 1; i <= level; i += 1) {
     const cardTypes = cardsPerLevel[i - 1];
+
     if (cardTypes) {
       const newLevelCards = cardTypes.map((metadataId, index) => ({
         id: minId - (index + 1),
-        stats: fetchCardStats(metadataId, 1),
-        metadata: { id: metadataId.toString() },
+        metadataId: metadataId.toString(),
       }));
 
       newCards = [...newCards, ...newLevelCards];
@@ -163,7 +148,7 @@ const getNewLevelCards = (level, cards) => {
     }
   }
 
-  return newCards;
+  return Promise.all(newCards.map(({ id, metadataId }) => Card.getInstance(gameplay, id, 1, metadataId)));
 };
 
 /**
@@ -176,18 +161,16 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
   dispatch({ type: USERS_CARDS_FETCH });
 
   try {
-    const cardsIDs = await ethService.getUsersCards();
-    let cards = await cardService.fetchCardsMeta(cardsIDs);
-    const { level } = getState().gameplay.globalStats;
+    const cardsIds = await ethService.getUsersCards();
+    const { gameplay } = getState();
 
-    const newLevelCards = getNewLevelCards(level, cards);
-    cards = [...cards, ...newLevelCards];
+    const userCards = await Promise.all(cardsIds.map(cardId => Card.getInstance(gameplay, cardId, 1)));
+    const newLevelCards = await getNewLevelCards(gameplay, cardsIds);
 
-    dispatch({
-      type: USERS_CARDS_SUCCESS,
-      allCards: cards,
-      cards: removePlayedCards(cards, getState),
-    });
+    const cards = removePlayedCards(gameplay.cards, [...userCards, ...newLevelCards]);
+    // set which cards are played from current state
+
+    dispatch({ type: USERS_CARDS_SUCCESS, payload: cards });
   } catch (error) {
     dispatch({ type: USERS_CARDS_ERROR, error });
   }
@@ -199,205 +182,27 @@ export const usersCardsFetch = () => async (dispatch, getState) => {
  * @param {Number} payload - activeLocationIndex
  * @return {Function}
  */
-export const setActiveLocation = payload => (dispatch, getState) => {
+export const setActiveLocation = payload => (dispatch) => {
   dispatch({ type: SET_ACTIVE_LOCATION, payload });
-  saveGameplayState(getState);
-};
-
-/**
- * Checks if all location slots are full, if they are,
- * adds 6 new ones
- *
- * @return {Function}
- */
-export const addLocationSlots = () => (dispatch, getState) => {
-  let locations = [...getState().gameplay.locations];
-  const emptyLocations = locations.filter(({ lastDroppedItem }) => lastDroppedItem === null);
-
-  if (emptyLocations.length > 1) return;
-
-  locations = [...locations, ...ADDITIONAL_LOCATION_DROP_SLOTS];
-  dispatch({ type: ADD_LOCATION_SLOTS, payload: locations });
-};
-
-/**
- * Checks if the active location has only one empty slot, if it does do,
- * adds 1 new empty slot. Unless the space of the active location equals 0.
- *
- * @param {Number} locationIndex
- * @return {Function}
- */
-export const addAssetSlots = locationIndex => (dispatch, getState) => {
-  let locations = [...getState().gameplay.locations];
-  const location = locations[locationIndex].lastDroppedItem;
-  const currentSlots = location.dropSlots;
-
-  const emptyLocations = currentSlots.filter(({ lastDroppedItem }) => lastDroppedItem === null);
-
-  if (emptyLocations.length > 1) return;
-
-  if (location.values.space === 0) return;
-
-  locations = update(locations, {
-    [locationIndex]: {
-      lastDroppedItem: {
-        dropSlots: { $set: [...currentSlots, ...ADDITIONAL_LOCATION_ITEM_DROP_SLOTS] },
-      },
-    },
-  });
-
-  dispatch({ type: ADD_ASSET_SLOTS, payload: locations });
-};
-
-/**
- * On card remove checks if the active location has more than one empty slot, if it does do,
- * removes empty slots until it does
- *
- * @param {Number} locationIndex
- * @return {Function}
- */
-export const removeAssetSlots = locationIndex => (dispatch, getState) => {
-  const locations = [...getState().gameplay.locations];
-  const location = locations[locationIndex].lastDroppedItem;
-  const currentSlots = location.dropSlots;
-
-  const emptyLocations = currentSlots
-    .map((dropSlot, index) => ({ ...dropSlot, index }))
-    .filter(({ lastDroppedItem }) => lastDroppedItem === null);
-
-  if (emptyLocations.length > 2 && currentSlots.length > 6) {
-    const lastEmptySlotIndex = emptyLocations[emptyLocations.length - 1].index;
-    locations[locationIndex].lastDroppedItem.dropSlots.splice(lastEmptySlotIndex, 1);
-
-    dispatch({ type: REMOVE_ASSET_SLOTS, payload: locations });
-  }
 };
 
 /**
  * Activates a dropped project
  *
  * @param {Object} card
- * @param {Number} index
  * @return {Function}
  */
-export const activateProject = (card, index) => (dispatch, getState) => {
-  const { blockNumber } = getState().app;
-  const { projects, globalStats } = getState().gameplay;
-  const alteredProjects = [...projects];
+export const activateProject = card => (dispatch, getState) => {
+  const { gameplay } = getState();
 
-  if (!checkIfCanPlayCard(card.stats, globalStats)) {
-    return dispatch(openNoRestartProjectModal(getMathErrors(card.stats, globalStats)));
+  const constPlayErrors = card.canRestart(gameplay);
+
+  if (!constPlayErrors.allowed) {
+    return dispatch(openNoRestartProjectModal(constPlayErrors));
   }
 
-  if (card.stats.level > 1 && card.stats.cost.development > globalStats.development) {
-    return dispatch(openNoRestartProjectModal({ development: true, funds: false }));
-  }
-
-  alteredProjects[index].lastDroppedItem.isFinished = false;
-  alteredProjects[index].lastDroppedItem.isActive = true;
-  alteredProjects[index].lastDroppedItem.expiryTime = blockNumber +
-    alteredProjects[index].lastDroppedItem.mainCard.stats.cost.time;
-
-  const mathRes = handleCardMathematics(card, [], globalStats, index);
-  const alterGlobalStats = mathRes.globalStats;
-
-  dispatch(playTurn({ card }, 'project', index, true));
-
-  dispatch({
-    type: CHANGE_PROJECT_STATE,
-    projects: alteredProjects,
-  });
-  dispatch({
-    type: UPDATE_GLOBAL_VALUES,
-    payload: alterGlobalStats,
-  });
-  saveGameplayState(getState);
-};
-
-/**
- * Checks if dropped card should update global fpb
- *
- * @param {Number} _fpb
- * @param {Object} card
- * @param {Boolean} addOrReduce - true is add, false is reduce
- * @param {Number} numToAddOrReduce - number which takes a lot of logic to calculate
- * (on purpose outside of function)
- * @return {Number}
- */
-export const addOrReduceFromFundsPerBlock = (_fpb, card, addOrReduce, numToAddOrReduce = 0) => {
-  let fpb = _fpb;
-
-  if (card.stats && (card.stats.type === 'Mining' || card.metadata.id === '18' || card.metadata.id === '22')) { // eslint-disable-line
-    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'funds');
-    else fpb -= card.stats.bonus.funds;
-  }
-
-  if (card.stats && card.metadata.id === '23') {
-    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
-    else fpb -= card.stats.bonus.multiplierFunds;
-  }
-
-  // Special mechanics for card with id 26, Adds fpb when completed;
-  if (card.mainCard && card.mainCard.metadata.id === '26') {
-    const { timesFinished, mainCard } = card;
-
-    if (addOrReduce) fpb += getLevelCardBonusStatDiff(card, 'multiplierFunds');
-    else fpb -= (timesFinished * mainCard.stats.bonus.multiplierFunds);
-  }
-
-  if (card.mainCard && card.mainCard.metadata.id === '27') {
-    if (addOrReduce) fpb += numToAddOrReduce;
-    else fpb -= numToAddOrReduce;
-  }
-
-  return fpb;
-};
-
-/**
- * If the user has an account loads gameplay
- * from localStorage
- *
- * @return {Function}
- */
-export const loadGameplayState = () => async (dispatch, getState) => {
-  const { account } = getState().app;
-
-  if (!account) return;
-
-  const payload = JSON.parse(localStorage.getItem(`cryptage-${account}`));
-
-  if (!payload) {
-    // TODO
-    // Check to see if the user has already saved the state
-    // const state = await ipfsService.getFileStream('ipfsHash');
-
-    // console.log(state.toString('utf8'));
-    // Get ipfs hash and pull the content
-    return;
-  }
-
-  dispatch({ type: LOAD_STATE_FROM_STORAGE, payload });
-};
-
-export const updateFundsBlockDifference = () => async (dispatch, getState) => {
-  const { app: { account }, gameplay } = getState();
-
-  if (!account) return;
-
-  const previousState = JSON.parse(localStorage.getItem(`cryptage-${account}`));
-
-  if (previousState) {
-    const currentBlock = await ethService.getBlockNumber();
-    const blockDiff = currentBlock - previousState.blockNumber;
-    console.log(`Add ${previousState.fundsPerBlock} funds for ${blockDiff} blocks`);
-
-    const locations = [...gameplay.locations];
-    const globalStats = { ...gameplay.globalStats };
-
-    globalStats.funds += blockDiff * previousState.fundsPerBlock;
-
-    dispatch({ type: UPDATE_GLOBAL_VALUES, payload: globalStats });
-  }
+  const newState = card.restartProject(gameplay);
+  dispatch({ type: RESTART_PROJECT, payload: newState });
 };
 
 /**
@@ -417,24 +222,25 @@ export const switchInGameplayView = (containerIndex, viewType) => (dispatch) => 
  *
  * @param {Object} data { nickname }
  */
-export const submitNickname = ({ nickname }) => async (dispatch) => {
-  // Add call to the contract here
+export const submitNickname = ({ nickname }) => async (dispatch, getState) => {
+  const cardsPromise = cardsPerLevel[0].map(async (metadataId, index) => {
+    const id = 0 - (index + 1);
 
-  const cards = cardsPerLevel[0].map((metadataId, index) => ({
-    id: 0 - (index + 1),
-    stats: fetchCardStats(metadataId, 1),
-    metadata: { id: metadataId.toString() },
-  }));
+    return Card.getInstance(getState().gameplay, id, 1, metadataId.toString());
+  });
 
-  dispatch(openNewLevelModal(1, cards));
+  Promise.all(cardsPromise).then((cards) => {
+    dispatch(openNewLevelModal(1, cards));
 
-  dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
+    dispatch({ type: SUBMIT_NICKNAME_SUCCESS, payload: nickname });
+  });
 };
 
 /**
  * Sends tx to contract to save current state
  */
 export const saveStateToContract = () => async (dispatch, getState) => {
+  if (!window.hasMetaMask) return dispatch(toggleModal(METAMASK_MODAL, { tried: 'save game state' }, true));
   // Add call to the contract here
   const { gameplay } = getState();
   dispatch({ type: SAVE_STATE_REQUEST, payload: { isSaving: true } });
@@ -459,7 +265,6 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 
     dispatch({ type: CLEAR_TURNS });
     dispatch({ type: SAVE_STATE_SUCCESS, payload: { isSaving: false } });
-    saveGameplayState(getState);
   } catch (err) {
     console.log(err);
     dispatch(openErrorModal(
@@ -479,87 +284,10 @@ export const saveStateToContract = () => async (dispatch, getState) => {
 export const exitNotLocationsView = () => (dispatch, getState) => {
   let toGoView = GP_LOCATION;
   const { gameplay } = getState();
-  const locations = gameplay.locations.filter(({ lastDroppedItem }) => lastDroppedItem !== null);
+  const locations = gameplay.locationSlots.filter(({ card }) => card);
 
   if (locations.length === 0) toGoView = GP_NO_LOCATIONS;
   if (!gameplay.nickname) toGoView = GP_NO_NICKNAME;
 
   dispatch(changeGameplayView(toGoView));
-};
-
-/**
- * Checks if bonus for projects is still visible, disables it if it is.
- */
-export const checkProjectsBonus = () => (dispatch, getState) => {
-  let changed = false;
-  let projects = [...getState().gameplay.projects];
-
-  projects = projects.map((_project) => {
-    const project = { ..._project };
-
-    if (project.lastDroppedItem && project.lastDroppedItem.showFpb) {
-      changed = true;
-      project.lastDroppedItem.showFpb = false;
-    }
-
-    return project;
-  });
-
-  if (changed) dispatch({ type: CHANGE_PROJECT_STATE, projects });
-};
-
-/**
- * Updates projectExecutionTimePercent based on how much a card alters it
- *
- * @param {Object} card
- * @param {Number} lastDecrease
- * @return {Number} percentDecreased
- */
-export const updateProjectExecutionTimePercent = (card, lastDecrease) => (dispatch, getState) => {
-  let { projectExecutionTimePercent } = getState().gameplay;
-
-  // add how much was taken in order to decrease again
-  projectExecutionTimePercent += lastDecrease;
-
-  // calc how much percent is going to be decreased
-  const percentDecreased = Math.ceil((card.stats.bonus.multiplierTime / 100) * projectExecutionTimePercent);
-  projectExecutionTimePercent -= percentDecreased;
-
-  if (projectExecutionTimePercent < 0) projectExecutionTimePercent = 0;
-
-  dispatch({ type: UPDATE_PROJECT_EXECUTION_TIME_PERCENT, payload: projectExecutionTimePercent });
-  return percentDecreased;
-};
-
-/**
- * Reduces projects execution time when asset it dropped/leveled up
- *
- * @param {Array} _projects
- * @param {Number} index
- * @param {Object} card
- */
-export const projectReduceTimeForProjects = (_projects, index, card) => (dispatch) => {
-  const projects = [..._projects];
-  const lastDecrease = card.stats.level === 1 ? 0 : projects[index].lastDroppedItem.special;
-
-  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
-  projects[index].lastDroppedItem.special = percentDecreased;
-  dispatch({ type: CHANGE_PROJECT_STATE, projects });
-};
-
-/**
- * Reduces projects execution time when asset it dropped/leveled up
- *
- * @param {Array} _locations
- * @param {Number} activeLocationIndex
- * @param {Number} index
- * @param {Object} card
- */
-export const assetReduceTimeForProjects = (_locations, activeLocationIndex, index, card) => (dispatch) => {
-  const locations = [..._locations];
-  const lastDecrease = card.stats.level === 1 ? 0 : locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special; // eslint-disable-line
-
-  const percentDecreased = dispatch(updateProjectExecutionTimePercent(card, lastDecrease));
-  locations[activeLocationIndex].lastDroppedItem.dropSlots[index].lastDroppedItem.special = percentDecreased;
-  dispatch({ type: CHANGE_LOCATIONS_STATE, payload: locations });
 };

@@ -1,3 +1,5 @@
+import serialise from 'serialijse';
+
 function getAllSlottedCards(card, slotted) {
   for (const slot of card.dropSlots) {
     if (!slot.isEmpty()) {
@@ -9,17 +11,29 @@ function getAllSlottedCards(card, slotted) {
 
 export default class CardSlot {
   constructor(owner) {
-    if (owner) this.owner = owner;
+    this.acceptedTags = [];
+
+    if (owner) {
+      this.owner = owner;
+      this.acceptedTags = this.owner.acceptedTags;
+    }
   }
 
   dropCard(state, card) {
     if (this.card) {
-      const leveledUp = this.card.levelUp(state, this);
+      const leveledUp = card.levelUp(state, this);
 
       const slottedCards = [];
       getAllSlottedCards(this.card, slottedCards);
 
       let newState = this.removeCard(state);
+
+      leveledUp.stackedCards.map((_stackedCard) => {
+        const stackedCard = _stackedCard;
+        stackedCard.slotted = true;
+        return stackedCard;
+      });
+
       newState = this.dropCard(newState, leveledUp);
 
       for (const [slot, card] of slottedCards) {
@@ -57,16 +71,18 @@ export default class CardSlot {
       const { acceptedTags } = this.owner || this;
 
       if (!acceptedTags.some(acceptedTag => card.tags.includes(acceptedTag))) {
-        return { allowed: false };
+        return { allowed: false, tags: false };
       }
 
       return card.canPlay(state, this);
     }
 
-    return this.card.canLevelUp(state, this);
+    return this.card.canLevelUp(state, card);
   }
 
   isEmpty() {
     return !this.card;
   }
 }
+
+serialise.declarePersistable(CardSlot);

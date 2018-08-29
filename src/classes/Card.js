@@ -1,25 +1,36 @@
+import serialise from 'serialijse';
 import cardsConfig from '../constants/cards.json';
 import Mechanic from './Mechanic';
-import { fetchCardMeta, fetchCardStats } from '../services/cardService';
+import { fetchCardStats } from '../services/cardService';
 import CardSlot from './CardSlot';
 import { mergeErrorMessages } from '../services/utils';
 import { isLocationCard } from './matchers';
 import { registerCardTypeConstructor, getCardTypeConstructor, setDefaultCardType } from './Registry';
 import Subscriber from './Subscriber';
+import ethereumService from '../services/ethereumService';
 
 export default class Card extends Subscriber {
 
-  static async getInstance(id, level = 1) {
-    const cardMeta = await fetchCardMeta(id, level);
-    return new (Card.getTypeConstructor(cardMeta.stats.type))({
+  static async getInstance(state, id, level = 1, _metadataId = null) {
+    let metadataId = null;
+
+    if (_metadataId) metadataId = _metadataId;
+    else {
+      const cardMeta = await ethereumService.getCardMetadata(id);
+      metadataId = cardMeta.id;
+    }
+
+    const stats = fetchCardStats(metadataId, level);
+
+    return new (Card.getTypeConstructor(stats.type))({
       id,
-      metadataId: cardMeta.metadata.id,
+      metadataId,
       level,
-      ...cardMeta.stats,
-    });
+      ...stats,
+    }, state);
   }
 
-  static getLeveledInstance(id, card, level = undefined) {
+  static getLeveledInstance(state, id, card, level = undefined) {
     if (!level) {
       level = card.level + 1;
     }
@@ -29,7 +40,7 @@ export default class Card extends Subscriber {
       metadataId: card.metadataId,
       level,
       ...stats,
-    });
+    }, state);
   }
 
   constructor(data) {
@@ -38,10 +49,13 @@ export default class Card extends Subscriber {
 
     this.dropSlots = [];
     this.stackedCards = [this];
+    this.slotted = false;
+    this.isNew = false;
     this.active = false;
     this.parent = null;
     this.minDropSlots = cardsConfig.locationMinSlots;
     this.minEmptyDropSlots = 2;
+    this.additionalData = {};
 
     this.additionalBonuses = {
       funds: { absolute: 0, relative: 0 },
@@ -59,7 +73,7 @@ export default class Card extends Subscriber {
       return Mechanic.getInstance(name, this, params);
     }).concat([
       Mechanic.getInstance('cost', this, ['level']),
-      Mechanic.getInstance('core', this, ['funds']),
+      Mechanic.getInstance('core', this, ['funds', true]),
       Mechanic.getInstance('core', this, ['development']),
       Mechanic.getInstance('bonus', this, ['funds', true]),
       Mechanic.getInstance('bonus', this, ['development']),
@@ -74,6 +88,10 @@ export default class Card extends Subscriber {
     for (const stat of Object.keys(bonusesObject)) {
       this.additionalBonuses[stat].absolute += bonusesObject[stat].absolute;
       this.additionalBonuses[stat].relative += bonusesObject[stat].relative;
+
+      if (this.additionalBonuses[stat].relative > 100) {
+        this.additionalBonuses[stat].relative = 100;
+      }
     }
 
     return this._on('onAfterChangeBonuses', state);
@@ -84,7 +102,7 @@ export default class Card extends Subscriber {
     const absBonus = this.additionalBonuses[stat].absolute;
     const relativeBonus = this.additionalBonuses[stat].relative;
 
-    return (baseBonus + absBonus) * (1 + relativeBonus);
+    return Math.floor(((baseBonus + absBonus) * (100 + relativeBonus)) / 100);
   }
 
   addNewDropSlot(SlotType = CardSlot) {
@@ -114,7 +132,11 @@ export default class Card extends Subscriber {
 
   _can(method, ...params) {
     const errorMessages = this.mechanics
-      .map(mechanic => mechanic[method] ? mechanic[method](...params) : null)
+      .map(mechanic => {
+        if (!mechanic) return null;
+
+        return mechanic[method] ? mechanic[method](...params) : null;
+      })
       .filter(errorMessage => errorMessage !== null);
 
     return mergeErrorMessages(...errorMessages);
@@ -129,11 +151,13 @@ export default class Card extends Subscriber {
 
     Object.assign(result, this._can('canPlay', state, dropSlot));
 
-    return result;
+    return mergeErrorMessages(result);
   }
 
   onPlay(state, dropSlot) {
     this.active = true;
+    this.stackedCards[0].slotted = true;
+
     return this._on('onPlay', state, dropSlot);
   }
 
@@ -146,6 +170,7 @@ export default class Card extends Subscriber {
   }
 
   onWithdraw(state) {
+    this.withdrawing = true;
     let newState = this._on('onWithdraw', state);
 
     this.additionalBonuses = {
@@ -155,17 +180,23 @@ export default class Card extends Subscriber {
       fundsPerBlock: { absolute: 0, relative: 0 },
       power: { absolute: 0, relative: 0 },
     };
+    this.additionalData = {};
 
     for (const slot of this.dropSlots) {
       newState = slot.removeCard(newState);
     }
 
     while (this.stackedCards.length) {
-      this.stackedCards.pop().active = false;
+      const popped = this.stackedCards.pop();
+      popped.active = false;
+      popped.slotted = false;
     }
 
     this.unsubscribeAll();
 
+    this.stackedCards = [this];
+
+    this.withdrawing = false;
     return newState;
   }
 
@@ -189,30 +220,31 @@ export default class Card extends Subscriber {
     return this._on('block', state, blockCount);
   }
 
-  canLevelUp(state, dropSlot) {
-    // this === dragged card
-    const droppedCard = dropSlot.card;
-
+  canLevelUp(state, draggedCard) {
     const result = {
-      allowed: droppedCard.metadataId === this.metadataId && droppedCard.level < 5,
+      allowed: draggedCard.metadataId === this.metadataId && this.level < 5,
     };
 
     if (!result.allowed) return result;
 
-    const instance = Card.getLeveledInstance(this.id, droppedCard);
+    const instance = Card.getLeveledInstance(state, this.id, draggedCard);
+    if (!instance.cost) return { allowed: false, noNextLevel: false };
+
     result.allowed = state.stats.funds >= instance.cost.funds;
 
     if (!result.allowed) return result;
 
-    return Object.assign(result, droppedCard._can('canLevelUp', state, dropSlot));
+    return Object.assign(result, this._can('canLevelUp', state, draggedCard));
   }
 
   levelUp(state, dropSlot) {
     // this === dragged card
     const droppedCard = dropSlot.card;
 
-    const leveledUp = Card.getLeveledInstance(this.id, droppedCard);
+    const leveledUp = Card.getLeveledInstance(state, this.id, droppedCard);
     leveledUp.dropSlots = droppedCard.dropSlots;
+    leveledUp.timesFinished = droppedCard.timesFinished;
+    leveledUp.additionalData = droppedCard.additionalData;
     leveledUp.additionalBonuses = droppedCard.additionalBonuses;
     leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
 
@@ -233,3 +265,5 @@ Card.registerTypeConstructor = registerCardTypeConstructor;
 Card.getTypeConstructor = getCardTypeConstructor;
 
 setDefaultCardType(Card);
+
+serialise.declarePersistable(Card);

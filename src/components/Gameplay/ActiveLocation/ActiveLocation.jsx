@@ -7,9 +7,9 @@ import GameplayContainer from '../GameplayContainer/GameplayContainer';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
 import { getMaxValueForLocation } from '../../../services/gameMechanicsService';
 import { handleAssetDrop } from '../../../actions/dropActions';
+import { GP_LOCATION_CONTAINER, GP_LOCATION_MAIN } from '../../../actions/actionTypes';
 
 import './ActiveLocation.scss';
-import { GP_LOCATION_CONTAINER, GP_LOCATION_MAIN } from '../../../actions/actionTypes';
 
 const ActiveLocation = ({
   locations,
@@ -19,19 +19,17 @@ const ActiveLocation = ({
   inGameplayView,
 }) => {
   const location = locations[activeLocationIndex];
-  const { space, power } = location.lastDroppedItem.values;
-  const card = location.lastDroppedItem.mainCard;
+  const { card } = location;
+  const { space, power } = card;
   const maxSpace = getMaxValueForLocation(card, 'space');
   let maxPower = getMaxValueForLocation(card, 'power');
 
-  const powerCards = location.lastDroppedItem.dropSlots.filter(({ lastDroppedItem }) => (
-    lastDroppedItem && lastDroppedItem.mainCard.stats.type === 'Power'
-  )).map(({ lastDroppedItem }) => lastDroppedItem.mainCard);
+  const powerCards = location.card.dropSlots.filter(({ card }) => (
+    card && card.type === 'Power'
+  )).map(({ card }) => card);
 
   // recalculate max power for location if power cards were played
-  if (powerCards.length > 0) powerCards.forEach(({ stats }) => {
-    maxPower += stats.bonus.power;
-  });
+  if (powerCards.length > 0) powerCards.forEach((card) => { maxPower += card.bonus.power; });
 
   const spacePercent = Math.floor((space / maxSpace) * 100) || 0;
   const powerPercent = Math.floor((power / maxPower) * 100) || 0;
@@ -49,7 +47,7 @@ const ActiveLocation = ({
               <div className="bar left background" />
               <div className="bar left" style={{ width: `${spacePercent}%` }} />
             </div>
-            <div className="location-name">{card.stats.title}</div>
+            <div className="location-name">{card.title}</div>
             <div className="bar-wrapper">
               <div className="bar-label">
                 <span>Power</span>{`${power} / ${maxPower}`}
@@ -64,8 +62,8 @@ const ActiveLocation = ({
             style={{
               backgroundImage: `url(cardImages/${
                 inGameplayView === GP_LOCATION_CONTAINER ?
-                  location.lastDroppedItem.dropSlots[activeContainerIndex].lastDroppedItem.mainCard.stats.image
-                  : card.stats.image
+                  location.card.dropSlots[activeContainerIndex].card.image
+                  : card.image
                 })`,
             }}
           />
@@ -75,7 +73,7 @@ const ActiveLocation = ({
           className={`active-location-field location ${inGameplayView === GP_LOCATION_MAIN ? 'shown' : 'hidden'}`}
         >
           <DropSlotsWrapper
-            dropSlots={location.lastDroppedItem.dropSlots}
+            dropSlots={location.card.dropSlots}
             onItemDrop={handleAssetDrop}
             element={<GameplayItem />}
             emptyStateElem={<EmptyCardSlot acceptedType="asset" />}
@@ -109,7 +107,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  locations: gameplay.locations,
+  locations: [...gameplay.locationSlots],
   activeLocationIndex: gameplay.activeLocationIndex,
   activeContainerIndex: gameplay.activeContainerIndex,
   inGameplayView: gameplay.inGameplayView,

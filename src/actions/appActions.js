@@ -1,17 +1,13 @@
 import {
-  GET_ACCOUNT_SUCCESS,
-  GET_ACCOUNT_ERROR,
   LOADING_ENDED,
   UPDATE_BLOCK_NUMBER,
   TOGGLE_CARD_DRAG,
   CLEAR_STORE,
   TOGGLE_TUTORIAL,
+  ON_NEW_BLOCK,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
-import { nameOfNetwork, getPlayedAssetCards } from '../services/utils';
-import { loadGameplayState, updateFundsBlockDifference } from '../actions/gameplayActions';
-import { handlePlayedAssetCardsPassive, checkProjectsExpiry } from '../actions/passiveGameMechanics';
-import config from '../constants/config.json';
+import { checkIfNewLevel } from '../services/gameMechanicsService';
 
 /**
  * Fires action when all data from local storage and web3 has been loaded
@@ -19,40 +15,6 @@ import config from '../constants/config.json';
  * @return {Function}
  */
 export const loadingEnded = () => (dispatch) => { dispatch({ type: LOADING_ENDED }); };
-
-/**
- * Gets user ethereum account from MetaMask
- *
- * @return {Function}
- */
-export const checkAccount = () => async (dispatch, getState) => {
-  try {
-    const network = await ethService.getNetwork();
-    if (config.network !== network) {
-      throw new Error(`Wrong network - please set Metamask to ${nameOfNetwork(config.network)}`);
-    }
-
-    const account = await ethService.getAccount();
-
-    if (getState().app.account !== account) {
-      if (getState().app.account === '') {
-        const balance = await ethService.getBalance(account);
-        dispatch({ type: GET_ACCOUNT_SUCCESS, account, balance });
-        dispatch(loadGameplayState());
-        dispatch(updateFundsBlockDifference());
-      } else {
-        console.log('reload');
-        window.location.reload();
-      }
-    }
-  } catch (err) {
-    if (getState().app.accountError !== err.message) {
-      dispatch({ type: GET_ACCOUNT_ERROR, error: err.message });
-    }
-  }
-
-  setTimeout(() => checkAccount()(dispatch, getState), 1000);
-};
 
 /**
  * Gets the current block number and sets
@@ -72,14 +34,12 @@ export const listenForNewBlocks = () => (dispatch, getState) => {
   window.web3Subscriber.eth.subscribe('newBlockHeaders', async (error, _number) => {
     if (error) return console.error('newBlockHeaders listener error', error);
 
+    const { gameplay } = getState();
     const { number } = _number;
 
-    dispatch({ type: UPDATE_BLOCK_NUMBER, payload: number });
-
-    const { locations } = getState().gameplay;
-
-    dispatch(handlePlayedAssetCardsPassive(getPlayedAssetCards([...locations])));
-    dispatch(checkProjectsExpiry());
+    const newGameplay = gameplay.updateBlockNumber(gameplay, number);
+    dispatch(checkIfNewLevel(newGameplay.stats.level));
+    dispatch({ type: ON_NEW_BLOCK, payload: newGameplay });
   });
 };
 
@@ -94,10 +54,10 @@ export const toggleCardDrag = payload => (dispatch) => {
 
 /**
  * Toggles if a card is being dragged in the game
- *
- * @param {Boolean} payload
  */
-export const resetGame = () => (dispatch) => {
+export const resetGame = () => async (dispatch) => {
+  const account = await ethService.getAccount();
+  localStorage.removeItem('cryptage-' + account);
   dispatch({ type: CLEAR_STORE });
 };
 

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  guid,
-  formatBigNumberWithBreak,
-  range,
-  classForRarity,
-} from '../../../services/utils';
+import { guid, formatBigNumberWithBreak, classForRarity } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import DropCardIcon from '../../Decorative/DropCardIcon';
 import MagnifyingGlassCardIcon from '../../Decorative/MagnifyingGlassCardIcon';
@@ -14,17 +9,10 @@ import InfoCardIcon from '../../Decorative/InfoCardIcon';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
-import { rarities, typeGradients } from '../../../actions/actionTypes';
-
-import './IngameCard.scss';
+import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
 
-const classForNumber = (_number) => {
-  const number = formatBigNumberWithBreak(_number);
-  if (number.length > 3) return 'small';
-  if (number.length === 3) return 'smaller';
-  return '';
-};
+import './IngameCard.scss';
 
 class IngameCard extends Component {
   constructor() {
@@ -39,26 +27,24 @@ class IngameCard extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
+      card, showCount, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      inHand, removeNewCardOnHover, newCardTypes,
+      removeNewCardOnHover,
     } = this.props;
 
     const uniqueId = guid();
-    const rarityColor = rarities[classForRarity(card.stats.rarityScore)] || '#9C01C2';
-    const typeColor = typeGradients[card.stats.type.toLowerCase()][0];
-    const borderColor = classForRarity(card.stats.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+    const typeColor = typeGradients[card.type.toLowerCase()][0];
+    const borderColor = classForRarity(card.rarityScore) !== 'normal' ? typeColor : '#9797FB';
 
     return (
       <div
-        className={`ingame-card-details type-${card.stats.type.toLowerCase()}`}
+        className={`ingame-card-details type-${card.type.toLowerCase()}`}
         onMouseEnter={() => {
-          removeNewCardOnHover(card.metadata.id);
+          if (card.newCard) removeNewCardOnHover(card.metadataId);
         }}
         onClick={(e) => {
-          if (card.stats.type === 'Container' && played && goToContainer) goToContainer(e);
+          if (card.type === 'Container' && played && goToContainer) goToContainer(e);
         }}
-        ref={(ref) => { this.myRef = ref; }}
       >
         {
           !draggingCard &&
@@ -69,10 +55,10 @@ class IngameCard extends Component {
         }
 
         {
-          card.stats.type !== 'Container' &&
-          card.stats.type !== 'Misc' &&
+          card.type !== 'Container' &&
+          card.type !== 'Misc' &&
           <div className="level-wrapper">
-            <div className="level">{card.stats.level}</div>
+            <div className="level">{card.level}</div>
           </div>
         }
         <div className="overlay" />
@@ -80,7 +66,7 @@ class IngameCard extends Component {
         <svg className="card-image">
           <defs>
             <pattern
-              id={`card-background-${card.metadata.id}-${uniqueId}`}
+              id={`card-background-${card.metadataId}-${uniqueId}`}
               height="100%"
               width="100%"
               patternContentUnits="objectBoundingBox"
@@ -91,15 +77,15 @@ class IngameCard extends Component {
                 height="1"
                 width="1"
                 preserveAspectRatio="xMidYMid slice"
-                href={`cardImages/${card.stats.image}`}
+                href={`cardImages/${card.image}`}
               />
-            </pattern>c
+            </pattern>
             <linearGradient
               id={`card-rarity-gradient-${uniqueId}`}
-              x1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 20 : 0}%`}
-              x2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 250 : 0}%`}
-              y1={`${classForRarity(card.stats.rarityScore) === 'normal' ? 50 : 50}%`}
-              y2={`${classForRarity(card.stats.rarityScore) === 'normal' ? 0 : 250}%`}
+              x1={`${classForRarity(card.rarityScore) === 'normal' ? 20 : 0}%`}
+              x2={`${classForRarity(card.rarityScore) === 'normal' ? 250 : 0}%`}
+              y1={`${classForRarity(card.rarityScore) === 'normal' ? 50 : 50}%`}
+              y2={`${classForRarity(card.rarityScore) === 'normal' ? 0 : 250}%`}
             >
               <stop
                 offset="0%"
@@ -119,11 +105,11 @@ class IngameCard extends Component {
             >
               <stop
                 offset="0%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][1] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][1] }}
               />
               <stop
                 offset="100%"
-                style={{ stopColor: typeGradients[card.stats.type.toLowerCase()][0] }}
+                style={{ stopColor: typeGradients[card.type.toLowerCase()][0] }}
               />
             </linearGradient>
           </defs>
@@ -140,7 +126,7 @@ class IngameCard extends Component {
           <polygon
             className="card-image-inner"
             points="11,2 98,2 98,134 89,143 2,143 2,11"
-            fill={`url(#card-background-${card.metadata.id}-${uniqueId})`}
+            fill={`url(#card-background-${card.metadataId}-${uniqueId})`}
           />
           <polygon
             className="card-meta-bg"
@@ -148,10 +134,10 @@ class IngameCard extends Component {
             fill={`url(#card-type-gradient-${uniqueId})`}
           />
         </svg>
-        <div className={`meta ${card.stats.type.toLowerCase()}`}>
-          <div className="title">{card.stats.title}</div>
+        <div className={`meta ${card.type.toLowerCase()}`}>
+          <div className="title">{card.title}</div>
           <div className="border" />
-          <div className="type">{card.stats.type}</div>
+          <div className="type">{card.type}</div>
         </div>
         {
           showCount && card.count > 1 &&
@@ -161,18 +147,13 @@ class IngameCard extends Component {
         }
 
         {
-          inHand && newCardTypes.includes(card.metadata.id) &&
-          <div className="new-card">new</div>
-        }
-
-        {
-          card.stats.type === 'Container' && played &&
+          card.type === 'Container' && played &&
           <div className="container-slots-outer-wrapper">
             <div className="container-slots-wrapper">
               <div
                 className="slots-bar"
                 style={{
-                  height: `${100 - 100 * remainingSlots / card.stats.values.space}%`,
+                  height: `${100 - (100 * (remainingSlots / card.space))}%`,
                 }}
               />
             </div>
@@ -208,7 +189,7 @@ class IngameCard extends Component {
           }
 
           {
-            card.stats.type === 'Container' && played && goToContainer &&
+            card.type === 'Container' && played && goToContainer &&
             <div className="go-to-container-wrapper" onClick={goToContainer}>
               <MagnifyingGlassCardIcon />
             </div>
@@ -228,7 +209,6 @@ IngameCard.defaultProps = {
   },
   canRemove: true,
   showCount: true,
-  hoverCentered: false,
   played: false,
   remainingSlots: 0,
   goToContainer: null,
@@ -238,7 +218,6 @@ IngameCard.defaultProps = {
   slot: null,
   draggingCard: false,
   costErrors: null,
-  inHand: false,
 };
 
 IngameCard.propTypes = {
@@ -249,7 +228,6 @@ IngameCard.propTypes = {
     }),
   }),
   showCount: PropTypes.bool,
-  hoverCentered: PropTypes.bool,
   remainingSlots: PropTypes.number,
   played: PropTypes.bool,
   goToContainer: PropTypes.func,
@@ -261,14 +239,11 @@ IngameCard.propTypes = {
   draggingCard: PropTypes.bool,
   canRemove: PropTypes.bool,
   costErrors: PropTypes.object,
-  inHand: PropTypes.bool,
   removeNewCardOnHover: PropTypes.func.isRequired,
-  newCardTypes: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ app, gameplay }) => ({
+const mapStateToProps = ({ app }) => ({
   draggingCard: app.draggingCard,
-  newCardTypes: gameplay.newCardTypes,
 });
 
 const mapDispatchToProps = {

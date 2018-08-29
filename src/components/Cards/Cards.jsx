@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { usersCardsFetch } from '../../actions/gameplayActions';
 import { getAvailableCards } from '../../services/gameMechanicsService';
-import HandCard from './HandCard/HandCard';
-import DragWrapper from '../DragWrapper/DragWrapper';
 import Spinner from '../Spinner/Spinner';
 import CardsTabGroup from '../Cards/CardsTabGroup/CardsTabGroup';
 import { compareCategories, sortTypeGroupByPrice } from '../../services/utils';
@@ -40,31 +38,35 @@ class Cards extends Component {
   }
 
   groupDuplicates(cards) {
-    const noDupliactes = cards.reduce((accumulator, item) => {
-      if (accumulator[item.metadata.id]) accumulator[item.metadata.id].count++;
-      else accumulator[item.metadata.id] = {
-        ...item,
-        count: 1,
-      };
+    const noDupliactes = cards.reduce((_accumulator, item) => {
+      const accumulator = _accumulator;
+
+      if (accumulator[item.metadataId]) accumulator[item.metadataId].count += 1;
+      else accumulator[item.metadataId] = Object.assign(item, { count: 1 });
+
       return accumulator;
     }, {});
 
     return Object.values(noDupliactes);
   }
 
-  groupCardsByType(cards) {
+  groupCardsByType(_cards) {
+    const cards = _cards
+      .filter(card => !card.active)
+      .filter(card => !card.slotted);
+
     const noDupliactes = this.groupDuplicates(cards);
     const {
-      getAvailableCards, gameplayView, inGameplayView, locations, projects,
+      getAvailableCards, gameplayView, inGameplayView, locations, projects, gameplay,
     } = this.props;
-    let available = getAvailableCards(cards, gameplayView, inGameplayView, locations, projects);
+    let available = getAvailableCards(locations, projects, gameplay);
     available = this.groupDuplicates(available);
     const starter = { available };
     const grouped = noDupliactes.reduce((_accumulator, item) => {
       const accumulator = { ..._accumulator };
 
-      if (accumulator[item.stats.type]) accumulator[item.stats.type].push(item);
-      else accumulator[item.stats.type] = [item];
+      if (accumulator[item.type]) accumulator[item.type].push(item);
+      else accumulator[item.type] = [item];
       return accumulator;
     }, starter);
 
@@ -77,7 +79,6 @@ class Cards extends Component {
 
     Object.keys(sortedByType)
       .forEach((key) => {
-        console.log(key);
         sortedByType[key] = sortTypeGroupByPrice(sortedByType[key]);
       });
 
@@ -108,14 +109,15 @@ class Cards extends Component {
 
           {
             !cardsFetching && cards.length > 0 &&
-            Object.keys(playerCards).map(type =>
+            Object.keys(playerCards).map(type => (
               <CardsTabGroup
                 toggleTab={() => { this.toggleTabOpen(type.toLowerCase()); }}
                 open={this.state.tabsToggleMap[type.toLowerCase()]}
                 key={`${type}-${playerCards[type].length}`}
                 title={type}
                 cards={playerCards[type]}
-              />)
+              />
+            ))
           }
         </div>
       </div>
@@ -124,6 +126,7 @@ class Cards extends Component {
 }
 
 Cards.propTypes = {
+  gameplay: PropTypes.object.isRequired,
   usersCardsFetch: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
   cardsFetching: PropTypes.bool.isRequired,
@@ -132,17 +135,16 @@ Cards.propTypes = {
   inGameplayView: PropTypes.string.isRequired,
   locations: PropTypes.array.isRequired,
   projects: PropTypes.array.isRequired,
-  activeLocationIndex: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ app, gameplay }) => ({
+  gameplay,
   cardsFetching: app.cardsFetching,
   cards: gameplay.cards,
   gameplayView: gameplay.gameplayView,
   inGameplayView: gameplay.inGameplayView,
-  locations: gameplay.locations,
-  projects: gameplay.projects,
-  activeLocationIndex: gameplay.activeLocationIndex,
+  locations: [...gameplay.locationSlots],
+  projects: [...gameplay.projectSlots],
 });
 
 const mapDispatchToProps = {

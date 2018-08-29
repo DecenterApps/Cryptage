@@ -15,7 +15,9 @@ class CardsTabGroup extends React.Component {
   }
 
   render() {
-    const { cards, title, open, toggleTab } = this.props;
+    const {
+      cards, title, open, toggleTab,
+    } = this.props;
     const orbColor = typeGradients[title.toLowerCase()];
     const openClass = open ? 'open' : 'closed';
 

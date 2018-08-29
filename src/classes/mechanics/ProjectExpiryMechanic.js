@@ -6,20 +6,38 @@ export default class ProjectExpiryMechanic extends Mechanic {
     return { projectActive: !this.card.running };
   }
 
+  onPlay(state) {
+    this.card.expiryTime = state.blockNumber + this.card.cost.time;
+    this.card.running = true;
+    return state;
+  }
+
   block(state, blockNumber) {
     const blocksLeft = calcExpiryBlocksLeft(this.card, blockNumber, state.projectExecutionTimePercent);
 
-    if (this.card.running && (blocksLeft > 0)) return state;
+    if (this.card.finishedNow) this.card.finishedNow = false;
 
-    this.card.expiryTime = null;
-    this.card.running = false;
-    this.card.timesFinished += 1;
+    if (this.card.expiryTime && (blocksLeft <= 0)) {
+      this.card.expiryTime = null;
+      this.card.running = false;
+      this.card.timesFinished += 1;
 
-    state.stats.experience += this.card.getGainsStatValue('experience');
-    state.stats.funds += this.card.getGainsStatValue('funds');
-    state.stats.development += this.card.cost.development;
+      this.card.finishedNow = true;
 
-    return this.card.onProjectEnd(state);
+      state.stats.experience += this.card.getGainsStatValue('experience');
+      state.stats.funds += this.card.getGainsStatValue('funds');
+      state.stats.development += this.card.cost.development;
+
+      return this.card.onProjectEnd(state);
+    }
+
+    return state;
+  }
+
+  onWithdraw(state) {
+    this.unsubscribeAll();
+    this.card.timesFinished = 0;
+    return state;
   }
 }
 

@@ -28,7 +28,7 @@ class Collection extends Component {
   }
 
   render() {
-    const { cards, exitNotLocationsView, newCardTypes } = this.props;
+    const { cards, exitNotLocationsView } = this.props;
     const typeSortData = getDataForTypeSorting(cards);
 
     return (
@@ -44,27 +44,26 @@ class Collection extends Component {
                 .filter(cardId => cardsConfig.cards[cardId]['1'].type === this.state.selectedType
                                   || this.state.selectedType === 'All')
                 .sort((a, b) => {
-                  const A = { stats: fetchCardStats(a) };
-                  const B = { stats: fetchCardStats(b) };
+                  const A = fetchCardStats(a);
+                  const B = fetchCardStats(b);
                   return compareCards(A, B);
                 })
                 .map((cardId) => {
-                  const foundCard = cards.find(card => card.metadata.id === cardId);
+                  const foundCard = cards.find(card => card.metadataId === cardId);
 
                   if (foundCard) {
-                    const occurances = cards.reduce((acc, card) => {
-                      if (card.metadata.id === cardId) acc += 1;
+                    const occurances = cards.reduce((_acc, card) => {
+                      let acc = _acc;
+                      if (card.metadataId === cardId) acc += 1;
                       return acc;
                     }, 0);
 
-                    const newCard = cards.find(card => (card.metadata.id === cardId)
-                                                        && newCardTypes.includes(card.metadata.id));
-
                     return (<LargeCard
-                      showNew={Boolean(newCard)}
+                      showNew={foundCard.isNew}
                       key={cardId}
                       card={foundCard}
                       showCount
+                      removeNew
                       duplicates={occurances}
                     />);
                   }
@@ -79,8 +78,8 @@ class Collection extends Component {
           <div className="modal-buttons-bar" />
 
           <span onClick={exitNotLocationsView}>
-          <SmallButton text="Back" />
-        </span>
+            <SmallButton text="Back" />
+          </span>
         </div>
       </div>
     );
@@ -90,13 +89,11 @@ class Collection extends Component {
 Collection.propTypes = {
   exitNotLocationsView: PropTypes.func.isRequired,
   cards: PropTypes.array.isRequired,
-  newCardTypes: PropTypes.array.isRequired,
 
 };
 
 const mapStateToProps = ({ gameplay }) => ({
-  cards: gameplay.allCards,
-  newCardTypes: gameplay.newCardTypes,
+  cards: gameplay.cards,
 });
 
 const mapDispatchToProps = {

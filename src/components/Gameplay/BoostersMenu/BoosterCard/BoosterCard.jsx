@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import './BoosterCard.scss';
 
 const Card = ({ card }) => (
-  <div className={`card-wrapper type-${card.stats.type}`}>
+  <div className={`card-wrapper type-${card.type}`}>
     <div className="card-image">
-      <img draggable={false} src={`cardImages/${card.stats.image}`} alt="" />
+      <img draggable={false} src={`cardImages/${card.image}`} alt="" />
     </div>
   </div>
 );

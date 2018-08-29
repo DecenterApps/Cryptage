@@ -7,7 +7,6 @@ const INITIAL_STATE = {
   loadingApp: true,
 
   account: '',
-  accountBalance: 0,
   accountError: '',
 
   blockNumber: 0,
@@ -49,12 +48,12 @@ export default (state = INITIAL_STATE, action) => {
 
     case GET_ACCOUNT_SUCCESS:
       return {
-        ...state, account: action.account, accountBalance: action.balance, accountError: '',
+        ...state, account: payload, accountError: '',
       };
 
     case GET_ACCOUNT_ERROR:
       return {
-        ...state, account: '', accountBalance: '', accountError: action.error,
+        ...state, account: '', accountError: action.error,
       };
 
     case TOGGLE_CARD_DRAG:
