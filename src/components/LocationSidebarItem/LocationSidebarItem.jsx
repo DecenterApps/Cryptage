@@ -69,17 +69,12 @@ class LocationSidebarItem extends Component {
     let fpb = fpc.reduce((a, b) => a + b, 0);
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const canLevelUp = draggingDuplicate && slot.canDrop(gameplay, dragItem.card).allowed;
+    const canLevelUp = draggingDuplicate ? slot.canDrop(gameplay, dragItem.card).allowed : false;
     const active = (activeLocationIndex === index) && gameplayView === GP_LOCATION;
 
     return (
       <div
-        className={`
-        location-sidebar-item-wrapper
-        ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
-        ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
-        ${active && 'active'}
-      `}
+        className={`location-sidebar-item-wrapper ${active && 'active'}`}
         onClick={() => { setActiveLocation(index); }}
       >
         {
