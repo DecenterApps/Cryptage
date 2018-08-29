@@ -42,7 +42,7 @@ class ProjectItem extends Component {
     const isFinished = card.timesFinished > 0;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
-    const canLevelUp = draggingDuplicate && !isActive && slot.canDrop(gameplay, dragItem.card);
+    const canLevelUp = draggingDuplicate && !isActive ? slot.canDrop(gameplay, dragItem.card).allowed : false;
     const timeLeft = calcExpiryBlocksLeft(card, blockNumber, projectExecutionTimePercent);
 
     const xpb = card.getGainsStatValue('experience');
@@ -50,15 +50,7 @@ class ProjectItem extends Component {
     const funds = card.getGainsStatValue('funds');
 
     return (
-      <div
-        className={`
-          project-container
-          ${canLevelUp ? 'level-up-success' : 'level-up-fail'}
-          ${draggingDuplicate ? 'dragging-success' : 'dragging-fail'}
-          rarity-border
-          ${classForRarity(card.rarityScore)}
-        `}
-      >
+      <div className={`project-container rarity-border ${classForRarity(card.rarityScore)}`}>
         <div
           className={`projects-item-wrapper ${!isActive && isFinished && 'project-finished'}`}
         >
@@ -69,9 +61,15 @@ class ProjectItem extends Component {
               <HoverInfo card={card} center backdrop />
             </PortalWrapper>
           }
-          
+
           <RarityBorder card={card} />
-          <ProjectItemVector active={isActive} id={card.id} image={`cardImages/${card.image}`} />
+          <ProjectItemVector
+            canLevelUp={canLevelUp}
+            draggingCard={draggingCard}
+            active={isActive}
+            id={card.id}
+            image={`cardImages/${card.image}`}
+          />
 
           {
             (card.finishedNow && !isActive && isFinished) &&

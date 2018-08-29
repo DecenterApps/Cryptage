@@ -16,33 +16,6 @@
     display: block;
   }
 
-  // DO THIS
-  &.dragging-success.level-up-success {
-    &.normal .border-ring {
-      stroke: $empty-slot-can-drop;
-      stroke-opacity: 1;
-    }
-    &.blue, &.gold, &.red {
-      .rarity-ring {
-        stroke: $empty-slot-can-drop;
-        stroke-width: 1px;
-      }
-    }
-  }
-
-  &.dragging-success.level-up-fail {
-    &.normal .border-ring {
-      stroke: $red;
-      stroke-width: 2px;
-    }
-    &.blue, &.gold, &.red {
-      .rarity-ring {
-        stroke: $red;
-        stroke-width: 2px;
-      }
-    }
-  }
-
   .projects-item-wrapper {
     width: 100%;
     height: 100%;

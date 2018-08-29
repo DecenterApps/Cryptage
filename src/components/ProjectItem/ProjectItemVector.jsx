@@ -1,12 +1,20 @@
 /* eslint-disable */
 import React from 'react';
 
-const ProjectItemVector = ({ image, id, active }) => (
+const ProjectItemVector = ({ image, id, active, canLevelUp, draggingCard }) => (
   <div className="project-item-vector">
     <svg width={62} height={62} viewBox="0 0 62 62" fill="none">
       <g filter={`url(#${id}filter0_d)`}>
         <ellipse cx="22.0896" cy="22.0558" rx="22.0896" ry="22.0558" transform="translate(9 8.9906)" fill={`url(#${id}paint0_linear)`} />
         <ellipse className="border-ring" cx="22.0896" cy="22.0558" rx="22.0896" ry="22.0558" transform="translate(9 8.9906)" stroke={`url(#${id}paint1_linear)`} strokeOpacity="0.4" />
+        {
+          draggingCard && !active && canLevelUp &&
+          <ellipse className="border-ring" cx="22.0896" cy="22.0558" rx="22.0896" ry="22.0558" transform="translate(9 8.9906)" fill="rgba(35, 175, 0, 0.4)" />
+        }
+        {
+          draggingCard && !active && !canLevelUp &&
+          <ellipse className="border-ring" cx="22.0896" cy="22.0558" rx="22.0896" ry="22.0558" transform="translate(9 8.9906)" fill="rgba(221, 15, 48, 0.4)" />
+        }
       </g>
       <g opacity="0.4">
         <mask id={`${id}mask0`} maskUnits="userSpaceOnUse" x={11} y={11} width={40} height={40}>
