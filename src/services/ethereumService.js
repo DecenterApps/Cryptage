@@ -189,9 +189,7 @@ const buyBoosterBitGuild = async (_account) => new Promise(async (resolve, rejec
 
   const PLATprice = await oracleContract.methods.ETHPrice().call();
   const price = new BigNumber(PLATprice, 10);
-  const amount = new BigNumber(price * 1e15 / 1e18);  
-
-  // const PLATbalance = await bitGuildContract.methods.balanceOf(account).call();
+  const amount = new BigNumber(price * 1e15 / 1e18);
 
   try {
     bitGuildContract.methods.approveAndCall(config.boosterContract.address, amount, '0x00').send({
@@ -252,6 +250,7 @@ export default {
   getBoughtBoosters,
   getCardsFromBooster,
   getBitGuildContract,
+  getOracleContract,
   buyBooster,
   buyBoosterBitGuild,
   revealBooster,
