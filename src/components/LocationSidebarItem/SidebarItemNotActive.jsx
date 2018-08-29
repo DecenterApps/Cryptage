@@ -2,13 +2,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SidebarItemNotActive = ({ image, id }) => (
+const SidebarItemNotActive = ({ image, id, draggingCard, canLevelUp }) => (
   <div className="sidebar-item-not-active">
     <svg width={71} height={71} viewBox="0 0 71 71" fill="none">
       <g filter={`url(#${id}filter0_d`} className="outer-ring">
         <path d="M9.76706 0L0 9.38645V37.1377L9.76706 46.5241H37.8474L46.3935 36.7296V9.1824L37.8474 0H9.76706Z" transform="translate(12.2363 12.0754)" fill={`url(#${id}pattern0)`} />
       </g>
       <path d="M9.76706 0L0 9.38645V37.1377L9.76706 46.5241H37.8474L46.3935 36.7296V9.1824L37.8474 0H9.76706Z" transform="translate(12.2363 12.0754)" fill={`url(#${id}paint0_radial)`} />
+      {
+        draggingCard && canLevelUp &&
+        <path d="M9.76706 0L0 9.38645V37.1377L9.76706 46.5241H37.8474L46.3935 36.7296V9.1824L37.8474 0H9.76706Z" transform="translate(12.2363 12.0754)" fill="rgba(35, 175, 0, 0.4)" />
+      }
+      {
+        draggingCard && !canLevelUp &&
+        <path d="M9.76706 0L0 9.38645V37.1377L9.76706 46.5241H37.8474L46.3935 36.7296V9.1824L37.8474 0H9.76706Z" transform="translate(12.2363 12.0754)" fill="rgba(221, 15, 48, 0.4)" />
+      }
       <path d="M8.35292 0L0 8.50243V33.64L10.141 42.1425H33.1465L42.0199 33.2704V8.31759L34.502 0H8.35292Z" transform="translate(14.2451 14.7654)" stroke={`url(#${id}paint1_linear)`} strokeOpacity="0.59" strokeWidth="1.2226" />
       <defs>
         <filter id={`${id}filter0_d`} x="0.621601" y="0.460712" width="69.6229" height="69.7535" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
@@ -41,6 +49,8 @@ const SidebarItemNotActive = ({ image, id }) => (
 SidebarItemNotActive.propTypes = {
   image: PropTypes.string.isRequired,
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  draggingCard: PropTypes.bool.isRequired,
+  canLevelUp: PropTypes.bool.isRequired,
 };
 
 export default SidebarItemNotActive;

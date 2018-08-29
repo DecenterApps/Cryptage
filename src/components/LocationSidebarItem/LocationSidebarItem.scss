@@ -198,18 +198,4 @@
   //    .horizontal-lines, .bars, .right-line { stop { stop-color: $purple-rarity; } }
   //  }
   //}
-
-  &.dragging-success.level-up-success {
-    .location-sidebar-small, .location-sidebar-big {
-      .outer-ring { stroke: $empty-slot-can-drop; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $empty-slot-can-drop; } }
-    }
-  }
-
-  &.dragging-success.level-up-fail {
-    .location-sidebar-small, .location-sidebar-big {
-      .outer-ring { stroke: $red; }
-      .horizontal-lines, .bars, .right-line { stop { stop-color: $red; } }
-    }
-  }
 }

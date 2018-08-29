@@ -107,7 +107,12 @@ class LocationSidebarItem extends Component {
             ${classForRarity(card.rarityScore)}`}
           >
             <RarityBorderNotActive card={card} />
-            <SidebarItemNotActive id={card.id} image={`cardImages/${card.image}`} />
+            <SidebarItemNotActive
+              draggingCard={draggingCard}
+              canLevelUp={canLevelUp}
+              id={card.id}
+              image={`cardImages/${card.image}`}
+            />
 
             <div className="actions" onClick={e => e.stopPropagation()}>
               <div
@@ -132,7 +137,12 @@ class LocationSidebarItem extends Component {
             ${classForRarity(card.rarityScore)}`}
           >
             <RarityBorderActive card={card} />
-            <SidebarItemActive id={card.id} image={`cardImages/${card.image}`} />
+            <SidebarItemActive
+              draggingCard={draggingCard}
+              canLevelUp={canLevelUp}
+              id={card.id}
+              image={`cardImages/${card.image}`}
+            />
 
             <div className="location-data">
               <div className="loc-lvl">Level {card.level}</div>
