@@ -1,7 +1,7 @@
 import {
   REMOVE_CARD, GP_NO_LOCATIONS,
   CLEAR_REVEALED_CARDS,
-  REMOVE_NEW_FROM_CARD,
+  REMOVE_NEW_FROM_CARD, GP_LOCATION, GP_LOCATION_CONTAINER, GP_LOCATION_MAIN
 } from './actionTypes';
 
 /**
@@ -26,15 +26,26 @@ export const canCancelCard = slot => (dispatch, getState) => {
  */
 export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispatch, getState) => {
   const { gameplay } = getState();
-  let { gameplayView } = gameplay;
+  let { gameplayView, inGameplayView, activeLocationIndex } = gameplay;
 
   const newGameplay = slot.removeCard(gameplay);
+  const slotsEmpty = newGameplay.locationSlots.every(slot => !slot.card);
 
-  if (locationIndex === gameplay.activeLocationIndex && containerIndex === undefined) {
-    gameplayView = GP_NO_LOCATIONS;
+  if (inGameplayView === GP_LOCATION_CONTAINER && !slot.owner) inGameplayView = GP_LOCATION_MAIN;
+
+  if (slotsEmpty) gameplayView = GP_NO_LOCATIONS;
+
+  if (!slotsEmpty && !slot.owner) {
+    const slotWithCard = newGameplay.locationSlots.find(locationSlots => locationSlots.card);
+    activeLocationIndex = slotWithCard.index;
   }
 
-  dispatch({ type: REMOVE_CARD, payload: { newGameplay, gameplayView } });
+  dispatch({
+    type: REMOVE_CARD,
+    payload: {
+      newGameplay, gameplayView, inGameplayView, activeLocationIndex,
+    },
+  });
 };
 
 /**

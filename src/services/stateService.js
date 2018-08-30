@@ -214,36 +214,8 @@ function _pack(arr, blockNumber, currentBlockNumber) {
   return hexValues.map(h => `0x${h.padStart(64, 0)}`);
 }
 
-export function packMoves(_moves, currBlockNumber, klipaN) {
-  const blockNumber = _moves[0].blockNumber; //eslint-disable-line
-
-  let counting = 0;
-  const moves = [];
-  const binKlipaN = dec2bin(klipaN, 32);
-  moves.push({
-    add: bin2dec(binKlipaN.substring(0, 1)),
-    specificCard: bin2dec(binKlipaN.substring(1, 2)),
-    location: bin2dec(binKlipaN.substring(2, 5)),
-    level: bin2dec(binKlipaN.substring(2, 5)),
-    containerIndex: bin2dec(binKlipaN.substring(2, 10)),
-    cardType: bin2dec(binKlipaN.substring(5, 16)),
-  });
-
-  _moves.forEach((m, i) => {
-    moves.push(m);
-
-    if (m.cardType === '24') {
-      counting += 1;
-    } else if (counting > 1) {
-      moves[i - (counting - 1)].numProjects = counting;
-      moves.splice((i - (counting - 1)) + 1, counting - 1);
-    }
-
-    if ((i === _moves.length - 1)) {
-      moves[i - (counting - 1)].numProjects = counting;
-      moves.splice((i - (counting - 1)) + 1, counting - 1);
-    }
-  });
+export function packMoves(moves, currBlockNumber) {
+  const { blockNumber } = moves[0];
 
   const blockNum = dec2bin(blockNumber, 42);
   const currentBlockNum = dec2bin(currBlockNumber, 42);
@@ -254,11 +226,9 @@ export function packMoves(_moves, currBlockNumber, klipaN) {
     blockNumsDiff[i] = moves[i].blockNumber - moves[i - 1].blockNumber;
   }
 
-  blockNumsDiff[0] = bin2dec(binKlipaN.substring(16, 32));
-
   const binMoves = moves.map((move, i) =>
-    dec2bin(move.add, 1) + dec2bin(move.specificCard, 1) + dec2bin(move.location, 3)
-    + dec2bin(move.level, 3) + dec2bin(move.containerPosition, 7) + dec2bin(move.cardType, 11)
+    dec2bin(move.shift, 1) + dec2bin(move.locationIndex, 3)
+    + dec2bin(move.level, 3) + dec2bin(move.slotIndex, 9) + dec2bin(move.card, 10)
     + dec2bin(blockNumsDiff[i], 16));
 
   return _pack(binMoves, blockNum, currentBlockNum);

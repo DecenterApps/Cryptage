@@ -2,8 +2,8 @@ import CardSlot from '../CardSlot';
 import LocationCard from '../cardTypes/Location';
 
 export default class LocationCardSlot extends CardSlot {
-  constructor(owner, card) {
-    super(owner, card);
+  constructor(index) {
+    super(undefined, index);
     this.acceptedTags = ['location'];
   }
 

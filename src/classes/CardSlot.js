@@ -10,7 +10,8 @@ function getAllSlottedCards(card, slotted) {
 }
 
 export default class CardSlot {
-  constructor(owner) {
+  constructor(owner, index = -1) {
+    this.index = index;
     this.acceptedTags = [];
 
     if (owner) {
@@ -47,6 +48,8 @@ export default class CardSlot {
     this.card.parent = this.owner;
 
     if (this.owner) state = this.owner.onPlayChild(state, this.card);
+
+    state = state.playTurn(state, this, true);
     return this.card.onPlay(state, this);
   }
 
@@ -59,6 +62,7 @@ export default class CardSlot {
     }
 
     state = this.card.onWithdraw(state);
+    state = state.playTurn(state, this, false);
 
     this.card.parent = null;
     this.card = null;

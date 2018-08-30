@@ -13,7 +13,7 @@ export default class ContainerCard extends Card {
 
     if (this.dropSlots) {
       for (let i = 0; i < this.dropSlots.length; i += 1) {
-        this.dropSlots[i] = new CardSlot(this);
+        this.dropSlots[i] = new CardSlot(this, i);
       }
     }
   }

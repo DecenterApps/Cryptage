@@ -90,6 +90,8 @@ const switchState = (state, action) => {
         ...state,
         ...payload.newGameplay,
         gameplayView: payload.gameplayView,
+        inGameplayView: payload.inGameplayView,
+        activeLocationIndex: payload.activeLocationIndex,
       });
 
     case ADD_NEW_LEVEL_CARDS:

@@ -1,6 +1,6 @@
 import config from '../constants/config.json';
 import cardsInfo from '../constants/cards.json';
-import { log } from './utils';
+import { isFloat, isInt, log } from './utils';
 
 const getAccount = () => (
   new Promise((resolve, reject) => {
@@ -171,7 +171,8 @@ const revealBooster = async (id) => {
 
 const updateMoves = async (moves, nickname) => {
   const stateContract = await getStateContract();
-  return stateContract.methods.update(moves, web3.utils.toHex(nickname)).send();
+
+  return stateContract.methods.update(web3.utils.stringToHex(nickname), moves).send();
 };
 
 const getState = async () => {

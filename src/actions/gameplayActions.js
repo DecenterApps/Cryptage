@@ -257,7 +257,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
     return;
   }
 
-  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber, gameplay.globalStats.experience);
+  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber);
 
   try {
     // const ipfs = await ipfsService.uploadData(gameplay);

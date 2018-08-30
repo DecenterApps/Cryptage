@@ -2,8 +2,8 @@ import CardSlot from '../CardSlot';
 import ProjectCard from '../cardTypes/Project';
 
 export default class ProjectCardSlot extends CardSlot {
-  constructor(owner, card) {
-    super(owner, card);
+  constructor(index) {
+    super(undefined, index);
     this.acceptedTags = ['project'];
   }
 

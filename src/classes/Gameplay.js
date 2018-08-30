@@ -4,18 +4,22 @@ import cardConfig from '../constants/cards.json';
 import levels from '../constants/levels.json';
 import LocationCardSlot from './slotTypes/LocationCardSlot';
 import ProjectCardSlot from './slotTypes/ProjectCardSlot';
+import ContainerCard from './cardTypes/Container';
+import LocationCard from './cardTypes/Location';
 import { createMatcher, isActiveCard } from './matchers';
 import './mechanics';
 import './cardTypes';
 import './slotTypes';
 import { calculateLevelData, getSlotActiveCards } from '../services/gameMechanicsService';
-import { GP_LOCATION, GP_LOCATION_MAIN, GP_NO_NICKNAME } from '../actions/actionTypes';
+import { GP_LOCATION_MAIN, GP_NO_NICKNAME } from '../actions/actionTypes';
 
 const subscriptions = Symbol('subscriptions');
 
 export default class Gameplay {
   constructor(blockNumber, data) {
     this.nickname = '';
+
+    this.playedTurns = [];
 
     this.gameplayView = GP_NO_NICKNAME;
     this.inGameplayView = GP_LOCATION_MAIN;
@@ -40,11 +44,11 @@ export default class Gameplay {
     this[subscriptions] = new Map();
 
     for (let i = 0; i < this.locationSlots.length; i += 1) {
-      this.locationSlots[i] = new LocationCardSlot();
+      this.locationSlots[i] = new LocationCardSlot(i);
     }
 
     for (let i = 0; i < this.projectSlots.length; i += 1) {
-      this.projectSlots[i] = new ProjectCardSlot();
+      this.projectSlots[i] = new ProjectCardSlot(i);
     }
 
     Object.assign(this, data);
@@ -86,6 +90,44 @@ export default class Gameplay {
 
   getCards(matcher = isActiveCard) {
     return this.cards.filter(createMatcher(matcher));
+  }
+
+  playTurn(_state, cardSlot, dropOrWithdraw) {
+    const state = _state;
+
+    const turnData = {
+      shift: true,
+      locationIndex: 0,
+      level: 1,
+      slotIndex: 0,
+      projectIndex: 0,
+      card: 0,
+      blockNumber: 0,
+    };
+
+    turnData.shift = dropOrWithdraw;
+    turnData.level = cardSlot.card.level;
+    turnData.card = parseInt(cardSlot.card.id, 10);
+    turnData.blockNumber = state.blockNumber;
+
+    const isLocationCardSlot = cardSlot instanceof LocationCardSlot;
+    const isProjectCardSlot = cardSlot instanceof ProjectCardSlot;
+
+    if (!isProjectCardSlot || isLocationCardSlot) turnData.locationIndex = state.activeLocationIndex;
+    if (isLocationCardSlot) turnData.locationIndex = cardSlot.index;
+    if (isProjectCardSlot) turnData.slotIndex = cardSlot.index;
+
+    // Card is being dropped in a Location
+    if (cardSlot.owner && (cardSlot.owner instanceof LocationCard)) turnData.slotIndex = cardSlot.index;
+
+    // Miner is being dropped in a container
+    if (cardSlot.owner && (cardSlot.owner instanceof ContainerCard)) {
+      turnData.slotIndex = state.activeContainerIndex;
+    }
+
+    state.playedTurns = [...state.playedTurns, turnData];
+
+    return state;
   }
 
   updateBlockNumber(_state, blockNumber) {
