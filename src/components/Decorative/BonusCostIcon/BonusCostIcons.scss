@@ -1,13 +1,13 @@
 .bonus-cost-icon {
-  width: 19px;
-  height: 19px;
+  width: 23px;
+  height: 23px;
   background: url("./BonusCostIcons.png") center center no-repeat;
   background-size: 100%;
 
   &.funds { background-position: 0 0; }
-  &.experience { background-position: 0 -29px; }
-  &.power { background-position: 0 -57px; }
-  &.space { background-position: 0 -87px; }
-  &.development { background-position: 0 -116px; }
-  &.level { background-position: 0 -145px; }
+  &.experience { background-position: 0 -35px; }
+  &.power { background-position: 0 -70px; }
+  &.space { background-position: 0 -106px; }
+  &.development { background-position: 0 -141px; }
+  &.level { background-position: 0 -176px; }
 }

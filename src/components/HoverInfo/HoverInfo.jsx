@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { formatBigNumber, classNameForRarity, classForRarity } from '../../services/utils';
 import { DESKTOP_WIDTH, typeGradients } from '../../actions/actionTypes';
 import RarityBorder from '../Cards/RarityBorder/RarityBorder';
+import BonusCostIcon from '../Decorative/BonusCostIcon/BonusCostIcon';
 
 import './HoverInfo.scss';
 import LargeCardMain from './LargeCardMain';
@@ -96,7 +97,8 @@ const HoverInfo = ({
         <div
           className="inner-wrapper"
         >
-
+        <div className="modal-bar top"></div>
+        <div className="hover-info-card-wrapper">
           <RarityBorder card={card} />
 
           <LargeCardMain
@@ -118,18 +120,22 @@ const HoverInfo = ({
 
           <div className="card-title">{displayCard.title}</div>
           <div className="card-type">{displayCard.type}</div>
-
+        </div>
           {
             displayCard.cost &&
             showCost &&
-            <div className="cost" data-name="Requires">
+            <div className="left-side side" data-name="Cost">
               {
                 displayCard.cost.space > 1 &&
                 <div
                   data-name="SPACE"
                   className={`orb space ${classForNumber(displayCard.cost.space)}`}
                 >
-                  {formatBigNumber(displayCard.cost.space)}
+                  <BonusCostIcon type="space"/>
+                  <div className="orb-meta">
+                    <span>{formatBigNumber(displayCard.cost.space)}</span>
+                    <span>SPACE</span>
+                  </div>
                 </div>
               }
               {
@@ -138,7 +144,11 @@ const HoverInfo = ({
                   data-name="POWER"
                   className={`orb power ${classForNumber(displayCard.cost.power)}`}
                 >
-                  {formatBigNumber(displayCard.cost.power)}
+                  <BonusCostIcon type="power"/>
+                  <div className="orb-meta">
+                    <span>{formatBigNumber(displayCard.cost.power)}</span>
+                    <span>POWER</span>
+                  </div>
                 </div>
               }
               {
@@ -147,7 +157,11 @@ const HoverInfo = ({
                   data-name="FUNDS"
                   className={`orb funds ${classForNumber(displayCard.cost.funds)}`}
                 >
-                  {formatBigNumber(displayCard.cost.funds)}
+                  <BonusCostIcon type="funds"/>
+                  <div className="orb-meta">
+                    <span>{formatBigNumber(displayCard.cost.funds)}</span>
+                    <span>FUNDS</span>
+                  </div>
                 </div>
               }
               {
@@ -156,7 +170,11 @@ const HoverInfo = ({
                   data-name="LEVEL"
                   className={`orb level ${classForNumber(displayCard.cost.level)}`}
                 >
-                  {formatBigNumber(displayCard.cost.level)}
+                  <BonusCostIcon type="level"/>
+                  <div className="orb-meta">
+                    <span>{formatBigNumber(displayCard.cost.level)}</span>
+                    <span>LEVEL</span>
+                  </div>
                 </div>
               }
 
@@ -166,12 +184,16 @@ const HoverInfo = ({
                   data-name="DEV"
                   className={`orb development ${classForNumber(displayCard.cost.development)}`}
                 >
-                  {formatBigNumber(displayCard.cost.development)}
+                  <BonusCostIcon type="development"/>
+                  <div className="orb-meta">
+                    <span>{formatBigNumber(displayCard.cost.development)}</span>
+                    <span>DEV</span>
+                  </div>
                 </div>
               }
             </div>
           }
-          <div className="right-side">
+          <div className="right-side side" data-name="Gains">
             {
               showGains &&
               displayCard.type !== 'Container' &&
@@ -182,8 +204,12 @@ const HoverInfo = ({
                   <div
                     data-name="SPACE"
                     className={`orb space ${classForNumber(displayCard.values.space)}`}
-                  >
-                    {formatBigNumber(displayCard.values.space)}
+                  > 
+                    <BonusCostIcon type="space"/>
+                    <div className="orb-meta">
+                      <span>{formatBigNumber(displayCard.values.space)}</span>
+                      <span>SPACE</span>
+                    </div>
                   </div>
                 }
                 {
@@ -193,7 +219,11 @@ const HoverInfo = ({
                     data-name="POWER"
                     className={`orb power ${classForNumber(displayCard.values.power)}`}
                   >
-                    {formatBigNumber(displayCard.values.power)}
+                    <BonusCostIcon type="power"/>
+                    <div className="orb-meta">
+                      <span>{formatBigNumber(displayCard.values.power)}</span>
+                      <span>POWER</span>
+                    </div>
                   </div>
                 }
                 {
@@ -203,7 +233,11 @@ const HoverInfo = ({
                     data-name="XP"
                     className={`orb xp ${classForNumber(displayCard.bonus.experience)}`}
                   >
-                    {formatBigNumber(displayCard.bonus.experience)}
+                    <BonusCostIcon type="experience"/>
+                    <div className="orb-meta">
+                      <span>{formatBigNumber(displayCard.bonus.experience)}</span>
+                      <span>EXP</span>
+                    </div>
                   </div>
                 }
                 {
@@ -213,7 +247,11 @@ const HoverInfo = ({
                     data-name="POWER"
                     className={`orb power ${classForNumber(displayCard.bonus.power)}`}
                   >
-                    {formatBigNumber(displayCard.bonus.power)}
+                    <BonusCostIcon type="power"/>
+                    <div className="orb-meta">
+                      <span>{formatBigNumber(displayCard.bonus.power)}</span>
+                      <span>POWER</span>
+                    </div>
                   </div>
                 }
                 {
@@ -223,7 +261,11 @@ const HoverInfo = ({
                     data-name="DEV"
                     className={`orb development ${classForNumber(displayCard.bonus.development)}`}
                   >
-                    {formatBigNumber(displayCard.bonus.development)}
+                    <BonusCostIcon type="development"/>
+                    <div className="orb-meta">
+                      <span>{formatBigNumber(displayCard.bonus.development)}</span>
+                      <span>DEV</span>
+                    </div>
                   </div>
                 }
                 {
@@ -233,7 +275,11 @@ const HoverInfo = ({
                     data-name="FPB"
                     className={`orb funds ${classForNumber(displayCard.bonus.fundsPerBlock)}`}
                   >
-                    {formatBigNumber(displayCard.bonus.fundsPerBlock)}
+                    <BonusCostIcon type="funds"/>
+                    <div className="orb-meta">
+                      <span>{formatBigNumber(displayCard.bonus.fundsPerBlock)}</span>
+                      <span>FPB</span>
+                    </div>
                   </div>
                 }
               </div>
@@ -250,6 +296,7 @@ const HoverInfo = ({
               }
             </div>
           </div>
+          <div className="modal-bar bottom"></div>
         </div>
       </div>
     </div>
