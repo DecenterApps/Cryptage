@@ -3306,11 +3306,11 @@
             "params": [
               "Mining",
               "fundsPerBlock",
-              5
+              "0.1"
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 5%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 0.1%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3348,11 +3348,11 @@
             "params": [
               "Mining",
               "fundsPerBlock",
-              6
+              "0.2"
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 6%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 0.2%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3390,11 +3390,11 @@
             "params": [
               "Mining",
               "fundsPerBlock",
-              7
+              "0.3"
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 7%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 0.3%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3432,11 +3432,11 @@
             "params": [
               "Mining",
               "fundsPerBlock",
-              8
+              "0.4"
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 8%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 0.4%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -3474,11 +3474,11 @@
             "params": [
               "Mining",
               "fundsPerBlock",
-              9
+              "0.5"
             ]
           }
         ],
-        "mechanicsText": "Boosts all mining efficiency by 9%. Time to complete: 100 blocks.",
+        "mechanicsText": "Boosts all mining efficiency by 0.5%. Time to complete: 100 blocks.",
         "rarityScore": "925",
         "tags": [
           "project"
@@ -4502,18 +4502,11 @@
           "level": 12,
           "power": 0,
           "space": 0,
-          "time": 300000
+          "time": 5000
         },
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 1,
-        "mechanicsText": "Time to complete: Two weeks™",
-        "rarityScore": "375",
-        "tags": [
-          "project"
-        ],
-        "title": "Consensus Improvement",
-        "type": "Project",
         "mechanics": [
           {
             "name": "projectPerCompletionXpbBoost",
@@ -4521,7 +4514,14 @@
               1
             ]
           }
-        ]
+        ],
+        "mechanicsText": "Gain 1 XP each block. Time to complete: 5000 blocks.",
+        "rarityScore": "375",
+        "tags": [
+          "project"
+        ],
+        "title": "Consensus Improvement",
+        "type": "Project"
       },
       "2": {
         "ID": "32",
@@ -4542,18 +4542,11 @@
           "level": 12,
           "power": 0,
           "space": 0,
-          "time": 300000
+          "time": 5000
         },
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 2,
-        "mechanicsText": "Time to complete: Two weeks™",
-        "rarityScore": "375",
-        "tags": [
-          "project"
-        ],
-        "title": "Consensus Improvement",
-        "type": "Project",
         "mechanics": [
           {
             "name": "projectPerCompletionXpbBoost",
@@ -4561,7 +4554,14 @@
               2
             ]
           }
-        ]
+        ],
+        "mechanicsText": "Gain 2 XP each block. Time to complete: 5000 blocks.",
+        "rarityScore": "375",
+        "tags": [
+          "project"
+        ],
+        "title": "Consensus Improvement",
+        "type": "Project"
       },
       "3": {
         "ID": "32",
@@ -4582,18 +4582,11 @@
           "level": 12,
           "power": 0,
           "space": 0,
-          "time": 300000
+          "time": 5000
         },
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 3,
-        "mechanicsText": "Time to complete: Two weeks™",
-        "rarityScore": "375",
-        "tags": [
-          "project"
-        ],
-        "title": "Consensus Improvement",
-        "type": "Project",
         "mechanics": [
           {
             "name": "projectPerCompletionXpbBoost",
@@ -4601,7 +4594,14 @@
               3
             ]
           }
-        ]
+        ],
+        "mechanicsText": "Gain 3 XP each block. Time to complete: 5000 blocks.",
+        "rarityScore": "375",
+        "tags": [
+          "project"
+        ],
+        "title": "Consensus Improvement",
+        "type": "Project"
       },
       "4": {
         "ID": "32",
@@ -4622,18 +4622,11 @@
           "level": 12,
           "power": 0,
           "space": 0,
-          "time": 300000
+          "time": 5000
         },
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 4,
-        "mechanicsText": "Time to complete: Two weeks™",
-        "rarityScore": "375",
-        "tags": [
-          "project"
-        ],
-        "title": "Consensus Improvement",
-        "type": "Project",
         "mechanics": [
           {
             "name": "projectPerCompletionXpbBoost",
@@ -4641,7 +4634,14 @@
               4
             ]
           }
-        ]
+        ],
+        "mechanicsText": "Gain 4 XP each block. Time to complete: 5000 blocks.",
+        "rarityScore": "375",
+        "tags": [
+          "project"
+        ],
+        "title": "Consensus Improvement",
+        "type": "Project"
       },
       "5": {
         "ID": "32",
@@ -4662,18 +4662,11 @@
           "level": 12,
           "power": 0,
           "space": 0,
-          "time": 300000
+          "time": 5000
         },
         "flavorText": "Just a small contribution to the quadratic sharding merkelized cross-chain token swap fraud proofs.",
         "image": "consensus-improvement.jpg",
         "level": 5,
-        "mechanicsText": "Time to complete: Two weeks™",
-        "rarityScore": "375",
-        "tags": [
-          "project"
-        ],
-        "title": "Consensus Improvement",
-        "type": "Project",
         "mechanics": [
           {
             "name": "projectPerCompletionXpbBoost",
@@ -4681,7 +4674,14 @@
               5
             ]
           }
-        ]
+        ],
+        "mechanicsText": "Gain 5 XP each block. Time to complete: 5000 blocks.",
+        "rarityScore": "375",
+        "tags": [
+          "project"
+        ],
+        "title": "Consensus Improvement",
+        "type": "Project"
       }
     },
     "33": {
