@@ -1,4 +1,5 @@
 import serialise from 'serialijse';
+import ContainerCard from './cardTypes/Container';
 
 function getAllSlottedCards(card, slotted) {
   for (const slot of card.dropSlots) {
@@ -48,7 +49,9 @@ export default class CardSlot {
     this.card.parent = this.owner;
 
     if (this.owner) state = this.owner.onPlayChild(state, this.card);
-    if (this.owner && card.level === 1) this.owner.addNewDropSlot(this);
+    if (this.owner && card.level === 1 && this.owner.addNewDropSlot) this.owner.addNewDropSlot(this);
+
+    if (this.card instanceof ContainerCard) this.acceptedTags = this.card.acceptedTags;
 
     state = state.playTurn(state, this, true);
     return this.card.onPlay(state, this);
