@@ -62,7 +62,7 @@ export default class CardSlot {
 
     if (this.owner) {
       state = this.owner.onWithdrawChild(state, this.card);
-      this.owner.removeDropSlot(this);
+      if (this.owner.removeDropSlot) this.owner.removeDropSlot(this);
     }
 
     state = this.card.onWithdraw(state);
