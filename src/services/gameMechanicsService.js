@@ -199,14 +199,14 @@ const addCardsForNewLevel = level => async (dispatch, getState) => {
   const newCards = cardsPerLevel[level - 1].map((metadataId, index) =>
     Card.getInstance(gameplay, minId - (index + 1), 1, metadataId));
 
-  return Promise.all(newCards, (_newCards) => {
-    newCards.forEach((_newCard) => {
+  return Promise.all(newCards).then((_newCards) => {
+    _newCards.forEach((_newCard) => {
       const newCard = _newCard;
       const foundCard = cards.find(card => card.metadataId === newCard.metadataId);
       if (!foundCard) newCard.isNew = true;
     });
 
-    dispatch({ type: ADD_NEW_LEVEL_CARDS, payload: [...cards, ...newCards] });
+    dispatch({ type: ADD_NEW_LEVEL_CARDS, payload: [...cards, ..._newCards] });
 
     return _newCards;
   });
