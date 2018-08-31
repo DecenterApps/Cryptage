@@ -29,7 +29,7 @@ const HoverInfo = ({
     if (card.type === 'Project') {
       const bonus = Object.keys(card.bonus).reduce((_newObj, key) => {
         const newObj = _newObj;
-        if (card.additionalBonuses[key]) newObj[key] = card.getGainsStatValue(key);
+        if (card.gains[key] || card.additionalBonuses[key]) newObj[key] = card.getGainsStatValue(key);
         return newObj;
       }, {});
 
@@ -37,7 +37,7 @@ const HoverInfo = ({
     } else {
       const bonus = Object.keys(card.bonus).reduce((_newObj, key) => {
         const newObj = _newObj;
-        if (card.additionalBonuses[key]) newObj[key] = card.getBonusStatValue(key);
+        if (card.bonus[key] || card.additionalBonuses[key]) newObj[key] = card.getBonusStatValue(key);
         return newObj;
       }, {});
 
@@ -63,12 +63,6 @@ const HoverInfo = ({
 
   if (type === 'asset') position.left += 190;
   if (type === 'asset' && isDesktop) position.left += 100;
-
-  // if (type === 'project') position.left -= 250;
-  // if (type === 'project' && isDesktop) position.left -= 120;
-  //
-  // if (type === 'location') position.left += 215;
-  // if (type === 'location' && isDesktop) position.left += 120;
 
   const showCost = Object.keys(displayCard.cost).filter((key) => {
     const valOverZero = key !== 'space' && key !== 'level' && displayCard.cost[key] > 0;
@@ -97,41 +91,38 @@ const HoverInfo = ({
         <div
           className="inner-wrapper"
         >
-        <div className="modal-bar top"></div>
-        <div className="hover-info-card-wrapper">
-          <RarityBorder card={card} />
+          <div className="modal-bar top" />
+          <div className="hover-info-card-wrapper">
+            <RarityBorder card={card} />
 
-          <LargeCardMain
-            typeColor={typeColor}
-            borderColor={borderColor}
-            id={card.id}
-            image={`cardImages/${displayCard.image}`}
-          />
+            <LargeCardMain
+              typeColor={typeColor}
+              borderColor={borderColor}
+              id={card.id}
+              image={`cardImages/${displayCard.image}`}
+            />
 
-          {
-            showLevel &&
-            displayCard.type !== 'Container' &&
-            displayCard.type !== 'Misc' &&
-            <div className="card-level-wrapper">
-              <span className="card-level-text">Level</span>
-              <span className="card-level-val">{displayCard.level}</span>
-            </div>
-          }
+            {
+              showLevel &&
+              displayCard.type !== 'Container' &&
+              displayCard.type !== 'Misc' &&
+              <div className="card-level-wrapper">
+                <span className="card-level-text">Level</span>
+                <span className="card-level-val">{displayCard.level}</span>
+              </div>
+            }
 
-          <div className="card-title">{displayCard.title}</div>
-          <div className="card-type">{displayCard.type}</div>
-        </div>
+            <div className="card-title">{displayCard.title}</div>
+            <div className="card-type">{displayCard.type}</div>
+          </div>
           {
             displayCard.cost &&
             showCost &&
             <div className="left-side side" data-name="Cost">
               {
                 displayCard.cost.space > 1 &&
-                <div
-                  data-name="SPACE"
-                  className={`orb space ${classForNumber(displayCard.cost.space)}`}
-                >
-                  <BonusCostIcon type="space"/>
+                <div className={`orb space ${classForNumber(displayCard.cost.space)}`}>
+                  <BonusCostIcon type="space" />
                   <div className="orb-meta">
                     <span>{formatBigNumber(displayCard.cost.space)}</span>
                     <span>SPACE</span>
@@ -140,11 +131,8 @@ const HoverInfo = ({
               }
               {
                 displayCard.cost.power > 0 &&
-                <div
-                  data-name="POWER"
-                  className={`orb power ${classForNumber(displayCard.cost.power)}`}
-                >
-                  <BonusCostIcon type="power"/>
+                <div className={`orb power ${classForNumber(displayCard.cost.power)}`}>
+                  <BonusCostIcon type="power" />
                   <div className="orb-meta">
                     <span>{formatBigNumber(displayCard.cost.power)}</span>
                     <span>POWER</span>
@@ -153,11 +141,8 @@ const HoverInfo = ({
               }
               {
                 displayCard.cost.funds > 0 &&
-                <div
-                  data-name="FUNDS"
-                  className={`orb funds ${classForNumber(displayCard.cost.funds)}`}
-                >
-                  <BonusCostIcon type="funds"/>
+                <div className={`orb funds ${classForNumber(displayCard.cost.funds)}`}>
+                  <BonusCostIcon type="funds" />
                   <div className="orb-meta">
                     <span>{formatBigNumber(displayCard.cost.funds)}</span>
                     <span>FUNDS</span>
@@ -166,11 +151,8 @@ const HoverInfo = ({
               }
               {
                 displayCard.cost.level > 1 &&
-                <div
-                  data-name="LEVEL"
-                  className={`orb level ${classForNumber(displayCard.cost.level)}`}
-                >
-                  <BonusCostIcon type="level"/>
+                <div className={`orb level ${classForNumber(displayCard.cost.level)}`}>
+                  <BonusCostIcon type="level" />
                   <div className="orb-meta">
                     <span>{formatBigNumber(displayCard.cost.level)}</span>
                     <span>LEVEL</span>
@@ -180,11 +162,8 @@ const HoverInfo = ({
 
               {
                 displayCard.cost.development > 0 &&
-                <div
-                  data-name="DEV"
-                  className={`orb development ${classForNumber(displayCard.cost.development)}`}
-                >
-                  <BonusCostIcon type="development"/>
+                <div className={`orb development ${classForNumber(displayCard.cost.development)}`}>
+                  <BonusCostIcon type="development" />
                   <div className="orb-meta">
                     <span>{formatBigNumber(displayCard.cost.development)}</span>
                     <span>DEV</span>
@@ -197,15 +176,12 @@ const HoverInfo = ({
             {
               showGains &&
               displayCard.type !== 'Container' &&
-              <div className="gains" data-name="Gains">
+              <div className="gains">
                 {
                   displayCard.values &&
                   displayCard.values.space > 0 &&
-                  <div
-                    data-name="SPACE"
-                    className={`orb space ${classForNumber(displayCard.values.space)}`}
-                  > 
-                    <BonusCostIcon type="space"/>
+                  <div className={`orb space ${classForNumber(displayCard.values.space)}`}>
+                    <BonusCostIcon type="space" />
                     <div className="orb-meta">
                       <span>{formatBigNumber(displayCard.values.space)}</span>
                       <span>SPACE</span>
@@ -215,11 +191,8 @@ const HoverInfo = ({
                 {
                   displayCard.values &&
                   displayCard.values.power > 0 &&
-                  <div
-                    data-name="POWER"
-                    className={`orb power ${classForNumber(displayCard.values.power)}`}
-                  >
-                    <BonusCostIcon type="power"/>
+                  <div className={`orb power ${classForNumber(displayCard.values.power)}`}>
+                    <BonusCostIcon type="power" />
                     <div className="orb-meta">
                       <span>{formatBigNumber(displayCard.values.power)}</span>
                       <span>POWER</span>
@@ -229,11 +202,8 @@ const HoverInfo = ({
                 {
                   displayCard.bonus &&
                   displayCard.bonus.experience > 0 &&
-                  <div
-                    data-name="XP"
-                    className={`orb xp ${classForNumber(displayCard.bonus.experience)}`}
-                  >
-                    <BonusCostIcon type="experience"/>
+                  <div className={`orb xp ${classForNumber(displayCard.bonus.experience)}`}>
+                    <BonusCostIcon type="experience" />
                     <div className="orb-meta">
                       <span>{formatBigNumber(displayCard.bonus.experience)}</span>
                       <span>EXP</span>
@@ -243,11 +213,8 @@ const HoverInfo = ({
                 {
                   displayCard.bonus &&
                   displayCard.bonus.power > 0 &&
-                  <div
-                    data-name="POWER"
-                    className={`orb power ${classForNumber(displayCard.bonus.power)}`}
-                  >
-                    <BonusCostIcon type="power"/>
+                  <div className={`orb power ${classForNumber(displayCard.bonus.power)}`}>
+                    <BonusCostIcon type="power" />
                     <div className="orb-meta">
                       <span>{formatBigNumber(displayCard.bonus.power)}</span>
                       <span>POWER</span>
@@ -257,11 +224,8 @@ const HoverInfo = ({
                 {
                   displayCard.bonus &&
                   displayCard.bonus.development > 0 &&
-                  <div
-                    data-name="DEV"
-                    className={`orb development ${classForNumber(displayCard.bonus.development)}`}
-                  >
-                    <BonusCostIcon type="development"/>
+                  <div className={`orb development ${classForNumber(displayCard.bonus.development)}`}>
+                    <BonusCostIcon type="development" />
                     <div className="orb-meta">
                       <span>{formatBigNumber(displayCard.bonus.development)}</span>
                       <span>DEV</span>
@@ -271,14 +235,22 @@ const HoverInfo = ({
                 {
                   displayCard.bonus &&
                   displayCard.bonus.fundsPerBlock > 0 &&
-                  <div
-                    data-name="FPB"
-                    className={`orb funds ${classForNumber(displayCard.bonus.fundsPerBlock)}`}
-                  >
-                    <BonusCostIcon type="funds"/>
+                  <div className={`orb funds ${classForNumber(displayCard.bonus.fundsPerBlock)}`}>
+                    <BonusCostIcon type="funds" />
                     <div className="orb-meta">
                       <span>{formatBigNumber(displayCard.bonus.fundsPerBlock)}</span>
                       <span>FPB</span>
+                    </div>
+                  </div>
+                }
+                {
+                  displayCard.bonus &&
+                  displayCard.bonus.funds > 0 &&
+                  <div className={`orb funds ${classForNumber(displayCard.bonus.funds)}`}>
+                    <BonusCostIcon type="funds" />
+                    <div className="orb-meta">
+                      <span>{formatBigNumber(displayCard.bonus.funds)}</span>
+                      <span>{ displayCard.bonus.funds === 1 ? 'FUND' : 'FUNDS' }</span>
                     </div>
                   </div>
                 }
@@ -296,7 +268,7 @@ const HoverInfo = ({
               }
             </div>
           </div>
-          <div className="modal-bar bottom"></div>
+          <div className="modal-bar bottom" />
         </div>
       </div>
     </div>
