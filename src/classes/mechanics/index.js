@@ -19,6 +19,7 @@ import AllTypeCardsStatPercentBonus from './AllTypeCardsStatPercentBonus';
 import StatForUnspentLocationVal from './StatForUnspentLocationVal';
 import DynamicMatcherMechanic from './DynamicMatcherMechanic';
 import CardNumStatMultiplier from './CardNumStatMultiplier';
+import ProjectPerCompletionXpbBoost from './ProjectPerCompletionXpbBoost';
 
 serialise.declarePersistable(BonusMechanic);
 serialise.declarePersistable(ContainerMechanic);
@@ -38,3 +39,5 @@ serialise.declarePersistable(MatcherMechanic);
 serialise.declarePersistable(AllTypeCardsStatPercentBonus);
 serialise.declarePersistable(StatForUnspentLocationVal);
 serialise.declarePersistable(CardNumStatMultiplier);
+serialise.declarePersistable(DynamicMatcherMechanic);
+serialise.declarePersistable(ProjectPerCompletionXpbBoost);

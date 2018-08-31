@@ -4513,7 +4513,15 @@
           "project"
         ],
         "title": "Consensus Improvement",
-        "type": "Project"
+        "type": "Project",
+        "mechanics": [
+          {
+            "name": "projectPerCompletionXpbBoost",
+            "params": [
+              1
+            ]
+          }
+        ]
       },
       "2": {
         "ID": "32",
@@ -4545,7 +4553,15 @@
           "project"
         ],
         "title": "Consensus Improvement",
-        "type": "Project"
+        "type": "Project",
+        "mechanics": [
+          {
+            "name": "projectPerCompletionXpbBoost",
+            "params": [
+              2
+            ]
+          }
+        ]
       },
       "3": {
         "ID": "32",
@@ -4577,7 +4593,15 @@
           "project"
         ],
         "title": "Consensus Improvement",
-        "type": "Project"
+        "type": "Project",
+        "mechanics": [
+          {
+            "name": "projectPerCompletionXpbBoost",
+            "params": [
+              3
+            ]
+          }
+        ]
       },
       "4": {
         "ID": "32",
@@ -4609,7 +4633,15 @@
           "project"
         ],
         "title": "Consensus Improvement",
-        "type": "Project"
+        "type": "Project",
+        "mechanics": [
+          {
+            "name": "projectPerCompletionXpbBoost",
+            "params": [
+              4
+            ]
+          }
+        ]
       },
       "5": {
         "ID": "32",
@@ -4641,7 +4673,15 @@
           "project"
         ],
         "title": "Consensus Improvement",
-        "type": "Project"
+        "type": "Project",
+        "mechanics": [
+          {
+            "name": "projectPerCompletionXpbBoost",
+            "params": [
+              5
+            ]
+          }
+        ]
       }
     },
     "33": {
