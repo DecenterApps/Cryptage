@@ -1,8 +1,6 @@
 import serialise from 'serialijse';
-import cardsConfig from '../constants/cards.json';
 import Mechanic from './Mechanic';
 import { fetchCardStats } from '../services/cardService';
-import CardSlot from './CardSlot';
 import { mergeErrorMessages } from '../services/utils';
 import { isLocationCard } from './matchers';
 import { registerCardTypeConstructor, getCardTypeConstructor, setDefaultCardType } from './Registry';
@@ -53,8 +51,6 @@ export default class Card extends Subscriber {
     this.isNew = false;
     this.active = false;
     this.parent = null;
-    this.minDropSlots = cardsConfig.locationMinSlots;
-    this.minEmptyDropSlots = 2;
     this.additionalData = {};
 
     this.additionalBonuses = {
@@ -103,16 +99,6 @@ export default class Card extends Subscriber {
     const relativeBonus = this.additionalBonuses[stat].relative;
 
     return Math.floor(((baseBonus + absBonus) * (100 + relativeBonus)) / 100);
-  }
-
-  addNewDropSlot(SlotType = CardSlot) {
-    this.dropSlots.push(new SlotType(this));
-  }
-
-  removeDropSlot(dropSlot) {
-    if (this.dropSlots.length > this.minDropSlotLength) {
-      this.dropSlots.splice(this.dropSlots.indexOf(dropSlot), 1);
-    }
   }
 
   findParent(matcher = isLocationCard) {

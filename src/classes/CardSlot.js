@@ -48,6 +48,7 @@ export default class CardSlot {
     this.card.parent = this.owner;
 
     if (this.owner) state = this.owner.onPlayChild(state, this.card);
+    if (this.owner && card.level === 1) this.owner.addNewDropSlot(this);
 
     state = state.playTurn(state, this, true);
     return this.card.onPlay(state, this);

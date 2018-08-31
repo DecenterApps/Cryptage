@@ -7463,7 +7463,7 @@
   "locationSlots": 6,
   "projectsSlots": 10,
   "locationMinSlots": 6,
-  "visibleEmptySlots": 2,
+  "visibleEmptySlots": 1,
   "boosters": {
     "1": {
       "id": "1",
