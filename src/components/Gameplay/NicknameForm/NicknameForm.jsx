@@ -19,7 +19,7 @@ class NicknameForm extends Component {
       showExtendedWarning: false,
     };
   }
-  render() {
+   render() {
     const {
       handleSubmit,
       pristine,
@@ -72,7 +72,15 @@ class NicknameForm extends Component {
           </div>
         }
         <div className="content">
-          <form onSubmit={handleSubmit} className="form-wrapper" autoComplete="off">
+          <form
+            onSubmit={handleSubmit}
+            onKeyPress={e => {
+              if (e.key === 'Enter') {
+                if (pristine || invalid || submittingForm) e.preventDefault();
+              }
+            }}
+            className="form-wrapper"
+            autoComplete="off">
             <Field
               id="nickname"
               name="nickname"
