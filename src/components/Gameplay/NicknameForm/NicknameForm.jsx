@@ -8,6 +8,7 @@ import InputComponent from '../../Forms/InputComponent';
 import nicknameFormValidator from './nicknameFormValidator';
 import { submitNickname } from '../../../actions/gameplayActions';
 import ArrowRight from '../../Decorative/ArrowRight';
+import { checkAccount } from '../../../actions/stateActions';
 
 import formStyle from '../../../common/forms.scss';
 import './NicknameForm.scss';
@@ -19,6 +20,11 @@ class NicknameForm extends Component {
       showExtendedWarning: false,
     };
   }
+
+  async componentWillMount() {
+    await this.props.checkAccount();
+  }
+
    render() {
     const {
       handleSubmit,
@@ -29,6 +35,7 @@ class NicknameForm extends Component {
       nickname,
       accountError,
     } = this.props;
+    console.log('NicknameForm', nickname, accountError)
     return (
       <div className="nickname-form-wrapper">
         {
@@ -138,6 +145,7 @@ const mapStateToProps = ({ app, gameplay }) => ({
 
 const mapDispatchToProps = {
   onSubmit: submitNickname,
+  checkAccount,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NicknameForm);
