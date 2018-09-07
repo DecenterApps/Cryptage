@@ -230,4 +230,4 @@ export const checkIfNewLevel = level => async (dispatch, getState) => {
 };
 
 export const calcExpiryBlocksLeft = (card, blockNumber, projectExecutionTimePercent) =>
-  Math.floor((projectExecutionTimePercent / 100) * (card.expiryTime - blockNumber));
+  Math.ceil((projectExecutionTimePercent / 100) * (card.expiryTime - blockNumber));
