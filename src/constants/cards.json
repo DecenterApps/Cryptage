@@ -3302,7 +3302,7 @@
         "level": 1,
         "mechanics": [
           {
-            "name": "allTypeCardsStatPercentBonus",
+            "name": "projectPerCompletionAllTypeCardStatPercentBoost",
             "params": [
               "Mining",
               "fundsPerBlock",
@@ -3344,7 +3344,7 @@
         "level": 2,
         "mechanics": [
           {
-            "name": "allTypeCardsStatPercentBonus",
+            "name": "projectPerCompletionAllTypeCardStatPercentBoost",
             "params": [
               "Mining",
               "fundsPerBlock",
@@ -3386,7 +3386,7 @@
         "level": 3,
         "mechanics": [
           {
-            "name": "allTypeCardsStatPercentBonus",
+            "name": "projectPerCompletionAllTypeCardStatPercentBoost",
             "params": [
               "Mining",
               "fundsPerBlock",
@@ -3428,7 +3428,7 @@
         "level": 4,
         "mechanics": [
           {
-            "name": "allTypeCardsStatPercentBonus",
+            "name": "projectPerCompletionAllTypeCardStatPercentBoost",
             "params": [
               "Mining",
               "fundsPerBlock",
@@ -3470,7 +3470,7 @@
         "level": 5,
         "mechanics": [
           {
-            "name": "allTypeCardsStatPercentBonus",
+            "name": "projectPerCompletionAllTypeCardStatPercentBoost",
             "params": [
               "Mining",
               "fundsPerBlock",

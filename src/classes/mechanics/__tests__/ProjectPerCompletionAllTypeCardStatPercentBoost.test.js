@@ -1,11 +1,11 @@
-import AllTypeCardsStatPercentBonus from '../AllTypeCardsStatPercentBonus';
+import ProjectPerCompletionAllTypeCardStatPercentBoost from '../ProjectPerCompletionAllTypeCardStatPercentBoost';
 import Card from '../../Card';
 import Mechanic from '../../Mechanic';
 import Gameplay from '../../Gameplay';
 import LocationCard from '../../cardTypes/Location';
 import { createMatcher } from '../../matchers';
 
-describe('AllTypeCardsStatPercentBonus', () => {
+describe('ProjectPerCompletionAllTypeCardStatPercentBoost', () => {
   it('Has defined constructor values', async () => {
     let gameplay = new Gameplay(0);
 
@@ -20,7 +20,7 @@ describe('AllTypeCardsStatPercentBonus', () => {
       metadataId: 42,
     });
 
-    const mechInstance = Mechanic.getInstance('allTypeCardsStatPercentBonus', assetCard, [cardType, stat, statBoost]);
+    const mechInstance = Mechanic.getInstance('projectPerCompletionAllTypeCardStatPercentBoost', assetCard, [cardType, stat, statBoost]); // eslint-disable-line
     assetCard.mechanics.push(mechInstance);
 
     const locationCard = new LocationCard({

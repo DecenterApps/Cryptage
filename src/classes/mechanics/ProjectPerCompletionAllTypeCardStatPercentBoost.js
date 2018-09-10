@@ -2,7 +2,7 @@ import Mechanic from '../Mechanic';
 import MatcherMechanic from './MatcherMechanic';
 import { transformQuery } from '../matchers';
 
-export default class AllTypeCardsStatPercentBonus extends MatcherMechanic {
+export default class ProjectPerCompletionAllTypeCardStatPercentBoost extends MatcherMechanic {
   constructor(card, cardType, boostedStat, boostPercent) {
     super(card);
 
@@ -19,7 +19,7 @@ export default class AllTypeCardsStatPercentBonus extends MatcherMechanic {
     if (this.card.level === 1) {
       this.addedBoost = 0;
     } else {
-      this.addedBoost = this.card.additionalData.allTypeCardsStatPercentBonus;
+      this.addedBoost = this.card.additionalData.projectPerCompletionAllTypeCardStatPercentBoost;
       state = this.changeBonusForDroppedMatchedCards(_state, this.addedBoost);
     }
 
@@ -36,7 +36,6 @@ export default class AllTypeCardsStatPercentBonus extends MatcherMechanic {
       const onSubscribedEvent = (subscribeState, matchedCard, num) => this.singleCardChangeBonus(matchedCard, subscribeState, num); // eslint-disable-line
 
       this.card.subscribe(state, 'onPlay', matcher, (ss, mc) => onSubscribedEvent(ss, mc, this.addedBoost));
-      // this.card.subscribe(state, 'onWithdraw', matcher, (ss, mc) => onSubscribedEvent(ss, mc, -this.addedBoost));
 
       this.subscribed = true;
     }
@@ -47,7 +46,7 @@ export default class AllTypeCardsStatPercentBonus extends MatcherMechanic {
   onWithdraw(_state) {
     const state = this.changeBonusForDroppedMatchedCards(_state, -this.addedBoost);
     this.subscribed = false;
-    this.card.additionalData.allTypeCardsStatPercentBonus = this.addedBoost;
+    this.card.additionalData.projectPerCompletionAllTypeCardStatPercentBoost = this.addedBoost;
     return state;
   }
 
@@ -60,4 +59,4 @@ export default class AllTypeCardsStatPercentBonus extends MatcherMechanic {
   }
 }
 
-Mechanic.registerMechanic('allTypeCardsStatPercentBonus', AllTypeCardsStatPercentBonus);
+Mechanic.registerMechanic('projectPerCompletionAllTypeCardStatPercentBoost', ProjectPerCompletionAllTypeCardStatPercentBoost); // eslint-disable-line
