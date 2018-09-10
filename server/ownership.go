@@ -1,72 +1,43 @@
 package main
 
 import (
-  "fmt"
-  "github.com/ethereum/go-ethereum/accounts/abi/bind"
-  "github.com/ethereum/go-ethereum/ethclient"
-  "github.com/ethereum/go-ethereum/common"
-  "math/big"
-  "errors"
-  "io/ioutil"
-  "encoding/json"
+	"errors"
 )
 
-var UnableToConnectToNode = errors.New("unable to connect to node")
 var CardOwnershipVerificationFailed = errors.New("card ownership verification failed")
-var contract Contract
 
-type Contract struct {
-  HttpProvider string `json:"httpProvider"`
-  Address string `json:"address"`
-}
+func verifyCardsOwnership(address string, maximumCardsCount []uint, level uint, fromCheckBlock uint, toCheckBlock uint, cards []uint) error {
 
-func verifyCardsOwnership(address string, maximumCardsCount [numberOfCards]uint, level uint) error {
-  contractJson, _ := ioutil.ReadFile("./constants/contract.json")
-  json.Unmarshal(contractJson, &contract)
+	for i, cards := range config.CardsPerLevel {
+		if uint(i) <= level {
+			for _, card := range cards {
+				if maximumCardsCount[card] > 0 {
+					maximumCardsCount[card]--
+				}
+			}
+		}
+	}
 
-  var cardsPerLevel [][]uint
-  cardsPerLevelJson, _ := ioutil.ReadFile("./constants/cardsPerLevel.json")
-  json.Unmarshal(cardsPerLevelJson, &cardsPerLevel)
+	if toCheckBlock > fromCheckBlock {
+		toCheckBlockInt := uint64(toCheckBlock)
 
-  for i, cards := range cardsPerLevel {
-    if uint(i) <= level {
-      for _, card := range cards {
-        if maximumCardsCount[card] > 0 {
-          maximumCardsCount[card]--
-        }
-      }
-    }
-  }
+		var err error
+		cards, err = refreshCards(address, uint64(fromCheckBlock), &toCheckBlockInt, cards)
 
-  client, err := getClient()
+		if err != nil {
+			return err
+		}
+	}
 
-  if err != nil {
-    fmt.Println(err)
-    return UnableToConnectToNode
-  }
+	for i := 0; i < len(config.Cards); i++ {
+		if maximumCardsCount[i] == 0 {
+			continue
+		}
 
-  cardsContract, err := NewSeleneanCards(common.HexToAddress(contract.Address), client)
+		if maximumCardsCount[i] > cards[i] {
+			return CardOwnershipVerificationFailed
+		}
+	}
 
-  for i, count := range maximumCardsCount {
-    if count == 0 {
-      continue
-    }
-
-    // optimize
-    ownershipCount, err := cardsContract.NumberOfCardsWithType(&bind.CallOpts{Pending: true}, common.HexToAddress(address), big.NewInt(int64(i)))
-
-    if err != nil {
-      return err
-    }
-
-    if ownershipCount.Cmp(big.NewInt(int64(count))) == -1  {
-      return CardOwnershipVerificationFailed
-    }
-  }
-
-  return nil
-}
-
-func getClient() (client *ethclient.Client, err error) {
-  return ethclient.Dial(contract.HttpProvider)
+	return nil
 }

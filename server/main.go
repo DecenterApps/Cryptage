@@ -1,67 +1,143 @@
 package main
 
 import (
-  "log"
-  "net/http"
-  "encoding/json"
-  "io/ioutil"
-  "encoding/hex"
+	"fmt"
+	"time"
+	"context"
+	"reflect"
+	"net/http"
+	"io/ioutil"
+	"encoding/json"
+
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/event"
 )
 
-type Input struct {
-  Address string `json:"address"`
-  Name string `json:"name"`
-  Moves string `json:"moves"`
+type Config struct {
+	Cards                map[uint]map[uint]Card `json:"cards"`
+	BoosterAddress       string                 `json:"boosterAddress"`
+	CryptageAddress      string                 `json:"cryptageAddress"`
+	SeleneanCardsAddress string                 `json:"seleneanCardsAddress"`
+	CryptageStartBlock   uint64                 `json:"cryptageStartBlock"`
+	HttpProvider         string                 `json:"httpProvider"`
+	WsProvider           string                 `json:"wsProvider"`
+	Levels               []Level                `json:"levels"`
+	CardsPerLevel        [][]uint               `json:"cardsPerLevel"`
 }
 
-func save(w http.ResponseWriter, r *http.Request) {
-  body, err := ioutil.ReadAll(r.Body)
+var config Config
 
-  if err != nil {
-    panic(err)
-  }
+func loadConfig() {
+	contractJson, _ := ioutil.ReadFile("./config.json")
+	json.Unmarshal(contractJson, &config)
 
-  var input Input
-  err = json.Unmarshal(body, &input)
+	for i := 0; i < len(config.Cards); i++ {
+		for j := 1; j <= len(config.Cards[uint(i)]); j++ {
+			card := config.Cards[uint(i)][uint(j)]
+			card.Level -= levelOffset
+			config.Cards[uint(i)][card.Level] = card
+		}
 
-  if err != nil {
-    panic(err)
-  }
+		delete(config.Cards[uint(i)], uint(len(config.Cards[uint(i)])-1))
+	}
+}
 
-  hexMoves, err := hex.DecodeString(input.Moves)
+func process(address string, hexMoves []byte, reset bool, hash []byte) error {
+	sendBlockNumber, moves := DecodeMoves(hexMoves)
+	cryptage, err := getCryptage(address, reset, sendBlockNumber)
+	if err != nil {
+		return err
+	}
 
-  if err != nil {
-    panic(err)
-  }
+	//check if event is already processed
+	for _, cryptageEvent := range cryptage.Events {
+		if reflect.DeepEqual(cryptageEvent, hash) {
+			return nil
+		}
+	}
 
-  sendBlockNumber, moves := decodeMoves(hexMoves)
+	err = cryptage.update(sendBlockNumber, moves)
+	if err != nil {
+		return err
+	}
 
-  cryptage, err := getCryptage(input.Address)
-  err = cryptage.state.update(sendBlockNumber, moves)
-  if err != nil {
-    panic(err)
-  }
+	cryptage.Events = append(cryptage.Events, hash)
+	updateCryptage(*cryptage)
+	return nil
+}
 
-  err = verifyCardsOwnership(input.Address, cryptage.state.maximumCardsCount, cryptage.state.level)
-  if err != nil {
-    panic(err)
-  }
+func leaderboard(w http.ResponseWriter, r *http.Request) {
+	cryptageDocuments, err := findAll()
+	if err != nil {
+		return
+	}
 
-  cryptage.name = input.Name
+	cryptageDocumentsJson, err := json.Marshal(cryptageDocuments)
+	if err != nil {
+		return
+	}
 
-  sig, err := sign(*cryptage, hexMoves, input.Address)
-  if err != nil {
-    panic(err)
-  }
-
-  updateCryptage(*cryptage)
-
-  w.Write(sig)
+	w.Write(cryptageDocumentsJson)
 }
 
 func main() {
-  log.Println("Server started on: http://localhost:8080")
-  http.HandleFunc("/save", save)
-  http.ListenAndServe(":8080", nil)
-}
+	loadConfig()
 
+	client, err := getClient("ws")
+	if err != nil {
+		client.Close()
+		return
+	}
+
+	filterer, err := NewCryptageMovesFilterer(common.HexToAddress(config.CryptageAddress), client)
+
+	sink := make(chan *CryptageMovesNewMoves)
+	watchSub, err := filterer.WatchNewMoves(&bind.WatchOpts{Context: context.Background()}, sink, nil)
+	if err != nil {
+		fmt.Println(fmt.Sprintf("Error occured while trying to initaite event subscriber"))
+		return
+	}
+
+	blockNumber, err := getBlockNumber()
+	if err != nil {
+		fmt.Println(fmt.Sprintf("Error occured while fetching latest block number"))
+		return
+	}
+
+	iter, err := filterer.FilterNewMoves(&bind.FilterOpts{Start: uint64(config.CryptageStartBlock), End: blockNumber}, nil)
+
+	for iter.Next() {
+		err := process("0x"+iter.Event.Raw.Topics[1].String()[26:], iter.Event.Raw.Data[96:], iter.Event.Raw.Data[63] > 0, iter.Event.Raw.TxHash.Bytes())
+		if err != nil {
+			fmt.Println(fmt.Sprintf("Error occured while updating state: %s, txHash: %s", err, iter.Event.Raw.TxHash.String()))
+		} else {
+			fmt.Println(fmt.Sprintf("Successfuly updated state, txHash: %s", iter.Event.Raw.TxHash.String()))
+		}
+	}
+
+	go func() {
+		for {
+			select {
+			case <-watchSub.Err():
+				{
+					watchSub = event.Resubscribe(100*time.Millisecond, func(ctx context.Context) (event.Subscription, error) {
+						return filterer.WatchNewMoves(&bind.WatchOpts{Context: context.Background()}, sink, nil)
+					})
+				}
+			case watchLog := <-sink:
+				{
+					err := process("0x"+watchLog.Raw.Topics[1].String()[26:], watchLog.Raw.Data[96:], watchLog.Raw.Data[63] > 0, watchLog.Raw.TxHash.Bytes())
+					if err != nil {
+						fmt.Println(fmt.Sprintf("Error occured while updating state: %s, txHash: %s", err, iter.Event.Raw.TxHash.String()))
+					} else {
+						fmt.Println(fmt.Sprintf("Successfuly updated state, txHash: %s", iter.Event.Raw.TxHash.String()))
+					}
+				}
+			}
+		}
+	}()
+
+	http.HandleFunc("/leaderboard", leaderboard)
+	http.ListenAndServe(":8080", nil)
+}

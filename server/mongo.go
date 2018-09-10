@@ -1,76 +1,86 @@
 package main
 
 import (
-  "context"
-  "github.com/mongodb/mongo-go-driver/mongo"
-  "github.com/mongodb/mongo-go-driver/bson"
+	"context"
+
+	"github.com/mongodb/mongo-go-driver/bson"
+	"github.com/mongodb/mongo-go-driver/mongo"
 )
 
 type CryptageDocument struct {
-  Exists bool
-  Address string
-  Name string
-  StateBuffer []byte
+	Address     string
+	StateBuffer []byte
+	Cards       []uint
+	Events      [][]byte
 }
 
 func connectToDB() (*mongo.Database, error) {
-  client, err := mongo.Connect(context.Background(), "mongodb://localhost:27017", nil)
+	client, err := mongo.Connect(context.Background(), "mongodb://localhost:27017", nil)
 
-  if err != nil {
-    return nil, err
-  }
+	if err != nil {
+		return nil, err
+	}
 
-  return client.Database("selenean"), nil
+	return client.Database("selenean"), nil
 }
 
-func update(cryptageDocument CryptageDocument) error {
-  db, err := connectToDB()
+func updateOne(cryptageDocument CryptageDocument) error {
+	db, err := connectToDB()
+	if err != nil {
+		return err
+	}
 
-  if err != nil {
-    return err
-  }
-
-  if cryptageDocument.Exists {
-     _, err = db.Collection("cryptage").UpdateOne(
-      context.Background(),
-      bson.NewDocument(
-        bson.EC.String("address", cryptageDocument.Address),
-      ),
-      bson.NewDocument(
-        bson.EC.SubDocumentFromElements("$set",
-          bson.EC.String("name", cryptageDocument.Name),
-          bson.EC.Binary("stateBuffer", cryptageDocument.StateBuffer),
-        ),
-      ))
-
-     return err
-  }
-
-  _, err = db.Collection("cryptage").InsertOne(
-    context.Background(),
-    bson.NewDocument(
-      bson.EC.String("address", cryptageDocument.Address),
-      bson.EC.String("name", cryptageDocument.Name),
-      bson.EC.Binary("stateBuffer", cryptageDocument.StateBuffer),
-    ))
-
-  return err
+	db.Collection("cryptage").FindOneAndUpdate(
+		context.Background(),
+		bson.NewDocument(
+			bson.EC.String("address", cryptageDocument.Address),
+		),
+		bson.NewDocument(
+			bson.EC.SubDocumentFromElements("$set",
+				bson.EC.Binary("stateBuffer", cryptageDocument.StateBuffer),
+				bson.EC.Interface("cards", cryptageDocument.Cards),
+				bson.EC.Interface("events", cryptageDocument.Events),
+			),
+		))
+	return nil
 }
 
-func get(address string) (*CryptageDocument, error) {
-  db, err := connectToDB()
+func findOne(address string) (*CryptageDocument, error) {
+	db, err := connectToDB()
 
-  if err != nil {
-    return nil, err
-  }
+	if err != nil {
+		return nil, err
+	}
 
-  documentResult := db.Collection("cryptage").FindOne(
-    context.Background(),
-    bson.NewDocument(bson.EC.String("address", address)))
+	documentResult := db.Collection("cryptage").FindOne(
+		context.Background(),
+		bson.NewDocument(bson.EC.String("address", address)))
 
-  var cryptageDocument CryptageDocument
-  documentResult.Decode(&cryptageDocument)
-  cryptageDocument.Exists = len(cryptageDocument.StateBuffer) > 0
+	var cryptageDocument CryptageDocument
+	documentResult.Decode(&cryptageDocument)
 
-  return &cryptageDocument, nil
+	return &cryptageDocument, nil
+}
+
+func findAll() ([]*CryptageDocument, error) {
+	db, err := connectToDB()
+	if err != nil {
+		return nil, err
+	}
+
+	cursor, err := db.Collection("cryptage").Find(
+		context.Background(), nil, nil,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	var cryptageDocuments []*CryptageDocument
+	var cryptageDocument CryptageDocument
+	for cursor.Next(context.Background()) {
+		cursor.Decode(&cryptageDocument)
+		cryptageDocuments = append(cryptageDocuments, &cryptageDocument)
+	}
+
+	return cryptageDocuments, nil
 }

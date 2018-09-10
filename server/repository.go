@@ -1,32 +1,46 @@
 package main
 
-type Cryptage struct {
-  exists bool
-  address string
-  name string
-  state State
-}
+import "encoding/json"
 
 func updateCryptage(cryptage Cryptage) error {
-  return update(CryptageDocument{
-    Exists: cryptage.exists,
-    Address: cryptage.address,
-    Name: cryptage.name,
-    StateBuffer: encode(cryptage.state),
-  })
+	stateJson, err := json.Marshal(cryptage.State)
+	if err != nil {
+		return err
+	}
+
+	return updateOne(CryptageDocument{
+		Address:     cryptage.Address,
+		StateBuffer: stateJson,
+		Cards:       cryptage.Cards,
+		Events:      cryptage.Events,
+	})
 }
 
-func getCryptage(address string) (*Cryptage, error) {
-  cryptageDocument, err := get(address)
+func getCryptage(address string, reset bool, sendBlockNumber uint) (*Cryptage, error) {
+	if reset {
+		return &Cryptage{
+			Address: address,
+			State:   NewState(sendBlockNumber),
+			Cards:   make([]uint, len(config.Cards)),
+			Events:  [][]byte{},
+		}, nil
+	}
 
-  if err != nil {
-    return nil, err
-  }
+	cryptageDocument, err := findOne(address)
+	if err != nil {
+		return nil, err
+	}
 
-  return &Cryptage{
-    exists: cryptageDocument.Exists,
-    address: address,
-    name: cryptageDocument.Name,
-    state: decode(cryptageDocument.StateBuffer),
-  }, nil
+	var state State
+	err = json.Unmarshal(cryptageDocument.StateBuffer, &state)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Cryptage{
+		Address: address,
+		State:   &state,
+		Cards:   cryptageDocument.Cards,
+		Events:  cryptageDocument.Events,
+	}, nil
 }
