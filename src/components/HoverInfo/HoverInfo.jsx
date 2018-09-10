@@ -172,7 +172,7 @@ const HoverInfo = ({
               }
             </div>
           }
-          <div className="right-side side" data-name="Gains">
+          <div className="right-side side" data-name={showGains ? "Gains" : ""}>
             {
               showGains &&
               displayCard.type !== 'Container' &&
