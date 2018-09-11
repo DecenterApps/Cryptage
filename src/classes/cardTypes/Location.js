@@ -25,9 +25,9 @@ export default class LocationCard extends Card {
     }
   }
 
-  addEvent(state, eventMechanicName, params) {
-    this.events.push({ name: eventMechanicName, params });
-    return this._on('onAddEvent', state, eventMechanicName, params);
+  addEvent(state, id, name, params) {
+    this.events.push({ id, name, params });
+    return this._on('onAddEvent', state, name, params);
   }
 
   addNewDropSlot() {

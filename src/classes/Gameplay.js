@@ -118,7 +118,7 @@ export default class Gameplay {
     if (isLocationCardSlot && (dropOrWithdraw === true)) {
       const event = eventsConfig.events['1'];
 
-      state = cardSlot.card.addEvent(state, event.mechanicName, event.params);
+      state = cardSlot.card.addEvent(state, event.id, event.mechanicName, event.params);
     }
 
     if (!isProjectCardSlot || isLocationCardSlot) turnData.locationIndex = state.activeLocationIndex;

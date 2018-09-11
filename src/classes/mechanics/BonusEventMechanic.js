@@ -6,6 +6,7 @@ export default class BonusEventMechanic extends MatcherMechanic {
   constructor(card, boostedStat, boostAmount, duration) {
     super(card);
 
+    this.expiryTime = null;
     this.boostedStat = boostedStat;
     this.boostAmount = boostAmount;
     this.duration = duration;
@@ -48,7 +49,14 @@ export default class BonusEventMechanic extends MatcherMechanic {
 
   onPlay(state) { return state; }
 
-  onWithdraw(state) {
+  onWithdraw(_state) {
+    let state = _state;
+    const blocksLeft = this.expiryTime - state.blockNumber;
+
+    if (this.expiryTime && (blocksLeft > 0)) {
+      state = this.handleOnWithdraw(state);
+    }
+
     this.card.mechanics.splice(this.indexInMechanics, 1);
     return state;
   }

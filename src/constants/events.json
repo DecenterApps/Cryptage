@@ -1,6 +1,7 @@
 {
   "events": {
     "1": {
+      "id": 1,
       "mechanicName": "bonusEventMechanic",
       "eventType": "Mining Attack",
       "eventProgressBarType": "Mining Attack",
