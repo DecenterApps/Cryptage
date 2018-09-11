@@ -34,7 +34,7 @@ export default class MatcherMechanic extends Mechanic {
     return matchedCard.changeBonuses(subscribeState, this.createChangeBonus(num));
   }
 
-  onPlay(_state) {
+  handleOnPlay(_state) {
     const matcher = transformQuery(this.getQuery());
 
     const state = this.changeBonusForDroppedMatchedCards(_state, this.boostAmount);
@@ -43,12 +43,19 @@ export default class MatcherMechanic extends Mechanic {
 
     this.card.subscribe(state, 'onPlay', matcher, (ss, mc) => onSubscribedEvent(ss, mc, this.boostAmount));
     this.card.subscribe(state, 'onWithdraw', matcher, (ss, mc) => onSubscribedEvent(ss, mc, -this.boostAmount));
-
     return state;
   }
 
-  onWithdraw(state) {
+  onPlay(_state) {
+    return this.handleOnPlay(_state);
+  }
+
+  handleOnWithdraw(state) {
     return this.changeBonusForDroppedMatchedCards(state, -this.boostAmount);
+  }
+
+  onWithdraw(state) {
+    return this.handleOnWithdraw(state);
   }
 }
 

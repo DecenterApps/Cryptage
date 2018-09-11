@@ -98,7 +98,9 @@ export default class Card extends Subscriber {
     const absBonus = this.additionalBonuses[stat].absolute;
     const relativeBonus = this.additionalBonuses[stat].relative;
 
-    return Math.floor(((baseBonus + absBonus) * (100 + relativeBonus)) / 100);
+    const val = ((baseBonus + absBonus) * (100 + relativeBonus)) / 100;
+
+    return relativeBonus < 0 ? Math.ceil(val) : Math.floor(val);
   }
 
   findParent(matcher = isLocationCard) {

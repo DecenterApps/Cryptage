@@ -7,7 +7,9 @@
       "name": "Mining Attack",
       "bonusPenaltyName": "Taxes",
       "params": [
-        { "development": { "absolute": 0, "relative": -25 } }
+        "development",
+        -25,
+        10
       ]
     }
   }

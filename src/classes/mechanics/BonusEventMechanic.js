@@ -1,39 +1,52 @@
 import Mechanic from '../Mechanic';
-import { calcExpiryBlocksLeft } from '../../services/gameMechanicsService';
+import { createIdentityMatcher } from '../matchers';
+import MatcherMechanic from './MatcherMechanic';
 
-export default class BonusEventMechanic extends Mechanic {
-  constructor(card) {
+export default class BonusEventMechanic extends MatcherMechanic {
+  constructor(card, boostedStat, boostAmount, duration) {
     super(card);
 
+    this.boostedStat = boostedStat;
+    this.boostAmount = boostAmount;
+    this.duration = duration;
     this.indexInMechanics = -1;
+  }
+
+  getQuery() {
+    return { parent: createIdentityMatcher(this.card) };
+  }
+
+  getBoostAmount() {
+    return this.boostAmount;
+  }
+
+  createChangeBonus(num) {
+    return { [this.boostedStat]: { absolute: 0, relative: num } };
   }
 
   startEvent(state, newIndex) {
     this.indexInMechanics = newIndex;
+    this.expiryTime = state.blockNumber + this.duration;
 
-    return state;
+    return this.handleOnPlay(state);
   }
 
   block(state, blockNumber) {
-    // const blocksLeft = calcExpiryBlocksLeft(this.card, blockNumber, state.projectExecutionTimePercent);
-    //
-    // // if (this.card.finishedNow) this.card.finishedNow = false;
-    //
-    // if (this.expiryTime && (blocksLeft <= 0)) {
-    //   this.expiryTime = null;
-    //   this.running = false;
-    //
-    //   // this.card.finishedNow = true;
-    //
-    //   state.stats.experience += this.card.getGainsStatValue('experience');
-    //   state.stats.funds += this.card.getGainsStatValue('funds');
-    //   state.stats.development += this.card.cost.development;
-    //
-    //   return this.card.onProjectEnd(state);
-    // }
-    //
+    const blocksLeft = this.expiryTime - blockNumber;
+
+    if (this.expiryTime && (blocksLeft <= 0)) {
+      this.expiryTime = null;
+
+      // ADD SPECIAL CURRENCY
+      // NEGATE EFFECTS
+
+      return this.handleOnWithdraw(state);
+    }
+
     return state;
   }
+
+  onPlay(state) { return state; }
 
   onWithdraw(state) {
     this.card.mechanics.splice(this.indexInMechanics, 1);
