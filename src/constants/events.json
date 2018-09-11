@@ -1,0 +1,14 @@
+{
+  "events": {
+    "1": {
+      "mechanicName": "bonusEventMechanic",
+      "eventType": "Mining Attack",
+      "eventProgressBarType": "Mining Attack",
+      "name": "Mining Attack",
+      "bonusPenaltyName": "Taxes",
+      "params": [
+        { "development": { "absolute": 0, "relative": -25 } }
+      ]
+    }
+  }
+}

@@ -10,6 +10,8 @@ export default class EventMechanic extends Mechanic {
   onPlay(_state) {
     let state = _state;
 
+    if (this.addedMechanicsIndexes.length > 0) return state;
+
     this.card.events.forEach((event) => {
       state = this.onAddEvent(state, event.name, event.params);
     });
@@ -17,19 +19,14 @@ export default class EventMechanic extends Mechanic {
     return state;
   }
 
-  onAddEvent(state, eventMechanicName, params) {
-    const newIndex = this.card.mechanics.push(Mechanic.getInstance(eventMechanicName, this, ...params)) - 1;
+  onAddEvent(_state, eventMechanicName, params) {
+    let state = _state;
+
+    const mechInstance = Mechanic.getInstance(eventMechanicName, this.card, ...params);
+    const newIndex = this.card.mechanics.push(mechInstance) - 1;
     this.addedMechanicsIndexes.push(newIndex);
 
-    return state;
-  }
-
-  onWithdraw(state) {
-    // CHECK IF GOES THROUGH ALL EVENT MECHANICS FIRST
-    console.log('Main event manage on withdraw');
-    this.addedMechanicsIndexes.forEach((mechIndex) => {
-      this.card.mechanics.splice(mechIndex, 1);
-    });
+    state = mechInstance.startEvent(state, newIndex);
 
     return state;
   }

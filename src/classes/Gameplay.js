@@ -1,6 +1,7 @@
 import serialise from 'serialijse';
 import config from '../constants/config.json';
 import cardConfig from '../constants/cards.json';
+import eventsConfig from '../constants/events.json';
 import levels from '../constants/levels.json';
 import LocationCardSlot from './slotTypes/LocationCardSlot';
 import ProjectCardSlot from './slotTypes/ProjectCardSlot';
@@ -93,7 +94,7 @@ export default class Gameplay {
   }
 
   playTurn(_state, cardSlot, dropOrWithdraw) {
-    const state = _state;
+    let state = _state;
 
     const turnData = {
       shift: true,
@@ -112,6 +113,13 @@ export default class Gameplay {
 
     const isLocationCardSlot = cardSlot instanceof LocationCardSlot;
     const isProjectCardSlot = cardSlot instanceof ProjectCardSlot;
+
+    // TODO remove this after implementation
+    if (isLocationCardSlot && (dropOrWithdraw === true)) {
+      const event = eventsConfig.events['1'];
+
+      state = cardSlot.card.addEvent(state, event.mechanicName, event.params);
+    }
 
     if (!isProjectCardSlot || isLocationCardSlot) turnData.locationIndex = state.activeLocationIndex;
     if (isLocationCardSlot) turnData.locationIndex = cardSlot.index;
