@@ -35,7 +35,7 @@ class NicknameForm extends Component {
       nickname,
       accountError,
     } = this.props;
-    console.log('NicknameForm', nickname, accountError)
+
     return (
       <div className="nickname-form-wrapper">
         {

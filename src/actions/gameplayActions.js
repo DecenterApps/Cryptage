@@ -257,7 +257,7 @@ export const saveStateToContract = () => async (dispatch, getState) => {
     return;
   }
 
-  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber);
+  const packedMoves = packMoves(gameplay.playedTurns, gameplay.blockNumber, gameplay.stats.experience);
 
   try {
     // const ipfs = await ipfsService.uploadData(gameplay);
@@ -266,7 +266,6 @@ export const saveStateToContract = () => async (dispatch, getState) => {
     dispatch({ type: CLEAR_TURNS });
     dispatch({ type: SAVE_STATE_SUCCESS, payload: { isSaving: false } });
   } catch (err) {
-    console.log(err);
     dispatch(openErrorModal(
       'State error',
       'There has been an error while saving the state or you have rejected the transaction.',

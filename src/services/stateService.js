@@ -183,9 +183,9 @@ function printState(_state) {
 }
 
 // helper functions
-function _pack(arr, blockNumber, currentBlockNumber) {
+function _pack(arr, blockNumber, currentBlockNumber, experience) {
   const hexValues = [];
-  let str = blockNumber + currentBlockNumber;
+  let str = blockNumber + currentBlockNumber + experience;
 
   arr.forEach((b) => {
     if ((str.length + b.length) < 256) {
@@ -214,11 +214,12 @@ function _pack(arr, blockNumber, currentBlockNumber) {
   return hexValues.map(h => `0x${h.padStart(64, 0)}`);
 }
 
-export function packMoves(moves, currBlockNumber) {
+export function packMoves(moves, currBlockNumber, exp) {
   const { blockNumber } = moves[0];
 
   const blockNum = dec2bin(blockNumber, 42);
   const currentBlockNum = dec2bin(currBlockNumber, 42);
+  const experience = dec2bin(exp, 42);
 
   const blockNumsDiff = [];
 
@@ -231,5 +232,5 @@ export function packMoves(moves, currBlockNumber) {
     + dec2bin(move.level, 3) + dec2bin(move.slotIndex, 9) + dec2bin(move.card, 10)
     + dec2bin(blockNumsDiff[i], 16));
 
-  return _pack(binMoves, blockNum, currentBlockNum);
+  return _pack(binMoves, blockNum, currentBlockNum, experience);
 }

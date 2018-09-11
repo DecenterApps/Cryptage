@@ -62,7 +62,6 @@ class HandCard extends Component {
 
     const noMainErrors = (costErrorsLeft.length === 0 && costErrorsRight.length === 0);
     if (noMainErrors && ('allowed' in costErrors) && !costErrors.allowed) {
-      console.log('showErrorOverlay', costErrors);
       showErrorOverlay = true;
     }
 

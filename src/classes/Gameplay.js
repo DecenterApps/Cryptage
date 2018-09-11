@@ -115,7 +115,7 @@ export default class Gameplay {
 
     if (!isProjectCardSlot || isLocationCardSlot) turnData.locationIndex = state.activeLocationIndex;
     if (isLocationCardSlot) turnData.locationIndex = cardSlot.index;
-    if (isProjectCardSlot) turnData.slotIndex = cardSlot.index;
+    if (isProjectCardSlot) turnData.projectIndex = cardSlot.index;
 
     // Card is being dropped in a Location
     if (cardSlot.owner && (cardSlot.owner instanceof LocationCard)) turnData.slotIndex = cardSlot.index;

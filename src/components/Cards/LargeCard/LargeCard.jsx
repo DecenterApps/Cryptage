@@ -21,7 +21,6 @@ class LargeCard extends Component {
   }
 
   togglePortal(showOrHide) {
-    console.log(showOrHide);
     this.setState({ showPortal: showOrHide });
   }
 

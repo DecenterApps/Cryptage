@@ -24,7 +24,7 @@ export const loadGameplayState = () => async (dispatch, getState) => {
   if (!account) return;
 
   const data = localStorage.getItem(`cryptage-${account}`);
-  console.log('loadGameplayState: ', JSON.parse(data))
+
   if (data) return dispatch({ type: LOAD_STATE_FROM_STORAGE, payload: serialijse.deserialize(data) });
 
   const tempAccountState = JSON.parse(localStorage.getItem('cryptage-0x0000000000000000000000000000000000000000'));

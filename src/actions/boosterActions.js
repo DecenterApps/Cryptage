@@ -36,7 +36,6 @@ export const getBoosters = () => async (dispatch) => {
 
   try {
     const boosters = await ethService.getBoughtBoosters();
-    console.log('get boosters', boosters);
     const filteredBoosters = boosters.filter(booster => !booster.expired);
     dispatch(boostersSuccess(filteredBoosters));
   } catch (e) {
