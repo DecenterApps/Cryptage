@@ -167,6 +167,7 @@ export default class Card extends Subscriber {
       power: { absolute: 0, relative: 0 },
     };
     this.additionalData = {};
+    this.events = [];
 
     for (const slot of this.dropSlots) {
       newState = slot.removeCard(newState);
@@ -232,6 +233,7 @@ export default class Card extends Subscriber {
     leveledUp.timesFinished = droppedCard.timesFinished;
     leveledUp.additionalData = droppedCard.additionalData;
     leveledUp.additionalBonuses = droppedCard.additionalBonuses;
+    leveledUp.events = droppedCard.events;
     leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
 
     for (const cardSlot of leveledUp.dropSlots) {
