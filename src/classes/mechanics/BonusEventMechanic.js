@@ -3,9 +3,10 @@ import { createIdentityMatcher } from '../matchers';
 import MatcherMechanic from './MatcherMechanic';
 
 export default class BonusEventMechanic extends MatcherMechanic {
-  constructor(card, boostedStat, boostAmount, duration) {
+  constructor(card, eventId, boostedStat, boostAmount, duration) {
     super(card);
 
+    this.eventId = eventId;
     this.expiryTime = null;
     this.boostedStat = boostedStat;
     this.boostAmount = boostAmount;
@@ -24,6 +25,7 @@ export default class BonusEventMechanic extends MatcherMechanic {
   startEvent(state, newIndex) {
     this.indexInMechanics = newIndex;
     this.expiryTime = state.blockNumber + this.duration;
+    this.card.additionalData.activeEvent = { expiryTime: this.expiryTime, eventId: this.eventId };
 
     return this.handleOnPlay(state);
   }
@@ -35,7 +37,7 @@ export default class BonusEventMechanic extends MatcherMechanic {
       this.expiryTime = null;
 
       // ADD SPECIAL CURRENCY
-      // NEGATE EFFECTS
+      this.card.additionalData.activeEvent = null;
 
       return this.handleOnWithdraw(state);
     }

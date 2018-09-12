@@ -1,13 +1,13 @@
 {
   "events": {
     "1": {
-      "id": 1,
       "mechanicName": "bonusEventMechanic",
       "eventType": "Mining Attack",
       "eventProgressBarType": "Mining Attack",
       "name": "Mining Attack",
       "bonusPenaltyName": "Taxes",
       "params": [
+        "1",
         "development",
         -25,
         10
