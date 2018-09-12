@@ -34,9 +34,9 @@ class App extends Component {
   }
 
   render() {
-    const { loadingApp, accountError, tutorialOpen, nickname, blockNumber } = this.props;
+    const { loadingApp, accountError, tutorialOpen, nickname } = this.props;
 
-    if (loadingApp && (blockNumber === 0)) {
+    if (loadingApp) {
       return (
         <div className="loading-wrapper">
           <CircleSpinner />
@@ -88,7 +88,6 @@ App.propTypes = {
   accountError: PropTypes.string.isRequired,
   tutorialOpen: PropTypes.bool.isRequired,
   nickname: PropTypes.string.isRequired,
-  blockNumber: PropTypes.number.isRequired,
 };
 
 const mapDispatchToProps = {
@@ -103,7 +102,6 @@ const mapStateToProps = ({ app, gameplay }) => ({
   accountError: app.accountError,
   tutorialOpen: app.tutorialOpen,
   nickname: gameplay.nickname,
-  blockNumber: gameplay.blockNumber,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
