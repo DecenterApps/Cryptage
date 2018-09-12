@@ -15,7 +15,9 @@ export default class CoreMechanic extends CostMechanic {
     return state;
   }
 
-  onPlay(state) {
+  onPlay(state, dropSlot, reSlotted) {
+    if (this.isPermanent && reSlotted) return state;
+
     return this.updateValue(state, -this.card.cost[this.stat]);
   }
 

@@ -21,7 +21,7 @@ export default class CardSlot {
     }
   }
 
-  dropCard(state, card) {
+  dropCard(state, card, reSlotted = false) {
     if (this.card) {
       const leveledUp = card.levelUp(state, this);
 
@@ -39,7 +39,7 @@ export default class CardSlot {
       newState = this.dropCard(newState, leveledUp);
 
       for (const [slot, card] of slottedCards) {
-        newState = slot.dropCard(newState, card);
+        newState = slot.dropCard(newState, card, true);
       }
 
       return newState;
@@ -54,7 +54,7 @@ export default class CardSlot {
     if (this.card instanceof ContainerCard) this.acceptedTags = this.card.acceptedTags;
 
     state = state.playTurn(state, this, true);
-    return this.card.onPlay(state, this);
+    return this.card.onPlay(state, this, reSlotted);
   }
 
   removeCard(state) {
