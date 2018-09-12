@@ -68,6 +68,7 @@ export default class CardSlot {
     state = this.card.onWithdraw(state);
     state = state.playTurn(state, this, false);
 
+    if (this.card instanceof ContainerCard) this.acceptedTags = this.owner.acceptedTags;
     this.card.parent = null;
     this.card = null;
 
