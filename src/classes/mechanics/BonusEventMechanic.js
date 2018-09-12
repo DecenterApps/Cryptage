@@ -17,10 +17,6 @@ export default class BonusEventMechanic extends MatcherMechanic {
     return { parent: createIdentityMatcher(this.card) };
   }
 
-  getBoostAmount() {
-    return this.boostAmount;
-  }
-
   createChangeBonus(num) {
     return { [this.boostedStat]: { absolute: 0, relative: num } };
   }
