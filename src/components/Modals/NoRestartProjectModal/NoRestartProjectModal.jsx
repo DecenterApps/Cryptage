@@ -14,9 +14,9 @@ const NoRestartProjectModal = ({ closeModal, errors }) => (
 
       <div key="D" className="main-text">
         This project can&#39;t be restarted right now because you don&#39;t have enough available
-        {errors.development && !errors.funds && <span className="conditional">development</span> }
-        {!errors.development && errors.funds && <span className="conditional">funds</span> }
-        {errors.development && errors.funds && <span className="conditional">funds and development</span> }
+        {!errors.development && errors.funds && <span className="conditional">development</span> }
+        {errors.development && !errors.funds && <span className="conditional">funds</span> }
+        {!errors.development && !errors.funds && <span className="conditional">funds and development</span> }
         .
       </div>
     </ModalBody>
