@@ -12,7 +12,7 @@ export default class CardLocationStatPercentBonus extends MatcherMechanic {
   }
 
   getQuery() {
-    return [{ parent: createIdentityMatcher(this.card.parent) }, { type: this.cardType }];
+    return [{ anyParent: createIdentityMatcher(this.card.parent) }, { type: this.cardType }];
   }
 
   createChangeBonus(num) {
