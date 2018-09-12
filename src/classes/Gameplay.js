@@ -108,7 +108,7 @@ export default class Gameplay {
 
     turnData.shift = dropOrWithdraw;
     turnData.level = cardSlot.card.level;
-    turnData.card = parseInt(cardSlot.card.id, 10);
+    turnData.card = parseInt(cardSlot.card.metadataId, 10);
     turnData.blockNumber = state.blockNumber;
 
     const isLocationCardSlot = cardSlot instanceof LocationCardSlot;

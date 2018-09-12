@@ -68,6 +68,8 @@ module.exports = {
       compress: {
         warnings: false,
       },
+      mangle: false
+
     }),
     new FaviconsWebpackPlugin(path.resolve('favicon.png')),
     new webpack.DefinePlugin({

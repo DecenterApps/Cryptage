@@ -20,7 +20,7 @@ const getClassForFont = (maxDev, available) => {
 const GameplayHeader = ({
   globalStats, nickname, fundsPerBlock, projects, blockNumber,
 }) => {
-  const expPercantage = (globalStats.experience / globalStats.requiredXp);
+  const expPercantage = (globalStats.earnedXp / globalStats.requiredXp);
 
   const maxDev = globalStats.development + projects.reduce((_acc, { card }) => {
     let acc = _acc;

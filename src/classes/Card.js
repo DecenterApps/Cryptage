@@ -142,11 +142,11 @@ export default class Card extends Subscriber {
     return mergeErrorMessages(result);
   }
 
-  onPlay(state, dropSlot) {
+  onPlay(state, dropSlot, reSlotted) {
     this.active = true;
     this.stackedCards[0].slotted = true;
 
-    return this._on('onPlay', state, dropSlot);
+    return this._on('onPlay', state, dropSlot, reSlotted);
   }
 
   canWithdraw(state) {

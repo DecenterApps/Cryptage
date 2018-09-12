@@ -108,7 +108,7 @@ const switchState = (state, action) => {
       });
 
     case UPDATE_BLOCK_NUMBER:
-      return new Gameplay(payload, { ...state });
+      return new Gameplay(payload, { ...state, blockNumber: payload });
 
     case GET_ACCOUNT_SUCCESS:
       return new Gameplay(state.blockNumber, {
