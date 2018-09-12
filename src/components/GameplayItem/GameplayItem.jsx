@@ -43,7 +43,7 @@ class GameplayItem extends Component {
       dragItem, locations, gameplay,
     } = this.props;
 
-    let fpb = card.getBonusStatValue('fundsPerBlock');
+    let fpb = card ? card.getBonusStatValue('fundsPerBlock') : 0;
 
     let remainingSlots = null;
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);

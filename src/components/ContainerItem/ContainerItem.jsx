@@ -28,7 +28,7 @@ class ContainerItem extends Component {
       index, card, locationIndex, containerIndex, slot, dragItem, gameplay
     } = this.props;
 
-    const fpb = card.getBonusStatValue('fundsPerBlock');
+    const fpb = card ? card.getBonusStatValue('fundsPerBlock') : 0;
 
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate ? slot.canDrop(gameplay, dragItem.card).allowed : false;

@@ -36,7 +36,7 @@ class ProjectItem extends Component {
     const {
       card, slot, index, activateProject, blockNumber,
       openConfirmRemoveModal, dragItem, gameplay, projectExecutionTimePercent,
-      draggingCard
+      draggingCard,
     } = this.props;
     const isActive = card.running;
     const isFinished = card.timesFinished > 0;
@@ -45,9 +45,9 @@ class ProjectItem extends Component {
     const canLevelUp = draggingDuplicate && !isActive ? slot.canDrop(gameplay, dragItem.card).allowed : false;
     const timeLeft = calcExpiryBlocksLeft(card, blockNumber, projectExecutionTimePercent);
 
-    const xpb = card.getGainsStatValue('experience');
-    const fpb = card.getGainsStatValue('fundsPerBlock');
-    const funds = card.getGainsStatValue('funds');
+    const xpb = card ? card.getGainsStatValue('experience') : 0;
+    const fpb = card ? card.getGainsStatValue('fundsPerBlock') : 0;
+    const funds = card ? card.getGainsStatValue('funds') : 0;
 
     return (
       <div className={`project-container rarity-border ${classForRarity(card.rarityScore)}`}>
