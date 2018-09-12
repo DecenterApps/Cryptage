@@ -6,11 +6,13 @@ import App from './components/App/App';
 import NicknameForm from './components/Gameplay/NicknameForm/NicknameForm';
 import ModalRoot from './components/Modals/ModalRoot';
 
+const base = document.location.pathname;
+
 export const RoutesWrapper = ({ store }) => (
   <div className="app-wrapper">
     <Provider store={store}>
       <div style={{ height: '100%' }}>
-        <BrowserRouter>
+        <BrowserRouter basename={base}>
           <Switch>
             <Route exact path="/" component={App} />
             <Route path="/newuser" component={NicknameForm} />
