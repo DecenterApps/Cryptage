@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Circle } from 'rc-progress';
 import HoverInfo from '../HoverInfo/HoverInfo';
 import { setActiveLocation } from '../../actions/gameplayActions';
 import { openConfirmRemoveModal } from '../../actions/modalActions';
@@ -20,22 +21,31 @@ class LocationSidebarItem extends Component {
   constructor() {
     super();
 
-    this.state = { showPortal: false, show: false };
-
+    this.state = { showPortal: false, show: false, eventExpiryTime: undefined };
     this.togglePortal = this.togglePortal.bind(this);
     this.toggleFundsStat = this.toggleFundsStat.bind(this);
   }
 
-  togglePortal(showOrHide) { this.setState({ showPortal: showOrHide }); }
-
   componentDidUpdate(prevProps) {
-    if (prevProps.blockNumber === this.props.blockNumber) return false;
+    const { blockNumber, card } = this.props;
+    if (prevProps.blockNumber === blockNumber) return false;
     this.toggleFundsStat();
     setTimeout(this.toggleFundsStat, 2000);
+    if (!card.additionalData.activeEvent) return false;
+    const { expiryTime, eventDuration } = card.additionalData.activeEvent;
+    const blocksLeft = expiryTime - blockNumber;
+    const percents = Math.floor(((eventDuration - blocksLeft) / eventDuration) * 100);
+    this.handleEventTimer(percents);
   }
+
+  togglePortal(showOrHide) { this.setState({ showPortal: showOrHide }); }
 
   toggleFundsStat() {
     this.setState({ show: !this.state.show });
+  }
+
+  handleEventTimer(percents) {
+    this.setState({ eventExpiryTime: percents });
   }
 
   render() {
@@ -66,8 +76,7 @@ class LocationSidebarItem extends Component {
         fpc.push(i.card.getBonusStatValue('fundsPerBlock'));
       }
     }
-    let fpb = fpc.reduce((a, b) => a + b, 0);
-
+    const fpb = fpc.reduce((a, b) => a + b, 0);
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate ? slot.canDrop(gameplay, dragItem.card).allowed : false;
     const active = (activeLocationIndex === index) && gameplayView === GP_LOCATION;
@@ -89,8 +98,9 @@ class LocationSidebarItem extends Component {
           (fpb > 0) &&
           this.state.show &&
           <div className={`fpb
-          
-          ${ (activeLocationIndex === index) ? 'right' : '' }`}>+ {formattedNumber(fpb)} {fpb === 1 ? 'FUND' : 'FUNDS'}</div>
+            ${(activeLocationIndex === index) ? 'right' : ''}`}
+          >+ {formattedNumber(fpb)} {fpb === 1 ? 'FUND' : 'FUNDS'}
+          </div>
         }
 
         {
@@ -101,6 +111,17 @@ class LocationSidebarItem extends Component {
             rarity-border
             ${classForRarity(card.rarityScore)}`}
           >
+            {
+              this.state.eventExpiryTime &&
+              <Circle
+                strokeWidth="49"
+                strokeColor="#FF9D14"
+                style={{ borderColor: '#FF9D14' }}
+                trailColor="transparent"
+                strokeLinecap="butt"
+                percent={this.state.eventExpiryTime}
+              />
+            }
             <RarityBorderNotActive card={card} />
             <SidebarItemNotActive
               draggingCard={draggingCard}
@@ -131,6 +152,17 @@ class LocationSidebarItem extends Component {
             rarity-border
             ${classForRarity(card.rarityScore)}`}
           >
+            {
+              this.state.eventExpiryTime &&
+              <Circle
+                strokeWidth="49"
+                strokeColor="#FF9D14"
+                style={{ borderColor: '#FF9D14' }}
+                trailColor="transparent"
+                strokeLinecap="butt"
+                percent={this.state.eventExpiryTime}
+              />
+            }
             <RarityBorderActive card={card} />
             <SidebarItemActive
               draggingCard={draggingCard}

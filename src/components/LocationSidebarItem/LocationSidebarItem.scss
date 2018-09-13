@@ -3,7 +3,27 @@
 
 .location-sidebar-item-wrapper {
   position: relative;
-
+  .rc-progress-circle {
+    position: absolute;
+    border: 1px solid;
+    border-radius: 50%;
+  }
+  &.active {
+    .rc-progress-circle {
+      width: 20px;
+      height: 20px;
+      top: -15px;
+      right: -25px;
+    }
+  }
+  &:not(.active) {
+    .rc-progress-circle {
+      width: 12px;
+      height: 12px;
+      top: -7px;
+      right: -2px;
+    }
+  }
   .location-sidebar-small {
     position: relative;
     cursor: pointer;
@@ -45,11 +65,6 @@
     .actions {
       left: 40px;
       top: 3px;
-
-      > div {
-        //svg path { fill: $light-purple; }
-        //.close-icon svg line { stroke: $light-purple; }
-      }
     }
   }
 
@@ -85,10 +100,6 @@
         opacity: 1;
         transform: translateX(0px);
       }
-      //.location-data { display: none; }
-      //.location-inner-gradient {
-        //fill: url(#paint0_linear1_hover) !important;
-      //}
     }
 
     .location-data {
@@ -155,11 +166,6 @@
       }
       &:hover {
         opacity: 0.7;
-        //transform: scale(1.2);
-      }
-      &:first-child {
-      }
-      &:last-child {
       }
     }
   }
@@ -174,28 +180,5 @@
     &.right {
       margin-left: 70px;
     }
-
-    //@include for-big-desktop {
-    //  font-size: 17px;
-    //  width: 200px;
-    //  left: 154px;
-    //}
   }
-
-  //.rarity-border {
-  //  &.gold svg {
-  //    .outer-ring { stroke: $gold-rarity; }
-  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $gold-rarity; } }
-  //  }
-  //
-  //  &.blue svg {
-  //    .outer-ring { stroke: $blue-rarity }
-  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $blue-rarity; } }
-  //  }
-  //
-  //  &.purple svg {
-  //    .outer-ring { stroke: $purple-rarity; }
-  //    .horizontal-lines, .bars, .right-line { stop { stop-color: $purple-rarity; } }
-  //  }
-  //}
 }
