@@ -5,6 +5,7 @@ import eventsData from '../../../constants/events.json';
 import SmallButton from '../../SmallButton/SmallButton';
 import ActiveEventHeaderBar from './ActiveEventHeaderBar';
 import ActiveEventProgressVector from './ActiveEventProgressVector';
+import SmallCircleButton from '../../SmallCircleButton/SmallCircleButton';
 
 import './ActiveEventHeader.scss';
 
@@ -29,6 +30,7 @@ const ActiveEventHeader = ({ id, expiryTime, blockNumber }) => {
       </div>
 
       <div className="buttons-wrapper">
+        <SmallCircleButton text="i" />
         <SmallButton text="SELL" />
       </div>
 

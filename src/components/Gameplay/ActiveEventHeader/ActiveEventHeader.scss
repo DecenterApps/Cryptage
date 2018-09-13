@@ -60,8 +60,11 @@
     position: absolute;
     right: 69px;
     top: 27px;
+    display: flex;
+    align-items: center;
 
     .small-button {
+      margin-left: 5px;
 
       .small-button-text {
         top: 13px;
