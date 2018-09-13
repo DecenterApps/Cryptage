@@ -7,6 +7,18 @@
     position: absolute;
     border: 1px solid;
     border-radius: 50%;
+    &.attack {
+      border-color: $event-red;
+      & .rc-progress-circle-path {
+        stroke: $event-red;
+      }
+    }
+    &.opportunity {
+      border-color: $event-yellow;
+      & .rc-progress-circle-path {
+        stroke: $event-yellow;
+      }
+    }
   }
   &.active {
     .rc-progress-circle {

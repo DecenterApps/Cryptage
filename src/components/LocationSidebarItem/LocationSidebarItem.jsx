@@ -11,6 +11,7 @@ import PortalWrapper from '../PortalWrapper/PortalWrapper';
 import SidebarItemNotActive from './SidebarItemNotActive';
 import RarityBorderActive from './RarityBorderActive/RarityBorderActive';
 import RarityBorderNotActive from './RarityBorderNotActive/RarityBorderNotActive';
+import eventData from '../../constants/events.json';
 
 import './LocationSidebarItem.scss';
 import InfoCardIcon from '../Decorative/InfoCardIcon';
@@ -21,7 +22,7 @@ class LocationSidebarItem extends Component {
   constructor() {
     super();
 
-    this.state = { showPortal: false, show: false, eventExpiryTime: undefined };
+    this.state = { showPortal: false, show: false, eventType: undefined, eventExpiryTime: undefined };
     this.togglePortal = this.togglePortal.bind(this);
     this.toggleFundsStat = this.toggleFundsStat.bind(this);
   }
@@ -32,10 +33,11 @@ class LocationSidebarItem extends Component {
     this.toggleFundsStat();
     setTimeout(this.toggleFundsStat, 2000);
     if (!card.additionalData.activeEvent) return false;
-    const { expiryTime, eventDuration } = card.additionalData.activeEvent;
+    const { expiryTime, eventId, eventDuration } = card.additionalData.activeEvent;
+    const { type } = eventData.events[eventId.toString()];
     const blocksLeft = expiryTime - blockNumber;
     const percents = Math.floor(((eventDuration - blocksLeft) / eventDuration) * 100);
-    this.handleEventTimer(percents);
+    this.handleEventTimer(percents, type);
   }
 
   togglePortal(showOrHide) { this.setState({ showPortal: showOrHide }); }
@@ -44,8 +46,8 @@ class LocationSidebarItem extends Component {
     this.setState({ show: !this.state.show });
   }
 
-  handleEventTimer(percents) {
-    this.setState({ eventExpiryTime: percents });
+  handleEventTimer(percents, type) {
+    this.setState({ eventExpiryTime: percents, eventType: type });
   }
 
   render() {
@@ -114,9 +116,8 @@ class LocationSidebarItem extends Component {
             {
               this.state.eventExpiryTime &&
               <Circle
+                className={`${this.state.eventType.toLowerCase()}`}
                 strokeWidth="49"
-                strokeColor="#FF9D14"
-                style={{ borderColor: '#FF9D14' }}
                 trailColor="transparent"
                 strokeLinecap="butt"
                 percent={this.state.eventExpiryTime}
@@ -155,9 +156,8 @@ class LocationSidebarItem extends Component {
             {
               this.state.eventExpiryTime &&
               <Circle
+                className={`${this.state.eventType.toLowerCase()}`}
                 strokeWidth="49"
-                strokeColor="#FF9D14"
-                style={{ borderColor: '#FF9D14' }}
                 trailColor="transparent"
                 strokeLinecap="butt"
                 percent={this.state.eventExpiryTime}
