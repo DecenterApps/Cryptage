@@ -22,7 +22,12 @@ class LocationSidebarItem extends Component {
   constructor() {
     super();
 
-    this.state = { showPortal: false, show: false, eventType: undefined, eventExpiryTime: undefined };
+    this.state = {
+      showPortal: false,
+      show: false,
+      eventType: undefined,
+      eventExpiryTime: undefined,
+    };
     this.togglePortal = this.togglePortal.bind(this);
     this.toggleFundsStat = this.toggleFundsStat.bind(this);
   }
@@ -32,11 +37,14 @@ class LocationSidebarItem extends Component {
     if (prevProps.blockNumber === blockNumber) return false;
     this.toggleFundsStat();
     setTimeout(this.toggleFundsStat, 2000);
-    if (!card.additionalData.activeEvent) return false;
+    if (!card.additionalData.activeEvent) {
+      this.handleEventTimer(undefined, undefined);
+      return false;
+    }
     const { expiryTime, eventId, eventDuration } = card.additionalData.activeEvent;
     const { type } = eventData.events[eventId.toString()];
     const blocksLeft = expiryTime - blockNumber;
-    const percents = Math.floor(((eventDuration - blocksLeft) / eventDuration) * 100);
+    const percents = Math.ceil(((eventDuration - blocksLeft) / eventDuration) * 100);
     this.handleEventTimer(percents, type);
   }
 
@@ -47,6 +55,7 @@ class LocationSidebarItem extends Component {
   }
 
   handleEventTimer(percents, type) {
+    console.log(percents)
     this.setState({ eventExpiryTime: percents, eventType: type });
   }
 
@@ -114,7 +123,7 @@ class LocationSidebarItem extends Component {
             ${classForRarity(card.rarityScore)}`}
           >
             {
-              this.state.eventExpiryTime &&
+              (this.state.eventExpiryTime !== undefined) &&
               <Circle
                 className={`${this.state.eventType.toLowerCase()}`}
                 strokeWidth="49"
@@ -154,7 +163,7 @@ class LocationSidebarItem extends Component {
             ${classForRarity(card.rarityScore)}`}
           >
             {
-              this.state.eventExpiryTime &&
+              (this.state.eventExpiryTime !== undefined) &&
               <Circle
                 className={`${this.state.eventType.toLowerCase()}`}
                 strokeWidth="49"
