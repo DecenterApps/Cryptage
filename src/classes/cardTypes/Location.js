@@ -11,8 +11,6 @@ export default class LocationCard extends Card {
     this.minEmptyDropSlots = cardsConfig.visibleEmptySlots;
 
     this.dropSlots = new Array(this.minDropSlots);
-    this.power = data ? data.values.power : null;
-    this.space = data ? data.values.space : null;
 
     this.mechanics.push(Mechanic.getInstance('location', this, ['space']));
     this.mechanics.push(Mechanic.getInstance('location', this, ['power']));

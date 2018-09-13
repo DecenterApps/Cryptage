@@ -2,11 +2,17 @@ import CoreMechanic from './CoreMechanic';
 import Mechanic from '../Mechanic';
 
 export default class LocationMechanic extends CoreMechanic {
-  onPlay(state) { return state; }
+  onPlay(state) {
+    this.card[this.stat] = this.card.values[this.stat];
+
+    return state;
+  }
+
   onWithdraw(state) {
     this.unsubscribeAll();
     return state;
   }
+
   canPlay() {
     return {
       [this.stat]: true,

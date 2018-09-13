@@ -103,7 +103,7 @@ export default class Card extends Subscriber {
 
   findParent(matcher = isLocationCard) {
     let card = this;
-    while (card && !matcher(card)) {
+    while (card && (!matcher(card) && card.parent)) {
       card = card.parent;
     }
     return card;
