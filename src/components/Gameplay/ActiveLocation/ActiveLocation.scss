@@ -231,6 +231,15 @@
         //  width: 685px;
         //}
       }
+
+      .dark-drop {
+        position: absolute;
+        width: 518px;
+        height: 94px;
+        top: 75px;
+        left: 12px;
+        background: linear-gradient(180deg, #13162D 32.6%, rgba(23, 25, 51, 0) 100%);
+      }
     }
 
     .drop-slots-wrapper {
@@ -243,6 +252,19 @@
           background: none;
         }
       }
+    }
+  }
+
+  &.active-event {
+
+    .active-location-content {
+
+      .active-location-field {
+        margin-top: 67px;
+        height: 277px;
+      }
+
+      .active-location-header .background-drop { top: 75px }
     }
   }
 }

@@ -5,6 +5,7 @@ import GameplayItem from '../../GameplayItem/GameplayItem';
 import DropSlotsWrapper from '../../DropSlotsWrapper/DropSlotsWrapper';
 import GameplayContainer from '../GameplayContainer/GameplayContainer';
 import EmptyCardSlot from '../EmptyCardSlot/EmptyCardSlot';
+import ActiveEventHeader from '../ActiveEventHeader/ActiveEventHeader';
 import { getMaxValueForLocation } from '../../../services/gameMechanicsService';
 import { handleAssetDrop } from '../../../actions/dropActions';
 import { GP_LOCATION_CONTAINER, GP_LOCATION_MAIN } from '../../../actions/actionTypes';
@@ -34,8 +35,10 @@ const ActiveLocation = ({
   const spacePercent = Math.floor((space / maxSpace) * 100) || 0;
   const powerPercent = Math.floor((power / maxPower) * 100) || 0;
 
+  const { activeEvent } = card.additionalData;
+
   return (
-    <div className="active-location-wrapper">
+    <div className={`active-location-wrapper ${activeEvent && 'active-event'}`}>
       <div className="active-location-content">
 
         <div className="active-location-header">
@@ -67,7 +70,10 @@ const ActiveLocation = ({
                 })`,
             }}
           />
+          { activeEvent && <div className="dark-drop" /> }
         </div>
+
+        { activeEvent && <ActiveEventHeader expiryTime={activeEvent.expiryTime} id={activeEvent.eventId} /> }
 
         <div
           className={`active-location-field location ${inGameplayView === GP_LOCATION_MAIN ? 'shown' : 'hidden'}`}

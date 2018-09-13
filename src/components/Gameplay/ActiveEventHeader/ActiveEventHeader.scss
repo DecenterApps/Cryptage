@@ -1,0 +1,76 @@
+@import '../../../common/colors';
+
+.active-event-header-wrapper {
+  position: relative;
+  z-index: 1;
+  bottom: 22px;
+  left: 20px;
+
+  .event-info-header {
+    display: flex;
+    align-items: center;
+    width: 429px;
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 35px;
+    font-size: 11px;
+
+
+    .type {
+      display: flex;
+      flex: 1 1 0;
+      align-items: center;
+
+      .text {
+        margin-left: 3px;
+        font-size: 13px;
+      }
+      &.attack .text { color: $event-red; }
+      &.opportunity .text { color: $event-yellow; }
+    }
+
+    .name {
+      font-size: 15px;
+    }
+
+    .time {
+      flex: 1 1 0;
+      display: flex;
+      justify-content: flex-end;
+
+      .label {
+        opacity: 0.5;
+        margin-right: 3px;
+      }
+    }
+  }
+
+  .progress {
+    position: absolute;
+    top: 32px;
+    left: -20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .buttons-wrapper {
+    position: absolute;
+    right: 69px;
+    top: 27px;
+
+    .small-button {
+
+      .small-button-text {
+        top: 13px;
+        font-size: 9px;
+      }
+      svg {
+        width: 53px;
+        height: 39px;
+      }
+    }
+  }
+}
