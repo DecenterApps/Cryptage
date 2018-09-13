@@ -4,8 +4,8 @@ import { isObject } from '../services/utils';
 export const isActiveCard = createMatcher({});
 export const isAvailableCard = createMatcher({ active: false });
 export const isRootCard = createMatcher({ parent: null });
-export const isLocationCard = createMatcher({ cardType: 'Location' });
-export const isProjectCard = createMatcher({ cardType: 'Project' });
+export const isLocationCard = createMatcher({ type: 'Location' });
+export const isProjectCard = createMatcher({ type: 'Project' });
 
 export function createIdentityMatcher(value) {
   return (x) => x === value;

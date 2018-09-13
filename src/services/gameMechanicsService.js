@@ -175,6 +175,11 @@ export const calculateLevelData = (experience) => {
     earnedXp -= levels[i].change;
   }
 
+  if (experience > levels[levels.length - 1].exp) {
+    nextLevel = { change: Infinity };
+    currentLevel = { level: levels.length };
+  }
+
   return {
     experience,
     earnedXp,

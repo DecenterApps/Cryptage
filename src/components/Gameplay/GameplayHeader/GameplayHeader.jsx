@@ -20,7 +20,9 @@ const getClassForFont = (maxDev, available) => {
 const GameplayHeader = ({
   globalStats, nickname, fundsPerBlock, projects, blockNumber,
 }) => {
-  const expPercantage = (globalStats.earnedXp / globalStats.requiredXp);
+  const requiredXp = globalStats.requiredXp || Infinity;
+
+  const expPercantage = (globalStats.earnedXp / requiredXp);
 
   const maxDev = globalStats.development + projects.reduce((_acc, { card }) => {
     let acc = _acc;
@@ -58,7 +60,7 @@ const GameplayHeader = ({
           <div className="level">Level { globalStats.level }</div>
           <div className="name">{ nickname || 'NICKNAME' }</div>
           <div className="xp-wrapper">
-            {globalStats.earnedXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} / {globalStats.requiredXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} XP
+            {globalStats.earnedXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} / {requiredXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} XP
           </div>
           {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
           <svg className="xp-loader-wrapper">
