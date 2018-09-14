@@ -9,7 +9,7 @@ export default class ProjectPerCompletionAllTypeCardStatPercentBoost extends Mat
     this.subscribed = false;
     this.cardType = cardType;
     this.boostedStat = boostedStat;
-    this.boostAmount = boostPercent;
+    this.boostAmount = parseFloat(boostPercent);
     this.addedBoost = 0;
   }
 
