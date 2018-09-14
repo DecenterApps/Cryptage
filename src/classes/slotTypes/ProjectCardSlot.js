@@ -9,9 +9,12 @@ export default class ProjectCardSlot extends CardSlot {
 
   canDrop(state, card) {
     const res = super.canDrop(state, card);
+
+    const running = this.card ? !this.card.running : true;
+
     return {
       ...res,
-      allowed: res.allowed && (card instanceof ProjectCard),
+      allowed: res.allowed && (card instanceof ProjectCard) && running,
     };
   }
 }
