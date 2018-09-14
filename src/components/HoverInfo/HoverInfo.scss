@@ -53,6 +53,7 @@
       justify-content: center;
       position: relative;
       background: linear-gradient(270deg, rgba(19, 13, 35, 0) 0%, #140D24 8.69%, #150D26 91.6%, rgba(21, 13, 38, 0) 100%);
+      max-height: 300px;
       .modal-bar {
         position: absolute;
         z-index: 1;
@@ -61,7 +62,7 @@
           top: 0;
         }
         &.bottom {
-          bottom: 62px;
+          bottom: 0;
         }
       }
       .hover-info-card-wrapper {
