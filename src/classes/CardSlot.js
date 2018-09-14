@@ -28,7 +28,7 @@ export default class CardSlot {
       const slottedCards = [];
       getAllSlottedCards(this.card, slottedCards);
 
-      let newState = this.removeCard(state);
+      let newState = this.removeCard(state, true);
 
       leveledUp.stackedCards.map((_stackedCard) => {
         const stackedCard = _stackedCard;
@@ -57,15 +57,15 @@ export default class CardSlot {
     return this.card.onPlay(state, this, reSlotted);
   }
 
-  removeCard(state) {
+  removeCard(state, isLevelUp = false) {
     if (!this.card) return state;
 
     if (this.owner) {
       state = this.owner.onWithdrawChild(state, this.card);
-      if (this.owner.removeDropSlot) this.owner.removeDropSlot(this);
+      if (this.owner.removeDropSlot && !isLevelUp) this.owner.removeDropSlot(this);
     }
 
-    state = this.card.onWithdraw(state);
+    state = this.card.onWithdraw(state, isLevelUp);
     state = state.playTurn(state, this, false);
 
     if (this.card instanceof ContainerCard) this.acceptedTags = this.owner.acceptedTags;

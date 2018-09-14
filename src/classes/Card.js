@@ -155,7 +155,7 @@ export default class Card extends Subscriber {
     );
   }
 
-  onWithdraw(state) {
+  onWithdraw(state, isLevelUp = false) {
     this.withdrawing = true;
     let newState = this._on('onWithdraw', state);
 
@@ -169,7 +169,7 @@ export default class Card extends Subscriber {
     this.additionalData = {};
 
     for (const slot of this.dropSlots) {
-      newState = slot.removeCard(newState);
+      newState = slot.removeCard(newState, isLevelUp);
     }
 
     while (this.stackedCards.length) {
