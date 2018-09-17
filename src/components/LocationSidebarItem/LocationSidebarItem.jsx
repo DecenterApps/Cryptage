@@ -55,7 +55,6 @@ class LocationSidebarItem extends Component {
   }
 
   handleEventTimer(percents, type) {
-    console.log(percents)
     this.setState({ eventExpiryTime: percents, eventType: type });
   }
 

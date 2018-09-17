@@ -2,12 +2,12 @@ import serialise from 'serialijse';
 import ContainerCard from './cardTypes/Container';
 
 function getAllSlottedCards(card, slotted) {
-  for (const slot of card.dropSlots) {
+  card.dropSlots.forEach((slot) => {
     if (!slot.isEmpty()) {
       slotted.push([slot, slot.card]);
       getAllSlottedCards(slot.card, slotted);
     }
-  }
+  });
 }
 
 export default class CardSlot {
@@ -21,7 +21,9 @@ export default class CardSlot {
     }
   }
 
-  dropCard(state, card, reSlotted = false) {
+  dropCard(_state, card, reSlotted = false) {
+    let state = _state;
+
     if (this.card) {
       const leveledUp = card.levelUp(state, this);
 
@@ -38,9 +40,9 @@ export default class CardSlot {
 
       newState = this.dropCard(newState, leveledUp);
 
-      for (const [slot, card] of slottedCards) {
+      slottedCards.forEach(([slot, card]) => {
         newState = slot.dropCard(newState, card, true);
-      }
+      });
 
       return newState;
     }
@@ -57,7 +59,9 @@ export default class CardSlot {
     return this.card.onPlay(state, this, reSlotted);
   }
 
-  removeCard(state, isLevelUp = false) {
+  removeCard(_state, isLevelUp = false) {
+    let state = _state;
+
     if (!this.card) return state;
 
     if (this.owner) {
