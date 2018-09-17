@@ -11,15 +11,13 @@ import {
   GP_LOCATION,
   GP_NO_NICKNAME,
   CLEAR_TURNS,
-  PLAY_TURN,
   SAVE_STATE_ERROR,
   SAVE_STATE_SUCCESS,
   SAVE_STATE_REQUEST,
-  INCREMENT_TURN,
   RESTART_PROJECT,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
-import { removePlayedCards, getCardAtContainer } from '../services/utils';
+import { removePlayedCards } from '../services/utils';
 import { METAMASK_MODAL } from '../components/Modals/modalTypes';
 
 import { packMoves } from '../services/stateService';
@@ -51,71 +49,6 @@ export const changeGameplayView = payload => (dispatch) => {
  * @return {Function}
  */
 
-// 0 za rig 1 za computer case
-export const playTurn = (item, slotType, index, addOrRemove) => (dispatch, getState) => {
-  const card = item.card || item.mainCard;
-  const { app, gameplay } = getState();
-
-  const {
-    activeLocationIndex, activeContainerIndex, locations,
-    playedTurns,
-  } = gameplay;
-
-  let location = 0;
-  let cardSpecificNumber = 0;
-  let containerCard;
-  let specificCard = 0;
-
-  switch (slotType) {
-    case 'location':
-      location = index;
-      break;
-    case 'project':
-      cardSpecificNumber = index;
-      break;
-    case 'location_slot':
-      location = gameplay.activeLocationIndex;
-      break;
-    case 'container_slot':
-      location = gameplay.activeLocationIndex;
-      containerCard = getCardAtContainer(locations, activeLocationIndex, activeContainerIndex);
-      break;
-    default:
-      break;
-  }
-
-  // cardtype == gpu set specificCard to 1
-  if (card.stats.ID === 10) {
-    specificCard = 1;
-  }
-
-  const projectIndex = playedTurns.findIndex(item => item.uid === card.id);
-
-  if (card.stats.type === 'Project' && projectIndex >= 0) {
-    const turns = [...playedTurns];
-    turns[projectIndex].counter += 1;
-    return dispatch({
-      type: INCREMENT_TURN,
-      playedTurns: turns,
-    });
-  }
-
-  dispatch({
-    type: PLAY_TURN,
-    turn: {
-      add: addOrRemove ? 1 : 0,
-      specificCard,
-      location,
-      level: card.stats.level,
-      containerPosition: index,
-      cardType: card.stats.ID,
-      blockNumber: app.blockNumber,
-      counter: 0,
-      uid: card.id,
-    },
-  });
-};
-
 /**
  * gets Garage, Computer case and CPU because
  * every played gets those cards for free
@@ -133,14 +66,16 @@ const getNewLevelCards = async (gameplay, cardIds) => {
 
   let newCards = [];
 
+  const mapFunc = (metadataId, index) => ({
+    id: minId - (index + 1),
+    metadataId: metadataId.toString(),
+  });
+
   for (let i = 1; i <= level; i += 1) {
     const cardTypes = cardsPerLevel[i - 1];
 
     if (cardTypes) {
-      const newLevelCards = cardTypes.map((metadataId, index) => ({
-        id: minId - (index + 1),
-        metadataId: metadataId.toString(),
-      }));
+      const newLevelCards = cardTypes.map(mapFunc);
 
       newCards = [...newCards, ...newLevelCards];
 
