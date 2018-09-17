@@ -2,10 +2,6 @@ import Mechanic from '../Mechanic';
 import { calcExpiryBlocksLeft } from '../../services/gameMechanicsService';
 
 export default class ProjectExpiryMechanic extends Mechanic {
-  canWithdraw() {
-    return { projectActive: !this.card.running };
-  }
-
   onPlay(state) {
     this.card.expiryTime = state.blockNumber + this.card.cost.time;
     this.card.running = true;
