@@ -16,9 +16,8 @@ class Cards extends Component {
 
     const tabsToggleMap = {};
 
-    for (const key of cardsConfig.cardTypes) {
-      tabsToggleMap[key.toLowerCase()] = false;
-    }
+    cardsConfig.cardTypes.forEach((key) => { tabsToggleMap[key.toLowerCase()] = false; });
+
     tabsToggleMap.available = true;
 
     this.state = { tabsToggleMap };
@@ -57,7 +56,7 @@ class Cards extends Component {
 
     const noDupliactes = this.groupDuplicates(cards);
     const {
-      getAvailableCards, gameplayView, inGameplayView, locations, projects, gameplay,
+      getAvailableCards, locations, projects, gameplay,
     } = this.props;
     let available = getAvailableCards(locations, projects, gameplay);
     available = this.groupDuplicates(available);
@@ -72,7 +71,9 @@ class Cards extends Component {
 
     const sortedByType = Object.keys(grouped)
       .sort(compareCategories)
-      .reduce((result, key) => {
+      .reduce((_result, key) => {
+        const result = _result;
+
         result[key] = grouped[key];
         return result;
       }, {});
@@ -131,8 +132,6 @@ Cards.propTypes = {
   cards: PropTypes.array.isRequired,
   cardsFetching: PropTypes.bool.isRequired,
   getAvailableCards: PropTypes.func.isRequired,
-  gameplayView: PropTypes.string.isRequired,
-  inGameplayView: PropTypes.string.isRequired,
   locations: PropTypes.array.isRequired,
   projects: PropTypes.array.isRequired,
 };

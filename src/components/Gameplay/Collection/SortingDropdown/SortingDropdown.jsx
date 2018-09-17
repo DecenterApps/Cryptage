@@ -16,7 +16,7 @@ class SortingDropdown extends Component {
     this.selectItem = this.selectItem.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.selectItem(this.props.data[this.state.selectedItemIndex], this.state.selectedItemIndex);
     this.setState({ open: false });
   }
@@ -52,7 +52,7 @@ class SortingDropdown extends Component {
           open &&
           <div className="dropdown-items">
             {
-              data.map((dataItem, index) =>
+              data.map((dataItem, index) => (
                 <div
                   className="dropdown-item"
                   key={dataItem.name}
@@ -61,7 +61,8 @@ class SortingDropdown extends Component {
                 >
                   <div className="title">{ dataItem.name }</div>
                   <div className="count">{ dataItem.collected } / { dataItem.total }</div>
-                </div>)
+                </div>
+              ))
             }
           </div>
         }

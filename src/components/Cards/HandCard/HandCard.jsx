@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { guid, classForRarity, formatBigNumber } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
-import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { typeGradients } from '../../../actions/actionTypes';
@@ -41,9 +40,7 @@ class HandCard extends Component {
     const { togglePortal } = this;
     const { showPortal } = this.state;
     const {
-      card, showCount, hoverCentered, played, remainingSlots, goToContainer, openConfirmRemoveModal,
-      locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      inHand, removeNewCardOnHover,
+      card, showCount, hoverCentered, draggingCard, costErrors, inHand, removeNewCardOnHover,
     } = this.props;
 
     const uniqueId = guid();
@@ -217,16 +214,8 @@ HandCard.defaultProps = {
       image: '',
     },
   },
-  canRemove: true,
   showCount: true,
   hoverCentered: false,
-  played: false,
-  remainingSlots: 0,
-  goToContainer: null,
-  locationIndex: undefined,
-  containerIndex: undefined,
-  containerSlotIndex: undefined,
-  slot: null,
   draggingCard: false,
   costErrors: {},
   inHand: false,
@@ -241,27 +230,18 @@ HandCard.propTypes = {
   }),
   showCount: PropTypes.bool,
   hoverCentered: PropTypes.bool,
-  remainingSlots: PropTypes.number,
-  played: PropTypes.bool,
-  goToContainer: PropTypes.func,
-  openConfirmRemoveModal: PropTypes.func.isRequired,
-  locationIndex: PropTypes.number,
-  containerIndex: PropTypes.number,
-  containerSlotIndex: PropTypes.number,
-  slot: PropTypes.object,
   draggingCard: PropTypes.bool,
-  canRemove: PropTypes.bool,
   costErrors: PropTypes.object,
   inHand: PropTypes.bool,
   removeNewCardOnHover: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ app, gameplay }) => ({
+const mapStateToProps = ({ app }) => ({
   draggingCard: app.draggingCard,
 });
 
 const mapDispatchToProps = {
-  openConfirmRemoveModal, removeNewCardOnHover,
+  removeNewCardOnHover,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HandCard);

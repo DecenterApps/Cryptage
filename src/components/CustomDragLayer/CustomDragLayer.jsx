@@ -13,8 +13,7 @@ const layerStyles = {
   height: '100%',
 };
 
-function getItemStyles(props) {
-  const { currentOffset } = props;
+function getItemStyles(currentOffset) {
   if (!currentOffset) return { display: 'none' };
 
   const { x, y } = currentOffset;
@@ -34,14 +33,16 @@ export default class CustomDragLayer extends React.Component {
   }
 
   render() {
-    const { item, itemType, isDragging } = this.props;
+    const {
+      item, itemType, isDragging, currentOffset,
+    } = this.props;
     if (!isDragging) {
       return null;
     }
 
     return (
       <div style={layerStyles}>
-        <div style={getItemStyles(this.props)}>
+        <div style={getItemStyles(currentOffset)}>
           {this.renderItem(itemType, item)}
         </div>
       </div>

@@ -21,9 +21,9 @@ const dropTarget = {
 class DropSlotWrapper extends Component {
   render() {
     const {
-      isOver,
-      canDrop,
-      connectDropTarget,
+      isOver, // eslint-disable-line
+      canDrop, // eslint-disable-line
+      connectDropTarget, // eslint-disable-line
       card,
       children,
       activeClass,
@@ -49,12 +49,17 @@ class DropSlotWrapper extends Component {
       ${card && droppedItemClass}
     `;
 
-    return connectDropTarget(
+    const elem = (
       <div className={className}>
-        {card && React.cloneElement(children, { card, isOver, dragItem, index, slot })}
-        {!card && React.cloneElement(emptyStateElem, { ...dragItem, index, slot })}
-      </div>,
+        {
+          card && React.cloneElement(children, {
+          card, isOver, dragItem, index, slot,
+        })}
+        { !card && React.cloneElement(emptyStateElem, { ...dragItem, index, slot })}
+      </div>
     );
+
+    return connectDropTarget(elem);
   }
 }
 
@@ -67,6 +72,7 @@ DropSlotWrapper.defaultProps = {
   card: null,
   index: null,
   emptyStateElem: <div>Empty slot</div>,
+  dragItem: null,
 };
 
 DropSlotWrapper.propTypes = {
@@ -80,6 +86,7 @@ DropSlotWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   emptyStateElem: PropTypes.node,
   slot: PropTypes.object.isRequired,
+  dragItem: PropTypes.object,
 };
 const mapStateToProps = state => ({
   globalStats: state.gameplay.globalStats,

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DropSlotWrapper from '../DropSlotWrapper/DropSlotWrapper';
-import { guid } from '../../services/utils';
 
 import './DropSlotsWrapper.scss';
 

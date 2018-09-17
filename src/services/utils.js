@@ -260,23 +260,6 @@ export const formattedNumber = (_number) => {
   return number.toString();
 };
 
-export const formatBigNumberWithBreak = (_number) => {
-  const number = parseFloat(_number);
-
-  if (number >= 10000000) return `${number / 1000000}\nm`;
-  if (number >= 1000000) {
-    if (number % 1000000) return `${number / 1000000}\nk`;
-    return `${number / 1000000}k`;
-  }
-  if (number >= 10000) return `${number / 1000}\nk`;
-  if (number >= 1000) {
-    if (number % 1000) return `${number / 1000}\nk`;
-    return `${number / 1000}k`;
-  }
-
-  return number.toString();
-};
-
 export const classForRarity = (_rarity) => {
   const number = parseInt(_rarity, 10);
   if (number >= 850) return 'normal';

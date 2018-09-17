@@ -25,7 +25,8 @@ CanPlayCardChecker.defaultProps = {
   card: null,
 };
 
-CanPlayCardChecker.propTypes = {
+// Some propTypes are imported so that this component is constantly updated, do not remove
+CanPlayCardChecker.propTypes = { /* eslint-disable */
   card: PropTypes.object,
   gameplay: PropTypes.object.isRequired,
   globalStats: PropTypes.object.isRequired,

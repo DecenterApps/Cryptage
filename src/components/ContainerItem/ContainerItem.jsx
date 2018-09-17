@@ -25,7 +25,7 @@ class ContainerItem extends Component {
 
   render() {
     const {
-      index, card, locationIndex, containerIndex, slot, dragItem, gameplay
+      index, card, locationIndex, containerIndex, slot, dragItem, gameplay,
     } = this.props;
 
     const fpb = card ? card.getBonusStatValue('fundsPerBlock') : 0;

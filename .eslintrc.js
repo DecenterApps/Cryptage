@@ -31,6 +31,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'no-shadow': 0,
+    'no-confusing-arrow': 0,
   },
   globals: {
     JSON: true,

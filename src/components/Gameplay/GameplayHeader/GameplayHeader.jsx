@@ -35,6 +35,9 @@ const GameplayHeader = ({
   const formatedFunds = formattedNumber(globalStats.funds);
   const formatedFpb = formattedNumber(fundsPerBlock);
 
+  const formattedEarnedXp = globalStats.earnedXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,');
+  const formattedRequiredXp = requiredXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,');
+
   return (
     <div className="gameplay-header-wrapper">
       <div className="gameplay-header-content">
@@ -60,7 +63,7 @@ const GameplayHeader = ({
           <div className="level">Level { globalStats.level }</div>
           <div className="name">{ nickname || 'NICKNAME' }</div>
           <div className="xp-wrapper">
-            {globalStats.earnedXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} / {requiredXp.toString().replace(/\d(?=(\d{3})+$)/g, '$&,')} XP
+            {formattedEarnedXp} / {formattedRequiredXp} XP
           </div>
           {/* <div  style={{ width: `${expPercantage}%` }}  /> */}
           <svg className="xp-loader-wrapper">
