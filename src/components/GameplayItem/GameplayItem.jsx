@@ -40,7 +40,7 @@ class GameplayItem extends Component {
   render() {
     const {
       card, isOver, index, activeLocationIndex, slot,
-      dragItem, locations, gameplay,
+      dragItem, gameplay,
     } = this.props;
 
     let fpb = card ? card.getBonusStatValue('fundsPerBlock') : 0;
@@ -56,16 +56,16 @@ class GameplayItem extends Component {
     if (isContainer) {
       remainingSlots = card.dropSlots.filter(({ card }) => card === null).length;
 
-      let fpc = [];
-      for (let i of card.dropSlots) {
-        if (!i.card) {
+      const fpc = [];
+      card.dropSlots.forEach((dropSlot) => {
+        if (!dropSlot.card) {
           fpc.push(0);
         } else {
-          fpc.push(i.card.getBonusStatValue('fundsPerBlock'));
+          fpc.push(dropSlot.card.getBonusStatValue('fundsPerBlock'));
         }
-      }
+      });
 
-      fpb = fpc.reduce((a, b) => a + b, 0)
+      fpb = fpc.reduce((a, b) => a + b, 0);
 
       if (isDragMiner) {
         canDropMiner = card.dropSlots.reduce((_acc, dropSlot) => {
@@ -148,17 +148,15 @@ GameplayItem.propTypes = {
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
   switchInGameplayView: PropTypes.func.isRequired,
-  locations: PropTypes.array.isRequired,
   slot: PropTypes.object.isRequired,
   dragItem: PropTypes.object,
-  blockNumber: PropTypes.number.isRequired
+  blockNumber: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = ({ gameplay }) => ({
   gameplay,
   activeLocationIndex: gameplay.activeLocationIndex,
-  locations: [...gameplay.locationSlots],
-  blockNumber: gameplay.blockNumber
+  blockNumber: gameplay.blockNumber,
 });
 
 const mapDispatchToProps = {

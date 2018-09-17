@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './HeaderBar.scss';
 
-export default ({ title, color }) => (
+const HeaderBar = ({ title, color }) => (
   <div className="header-bar">
     <div className="header-bar-wrapper">
       <div className="bar-wrapper" />
@@ -20,4 +21,15 @@ export default ({ title, color }) => (
     <div className="background-drop" />
   </div>
 );
+
+HeaderBar.defaultProps = {
+  color: '',
+};
+
+HeaderBar.propTypes = {
+  title: PropTypes.string.isRequired,
+  color: PropTypes.string,
+};
+
+export default HeaderBar;
 

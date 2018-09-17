@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HeaderBar from '../../HeaderBar/HeaderBar';
-import CloseIcon from '../../CloseIcon/CloseIcon';
 import { exitNotLocationsView } from '../../../actions/gameplayActions';
 import { getLeaderboardData } from '../../../actions/leaderboardActions';
 import { guid } from '../../../services/utils';

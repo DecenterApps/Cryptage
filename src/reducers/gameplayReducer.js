@@ -122,6 +122,4 @@ const switchState = (state, action) => {
 };
 
 
-export default (state = new Gameplay(0), action) => {
-  return saveGameplayState(switchState(state, action), action.type);
-};
+export default (state = new Gameplay(0), action) => saveGameplayState(switchState(state, action), action.type);

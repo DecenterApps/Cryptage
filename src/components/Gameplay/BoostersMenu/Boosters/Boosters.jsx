@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CircleSpinner from '../../../Decorative/CircleSpinner/CircleSpinner';
 
 import bgEmpty from '../assets/bg-empty.png';
@@ -9,7 +10,7 @@ import bgMiddle from '../assets/bg-middle.png';
 import bgRight from '../assets/bg-right.png';
 import BlocksLoadingBar from '../../../BlocksLoadingBar/BlocksLoadingBar';
 
-export default ({
+const Boosters = ({
   boosters,
   isFetching,
   isBuying,
@@ -107,3 +108,15 @@ export default ({
     </div>
   );
 };
+
+Boosters.propTypes = {
+  boosters: PropTypes.array.isRequired,
+  isBuying: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  isRevealing: PropTypes.bool.isRequired,
+  currentBlock: PropTypes.number.isRequired,
+  buyBoosterPack: PropTypes.func.isRequired,
+  revealBooster: PropTypes.func.isRequired,
+};
+
+export default Boosters;

@@ -1,4 +1,3 @@
-import React from 'react';
 import serialize from 'serialijse';
 import cardsConfig from '../constants/cards.json';
 import { GET_ACCOUNT_SUCCESS, typeGradients } from '../actions/actionTypes';
@@ -12,45 +11,6 @@ export const guid = () => {
   const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
   return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
 };
-
-/**
- * Shuffles array items
- *
- * @param {Array} _array
- * @return {Array}
- */
-export const shuffleArray = (_array) => {
-  const array = [..._array];
-  for (let i = array.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-};
-
-/**
- * Generates array of strings that represent a card class
- * (e.g 'card-heart-14'), returns standard playing deck of 52 cards
- *
- * @return {Array}
- */
-export const generateRandomDeck = () => (
-  shuffleArray(
-    // Card types
-    ['heart', 'spade', 'diamond', 'club']
-    // Create 14 css classes for each card type
-      .map((cardType) => {
-        const cardTypeArr = [];
-        for (let i = 1; i <= 13; i += 1) cardTypeArr.push({
-          id: guid(),
-          type: `card-${cardType}-${i}`
-        });
-        return cardTypeArr;
-      })
-      // Merge all card type arrays into one
-      .reduce((acc, val) => [...acc, ...val]),
-  )
-);
 
 /**
  * Generates array of integers between 'from' and 'to'
@@ -138,7 +98,7 @@ export const formatDeckForServer = deck => (
  * @param {String} message
  * @return {String}
  */
-export const formatSigningMessage = (message) => `0x${atob(message)}`;
+export const formatSigningMessage = message => `0x${atob(message)}`;
 
 /**
  * Formats signed message in order for server to validate
@@ -205,10 +165,11 @@ export const mergeDeep = (target, source) => {
   if (isObject(target) && isObject(source)) {
     Object.keys(source).forEach((key) => {
       if (isObject(source[key])) {
-        if (!(key in target))
+        if (!(key in target)) {
           Object.assign(output, { [key]: source[key] });
-        else
+        } else {
           output[key] = mergeDeep(target[key], source[key]);
+        }
       } else {
         Object.assign(output, { [key]: source[key] });
       }
@@ -245,13 +206,13 @@ export const formatBigNumber = (_number) => {
 export const formattedNumber = (_number) => {
   const number = parseFloat(_number);
   if (number >= 1000000000000) {
-    return `${Math.floor((number / 100000000) / 10)}B`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `${Math.floor((number / 100000000) / 10)}B`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   if (number >= 1000000000) {
-    return `${Math.floor((number / 100000) / 10)}M`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `${Math.floor((number / 100000) / 10)}M`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   if (number >= 1000000) {
-    return `${Math.floor((number / 100) / 10)}K`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `${Math.floor((number / 100) / 10)}K`.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
   if (number >= 1000) {
     const _number = number.toString(10);
@@ -307,8 +268,8 @@ export const sortTypeGroupByPrice = group => group.sort(compareCards);
 export const mergeErrorMessages = (...messages) => {
   const result = {};
   let allowed = true;
-  for (const message of messages) {
-    for (const prop of Object.keys(message)) {
+  messages.forEach((message) => {
+    Object.keys(message).forEach((prop) => {
       if (Array.isArray(message[prop])) {
         if (!result[prop]) {
           result[prop] = message[prop].slice(0);
@@ -322,8 +283,9 @@ export const mergeErrorMessages = (...messages) => {
         result[prop] = message[prop];
         allowed = allowed && result[prop];
       }
-    }
-  }
+    });
+  });
+
   result.allowed = allowed;
   return result;
 };
@@ -336,7 +298,8 @@ export const getDataForTypeSorting = (cards) => {
     collected: 0,
   };
   const allCards = Object.keys(cardsConfig.cards).map(cardTypeId => cardsConfig.cards[cardTypeId]['1'].title);
-  allType.collected = cards.reduce((acc, card) => {
+  allType.collected = cards.reduce((_acc, card) => {
+    let acc = _acc;
     const typeIndex = allCards.findIndex(title => title === card.title);
 
     if (typeIndex !== -1) {
@@ -348,7 +311,9 @@ export const getDataForTypeSorting = (cards) => {
 
   return Object.keys(typeGradients).reduce((_acc, key) => {
     const acc = [..._acc];
-    const item = { color: typeGradients[key], name: key, total: 0, collected: 0 };
+    const item = {
+      color: typeGradients[key], name: key, total: 0, collected: 0,
+    };
     const typeTitles = [];
 
     Object.keys(cardsConfig.cards).forEach((cardTypeId) => {
@@ -358,7 +323,8 @@ export const getDataForTypeSorting = (cards) => {
       }
     });
 
-    item.collected = cards.reduce((acc, card) => {
+    item.collected = cards.reduce((_acc, card) => {
+      let acc = _acc;
       const typeIndex = typeTitles.findIndex(title => title === card.title);
 
       if (typeIndex !== -1) {

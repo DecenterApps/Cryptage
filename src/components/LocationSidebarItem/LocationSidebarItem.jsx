@@ -66,26 +66,27 @@ class LocationSidebarItem extends Component {
       gameplay, dragItem, draggingCard,
     } = this.props;
 
-    let fpc = [];
-    for (let i of card.dropSlots) {
-      if (!i.card) {
+    const fpc = [];
+    card.dropSlots.forEach((dropSlot) => {
+      if (!dropSlot.card) {
         fpc.push(0);
-      } else if (i.card.constructor.name === 'ContainerCard') {
-        let ccf = [];
-        let containerCard = i.card;
-        for (let i of containerCard.dropSlots) {
-          if (!i.card) {
+      } else if (dropSlot.card.constructor.name === 'ContainerCard') {
+        const ccf = [];
+        const containerCard = dropSlot.card;
+        containerCard.dropSlots.forEach((containerSlot) => {
+          if (!containerSlot.card) {
             ccf.push(0);
           } else {
-            ccf.push(i.card.getBonusStatValue('fundsPerBlock'));
+            ccf.push(containerSlot.card.getBonusStatValue('fundsPerBlock'));
           }
-        }
-        let sum = ccf.reduce((a, b) => a + b, 0)
-        fpc.push(sum)
-      } else if (i.card.constructor.name === 'Card') {
-        fpc.push(i.card.getBonusStatValue('fundsPerBlock'));
+        });
+        const sum = ccf.reduce((a, b) => a + b, 0);
+        fpc.push(sum);
+      } else if (dropSlot.card.constructor.name === 'Card') {
+        fpc.push(dropSlot.card.getBonusStatValue('fundsPerBlock'));
       }
-    }
+    });
+
     const fpb = fpc.reduce((a, b) => a + b, 0);
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate ? slot.canDrop(gameplay, dragItem.card).allowed : false;

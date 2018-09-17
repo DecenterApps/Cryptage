@@ -1,3 +1,4 @@
+/* eslint-disable */
 import config from '../constants/config.json';
 import cardsInfo from '../constants/cards.json';
 import { isFloat, isInt, log } from './utils';
@@ -125,10 +126,12 @@ const getBoughtBoosters = async () => {
 
     const boosterPromises = boosters.map(async (id) => {
       const blockNumber = await boosterContract.methods.blockNumbers(id).call();
-      if (currentBlockNumber - blockNumber > 255) return {
-        id,
-        expired: true,
-      };
+      if (currentBlockNumber - blockNumber > 255) {
+        return {
+          id,
+          expired: true,
+        };
+      }
 
       return cardsInfo.boosters[id] || {
         id,

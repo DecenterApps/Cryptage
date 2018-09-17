@@ -96,11 +96,13 @@ class Tutorial extends Component {
                     through the levels naturally and see which new cards will be unlocked, but if
                     you are impatient you can always buy card packs and speed up your progress. And
                     since we are still on the Kovan test network, that’s not expensive at all :) You
-                    can use our <a
+                    can use our
+                    <a
                       href="https://faucet.selenean.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                    >faucet
+                    >
+                      faucet
                     </a> to obtain some free kETH.
                     <br /><br />
                     Also, don’t forget to check the leaderboard to see how you rank compared to

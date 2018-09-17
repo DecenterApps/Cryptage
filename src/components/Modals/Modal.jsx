@@ -66,9 +66,11 @@ class Modal extends PureComponent {
 Modal.defaultProps = {
   width: 'auto',
   className: '',
+  children: null,
 };
 
 Modal.propTypes = {
+  children: PropTypes.node,
   closeModal: PropTypes.func.isRequired,
   width: PropTypes.string,
   className: PropTypes.string,
