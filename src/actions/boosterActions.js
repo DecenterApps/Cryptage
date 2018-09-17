@@ -82,7 +82,7 @@ export const revealError = (error, _id, _boosters) => {
   const boosterIndex = boosters.findIndex(({ id }) => id === _id);
   boosters[boosterIndex].revealing = false;
 
-  return { type: REVEAL_ERROR, isRevealing: false, error, };
+  return { type: REVEAL_ERROR, isRevealing: false, error };
 };
 
 

@@ -1,11 +1,9 @@
 import serialijse from 'serialijse';
 import {
-  GENERATE_NEW_GAMEPLAY,
   LOAD_STATE_FROM_STORAGE,
   GET_ACCOUNT_SUCCESS,
   GET_ACCOUNT_ERROR,
 } from './actionTypes';
-import Gameplay from '../classes/Gameplay';
 import ethService from '../services/ethereumService';
 import config from '../constants/config.json';
 import { nameOfNetwork } from '../services/utils';
@@ -34,12 +32,7 @@ export const loadGameplayState = () => async (dispatch, getState) => {
     setTimeout(() => {
       localStorage.removeItem('cryptage-0x0000000000000000000000000000000000000000');
     }, 10000);
-    return;
   }
-
-  // New game
-  // const blockNum = await web3.eth.getBlockNumber();
-  // return dispatch({ type: GENERATE_NEW_GAMEPLAY, payload: new Gameplay(blockNum) });
 };
 
 /**

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
-import { playTurn } from '../../actions/gameplayActions';
 import { toggleCardDrag } from '../../actions/appActions';
 import './DropSlotWrapper.scss';
 
@@ -11,9 +9,6 @@ const dropTarget = {
   drop(props, monitor, component) {
     props.onDrop(monitor.getItem(), props.index);
     component.props.toggleCardDrag();
-    // if (checkIfCanPlayCard(dropItem.card, props.globalStats)) {
-    // component.props.playTurn(dropItem, props.slotType, props.index, true);
-    // }
   },
 };
 
@@ -91,7 +86,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProp = {
-  playTurn, toggleCardDrag,
+  toggleCardDrag,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(DropSlotWrapper);
