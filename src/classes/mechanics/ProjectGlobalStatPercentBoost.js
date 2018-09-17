@@ -8,7 +8,8 @@ export default class ProjectGlobalStatPercentBoost extends Mechanic {
     this.boostPercent = boostPercent;
   }
 
-  onProjectEnd(state) {
+  onProjectEnd(_state) {
+    const state = _state;
     state.stats[this.globalStat] += Math.floor((this.boostPercent / 100) * state.stats[this.globalStat]);
     return state;
   }

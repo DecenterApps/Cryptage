@@ -13,7 +13,6 @@ import Subscriber from './Subscriber';
 const registry = new Map();
 
 export default class Mechanic extends Subscriber {
-
   static registerMechanic(name, mechanic) {
     registry.set(name, mechanic);
   }
@@ -33,15 +32,15 @@ export default class Mechanic extends Subscriber {
     this.card = card;
   }
 
-  canPlay(state, destination) {
+  canPlay() {
     return { allowed: true };
   }
 
-  onPlay(state, destination) {
+  onPlay(state) {
     return state;
   }
 
-  canWithdraw(state) {
+  canWithdraw() {
     return { allowed: true };
   }
 
@@ -50,23 +49,23 @@ export default class Mechanic extends Subscriber {
     return state;
   }
 
-  canPlayChild(state, child) {
+  canPlayChild() {
     return { allowed: true };
   }
 
-  onPlayChild(state, child) {
+  onPlayChild(state) {
     return state;
   }
 
-  canWithdrawChild(state, child) {
+  canWithdrawChild() {
     return { allowed: true };
   }
 
-  onWithdrawChild(state, child) {
+  onWithdrawChild(state) {
     return state;
   }
 
-  block(state, blockCount) {
+  block(state) {
     return state;
   }
 }

@@ -8,12 +8,14 @@ export default class ProjectGlobalStatCardNum extends Mechanic {
     this.cardsToWatch = cardsToWatch;
   }
 
-  onProjectEnd(state) {
+  onProjectEnd(_state) {
+    const state = _state;
     const activeCards = state.cards.filter(card => card.active);
 
     this.cardsToWatch
       .forEach((cardToWatch) => {
-        const occurrences = activeCards.reduce((occurrence, activeCard) => {
+        const occurrences = activeCards.reduce((_occurrence, activeCard) => {
+          let occurrence = _occurrence;
           if (activeCard.title === cardToWatch[0]) occurrence += 1;
           return occurrence;
         }, 0);

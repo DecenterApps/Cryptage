@@ -3,7 +3,6 @@ import serialise from 'serialijse';
 const subscriptions = Symbol('subscriptions');
 
 export default class Subscriber {
-
   constructor() {
     this[subscriptions] = new Set();
   }
@@ -15,9 +14,7 @@ export default class Subscriber {
   }
 
   unsubscribeAll() {
-    for (const unsubscribe of this[subscriptions]) {
-      unsubscribe();
-    }
+    this[subscriptions].forEach((unsubscribe) => { unsubscribe(); });
     this[subscriptions].clear();
   }
 }

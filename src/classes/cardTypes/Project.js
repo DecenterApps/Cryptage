@@ -3,7 +3,7 @@ import Mechanic from '../Mechanic';
 import { mergeErrorMessages } from '../../services/utils';
 
 export default class ProjectCard extends Card {
-  constructor(data, state) {
+  constructor(data) {
     super(data);
     this.gains = this.bonus;
     this.bonus = {
@@ -43,7 +43,9 @@ export default class ProjectCard extends Card {
     });
   }
 
-  restartProject(state) {
+  restartProject(_state) {
+    const state = _state;
+
     this.running = true;
     this.expiryTime = state.blockNumber + this.cost.time;
 

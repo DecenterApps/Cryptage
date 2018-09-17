@@ -12,7 +12,9 @@ export default class ProjectExpiryMechanic extends Mechanic {
     return state;
   }
 
-  block(state, blockNumber) {
+  block(_state, blockNumber) {
+    const state = _state;
+
     const blocksLeft = calcExpiryBlocksLeft(this.card, blockNumber, state.projectExecutionTimePercent);
 
     if (this.card.finishedNow) this.card.finishedNow = false;

@@ -1,6 +1,4 @@
 import Mechanic from '../Mechanic';
-import { createMatcher } from '../matchers';
-import MatcherMechanic from './MatcherMechanic';
 import DynamicMatcherMechanic from './DynamicMatcherMechanic';
 
 export default class StatForUnspentLocationVal extends DynamicMatcherMechanic {
@@ -10,7 +8,6 @@ export default class StatForUnspentLocationVal extends DynamicMatcherMechanic {
     this.locationStat = locationStat;
     this.boostedStat = boostedStat;
     this.boostAmount = boostAmount;
-    this.lastBoostAmount = null;
   }
 
   getBoostAmount() {

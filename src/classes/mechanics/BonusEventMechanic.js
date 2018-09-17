@@ -25,7 +25,8 @@ export default class BonusEventMechanic extends MatcherMechanic {
   startEvent(state, newIndex) {
     this.indexInMechanics = newIndex;
     this.expiryTime = state.blockNumber + this.duration;
-    this.card.additionalData.activeEvent = { expiryTime: this.expiryTime, eventId: this.eventId, eventDuration: this.duration };
+    this.card.additionalData.activeEvent =
+      { expiryTime: this.expiryTime, eventId: this.eventId, eventDuration: this.duration };
 
     return this.handleOnPlay(state);
   }

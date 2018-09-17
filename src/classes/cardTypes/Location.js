@@ -41,9 +41,10 @@ export default class LocationCard extends Card {
     if (this.dropSlots.length > this.minDropSlots) {
       this.dropSlots.splice(this.dropSlots.indexOf(dropSlot), 1);
 
-      this.dropSlots = this.dropSlots.map((_dropSlot, index) => {
-        _dropSlot.index = index;
-        return _dropSlot;
+      this.dropSlots = this.dropSlots.map((_cardSlot, index) => {
+        const cardSlot = _cardSlot;
+        cardSlot.index = index;
+        return cardSlot;
       });
     }
   }

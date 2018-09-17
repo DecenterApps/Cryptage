@@ -14,7 +14,9 @@ export default class BonusMechanic extends CoreMechanic {
     return this.card.getBonusStatValue(this.stat);
   }
 
-  updateValue(state, delta) {
+  updateValue(_state, delta) {
+    const state = _state;
+
     state.stats = {
       ...state.stats, [this.stat]: state.stats[this.stat] + delta,
     };

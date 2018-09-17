@@ -8,7 +8,9 @@ export default class CoreMechanic extends CostMechanic {
     this.isPermanent = isPermanent;
   }
 
-  updateValue(state, delta) {
+  updateValue(_state, delta) {
+    const state = _state;
+
     state.stats = {
       ...state.stats, [this.stat]: this.getValue(state) + delta,
     };

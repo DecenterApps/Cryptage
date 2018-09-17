@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getCardTypeConstructor } from './Registry';
 import { isObject } from '../services/utils';
 

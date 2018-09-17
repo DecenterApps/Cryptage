@@ -6,8 +6,10 @@ export default class TimeReduceMechanic extends Mechanic {
     this.percentToReduce = percentToReduce;
   }
 
-  onPlay(state) {
+  onPlay(_state) {
+    const state = _state;
     const percentToDeduct = Math.ceil((this.percentToReduce / 100) * state.projectExecutionTimePercent);
+
     this.percentReduced = percentToDeduct;
     state.projectExecutionTimePercent -= percentToDeduct;
 
@@ -18,7 +20,9 @@ export default class TimeReduceMechanic extends Mechanic {
     return state;
   }
 
-  onWithdraw(state) {
+  onWithdraw(_state) {
+    const state = _state;
+
     state.projectExecutionTimePercent += this.percentReduced;
 
     if (state.projectExecutionTimePercent > 100) {

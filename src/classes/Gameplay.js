@@ -55,7 +55,10 @@ export default class Gameplay {
     Object.assign(this, data);
   }
 
-  subscribe(event, matcher, callback) {
+  subscribe(event, _matcher, _callback) {
+    let matcher = _matcher;
+    let callback = _callback;
+
     if (typeof callback === 'undefined') {
       callback = matcher;
       matcher = isActiveCard;
@@ -77,11 +80,11 @@ export default class Gameplay {
       return state;
     }
     let newState = state;
-    for (const { matcher, callback } of this[subscriptions].get(event)) {
-      if (matcher(target)) {
-        newState = callback(newState, target);
-      }
-    }
+
+    this[subscriptions].get(event).forEach(({ matcher, callback }) => {
+      if (matcher(target)) newState = callback(newState, target);
+    });
+
     return newState;
   }
 

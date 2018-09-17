@@ -13,7 +13,9 @@ export default class CardNumStatMultiplier extends DynamicMatcherMechanic {
   getNumOfActiveObserverCards(state) {
     const recurse = (card) => {
       if (card.dropSlots.length > 0) {
-        return card.dropSlots.reduce((acc, dropSlot) => {
+        return card.dropSlots.reduce((_acc, dropSlot) => {
+          let acc = _acc;
+
           const validCardInSlot = dropSlot.card && dropSlot.card.active && !dropSlot.card.withdrawing;
           if (validCardInSlot && dropSlot.card.metadataId === this.observedCardId.toString()) {
             acc += 1;

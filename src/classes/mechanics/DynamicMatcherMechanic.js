@@ -13,10 +13,9 @@ export default class DynamicMatcherMechanic extends MatcherMechanic {
    * Classes that extend this one have to have a getBoostAmount method
    * has to have a boost amount that depends on other variables
    *
-   * @param {Object} state
    * @return {Number}
    */
-  getBoostAmount(state) {
+  getBoostAmount() {
     return 0;
   }
 

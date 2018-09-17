@@ -10,7 +10,7 @@ export default class CostMechanic extends Mechanic {
     return state.stats[this.stat];
   }
 
-  canPlay(state, dropSlot) {
+  canPlay(state) {
     return {
       [this.stat]: this.getValue(state) >= this.card.cost[this.stat],
     };
