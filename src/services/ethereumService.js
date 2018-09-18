@@ -185,6 +185,18 @@ const resetState = async () => {
   return stateContract.methods.reset().send();
 };
 
+const getNicknames = async () => {
+  const stateContract = await getStateContract();
+  const getState = await stateContract.methods.get().call();
+  const allNicknamesHex = await getState[1];
+  const allNicknamesUTF8 = [];
+  allNicknamesHex.forEach((nicknameHex) => {
+    const nicknameUTF8 = web3.utils.hexToUtf8(nicknameHex);
+    allNicknamesUTF8.push(nicknameUTF8);
+  });
+  return allNicknamesUTF8;
+};
+
 export default {
   getAccount,
   getBalance,
@@ -202,4 +214,5 @@ export default {
   getState,
   resetState,
   getLeaderboardContract,
+  getNicknames,
 };
