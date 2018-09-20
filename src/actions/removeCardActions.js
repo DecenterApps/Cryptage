@@ -1,7 +1,10 @@
 import {
-  REMOVE_CARD, GP_NO_LOCATIONS,
+  REMOVE_CARD,
+  GP_NO_LOCATIONS,
   CLEAR_REVEALED_CARDS,
-  REMOVE_NEW_FROM_CARD, GP_LOCATION, GP_LOCATION_CONTAINER, GP_LOCATION_MAIN
+  REMOVE_NEW_FROM_CARD,
+  GP_LOCATION_CONTAINER,
+  GP_LOCATION_MAIN,
 } from './actionTypes';
 
 /**
@@ -21,10 +24,8 @@ export const canCancelCard = slot => (dispatch, getState) => {
  * Removes cards from gameplay
  *
  * @param slot
- * @param locationIndex
- * @param containerIndex
  */
-export const handleCardCancel = (slot, locationIndex, containerIndex) => (dispatch, getState) => {
+export const handleCardCancel = slot => (dispatch, getState) => {
   const { gameplay } = getState();
   let { gameplayView, inGameplayView, activeLocationIndex } = gameplay;
 

@@ -277,14 +277,6 @@ export const formatBigNumberWithBreak = (_number) => {
   return number.toString();
 };
 
-export const getCardAtContainer = (locations, locationIndex, containerIndex) => {
-  try {
-    return locations[locationIndex].lastDroppedItem.dropSlots[containerIndex].lastDroppedItem.cards;
-  } catch (e) {
-    return null;
-  }
-};
-
 export const classForRarity = (_rarity) => {
   const number = parseInt(_rarity, 10);
   if (number >= 850) return 'normal';
