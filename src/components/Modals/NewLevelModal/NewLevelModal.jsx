@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalBody from '../ModalBody';
 import RevealCards from '../../Gameplay/RevealCards/RevealCards';
-import { toggleTutorial } from '../../../actions/appActions';
+import { getPagesForTutorial, toggleTutorial } from '../../../actions/tutorialsActions';
 import SmallButton from '../../SmallButton/SmallButton';
 
 import './NewLevelModal.scss';
 
 const NewLevelModal = ({
-  closeModal, level, cards, toggleTutorial,
+  closeModal, level, cards, toggleTutorial, getPagesForTutorial,
 }) => (
   <div className="new-level-modal-wrapper">
 
@@ -38,7 +38,13 @@ const NewLevelModal = ({
     <div className="button-wrapper">
       <div className="modal-buttons-bar" />
 
-      <span onClick={() => { closeModal(); toggleTutorial(); }}>
+      <span
+        onClick={() => {
+            closeModal();
+            if (getPagesForTutorial()) toggleTutorial();
+          }
+        }
+      >
         <SmallButton text="Done" />
       </span>
     </div>
@@ -51,8 +57,9 @@ NewLevelModal.defaultProps = {
 NewLevelModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   toggleTutorial: PropTypes.func.isRequired,
+  getPagesForTutorial: PropTypes.func.isRequired,
   level: PropTypes.number.isRequired,
   cards: PropTypes.array.isRequired,
 };
 
-export default connect(null, { toggleTutorial })(NewLevelModal);
+export default connect(null, { toggleTutorial, getPagesForTutorial })(NewLevelModal);

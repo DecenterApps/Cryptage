@@ -72,7 +72,11 @@ export const FETCH_LEADERBOARD_DATA = 'fetch_leaderboard_data';
 export const FETCH_LEADERBOARD_DATA_SUCCESS = 'fetch_leaderboard_data_success';
 export const FETCH_LEADERBOARD_DATA_ERROR = 'fetch_leaderboard_data_error';
 
+// TUTORIALS
 export const TOGGLE_TUTORIAL = 'toggle_tutorial';
+export const SHOW_TUTORIAL = 'show_tutorial';
+export const GET_PAGES_FOR_TUTORIAL = 'get_pages_for_tutorial';
+export const CHANGE_PAGE = 'change_page';
 
 export const typeGradients = {
   misc: ['#3215E6', 'rgba(49, 20, 230, 0)'],

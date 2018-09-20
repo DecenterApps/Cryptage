@@ -1,90 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toggleTutorial } from '../../actions/appActions';
-import pagesForLevel from '../../constants/tutorialConfig.json';
+import {
+  changePage,
+  finishTutorial,
+} from '../../actions/tutorialsActions';
 
 import './Tutorial.scss';
 
 class Tutorial extends Component {
-  constructor() {
-    super();
-    this.state = {
-      tutorialVisible: false,
-      pages: [],
-      pagesInView: [],
-      shownPage: -1,
-    };
-
-    this.showPage.bind(this);
-    this.nextPage.bind(this);
-    this.prevPage.bind(this);
-    this.finishTutorial.bind(this);
-  }
-
-  componentWillMount() {
-    if (!pagesForLevel[this.props.level]) return this.props.toggleTutorial();
-
-    this.setState({
-      pages: pagesForLevel[this.props.level],
-      pagesInView: [],
-      shownPage: -1,
-    });
-    setTimeout(() => this.setState({ tutorialVisible: true }), 200);
-    setTimeout(() => this.showPage(0), 500);
-  }
-
-  showPage(_page) {
-    const page = parseInt(_page, 10);
-    this.setState({
-      pagesInView: [
-        ...this.state.pagesInView,
-        page,
-      ],
-      shownPage: page,
-    });
-  }
-
-  nextPage() {
-    if (this.state.shownPage + 1 >= this.state.pages.length) return;
-    const newPage = this.state.shownPage + 1;
-    this.setState({
-      pagesInView: [
-        ...this.state.pagesInView,
-        newPage,
-      ],
-      shownPage: newPage,
-    });
-  }
-
-  prevPage() {
-    if (this.state.shownPage - 1 < 0) return;
-    const newPage = this.state.shownPage - 1;
-    this.setState({
-      pagesInView: [
-        ...this.state.pagesInView,
-        newPage,
-      ],
-      shownPage: newPage,
-    });
-  }
-
-  finishTutorial() {
-    this.setState({ tutorialVisible: false });
-    setTimeout(() => this.props.toggleTutorial(), 300);
-  }
-
   render() {
     return (
-      <div className={`tutorial-wrapper ${this.state.tutorialVisible ? 'shown' : ''}`}>
+      this.props.showTutorial &&
+      <div className={`tutorial-wrapper ${this.props.showTutorial ? 'shown' : ''}`}>
         <div className="slider-wrapper">
           {
-            this.state.pages.map((page, index) => (
+            this.props.pages.map((page, index) => (
               <div
                 key={page}
                 className={`slide
-                  ${this.state.shownPage === index ? 'shown' : ''}
-                  ${this.state.pagesInView.indexOf(index) !== -1 ? 'in-view' : ''}`}
+                  ${this.props.currentPage === index ? 'in-view' : ''}`}
               >
                 <img draggable={false} src={`./tutorialImages/${page}`} alt="" />
                 {
@@ -113,19 +48,19 @@ class Tutorial extends Component {
             ))
           }
           <div className="buttons-wrapper">
-            <button className="orange-button skip" onClick={() => this.finishTutorial()}>Skip</button>
+            <button className="orange-button skip" onClick={this.props.finishTutorial}>Skip</button>
             <div>
               {
-                this.state.shownPage > 0 &&
-                <button className="orange-button" onClick={() => this.prevPage()}>Back</button>
+                this.props.currentPage > 0 &&
+                <button className="orange-button" onClick={() => this.props.changePage('back')}>Back</button>
               }
               {
-                this.state.shownPage + 1 < this.state.pages.length &&
-                <button className="orange-button" onClick={() => this.nextPage()}>Next</button>
+                this.props.currentPage + 1 < this.props.pages.length &&
+                <button className="orange-button" onClick={() => this.props.changePage('next')}>Next</button>
               }
               {
-                this.state.shownPage + 1 === this.state.pages.length &&
-                <button className="orange-button" onClick={() => this.finishTutorial()}>Finish</button>
+                this.props.currentPage + 1 === this.props.pages.length &&
+                <button className="orange-button" onClick={this.props.finishTutorial}>Finish</button>
               }
             </div>
           </div>
@@ -136,16 +71,23 @@ class Tutorial extends Component {
 }
 
 Tutorial.propTypes = {
-  level: PropTypes.number.isRequired,
-  toggleTutorial: PropTypes.func.isRequired,
+  pages: PropTypes.array.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  changePage: PropTypes.func.isRequired,
+  finishTutorial: PropTypes.func.isRequired,
+  showTutorial: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ gameplay }) => ({
+const mapStateToProps = ({ gameplay, tutorials }) => ({
   level: gameplay.stats.level,
+  pages: tutorials.pages,
+  currentPage: tutorials.currentPage,
+  showTutorial: tutorials.showTutorial,
 });
 
 const mapDispatchToProps = {
-  toggleTutorial,
+  changePage,
+  finishTutorial,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tutorial);

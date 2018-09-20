@@ -8,6 +8,7 @@ import gameplayReducer from './gameplayReducer';
 import modalReducer from './modalReducer';
 import leaderboardReducer from './leaderboardReducer';
 import contractStateReducer from './contractStateReducer';
+import tutorialsReducer from './tutorialsReducer';
 
 const mainReducer = combineReducers({
   routing: routerReducer,
@@ -18,6 +19,7 @@ const mainReducer = combineReducers({
   modal: modalReducer,
   leaderboard: leaderboardReducer,
   contractState: contractStateReducer,
+  tutorials: tutorialsReducer,
 });
 
 /*   Clears the store state    */

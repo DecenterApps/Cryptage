@@ -33,13 +33,9 @@
       position: absolute;
       top: 0;
       left: 0;
-      transform: translateX(100%);
       opacity: 0;
       transition: all .3s;
       &.in-view {
-        transform: translateX(0%);
-      }
-      &.shown {
         transition-delay: .1s;
         opacity: 1;
       }

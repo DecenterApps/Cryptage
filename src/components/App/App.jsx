@@ -97,10 +97,10 @@ const mapDispatchToProps = {
   updateCurrentBlockNumber,
 };
 
-const mapStateToProps = ({ app, gameplay }) => ({
+const mapStateToProps = ({ app, gameplay, tutorials }) => ({
   loadingApp: app.loadingApp,
   accountError: app.accountError,
-  tutorialOpen: app.tutorialOpen,
+  tutorialOpen: tutorials.tutorialOpen,
   nickname: gameplay.nickname,
 });
 

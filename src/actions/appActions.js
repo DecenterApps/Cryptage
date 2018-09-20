@@ -3,7 +3,6 @@ import {
   UPDATE_BLOCK_NUMBER,
   TOGGLE_CARD_DRAG,
   CLEAR_STORE,
-  TOGGLE_TUTORIAL,
   ON_NEW_BLOCK,
 } from './actionTypes';
 import ethService from '../services/ethereumService';
@@ -59,9 +58,4 @@ export const resetGame = () => async (dispatch) => {
   const account = await ethService.getAccount();
   localStorage.removeItem(`cryptage-${account}`);
   dispatch({ type: CLEAR_STORE });
-};
-
-
-export const toggleTutorial = () => async (dispatch) => {
-  dispatch({ type: TOGGLE_TUTORIAL });
 };
