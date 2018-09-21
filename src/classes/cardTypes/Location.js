@@ -39,6 +39,14 @@ export default class LocationCard extends Card {
       });
     }
   }
+
+  levelUp(state, dropSlot) {
+    const leveledUp = super.levelUp(state, dropSlot);
+    leveledUp.power = dropSlot.card.power;
+    leveledUp.space = dropSlot.card.space;
+
+    return leveledUp;
+  }
 }
 
 Card.registerTypeConstructor('Location', LocationCard);
