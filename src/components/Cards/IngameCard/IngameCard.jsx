@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { guid, formatBigNumberWithBreak, classForRarity } from '../../../services/utils';
+import { guid, classForRarity } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
 import DropCardIcon from '../../Decorative/DropCardIcon';
 import MagnifyingGlassCardIcon from '../../Decorative/MagnifyingGlassCardIcon';
@@ -11,6 +11,7 @@ import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
+import { getMaxValueForLocation } from '../../../services/gameMechanicsService';
 
 import './IngameCard.scss';
 
@@ -169,7 +170,7 @@ class IngameCard extends Component {
               <div
                 className="slots-bar"
                 style={{
-                  height: `${100 - (100 * (remainingSlots / card.space))}%`,
+                  height: `${100 - (100 * (remainingSlots / getMaxValueForLocation(card, 'space')))}%`,
                 }}
               />
             </div>
