@@ -168,9 +168,11 @@ export default class Card extends Subscriber {
     };
     this.additionalData = {};
 
-    for (const slot of this.dropSlots) {
+    this.dropSlots.forEach((slot) => {
       newState = slot.removeCard(newState, isLevelUp);
-    }
+    });
+
+    if (this.removeDropSlots && !isLevelUp) this.removeDropSlots();
 
     while (this.stackedCards.length) {
       const popped = this.stackedCards.pop();

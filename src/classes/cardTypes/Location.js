@@ -29,15 +29,18 @@ export default class LocationCard extends Card {
     }
   }
 
-  removeDropSlot(dropSlot) {
-    if (this.dropSlots.length > this.minDropSlots) {
-      this.dropSlots.splice(this.dropSlots.indexOf(dropSlot), 1);
+  removeDropSlots() {
+    this.dropSlots.forEach((dropSlot) => {
+      if (this.dropSlots.length > this.minDropSlots) {
+        this.dropSlots.splice(dropSlot.index, 1);
+      }
+    });
 
-      this.dropSlots = this.dropSlots.map((_dropSlot, index) => {
-        _dropSlot.index = index;
-        return _dropSlot;
-      });
-    }
+    this.dropSlots = this.dropSlots.map((_dropSlot, index) => {
+      const dropSlot = _dropSlot;
+      dropSlot.index = index;
+      return dropSlot;
+    });
   }
 
   levelUp(state, dropSlot) {
