@@ -16,8 +16,14 @@ const Locations = ({
   locationSlots, isBuying, buyBoosterPack, gameplayView, handleLocationDrop,
 }) => (
   <div className="locations-wrapper">
-    <div className="buy-booster-button-wrapper" onClick={buyBoosterPack}>
-      <FutureButton text="Buy card pack" hoverText="Ξ 0.001" loading={isBuying} disabled={isBuying} />
+    <div className="buy-booster-button-wrapper">
+      <FutureButton
+        text="Buy card pack"
+        hoverText="Ξ 0.001"
+        loading={isBuying}
+        disabled={isBuying}
+        handleClick={buyBoosterPack}
+      />
     </div>
 
     {

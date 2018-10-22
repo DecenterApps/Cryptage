@@ -18,12 +18,18 @@ class Menu extends Component {
       <div className="menu-wrapper">
 
         <div className="menu-buttons">
-          <div className="save-button" onClick={saveStateToContract}>
-            <FutureButton reverse text="Save" loading={isSaving} disabled={isSaving} />
+          <div className="save-button">
+            <FutureButton
+              reverse
+              text="Save"
+              handleClick={saveStateToContract}
+              loading={isSaving}
+              disabled={isSaving}
+            />
           </div>
 
-          <div className="menu-button" onClick={openMenuModal}>
-            <FutureButton reverse text="Menu" loading={false} disabled={false} />
+          <div className="menu-button">
+            <FutureButton reverse text="Menu" handleClick={openMenuModal} loading={false} disabled={false} />
           </div>
         </div>
       </div>
