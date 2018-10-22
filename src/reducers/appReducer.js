@@ -14,9 +14,6 @@ const INITIAL_STATE = {
   cardsFetching: true,
   cardsFetchingError: '',
 
-  nicknameError: '',
-  submittingNickname: false,
-
   draggingCard: false,
 
   tutorialOpen: false,

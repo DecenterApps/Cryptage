@@ -29,7 +29,6 @@ class NicknameForm extends Component {
       pristine,
       invalid,
       asyncValidating,
-      submittingForm,
       nickname,
       accountError,
     } = this.props;
@@ -81,7 +80,7 @@ class NicknameForm extends Component {
             onSubmit={handleSubmit}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
-                if (pristine || invalid || submittingForm || asyncValidating) e.preventDefault();
+                if (pristine || invalid || asyncValidating) e.preventDefault();
               }
             }}
             className="form-wrapper"
@@ -103,7 +102,7 @@ class NicknameForm extends Component {
             <span
               className={`
                 arrow-right-wrapper
-                ${pristine || invalid || submittingForm || asyncValidating ? 'disabled' : ''}
+                ${pristine || invalid || asyncValidating ? 'disabled' : ''}
               `}
             >
               <button type="submit"><ArrowRight /></button>
@@ -121,15 +120,13 @@ class NicknameForm extends Component {
 }
 
 NicknameForm.propTypes = {
-  submitFormError: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
-  asyncValidating: PropTypes.bool.isRequired,
-  submittingForm: PropTypes.bool.isRequired,
   nickname: PropTypes.string.isRequired,
   accountError: PropTypes.string.isRequired,
   checkAccount: PropTypes.func.isRequired,
+  asyncValidating: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
 };
 
 const NicknameFormComp = reduxForm({
@@ -140,8 +137,6 @@ const NicknameFormComp = reduxForm({
 })(NicknameForm);
 
 const mapStateToProps = ({ app, gameplay }) => ({
-  submitFormError: app.nicknameError,
-  submittingForm: app.submittingNickname,
   nickname: gameplay.nickname,
   accountError: app.accountError,
 });
