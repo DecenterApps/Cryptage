@@ -18,7 +18,7 @@ const startApp = async () => {
     } catch (error) {
       console.error('User denied access to MetaMask');
     }
-  } else if (window.web3) {
+  } else {
     window.web3 = new Web3((window.web3 && window.web3.currentProvider) || config.wsProvider);
   }
 
