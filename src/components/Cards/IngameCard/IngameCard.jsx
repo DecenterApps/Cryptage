@@ -13,6 +13,7 @@ import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
 
 import './IngameCard.scss';
+import CardUpgradeButton from '../../CardUpgradeButton/CardUpgradeButton';
 
 class IngameCard extends Component {
   constructor() {
@@ -57,8 +58,8 @@ class IngameCard extends Component {
         {
           card.type !== 'Container' &&
           card.type !== 'Misc' &&
-          <div className="level-wrapper">
-            <div className="level">{card.level}</div>
+          <div className="upgrades-wrapper">
+            <CardUpgradeButton upgradeLevel={1} handleUpgrade={() => {}} canUpgrade />
           </div>
         }
         <div className="overlay" />

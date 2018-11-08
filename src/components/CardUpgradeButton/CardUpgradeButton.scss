@@ -1,0 +1,43 @@
+@import "../../common/colors";
+@import "../../common/variables";
+
+.card-upgrade-button {
+  border: none;
+  padding: 2px 9px;
+  text-align: center;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+  background: $lime-green;
+  box-shadow: 0 0 15.9176px $lime-green;
+  color: white;
+  font-size: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @include hover-transition;
+
+  &:hover {
+    background: lighten($lime-green, 4);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+    color: $gray;
+  }
+
+  .triangle {
+    position: relative;
+    bottom: 1px;
+    transform: scale(0.8);
+    margin-left: 4px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+
+    border-bottom: 8px solid white;
+  }
+}
