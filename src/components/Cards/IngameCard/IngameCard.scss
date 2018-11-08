@@ -81,30 +81,14 @@
     //  }
     //}
   }
+
   .upgrades-wrapper {
     position: absolute;
-    top: 0;
-    right: 0;
-    color: white;
+    top: 5px;
+    right: 5px;
     z-index: 1;
-
-    //@include for-big-desktop {
-      //font-size: 23px;
-      //width: 42px;
-      //height: 42px;
-    //}
-
-    .level {
-      position: absolute;
-      right: 6px;
-      font-family: $font-secondary;
-
-      //@include for-big-desktop {
-        //right: 8px;
-        //top: -3px;
-      //}
-    }
   }
+
   .count-wrapper {
     position: absolute;
     bottom: 0;

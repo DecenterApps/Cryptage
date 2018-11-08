@@ -1,43 +1,81 @@
 @import "../../common/colors";
 @import "../../common/variables";
 
-.card-upgrade-button {
-  border: none;
-  padding: 2px 9px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px;
-  cursor: pointer;
-  border-radius: 16px;
-  background: $lime-green;
-  box-shadow: 0 0 15.9176px $lime-green;
+.card-upgrade-button-wrapper {
   color: white;
-  font-size: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  @include hover-transition;
+  display: flex;
+  position: relative;
 
-  &:hover {
-    background: lighten($lime-green, 4);
+  &:hover .upgrade-dropdown {
+    display: block;
   }
 
-  &:disabled {
-    cursor: not-allowed;
-    box-shadow: none;
-    color: $gray;
+  .card-upgrade-button {
+    border: none;
+    padding: 2px 9px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 16px;
+    background: $lime-green;
+    box-shadow: 0 0 15.9176px $lime-green;
+    font-size: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    @include hover-transition;
+
+    &:hover {
+      background: lighten($lime-green, 4);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      box-shadow: none;
+      color: $gray;
+    }
+
+    .triangle {
+      position: relative;
+      bottom: 1px;
+      transform: scale(0.8);
+      margin-left: 4px;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+
+      border-bottom: 8px solid white;
+    }
   }
 
-  .triangle {
-    position: relative;
-    bottom: 1px;
-    transform: scale(0.8);
-    margin-left: 4px;
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
+  .upgrade-dropdown {
+    $bc: #6F6DBC;
 
-    border-bottom: 8px solid white;
+    padding: 5px 10px;
+    display: none;
+    font-size: 10px;
+    position: absolute;
+    background: $purple-bg;
+    top: 25px;
+    max-width: 120px;
+    width: max-content;
+
+    border-top: 2px solid $bc;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($bc), to(transparent));
+    background-image: -webkit-linear-gradient($bc, transparent);
+    background-image:
+            -moz-linear-gradient($bc, transparent),
+            -moz-linear-gradient($bc, transparent);
+    background-image:
+            -o-linear-gradient($bc, transparent),
+            -o-linear-gradient($bc, transparent);
+    background-image:
+            linear-gradient($bc, transparent),
+            linear-gradient($bc, transparent);
+    -moz-background-size: 2px 100%;
+    background-size: 2px 100%;
+    background-position: 0 0, 100% 0;
+    background-repeat: no-repeat;
   }
 }

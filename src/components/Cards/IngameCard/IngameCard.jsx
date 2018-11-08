@@ -59,7 +59,12 @@ class IngameCard extends Component {
         {
           card.type !== 'Container' && played &&
           <div className="upgrades-wrapper">
-            <CardUpgradeButton upgradeLevel={1} handleUpgrade={() => {}} canUpgrade />
+            <CardUpgradeButton
+              upgradeLevel={1}
+              handleUpgrade={() => {}}
+              canUpgrade
+              dropDownContent="test content"
+            />
           </div>
         }
         <div className="overlay" />
