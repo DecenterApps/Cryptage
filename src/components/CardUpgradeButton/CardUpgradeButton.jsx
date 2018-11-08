@@ -13,7 +13,7 @@ const CardUpgradeButton = ({ upgradeLevel, handleUpgrade, canUpgrade }) => (
 CardUpgradeButton.propTypes = {
   upgradeLevel: PropTypes.number.isRequired,
   handleUpgrade: PropTypes.func.isRequired,
-  canUpgrade: PropTypes.func.isRequired,
+  canUpgrade: PropTypes.bool.isRequired,
 };
 
 export default CardUpgradeButton;

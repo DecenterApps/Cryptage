@@ -212,6 +212,17 @@
       font-family: $font-secondary;
     }
 
+    .stacked-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+
+      span {
+        margin-right: 3px;
+      }
+    }
+
     .title {
     }
     .border {

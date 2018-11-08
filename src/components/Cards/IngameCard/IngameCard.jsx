@@ -11,9 +11,10 @@ import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
+import CardUpgradeButton from '../../CardUpgradeButton/CardUpgradeButton';
+import StackIcon from '../../Decorative/StackIcon';
 
 import './IngameCard.scss';
-import CardUpgradeButton from '../../CardUpgradeButton/CardUpgradeButton';
 
 class IngameCard extends Component {
   constructor() {
@@ -56,8 +57,7 @@ class IngameCard extends Component {
         }
 
         {
-          card.type !== 'Container' &&
-          card.type !== 'Misc' &&
+          card.type !== 'Container' && played &&
           <div className="upgrades-wrapper">
             <CardUpgradeButton upgradeLevel={1} handleUpgrade={() => {}} canUpgrade />
           </div>
@@ -152,6 +152,13 @@ class IngameCard extends Component {
           }
         </svg>
         <div className={`meta ${card.type.toLowerCase()}`}>
+          {
+            card.type !== 'Container' && played &&
+            <div className="stacked-number">
+              <span>1</span>
+              <StackIcon />
+            </div>
+          }
           <div className="title">{card.title}</div>
           <div className="border" />
           <div className="type">{card.type}</div>
