@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Circle } from 'rc-progress';
 import PropTypes from 'prop-types';
 import { guid, classForRarity } from '../../../services/utils';
 import HoverInfo from '../../HoverInfo/HoverInfo';
@@ -69,6 +70,23 @@ class IngameCard extends Component {
         }
         <div className="overlay" />
         <RarityBorder card={card} />
+
+        {
+          card.type !== 'Container' && played &&
+          <div className="upgrade-delay-wrapper">
+            <Circle
+              strokeWidth="7"
+              strokeColor="#FF9D14"
+              trailColor="transparent"
+              percent={10}
+            />
+
+            <div className="circle-trail" />
+
+            <div className="delay-num">50</div>
+          </div>
+        }
+
         <svg className="card-image">
           <defs>
             <pattern
