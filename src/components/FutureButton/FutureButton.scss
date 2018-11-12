@@ -3,7 +3,7 @@
   position: relative;
   transition: 0.3s ease-in;
 
-  &:hover .button-text-wrapper:not(.disabled) {
+  &:hover:not(.disabled) {
     cursor: pointer;
 
     .text {
@@ -17,6 +17,11 @@
     }
   }
 
+  &.disabled {
+    cursor: not-allowed;
+    user-select: none;
+  }
+
   .button-text-wrapper {
     position: absolute;
     font-size: 11px;
@@ -26,11 +31,6 @@
     text-align: center;
     z-index: 2;
     top: 20px;
-
-    &.disabled {
-      cursor: not-allowed;
-      user-select: none;
-    }
 
     &.loading {
       top: 13px;

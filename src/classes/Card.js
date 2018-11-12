@@ -178,6 +178,8 @@ export default class Card extends Subscriber {
       newState = dropSlot.removeCard(newState, isLevelUp);
     });
 
+    if (this.removeDropSlots && !isLevelUp) this.removeDropSlots();
+
     while (this.stackedCards.length) {
       const popped = this.stackedCards.pop();
       popped.active = false;

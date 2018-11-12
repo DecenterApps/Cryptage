@@ -5,7 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import InputComponent from '../../Forms/InputComponent';
-import nicknameFormValidator from './nicknameFormValidator';
+import { validate, asyncValidate } from './nicknameFormValidator';
 import { submitNickname } from '../../../actions/gameplayActions';
 import ArrowRight from '../../Decorative/ArrowRight';
 import { checkAccount } from '../../../actions/stateActions';
@@ -16,9 +16,7 @@ import './NicknameForm.scss';
 class NicknameForm extends Component {
   constructor() {
     super();
-    this.state = {
-      showExtendedWarning: false,
-    };
+    this.state = { showExtendedWarning: false };
   }
 
   async componentWillMount() {
@@ -30,7 +28,7 @@ class NicknameForm extends Component {
       handleSubmit,
       pristine,
       invalid,
-      submittingForm,
+      asyncValidating,
       nickname,
       accountError,
     } = this.props;
@@ -82,7 +80,7 @@ class NicknameForm extends Component {
             onSubmit={handleSubmit}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
-                if (pristine || invalid || submittingForm) e.preventDefault();
+                if (pristine || invalid || asyncValidating) e.preventDefault();
               }
             }}
             className="form-wrapper"
@@ -101,24 +99,21 @@ class NicknameForm extends Component {
               errorClassName={formStyle['form-item-error']}
             />
 
-            <span className={`
-            arrow-right-wrapper
-            ${pristine || invalid || submittingForm ? 'disabled' : ''}
-          `}
+            <span
+              className={`
+                arrow-right-wrapper
+                ${pristine || invalid || asyncValidating ? 'disabled' : ''}
+              `}
             >
               <button type="submit"><ArrowRight /></button>
             </span>
-
             <label htmlFor="nickname">
-              Choose Your Username First
+              { asyncValidating ? 'Checking nickname existence' : 'Choose Your Username First' }
             </label>
-            {/* <span>{ submittingForm ? 'Submitting' : 'Submit' }</span> */}
           </form>
           <div className="form-bottom-box" />
         </div>
         <div className="bg" />
-        {/* <div className="bg-left" /> */}
-        {/* <div className="bg-right" /> */}
       </div>
     );
   }
@@ -128,16 +123,20 @@ NicknameForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
-  submittingForm: PropTypes.bool.isRequired,
   nickname: PropTypes.string.isRequired,
   accountError: PropTypes.string.isRequired,
   checkAccount: PropTypes.func.isRequired,
+  asyncValidating: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
 };
 
-const NicknameFormComp = reduxForm({ form: 'nicknameForm', validate: nicknameFormValidator })(NicknameForm);
+const NicknameFormComp = reduxForm({
+  form: 'nicknameForm',
+  validate,
+  asyncValidate,
+  asyncBlurFields: ['nickname'],
+})(NicknameForm);
 
 const mapStateToProps = ({ app, gameplay }) => ({
-  submittingForm: app.submittingNickname,
   nickname: gameplay.nickname,
   accountError: app.accountError,
 });

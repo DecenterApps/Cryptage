@@ -37,16 +37,26 @@ export default class LocationCard extends Card {
     }
   }
 
-  removeDropSlot(dropSlot) {
-    if (this.dropSlots.length > this.minDropSlots) {
-      this.dropSlots.splice(this.dropSlots.indexOf(dropSlot), 1);
+  removeDropSlots() {
+    this.dropSlots.forEach((dropSlot) => {
+      if (this.dropSlots.length > this.minDropSlots) {
+        this.dropSlots.splice(dropSlot.index, 1);
+      }
+    });
 
-      this.dropSlots = this.dropSlots.map((_cardSlot, index) => {
-        const cardSlot = _cardSlot;
-        cardSlot.index = index;
-        return cardSlot;
-      });
-    }
+    this.dropSlots = this.dropSlots.map((_dropSlot, index) => {
+      const dropSlot = _dropSlot;
+      dropSlot.index = index;
+      return dropSlot;
+    });
+  }
+
+  levelUp(state, dropSlot) {
+    const leveledUp = super.levelUp(state, dropSlot);
+    leveledUp.power = dropSlot.card.power;
+    leveledUp.space = dropSlot.card.space;
+
+    return leveledUp;
   }
 }
 

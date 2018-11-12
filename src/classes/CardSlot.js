@@ -64,10 +64,7 @@ export default class CardSlot {
 
     if (!this.card) return state;
 
-    if (this.owner) {
-      state = this.owner.onWithdrawChild(state, this.card);
-      if (this.owner.removeDropSlot && !isLevelUp) this.owner.removeDropSlot(this);
-    }
+    if (this.owner) state = this.owner.onWithdrawChild(state, this.card);
 
     state = this.card.onWithdraw(state, isLevelUp);
     state = state.playTurn(state, this, false);

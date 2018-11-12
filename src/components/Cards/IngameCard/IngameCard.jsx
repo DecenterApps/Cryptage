@@ -12,6 +12,7 @@ import { removeNewCardOnHover } from '../../../actions/removeCardActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
+import { getMaxValueForLocation } from '../../../services/gameMechanicsService';
 import CardUpgradeButton from '../../CardUpgradeButton/CardUpgradeButton';
 import StackIcon from '../../Decorative/StackIcon';
 
@@ -200,7 +201,7 @@ class IngameCard extends Component {
               <div
                 className="slots-bar"
                 style={{
-                  height: `${100 - (100 * (remainingSlots / card.space))}%`,
+                  height: `${100 - (100 * (remainingSlots / getMaxValueForLocation(card, 'space')))}%`,
                 }}
               />
             </div>

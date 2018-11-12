@@ -54,7 +54,7 @@ class GameplayItem extends Component {
     let canDropMiner = false;
 
     if (isContainer) {
-      remainingSlots = card.dropSlots.filter(({ card }) => card === null).length;
+      remainingSlots = card.dropSlots.filter(({ card }) => !card).length;
 
       const fpc = [];
       card.dropSlots.forEach((dropSlot) => {
