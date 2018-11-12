@@ -13,6 +13,6 @@ export const asyncValidate = async (values) => {
   const allNicknames = await ethService.getNicknames();
   const isExisting = allNicknames.includes(values.nickname);
   if (values.nickname && isExisting) {
-    throw { nickname: 'That nickname is taken.' };
+    throw { nickname: 'That nickname is taken.' }; // eslint-disable-line
   }
 };
