@@ -25,26 +25,17 @@ export default class CardSlot {
     let state = _state;
 
     if (this.card) {
-      const leveledUp = card.levelUp(state, this);
-
-      const slottedCards = [];
-      getAllSlottedCards(this.card, slottedCards);
-
-      let newState = this.removeCard(state, true);
-
-      leveledUp.stackedCards.map((_stackedCard) => {
+      card.stackedCards.map((_stackedCard) => {
         const stackedCard = _stackedCard;
         stackedCard.slotted = true;
         return stackedCard;
       });
 
-      newState = this.dropCard(newState, leveledUp);
+      this.card.stackedCards = [...this.card.stackedCards, ...card.stackedCards];
+      // TODO Add stacked cards discount for upgrade
+      // return newCard.changeBonuses()
 
-      slottedCards.forEach(([slot, card]) => {
-        newState = slot.dropCard(newState, card, true);
-      });
-
-      return newState;
+      return _state;
     }
 
     this.card = card;

@@ -62,7 +62,7 @@ class IngameCard extends Component {
           card.type !== 'Container' && played &&
           <div className="upgrades-wrapper">
             <CardUpgradeButton
-              upgradeLevel={1}
+              upgradeLevel={card.level}
               handleUpgrade={() => {}}
               canUpgrade
               dropDownContent="test content"
@@ -179,7 +179,7 @@ class IngameCard extends Component {
           {
             card.type !== 'Container' && played &&
             <div className="stacked-number">
-              <span>1</span>
+              <span>{card.stackedCards.length}</span>
               <StackIcon />
             </div>
           }
