@@ -12,25 +12,25 @@
         "asset"
       ],
       "rarityScore": "300",
-      "mechanicsText": "Well, you gotta start somewhere...",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "Well, you gotta start somewhere...",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(100)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
         "space": 40,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(15, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "1": {
@@ -45,25 +45,25 @@
         "asset"
       ],
       "rarityScore": "225",
-      "mechanicsText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I better not catch any of you running mining equipement in the kitchen, you hear!",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(250)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
         "space": 60,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(3, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "2": {
@@ -78,25 +78,25 @@
         "asset"
       ],
       "rarityScore": "325",
-      "mechanicsText": "I love the smell of damp mould in the morning...",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I love the smell of damp mould in the morning...",
       "cost": {
         "level": 2,
-        "funds": "formula",
+        "funds": "assetFundsCost(600)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
         "space": 80,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(30, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "3": {
@@ -111,25 +111,25 @@
         "asset"
       ],
       "rarityScore": "300",
-      "mechanicsText": "The rent is not a problem, we spend all our money on overpriced lattes!",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "The rent is not a problem, we spend all our money on overpriced lattes!",
       "cost": {
         "level": 4,
-        "funds": "formula",
+        "funds": "assetFundsCost(2500)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
         "space": 120,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(25, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "4": {
@@ -144,25 +144,25 @@
         "asset"
       ],
       "rarityScore": "275",
-      "mechanicsText": "I swear, one day these things are going to run themselves.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I swear, one day these things are going to run themselves.",
       "cost": {
         "level": 8,
-        "funds": "formula",
+        "funds": "assetFundsCost(15000)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
         "space": 160,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(80, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "5": {
@@ -177,25 +177,25 @@
         "asset"
       ],
       "rarityScore": "200",
-      "mechanicsText": "This used to be a bank HQ. But times have changed.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "This used to be a bank HQ. But times have changed.",
       "cost": {
         "level": 12,
-        "funds": "formula",
+        "funds": "assetFundsCost(40000)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
         "space": 210,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(80, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "6": {
@@ -211,16 +211,16 @@
         "gpu"
       ],
       "rarityScore": "875",
-      "mechanicsText": "A non-transparent PC. How quaint.",
-      "flavorText": "",
+      "mechanicsText": "Can contain up to 2 CPUs or GPUs.",
+      "flavorText": "A non-transparent PC. How quaint.",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(10)",
         "space": 10,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
@@ -228,8 +228,8 @@
         "containerSpace": 2,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "7": {
@@ -245,16 +245,16 @@
         "gpu"
       ],
       "rarityScore": "875",
-      "mechanicsText": "How this thing is holding together is anybody's guess...",
-      "flavorText": "",
+      "mechanicsText": "Can contain up to 6 GPUs.",
+      "flavorText": "How this thing is holding together is anybody's guess...",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(20)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
@@ -262,8 +262,8 @@
         "containerSpace": 6,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "8": {
@@ -278,16 +278,16 @@
         "asic"
       ],
       "rarityScore": "850",
-      "mechanicsText": "It's basically a glorified fridge. With shiny buttons.",
-      "flavorText": "",
+      "mechanicsText": "Can contain up to 6 ASIC miners.",
+      "flavorText": "It's basically a glorified fridge. With shiny buttons.",
       "cost": {
         "level": 4,
-        "funds": "formula",
+        "funds": "assetFundsCost(125)",
         "space": 30,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
@@ -295,8 +295,8 @@
         "containerSpace": 6,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "9": {
@@ -309,16 +309,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "1000",
-      "mechanicsText": "I remember when we started off, we didn't have two cycles to rub together...",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I remember when we started off, we didn't have two cycles to rub together...",
       "cost": {
         "level": 1,
         "funds": 0,
         "space": 0,
         "containerSpace": 1,
-        "power": "formula",
+        "power": "linear(3, 'power', 'cost')",
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -326,8 +326,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(1, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "10": {
@@ -340,16 +340,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "950",
-      "mechanicsText": "Legend says that these were used to play the mighty video games of old...",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "Legend says that these were used to play the mighty video games of old...",
       "cost": {
         "level": 1,
         "funds": 0,
         "space": 0,
         "containerSpace": 1,
-        "power": "formula",
+        "power": "linear(3, 'power', 'cost')",
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -357,8 +357,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(3, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "11": {
@@ -371,16 +371,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "925",
-      "mechanicsText": "A truly efficient miner, from a more profitable age.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "A truly efficient miner, from a more profitable age.",
       "cost": {
         "level": 4,
         "funds": 0,
         "space": 0,
         "containerSpace": 1,
-        "power": "formula",
+        "power": "linear(20, 'power', 'cost')",
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -388,8 +388,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(40, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "12": {
@@ -402,25 +402,25 @@
       ],
       "acceptedTags": [],
       "rarityScore": "1000",
-      "mechanicsText": "I have no idea what I'm doing...",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I have no idea what I'm doing...",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(15)",
         "space": 10,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(2, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "13": {
@@ -433,25 +433,25 @@
       ],
       "acceptedTags": [],
       "rarityScore": "975",
-      "mechanicsText": "It's not about how long you have been in the game, but how smart you are playing.",
-      "flavorText": "",
+      "mechanicsText": "Dev doubled if a Senior Developer is present.",
+      "flavorText": "It's not about how long you have been in the game, but how smart you are playing.",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(50)",
         "space": 10,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(3, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "14": {
@@ -464,25 +464,25 @@
       ],
       "acceptedTags": [],
       "rarityScore": "950",
-      "mechanicsText": "You've just hired me for exactly 14.5 seconds. How can I help?",
-      "flavorText": "",
+      "mechanicsText": "This card has 30% less Dev for each Freelance Consultant also present.",
+      "flavorText": "You've just hired me for exactly 14.5 seconds. How can I help?",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(400)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(25, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "15": {
@@ -495,30 +495,30 @@
       ],
       "acceptedTags": [],
       "rarityScore": "900",
-      "mechanicsText": "I remember the old days: The DAO hack, Parity wallet bug, optimizing around gas limits... You kids today have it easy.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I remember the old days: The DAO hack, Parity wallet bug, optimizing around gas limits... You kids today have it easy.",
       "cost": {
         "level": 4,
-        "funds": "formula",
+        "funds": "assetFundsCost(300)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(40, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "16": {
       "name": "Technical Team Leader",
-      "image": "technical-team leader.jpg",
+      "image": "technical-team-leader.jpg",
       "type": "Person",
       "subType": "Developer Bonus",
       "tags": [
@@ -526,25 +526,25 @@
       ],
       "acceptedTags": [],
       "rarityScore": "700",
-      "mechanicsText": "The strength of the team is in its members. The strength of each member is in the team.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "The strength of the team is in its members. The strength of each member is in the team.",
       "cost": {
         "level": 8,
-        "funds": "formula",
+        "funds": "assetFundsCost(1000)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(7, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "17": {
@@ -557,30 +557,30 @@
       ],
       "acceptedTags": [],
       "rarityScore": "325",
-      "mechanicsText": "Silence! Do not disturb my thinking! We have a future to build.",
-      "flavorText": "",
+      "mechanicsText": "Bonus doubled when there's 5 other Developers present. (In this case, this guy's Global Dev Increase is doubled)",
+      "flavorText": "Silence! Do not disturb my thinking! We have a future to build.",
       "cost": {
         "level": 8,
-        "funds": "formula",
+        "funds": "assetFundsCost(50000)",
         "space": 40,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(128, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "18": {
       "name": "Black Hat Hacker",
-      "image": "black-hat hacker.jpg",
+      "image": "black-hat-hacker.jpg",
       "type": "Person",
       "subType": "Funds Each Block Bonus",
       "tags": [
@@ -588,25 +588,25 @@
       ],
       "acceptedTags": [],
       "rarityScore": "725",
-      "mechanicsText": "Code is law. And I break the code.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "Code is law. And I break the code.",
       "cost": {
         "level": 4,
-        "funds": "formula",
+        "funds": "assetFundsCost(1000)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "development": "linear(32, 'Dev', 'gain')",
+        "fundsPerBlock": "linear(64, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "19": {
@@ -619,30 +619,30 @@
       ],
       "acceptedTags": [],
       "rarityScore": "950",
-      "mechanicsText": "Free power, free people!",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "Free power, free people!",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(50)",
         "space": 10,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(5, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "20": {
       "name": "Black Market Batteries",
-      "image": "black-market batteries.jpg",
+      "image": "black-market-batteries.jpg",
       "type": "Power",
       "subType": "Power",
       "tags": [
@@ -650,30 +650,30 @@
       ],
       "acceptedTags": [],
       "rarityScore": "900",
-      "mechanicsText": "This thing gives you so much power for a low price. I guess some would say it is... overpowered.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "This thing gives you so much power for a low price. I guess some would say it is... overpowered.",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(800)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(15, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "21": {
       "name": "DIY Power Generator",
-      "image": "diy-power generator.jpg",
+      "image": "diy-power-generator.jpg",
       "type": "Power",
       "subType": "Power",
       "tags": [
@@ -681,25 +681,25 @@
       ],
       "acceptedTags": [],
       "rarityScore": "700",
-      "mechanicsText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
-      "flavorText": "",
+      "mechanicsText": "Power increased by 10% for each Hardware Tinkerer present.",
+      "flavorText": "We hacked this together from 3D printed parts and retired Chinese tech. It's only slightly radioactive.",
       "cost": {
         "level": 6,
-        "funds": "formula",
+        "funds": "assetFundsCost(5000)",
         "space": 40,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(60, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "22": {
@@ -712,16 +712,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "100",
-      "mechanicsText": "GRIDCONEEEEEEEEECT!",
-      "flavorText": "",
+      "mechanicsText": "Gain {Fuinds Per Block} FUND per block for each unit of unspent POWER at Location.",
+      "flavorText": "GRIDCONEEEEEEEEECT!",
       "cost": {
         "level": 8,
-        "funds": "formula",
+        "funds": "assetFundsCost(1000)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -729,13 +729,13 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(0.1, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "23": {
       "name": "Coffee Machine Miner",
-      "image": "coffee-machine miner.jpg",
+      "image": "coffee-machine-miner.jpg",
       "type": "Misc",
       "subType": "Developer Booster",
       "tags": [
@@ -743,16 +743,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "625",
-      "mechanicsText": "Make money by grinding sweet sweet coffee... Truly mankind's greatest invention.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "Make money by grinding sweet sweet coffee... Truly mankind's greatest invention.",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(250)",
         "space": 10,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -760,8 +760,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(4, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "24": {
@@ -774,8 +774,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "1000",
-      "mechanicsText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
-      "flavorText": "",
+      "mechanicsText": "Gives (a smaller amount) of Funds.",
+      "flavorText": "Making money from day trading is easy - just buy high and sell low... Or was it the other way around?",
       "cost": {
         "level": 1,
         "funds": 0,
@@ -783,7 +783,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 3
       },
       "bonus": {
         "funds": 1,
@@ -791,8 +791,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "25": {
@@ -805,8 +805,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "975",
-      "mechanicsText": "Hey, this isn't what I signed up for!",
-      "flavorText": "",
+      "mechanicsText": "Takes Dev. Gives Funds.",
+      "flavorText": "Hey, this isn't what I signed up for!",
       "cost": {
         "level": 2,
         "funds": 0,
@@ -814,7 +814,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 15
       },
       "bonus": {
         "funds": 4,
@@ -822,8 +822,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "26": {
@@ -836,8 +836,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "950",
-      "mechanicsText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
-      "flavorText": "",
+      "mechanicsText": "Costs Funds, takes Dev. Gives FPB.",
+      "flavorText": "Dude, it's a provably fair system... It is guaranteed to make us money!",
       "cost": {
         "level": 4,
         "funds": 0,
@@ -845,7 +845,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 1000
       },
       "bonus": {
         "funds": 0,
@@ -853,13 +853,13 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 50,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 50,
+        "experience": 0
       }
     },
     "27": {
       "name": "Mining Algorithm Optimization",
-      "image": "mining-algorithm optimization.jpg",
+      "image": "mining-algorithm-optimization.jpg",
       "type": "Project",
       "subType": "Funds from FPB and Boost Global FPB",
       "tags": [
@@ -867,8 +867,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "925",
-      "mechanicsText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
-      "flavorText": "",
+      "mechanicsText": "Costs Funds, takes Dev. Increases Mining Rigs FPB.",
+      "flavorText": "We keep pointlessly messing with the hardware, that makes hashing EVEN MORE random!",
       "cost": {
         "level": 4,
         "funds": 0,
@@ -876,7 +876,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 2400
       },
       "bonus": {
         "funds": 0,
@@ -884,13 +884,13 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "28": {
       "name": "Initial Coin Offering",
-      "image": "initial-coin offering.jpg",
+      "image": "initial-coin-offering.jpg",
       "type": "Project",
       "subType": "Pure Funds from Dev",
       "tags": [
@@ -898,8 +898,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "875",
-      "mechanicsText": "Nobody could have predicted the rise of prediction markets.",
-      "flavorText": "",
+      "mechanicsText": "Costs Funds, takes Dev. Lasts long.",
+      "flavorText": "Nobody could have predicted the rise of prediction markets.",
       "cost": {
         "level": 6,
         "funds": 0,
@@ -907,7 +907,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 1800
       },
       "bonus": {
         "funds": 6,
@@ -915,13 +915,13 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "29": {
       "name": "Rent Computing Power",
-      "image": "rent-computing power.jpg",
+      "image": "rent-computing-power.jpg",
       "type": "Project",
       "subType": "Funds from Mining Rig Level and Global Mining Rig Upgrade Cost Decrease",
       "tags": [
@@ -929,8 +929,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "850",
-      "mechanicsText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
-      "flavorText": "",
+      "mechanicsText": "Takes Dev. Gives Funds for each Mining Rig Level. If the user has 3 mining rigs levels 20, 70, 85 - Funds given = 175 * Funds Per Block",
+      "flavorText": "What was the name of the company that used to do this... I can't remember it's a little cloudy.",
       "cost": {
         "level": 8,
         "funds": 0,
@@ -938,7 +938,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 500
       },
       "bonus": {
         "funds": 0,
@@ -946,13 +946,13 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 4,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 4,
+        "experience": 0
       }
     },
     "31": {
       "name": "Decentralized Protocol Development",
-      "image": "decentralized-protocol development.jpg",
+      "image": "decentralized-protocol-development.jpg",
       "type": "Project",
       "subType": "Funds from Project Level and Project Time Decrease",
       "tags": [
@@ -960,8 +960,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "625",
-      "mechanicsText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
-      "flavorText": "",
+      "mechanicsText": "Costs Funds. Takes Dev. Decreases Project completion time.",
+      "flavorText": "It's not just a protocol exchange platform, it's a protocol exchange platform FRAMEWORK!",
       "cost": {
         "level": 10,
         "funds": 0,
@@ -969,7 +969,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 3000
       },
       "bonus": {
         "funds": 0,
@@ -977,8 +977,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "33": {
@@ -991,16 +991,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "850",
-      "mechanicsText": "Foundation holo-tech. Shiny!",
-      "flavorText": "",
+      "mechanicsText": "Increses FPB of the whole Mining Container by 40%.",
+      "flavorText": "Foundation holo-tech. Shiny!",
       "cost": {
         "level": 1,
         "funds": 0,
         "space": 0,
         "containerSpace": 1,
-        "power": "formula",
+        "power": "linear(4, 'power', 'cost')",
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1008,8 +1008,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(5, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "34": {
@@ -1022,16 +1022,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "850",
-      "mechanicsText": "The Corporates use these to render new VR advertising - we use it to make money.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "The Corporates use these to render new VR advertising - we use it to make money.",
       "cost": {
         "level": 1,
         "funds": 0,
         "space": 0,
         "containerSpace": 2,
-        "power": "formula",
+        "power": "linear(20, 'power', 'cost')",
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1039,13 +1039,13 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(15, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "35": {
       "name": "3D Printed GPU",
-      "image": "3d-printed gpu.jpg",
+      "image": "3d-printed-gpu.jpg",
       "type": "Mining",
       "subType": "GPU Mining",
       "tags": [
@@ -1053,16 +1053,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "1000",
-      "mechanicsText": "Home made. It MOSTLY works.",
-      "flavorText": "",
+      "mechanicsText": "Increses FPB of the whole Mining Container by 25%.",
+      "flavorText": "Home made. It MOSTLY works.",
       "cost": {
         "level": 1,
         "funds": 0,
         "space": 0,
         "containerSpace": 2,
-        "power": "formula",
+        "power": "linear(4, 'power', 'cost')",
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1070,13 +1070,13 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(4, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "36": {
       "name": "White Hat Hacker",
-      "image": "white-hat hacker.jpg",
+      "image": "white-hat-hacker.jpg",
       "type": "Person",
       "subType": "",
       "tags": [
@@ -1084,30 +1084,30 @@
       ],
       "acceptedTags": [],
       "rarityScore": "900",
-      "mechanicsText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
-      "flavorText": "",
+      "mechanicsText": "Multiply Dev by number of WHH cards in game.",
+      "flavorText": "I look for security holes and plug them. Guess you could say I put the EX in exploit.",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(400)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(5, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "37": {
       "name": "Prediction Market Participation",
-      "image": "prediction-market participation.jpg",
+      "image": "prediction-market-participation.jpg",
       "type": "Project",
       "subType": "Funds from Location Levels and Global Upgrade Cost Decrease",
       "tags": [
@@ -1115,8 +1115,8 @@
       ],
       "acceptedTags": [],
       "rarityScore": "900",
-      "mechanicsText": "Nobody could have predicted the rise of prediction markets.",
-      "flavorText": "",
+      "mechanicsText": "Costs Funds, takes Dev. Lasts short.",
+      "flavorText": "Nobody could have predicted the rise of prediction markets.",
       "cost": {
         "level": 6,
         "funds": 0,
@@ -1124,7 +1124,7 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 30
       },
       "bonus": {
         "funds": 9,
@@ -1132,8 +1132,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "38": {
@@ -1148,30 +1148,30 @@
         "asset"
       ],
       "rarityScore": "150",
-      "mechanicsText": "Lambo parking? Check. Helipad? Check. We'll take it!",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "Lambo parking? Check. Helipad? Check. We'll take it!",
       "cost": {
         "level": 16,
-        "funds": "formula",
+        "funds": "assetFundsCost(100000)",
         "space": 0,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "values": {
         "funds": 0,
         "space": 240,
         "containerSpace": 0,
-        "power": "formula",
+        "power": "linear(240, 'power', 'gain')",
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "39": {
       "name": "Corporate Efficiency Officer",
-      "image": "corporate-efficiency officer.jpg",
+      "image": "corporate-efficiency-officer.jpg",
       "type": "Person",
       "subType": "Cost Decrease",
       "tags": [
@@ -1179,16 +1179,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "650",
-      "mechanicsText": "I detected a .62% decrease in productivity today - but it's nothing a little unpaid overtime can't fix.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I detected a .62% decrease in productivity today - but it's nothing a little unpaid overtime can't fix.",
       "cost": {
         "level": 6,
-        "funds": "formula",
+        "funds": "assetFundsCost(1500)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1196,8 +1196,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "40": {
@@ -1210,16 +1210,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "600",
-      "mechanicsText": "You may call our conduct unethical. I call it effective.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "You may call our conduct unethical. I call it effective.",
       "cost": {
         "level": 8,
-        "funds": "formula",
+        "funds": "assetFundsCost(40000)",
         "space": 40,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1227,8 +1227,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "41": {
@@ -1241,16 +1241,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "750",
-      "mechanicsText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "Ah, a classic reverse wedge double dip testing the support line with a bullish triangle following. The market may go up or down.",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(1500)",
         "space": 20,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1258,8 +1258,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(40, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "42": {
@@ -1272,16 +1272,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "600",
-      "mechanicsText": "I give rumors out for free. It's the facts that I sell.",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "I give rumors out for free. It's the facts that I sell.",
       "cost": {
         "level": 4,
-        "funds": "formula",
+        "funds": "assetFundsCost(2000)",
         "space": 10,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1289,8 +1289,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     },
     "43": {
@@ -1303,16 +1303,16 @@
       ],
       "acceptedTags": [],
       "rarityScore": "325",
-      "mechanicsText": "Gee, whatever happened to the company that came up with this idea?",
-      "flavorText": "",
+      "mechanicsText": "Gain {Funds Per Block} FUND per block for each unit of unspent SPACE at location.",
+      "flavorText": "Gee, whatever happened to the company that came up with this idea?",
       "cost": {
         "level": 8,
-        "funds": "formula",
+        "funds": "assetFundsCost(1000)",
         "space": 40,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
@@ -1320,8 +1320,8 @@
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "experience": "formula",
-        "fundsPerBlock": "formula"
+        "fundsPerBlock": "linear(10, 'FPB', 'gain')",
+        "experience": 0
       }
     },
     "44": {
@@ -1334,25 +1334,25 @@
       ],
       "acceptedTags": [],
       "rarityScore": "600",
-      "mechanicsText": "He's a great guy - just don't let him near the coffee machine again...",
-      "flavorText": "",
+      "mechanicsText": "",
+      "flavorText": "He's a great guy - just don't let him near the coffee machine again...",
       "cost": {
         "level": 1,
-        "funds": "formula",
+        "funds": "assetFundsCost(6000)",
         "space": 30,
         "containerSpace": 0,
         "power": 0,
         "development": 0,
-        "time": 1
+        "time": 0
       },
       "bonus": {
         "funds": 0,
         "space": 0,
         "containerSpace": 0,
         "power": 0,
-        "development": "formula",
-        "experience": 0,
-        "fundsPerBlock": "formula"
+        "development": "linear(16, 'Dev', 'gain')",
+        "fundsPerBlock": 0,
+        "experience": 0
       }
     }
   }
