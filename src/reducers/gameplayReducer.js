@@ -19,6 +19,7 @@ import {
   GENERATE_NEW_GAMEPLAY,
   RESTART_PROJECT,
   GET_ACCOUNT_SUCCESS,
+  UPGRADE_ASSET,
 } from '../actions/actionTypes';
 import { saveGameplayState } from '../services/utils';
 import Gameplay from '../classes/Gameplay';
@@ -37,6 +38,7 @@ const switchState = (state, action) => {
       });
 
     case DROP_ASSET:
+    case UPGRADE_ASSET:
     case LOAD_STATE_FROM_STORAGE:
     case GENERATE_NEW_GAMEPLAY:
     case RESTART_PROJECT:

@@ -42,6 +42,8 @@ export const RESTART_PROJECT = 'restart_project';
 export const DROP_LOCATION = 'drop_location';
 export const DROP_ASSET = 'drop_asset';
 
+export const UPGRADE_ASSET = 'UPGRADE_ASSET';
+
 export const SET_ACTIVE_LOCATION = 'set_active_location';
 export const LOAD_STATE_FROM_STORAGE = 'load_state_from_storage';
 export const CHANGE_GAMEPLAY_VIEW = 'change_gameplay_view';

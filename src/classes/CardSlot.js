@@ -1,5 +1,6 @@
 import serialise from 'serialijse';
 import ContainerCard from './cardTypes/Container';
+import { calculateLevelData } from '../services/gameMechanicsService';
 
 function getAllSlottedCards(card, slotted) {
   card.dropSlots.forEach((slot) => {
@@ -48,10 +49,21 @@ export default class CardSlot {
     return this.card.onPlay(state, this, reSlotted);
   }
 
-  upgradeCard(_state, card) {
-    // Here deduct card funds cost from global funds
-    // Remember: Upgrading gives Exp proportional to cost
-    const leveledUp = card.levelUp(_state);
+  upgradeCard(_state) {
+    const state = _state;
+    const leveledUp = this.card.levelUp(_state);
+
+    state.stats.experience += leveledUp.cost.funds;
+
+    state.stats = {
+      ...state.stats,
+      ...calculateLevelData(state.stats.experience),
+      funds: state.stats.funds - leveledUp.calcUpgradeDiscount(leveledUp.cost.funds),
+    };
+
+    this.card = leveledUp;
+
+    return state;
   }
 
   removeCard(_state, isLevelUp = false) {

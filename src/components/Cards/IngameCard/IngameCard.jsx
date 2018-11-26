@@ -9,6 +9,7 @@ import MagnifyingGlassCardIcon from '../../Decorative/MagnifyingGlassCardIcon';
 import InfoCardIcon from '../../Decorative/InfoCardIcon';
 import { openConfirmRemoveModal } from '../../../actions/modalActions';
 import { removeNewCardOnHover } from '../../../actions/removeCardActions';
+import { handleAssetUpgrade } from '../../../actions/dropActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
@@ -33,7 +34,7 @@ class IngameCard extends Component {
     const {
       card, showCount, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      removeNewCardOnHover, canLevelUp, gameplay, dragItem,
+      removeNewCardOnHover, canLevelUp, gameplay, handleAssetUpgrade,
     } = this.props;
 
     const uniqueId = guid();
@@ -64,8 +65,12 @@ class IngameCard extends Component {
           <div className="upgrades-wrapper">
             <CardUpgradeButton
               upgradeLevel={card.level}
-              handleUpgrade={() => {}}
-              canUpgrade={canUpgrade}
+              handleUpgrade={() => {
+                if (!slot) return;
+
+                handleAssetUpgrade(slot);
+              }}
+              canUpgrade={slot && canUpgrade}
               dropDownContent="test content"
             />
           </div>
@@ -267,7 +272,6 @@ IngameCard.defaultProps = {
   slot: null,
   draggingCard: false,
   costErrors: null,
-  dragItem: null,
 };
 
 IngameCard.propTypes = {
@@ -290,17 +294,17 @@ IngameCard.propTypes = {
   canRemove: PropTypes.bool,
   costErrors: PropTypes.object,
   removeNewCardOnHover: PropTypes.func.isRequired,
+  handleAssetUpgrade: PropTypes.func.isRequired,
   canLevelUp: PropTypes.bool.isRequired,
   gameplay: PropTypes.object.isRequired,
-  dragItem: PropTypes.object,
 };
 
-const mapStateToProps = ({ app, }) => ({
+const mapStateToProps = ({ app }) => ({
   draggingCard: app.draggingCard,
 });
 
 const mapDispatchToProps = {
-  openConfirmRemoveModal, removeNewCardOnHover,
+  openConfirmRemoveModal, removeNewCardOnHover, handleAssetUpgrade,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngameCard);

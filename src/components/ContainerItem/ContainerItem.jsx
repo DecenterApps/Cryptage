@@ -42,7 +42,6 @@ class ContainerItem extends Component {
         }
         <IngameCard
           gameplay={gameplay}
-          dragItem={dragItem}
           canLevelUp={canLevelUp}
           showCount={false}
           played

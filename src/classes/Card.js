@@ -232,7 +232,7 @@ export default class Card extends Subscriber {
     const instance = Card.getLeveledInstance(state, this.id, this);
     if (!instance.cost) return { allowed: false, noNextLevel: false };
 
-    result.allowed = state.stats.funds >= instance.calcUpgradeDiscount(instance.getBonusStatValue('funds'));
+    result.allowed = state.stats.funds >= instance.calcUpgradeDiscount(instance.cost.funds);
 
     if (!result.allowed) return result;
 
@@ -246,7 +246,6 @@ export default class Card extends Subscriber {
     leveledUp.additionalData = this.additionalData;
     leveledUp.additionalBonuses = this.additionalBonuses;
     leveledUp.events = this.events;
-    leveledUp.stackedCards = this.stackedCards.concat(this);
 
     leveledUp.dropSlots.forEach((_cardSlot) => {
       const cardSlot = _cardSlot;
