@@ -50,6 +50,7 @@ export default class CardSlot {
   }
 
   upgradeCard(_state) {
+    // maybe will be needed to drop card again
     const state = _state;
     const leveledUp = this.card.levelUp(_state);
 

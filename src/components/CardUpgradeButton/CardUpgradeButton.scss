@@ -82,5 +82,42 @@
     background-size: 2px 100%;
     background-position: 0 0, 100% 0;
     background-repeat: no-repeat;
+
+    .can-upgrade {
+      font-size: 11px;
+      line-height: 17px;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+
+      .heading {
+        margin-bottom: 6px;
+      }
+
+      .sum-wrapper {
+        display: flex;
+        align-items: center;
+
+        .bonus-cost-icon {
+          margin-right: 6px;
+        }
+
+        .data {
+
+          .price, .label {
+            display: flex;
+            height: 11px;
+            align-items: center;
+          }
+
+          .price {
+            margin-bottom: 2px;
+          }
+
+          .label {
+            color: #6F6F71;
+          }
+        }
+      }
+    }
   }
 }

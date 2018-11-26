@@ -64,6 +64,8 @@ class IngameCard extends Component {
           card.type !== 'Container' && played &&
           <div className="upgrades-wrapper">
             <CardUpgradeButton
+              gameplay={gameplay}
+              card={card}
               upgradeLevel={card.level}
               handleUpgrade={() => {
                 if (!slot) return;
@@ -71,7 +73,6 @@ class IngameCard extends Component {
                 handleAssetUpgrade(slot);
               }}
               canUpgrade={slot && canUpgrade}
-              dropDownContent="test content"
             />
           </div>
         }
