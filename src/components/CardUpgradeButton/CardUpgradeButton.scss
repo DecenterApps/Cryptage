@@ -33,7 +33,11 @@
     &:disabled {
       cursor: not-allowed;
       box-shadow: none;
-      color: $gray;
+      background: #B3B3B3;
+
+      &:hover {
+        background: #B3B3B3;
+      }
     }
 
     .triangle {

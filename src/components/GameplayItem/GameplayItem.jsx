@@ -98,6 +98,8 @@ class GameplayItem extends Component {
             }
 
             <IngameCard
+              gameplay={gameplay}
+              dragItem={dragItem}
               canLevelUp={canLevelUp}
               showCount={false}
               card={card}
@@ -119,6 +121,8 @@ class GameplayItem extends Component {
 
             <IngameCard
               goToContainer={() => { this.goToContainer(isContainer); }}
+              gameplay={gameplay}
+              dragItem={dragItem}
               showCount={false}
               card={card}
               canLevelUp={canDropMiner}

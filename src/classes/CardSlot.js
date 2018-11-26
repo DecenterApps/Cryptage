@@ -32,8 +32,6 @@ export default class CardSlot {
       });
 
       this.card.stackedCards = [...this.card.stackedCards, ...card.stackedCards];
-      // TODO Add stacked cards discount for upgrade
-      // return newCard.changeBonuses()
 
       return _state;
     }
@@ -48,6 +46,12 @@ export default class CardSlot {
 
     state = state.playTurn(state, this, true);
     return this.card.onPlay(state, this, reSlotted);
+  }
+
+  upgradeCard(_state, card) {
+    // Here deduct card funds cost from global funds
+    // Remember: Upgrading gives Exp proportional to cost
+    const leveledUp = card.levelUp(_state);
   }
 
   removeCard(_state, isLevelUp = false) {
@@ -78,7 +82,7 @@ export default class CardSlot {
       return card.canPlay(state, this);
     }
 
-    return this.card.canLevelUp(state, card);
+    return { allowed: true };
   }
 
   isEmpty() {

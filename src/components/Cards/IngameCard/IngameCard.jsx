@@ -33,12 +33,13 @@ class IngameCard extends Component {
     const {
       card, showCount, played, remainingSlots, goToContainer, openConfirmRemoveModal,
       locationIndex, containerIndex, slot, containerSlotIndex, draggingCard, canRemove, costErrors,
-      removeNewCardOnHover, canLevelUp,
+      removeNewCardOnHover, canLevelUp, gameplay, dragItem,
     } = this.props;
 
     const uniqueId = guid();
     const typeColor = typeGradients[card.type.toLowerCase()][0];
     const borderColor = classForRarity(card.rarityScore) !== 'normal' ? typeColor : '#9797FB';
+    const canUpgrade = card.canLevelUp(gameplay).allowed;
 
     return (
       <div
@@ -64,7 +65,7 @@ class IngameCard extends Component {
             <CardUpgradeButton
               upgradeLevel={card.level}
               handleUpgrade={() => {}}
-              canUpgrade
+              canUpgrade={canUpgrade}
               dropDownContent="test content"
             />
           </div>
@@ -266,6 +267,7 @@ IngameCard.defaultProps = {
   slot: null,
   draggingCard: false,
   costErrors: null,
+  dragItem: null,
 };
 
 IngameCard.propTypes = {
@@ -289,9 +291,11 @@ IngameCard.propTypes = {
   costErrors: PropTypes.object,
   removeNewCardOnHover: PropTypes.func.isRequired,
   canLevelUp: PropTypes.bool.isRequired,
+  gameplay: PropTypes.object.isRequired,
+  dragItem: PropTypes.object,
 };
 
-const mapStateToProps = ({ app }) => ({
+const mapStateToProps = ({ app, }) => ({
   draggingCard: app.draggingCard,
 });
 

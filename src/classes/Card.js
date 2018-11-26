@@ -214,34 +214,39 @@ export default class Card extends Subscriber {
     return this._on('block', state, blockCount);
   }
 
-  canLevelUp(state, draggedCard) {
+  calcUpgradeDiscount(cost) {
+    if (this.stackedCards.length === 1) return cost;
+
+    const discount = Math.floor(cost * (0.2 + (0.8 / (1 + (0.4 * (this.stackedCards.length - 1))))));
+
+    return cost - discount;
+  }
+
+  canLevelUp(state) {
     const result = {
-      allowed: draggedCard.metadataId === this.metadataId && this.level < 5,
+      allowed: this.level < 1000,
     };
 
     if (!result.allowed) return result;
 
-    const instance = Card.getLeveledInstance(state, this.id, draggedCard);
+    const instance = Card.getLeveledInstance(state, this.id, this);
     if (!instance.cost) return { allowed: false, noNextLevel: false };
 
-    result.allowed = state.stats.funds >= instance.cost.funds;
+    result.allowed = state.stats.funds >= instance.calcUpgradeDiscount(instance.getBonusStatValue('funds'));
 
     if (!result.allowed) return result;
 
-    return Object.assign(result, this._can('canLevelUp', state, draggedCard));
+    return Object.assign(result, this._can('canLevelUp', state));
   }
 
-  levelUp(state, dropSlot) {
-    // this === dragged card
-    const droppedCard = dropSlot.card;
-
-    const leveledUp = Card.getLeveledInstance(state, this.id, droppedCard);
-    leveledUp.dropSlots = droppedCard.dropSlots;
-    leveledUp.timesFinished = droppedCard.timesFinished;
-    leveledUp.additionalData = droppedCard.additionalData;
-    leveledUp.additionalBonuses = droppedCard.additionalBonuses;
-    leveledUp.events = droppedCard.events;
-    leveledUp.stackedCards = droppedCard.stackedCards.concat(this);
+  levelUp(state) {
+    const leveledUp = Card.getLeveledInstance(state, this.id, this);
+    leveledUp.dropSlots = this.dropSlots;
+    leveledUp.timesFinished = this.timesFinished;
+    leveledUp.additionalData = this.additionalData;
+    leveledUp.additionalBonuses = this.additionalBonuses;
+    leveledUp.events = this.events;
+    leveledUp.stackedCards = this.stackedCards.concat(this);
 
     leveledUp.dropSlots.forEach((_cardSlot) => {
       const cardSlot = _cardSlot;

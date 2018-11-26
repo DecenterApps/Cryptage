@@ -41,6 +41,8 @@ class ContainerItem extends Component {
           <div className="fpb">+ { formattedNumber(fpb) } { fpb === 1 ? 'FUND' : 'FUNDS' }</div>
         }
         <IngameCard
+          gameplay={gameplay}
+          dragItem={dragItem}
           canLevelUp={canLevelUp}
           showCount={false}
           played
