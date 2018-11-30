@@ -6,6 +6,7 @@ import { isLocationCard } from './matchers';
 import { registerCardTypeConstructor, getCardTypeConstructor, setDefaultCardType } from './Registry';
 import Subscriber from './Subscriber';
 import ethereumService from '../services/ethereumService';
+import { calculateLevelData, getMilestoneLevel } from '../services/gameMechanicsService';
 
 export default class Card extends Subscriber {
   static async getInstance(state, id, level = 1, _metadataId = null) {
@@ -52,6 +53,8 @@ export default class Card extends Subscriber {
     this.active = false;
     this.parent = null;
     this.additionalData = {};
+    this.upgradeExpiryTime = null;
+    this.upgradeFinished = false;
 
     this.additionalBonuses = {
       funds: { absolute: 0, relative: 0 },
@@ -75,6 +78,7 @@ export default class Card extends Subscriber {
         Mechanic.getInstance('bonus', this, ['development']),
         Mechanic.getInstance('bonus', this, ['experience']),
         Mechanic.getInstance('bonus', this, ['fundsPerBlock']),
+        Mechanic.getInstance('upgradeMechanic', this),
       ]);
   }
 
@@ -164,6 +168,7 @@ export default class Card extends Subscriber {
     this.withdrawing = true;
     let newState = this._on('onWithdraw', state);
 
+    this.level = 1;
     this.additionalBonuses = {
       funds: { absolute: 0, relative: 0 },
       development: { absolute: 0, relative: 0 },
@@ -191,6 +196,7 @@ export default class Card extends Subscriber {
     this.stackedCards = [this];
 
     this.withdrawing = false;
+
     return newState;
   }
 
@@ -219,6 +225,7 @@ export default class Card extends Subscriber {
 
     const discount = Math.floor(cost * (0.2 + (0.8 / (1 + (0.4 * (this.stackedCards.length - 1))))));
 
+    // TODO check this
     return cost - discount;
   }
 
@@ -239,13 +246,14 @@ export default class Card extends Subscriber {
     return Object.assign(result, this._can('canLevelUp', state));
   }
 
-  levelUp(state) {
+  getLeveledInstance(state) {
     const leveledUp = Card.getLeveledInstance(state, this.id, this);
     leveledUp.dropSlots = this.dropSlots;
     leveledUp.timesFinished = this.timesFinished;
     leveledUp.additionalData = this.additionalData;
     leveledUp.additionalBonuses = this.additionalBonuses;
     leveledUp.events = this.events;
+    leveledUp.mechanics = this.mechanics;
 
     leveledUp.dropSlots.forEach((_cardSlot) => {
       const cardSlot = _cardSlot;
@@ -259,6 +267,33 @@ export default class Card extends Subscriber {
     // optional add on level up || add on child level up
 
     return leveledUp;
+  }
+
+  levelUp(_state) {
+    const state = _state;
+    const milestoneLevel = getMilestoneLevel(this.level + 1);
+
+    if (!this.upgradeFinished && milestoneLevel) {
+      this.upgradeExpiryTime = state.blockNumber + milestoneLevel.delay;
+
+      return state;
+    }
+
+    // maybe will be needed to drop card again
+    const leveledUp = this.getLeveledInstance(state);
+    leveledUp.upgradeFinished = false;
+
+    state.stats.experience += leveledUp.cost.funds;
+
+    state.stats = {
+      ...state.stats,
+      ...calculateLevelData(state.stats.experience),
+      funds: state.stats.funds - leveledUp.calcUpgradeDiscount(leveledUp.cost.funds),
+    };
+
+    Object.assign(this, leveledUp);
+
+    return state;
   }
 }
 

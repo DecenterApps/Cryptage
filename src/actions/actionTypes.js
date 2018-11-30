@@ -94,3 +94,15 @@ export const rarities = {
   purple: '#9B01C1',
   gold: '#FF9D14',
 };
+
+export const MILESTONE_LEVELS = [
+  { level: 10, delay: 2, stacks: 1 },
+  { level: 25, delay: 9, stacks: 2 },
+  { level: 50, delay: 129, stacks: 3 },
+  { level: 100, delay: 771, stacks: 4 },
+  { level: 200, delay: 2057, stacks: 5 },
+  { level: 300, delay: 6171, stacks: 6 },
+  { level: 400, delay: 12342, stacks: 7 },
+  { level: 800, delay: 18514, stacks: 8 },
+  { level: 1000, delay: 24689, stacks: 9 },
+];

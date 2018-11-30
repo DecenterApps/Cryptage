@@ -18,6 +18,7 @@ export default class ProjectCard extends Card {
     this.expiryTime = null;
     this.timesFinished = 0;
 
+    // TODO remove upgradeMechanic from this array
     this.mechanics.push(Mechanic.getInstance('projectExpiry', this));
   }
 

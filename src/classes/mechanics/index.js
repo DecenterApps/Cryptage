@@ -22,6 +22,7 @@ import CardNumStatMultiplier from './CardNumStatMultiplier';
 import ProjectPerCompletionXpbBoost from './ProjectPerCompletionXpbBoost';
 import EventMechanic from './EventMechanic';
 import BonusEventMechanic from './BonusEventMechanic';
+import UpgradeMechanic from './UpgradeMechanic';
 
 serialise.declarePersistable(BonusMechanic);
 serialise.declarePersistable(ContainerMechanic);
@@ -45,3 +46,4 @@ serialise.declarePersistable(DynamicMatcherMechanic);
 serialise.declarePersistable(ProjectPerCompletionXpbBoost);
 serialise.declarePersistable(EventMechanic);
 serialise.declarePersistable(BonusEventMechanic);
+serialise.declarePersistable(UpgradeMechanic);

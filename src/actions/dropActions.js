@@ -47,7 +47,7 @@ export const handleAssetUpgrade = slot => (dispatch, getState) => {
 
   if (!slot.card.canLevelUp(gameplay).allowed) return;
 
-  const payload = slot.upgradeCard(gameplay);
+  const payload = slot.card.levelUp(gameplay);
 
   dispatch({ type: UPGRADE_ASSET, payload });
 };

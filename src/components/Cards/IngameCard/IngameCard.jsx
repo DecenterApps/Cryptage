@@ -13,7 +13,7 @@ import { handleAssetUpgrade } from '../../../actions/dropActions';
 import PortalWrapper from '../../PortalWrapper/PortalWrapper';
 import { typeGradients } from '../../../actions/actionTypes';
 import RarityBorder from '../RarityBorder/RarityBorder';
-import { getMaxValueForLocation } from '../../../services/gameMechanicsService';
+import { getMaxValueForLocation, calcUpgradeExpiry } from '../../../services/gameMechanicsService';
 import CardUpgradeButton from '../../CardUpgradeButton/CardUpgradeButton';
 import StackIcon from '../../Decorative/StackIcon';
 
@@ -80,18 +80,18 @@ class IngameCard extends Component {
         <RarityBorder card={card} />
 
         {
-          card.type !== 'Container' && played &&
+          card.type !== 'Container' && played && card.upgradeExpiryTime &&
           <div className="upgrade-delay-wrapper">
             <Circle
               strokeWidth="7"
               strokeColor="#FF9D14"
               trailColor="transparent"
-              percent={10}
+              percent={calcUpgradeExpiry(card.upgradeExpiryTime - gameplay.blockNumber, card.level)}
             />
 
             <div className="circle-trail" />
 
-            <div className="delay-num">50</div>
+            <div className="delay-num">{ card.upgradeExpiryTime - gameplay.blockNumber }</div>
           </div>
         }
 

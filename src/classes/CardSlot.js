@@ -49,24 +49,6 @@ export default class CardSlot {
     return this.card.onPlay(state, this, reSlotted);
   }
 
-  upgradeCard(_state) {
-    // maybe will be needed to drop card again
-    const state = _state;
-    const leveledUp = this.card.levelUp(_state);
-
-    state.stats.experience += leveledUp.cost.funds;
-
-    state.stats = {
-      ...state.stats,
-      ...calculateLevelData(state.stats.experience),
-      funds: state.stats.funds - leveledUp.calcUpgradeDiscount(leveledUp.cost.funds),
-    };
-
-    this.card = leveledUp;
-
-    return state;
-  }
-
   removeCard(_state, isLevelUp = false) {
     let state = _state;
 

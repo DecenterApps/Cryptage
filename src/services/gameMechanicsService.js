@@ -3,7 +3,7 @@ import cardsPerLevel from '../constants/cardsPerLevel.json';
 import cardsConfig from '../constants/cards.json';
 import { mergeErrorMessages } from './utils';
 import { openNewLevelModal } from '../actions/modalActions';
-import { ADD_NEW_LEVEL_CARDS, GP_LOCATION_CONTAINER } from '../actions/actionTypes';
+import { ADD_NEW_LEVEL_CARDS, GP_LOCATION_CONTAINER, MILESTONE_LEVELS } from '../actions/actionTypes';
 import Card from '../classes/Card';
 import LocationCardSlot from '../classes/slotTypes/LocationCardSlot';
 
@@ -236,3 +236,19 @@ export const checkIfNewLevel = level => async (dispatch, getState) => {
 
 export const calcExpiryBlocksLeft = (card, blockNumber, projectExecutionTimePercent) =>
   Math.ceil((projectExecutionTimePercent / 100) * (card.expiryTime - blockNumber));
+
+export const getMilestoneLevel = level => MILESTONE_LEVELS.find(mLevel => mLevel.level === level);
+
+export const calcUpgradeExpiry = (timeLeft, cardLevel) => {
+  const timeCost = MILESTONE_LEVELS.find(mLevel => mLevel.level === cardLevel + 1).delay;
+
+  return 100 - ((timeLeft / timeCost) * 100);
+};
+
+export const calcStacksRequiredForUpgrade = ({ level, stackedCards }) => {
+  const milestoneLevel = getMilestoneLevel(level + 1);
+
+  if (!milestoneLevel) return true;
+
+  return stackedCards.length >= milestoneLevel.stacks;
+};
