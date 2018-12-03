@@ -40,7 +40,7 @@ class IngameCard extends Component {
     const uniqueId = guid();
     const typeColor = typeGradients[card.type.toLowerCase()][0];
     const borderColor = classForRarity(card.rarityScore) !== 'normal' ? typeColor : '#9797FB';
-    const canUpgrade = card.canLevelUp(gameplay).allowed;
+    const canUpgrade = card.canLevelUp(gameplay);
 
     return (
       <div
@@ -72,7 +72,8 @@ class IngameCard extends Component {
 
                 handleAssetUpgrade(slot);
               }}
-              canUpgrade={slot && canUpgrade}
+              slot={slot}
+              canUpgrade={canUpgrade}
             />
           </div>
         }

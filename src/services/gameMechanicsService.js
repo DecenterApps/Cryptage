@@ -244,20 +244,3 @@ export const calcUpgradeExpiry = (timeLeft, cardLevel) => {
 
   return 100 - ((timeLeft / timeCost) * 100);
 };
-
-export const calcStacksRequiredForUpgrade = ({ level, stackedCards }) => {
-  const milestoneLevel = getMilestoneLevel(level + 1);
-
-  if (!milestoneLevel) return true;
-
-  return stackedCards.length >= milestoneLevel.stacks;
-};
-
-export const calcUpgradeLocationLimit = (card) => {
-  const locationCard = card.findParent();
-
-  if (!locationCard || !card) return false;
-  else if (card.level - locationCard.level >= 25) return false;
-
-  return true;
-};

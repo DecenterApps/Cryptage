@@ -164,6 +164,10 @@ export default class Card extends Subscriber {
     );
   }
 
+  canLevelUp(state) {
+    return this._can('canLevelUp', state);
+  }
+
   onWithdraw(state, isLevelUp = false) {
     this.withdrawing = true;
     let newState = this._on('onWithdraw', state);
@@ -224,23 +228,6 @@ export default class Card extends Subscriber {
     if (this.stackedCards.length === 1) return cost;
 
     return Math.floor(cost * (0.2 + (0.8 / (1 + (0.4 * (this.stackedCards.length - 1))))));
-  }
-
-  canLevelUp(state) {
-    const result = {
-      allowed: this.level < 1000,
-    };
-
-    if (!result.allowed) return result;
-
-    const instance = this.getLeveledInstance(state, this.id, this);
-    if (!instance.cost) return { allowed: false, noNextLevel: false };
-
-    result.allowed = state.stats.funds >= instance.calcUpgradeDiscount(instance.cost.funds);
-
-    if (!result.allowed) return result;
-
-    return Object.assign(result, this._can('canLevelUp', state));
   }
 
   getLeveledInstance(state) {

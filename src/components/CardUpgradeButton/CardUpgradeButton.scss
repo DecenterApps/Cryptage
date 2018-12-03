@@ -57,6 +57,25 @@
   .upgrade-dropdown {
     $bc: #6F6DBC;
 
+    @mixin dropdownBg($hex) {
+      border-top: 2px solid $hex;
+      background-image: -webkit-gradient(linear, 0 0, 0 100%, from($hex), to(transparent));
+      background-image: -webkit-linear-gradient($hex, transparent);
+      background-image:
+              -moz-linear-gradient($hex, transparent),
+              -moz-linear-gradient($hex, transparent);
+      background-image:
+              -o-linear-gradient($hex, transparent),
+              -o-linear-gradient($hex, transparent);
+      background-image:
+              linear-gradient($hex, transparent),
+              linear-gradient($hex, transparent);
+    }
+
+    &.error-dropdown {
+      @include dropdownBg(#BC0924);
+    }
+
     padding: 5px 10px;
     display: none;
     font-size: 10px;
@@ -65,19 +84,7 @@
     top: 25px;
     max-width: 120px;
     width: max-content;
-
-    border-top: 2px solid $bc;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from($bc), to(transparent));
-    background-image: -webkit-linear-gradient($bc, transparent);
-    background-image:
-            -moz-linear-gradient($bc, transparent),
-            -moz-linear-gradient($bc, transparent);
-    background-image:
-            -o-linear-gradient($bc, transparent),
-            -o-linear-gradient($bc, transparent);
-    background-image:
-            linear-gradient($bc, transparent),
-            linear-gradient($bc, transparent);
+    @include dropdownBg($bc);
     -moz-background-size: 2px 100%;
     background-size: 2px 100%;
     background-position: 0 0, 100% 0;
@@ -88,6 +95,14 @@
       line-height: 17px;
       text-transform: uppercase;
       margin-bottom: 5px;
+
+      .error-item {
+        margin-bottom: 5px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
 
       .heading {
         margin-bottom: 6px;
