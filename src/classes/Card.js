@@ -223,10 +223,7 @@ export default class Card extends Subscriber {
   calcUpgradeDiscount(cost) {
     if (this.stackedCards.length === 1) return cost;
 
-    const discount = Math.floor(cost * (0.2 + (0.8 / (1 + (0.4 * (this.stackedCards.length - 1))))));
-
-    // TODO check this
-    return cost - discount;
+    return Math.floor(cost * (0.2 + (0.8 / (1 + (0.4 * (this.stackedCards.length - 1))))));
   }
 
   canLevelUp(state) {
@@ -236,7 +233,7 @@ export default class Card extends Subscriber {
 
     if (!result.allowed) return result;
 
-    const instance = Card.getLeveledInstance(state, this.id, this);
+    const instance = this.getLeveledInstance(state, this.id, this);
     if (!instance.cost) return { allowed: false, noNextLevel: false };
 
     result.allowed = state.stats.funds >= instance.calcUpgradeDiscount(instance.cost.funds);
@@ -249,12 +246,14 @@ export default class Card extends Subscriber {
   getLeveledInstance(state) {
     const leveledUp = Card.getLeveledInstance(state, this.id, this);
     leveledUp.dropSlots = this.dropSlots;
+    leveledUp.stackedCards = this.stackedCards;
     leveledUp.timesFinished = this.timesFinished;
     leveledUp.additionalData = this.additionalData;
     leveledUp.additionalBonuses = this.additionalBonuses;
     leveledUp.events = this.events;
     leveledUp.mechanics = this.mechanics;
     leveledUp.parent = this.parent;
+    leveledUp.active = this.active;
 
     leveledUp.dropSlots.forEach((_cardSlot) => {
       const cardSlot = _cardSlot;
