@@ -1,7 +1,5 @@
 import Mechanic from '../Mechanic';
-import { calcStacksRequiredForUpgrade } from '../../services/gameMechanicsService';
-
-const calcUpgradeLocationLimit = () => true;
+import { calcStacksRequiredForUpgrade, calcUpgradeLocationLimit } from '../../services/gameMechanicsService';
 
 export default class UpgradeMechanic extends Mechanic {
   block(_state, blockNumber) {
@@ -22,7 +20,7 @@ export default class UpgradeMechanic extends Mechanic {
     return {
       upgradeExpiryTime: this.card.upgradeExpiryTime === null,
       stacksRequired: calcStacksRequiredForUpgrade(this.card),
-      locationLimit: calcUpgradeLocationLimit(),
+      locationLimit: calcUpgradeLocationLimit(this.card),
     };
   }
 

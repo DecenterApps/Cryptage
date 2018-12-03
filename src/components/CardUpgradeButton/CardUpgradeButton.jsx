@@ -42,12 +42,16 @@ const CardUpgradeButton = ({
   );
 };
 
+CardUpgradeButton.defaultProps = {
+  canUpgrade: false,
+};
+
 CardUpgradeButton.propTypes = {
   upgradeLevel: PropTypes.number.isRequired,
   handleUpgrade: PropTypes.func.isRequired,
-  canUpgrade: PropTypes.bool.isRequired,
   card: PropTypes.object.isRequired,
   gameplay: PropTypes.object.isRequired,
+  canUpgrade: PropTypes.bool,
 };
 
 export default CardUpgradeButton;

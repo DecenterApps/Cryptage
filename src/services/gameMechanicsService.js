@@ -252,3 +252,12 @@ export const calcStacksRequiredForUpgrade = ({ level, stackedCards }) => {
 
   return stackedCards.length >= milestoneLevel.stacks;
 };
+
+export const calcUpgradeLocationLimit = (card) => {
+  const locationCard = card.findParent();
+
+  if (!locationCard || !card) return false;
+  else if (card.level - locationCard.level >= 25) return false;
+
+  return true;
+};

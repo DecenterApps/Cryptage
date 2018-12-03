@@ -254,6 +254,7 @@ export default class Card extends Subscriber {
     leveledUp.additionalBonuses = this.additionalBonuses;
     leveledUp.events = this.events;
     leveledUp.mechanics = this.mechanics;
+    leveledUp.parent = this.parent;
 
     leveledUp.dropSlots.forEach((_cardSlot) => {
       const cardSlot = _cardSlot;
