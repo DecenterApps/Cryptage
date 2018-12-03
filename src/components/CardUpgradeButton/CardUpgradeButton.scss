@@ -40,6 +40,15 @@
       }
     }
 
+    &.small {
+      border-radius: 100%;
+      padding: 5px;
+
+      .triangle {
+        margin: 0;
+      }
+    }
+
     .triangle {
       position: relative;
       bottom: 1px;

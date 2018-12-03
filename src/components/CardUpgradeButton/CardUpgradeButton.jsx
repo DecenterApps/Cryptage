@@ -7,7 +7,7 @@ import './CardUpgradeButton.scss';
 import { getMilestoneLevel } from '../../services/gameMechanicsService';
 
 const CardUpgradeButton = ({
-  upgradeLevel, handleUpgrade, canUpgrade, card, gameplay, slot,
+  upgradeLevel, handleUpgrade, canUpgrade, card, gameplay, slot, small,
 }) => {
   const getUpgradeCost = (state, card) => {
     const instance = Card.getLeveledInstance(state, card.id, card);
@@ -19,10 +19,20 @@ const CardUpgradeButton = ({
 
   return (
     <div className="card-upgrade-button-wrapper">
-      <button className="card-upgrade-button" disabled={hasErrors} onClick={handleUpgrade}>
-        <span className="upgrade-number">{ upgradeLevel }</span>
-        <span className="triangle" />
-      </button>
+      {
+        !small &&
+        <button className="card-upgrade-button" disabled={hasErrors} onClick={handleUpgrade}>
+          <span className="upgrade-number">{ upgradeLevel }</span>
+          <span className="triangle" />
+        </button>
+      }
+
+      {
+        small &&
+        <button className="card-upgrade-button small">
+          <span className="triangle" />
+        </button>
+      }
 
       <div className={`upgrade-dropdown ${hasErrors && 'error-dropdown'}`}>
         {
@@ -92,6 +102,7 @@ CardUpgradeButton.defaultProps = {
     allowed: false,
   },
   slot: null,
+  small: false,
 };
 
 CardUpgradeButton.propTypes = {
@@ -101,6 +112,7 @@ CardUpgradeButton.propTypes = {
   gameplay: PropTypes.object.isRequired,
   canUpgrade: PropTypes.object,
   slot: PropTypes.object,
+  small: PropTypes.bool,
 };
 
 export default CardUpgradeButton;

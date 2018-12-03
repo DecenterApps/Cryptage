@@ -1,7 +1,7 @@
 {
   "cards": {
     "0": {
-      "name": "Garage",
+      "title": "Garage",
       "image": "garage.jpg",
       "type": "Location",
       "subType": "",
@@ -34,7 +34,7 @@
       }
     },
     "1": {
-      "name": "Coworking Space",
+      "title": "Coworking Space",
       "image": "coworking-space.jpg",
       "type": "Location",
       "subType": "",
@@ -67,7 +67,7 @@
       }
     },
     "2": {
-      "name": "Shaggy Office",
+      "title": "Shaggy Office",
       "image": "shaggy-office.jpg",
       "type": "Location",
       "subType": "",
@@ -100,7 +100,7 @@
       }
     },
     "3": {
-      "name": "Downtown Office",
+      "title": "Downtown Office",
       "image": "downtown-office.jpg",
       "type": "Location",
       "subType": "",
@@ -133,7 +133,7 @@
       }
     },
     "4": {
-      "name": "Smart Office",
+      "title": "Smart Office",
       "image": "smart-office.jpg",
       "type": "Location",
       "subType": "",
@@ -166,7 +166,7 @@
       }
     },
     "5": {
-      "name": "Office Building",
+      "title": "Office Building",
       "image": "office-building.jpg",
       "type": "Location",
       "subType": "",
@@ -199,7 +199,7 @@
       }
     },
     "6": {
-      "name": "Computer Case",
+      "title": "Computer Case",
       "image": "computer-case.jpg",
       "type": "Container",
       "subType": "Computer Case Mining Container",
@@ -233,7 +233,7 @@
       }
     },
     "7": {
-      "name": "Mining Rig",
+      "title": "Mining Rig",
       "image": "mining-rig.jpg",
       "type": "Container",
       "subType": "Rig Mining Container",
@@ -267,7 +267,7 @@
       }
     },
     "8": {
-      "name": "ASIC Mount",
+      "title": "ASIC Mount",
       "image": "asic-mount.jpg",
       "type": "Container",
       "subType": "ASIC Mining Container",
@@ -300,7 +300,7 @@
       }
     },
     "9": {
-      "name": "CPU",
+      "title": "CPU",
       "image": "cpu.jpg",
       "type": "Mining",
       "subType": "CPU Mining",
@@ -331,7 +331,7 @@
       }
     },
     "10": {
-      "name": "Classic GPU",
+      "title": "Classic GPU",
       "image": "classic-gpu.jpg",
       "type": "Mining",
       "subType": "GPU Mining",
@@ -362,7 +362,7 @@
       }
     },
     "11": {
-      "name": "ASIC Miner",
+      "title": "ASIC Miner",
       "image": "asic-miner.jpg",
       "type": "Mining",
       "subType": "ASIC Mining",
@@ -393,7 +393,7 @@
       }
     },
     "12": {
-      "name": "Intern Programmer",
+      "title": "Intern Programmer",
       "image": "intern-programmer.jpg",
       "type": "Person",
       "subType": "",
@@ -424,7 +424,7 @@
       }
     },
     "13": {
-      "name": "Junior Developer",
+      "title": "Junior Developer",
       "image": "junior-developer.jpg",
       "type": "Person",
       "subType": "",
@@ -455,7 +455,7 @@
       }
     },
     "14": {
-      "name": "Freelance Consultant",
+      "title": "Freelance Consultant",
       "image": "freelance-consultant.jpg",
       "type": "Person",
       "subType": "",
@@ -486,7 +486,7 @@
       }
     },
     "15": {
-      "name": "Senior Developer",
+      "title": "Senior Developer",
       "image": "senior-developer.jpg",
       "type": "Person",
       "subType": "",
@@ -517,7 +517,7 @@
       }
     },
     "16": {
-      "name": "Technical Team Leader",
+      "title": "Technical Team Leader",
       "image": "technical-team-leader.jpg",
       "type": "Person",
       "subType": "Developer Bonus",
@@ -548,7 +548,7 @@
       }
     },
     "17": {
-      "name": "Project Architect",
+      "title": "Project Architect",
       "image": "project-architect.jpg",
       "type": "Person",
       "subType": "Global Dev Increase",
@@ -579,7 +579,7 @@
       }
     },
     "18": {
-      "name": "Black Hat Hacker",
+      "title": "Black Hat Hacker",
       "image": "black-hat-hacker.jpg",
       "type": "Person",
       "subType": "Funds Each Block Bonus",
@@ -610,7 +610,7 @@
       }
     },
     "19": {
-      "name": "Solar Panels",
+      "title": "Solar Panels",
       "image": "solar-panels.jpg",
       "type": "Power",
       "subType": "Power",
@@ -641,7 +641,7 @@
       }
     },
     "20": {
-      "name": "Black Market Batteries",
+      "title": "Black Market Batteries",
       "image": "black-market-batteries.jpg",
       "type": "Power",
       "subType": "Power",
@@ -672,7 +672,7 @@
       }
     },
     "21": {
-      "name": "DIY Power Generator",
+      "title": "DIY Power Generator",
       "image": "diy-power-generator.jpg",
       "type": "Power",
       "subType": "Power",
@@ -703,7 +703,7 @@
       }
     },
     "22": {
-      "name": "GRID Connector",
+      "title": "GRID Connector",
       "image": "grid-connector.jpg",
       "type": "Misc",
       "subType": "Power Rent",
@@ -734,7 +734,7 @@
       }
     },
     "23": {
-      "name": "Coffee Machine Miner",
+      "title": "Coffee Machine Miner",
       "image": "coffee-machine-miner.jpg",
       "type": "Misc",
       "subType": "Developer Booster",
@@ -765,7 +765,7 @@
       }
     },
     "24": {
-      "name": "Day Trading",
+      "title": "Day Trading",
       "image": "day-trading.jpg",
       "type": "Project",
       "subType": "Pure Funds",
@@ -796,7 +796,7 @@
       }
     },
     "25": {
-      "name": "Outsourced Project",
+      "title": "Outsourced Project",
       "image": "outsourced-project.jpg",
       "type": "Project",
       "subType": "Funds and Reduce Project Upgrade Cost",
@@ -827,7 +827,7 @@
       }
     },
     "26": {
-      "name": "Profitable Dapp",
+      "title": "Profitable Dapp",
       "image": "profitable-dapp.jpg",
       "type": "Project",
       "subType": "Funds and FPB",
@@ -858,7 +858,7 @@
       }
     },
     "27": {
-      "name": "Mining Algorithm Optimization",
+      "title": "Mining Algorithm Optimization",
       "image": "mining-algorithm-optimization.jpg",
       "type": "Project",
       "subType": "Funds from FPB and Boost Global FPB",
@@ -889,7 +889,7 @@
       }
     },
     "28": {
-      "name": "Initial Coin Offering",
+      "title": "Initial Coin Offering",
       "image": "initial-coin-offering.jpg",
       "type": "Project",
       "subType": "Pure Funds from Dev",
@@ -920,7 +920,7 @@
       }
     },
     "29": {
-      "name": "Rent Computing Power",
+      "title": "Rent Computing Power",
       "image": "rent-computing-power.jpg",
       "type": "Project",
       "subType": "Funds from Mining Rig Level and Global Mining Rig Upgrade Cost Decrease",
@@ -951,7 +951,7 @@
       }
     },
     "31": {
-      "name": "Decentralized Protocol Development",
+      "title": "Decentralized Protocol Development",
       "image": "decentralized-protocol-development.jpg",
       "type": "Project",
       "subType": "Funds from Project Level and Project Time Decrease",
@@ -982,7 +982,7 @@
       }
     },
     "33": {
-      "name": "Holographic GPU",
+      "title": "Holographic GPU",
       "image": "holographic-gpu.jpg",
       "type": "Mining",
       "subType": "GPU Mining",
@@ -1013,7 +1013,7 @@
       }
     },
     "34": {
-      "name": "Corporate-grade GPU",
+      "title": "Corporate-grade GPU",
       "image": "corporate-grade-gpu.jpg",
       "type": "Mining",
       "subType": "GPU Mining",
@@ -1044,7 +1044,7 @@
       }
     },
     "35": {
-      "name": "3D Printed GPU",
+      "title": "3D Printed GPU",
       "image": "3d-printed-gpu.jpg",
       "type": "Mining",
       "subType": "GPU Mining",
@@ -1075,7 +1075,7 @@
       }
     },
     "36": {
-      "name": "White Hat Hacker",
+      "title": "White Hat Hacker",
       "image": "white-hat-hacker.jpg",
       "type": "Person",
       "subType": "",
@@ -1106,7 +1106,7 @@
       }
     },
     "37": {
-      "name": "Prediction Market Participation",
+      "title": "Prediction Market Participation",
       "image": "prediction-market-participation.jpg",
       "type": "Project",
       "subType": "Funds from Location Levels and Global Upgrade Cost Decrease",
@@ -1137,7 +1137,7 @@
       }
     },
     "38": {
-      "name": "Corporate Tower",
+      "title": "Corporate Tower",
       "image": "corporate-tower.jpg",
       "type": "Location",
       "subType": "",
@@ -1170,7 +1170,7 @@
       }
     },
     "39": {
-      "name": "Corporate Efficiency Officer",
+      "title": "Corporate Efficiency Officer",
       "image": "corporate-efficiency-officer.jpg",
       "type": "Person",
       "subType": "Cost Decrease",
@@ -1201,7 +1201,7 @@
       }
     },
     "40": {
-      "name": "Corporate Executive",
+      "title": "Corporate Executive",
       "image": "corporate-executive.jpg",
       "type": "Person",
       "subType": "Project Time Decrease",
@@ -1232,7 +1232,7 @@
       }
     },
     "41": {
-      "name": "Day Trader",
+      "title": "Day Trader",
       "image": "day-trader.jpg",
       "type": "Person",
       "subType": "Day Trading Bonus",
@@ -1263,7 +1263,7 @@
       }
     },
     "42": {
-      "name": "Information Dealer",
+      "title": "Information Dealer",
       "image": "information-dealer.jpg",
       "type": "Person",
       "subType": "Prediction Market Participation Bonus",
@@ -1294,7 +1294,7 @@
       }
     },
     "43": {
-      "name": "Blockchain Smartlock",
+      "title": "Blockchain Smartlock",
       "image": "blockchain-smartlock.jpg",
       "type": "Misc",
       "subType": "Space Rent",
@@ -1325,7 +1325,7 @@
       }
     },
     "44": {
-      "name": "Hardware Tinkerer",
+      "title": "Hardware Tinkerer",
       "image": "hardware-tinkerer.jpg",
       "type": "Person",
       "subType": "Boost Mining Efficiency On Location",

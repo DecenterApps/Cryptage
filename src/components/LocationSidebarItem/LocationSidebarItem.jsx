@@ -12,6 +12,9 @@ import SidebarItemNotActive from './SidebarItemNotActive';
 import RarityBorderActive from './RarityBorderActive/RarityBorderActive';
 import RarityBorderNotActive from './RarityBorderNotActive/RarityBorderNotActive';
 import eventData from '../../constants/events.json';
+import CardUpgradeButton from '../CardUpgradeButton/CardUpgradeButton';
+import { handleAssetUpgrade } from '../../actions/dropActions';
+import StackIcon from '../Decorative/StackIcon';
 
 import './LocationSidebarItem.scss';
 import InfoCardIcon from '../Decorative/InfoCardIcon';
@@ -63,7 +66,7 @@ class LocationSidebarItem extends Component {
     const { showPortal } = this.state;
     const {
       card, slot, setActiveLocation, index, activeLocationIndex, gameplayView, openConfirmRemoveModal,
-      gameplay, dragItem, draggingCard,
+      gameplay, dragItem, draggingCard, handleAssetUpgrade,
     } = this.props;
 
     const fpc = [];
@@ -91,6 +94,7 @@ class LocationSidebarItem extends Component {
     const draggingDuplicate = dragItem && (dragItem.card.metadataId === card.metadataId);
     const canLevelUp = draggingDuplicate ? slot.canDrop(gameplay, dragItem.card).allowed : false;
     const active = (activeLocationIndex === index) && gameplayView === GP_LOCATION;
+    const canUpgrade = card.canLevelUp(gameplay);
 
     return (
       <div
@@ -140,6 +144,22 @@ class LocationSidebarItem extends Component {
               image={`cardImages/${card.image}`}
             />
 
+            <div className="upgrade-wrapper">
+              <CardUpgradeButton
+                gameplay={gameplay}
+                card={card}
+                upgradeLevel={card.level}
+                handleUpgrade={() => {
+                  if (!slot) return;
+
+                  handleAssetUpgrade(slot);
+                }}
+                slot={slot}
+                small
+                canUpgrade={canUpgrade}
+              />
+            </div>
+
             <div className="actions" onClick={e => e.stopPropagation()}>
               <div
                 className="hover-info-wrapper"
@@ -181,8 +201,27 @@ class LocationSidebarItem extends Component {
             />
 
             <div className="location-data">
-              <div className="loc-lvl">Level {card.level}</div>
               <div className="loc-name">{card.title}</div>
+            </div>
+
+            <div className="upgrades-wrapper">
+              <CardUpgradeButton
+                gameplay={gameplay}
+                card={card}
+                upgradeLevel={card.level}
+                handleUpgrade={() => {
+                  if (!slot) return;
+
+                  handleAssetUpgrade(slot);
+                }}
+                slot={slot}
+                canUpgrade={canUpgrade}
+              />
+
+              <span className="stacked-number">
+                <span>{card.stackedCards.length}</span>
+                <StackIcon />
+              </span>
             </div>
 
             <div className="actions" onClick={e => e.stopPropagation()}>
@@ -214,6 +253,7 @@ LocationSidebarItem.propTypes = {
   gameplay: PropTypes.object.isRequired,
   card: PropTypes.object,
   setActiveLocation: PropTypes.func.isRequired,
+  handleAssetUpgrade: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
   activeLocationIndex: PropTypes.number.isRequired,
   gameplayView: PropTypes.string.isRequired,
@@ -233,7 +273,7 @@ const mapStateToProps = ({ gameplay, app }) => ({
 });
 
 const mapDispatchToProp = {
-  setActiveLocation, openConfirmRemoveModal,
+  setActiveLocation, openConfirmRemoveModal, handleAssetUpgrade,
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(LocationSidebarItem);
