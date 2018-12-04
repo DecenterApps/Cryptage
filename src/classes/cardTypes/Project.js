@@ -1,6 +1,7 @@
 import Card from '../Card';
 import Mechanic from '../Mechanic';
 import { mergeErrorMessages } from '../../services/utils';
+import UpgradeMechanic from '../mechanics/UpgradeMechanic';
 
 export default class ProjectCard extends Card {
   constructor(data) {
@@ -18,8 +19,10 @@ export default class ProjectCard extends Card {
     this.expiryTime = null;
     this.timesFinished = 0;
 
-    // TODO remove upgradeMechanic from this array
     this.mechanics.push(Mechanic.getInstance('projectExpiry', this));
+
+    const upgradeIndex = this.mechanics.findIndex(m => m instanceof UpgradeMechanic);
+    this.mechanics.splice(upgradeIndex, 1);
   }
 
   getBonusStatValue() { return 0; }

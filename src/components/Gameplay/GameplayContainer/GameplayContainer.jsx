@@ -40,7 +40,7 @@ const GameplayContainer = ({
           locationIndex={activeLocationIndex}
           containerIndex={activeContainerIndex}
         />}
-        emptyStateElem={<EmptyCardSlot acceptedType="mining" />}
+        emptyStateElem={<EmptyCardSlot />}
         mainClass="active-location-slot-wrapper"
       />
 

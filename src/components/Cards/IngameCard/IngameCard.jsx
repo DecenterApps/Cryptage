@@ -61,7 +61,7 @@ class IngameCard extends Component {
         }
 
         {
-          card.type !== 'Container' && played &&
+          card.type !== 'Mining' && played &&
           <div className="upgrades-wrapper">
             <CardUpgradeButton
               gameplay={gameplay}
@@ -81,7 +81,7 @@ class IngameCard extends Component {
         <RarityBorder card={card} />
 
         {
-          card.type !== 'Container' && played && card.upgradeExpiryTime &&
+          card.type !== 'Mining' && played && card.upgradeExpiryTime &&
           <div className="upgrade-delay-wrapper">
             <Circle
               strokeWidth="7"

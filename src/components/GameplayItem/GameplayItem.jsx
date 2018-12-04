@@ -84,6 +84,10 @@ class GameplayItem extends Component {
       }
     }
 
+    if (isContainer && dragItem && dragItem.card) {
+      console.log('slot.canDrop(gameplay, dragItem.card)', slot.canDrop(gameplay, dragItem.card));
+    }
+
     return (
       <div
         className={`gameplay-item-wrapper ${isContainer && 'container'}`}
