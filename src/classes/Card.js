@@ -156,6 +156,10 @@ export default class Card extends Subscriber {
     return this._on('onPlay', state, dropSlot, reSlotted);
   }
 
+  onLevelUp(state, dropSlot) {
+    return this._on('onLevelUp', state, dropSlot);
+  }
+
   canWithdraw(state) {
     return mergeErrorMessages(
       this._can('canWithdraw', state),
@@ -230,17 +234,18 @@ export default class Card extends Subscriber {
     return Math.floor(cost * (0.2 + (0.8 / (1 + (0.4 * (this.stackedCards.length - 1))))));
   }
 
-  getLeveledInstance(state) {
-    const leveledUp = Card.getLeveledInstance(state, this.id, this);
-    leveledUp.dropSlots = this.dropSlots;
-    leveledUp.stackedCards = this.stackedCards;
-    leveledUp.timesFinished = this.timesFinished;
-    leveledUp.additionalData = this.additionalData;
-    leveledUp.additionalBonuses = this.additionalBonuses;
-    leveledUp.events = this.events;
-    leveledUp.mechanics = this.mechanics;
-    leveledUp.parent = this.parent;
-    leveledUp.active = this.active;
+  getLeveledInstance(state, dropSlot) {
+    const droppedCard = dropSlot.card;
+
+    const leveledUp = Card.getLeveledInstance(state, this.id, droppedCard);
+    leveledUp.dropSlots = droppedCard.dropSlots;
+    leveledUp.stackedCards = droppedCard.stackedCards;
+    leveledUp.timesFinished = droppedCard.timesFinished;
+    leveledUp.additionalData = droppedCard.additionalData;
+    leveledUp.additionalBonuses = droppedCard.additionalBonuses;
+    leveledUp.events = droppedCard.events;
+    leveledUp.parent = droppedCard.parent;
+    leveledUp.active = droppedCard.active;
 
     leveledUp.dropSlots.forEach((_cardSlot) => {
       const cardSlot = _cardSlot;
@@ -254,33 +259,6 @@ export default class Card extends Subscriber {
     // optional add on level up || add on child level up
 
     return leveledUp;
-  }
-
-  levelUp(_state) {
-    const state = _state;
-    const milestoneLevel = getMilestoneLevel(this.level + 1);
-
-    if (!this.upgradeFinished && milestoneLevel) {
-      this.upgradeExpiryTime = state.blockNumber + milestoneLevel.delay;
-
-      return state;
-    }
-
-    // maybe will be needed to drop card again
-    const leveledUp = this.getLeveledInstance(state);
-    leveledUp.upgradeFinished = false;
-
-    state.stats.experience += leveledUp.cost.funds;
-
-    state.stats = {
-      ...state.stats,
-      ...calculateLevelData(state.stats.experience),
-      funds: state.stats.funds - leveledUp.calcUpgradeDiscount(leveledUp.cost.funds),
-    };
-
-    Object.assign(this, leveledUp);
-
-    return state;
   }
 }
 

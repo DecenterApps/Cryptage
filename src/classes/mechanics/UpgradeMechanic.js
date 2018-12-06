@@ -1,5 +1,6 @@
 import Mechanic from '../Mechanic';
 import { getMilestoneLevel } from '../../services/gameMechanicsService';
+import Card from '../Card';
 
 export default class UpgradeMechanic extends Mechanic {
   static calcStacksRequiredForUpgrade({ level, stackedCards }){
@@ -20,7 +21,7 @@ export default class UpgradeMechanic extends Mechanic {
   }
 
   static getFundsErrors(state, card) {
-    const instance = card.getLeveledInstance(state, this.id, this);
+    const instance = Card.getLeveledInstance(state, card.id, card);
 
     if (!instance.cost) return { noNextLevel: false };
 
@@ -32,12 +33,24 @@ export default class UpgradeMechanic extends Mechanic {
   block(_state, blockNumber) {
     const state = _state;
 
-    // TODO check if a card can be leveled up excluding the upgradeExpiryTime in canLevelUp, eg. not enough funds
     if (this.card.upgradeExpiryTime && (this.card.upgradeExpiryTime - blockNumber <= 0)) {
       this.card.upgradeExpiryTime = null;
       this.card.upgradeFinished = true;
 
-      return this.card.levelUp(state);
+      if (this.card.parent) {
+        const dropSlot = this.card.parent.dropSlots.find(({ card }) => card && card.id === this.card.id);
+        console.log('ON DELAY END LEVEL UP ASSET', dropSlot);
+        return dropSlot.levelUp(state, true);
+      }
+
+      // it is a location card
+      if (!this.card.parent) {
+        const dropSlot = state.locationSlots.find(({ card }) => card && card.id === this.card.id);
+        console.log('ON DELAY END LEVEL UP LOCATION');
+        return dropSlot.levelUp(state, true);
+      }
+
+      return state;
     }
 
     return state;

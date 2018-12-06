@@ -1,6 +1,6 @@
 import serialise from 'serialijse';
 import ContainerCard from './cardTypes/Container';
-import { calculateLevelData } from '../services/gameMechanicsService';
+import { calculateLevelData, getMilestoneLevel } from '../services/gameMechanicsService';
 
 function getAllSlottedCards(card, slotted) {
   card.dropSlots.forEach((slot) => {
@@ -47,6 +47,35 @@ export default class CardSlot {
 
     state = state.playTurn(state, this, true);
     return this.card.onPlay(state, this, reSlotted);
+  }
+
+  levelUp(_state, afterDelay = false) {
+    const state = _state;
+    const milestoneLevel = getMilestoneLevel(this.card.level + 1);
+    const leveledUp = this.card.getLeveledInstance(state, this);
+    const funds = state.stats.funds - leveledUp.calcUpgradeDiscount(leveledUp.cost.funds);
+
+    if (!this.card.upgradeFinished && milestoneLevel) {
+      this.card.upgradeExpiryTime = state.blockNumber + milestoneLevel.delay;
+      state.stats.funds = funds;
+
+      return state;
+    }
+
+    // maybe will be needed to drop card again
+    leveledUp.upgradeFinished = false;
+
+    state.stats.experience += leveledUp.cost.funds;
+
+    state.stats = {
+      ...state.stats,
+      ...calculateLevelData(state.stats.experience),
+      funds: afterDelay ? state.stats.funds : funds,
+    };
+
+    this.card = leveledUp;
+
+    return this.card.onLevelUp(state, this);
   }
 
   removeCard(_state, isLevelUp = false) {

@@ -51,15 +51,12 @@ export default class LocationCard extends Card {
     });
   }
 
-  levelUp(_state) {
-    const { space, power } = this;
+  getLeveledInstance(state, dropSlot) {
+    const leveledUp = super.getLeveledInstance(state, dropSlot);
+    leveledUp.power = dropSlot.card.power;
+    leveledUp.space = dropSlot.card.space;
 
-    const state = super.levelUp(_state);
-
-    this.space = space;
-    this.power = power;
-
-    return state;
+    return leveledUp;
   }
 }
 
